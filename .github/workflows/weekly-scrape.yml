@@ -1,0 +1,61 @@
+name: Weekly Golf Data Update
+
+on:
+  schedule:
+    - cron: '0 6 * * 2'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scraper.py'
+      - '.github/workflows/weekly-scrape.yml'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  scrape-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run scraper
+        run: python scraper.py
+
+      - name: Verify output
+        run: |
+          echo "Checking golf-data.json..."
+          ls -la golf-data.json
+          python -c "import json; d=json.load(open('golf-data.json')); print(f'Players: {len(d[\"players\"])}, Generated: {d[\"generatedAt\"]}')"
+
+      - name: Copy HTML tool alongside data
+        run: |
+          mkdir -p docs
+          cp golf-data.json docs/
+          cp PropsBot-GolfIntel.html docs/index.html
+          echo '{ "headers": [{ "source": "**/*.json", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }] }' > docs/_headers
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true
+          commit_message: "Update golf data - ${{ github.run_number }}"
+
+      - name: Also commit data to repo
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add golf-data.json
+          git diff --quiet --cached || git commit -m "Auto-update golf-data.json $(date +'%Y-%m-%d')"
+          git push || echo "Nothing to push"
