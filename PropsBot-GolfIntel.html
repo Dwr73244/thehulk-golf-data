@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <title>PropsBot Golf Intelligence</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pb: { teal:'#15ffc2', red:'#ff1552', gold:'#FFD600', blue:'#448AFF', purple:'#AB8FFF', bg:'#070e1a', card:'rgba(14,26,44,0.85)' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'DM Sans', sans-serif; background: #070e1a; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #1e3a4a; border-radius: 3px; }
+
+    .glass { background: rgba(14,26,44,0.75); backdrop-filter: blur(12px); border: 1px solid rgba(21,255,194,0.08); }
+    .glass-strong { background: rgba(14,26,44,0.92); backdrop-filter: blur(16px); border: 1px solid rgba(21,255,194,0.12); }
+
+    .tab-pill { transition: all 0.25s ease; }
+    .tab-pill.active { background: linear-gradient(135deg, rgba(21,255,194,0.15), rgba(68,138,255,0.08)); border-color: rgba(21,255,194,0.4); color: #15ffc2; }
+    .tab-pill:hover:not(.active) { background: rgba(21,255,194,0.05); }
+
+    .glow-teal { box-shadow: 0 0 20px rgba(21,255,194,0.15), inset 0 1px 0 rgba(21,255,194,0.1); }
+    .glow-gold { box-shadow: 0 0 20px rgba(255,214,0,0.15), inset 0 1px 0 rgba(255,214,0,0.1); }
+
+    .fade-in { animation: fadeIn 0.35s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(21,255,194,0.3); } 70% { box-shadow: 0 0 0 8px rgba(21,255,194,0); } 100% { box-shadow: 0 0 0 0 rgba(21,255,194,0); } }
+    .pulse-ring { animation: pulse-ring 2s ease-out infinite; }
+
+    .conf-bar { height: 8px; border-radius: 4px; overflow: hidden; background: #0e1a2c; }
+    .conf-fill { height: 100%; border-radius: 4px; transition: width 0.8s ease-out; }
+
+    .stat-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+
+    input, select { font-family: 'DM Sans', sans-serif; }
+    input[type="number"], input[type="text"] {
+      background: rgba(7,14,26,0.8); border: 1px solid rgba(21,255,194,0.12); border-radius: 8px;
+      padding: 8px 12px; color: #e2e8f0; font-size: 13px;
+    }
+    input:focus, select:focus { outline: none; border-color: rgba(21,255,194,0.4); box-shadow: 0 0 0 2px rgba(21,255,194,0.1); }
+    select {
+      background: rgba(7,14,26,0.8); border: 1px solid rgba(21,255,194,0.12); border-radius: 8px;
+      padding: 8px 12px; color: #e2e8f0; font-size: 13px; appearance: auto;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #15ffc2, #0bd4a0); color: #070e1a; font-weight: 700;
+      padding: 8px 20px; border-radius: 8px; font-size: 13px; border: none; cursor: pointer;
+      transition: all 0.2s; box-shadow: 0 4px 12px rgba(21,255,194,0.25);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(21,255,194,0.35); }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #FFD600, #e6c200); color: #070e1a; font-weight: 700;
+      padding: 8px 20px; border-radius: 8px; font-size: 13px; border: none; cursor: pointer;
+      transition: all 0.2s; box-shadow: 0 4px 12px rgba(255,214,0,0.2);
+    }
+
+    .player-card { transition: all 0.2s ease; cursor: pointer; }
+    .player-card:hover { transform: translateY(-2px); border-color: rgba(21,255,194,0.3); }
+
+    .matchup-vs { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #15ffc2, #448AFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .winner-badge { background: linear-gradient(135deg, #15ffc2, #0bd4a0); color: #070e1a; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+    .loser-badge { background: rgba(255,21,82,0.15); color: #ff1552; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  </style>
+</head>
+<body class="h-full text-slate-100 min-h-screen">
+
+<!-- HEADER -->
+<header class="glass-strong sticky top-0 z-50 border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="h-9 w-9 rounded-lg bg-gradient-to-br from-pb-teal/20 to-pb-blue/10 flex items-center justify-center border border-pb-teal/20 pulse-ring">
+        <span class="text-pb-teal text-lg font-bold mono">P</span>
+      </div>
+      <div>
+        <h1 class="text-lg font-bold tracking-tight">PropsBot <span class="text-pb-teal">Golf Intelligence</span></h1>
+        <p class="text-[10px] text-slate-500 -mt-0.5 tracking-wide uppercase">Betting Analytics Platform · Beta</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="hidden sm:inline-flex items-center gap-1 rounded-full bg-pb-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-pb-gold ring-1 ring-pb-gold/30">
+        <span class="h-1.5 w-1.5 rounded-full bg-pb-gold animate-pulse"></span>
+        Educational Tool
+      </span>
+    </div>
+  </div>
+</header>
+
+<!-- TAB NAV -->
+<nav class="glass border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 flex gap-1.5 py-2 overflow-x-auto">
+    <button class="tab-pill active rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="players">Players</button>
+    <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="matchups">Matchup Predictor</button>
+    <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="props">Props Builder</button>
+    <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="tourney">Tournament Sim</button>
+    <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="coursedata">Course Data</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="max-w-7xl mx-auto px-4 py-5">
+
+  <!-- ==================== TAB: PLAYERS ==================== -->
+  <div id="tab-players" class="tab-content fade-in space-y-5">
+    <div class="glass rounded-2xl p-5 glow-teal">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+        <div>
+          <h2 class="text-base font-bold text-white">Player Database</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Select a player to view stats, tendencies, and course fit analysis</p>
+        </div>
+        <div class="flex gap-2">
+          <input id="playerSearch" type="text" placeholder="Search players…" class="w-48" />
+          <select id="playerSort" class="w-36">
+            <option value="dgRank">DG Rank</option>
+            <option value="sgTotal">SG: Total</option>
+            <option value="sgApp">SG: Approach</option>
+            <option value="sgPutt">SG: Putting</option>
+          </select>
+        </div>
+      </div>
+      <div id="playerGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+    </div>
+
+    <!-- Player Detail Panel -->
+    <div id="playerDetail" class="hidden fade-in">
+      <div class="glass rounded-2xl p-5 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-white" id="pdName">—</h3>
+            <p class="text-xs text-slate-400" id="pdMeta">—</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-slate-500 uppercase font-semibold">DG Rank</p>
+            <p class="mono text-2xl font-bold text-pb-teal" id="pdRank">—</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2" id="pdStatsGrid"></div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-4">
+            <p class="text-[10px] text-slate-500 uppercase font-semibold mb-2">Strokes Gained Breakdown</p>
+            <div id="pdSgBars" class="space-y-2"></div>
+          </div>
+          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-4">
+            <p class="text-[10px] text-slate-500 uppercase font-semibold mb-2">Tendencies & Betting Notes</p>
+            <div id="pdNotes" class="text-xs text-slate-300 space-y-1.5"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: MATCHUPS ==================== -->
+  <div id="tab-matchups" class="tab-content hidden fade-in space-y-5">
+    <div class="glass rounded-2xl p-5 glow-teal">
+      <h2 class="text-base font-bold text-white mb-1">Head-to-Head Matchup Predictor</h2>
+      <p class="text-xs text-slate-400 mb-4">Compare two players across all stat categories and predict who wins a tournament or round matchup</p>
+
+      <div class="grid gap-4 sm:grid-cols-[1fr_auto_1fr] items-end">
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase">Player A</label>
+          <select id="matchA" class="w-full"></select>
+        </div>
+        <div class="text-center pb-2">
+          <span class="matchup-vs">VS</span>
+        </div>
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase">Player B</label>
+          <select id="matchB" class="w-full"></select>
+        </div>
+      </div>
+
+      <div class="mt-4 grid gap-3 sm:grid-cols-3">
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase">Course</label>
+          <select id="matchCourse" class="w-full">
+            <option value="">Neutral / Any Course</option>
+            <option value="augusta">Augusta National</option>
+            <option value="tpc_sawgrass">TPC Sawgrass</option>
+            <option value="pebble">Pebble Beach</option>
+            <option value="torrey_south">Torrey Pines South</option>
+            <option value="riviera">Riviera CC</option>
+          </select>
+        </div>
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase">Matchup Type</label>
+          <select id="matchType" class="w-full">
+            <option value="tournament">Tournament Matchup (72 holes)</option>
+            <option value="round">Round Matchup (18 holes)</option>
+          </select>
+        </div>
+        <div class="pt-5">
+          <button id="runMatchup" class="btn-primary w-full">Run Matchup Analysis</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Matchup Results -->
+    <div id="matchupResult" class="hidden fade-in space-y-4">
+      <div class="glass rounded-2xl p-5">
+        <div class="grid grid-cols-[1fr_auto_1fr] gap-4 items-center">
+          <div class="text-center">
+            <p class="text-lg font-bold text-white" id="mrNameA">—</p>
+            <p class="mono text-3xl font-extrabold mt-1" id="mrPctA">—</p>
+            <div id="mrBadgeA" class="mt-2"></div>
+          </div>
+          <div class="text-center space-y-1">
+            <p class="text-[10px] text-slate-500 uppercase font-semibold">Win Probability</p>
+            <div class="w-48 h-3 rounded-full bg-slate-800 overflow-hidden mx-auto">
+              <div id="mrBar" class="h-full rounded-full bg-gradient-to-r from-pb-teal to-pb-blue transition-all duration-700 ease-out" style="width:50%"></div>
+            </div>
+            <p class="mono text-[11px] text-slate-400" id="mrEdge">—</p>
+          </div>
+          <div class="text-center">
+            <p class="text-lg font-bold text-white" id="mrNameB">—</p>
+            <p class="mono text-3xl font-extrabold mt-1" id="mrPctB">—</p>
+            <div id="mrBadgeB" class="mt-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-5">
+        <p class="text-[10px] text-slate-500 uppercase font-semibold mb-3">Category Comparison</p>
+        <div id="mrCategories" class="space-y-2"></div>
+      </div>
+
+      <div class="glass rounded-2xl p-5">
+        <p class="text-[10px] text-slate-500 uppercase font-semibold mb-2">Analysis Summary</p>
+        <p id="mrSummary" class="text-xs text-slate-300 leading-relaxed">—</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: PROPS ==================== -->
+  <div id="tab-props" class="tab-content hidden fade-in space-y-5">
+    <div class="glass rounded-2xl p-5 glow-teal">
+      <h2 class="text-base font-bold text-white mb-1">Props Builder</h2>
+      <p class="text-xs text-slate-400 mb-4">Predict over/under on birdies, bogeys, and round score for any player</p>
+
+      <div class="grid gap-4 sm:grid-cols-4">
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase">Player</label>
+          <select id="propPlayer" class="w-full"></select>
+        </div>
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase">Prop Type</label>
+          <select id="propType" class="w-full">
+            <option value="birdies">Birdies or Better</option>
+            <option value="bogeys">Bogeys or Worse</option>
+            <option value="strokes">Round Score (Strokes)</option>
+            <option value="pars">Pars</option>
+          </select>
+        </div>
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase">Line</label>
+          <input id="propLine" type="number" step="0.5" placeholder="e.g. 3.5" />
+        </div>
+        <div class="pt-5">
+          <button id="runProp" class="btn-primary w-full">Analyze Prop</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="propResult" class="hidden fade-in">
+      <div class="glass rounded-2xl p-5 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-bold text-white" id="prTitle">—</p>
+            <p class="text-xs text-slate-400" id="prSubtitle">—</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-slate-500 uppercase">Model Confidence</p>
+            <p class="mono text-2xl font-bold" id="prConf">—</p>
+          </div>
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-3">
+          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
+            <p class="text-[10px] text-slate-500 uppercase font-semibold">Projected Avg</p>
+            <p class="mono text-xl font-bold text-white mt-1" id="prAvg">—</p>
+          </div>
+          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
+            <p class="text-[10px] text-slate-500 uppercase font-semibold">Over %</p>
+            <p class="mono text-xl font-bold text-pb-teal mt-1" id="prOver">—</p>
+          </div>
+          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
+            <p class="text-[10px] text-slate-500 uppercase font-semibold">Under %</p>
+            <p class="mono text-xl font-bold text-pb-red mt-1" id="prUnder">—</p>
+          </div>
+        </div>
+
+        <div class="conf-bar"><div id="prConfBar" class="conf-fill" style="width:0%"></div></div>
+
+        <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3">
+          <p class="text-[10px] text-slate-500 uppercase font-semibold mb-1">Model Notes</p>
+          <p id="prNotes" class="text-xs text-slate-300">—</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prop Board -->
+    <div class="glass rounded-2xl p-5">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-sm font-bold text-white">Prop Opportunity Board</h3>
+        <button id="clearProps" class="text-[11px] text-slate-500 hover:text-slate-300 underline underline-offset-2">Clear</button>
+      </div>
+      <div class="overflow-x-auto border border-white/5 rounded-xl">
+        <table class="min-w-full text-[11px]">
+          <thead class="bg-white/[0.02]">
+            <tr class="text-slate-500">
+              <th class="px-3 py-2 text-left font-semibold">Player</th>
+              <th class="px-3 py-2 text-left font-semibold">Prop</th>
+              <th class="px-3 py-2 text-right font-semibold">Line</th>
+              <th class="px-3 py-2 text-right font-semibold">Model Avg</th>
+              <th class="px-3 py-2 text-right font-semibold">Over %</th>
+              <th class="px-3 py-2 text-right font-semibold">Under %</th>
+              <th class="px-3 py-2 text-right font-semibold">Edge</th>
+              <th class="px-3 py-2 text-right font-semibold">Signal</th>
+            </tr>
+          </thead>
+          <tbody id="propBoard" class="divide-y divide-white/5"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: TOURNAMENT SIM ==================== -->
+  <div id="tab-tourney" class="tab-content hidden fade-in space-y-5">
+    <div class="glass rounded-2xl p-5 glow-gold">
+      <h2 class="text-base font-bold text-white mb-1">Tournament Simulator</h2>
+      <p class="text-xs text-slate-400 mb-4">Simulate tournament outcomes based on player skill ratings and course fit. Model runs 10,000 Monte Carlo iterations.</p>
+
+      <div class="grid gap-4 sm:grid-cols-3 mb-4">
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase">Course</label>
+          <select id="tourneyCourse" class="w-full">
+            <option value="neutral">Neutral Course (Tour Avg)</option>
+            <option value="augusta">Augusta National</option>
+            <option value="tpc_sawgrass">TPC Sawgrass</option>
+            <option value="pebble">Pebble Beach</option>
+            <option value="torrey_south">Torrey Pines South</option>
+            <option value="riviera">Riviera CC</option>
+          </select>
+        </div>
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase">Field Strength</label>
+          <select id="tourneyField" class="w-full">
+            <option value="signature">Signature / Major (top 70)</option>
+            <option value="regular">Regular Event (full field)</option>
+            <option value="weak">Opposite Field (thin)</option>
+          </select>
+        </div>
+        <div class="pt-5">
+          <button id="runTourney" class="btn-gold w-full">Run 10K Simulations</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tourneyResult" class="hidden fade-in space-y-4">
+      <div class="glass rounded-2xl p-5">
+        <p class="text-[10px] text-slate-500 uppercase font-semibold mb-3">Simulated Win Probabilities & Market Value</p>
+        <div class="overflow-x-auto border border-white/5 rounded-xl">
+          <table class="min-w-full text-[11px]">
+            <thead class="bg-white/[0.02]">
+              <tr class="text-slate-500">
+                <th class="px-3 py-2 text-left font-semibold">#</th>
+                <th class="px-3 py-2 text-left font-semibold">Player</th>
+                <th class="px-3 py-2 text-right font-semibold">Win %</th>
+                <th class="px-3 py-2 text-right font-semibold">Top 5 %</th>
+                <th class="px-3 py-2 text-right font-semibold">Top 10 %</th>
+                <th class="px-3 py-2 text-right font-semibold">Top 20 %</th>
+                <th class="px-3 py-2 text-right font-semibold">MC %</th>
+                <th class="px-3 py-2 text-right font-semibold">Implied Odds</th>
+                <th class="px-3 py-2 text-right font-semibold">Avg Finish</th>
+              </tr>
+            </thead>
+            <tbody id="tourneyBoard" class="divide-y divide-white/5"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-5">
+        <p class="text-[10px] text-slate-500 uppercase font-semibold mb-2">Simulation Notes</p>
+        <p class="text-xs text-slate-300 leading-relaxed" id="tourneyNotes">—</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: COURSE DATA ==================== -->
+  <div id="tab-coursedata" class="tab-content hidden fade-in space-y-5">
+    <div class="glass rounded-2xl p-5 glow-teal">
+      <h2 class="text-base font-bold text-white mb-1">Course Data Pipeline</h2>
+      <p class="text-xs text-slate-400 mb-4">Hole-by-hole scoring data from free public sources. Use this data to enhance your prop and matchup analysis.</p>
+
+      <div class="grid gap-4 sm:grid-cols-3 mb-4">
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase">Course</label>
+          <select id="cdCourse" class="w-full">
+            <option value="augusta">Augusta National (Masters)</option>
+            <option value="tpc_sawgrass">TPC Sawgrass (Players)</option>
+            <option value="torrey_south">Torrey Pines South (Farmers)</option>
+            <option value="pebble">Pebble Beach (AT&T)</option>
+            <option value="riviera">Riviera CC (Genesis)</option>
+          </select>
+        </div>
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase">Year</label>
+          <select id="cdYear" class="w-full">
+            <option value="2025">2025</option>
+            <option value="2024" selected>2024</option>
+            <option value="2023">2023</option>
+          </select>
+        </div>
+        <div class="pt-5">
+          <button id="loadCourseData" class="btn-primary w-full">Load Course Data</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="courseDataResult" class="hidden fade-in space-y-4">
+      <div class="glass rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h3 class="text-sm font-bold text-white" id="cdTitle">—</h3>
+            <p class="text-xs text-slate-400" id="cdMeta">—</p>
+          </div>
+          <button id="exportCourseData" class="text-[11px] text-pb-teal underline underline-offset-2">Export JSON</button>
+        </div>
+
+        <!-- Round selector -->
+        <div class="flex gap-2 mb-4">
+          <button class="cd-round-btn tab-pill active rounded-lg border border-transparent px-3 py-1 text-[11px] font-semibold text-slate-400" data-round="all">All Rounds</button>
+          <button class="cd-round-btn tab-pill rounded-lg border border-transparent px-3 py-1 text-[11px] font-semibold text-slate-400" data-round="1">R1</button>
+          <button class="cd-round-btn tab-pill rounded-lg border border-transparent px-3 py-1 text-[11px] font-semibold text-slate-400" data-round="2">R2</button>
+          <button class="cd-round-btn tab-pill rounded-lg border border-transparent px-3 py-1 text-[11px] font-semibold text-slate-400" data-round="3">R3</button>
+          <button class="cd-round-btn tab-pill rounded-lg border border-transparent px-3 py-1 text-[11px] font-semibold text-slate-400" data-round="4">R4</button>
+        </div>
+
+        <!-- Hole cards -->
+        <div id="cdHoleGrid" class="grid grid-cols-9 gap-2 mb-4"></div>
+
+        <!-- Scoring table -->
+        <div class="overflow-x-auto border border-white/5 rounded-xl">
+          <table class="min-w-full text-[11px]">
+            <thead class="bg-white/[0.02]">
+              <tr class="text-slate-500">
+                <th class="px-2 py-2 text-left font-semibold">Hole</th>
+                <th class="px-2 py-2 text-left font-semibold">Par</th>
+                <th class="px-2 py-2 text-left font-semibold">Yards</th>
+                <th class="px-2 py-2 text-right font-semibold">Avg Score</th>
+                <th class="px-2 py-2 text-right font-semibold">vs Par</th>
+                <th class="px-2 py-2 text-right font-semibold">Eagle %</th>
+                <th class="px-2 py-2 text-right font-semibold">Birdie %</th>
+                <th class="px-2 py-2 text-right font-semibold">Par %</th>
+                <th class="px-2 py-2 text-right font-semibold">Bogey %</th>
+                <th class="px-2 py-2 text-right font-semibold">Dbl+ %</th>
+                <th class="px-2 py-2 text-right font-semibold">Rank</th>
+              </tr>
+            </thead>
+            <tbody id="cdTable" class="divide-y divide-white/5"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-[10px] text-slate-500 uppercase font-semibold">Field Scoring Avg</p>
+          <p class="mono text-2xl font-bold text-white mt-1" id="cdFieldAvg">—</p>
+          <p class="text-[11px] text-slate-400 mt-0.5" id="cdVsPar">—</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-[10px] text-slate-500 uppercase font-semibold">Hardest Hole</p>
+          <p class="mono text-2xl font-bold text-pb-red mt-1" id="cdHardest">—</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-[10px] text-slate-500 uppercase font-semibold">Easiest Hole</p>
+          <p class="mono text-2xl font-bold text-pb-teal mt-1" id="cdEasiest">—</p>
+        </div>
+      </div>
+
+      <!-- Data sources -->
+      <div class="glass rounded-xl p-4">
+        <p class="text-[10px] text-slate-500 uppercase font-semibold mb-2">Free Data Sources</p>
+        <div class="text-xs text-slate-400 space-y-1">
+          <p>This data is compiled from free, publicly available sources. For your own research:</p>
+          <p class="text-slate-300">• <span class="text-pb-teal">DataGolf.com</span> — Free hole-by-hole stats on past results pages (no account needed)</p>
+          <p class="text-slate-300">• <span class="text-pb-teal">PGATour.com/stats</span> — Official scoring, SG, and hole statistics</p>
+          <p class="text-slate-300">• <span class="text-pb-teal">GolfStats.com</span> — 2.1M+ records, tournaments from 1997 onward</p>
+          <p class="text-slate-300">• <span class="text-pb-teal">ShotLink Intelligence</span> — Free academic access: registrations.pgatourhq.com/forms/shotlinkintel/</p>
+          <p class="text-slate-300">• <span class="text-pb-teal">Pin Sheets (Majors)</span> — Captured from broadcast/media during tournament week on X/Twitter</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 py-3 mt-8">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <p class="text-[10px] text-slate-600">PropsBot Golf Intelligence · Educational tool only · Not betting advice · Not affiliated with any sportsbook or DFS platform</p>
+  </div>
+</footer>
+
+<!-- ================================================================ -->
+<!-- JS ENGINE -->
+<!-- ================================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  /* ============================================================
+     DATA SOURCE CONFIG
+     ============================================================
+     Change this URL to your GitHub Pages endpoint after setup:
+     https://YOUR_USERNAME.github.io/propsbot-golf-data/golf-data.json
+
+     The tool will try to fetch live data from this URL on load.
+     If the fetch fails (offline, CORS, etc), it falls back to
+     the hardcoded data below.
+  ============================================================ */
+  var DATA_URL = '';  // Set your GitHub Pages URL here, e.g.: 'https://yourusername.github.io/propsbot-golf-data/golf-data.json'
+  var DATA_LOADED_FROM = 'built-in';
+
+  /* ============================================================
+     PLAYER DATABASE (Fallback — used when DATA_URL is empty or fetch fails)
+  ============================================================ */
+  var PLAYERS = [
+    { id: 1, name: 'Scottie Scheffler', rank: 1, sgTotal: 2.45, sgOtt: 0.62, sgApp: 1.18, sgArg: 0.35, sgPutt: 0.30, birdieAvg: 5.1, bogeyAvg: 2.2, scoringAvg: 68.8, gir: 72.5, fairways: 63.2, scramble: 65.0, proxAvg: 29.5, missDir: 'right', flight: 'high_fade', courseFit: { augusta: 95, tpc_sawgrass: 82, pebble: 80, torrey_south: 85, riviera: 88 }, notes: 'Elite ball-striker with best SG:Approach on Tour. Dominant on long, demanding courses. Iron play is his biggest weapon — proximity numbers are best in class. Putting has improved dramatically. Premium plays: strokes under, birdies over at course-fit venues.' },
+    { id: 2, name: 'Xander Schauffele', rank: 2, sgTotal: 2.10, sgOtt: 0.55, sgApp: 0.80, sgArg: 0.40, sgPutt: 0.35, birdieAvg: 4.8, bogeyAvg: 2.1, scoringAvg: 69.1, gir: 70.8, fairways: 66.1, scramble: 63.5, proxAvg: 31.2, missDir: 'neutral', flight: 'neutral', courseFit: { augusta: 88, tpc_sawgrass: 85, pebble: 82, torrey_south: 90, riviera: 84 }, notes: 'One of the most well-rounded players on Tour. No glaring weakness. Excels at Torrey Pines (hometown course). Scrambling and short game are underrated weapons. Reliable for consistent finishes.' },
+    { id: 3, name: 'Rory McIlroy', rank: 3, sgTotal: 1.95, sgOtt: 0.85, sgApp: 0.72, sgArg: 0.18, sgPutt: 0.20, birdieAvg: 5.0, bogeyAvg: 2.5, scoringAvg: 69.2, gir: 69.5, fairways: 58.5, scramble: 58.0, proxAvg: 32.8, missDir: 'left', flight: 'high_draw', courseFit: { augusta: 82, tpc_sawgrass: 80, pebble: 78, torrey_south: 75, riviera: 80 }, notes: 'Best driver on Tour — elite distance + shot shaping. Approach play is strong but not elite. Around-the-green and short putts have been a weakness under pressure. High birdie ceiling but also higher bogey rate. Volatile scorer — great for matchups, risky for bogey unders.' },
+    { id: 4, name: 'Collin Morikawa', rank: 4, sgTotal: 1.75, sgOtt: 0.30, sgApp: 1.05, sgArg: 0.22, sgPutt: 0.18, birdieAvg: 4.5, bogeyAvg: 2.0, scoringAvg: 69.4, gir: 71.2, fairways: 70.5, scramble: 60.5, proxAvg: 30.5, missDir: 'right', flight: 'low_fade', courseFit: { augusta: 70, tpc_sawgrass: 88, pebble: 85, torrey_south: 78, riviera: 92 }, notes: 'Second-best iron player behind Scheffler. Low ball flight suits firm/windy conditions. Most accurate driver on Tour. Lower birdie ceiling but extremely low bogey rate — premium bogey under play. Struggles at Augusta (high ball flight needed on approaches).' },
+    { id: 5, name: 'Ludvig Aberg', rank: 5, sgTotal: 1.65, sgOtt: 0.70, sgApp: 0.68, sgArg: 0.15, sgPutt: 0.12, birdieAvg: 4.9, bogeyAvg: 2.4, scoringAvg: 69.5, gir: 68.5, fairways: 61.0, scramble: 57.5, proxAvg: 33.0, missDir: 'left', flight: 'high_draw', courseFit: { augusta: 85, tpc_sawgrass: 78, pebble: 72, torrey_south: 80, riviera: 82 }, notes: 'Young star with elite power and ball-striking. Prone to occasional blow-up holes. Short game still developing — scrambling is below Tour average. High upside plays at power-favoring courses. Small sample size — regression risk in models.' },
+    { id: 6, name: 'Patrick Cantlay', rank: 6, sgTotal: 1.55, sgOtt: 0.32, sgApp: 0.55, sgArg: 0.28, sgPutt: 0.40, birdieAvg: 4.2, bogeyAvg: 1.8, scoringAvg: 69.6, gir: 69.0, fairways: 68.8, scramble: 66.5, proxAvg: 32.0, missDir: 'neutral', flight: 'neutral', courseFit: { augusta: 72, tpc_sawgrass: 82, pebble: 80, torrey_south: 78, riviera: 90 }, notes: 'Elite putter and around-the-green player. Not a power player — needs accuracy courses. Incredibly consistent: lowest bogey rate in the database. Best bogey under play on Tour. Riviera specialist (has won there twice). Boring but profitable for consistency props.' },
+    { id: 7, name: 'Wyndham Clark', rank: 7, sgTotal: 1.42, sgOtt: 0.60, sgApp: 0.50, sgArg: 0.20, sgPutt: 0.12, birdieAvg: 4.6, bogeyAvg: 2.5, scoringAvg: 69.8, gir: 67.5, fairways: 59.5, scramble: 59.0, proxAvg: 33.5, missDir: 'right', flight: 'high_fade', courseFit: { augusta: 75, tpc_sawgrass: 72, pebble: 82, torrey_south: 80, riviera: 75 }, notes: 'Powerful driver with aggressive approach. Higher bogey rate offsets birdie production. Streaky putter. Best on courses that reward length. Can go very low or very high — volatile for props.' },
+    { id: 8, name: 'Viktor Hovland', rank: 8, sgTotal: 1.35, sgOtt: 0.48, sgApp: 0.65, sgArg: -0.05, sgPutt: 0.27, birdieAvg: 4.7, bogeyAvg: 2.6, scoringAvg: 69.9, gir: 69.8, fairways: 62.0, scramble: 52.0, proxAvg: 31.0, missDir: 'right', flight: 'high_fade', courseFit: { augusta: 65, tpc_sawgrass: 75, pebble: 68, torrey_south: 72, riviera: 78 }, notes: 'Excellent ball-striker but short game is a genuine weakness. Negative SG:ARG means scrambling is a liability. High GIR player — when he hits greens he scores. Dangerous in birdie props (hits enough greens to birdie), but risky in bogey unders because of short game misses.' },
+    { id: 9, name: 'Tommy Fleetwood', rank: 9, sgTotal: 1.25, sgOtt: 0.35, sgApp: 0.52, sgArg: 0.20, sgPutt: 0.18, birdieAvg: 4.3, bogeyAvg: 2.1, scoringAvg: 70.0, gir: 68.2, fairways: 67.0, scramble: 62.0, proxAvg: 33.8, missDir: 'left', flight: 'low_draw', courseFit: { augusta: 68, tpc_sawgrass: 80, pebble: 85, torrey_south: 75, riviera: 80 }, notes: 'Links-style player. Low ball flight suits windy, firm conditions. Excellent at Pebble Beach. Consistent but rarely dominates — model likes him for top 10/20 finishes more than wins. Good bogey under candidate.' },
+    { id: 10, name: 'Sahith Theegala', rank: 10, sgTotal: 1.18, sgOtt: 0.52, sgApp: 0.42, sgArg: 0.10, sgPutt: 0.14, birdieAvg: 4.8, bogeyAvg: 2.7, scoringAvg: 70.1, gir: 66.5, fairways: 57.0, scramble: 56.5, proxAvg: 34.2, missDir: 'left', flight: 'high_draw', courseFit: { augusta: 70, tpc_sawgrass: 72, pebble: 72, torrey_south: 68, riviera: 82 }, notes: 'High birdie upside but also high bogey rate. Very aggressive player. Best for birdie overs and volatile scoring props. Riviera is his home course. Scrambling and accuracy are weaknesses — avoid tight course matchups.' },
+    { id: 11, name: 'Max Homa', rank: 12, sgTotal: 1.05, sgOtt: 0.42, sgApp: 0.38, sgArg: 0.15, sgPutt: 0.10, birdieAvg: 4.2, bogeyAvg: 2.3, scoringAvg: 70.3, gir: 67.0, fairways: 64.5, scramble: 61.0, proxAvg: 34.5, missDir: 'left', flight: 'high_draw', courseFit: { augusta: 65, tpc_sawgrass: 70, pebble: 78, torrey_south: 82, riviera: 88 }, notes: 'Very solid all-around game, no elite category but no weakness. Riviera and Torrey specialist. Reliable for matchup bets at his home courses. Not a great pick at unfamiliar venues.' },
+    { id: 12, name: 'Sungjae Im', rank: 14, sgTotal: 0.95, sgOtt: 0.28, sgApp: 0.40, sgArg: 0.15, sgPutt: 0.12, birdieAvg: 4.0, bogeyAvg: 2.0, scoringAvg: 70.4, gir: 68.5, fairways: 69.0, scramble: 61.5, proxAvg: 35.0, missDir: 'neutral', flight: 'neutral', courseFit: { augusta: 72, tpc_sawgrass: 75, pebble: 70, torrey_south: 70, riviera: 72 }, notes: 'Iron man of the Tour — plays every week, very consistent. Rarely misses cuts. Strong make-cut candidate in any field. Lower ceiling but extremely reliable floor. Great for top 20 and MC props.' }
+  ];
+
+  var propBoard = [];
+
+  /* ============================================================
+     COURSE HOLE DATA (Demo — based on real historic scoring patterns)
+  ============================================================ */
+  var COURSE_DATA = {
+    augusta: {
+      name: 'Augusta National', event: 'The Masters', par: 72, yards: 7545,
+      holes: [
+        { hole:1, par:4, yards:445, r1:4.12, r2:4.08, r3:4.15, r4:4.22, eagle:0.2, birdie:14.5, parPct:62.0, bogey:19.5, dbl:3.8 },
+        { hole:2, par:5, yards:575, r1:4.78, r2:4.72, r3:4.80, r4:4.85, eagle:3.5, birdie:28.0, parPct:52.0, bogey:13.5, dbl:3.0 },
+        { hole:3, par:4, yards:350, r1:3.92, r2:3.88, r3:3.95, r4:4.05, eagle:0.5, birdie:22.0, parPct:60.0, bogey:14.0, dbl:3.5 },
+        { hole:4, par:3, yards:240, r1:3.18, r2:3.15, r3:3.22, r4:3.28, eagle:0.0, birdie:10.0, parPct:62.0, bogey:22.0, dbl:6.0 },
+        { hole:5, par:4, yards:495, r1:4.28, r2:4.22, r3:4.30, r4:4.35, eagle:0.3, birdie:10.5, parPct:58.0, bogey:24.5, dbl:6.7 },
+        { hole:6, par:3, yards:180, r1:3.05, r2:3.02, r3:3.08, r4:3.12, eagle:0.0, birdie:16.0, parPct:65.0, bogey:15.5, dbl:3.5 },
+        { hole:7, par:4, yards:450, r1:4.15, r2:4.12, r3:4.18, r4:4.25, eagle:0.1, birdie:12.0, parPct:60.5, bogey:22.0, dbl:5.4 },
+        { hole:8, par:5, yards:570, r1:4.68, r2:4.62, r3:4.72, r4:4.78, eagle:4.0, birdie:30.0, parPct:48.0, bogey:14.0, dbl:4.0 },
+        { hole:9, par:4, yards:460, r1:4.18, r2:4.15, r3:4.20, r4:4.28, eagle:0.2, birdie:11.5, parPct:60.0, bogey:22.5, dbl:5.8 },
+        { hole:10, par:4, yards:495, r1:4.15, r2:4.10, r3:4.18, r4:4.25, eagle:0.3, birdie:14.0, parPct:56.0, bogey:23.0, dbl:6.7 },
+        { hole:11, par:4, yards:520, r1:4.32, r2:4.28, r3:4.35, r4:4.42, eagle:0.1, birdie:8.0, parPct:55.0, bogey:28.0, dbl:8.9 },
+        { hole:12, par:3, yards:155, r1:3.08, r2:3.05, r3:3.12, r4:3.18, eagle:0.0, birdie:14.0, parPct:58.0, bogey:20.0, dbl:8.0 },
+        { hole:13, par:5, yards:510, r1:4.72, r2:4.68, r3:4.75, r4:4.80, eagle:5.0, birdie:32.0, parPct:45.0, bogey:14.0, dbl:4.0 },
+        { hole:14, par:4, yards:440, r1:4.20, r2:4.18, r3:4.22, r4:4.28, eagle:0.2, birdie:12.0, parPct:58.0, bogey:24.0, dbl:5.8 },
+        { hole:15, par:5, yards:530, r1:4.82, r2:4.78, r3:4.85, r4:4.92, eagle:4.5, birdie:26.0, parPct:48.0, bogey:16.0, dbl:5.5 },
+        { hole:16, par:3, yards:170, r1:3.08, r2:3.05, r3:3.10, r4:3.15, eagle:0.0, birdie:18.0, parPct:58.0, bogey:18.0, dbl:6.0 },
+        { hole:17, par:4, yards:440, r1:4.22, r2:4.18, r3:4.25, r4:4.32, eagle:0.1, birdie:10.0, parPct:58.0, bogey:25.0, dbl:6.9 },
+        { hole:18, par:4, yards:465, r1:4.28, r2:4.22, r3:4.30, r4:4.38, eagle:0.2, birdie:9.0, parPct:56.0, bogey:27.0, dbl:7.8 }
+      ]
+    },
+    tpc_sawgrass: {
+      name: 'TPC Sawgrass', event: 'THE PLAYERS Championship', par: 72, yards: 7256,
+      holes: [
+        { hole:1, par:4, yards:423, r1:4.05, r2:4.02, r3:4.08, r4:4.12, eagle:0.1, birdie:16.0, parPct:62.0, bogey:18.0, dbl:3.9 },
+        { hole:2, par:5, yards:532, r1:4.72, r2:4.68, r3:4.75, r4:4.80, eagle:3.0, birdie:26.0, parPct:52.0, bogey:15.0, dbl:4.0 },
+        { hole:3, par:3, yards:177, r1:3.10, r2:3.08, r3:3.12, r4:3.18, eagle:0.0, birdie:14.0, parPct:60.0, bogey:20.0, dbl:6.0 },
+        { hole:4, par:4, yards:384, r1:4.02, r2:3.98, r3:4.05, r4:4.10, eagle:0.2, birdie:18.0, parPct:62.0, bogey:16.0, dbl:3.8 },
+        { hole:5, par:4, yards:466, r1:4.18, r2:4.15, r3:4.20, r4:4.25, eagle:0.1, birdie:11.0, parPct:58.0, bogey:24.0, dbl:6.9 },
+        { hole:6, par:3, yards:189, r1:3.08, r2:3.05, r3:3.10, r4:3.15, eagle:0.0, birdie:15.0, parPct:62.0, bogey:18.0, dbl:5.0 },
+        { hole:7, par:4, yards:442, r1:4.12, r2:4.08, r3:4.15, r4:4.20, eagle:0.1, birdie:13.0, parPct:60.0, bogey:21.0, dbl:5.9 },
+        { hole:8, par:3, yards:219, r1:3.15, r2:3.12, r3:3.18, r4:3.22, eagle:0.0, birdie:12.0, parPct:58.0, bogey:22.0, dbl:8.0 },
+        { hole:9, par:5, yards:583, r1:4.68, r2:4.65, r3:4.72, r4:4.78, eagle:3.5, birdie:28.0, parPct:50.0, bogey:14.5, dbl:4.0 },
+        { hole:10, par:4, yards:424, r1:4.08, r2:4.05, r3:4.10, r4:4.15, eagle:0.2, birdie:14.0, parPct:62.0, bogey:19.0, dbl:4.8 },
+        { hole:11, par:5, yards:542, r1:4.78, r2:4.75, r3:4.80, r4:4.85, eagle:3.0, birdie:24.0, parPct:52.0, bogey:16.0, dbl:5.0 },
+        { hole:12, par:4, yards:302, r1:3.85, r2:3.82, r3:3.88, r4:3.92, eagle:1.0, birdie:25.0, parPct:58.0, bogey:13.0, dbl:3.0 },
+        { hole:13, par:3, yards:181, r1:3.15, r2:3.12, r3:3.18, r4:3.22, eagle:0.0, birdie:12.0, parPct:58.0, bogey:22.0, dbl:8.0 },
+        { hole:14, par:4, yards:467, r1:4.22, r2:4.18, r3:4.25, r4:4.32, eagle:0.1, birdie:10.0, parPct:56.0, bogey:26.0, dbl:7.9 },
+        { hole:15, par:4, yards:449, r1:4.10, r2:4.08, r3:4.12, r4:4.18, eagle:0.1, birdie:14.0, parPct:60.0, bogey:20.0, dbl:5.9 },
+        { hole:16, par:5, yards:507, r1:4.82, r2:4.78, r3:4.85, r4:4.92, eagle:3.5, birdie:22.0, parPct:52.0, bogey:17.0, dbl:5.5 },
+        { hole:17, par:3, yards:137, r1:3.18, r2:3.15, r3:3.22, r4:3.28, eagle:0.0, birdie:10.0, parPct:52.0, bogey:26.0, dbl:12.0 },
+        { hole:18, par:4, yards:462, r1:4.25, r2:4.22, r3:4.28, r4:4.35, eagle:0.1, birdie:10.0, parPct:56.0, bogey:26.0, dbl:7.9 }
+      ]
+    },
+    torrey_south: {
+      name: 'Torrey Pines South', event: 'Farmers Insurance Open', par: 72, yards: 7765,
+      holes: [
+        { hole:1, par:4, yards:452, r1:4.15, r2:4.12, r3:4.18, r4:4.22, eagle:0.1, birdie:12.0, parPct:60.0, bogey:22.0, dbl:5.9 },
+        { hole:2, par:4, yards:389, r1:3.98, r2:3.95, r3:4.02, r4:4.08, eagle:0.2, birdie:18.0, parPct:62.0, bogey:16.0, dbl:3.8 },
+        { hole:3, par:3, yards:200, r1:3.08, r2:3.05, r3:3.10, r4:3.15, eagle:0.0, birdie:14.0, parPct:62.0, bogey:18.0, dbl:6.0 },
+        { hole:4, par:4, yards:486, r1:4.22, r2:4.18, r3:4.25, r4:4.30, eagle:0.1, birdie:10.0, parPct:56.0, bogey:26.0, dbl:7.9 },
+        { hole:5, par:5, yards:453, r1:4.72, r2:4.68, r3:4.75, r4:4.80, eagle:3.0, birdie:26.0, parPct:52.0, bogey:15.0, dbl:4.0 },
+        { hole:6, par:4, yards:515, r1:4.32, r2:4.28, r3:4.35, r4:4.40, eagle:0.1, birdie:8.0, parPct:54.0, bogey:28.0, dbl:9.9 },
+        { hole:7, par:4, yards:463, r1:4.18, r2:4.15, r3:4.20, r4:4.25, eagle:0.1, birdie:11.0, parPct:58.0, bogey:24.0, dbl:6.9 },
+        { hole:8, par:3, yards:177, r1:3.05, r2:3.02, r3:3.08, r4:3.12, eagle:0.0, birdie:16.0, parPct:64.0, bogey:16.0, dbl:4.0 },
+        { hole:9, par:5, yards:567, r1:4.82, r2:4.78, r3:4.85, r4:4.90, eagle:3.5, birdie:24.0, parPct:50.0, bogey:17.0, dbl:5.5 },
+        { hole:10, par:4, yards:414, r1:4.05, r2:4.02, r3:4.08, r4:4.12, eagle:0.2, birdie:16.0, parPct:62.0, bogey:18.0, dbl:3.8 },
+        { hole:11, par:3, yards:221, r1:3.12, r2:3.08, r3:3.15, r4:3.20, eagle:0.0, birdie:12.0, parPct:60.0, bogey:21.0, dbl:7.0 },
+        { hole:12, par:4, yards:504, r1:4.28, r2:4.25, r3:4.30, r4:4.35, eagle:0.1, birdie:9.0, parPct:56.0, bogey:27.0, dbl:7.9 },
+        { hole:13, par:5, yards:570, r1:4.78, r2:4.75, r3:4.80, r4:4.85, eagle:4.0, birdie:28.0, parPct:48.0, bogey:15.0, dbl:5.0 },
+        { hole:14, par:4, yards:435, r1:4.12, r2:4.08, r3:4.15, r4:4.20, eagle:0.1, birdie:13.0, parPct:60.0, bogey:21.0, dbl:5.9 },
+        { hole:15, par:4, yards:467, r1:4.18, r2:4.15, r3:4.20, r4:4.25, eagle:0.1, birdie:11.0, parPct:58.0, bogey:24.0, dbl:6.9 },
+        { hole:16, par:3, yards:227, r1:3.15, r2:3.12, r3:3.18, r4:3.22, eagle:0.0, birdie:12.0, parPct:58.0, bogey:22.0, dbl:8.0 },
+        { hole:17, par:4, yards:452, r1:4.08, r2:4.05, r3:4.10, r4:4.15, eagle:0.1, birdie:14.0, parPct:62.0, bogey:19.0, dbl:4.9 },
+        { hole:18, par:5, yards:563, r1:4.85, r2:4.80, r3:4.88, r4:4.95, eagle:3.0, birdie:22.0, parPct:52.0, bogey:17.0, dbl:6.0 }
+      ]
+    },
+    pebble: {
+      name: 'Pebble Beach', event: 'AT&T Pebble Beach Pro-Am', par: 72, yards: 6972,
+      holes: [
+        { hole:1, par:4, yards:381, r1:4.02, r2:3.98, r3:4.05, r4:4.10, eagle:0.2, birdie:18.0, parPct:62.0, bogey:16.0, dbl:3.8 },
+        { hole:2, par:5, yards:516, r1:4.68, r2:4.65, r3:4.72, r4:4.78, eagle:4.0, birdie:30.0, parPct:48.0, bogey:14.0, dbl:4.0 },
+        { hole:3, par:4, yards:404, r1:4.08, r2:4.05, r3:4.10, r4:4.15, eagle:0.1, birdie:14.0, parPct:62.0, bogey:19.0, dbl:4.9 },
+        { hole:4, par:4, yards:331, r1:3.85, r2:3.82, r3:3.88, r4:3.92, eagle:0.5, birdie:24.0, parPct:60.0, bogey:12.0, dbl:3.5 },
+        { hole:5, par:3, yards:195, r1:3.12, r2:3.08, r3:3.15, r4:3.20, eagle:0.0, birdie:12.0, parPct:60.0, bogey:21.0, dbl:7.0 },
+        { hole:6, par:5, yards:513, r1:4.75, r2:4.72, r3:4.78, r4:4.82, eagle:3.5, birdie:26.0, parPct:50.0, bogey:16.0, dbl:4.5 },
+        { hole:7, par:3, yards:109, r1:2.95, r2:2.92, r3:2.98, r4:3.02, eagle:0.0, birdie:22.0, parPct:62.0, bogey:12.0, dbl:4.0 },
+        { hole:8, par:4, yards:428, r1:4.25, r2:4.22, r3:4.28, r4:4.35, eagle:0.1, birdie:8.0, parPct:56.0, bogey:28.0, dbl:7.9 },
+        { hole:9, par:4, yards:505, r1:4.28, r2:4.25, r3:4.30, r4:4.35, eagle:0.1, birdie:9.0, parPct:56.0, bogey:27.0, dbl:7.9 },
+        { hole:10, par:4, yards:446, r1:4.15, r2:4.12, r3:4.18, r4:4.22, eagle:0.1, birdie:12.0, parPct:60.0, bogey:22.0, dbl:5.9 },
+        { hole:11, par:4, yards:390, r1:4.08, r2:4.05, r3:4.10, r4:4.15, eagle:0.2, birdie:14.0, parPct:62.0, bogey:19.0, dbl:4.8 },
+        { hole:12, par:3, yards:202, r1:3.10, r2:3.08, r3:3.12, r4:3.18, eagle:0.0, birdie:14.0, parPct:60.0, bogey:20.0, dbl:6.0 },
+        { hole:13, par:4, yards:445, r1:4.18, r2:4.15, r3:4.20, r4:4.25, eagle:0.1, birdie:11.0, parPct:58.0, bogey:24.0, dbl:6.9 },
+        { hole:14, par:5, yards:573, r1:4.82, r2:4.78, r3:4.85, r4:4.92, eagle:3.5, birdie:24.0, parPct:50.0, bogey:17.0, dbl:5.5 },
+        { hole:15, par:4, yards:403, r1:4.05, r2:4.02, r3:4.08, r4:4.12, eagle:0.2, birdie:16.0, parPct:62.0, bogey:18.0, dbl:3.8 },
+        { hole:16, par:4, yards:403, r1:4.08, r2:4.05, r3:4.10, r4:4.15, eagle:0.1, birdie:14.0, parPct:62.0, bogey:19.0, dbl:4.9 },
+        { hole:17, par:3, yards:178, r1:3.12, r2:3.08, r3:3.15, r4:3.20, eagle:0.0, birdie:12.0, parPct:60.0, bogey:21.0, dbl:7.0 },
+        { hole:18, par:5, yards:543, r1:4.78, r2:4.75, r3:4.80, r4:4.85, eagle:4.0, birdie:28.0, parPct:48.0, bogey:15.0, dbl:5.0 }
+      ]
+    },
+    riviera: {
+      name: 'Riviera CC', event: 'Genesis Invitational', par: 71, yards: 7349,
+      holes: [
+        { hole:1, par:5, yards:503, r1:4.72, r2:4.68, r3:4.75, r4:4.80, eagle:3.5, birdie:28.0, parPct:50.0, bogey:14.5, dbl:4.0 },
+        { hole:2, par:4, yards:464, r1:4.18, r2:4.15, r3:4.20, r4:4.25, eagle:0.1, birdie:11.0, parPct:58.0, bogey:24.0, dbl:6.9 },
+        { hole:3, par:4, yards:434, r1:4.08, r2:4.05, r3:4.10, r4:4.15, eagle:0.2, birdie:14.0, parPct:62.0, bogey:19.0, dbl:4.8 },
+        { hole:4, par:3, yards:236, r1:3.18, r2:3.15, r3:3.22, r4:3.28, eagle:0.0, birdie:10.0, parPct:58.0, bogey:24.0, dbl:8.0 },
+        { hole:5, par:4, yards:434, r1:4.12, r2:4.08, r3:4.15, r4:4.20, eagle:0.1, birdie:13.0, parPct:60.0, bogey:21.0, dbl:5.9 },
+        { hole:6, par:3, yards:176, r1:3.02, r2:3.00, r3:3.05, r4:3.08, eagle:0.0, birdie:18.0, parPct:64.0, bogey:14.0, dbl:4.0 },
+        { hole:7, par:4, yards:408, r1:4.05, r2:4.02, r3:4.08, r4:4.12, eagle:0.2, birdie:16.0, parPct:62.0, bogey:18.0, dbl:3.8 },
+        { hole:8, par:4, yards:433, r1:4.12, r2:4.08, r3:4.15, r4:4.20, eagle:0.1, birdie:13.0, parPct:60.0, bogey:21.0, dbl:5.9 },
+        { hole:9, par:4, yards:462, r1:4.18, r2:4.15, r3:4.20, r4:4.25, eagle:0.1, birdie:11.0, parPct:58.0, bogey:24.0, dbl:6.9 },
+        { hole:10, par:4, yards:315, r1:3.82, r2:3.80, r3:3.85, r4:3.90, eagle:1.0, birdie:28.0, parPct:56.0, bogey:12.0, dbl:3.0 },
+        { hole:11, par:5, yards:564, r1:4.78, r2:4.75, r3:4.80, r4:4.85, eagle:4.0, birdie:26.0, parPct:50.0, bogey:15.0, dbl:5.0 },
+        { hole:12, par:4, yards:479, r1:4.22, r2:4.18, r3:4.25, r4:4.30, eagle:0.1, birdie:10.0, parPct:56.0, bogey:26.0, dbl:7.9 },
+        { hole:13, par:4, yards:459, r1:4.18, r2:4.15, r3:4.20, r4:4.25, eagle:0.1, birdie:11.0, parPct:58.0, bogey:24.0, dbl:6.9 },
+        { hole:14, par:3, yards:177, r1:3.05, r2:3.02, r3:3.08, r4:3.12, eagle:0.0, birdie:16.0, parPct:64.0, bogey:16.0, dbl:4.0 },
+        { hole:15, par:4, yards:487, r1:4.25, r2:4.22, r3:4.28, r4:4.32, eagle:0.1, birdie:9.0, parPct:56.0, bogey:27.0, dbl:7.9 },
+        { hole:16, par:3, yards:166, r1:3.02, r2:3.00, r3:3.05, r4:3.08, eagle:0.0, birdie:18.0, parPct:64.0, bogey:14.0, dbl:4.0 },
+        { hole:17, par:5, yards:590, r1:4.85, r2:4.82, r3:4.88, r4:4.92, eagle:3.0, birdie:22.0, parPct:52.0, bogey:17.0, dbl:6.0 },
+        { hole:18, par:4, yards:476, r1:4.22, r2:4.18, r3:4.25, r4:4.30, eagle:0.1, birdie:10.0, parPct:56.0, bogey:26.0, dbl:7.9 }
+      ]
+    }
+  };
+
+  /* ============================================================
+     UTILITY FUNCTIONS
+  ============================================================ */
+  var el = function(id) { return document.getElementById(id); };
+
+  function normalCdf(x) { return 0.5 * (1 + Math.erf(x / Math.SQRT2)); }
+  // Math.erf polyfill
+  if (!Math.erf) {
+    Math.erf = function(x) {
+      var a1=0.254829592, a2=-0.284496736, a3=1.421413741, a4=-1.453152027, a5=1.061405429, p=0.3275911;
+      var sign = x < 0 ? -1 : 1; x = Math.abs(x);
+      var t = 1.0 / (1.0 + p * x);
+      var y = 1.0 - (((((a5*t + a4)*t) + a3)*t + a2)*t + a1)*t * Math.exp(-x*x);
+      return sign * y;
+    };
+  }
+
+  function pctToOdds(pct) {
+    if (pct <= 0) return '—';
+    var odds = Math.round(100 / pct);
+    if (odds <= 1) return 'EVEN';
+    return '+' + (odds * 100);
+  }
+
+  /* ============================================================
+     TAB SWITCHING
+  ============================================================ */
+  document.querySelectorAll('.tab-pill[data-tab]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-pill[data-tab]').forEach(function(t) { t.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.add('hidden'); });
+      var target = el('tab-' + btn.dataset.tab);
+      if (target) target.classList.remove('hidden');
+    });
+  });
+
+  /* ============================================================
+     PLAYERS TAB
+  ============================================================ */
+  function renderPlayerGrid() {
+    var search = (el('playerSearch').value || '').toLowerCase();
+    var sortKey = el('playerSort').value;
+    var filtered = PLAYERS.filter(function(p) { return p.name.toLowerCase().indexOf(search) >= 0; });
+
+    filtered.sort(function(a, b) {
+      if (sortKey === 'dgRank') return a.rank - b.rank;
+      return b[sortKey] - a[sortKey];
+    });
+
+    var grid = el('playerGrid');
+    grid.innerHTML = '';
+
+    filtered.forEach(function(p) {
+      var div = document.createElement('div');
+      div.className = 'player-card glass rounded-xl p-3 border border-white/5';
+      div.dataset.id = p.id;
+
+      var sgColor = p.sgTotal >= 1.5 ? 'text-pb-teal' : (p.sgTotal >= 0.8 ? 'text-pb-gold' : 'text-slate-300');
+      div.innerHTML =
+        '<div class="flex items-center justify-between mb-2">' +
+          '<div class="flex items-center gap-2">' +
+            '<span class="mono text-xs text-slate-500 font-semibold w-6">#' + p.rank + '</span>' +
+            '<span class="text-sm font-bold text-white">' + p.name + '</span>' +
+          '</div>' +
+          '<span class="mono text-sm font-bold ' + sgColor + '">' + p.sgTotal.toFixed(2) + '</span>' +
+        '</div>' +
+        '<div class="flex gap-1 flex-wrap">' +
+          '<span class="stat-pill bg-white/5 text-slate-300">OTT ' + p.sgOtt.toFixed(2) + '</span>' +
+          '<span class="stat-pill bg-white/5 text-slate-300">APP ' + p.sgApp.toFixed(2) + '</span>' +
+          '<span class="stat-pill bg-white/5 text-slate-300">ARG ' + p.sgArg.toFixed(2) + '</span>' +
+          '<span class="stat-pill bg-white/5 text-slate-300">PUTT ' + p.sgPutt.toFixed(2) + '</span>' +
+        '</div>' +
+        '<div class="flex gap-3 mt-2 text-[10px] text-slate-500">' +
+          '<span>Birdies: ' + p.birdieAvg + '</span>' +
+          '<span>Bogeys: ' + p.bogeyAvg + '</span>' +
+          '<span>Avg: ' + p.scoringAvg + '</span>' +
+        '</div>';
+
+      div.addEventListener('click', function() { showPlayerDetail(p); });
+      grid.appendChild(div);
+    });
+  }
+
+  function showPlayerDetail(p) {
+    el('playerDetail').classList.remove('hidden');
+    el('pdName').textContent = p.name;
+    el('pdMeta').textContent = 'Rank #' + p.rank + ' · Miss: ' + p.missDir + ' · Flight: ' + p.flight.replace('_', ' ');
+    el('pdRank').textContent = '#' + p.rank;
+
+    var stats = [
+      { label: 'SG:Total', value: p.sgTotal.toFixed(2), color: 'text-pb-teal' },
+      { label: 'Scoring', value: p.scoringAvg, color: 'text-white' },
+      { label: 'Birdies/Rd', value: p.birdieAvg, color: 'text-pb-teal' },
+      { label: 'Bogeys/Rd', value: p.bogeyAvg, color: 'text-pb-red' },
+      { label: 'GIR %', value: p.gir + '%', color: 'text-white' },
+      { label: 'FW %', value: p.fairways + '%', color: 'text-white' },
+      { label: 'Scramble %', value: p.scramble + '%', color: 'text-white' },
+      { label: 'Prox (ft)', value: p.proxAvg, color: 'text-white' }
+    ];
+
+    el('pdStatsGrid').innerHTML = stats.map(function(s) {
+      return '<div class="rounded-lg border border-white/5 bg-white/[0.02] p-2 text-center">' +
+        '<p class="text-[9px] text-slate-500 uppercase font-semibold">' + s.label + '</p>' +
+        '<p class="mono text-sm font-bold ' + s.color + ' mt-0.5">' + s.value + '</p>' +
+      '</div>';
+    }).join('');
+
+    var sgCats = [
+      { label: 'Off the Tee', value: p.sgOtt, max: 1.0 },
+      { label: 'Approach', value: p.sgApp, max: 1.2 },
+      { label: 'Around Green', value: p.sgArg, max: 0.5 },
+      { label: 'Putting', value: p.sgPutt, max: 0.5 }
+    ];
+
+    el('pdSgBars').innerHTML = sgCats.map(function(cat) {
+      var pct = Math.max(0, Math.min(100, (cat.value / cat.max) * 100));
+      var color = cat.value >= 0.5 ? 'bg-pb-teal' : (cat.value >= 0.2 ? 'bg-pb-gold' : (cat.value >= 0 ? 'bg-slate-400' : 'bg-pb-red'));
+      return '<div>' +
+        '<div class="flex justify-between text-[11px] mb-0.5"><span class="text-slate-400">' + cat.label + '</span><span class="mono text-slate-200 font-semibold">' + cat.value.toFixed(2) + '</span></div>' +
+        '<div class="conf-bar"><div class="conf-fill ' + color + '" style="width:' + pct + '%"></div></div>' +
+      '</div>';
+    }).join('');
+
+    el('pdNotes').innerHTML = '<p>' + p.notes + '</p>';
+  }
+
+  el('playerSearch').addEventListener('input', renderPlayerGrid);
+  el('playerSort').addEventListener('change', renderPlayerGrid);
+
+  /* ============================================================
+     POPULATE SELECTS
+  ============================================================ */
+  function populatePlayerSelects() {
+    ['matchA', 'matchB', 'propPlayer'].forEach(function(selId) {
+      var sel = el(selId);
+      sel.innerHTML = '';
+      PLAYERS.forEach(function(p) {
+        var opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = p.name + ' (#' + p.rank + ')';
+        sel.appendChild(opt);
+      });
+    });
+    if (el('matchB').options.length > 1) el('matchB').selectedIndex = 1;
+  }
+
+  /* ============================================================
+     MATCHUP PREDICTOR
+  ============================================================ */
+  el('runMatchup').addEventListener('click', function() {
+    var pA = PLAYERS.find(function(p) { return p.id === parseInt(el('matchA').value); });
+    var pB = PLAYERS.find(function(p) { return p.id === parseInt(el('matchB').value); });
+    if (!pA || !pB || pA.id === pB.id) { alert('Select two different players.'); return; }
+
+    var course = el('matchCourse').value;
+    var type = el('matchType').value;
+
+    var skillA = pA.sgTotal;
+    var skillB = pB.sgTotal;
+
+    if (course && pA.courseFit[course] && pB.courseFit[course]) {
+      var fitAdjA = (pA.courseFit[course] - 75) / 100;
+      var fitAdjB = (pB.courseFit[course] - 75) / 100;
+      skillA += fitAdjA;
+      skillB += fitAdjB;
+    }
+
+    var diff = skillA - skillB;
+    var sigma = type === 'tournament' ? 2.8 : 4.5;
+    var winPctA = normalCdf(diff / sigma);
+    var winPctB = 1 - winPctA;
+
+    el('matchupResult').classList.remove('hidden');
+    el('mrNameA').textContent = pA.name;
+    el('mrNameB').textContent = pB.name;
+
+    var pctADisplay = (winPctA * 100).toFixed(1) + '%';
+    var pctBDisplay = (winPctB * 100).toFixed(1) + '%';
+    el('mrPctA').textContent = pctADisplay;
+    el('mrPctA').className = 'mono text-3xl font-extrabold mt-1 ' + (winPctA > winPctB ? 'text-pb-teal' : 'text-pb-red');
+    el('mrPctB').textContent = pctBDisplay;
+    el('mrPctB').className = 'mono text-3xl font-extrabold mt-1 ' + (winPctB > winPctA ? 'text-pb-teal' : 'text-pb-red');
+
+    el('mrBar').style.width = (winPctA * 100) + '%';
+    el('mrEdge').textContent = 'Edge: ' + Math.abs(diff).toFixed(2) + ' SG/rd favor ' + (diff > 0 ? pA.name.split(' ')[1] : pB.name.split(' ')[1]);
+
+    el('mrBadgeA').innerHTML = winPctA > winPctB ? '<span class="winner-badge">PREDICTED WINNER</span>' : '<span class="loser-badge">UNDERDOG</span>';
+    el('mrBadgeB').innerHTML = winPctB > winPctA ? '<span class="winner-badge">PREDICTED WINNER</span>' : '<span class="loser-badge">UNDERDOG</span>';
+
+    var cats = [
+      { label: 'SG: Total', a: pA.sgTotal, b: pB.sgTotal },
+      { label: 'SG: Off the Tee', a: pA.sgOtt, b: pB.sgOtt },
+      { label: 'SG: Approach', a: pA.sgApp, b: pB.sgApp },
+      { label: 'SG: Around Green', a: pA.sgArg, b: pB.sgArg },
+      { label: 'SG: Putting', a: pA.sgPutt, b: pB.sgPutt },
+      { label: 'Birdie Avg', a: pA.birdieAvg, b: pB.birdieAvg },
+      { label: 'Bogey Avg', a: pA.bogeyAvg, b: pB.bogeyAvg, invert: true },
+      { label: 'Scoring Avg', a: pA.scoringAvg, b: pB.scoringAvg, invert: true }
+    ];
+
+    el('mrCategories').innerHTML = cats.map(function(c) {
+      var aWins = c.invert ? c.a < c.b : c.a > c.b;
+      return '<div class="grid grid-cols-[1fr_auto_1fr] gap-3 items-center text-[11px]">' +
+        '<div class="text-right"><span class="mono font-semibold ' + (aWins ? 'text-pb-teal' : 'text-slate-400') + '">' + c.a.toFixed(2) + '</span></div>' +
+        '<div class="text-center text-slate-500 text-[10px] w-28">' + c.label + '</div>' +
+        '<div><span class="mono font-semibold ' + (!aWins ? 'text-pb-teal' : 'text-slate-400') + '">' + c.b.toFixed(2) + '</span></div>' +
+      '</div>';
+    }).join('');
+
+    var winner = winPctA > winPctB ? pA : pB;
+    var loser = winPctA > winPctB ? pB : pA;
+    var winPct = Math.max(winPctA, winPctB);
+    el('mrSummary').textContent = winner.name + ' is favored at ' + (winPct * 100).toFixed(1) + '% in this ' + (type === 'tournament' ? '72-hole' : '18-hole') + ' matchup' + (course ? ' at ' + (COURSE_DATA[course] ? COURSE_DATA[course].name : course) : '') + '. The edge of ' + Math.abs(diff).toFixed(2) + ' strokes gained per round translates to roughly ' + (Math.abs(diff) * (type === 'tournament' ? 4 : 1)).toFixed(1) + ' strokes over the ' + (type === 'tournament' ? 'tournament' : 'round') + '. ' + winner.notes.split('.')[0] + '.';
+  });
+
+  /* ============================================================
+     PROPS BUILDER
+  ============================================================ */
+  el('runProp').addEventListener('click', function() {
+    var p = PLAYERS.find(function(pl) { return pl.id === parseInt(el('propPlayer').value); });
+    if (!p) return;
+    var type = el('propType').value;
+    var line = parseFloat(el('propLine').value);
+    if (isNaN(line)) { alert('Enter a valid line number.'); return; }
+
+    var mean, std, metricName;
+    if (type === 'birdies') { mean = p.birdieAvg; std = 1.4; metricName = 'birdies'; }
+    else if (type === 'bogeys') { mean = p.bogeyAvg; std = 1.2; metricName = 'bogeys'; }
+    else if (type === 'strokes') { mean = p.scoringAvg; std = 2.8; metricName = 'strokes'; }
+    else if (type === 'pars') { mean = 18 - p.birdieAvg - p.bogeyAvg; std = 1.5; metricName = 'pars'; }
+
+    var z = (line - mean) / std;
+    var overPct = (1 - normalCdf(z)) * 100;
+    var underPct = normalCdf(z) * 100;
+
+    var bestSide = overPct > underPct ? 'OVER' : 'UNDER';
+    var bestPct = Math.max(overPct, underPct);
+    var edge = Math.abs(mean - line);
+
+    var confScore = Math.round(Math.min(95, Math.max(20, bestPct * 0.8 + edge * 5)));
+    var confColor = confScore >= 70 ? 'text-pb-teal' : (confScore >= 50 ? 'text-pb-gold' : 'text-pb-red');
+    var barGrad = confScore >= 70 ? 'background:linear-gradient(90deg,#15ffc2,#0bd4a0)' : (confScore >= 50 ? 'background:linear-gradient(90deg,#FFD600,#e6c200)' : 'background:linear-gradient(90deg,#ff1552,#cc1142)');
+
+    el('propResult').classList.remove('hidden');
+    el('prTitle').textContent = p.name + ' — ' + bestSide + ' ' + line + ' ' + metricName;
+    el('prSubtitle').textContent = 'Model projects ' + mean.toFixed(1) + ' ' + metricName + ' per round (σ = ' + std.toFixed(1) + ')';
+    el('prConf').textContent = confScore + '%';
+    el('prConf').className = 'mono text-2xl font-bold ' + confColor;
+    el('prAvg').textContent = mean.toFixed(1);
+    el('prOver').textContent = overPct.toFixed(1) + '%';
+    el('prUnder').textContent = underPct.toFixed(1) + '%';
+    el('prConfBar').style.cssText = 'width:' + confScore + '%;' + barGrad;
+
+    var notes = 'The model projects ' + p.name + ' at ' + mean.toFixed(1) + ' ' + metricName + ' per round. ';
+    notes += 'Against a line of ' + line + ', the raw distribution implies ' + overPct.toFixed(1) + '% over / ' + underPct.toFixed(1) + '% under. ';
+    if (edge > 1) notes += 'This is a strong ' + bestSide.toLowerCase() + ' signal with ' + edge.toFixed(1) + ' units of edge. ';
+    else if (edge > 0.4) notes += 'Moderate edge of ' + edge.toFixed(1) + ' units. ';
+    else notes += 'This line is very close to the player\'s average — thin edge. ';
+    el('prNotes').textContent = notes;
+
+    // Add to prop board
+    propBoard.push({ player: p.name, type: metricName, line: line, avg: mean, over: overPct, under: underPct, edge: edge, side: bestSide, conf: confScore });
+    renderPropBoard();
+  });
+
+  function renderPropBoard() {
+    var tbody = el('propBoard');
+    tbody.innerHTML = '';
+    if (!propBoard.length) {
+      tbody.innerHTML = '<tr><td colspan="8" class="px-3 py-4 text-center text-slate-500 text-xs">Run a prop analysis to add entries here</td></tr>';
+      return;
+    }
+    propBoard.sort(function(a, b) { return b.conf - a.conf; }).forEach(function(o) {
+      var signalColor = o.conf >= 70 ? 'bg-pb-teal/15 text-pb-teal border-pb-teal/30' : (o.conf >= 50 ? 'bg-pb-gold/15 text-pb-gold border-pb-gold/30' : 'bg-pb-red/15 text-pb-red border-pb-red/30');
+      var signalLabel = o.conf >= 70 ? 'STRONG' : (o.conf >= 50 ? 'MODERATE' : 'THIN');
+      var tr = document.createElement('tr');
+      tr.className = 'hover:bg-white/[0.02] transition-colors';
+      tr.innerHTML =
+        '<td class="px-3 py-2 text-slate-200 font-medium">' + o.player + '</td>' +
+        '<td class="px-3 py-2 text-slate-300 capitalize">' + o.type + '</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-100">' + o.line + '</td>' +
+        '<td class="px-3 py-2 text-right mono text-white font-semibold">' + o.avg.toFixed(1) + '</td>' +
+        '<td class="px-3 py-2 text-right mono text-pb-teal">' + o.over.toFixed(1) + '%</td>' +
+        '<td class="px-3 py-2 text-right mono text-pb-red">' + o.under.toFixed(1) + '%</td>' +
+        '<td class="px-3 py-2 text-right mono text-white font-semibold">' + (o.side === 'OVER' ? '+' : '-') + o.edge.toFixed(1) + '</td>' +
+        '<td class="px-3 py-2 text-right"><span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold border ' + signalColor + '">' + signalLabel + '</span></td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  el('clearProps').addEventListener('click', function() { propBoard = []; renderPropBoard(); });
+
+  /* ============================================================
+     TOURNAMENT SIMULATOR
+  ============================================================ */
+  el('runTourney').addEventListener('click', function() {
+    var course = el('tourneyCourse').value;
+    var fieldStrength = el('tourneyField').value;
+
+    var results = PLAYERS.map(function(p) {
+      var skill = p.sgTotal;
+      if (course !== 'neutral' && p.courseFit[course]) {
+        skill += (p.courseFit[course] - 75) / 80;
+      }
+      if (fieldStrength === 'weak') skill *= 1.05;
+      if (fieldStrength === 'signature') skill *= 0.98;
+
+      var sims = 10000;
+      var wins = 0, top5 = 0, top10 = 0, top20 = 0, mc = 0, finishSum = 0;
+      var fieldSize = fieldStrength === 'signature' ? 70 : (fieldStrength === 'weak' ? 120 : 156);
+
+      for (var i = 0; i < sims; i++) {
+        var rounds = 0;
+        for (var r = 0; r < 4; r++) {
+          rounds += -skill + (Math.random() + Math.random() + Math.random() + Math.random() - 2) * 2.8;
+        }
+        var randomFinish = Math.max(1, Math.round(fieldSize / 2 - rounds * 3 + (Math.random() - 0.5) * fieldSize * 0.4));
+        if (randomFinish <= 1) wins++;
+        if (randomFinish <= 5) top5++;
+        if (randomFinish <= 10) top10++;
+        if (randomFinish <= 20) top20++;
+        if (randomFinish <= Math.round(fieldSize * 0.55)) mc++;
+        finishSum += randomFinish;
+      }
+
+      return {
+        name: p.name, rank: p.rank,
+        win: (wins / sims * 100),
+        top5: (top5 / sims * 100),
+        top10: (top10 / sims * 100),
+        top20: (top20 / sims * 100),
+        mc: (mc / sims * 100),
+        avgFinish: (finishSum / sims)
+      };
+    });
+
+    results.sort(function(a, b) { return b.win - a.win; });
+
+    el('tourneyResult').classList.remove('hidden');
+    var tbody = el('tourneyBoard');
+    tbody.innerHTML = '';
+
+    results.forEach(function(r, idx) {
+      var tr = document.createElement('tr');
+      tr.className = 'hover:bg-white/[0.02] transition-colors';
+      var winColor = r.win >= 10 ? 'text-pb-teal font-bold' : (r.win >= 5 ? 'text-pb-gold' : 'text-slate-300');
+      tr.innerHTML =
+        '<td class="px-3 py-2 mono text-slate-500">' + (idx + 1) + '</td>' +
+        '<td class="px-3 py-2 text-white font-medium">' + r.name + '</td>' +
+        '<td class="px-3 py-2 text-right mono ' + winColor + '">' + r.win.toFixed(1) + '%</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-200">' + r.top5.toFixed(1) + '%</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-300">' + r.top10.toFixed(1) + '%</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-400">' + r.top20.toFixed(1) + '%</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-400">' + r.mc.toFixed(1) + '%</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-500">' + pctToOdds(r.win) + '</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-500">' + r.avgFinish.toFixed(1) + '</td>';
+      tbody.appendChild(tr);
+    });
+
+    var courseName = course !== 'neutral' && COURSE_DATA[course] ? COURSE_DATA[course].name : 'a neutral course';
+    el('tourneyNotes').textContent = 'Based on 10,000 Monte Carlo simulations at ' + courseName + ' with a ' + fieldStrength + ' field. Win probabilities incorporate each player\'s SG:Total rating, course fit adjustment, and 4-round variance (σ ≈ 2.8 strokes/round). Implied odds show what fair-value moneyline would be. Compare against sportsbook prices to find value.';
+  });
+
+  /* ============================================================
+     COURSE DATA TAB
+  ============================================================ */
+  var currentCourseRound = 'all';
+
+  el('loadCourseData').addEventListener('click', function() {
+    var courseKey = el('cdCourse').value;
+    var data = COURSE_DATA[courseKey];
+    if (!data) return;
+
+    el('courseDataResult').classList.remove('hidden');
+    el('cdTitle').textContent = data.name;
+    el('cdMeta').textContent = data.event + ' · Par ' + data.par + ' · ' + data.yards + ' yards · ' + el('cdYear').value;
+
+    renderCourseHoles(data, 'all');
+  });
+
+  document.querySelectorAll('.cd-round-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.cd-round-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentCourseRound = btn.dataset.round;
+      var courseKey = el('cdCourse').value;
+      var data = COURSE_DATA[courseKey];
+      if (data) renderCourseHoles(data, currentCourseRound);
+    });
+  });
+
+  function renderCourseHoles(data, round) {
+    var grid = el('cdHoleGrid');
+    var tbody = el('cdTable');
+    grid.innerHTML = '';
+    tbody.innerHTML = '';
+
+    var totalScore = 0, totalPar = 0;
+    var hardest = null, easiest = null;
+
+    data.holes.forEach(function(h) {
+      var avg;
+      if (round === 'all') avg = (h.r1 + h.r2 + h.r3 + h.r4) / 4;
+      else avg = h['r' + round];
+
+      var diff = avg - h.par;
+      totalScore += avg;
+      totalPar += h.par;
+
+      if (!hardest || diff > hardest.diff) hardest = { hole: h.hole, diff: diff, avg: avg };
+      if (!easiest || diff < easiest.diff) easiest = { hole: h.hole, diff: diff, avg: avg };
+
+      var heatBg, heatText;
+      if (diff <= -0.15) { heatBg = 'bg-blue-900/50 border-blue-700/30'; heatText = 'text-blue-300'; }
+      else if (diff <= 0.05) { heatBg = 'bg-emerald-900/30 border-emerald-700/30'; heatText = 'text-emerald-300'; }
+      else if (diff <= 0.20) { heatBg = 'bg-amber-900/30 border-amber-700/30'; heatText = 'text-amber-300'; }
+      else { heatBg = 'bg-red-900/30 border-red-700/30'; heatText = 'text-red-300'; }
+
+      var card = document.createElement('div');
+      card.className = 'rounded-lg border p-2 text-center ' + heatBg;
+      card.innerHTML =
+        '<p class="text-[10px] text-slate-500">' + h.hole + ' · P' + h.par + '</p>' +
+        '<p class="mono text-sm font-bold ' + heatText + '">' + avg.toFixed(2) + '</p>' +
+        '<p class="text-[9px] text-slate-500">' + (diff >= 0 ? '+' : '') + diff.toFixed(2) + '</p>';
+      grid.appendChild(card);
+
+      var tr = document.createElement('tr');
+      tr.className = 'hover:bg-white/[0.02]';
+      tr.innerHTML =
+        '<td class="px-2 py-1.5 mono text-slate-200 font-semibold">' + h.hole + '</td>' +
+        '<td class="px-2 py-1.5 text-slate-300">' + h.par + '</td>' +
+        '<td class="px-2 py-1.5 mono text-slate-400">' + h.yards + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono font-semibold ' + heatText + '">' + avg.toFixed(2) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono ' + (diff >= 0 ? 'text-red-400' : 'text-emerald-400') + '">' + (diff >= 0 ? '+' : '') + diff.toFixed(2) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono text-slate-400">' + h.eagle.toFixed(1) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono text-emerald-400">' + h.birdie.toFixed(1) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono text-slate-300">' + h.parPct.toFixed(1) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono text-amber-400">' + h.bogey.toFixed(1) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono text-red-400">' + h.dbl.toFixed(1) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono text-slate-500">—</td>';
+      tbody.appendChild(tr);
+    });
+
+    el('cdFieldAvg').textContent = totalScore.toFixed(1);
+    var vsPar = totalScore - totalPar;
+    el('cdVsPar').textContent = (vsPar >= 0 ? '+' : '') + vsPar.toFixed(1) + ' vs par ' + totalPar;
+    el('cdHardest').textContent = '#' + hardest.hole + ' (+' + hardest.diff.toFixed(2) + ')';
+    el('cdEasiest').textContent = '#' + easiest.hole + ' (' + easiest.diff.toFixed(2) + ')';
+  }
+
+  el('exportCourseData').addEventListener('click', function() {
+    var courseKey = el('cdCourse').value;
+    var data = COURSE_DATA[courseKey];
+    if (!data) return;
+    var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = courseKey + '-hole-data.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  /* ============================================================
+     DATA LOADING — Fetch from external JSON if URL is set
+  ============================================================ */
+  function applyExternalData(data) {
+    if (data.players && data.players.length > 0) {
+      // Replace PLAYERS array with fresh data
+      PLAYERS.length = 0;
+      data.players.forEach(function(p) { PLAYERS.push(p); });
+      DATA_LOADED_FROM = 'live (' + (data.generatedAt || 'unknown') + ')';
+    }
+    // Merge course data if present
+    if (data.courses) {
+      Object.keys(data.courses).forEach(function(key) {
+        if (data.courses[key].holes) {
+          COURSE_DATA[key] = data.courses[key];
+        }
+      });
+    }
+    // Update current event info
+    if (data.currentEvent) {
+      updateCurrentEventBanner(data.currentEvent);
+    }
+  }
+
+  function updateCurrentEventBanner(event) {
+    if (!event || !event.name) return;
+    var header = document.querySelector('header .flex.items-center.gap-3:last-child');
+    if (header) {
+      var badge = document.createElement('span');
+      badge.className = 'hidden sm:inline-flex items-center gap-1 rounded-full bg-pb-blue/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-pb-blue ring-1 ring-pb-blue/30';
+      badge.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-pb-blue animate-pulse"></span>' + event.name;
+      header.insertBefore(badge, header.firstChild);
+    }
+  }
+
+  function updateDataStatus() {
+    var statusEl = document.querySelector('[data-status]');
+    if (!statusEl) {
+      // Add a subtle status line under the header
+      var nav = document.querySelector('nav');
+      if (nav) {
+        var div = document.createElement('div');
+        div.className = 'max-w-7xl mx-auto px-4 flex justify-end';
+        div.innerHTML = '<span data-status class="text-[9px] text-slate-600 py-0.5">Data: ' + DATA_LOADED_FROM + '</span>';
+        nav.appendChild(div);
+      }
+    }
+  }
+
+  function initApp() {
+    renderPlayerGrid();
+    populatePlayerSelects();
+    renderPropBoard();
+    updateDataStatus();
+  }
+
+  // Try to load external data, then initialize
+  if (DATA_URL) {
+    fetch(DATA_URL)
+      .then(function(resp) {
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        return resp.json();
+      })
+      .then(function(data) {
+        console.log('[PropsBot] Loaded live data:', data.generatedAt);
+        applyExternalData(data);
+        initApp();
+      })
+      .catch(function(err) {
+        console.warn('[PropsBot] Could not load live data, using built-in:', err.message);
+        initApp();
+      });
+  } else {
+    initApp();
+  }
+
+})();
+</script>
+</body>
+</html>
