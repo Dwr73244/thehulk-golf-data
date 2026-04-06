@@ -243,34 +243,63 @@
 <body class="h-full text-slate-100 min-h-screen">
 
 <!-- DISCLAIMER MODAL -->
-<div id="disclaimerModal" style="position:fixed;inset:0;z-index:9999;background:rgba(7,14,26,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:1rem;">
-  <div class="glass-strong" style="max-width:520px;width:100%;border-radius:16px;padding:2rem;border:1px solid rgba(240,192,64,0.25);box-shadow:0 0 40px rgba(240,192,64,0.08);">
-    <!-- Icon + Title -->
-    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;">
-      <div style="width:42px;height:42px;border-radius:10px;background:rgba(240,192,64,0.12);border:1px solid rgba(240,192,64,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <span style="font-size:1.25rem;">⚠️</span>
+<div id="disclaimerModal" style="position:fixed;inset:0;z-index:9999;background:rgba(7,14,26,0.94);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:1rem;overflow-y:auto;">
+  <div class="glass-strong" style="max-width:540px;width:100%;border-radius:18px;overflow:hidden;border:1px solid rgba(240,192,64,0.2);box-shadow:0 0 60px rgba(21,255,194,0.06),0 0 120px rgba(240,192,64,0.04);">
+
+    <!-- TOP BRAND BANNER -->
+    <div style="background:linear-gradient(135deg,rgba(9,213,160,0.15),rgba(34,169,236,0.1));border-bottom:1px solid rgba(21,255,194,0.1);padding:1.25rem 1.75rem;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:0.65rem;">
+        <div style="width:36px;height:36px;border-radius:9px;background:rgba(21,255,194,0.12);border:1px solid rgba(21,255,194,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-family:var(--mono);font-weight:900;font-size:1.1rem;color:var(--teal);">P</span>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-weight:700;font-size:0.9rem;color:#eef2f7;">PropsBot <span style="color:var(--teal);">Golf Intelligence</span></div>
+          <div style="font-size:0.65rem;color:rgba(200,215,230,0.45);letter-spacing:0.08em;text-transform:uppercase;">Free Beta Tool · v0.9</div>
+        </div>
       </div>
-      <div>
-        <div style="font-family:var(--mono);font-weight:700;font-size:1rem;color:var(--gold);">Beta Tool — Free & Early Access</div>
-        <div style="font-size:0.7rem;color:rgba(200,215,230,0.5);margin-top:2px;">PropsBot Golf Intelligence v0.9 (Beta)</div>
-      </div>
+      <span style="font-size:0.65rem;font-family:var(--mono);font-weight:600;background:rgba(240,192,64,0.12);color:var(--gold);border:1px solid rgba(240,192,64,0.25);padding:0.25rem 0.65rem;border-radius:20px;letter-spacing:0.05em;text-transform:uppercase;">Beta</span>
     </div>
-    <!-- Body -->
-    <div style="font-size:0.82rem;line-height:1.65;color:rgba(200,215,230,0.8);margin-bottom:1.5rem;">
-      <p style="margin-bottom:0.75rem;">This tool is <strong style="color:var(--teal);">completely free</strong> and provided as-is during our early beta phase. It's built to help you research, not to replace your own judgment.</p>
-      <p style="margin-bottom:0.75rem;">Data is pulled from multiple sources and updated automatically — but no tool is perfect. Odds, stats, and projections <strong style="color:rgba(240,192,64,0.9);">may contain errors or lag behind real-time lines.</strong></p>
-      <p style="margin-bottom:0rem;padding:0.75rem;background:rgba(255,21,82,0.08);border:1px solid rgba(255,21,82,0.2);border-radius:8px;color:rgba(255,150,165,0.9);">
-        🚨 <strong>Gambling involves risk.</strong> This is not financial or betting advice. Only bet what you can afford to lose. Must be 21+ and in a legal jurisdiction to wager.
-      </p>
-    </div>
-    <!-- Footer links + button -->
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
-      <div style="font-size:0.72rem;color:rgba(200,215,230,0.4);">
-        More tools at <a href="https://propsbot.ai" target="_blank" style="color:var(--teal);text-decoration:none;">propsbot.ai</a>
+
+    <!-- BODY -->
+    <div style="padding:1.5rem 1.75rem;">
+
+      <!-- Disclaimer text -->
+      <div style="font-size:0.81rem;line-height:1.7;color:rgba(200,215,230,0.78);margin-bottom:1.25rem;">
+        <p style="margin-bottom:0.65rem;">This tool is <strong style="color:var(--teal);">completely free</strong> — part of our early beta program. It's designed to help you research smarter, not to replace your own judgment.</p>
+        <p style="margin-bottom:0.65rem;">Data is pulled from multiple sources and updated automatically, but <strong style="color:rgba(240,192,64,0.9);">odds and projections may lag real-time lines</strong> or contain errors. Always verify before placing a wager.</p>
+        <div style="padding:0.7rem 0.9rem;background:rgba(255,21,82,0.07);border:1px solid rgba(255,21,82,0.18);border-radius:8px;color:rgba(255,160,170,0.9);font-size:0.77rem;">
+          🚨 <strong>Gambling involves risk.</strong> This is not betting advice. Only wager what you can afford to lose. Must be 21+ in a legal jurisdiction.
+        </div>
       </div>
-      <button onclick="dismissDisclaimer()" style="background:linear-gradient(135deg,#09d5a0,#22a9ec);color:#070e1a;font-family:var(--mono);font-weight:700;font-size:0.82rem;padding:0.6rem 1.5rem;border-radius:8px;border:none;cursor:pointer;min-height:44px;">
-        I Understand — Enter Tool
+
+      <!-- UPSELL CARD -->
+      <div style="background:linear-gradient(135deg,rgba(21,255,194,0.07),rgba(34,169,236,0.05));border:1px solid rgba(21,255,194,0.18);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:1.25rem;">
+        <div style="font-family:var(--mono);font-weight:700;font-size:0.85rem;color:#eef2f7;margin-bottom:0.5rem;">
+          Want the full PropsBot experience? 🚀
+        </div>
+        <div style="font-size:0.78rem;color:rgba(200,215,230,0.7);margin-bottom:0.9rem;line-height:1.6;">
+          This golf tool is just a sample. PropsBot AI covers <strong style="color:rgba(200,215,230,0.95);">NFL, NBA, MLB & NHL</strong> with AI-powered prop predictions, Confidence Scores, Edge Scores, and line movement alerts — updated daily.
+        </div>
+        <!-- Feature pills -->
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;">
+          <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ AI Prop Picks</span>
+          <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ Edge Score</span>
+          <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ Confidence Score</span>
+          <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ NFL / NBA / MLB / NHL</span>
+          <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ Daily Updates</span>
+        </div>
+        <!-- CTA Button -->
+        <a href="https://app.propsbot.ai/register" target="_blank" style="display:block;text-align:center;background:linear-gradient(135deg,#09d5a0,#22a9ec);color:#070e1a;font-family:var(--mono);font-weight:800;font-size:0.85rem;padding:0.75rem 1rem;border-radius:9px;text-decoration:none;letter-spacing:0.02em;min-height:44px;line-height:1.4;">
+          Start Free 7-Day Trial → propsbot.ai
+        </a>
+        <div style="text-align:center;font-size:0.67rem;color:rgba(200,215,230,0.35);margin-top:0.45rem;">No credit card required · Cancel anytime</div>
+      </div>
+
+      <!-- Enter tool button -->
+      <button onclick="dismissDisclaimer()" style="width:100%;background:rgba(255,255,255,0.04);color:rgba(200,215,230,0.65);font-family:var(--mono);font-weight:600;font-size:0.78rem;padding:0.65rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.08);cursor:pointer;min-height:44px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.07)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+        Continue to Free Tool — I Understand the Risks
       </button>
+
     </div>
   </div>
 </div>
@@ -1080,19 +1109,10 @@
 <!-- JS ENGINE -->
 <!-- ================================================================ -->
 <script>
-  // Disclaimer — show once per session (localStorage persists across refreshes)
+  // Disclaimer — shows on every visit (intentional: brand + responsible gambling)
   function dismissDisclaimer() {
     document.getElementById('disclaimerModal').style.display = 'none';
-    try { sessionStorage.setItem('pb_disclaimer_seen', '1'); } catch(e) {}
   }
-  (function() {
-    try {
-      if (sessionStorage.getItem('pb_disclaimer_seen')) {
-        var m = document.getElementById('disclaimerModal');
-        if (m) m.style.display = 'none';
-      }
-    } catch(e) {}
-  })();
 </script>
 
 <script>
