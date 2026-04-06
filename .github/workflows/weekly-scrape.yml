@@ -1,8 +1,13 @@
-name: Weekly Golf Data Update
+name: Golf Data Update
 
 on:
   schedule:
+    # Tuesday 6 AM UTC — pre-week data refresh
     - cron: '0 6 * * 2'
+    # Thursday 6 AM UTC — mid-tournament update (after R1)
+    - cron: '0 6 * * 4'
+    # Saturday 6 AM UTC — weekend update (after R2 cut)
+    - cron: '0 6 * * 6'
   workflow_dispatch:
   push:
     branches: [main]

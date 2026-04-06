@@ -10,29 +10,54 @@
       theme: {
         extend: {
           colors: {
-            pb: { teal:'#15ffc2', red:'#ff1552', gold:'#FFD600', blue:'#448AFF', purple:'#AB8FFF', bg:'#070e1a', card:'rgba(14,26,44,0.85)' }
+            pb: { teal:'#15ffc2', red:'#ff1552', gold:'#f0c040', blue:'#22a9ec', purple:'#AB8FFF', bg:'#070e1a', card:'rgba(14,26,44,0.85)' }
           }
         }
       }
     }
   </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap');
-    body { font-family: 'DM Sans', sans-serif; background: #070e1a; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+    :root {
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --teal: #15ffc2;
+      --red: #ff1552;
+      --gold: #f0c040;
+      --blue: #22a9ec;
+      --purple: #AB8FFF;
+      --bg: #070e1a;
+      --surface1: rgba(15,28,46,0.6);
+      --surface2: rgba(20,36,60,0.7);
+      --glass: rgba(18,28,45,0.92);
+      --card-border: rgba(100,200,220,0.07);
+      --divider: rgba(100,200,220,0.06);
+      --text-primary: #eef2f7;
+      --text-secondary: rgba(200,215,230,0.75);
+      --text-muted: rgba(150,180,210,0.3);
+      --brand-gradient: linear-gradient(135deg, #09d5a0, #22a9ec);
+      --conf-high: linear-gradient(90deg, #1591e4, #22a9ec, #2bcec0, #0cdba9, #06ef97, #15ffc2);
+      --conf-low: linear-gradient(90deg, #cc1244, #ff1552, #ff4070);
+    }
+    body { font-family: var(--sans); background: var(--bg); }
+    .mono { font-family: var(--mono); }
     ::-webkit-scrollbar { width: 5px; height: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #1e3a4a; border-radius: 3px; }
 
-    .glass { background: rgba(14,26,44,0.75); backdrop-filter: blur(12px); border: 1px solid rgba(21,255,194,0.08); }
-    .glass-strong { background: rgba(14,26,44,0.92); backdrop-filter: blur(16px); border: 1px solid rgba(21,255,194,0.12); }
+    /* Brand accent bar at top of page */
+    body::before { content:''; display:block; height:3px; background: var(--brand-gradient); }
 
-    .tab-pill { transition: all 0.25s ease; }
-    .tab-pill.active { background: linear-gradient(135deg, rgba(21,255,194,0.15), rgba(68,138,255,0.08)); border-color: rgba(21,255,194,0.4); color: #15ffc2; }
-    .tab-pill:hover:not(.active) { background: rgba(21,255,194,0.05); }
+    .glass { background: var(--surface1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--card-border); }
+    .glass-strong { background: var(--glass); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(120,160,200,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
 
-    .glow-teal { box-shadow: 0 0 20px rgba(21,255,194,0.15), inset 0 1px 0 rgba(21,255,194,0.1); }
-    .glow-gold { box-shadow: 0 0 20px rgba(255,214,0,0.15), inset 0 1px 0 rgba(255,214,0,0.1); }
+    .tab-pill { transition: all 0.25s ease; border-radius: 6px; }
+    .tab-pill.active { background: rgba(21,255,194,0.05); border: 1.5px solid rgba(21,255,194,0.6); color: var(--teal); font-weight: 600; }
+    .tab-pill:not(.active) { border: 1.5px solid rgba(120,160,200,0.1); color: rgba(210,220,235,0.75); }
+    .tab-pill:hover:not(.active) { background: rgba(21,255,194,0.03); }
+
+    .glow-teal { box-shadow: 0 0 20px rgba(21,255,194,0.12), inset 0 1px 0 rgba(21,255,194,0.08); }
+    .glow-gold { box-shadow: 0 0 20px rgba(240,192,64,0.12), inset 0 1px 0 rgba(240,192,64,0.08); }
 
     .fade-in { animation: fadeIn 0.35s ease-out; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -40,41 +65,47 @@
     @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(21,255,194,0.3); } 70% { box-shadow: 0 0 0 8px rgba(21,255,194,0); } 100% { box-shadow: 0 0 0 0 rgba(21,255,194,0); } }
     .pulse-ring { animation: pulse-ring 2s ease-out infinite; }
 
-    .conf-bar { height: 8px; border-radius: 4px; overflow: hidden; background: #0e1a2c; }
-    .conf-fill { height: 100%; border-radius: 4px; transition: width 0.8s ease-out; }
+    /* Confidence bar — uses brand multi-stop gradient */
+    .conf-bar { height: 8px; border-radius: 4px; overflow: hidden; background: rgba(14,26,44,0.85); }
+    .conf-fill { height: 100%; border-radius: 4px; transition: width 1.2s cubic-bezier(0.22,1,0.36,1); }
+    .conf-fill.high { background: var(--conf-high); }
+    .conf-fill.low { background: var(--conf-low); }
 
-    .stat-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+    .stat-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 5px; font-size: 11px; font-weight: 600; }
 
-    input, select { font-family: 'DM Sans', sans-serif; }
+    input, select { font-family: var(--mono); font-size: 12px; }
     input[type="number"], input[type="text"] {
-      background: rgba(7,14,26,0.8); border: 1px solid rgba(21,255,194,0.12); border-radius: 8px;
-      padding: 8px 12px; color: #e2e8f0; font-size: 13px;
+      background: rgba(7,14,26,0.8); border: 1px solid rgba(120,160,200,0.12); border-radius: 10px;
+      padding: 8px 12px; color: var(--text-primary);
     }
     input:focus, select:focus { outline: none; border-color: rgba(21,255,194,0.4); box-shadow: 0 0 0 2px rgba(21,255,194,0.1); }
     select {
-      background: rgba(7,14,26,0.8); border: 1px solid rgba(21,255,194,0.12); border-radius: 8px;
-      padding: 8px 12px; color: #e2e8f0; font-size: 13px; appearance: auto;
+      background: rgba(7,14,26,0.8); border: 1px solid rgba(120,160,200,0.12); border-radius: 10px;
+      padding: 8px 12px; color: var(--text-primary); appearance: auto;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #15ffc2, #0bd4a0); color: #070e1a; font-weight: 700;
-      padding: 8px 20px; border-radius: 8px; font-size: 13px; border: none; cursor: pointer;
+      background: linear-gradient(135deg, #09d5a0, #22a9ec); color: var(--bg); font-weight: 700;
+      padding: 8px 20px; border-radius: 10px; font-size: 13px; border: none; cursor: pointer;
       transition: all 0.2s; box-shadow: 0 4px 12px rgba(21,255,194,0.25);
     }
     .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(21,255,194,0.35); }
 
     .btn-gold {
-      background: linear-gradient(135deg, #FFD600, #e6c200); color: #070e1a; font-weight: 700;
-      padding: 8px 20px; border-radius: 8px; font-size: 13px; border: none; cursor: pointer;
-      transition: all 0.2s; box-shadow: 0 4px 12px rgba(255,214,0,0.2);
+      background: linear-gradient(135deg, #f0c040, #d4a830); color: var(--bg); font-weight: 700;
+      padding: 8px 20px; border-radius: 10px; font-size: 13px; border: none; cursor: pointer;
+      transition: all 0.2s; box-shadow: 0 4px 12px rgba(240,192,64,0.2);
     }
 
-    .player-card { transition: all 0.2s ease; cursor: pointer; }
-    .player-card:hover { transform: translateY(-2px); border-color: rgba(21,255,194,0.3); }
+    .player-card { transition: all 0.2s ease; cursor: pointer; border-radius: 12px; border: 1px solid var(--card-border); overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.15); background: rgba(14,26,44,0.85); }
+    .player-card:hover { transform: translateY(-2px); border-color: rgba(21,255,194,0.25); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
 
-    .matchup-vs { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #15ffc2, #448AFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .winner-badge { background: linear-gradient(135deg, #15ffc2, #0bd4a0); color: #070e1a; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
-    .loser-badge { background: rgba(255,21,82,0.15); color: #ff1552; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+    .matchup-vs { font-size: 28px; font-weight: 900; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
+    .winner-badge { background: linear-gradient(135deg, #09d5a0, #22a9ec); color: var(--bg); padding: 2px 10px; border-radius: 3px; font-size: 11px; font-weight: 700; }
+    .loser-badge { background: rgba(255,21,82,0.15); color: var(--red); padding: 2px 10px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+
+    /* Section label style */
+    .section-label { font-size: 9px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-secondary); }
   </style>
 </head>
 <body class="h-full text-slate-100 min-h-screen">
@@ -195,6 +226,16 @@
             <option value="pebble">Pebble Beach</option>
             <option value="torrey_south">Torrey Pines South</option>
             <option value="riviera">Riviera CC</option>
+            <option value="valhalla">Valhalla (PGA Champ)</option>
+            <option value="pinehurst_2">Pinehurst No. 2 (US Open)</option>
+            <option value="royal_troon">Royal Troon (The Open)</option>
+            <option value="quail_hollow">Quail Hollow</option>
+            <option value="east_lake">East Lake (Tour Champ)</option>
+            <option value="bay_hill">Bay Hill</option>
+            <option value="harbour_town">Harbour Town</option>
+            <option value="colonial">Colonial CC</option>
+            <option value="memorial">Muirfield Village (Memorial)</option>
+            <option value="tpc_scottsdale">TPC Scottsdale</option>
           </select>
         </div>
         <div class="space-y-1.5">
@@ -416,6 +457,16 @@
             <option value="torrey_south">Torrey Pines South (Farmers)</option>
             <option value="pebble">Pebble Beach (AT&T)</option>
             <option value="riviera">Riviera CC (Genesis)</option>
+            <option value="valhalla">Valhalla (PGA Championship)</option>
+            <option value="pinehurst_2">Pinehurst No. 2 (US Open)</option>
+            <option value="royal_troon">Royal Troon (The Open)</option>
+            <option value="quail_hollow">Quail Hollow (Wells Fargo)</option>
+            <option value="east_lake">East Lake (Tour Championship)</option>
+            <option value="bay_hill">Bay Hill (Arnold Palmer Inv.)</option>
+            <option value="harbour_town">Harbour Town (RBC Heritage)</option>
+            <option value="colonial">Colonial CC (Charles Schwab)</option>
+            <option value="memorial">Muirfield Village (Memorial)</option>
+            <option value="tpc_scottsdale">TPC Scottsdale (WM Phoenix)</option>
           </select>
         </div>
         <div class="space-y-1.5">
@@ -534,25 +585,63 @@
      If the fetch fails (offline, CORS, etc), it falls back to
      the hardcoded data below.
   ============================================================ */
-  var DATA_URL = '';  // Set your GitHub Pages URL here, e.g.: 'https://yourusername.github.io/propsbot-golf-data/golf-data.json'
+  var DATA_URL = 'https://dwr73244.github.io/thehulk-golf-data/golf-data.json';
   var DATA_LOADED_FROM = 'built-in';
 
   /* ============================================================
      PLAYER DATABASE (Fallback — used when DATA_URL is empty or fetch fails)
   ============================================================ */
   var PLAYERS = [
-    { id: 1, name: 'Scottie Scheffler', rank: 1, sgTotal: 2.45, sgOtt: 0.62, sgApp: 1.18, sgArg: 0.35, sgPutt: 0.30, birdieAvg: 5.1, bogeyAvg: 2.2, scoringAvg: 68.8, gir: 72.5, fairways: 63.2, scramble: 65.0, proxAvg: 29.5, missDir: 'right', flight: 'high_fade', courseFit: { augusta: 95, tpc_sawgrass: 82, pebble: 80, torrey_south: 85, riviera: 88 }, notes: 'Elite ball-striker with best SG:Approach on Tour. Dominant on long, demanding courses. Iron play is his biggest weapon — proximity numbers are best in class. Putting has improved dramatically. Premium plays: strokes under, birdies over at course-fit venues.' },
-    { id: 2, name: 'Xander Schauffele', rank: 2, sgTotal: 2.10, sgOtt: 0.55, sgApp: 0.80, sgArg: 0.40, sgPutt: 0.35, birdieAvg: 4.8, bogeyAvg: 2.1, scoringAvg: 69.1, gir: 70.8, fairways: 66.1, scramble: 63.5, proxAvg: 31.2, missDir: 'neutral', flight: 'neutral', courseFit: { augusta: 88, tpc_sawgrass: 85, pebble: 82, torrey_south: 90, riviera: 84 }, notes: 'One of the most well-rounded players on Tour. No glaring weakness. Excels at Torrey Pines (hometown course). Scrambling and short game are underrated weapons. Reliable for consistent finishes.' },
-    { id: 3, name: 'Rory McIlroy', rank: 3, sgTotal: 1.95, sgOtt: 0.85, sgApp: 0.72, sgArg: 0.18, sgPutt: 0.20, birdieAvg: 5.0, bogeyAvg: 2.5, scoringAvg: 69.2, gir: 69.5, fairways: 58.5, scramble: 58.0, proxAvg: 32.8, missDir: 'left', flight: 'high_draw', courseFit: { augusta: 82, tpc_sawgrass: 80, pebble: 78, torrey_south: 75, riviera: 80 }, notes: 'Best driver on Tour — elite distance + shot shaping. Approach play is strong but not elite. Around-the-green and short putts have been a weakness under pressure. High birdie ceiling but also higher bogey rate. Volatile scorer — great for matchups, risky for bogey unders.' },
-    { id: 4, name: 'Collin Morikawa', rank: 4, sgTotal: 1.75, sgOtt: 0.30, sgApp: 1.05, sgArg: 0.22, sgPutt: 0.18, birdieAvg: 4.5, bogeyAvg: 2.0, scoringAvg: 69.4, gir: 71.2, fairways: 70.5, scramble: 60.5, proxAvg: 30.5, missDir: 'right', flight: 'low_fade', courseFit: { augusta: 70, tpc_sawgrass: 88, pebble: 85, torrey_south: 78, riviera: 92 }, notes: 'Second-best iron player behind Scheffler. Low ball flight suits firm/windy conditions. Most accurate driver on Tour. Lower birdie ceiling but extremely low bogey rate — premium bogey under play. Struggles at Augusta (high ball flight needed on approaches).' },
-    { id: 5, name: 'Ludvig Aberg', rank: 5, sgTotal: 1.65, sgOtt: 0.70, sgApp: 0.68, sgArg: 0.15, sgPutt: 0.12, birdieAvg: 4.9, bogeyAvg: 2.4, scoringAvg: 69.5, gir: 68.5, fairways: 61.0, scramble: 57.5, proxAvg: 33.0, missDir: 'left', flight: 'high_draw', courseFit: { augusta: 85, tpc_sawgrass: 78, pebble: 72, torrey_south: 80, riviera: 82 }, notes: 'Young star with elite power and ball-striking. Prone to occasional blow-up holes. Short game still developing — scrambling is below Tour average. High upside plays at power-favoring courses. Small sample size — regression risk in models.' },
-    { id: 6, name: 'Patrick Cantlay', rank: 6, sgTotal: 1.55, sgOtt: 0.32, sgApp: 0.55, sgArg: 0.28, sgPutt: 0.40, birdieAvg: 4.2, bogeyAvg: 1.8, scoringAvg: 69.6, gir: 69.0, fairways: 68.8, scramble: 66.5, proxAvg: 32.0, missDir: 'neutral', flight: 'neutral', courseFit: { augusta: 72, tpc_sawgrass: 82, pebble: 80, torrey_south: 78, riviera: 90 }, notes: 'Elite putter and around-the-green player. Not a power player — needs accuracy courses. Incredibly consistent: lowest bogey rate in the database. Best bogey under play on Tour. Riviera specialist (has won there twice). Boring but profitable for consistency props.' },
-    { id: 7, name: 'Wyndham Clark', rank: 7, sgTotal: 1.42, sgOtt: 0.60, sgApp: 0.50, sgArg: 0.20, sgPutt: 0.12, birdieAvg: 4.6, bogeyAvg: 2.5, scoringAvg: 69.8, gir: 67.5, fairways: 59.5, scramble: 59.0, proxAvg: 33.5, missDir: 'right', flight: 'high_fade', courseFit: { augusta: 75, tpc_sawgrass: 72, pebble: 82, torrey_south: 80, riviera: 75 }, notes: 'Powerful driver with aggressive approach. Higher bogey rate offsets birdie production. Streaky putter. Best on courses that reward length. Can go very low or very high — volatile for props.' },
-    { id: 8, name: 'Viktor Hovland', rank: 8, sgTotal: 1.35, sgOtt: 0.48, sgApp: 0.65, sgArg: -0.05, sgPutt: 0.27, birdieAvg: 4.7, bogeyAvg: 2.6, scoringAvg: 69.9, gir: 69.8, fairways: 62.0, scramble: 52.0, proxAvg: 31.0, missDir: 'right', flight: 'high_fade', courseFit: { augusta: 65, tpc_sawgrass: 75, pebble: 68, torrey_south: 72, riviera: 78 }, notes: 'Excellent ball-striker but short game is a genuine weakness. Negative SG:ARG means scrambling is a liability. High GIR player — when he hits greens he scores. Dangerous in birdie props (hits enough greens to birdie), but risky in bogey unders because of short game misses.' },
-    { id: 9, name: 'Tommy Fleetwood', rank: 9, sgTotal: 1.25, sgOtt: 0.35, sgApp: 0.52, sgArg: 0.20, sgPutt: 0.18, birdieAvg: 4.3, bogeyAvg: 2.1, scoringAvg: 70.0, gir: 68.2, fairways: 67.0, scramble: 62.0, proxAvg: 33.8, missDir: 'left', flight: 'low_draw', courseFit: { augusta: 68, tpc_sawgrass: 80, pebble: 85, torrey_south: 75, riviera: 80 }, notes: 'Links-style player. Low ball flight suits windy, firm conditions. Excellent at Pebble Beach. Consistent but rarely dominates — model likes him for top 10/20 finishes more than wins. Good bogey under candidate.' },
-    { id: 10, name: 'Sahith Theegala', rank: 10, sgTotal: 1.18, sgOtt: 0.52, sgApp: 0.42, sgArg: 0.10, sgPutt: 0.14, birdieAvg: 4.8, bogeyAvg: 2.7, scoringAvg: 70.1, gir: 66.5, fairways: 57.0, scramble: 56.5, proxAvg: 34.2, missDir: 'left', flight: 'high_draw', courseFit: { augusta: 70, tpc_sawgrass: 72, pebble: 72, torrey_south: 68, riviera: 82 }, notes: 'High birdie upside but also high bogey rate. Very aggressive player. Best for birdie overs and volatile scoring props. Riviera is his home course. Scrambling and accuracy are weaknesses — avoid tight course matchups.' },
-    { id: 11, name: 'Max Homa', rank: 12, sgTotal: 1.05, sgOtt: 0.42, sgApp: 0.38, sgArg: 0.15, sgPutt: 0.10, birdieAvg: 4.2, bogeyAvg: 2.3, scoringAvg: 70.3, gir: 67.0, fairways: 64.5, scramble: 61.0, proxAvg: 34.5, missDir: 'left', flight: 'high_draw', courseFit: { augusta: 65, tpc_sawgrass: 70, pebble: 78, torrey_south: 82, riviera: 88 }, notes: 'Very solid all-around game, no elite category but no weakness. Riviera and Torrey specialist. Reliable for matchup bets at his home courses. Not a great pick at unfamiliar venues.' },
-    { id: 12, name: 'Sungjae Im', rank: 14, sgTotal: 0.95, sgOtt: 0.28, sgApp: 0.40, sgArg: 0.15, sgPutt: 0.12, birdieAvg: 4.0, bogeyAvg: 2.0, scoringAvg: 70.4, gir: 68.5, fairways: 69.0, scramble: 61.5, proxAvg: 35.0, missDir: 'neutral', flight: 'neutral', courseFit: { augusta: 72, tpc_sawgrass: 75, pebble: 70, torrey_south: 70, riviera: 72 }, notes: 'Iron man of the Tour — plays every week, very consistent. Rarely misses cuts. Strong make-cut candidate in any field. Lower ceiling but extremely reliable floor. Great for top 20 and MC props.' }
+    { id:1, name:'Scottie Scheffler', rank:1, sgTotal:2.45, sgOtt:0.62, sgApp:1.18, sgArg:0.35, sgPutt:0.30, birdieAvg:5.1, bogeyAvg:2.2, scoringAvg:68.8, gir:72.5, fairways:63.2, scramble:65.0, proxAvg:29.5, missDir:'right', flight:'high_fade', courseFit:{augusta:95,tpc_sawgrass:82,pebble:80,torrey_south:85,riviera:88,valhalla:92,pinehurst_2:88,royal_troon:75,quail_hollow:85,east_lake:90,bay_hill:82,harbour_town:72,colonial:78,memorial:88,tpc_scottsdale:80}, notes:'Elite ball-striker. Best SG:Approach on Tour. Premium plays: strokes under, birdies over.' },
+    { id:2, name:'Xander Schauffele', rank:2, sgTotal:2.10, sgOtt:0.55, sgApp:0.80, sgArg:0.40, sgPutt:0.35, birdieAvg:4.8, bogeyAvg:2.1, scoringAvg:69.1, gir:70.8, fairways:66.1, scramble:63.5, proxAvg:31.2, missDir:'neutral', flight:'neutral', courseFit:{augusta:88,tpc_sawgrass:85,pebble:82,torrey_south:90,riviera:84,valhalla:85,pinehurst_2:82,royal_troon:80,quail_hollow:82,east_lake:88,bay_hill:80,harbour_town:78,colonial:80,memorial:82,tpc_scottsdale:82}, notes:'Most well-rounded player on Tour. No weakness. Excels at Torrey Pines.' },
+    { id:3, name:'Rory McIlroy', rank:3, sgTotal:1.95, sgOtt:0.85, sgApp:0.72, sgArg:0.18, sgPutt:0.20, birdieAvg:5.0, bogeyAvg:2.5, scoringAvg:69.2, gir:69.5, fairways:58.5, scramble:58.0, proxAvg:32.8, missDir:'left', flight:'high_draw', courseFit:{augusta:82,tpc_sawgrass:80,pebble:78,torrey_south:75,riviera:80,valhalla:90,pinehurst_2:82,royal_troon:88,quail_hollow:92,east_lake:85,bay_hill:82,harbour_town:68,colonial:72,memorial:80,tpc_scottsdale:78}, notes:'Best driver on Tour. High birdie ceiling but volatile. Great for matchups.' },
+    { id:4, name:'Collin Morikawa', rank:4, sgTotal:1.75, sgOtt:0.30, sgApp:1.05, sgArg:0.22, sgPutt:0.18, birdieAvg:4.5, bogeyAvg:2.0, scoringAvg:69.4, gir:71.2, fairways:70.5, scramble:60.5, proxAvg:30.5, missDir:'right', flight:'low_fade', courseFit:{augusta:70,tpc_sawgrass:88,pebble:85,torrey_south:78,riviera:92,valhalla:80,pinehurst_2:85,royal_troon:90,quail_hollow:78,east_lake:82,bay_hill:80,harbour_town:88,colonial:90,memorial:85,tpc_scottsdale:78}, notes:'Second-best iron player. Low ball flight suits firm/windy. Premium bogey under play.' },
+    { id:5, name:'Ludvig Aberg', rank:5, sgTotal:1.65, sgOtt:0.70, sgApp:0.68, sgArg:0.15, sgPutt:0.12, birdieAvg:4.9, bogeyAvg:2.4, scoringAvg:69.5, gir:68.5, fairways:61.0, scramble:57.5, proxAvg:33.0, missDir:'left', flight:'high_draw', courseFit:{augusta:85,tpc_sawgrass:78,pebble:72,torrey_south:80,riviera:82,valhalla:85,pinehurst_2:78,royal_troon:72,quail_hollow:82,east_lake:80,bay_hill:78,harbour_town:68,colonial:72,memorial:80,tpc_scottsdale:78}, notes:'Young star with elite power. Short game still developing. High upside.' },
+    { id:6, name:'Patrick Cantlay', rank:6, sgTotal:1.55, sgOtt:0.32, sgApp:0.55, sgArg:0.28, sgPutt:0.40, birdieAvg:4.2, bogeyAvg:1.8, scoringAvg:69.6, gir:69.0, fairways:68.8, scramble:66.5, proxAvg:32.0, missDir:'neutral', flight:'neutral', courseFit:{augusta:72,tpc_sawgrass:82,pebble:80,torrey_south:78,riviera:90,valhalla:75,pinehurst_2:80,royal_troon:75,quail_hollow:78,east_lake:85,bay_hill:78,harbour_town:82,colonial:85,memorial:82,tpc_scottsdale:80}, notes:'Elite putter. Lowest bogey rate. Best bogey under play on Tour. Riviera specialist.' },
+    { id:7, name:'Wyndham Clark', rank:7, sgTotal:1.42, sgOtt:0.60, sgApp:0.50, sgArg:0.20, sgPutt:0.12, birdieAvg:4.6, bogeyAvg:2.5, scoringAvg:69.8, gir:67.5, fairways:59.5, scramble:59.0, proxAvg:33.5, missDir:'right', flight:'high_fade', courseFit:{augusta:75,tpc_sawgrass:72,pebble:82,torrey_south:80,riviera:75,valhalla:78,pinehurst_2:72,royal_troon:68,quail_hollow:78,east_lake:75,bay_hill:72,harbour_town:65,colonial:68,memorial:75,tpc_scottsdale:78}, notes:'Powerful driver. Higher bogey rate offsets birdies. Volatile for props.' },
+    { id:8, name:'Viktor Hovland', rank:8, sgTotal:1.35, sgOtt:0.48, sgApp:0.65, sgArg:-0.05, sgPutt:0.27, birdieAvg:4.7, bogeyAvg:2.6, scoringAvg:69.9, gir:69.8, fairways:62.0, scramble:52.0, proxAvg:31.0, missDir:'right', flight:'high_fade', courseFit:{augusta:65,tpc_sawgrass:75,pebble:68,torrey_south:72,riviera:78,valhalla:80,pinehurst_2:68,royal_troon:72,quail_hollow:78,east_lake:80,bay_hill:75,harbour_town:65,colonial:70,memorial:78,tpc_scottsdale:75}, notes:'Great ball-striker but short game liability. Negative SG:ARG. Risky bogey unders.' },
+    { id:9, name:'Tommy Fleetwood', rank:9, sgTotal:1.25, sgOtt:0.35, sgApp:0.52, sgArg:0.20, sgPutt:0.18, birdieAvg:4.3, bogeyAvg:2.1, scoringAvg:70.0, gir:68.2, fairways:67.0, scramble:62.0, proxAvg:33.8, missDir:'left', flight:'low_draw', courseFit:{augusta:68,tpc_sawgrass:80,pebble:85,torrey_south:75,riviera:80,valhalla:72,pinehurst_2:82,royal_troon:92,quail_hollow:72,east_lake:75,bay_hill:75,harbour_town:85,colonial:82,memorial:75,tpc_scottsdale:72}, notes:'Links-style player. Low ball flight suits windy conditions. Good bogey under candidate.' },
+    { id:10, name:'Sahith Theegala', rank:10, sgTotal:1.18, sgOtt:0.52, sgApp:0.42, sgArg:0.10, sgPutt:0.14, birdieAvg:4.8, bogeyAvg:2.7, scoringAvg:70.1, gir:66.5, fairways:57.0, scramble:56.5, proxAvg:34.2, missDir:'left', flight:'high_draw', courseFit:{augusta:70,tpc_sawgrass:72,pebble:72,torrey_south:68,riviera:82,valhalla:75,pinehurst_2:68,royal_troon:65,quail_hollow:75,east_lake:72,bay_hill:70,harbour_town:62,colonial:68,memorial:72,tpc_scottsdale:78}, notes:'High birdie upside but high bogey rate. Very aggressive. Best for birdie overs.' },
+    { id:11, name:'Hideki Matsuyama', rank:11, sgTotal:1.12, sgOtt:0.38, sgApp:0.52, sgArg:0.12, sgPutt:0.10, birdieAvg:4.4, bogeyAvg:2.2, scoringAvg:70.0, gir:69.0, fairways:64.0, scramble:60.0, proxAvg:32.5, missDir:'left', flight:'high_draw', courseFit:{augusta:92,tpc_sawgrass:78,pebble:75,torrey_south:78,riviera:80,valhalla:78,pinehurst_2:75,royal_troon:72,quail_hollow:78,east_lake:82,bay_hill:78,harbour_town:72,colonial:75,memorial:82,tpc_scottsdale:85}, notes:'Masters champion. Elite approach play. Streaky putter — hot weeks can win anywhere.' },
+    { id:12, name:'Max Homa', rank:12, sgTotal:1.05, sgOtt:0.42, sgApp:0.38, sgArg:0.15, sgPutt:0.10, birdieAvg:4.2, bogeyAvg:2.3, scoringAvg:70.3, gir:67.0, fairways:64.5, scramble:61.0, proxAvg:34.5, missDir:'left', flight:'high_draw', courseFit:{augusta:65,tpc_sawgrass:70,pebble:78,torrey_south:82,riviera:88,valhalla:68,pinehurst_2:65,royal_troon:62,quail_hollow:72,east_lake:70,bay_hill:68,harbour_town:72,colonial:75,memorial:72,tpc_scottsdale:72}, notes:'Solid all-around. Riviera and Torrey specialist. Reliable at home courses.' },
+    { id:13, name:'Shane Lowry', rank:13, sgTotal:1.02, sgOtt:0.30, sgApp:0.42, sgArg:0.18, sgPutt:0.12, birdieAvg:4.1, bogeyAvg:2.1, scoringAvg:70.2, gir:67.5, fairways:65.5, scramble:63.0, proxAvg:34.0, missDir:'left', flight:'low_draw', courseFit:{augusta:68,tpc_sawgrass:78,pebble:82,torrey_south:72,riviera:75,valhalla:82,pinehurst_2:80,royal_troon:95,quail_hollow:72,east_lake:72,bay_hill:72,harbour_town:82,colonial:78,memorial:72,tpc_scottsdale:68}, notes:'Links specialist. Open champion. Low ball flight dominates in wind.' },
+    { id:14, name:'Sungjae Im', rank:14, sgTotal:0.95, sgOtt:0.28, sgApp:0.40, sgArg:0.15, sgPutt:0.12, birdieAvg:4.0, bogeyAvg:2.0, scoringAvg:70.4, gir:68.5, fairways:69.0, scramble:61.5, proxAvg:35.0, missDir:'neutral', flight:'neutral', courseFit:{augusta:72,tpc_sawgrass:75,pebble:70,torrey_south:70,riviera:72,valhalla:72,pinehurst_2:70,royal_troon:68,quail_hollow:75,east_lake:72,bay_hill:72,harbour_town:75,colonial:78,memorial:75,tpc_scottsdale:75}, notes:'Iron man — plays every week. Rarely misses cuts. Great for MC and top 20 props.' },
+    { id:15, name:'Sam Burns', rank:15, sgTotal:0.92, sgOtt:0.45, sgApp:0.35, sgArg:0.08, sgPutt:0.04, birdieAvg:4.5, bogeyAvg:2.4, scoringAvg:70.3, gir:67.0, fairways:60.0, scramble:58.5, proxAvg:34.5, missDir:'right', flight:'high_fade', courseFit:{augusta:72,tpc_sawgrass:78,pebble:70,torrey_south:75,riviera:72,valhalla:78,pinehurst_2:72,royal_troon:65,quail_hollow:78,east_lake:78,bay_hill:75,harbour_town:72,colonial:75,memorial:78,tpc_scottsdale:82}, notes:'Talented ball-striker with streaky putting. When putter is hot, can contend anywhere.' },
+    { id:16, name:'Tony Finau', rank:16, sgTotal:0.90, sgOtt:0.55, sgApp:0.30, sgArg:0.05, sgPutt:0.00, birdieAvg:4.4, bogeyAvg:2.3, scoringAvg:70.3, gir:67.5, fairways:60.5, scramble:58.0, proxAvg:34.0, missDir:'right', flight:'high_fade', courseFit:{augusta:72,tpc_sawgrass:70,pebble:72,torrey_south:78,riviera:72,valhalla:80,pinehurst_2:72,royal_troon:68,quail_hollow:78,east_lake:75,bay_hill:75,harbour_town:65,colonial:68,memorial:75,tpc_scottsdale:82}, notes:'Elite power but inconsistent putter. Best at bombers courses. Fade at short tracks.' },
+    { id:17, name:'Keegan Bradley', rank:17, sgTotal:0.88, sgOtt:0.35, sgApp:0.32, sgArg:0.12, sgPutt:0.09, birdieAvg:4.1, bogeyAvg:2.2, scoringAvg:70.4, gir:67.5, fairways:65.0, scramble:60.5, proxAvg:34.2, missDir:'left', flight:'high_draw', courseFit:{augusta:70,tpc_sawgrass:72,pebble:68,torrey_south:72,riviera:72,valhalla:75,pinehurst_2:72,royal_troon:68,quail_hollow:75,east_lake:72,bay_hill:72,harbour_town:75,colonial:78,memorial:75,tpc_scottsdale:72}, notes:'Steady veteran. Consistent without being flashy. Good MC and top-20 candidate.' },
+    { id:18, name:'Justin Thomas', rank:18, sgTotal:0.85, sgOtt:0.48, sgApp:0.42, sgArg:0.05, sgPutt:-0.10, birdieAvg:4.6, bogeyAvg:2.6, scoringAvg:70.5, gir:68.0, fairways:60.0, scramble:56.0, proxAvg:33.0, missDir:'left', flight:'high_draw', courseFit:{augusta:80,tpc_sawgrass:78,pebble:72,torrey_south:75,riviera:78,valhalla:88,pinehurst_2:78,royal_troon:72,quail_hollow:85,east_lake:82,bay_hill:78,harbour_town:68,colonial:72,memorial:82,tpc_scottsdale:80}, notes:'Former world #1 in a slump. Ball-striking still elite but putter has gone cold.' },
+    { id:19, name:'Jason Day', rank:19, sgTotal:0.82, sgOtt:0.40, sgApp:0.28, sgArg:0.08, sgPutt:0.06, birdieAvg:4.2, bogeyAvg:2.3, scoringAvg:70.5, gir:66.5, fairways:62.0, scramble:60.0, proxAvg:34.5, missDir:'right', flight:'high_fade', courseFit:{augusta:80,tpc_sawgrass:82,pebble:72,torrey_south:78,riviera:72,valhalla:78,pinehurst_2:72,royal_troon:68,quail_hollow:82,east_lake:78,bay_hill:85,harbour_town:72,colonial:72,memorial:78,tpc_scottsdale:78}, notes:'Resurgent veteran. Short game wizard when healthy. Bay Hill specialist.' },
+    { id:20, name:'Russell Henley', rank:20, sgTotal:0.80, sgOtt:0.22, sgApp:0.38, sgArg:0.12, sgPutt:0.08, birdieAvg:3.9, bogeyAvg:2.0, scoringAvg:70.4, gir:68.0, fairways:68.5, scramble:62.0, proxAvg:34.0, missDir:'neutral', flight:'neutral', courseFit:{augusta:68,tpc_sawgrass:78,pebble:75,torrey_south:72,riviera:75,valhalla:72,pinehurst_2:78,royal_troon:75,quail_hollow:72,east_lake:75,bay_hill:72,harbour_town:82,colonial:85,memorial:75,tpc_scottsdale:72}, notes:'Extremely accurate. Low bogey rate. Great at precision courses like Harbour Town and Colonial.' },
+    { id:21, name:'Brian Harman', rank:21, sgTotal:0.78, sgOtt:0.15, sgApp:0.30, sgArg:0.20, sgPutt:0.13, birdieAvg:3.8, bogeyAvg:1.9, scoringAvg:70.5, gir:66.5, fairways:70.5, scramble:65.0, proxAvg:35.5, missDir:'left', flight:'low_draw', courseFit:{augusta:62,tpc_sawgrass:75,pebble:80,torrey_south:68,riviera:72,valhalla:68,pinehurst_2:78,royal_troon:90,quail_hollow:68,east_lake:72,bay_hill:68,harbour_town:88,colonial:85,memorial:72,tpc_scottsdale:68}, notes:'Open champion. Lefty with great short game. Thrives on accuracy courses and links.' },
+    { id:22, name:'Cameron Young', rank:22, sgTotal:0.75, sgOtt:0.65, sgApp:0.18, sgArg:-0.02, sgPutt:-0.06, birdieAvg:4.5, bogeyAvg:2.6, scoringAvg:70.6, gir:66.0, fairways:56.0, scramble:55.0, proxAvg:34.8, missDir:'left', flight:'high_draw', courseFit:{augusta:72,tpc_sawgrass:68,pebble:65,torrey_south:75,riviera:72,valhalla:78,pinehurst_2:68,royal_troon:65,quail_hollow:78,east_lake:72,bay_hill:72,harbour_town:58,colonial:62,memorial:72,tpc_scottsdale:75}, notes:'Huge power but accuracy issues. Multiple runner-up finishes. Volatile scorer.' },
+    { id:23, name:'Denny McCarthy', rank:23, sgTotal:0.72, sgOtt:0.05, sgApp:0.15, sgArg:0.18, sgPutt:0.34, birdieAvg:3.6, bogeyAvg:1.8, scoringAvg:70.6, gir:65.0, fairways:70.0, scramble:68.0, proxAvg:36.0, missDir:'neutral', flight:'neutral', courseFit:{augusta:58,tpc_sawgrass:72,pebble:75,torrey_south:65,riviera:72,valhalla:62,pinehurst_2:75,royal_troon:72,quail_hollow:65,east_lake:68,bay_hill:65,harbour_town:85,colonial:88,memorial:70,tpc_scottsdale:72}, notes:'Best putter on Tour. Short off the tee. Needs accuracy courses. Elite bogey under.' },
+    { id:24, name:'Byeong Hun An', rank:24, sgTotal:0.70, sgOtt:0.32, sgApp:0.28, sgArg:0.06, sgPutt:0.04, birdieAvg:4.0, bogeyAvg:2.2, scoringAvg:70.6, gir:67.0, fairways:64.0, scramble:59.0, proxAvg:34.5, missDir:'neutral', flight:'neutral', courseFit:{augusta:68,tpc_sawgrass:72,pebble:70,torrey_south:72,riviera:72,valhalla:72,pinehurst_2:70,royal_troon:68,quail_hollow:72,east_lake:72,bay_hill:72,harbour_town:72,colonial:75,memorial:72,tpc_scottsdale:72}, notes:'Consistent ball-striker. No elite category but no major weakness. Reliable for top-20.' },
+    { id:25, name:'Adam Scott', rank:25, sgTotal:0.68, sgOtt:0.35, sgApp:0.25, sgArg:0.05, sgPutt:0.03, birdieAvg:4.0, bogeyAvg:2.2, scoringAvg:70.6, gir:67.5, fairways:63.0, scramble:59.5, proxAvg:34.0, missDir:'right', flight:'high_fade', courseFit:{augusta:85,tpc_sawgrass:78,pebble:72,torrey_south:75,riviera:82,valhalla:75,pinehurst_2:72,royal_troon:72,quail_hollow:75,east_lake:78,bay_hill:78,harbour_town:72,colonial:72,memorial:78,tpc_scottsdale:72}, notes:'Veteran with elite swing. Augusta specialist. Still competitive but ceiling has lowered.' },
+    { id:26, name:'Aaron Rai', rank:26, sgTotal:0.65, sgOtt:0.18, sgApp:0.32, sgArg:0.10, sgPutt:0.05, birdieAvg:3.9, bogeyAvg:2.1, scoringAvg:70.7, gir:68.0, fairways:67.0, scramble:61.0, proxAvg:34.5, missDir:'right', flight:'low_fade', courseFit:{augusta:62,tpc_sawgrass:75,pebble:78,torrey_south:70,riviera:75,valhalla:68,pinehurst_2:78,royal_troon:82,quail_hollow:68,east_lake:70,bay_hill:68,harbour_town:82,colonial:82,memorial:72,tpc_scottsdale:70}, notes:'Precise iron player. Accuracy over power. Good at courses that demand shotmaking.' },
+    { id:27, name:'Billy Horschel', rank:27, sgTotal:0.62, sgOtt:0.28, sgApp:0.22, sgArg:0.08, sgPutt:0.04, birdieAvg:3.9, bogeyAvg:2.2, scoringAvg:70.7, gir:66.5, fairways:65.0, scramble:60.0, proxAvg:35.0, missDir:'right', flight:'high_fade', courseFit:{augusta:62,tpc_sawgrass:82,pebble:72,torrey_south:68,riviera:72,valhalla:72,pinehurst_2:70,royal_troon:68,quail_hollow:72,east_lake:88,bay_hill:78,harbour_town:72,colonial:72,memorial:72,tpc_scottsdale:72}, notes:'East Lake specialist. TPC Sawgrass has history. Emotional player.' },
+    { id:28, name:'Tom Kim', rank:28, sgTotal:0.60, sgOtt:0.30, sgApp:0.22, sgArg:0.05, sgPutt:0.03, birdieAvg:4.2, bogeyAvg:2.4, scoringAvg:70.7, gir:66.0, fairways:62.0, scramble:57.5, proxAvg:34.5, missDir:'left', flight:'high_draw', courseFit:{augusta:68,tpc_sawgrass:72,pebble:68,torrey_south:72,riviera:72,valhalla:72,pinehurst_2:68,royal_troon:65,quail_hollow:78,east_lake:75,bay_hill:72,harbour_town:68,colonial:70,memorial:72,tpc_scottsdale:78}, notes:'Young talent with flair. Aggressive with high birdie ceiling. Fun for props.' },
+    { id:29, name:'Corey Conners', rank:29, sgTotal:0.58, sgOtt:0.20, sgApp:0.45, sgArg:0.02, sgPutt:-0.09, birdieAvg:3.8, bogeyAvg:2.1, scoringAvg:70.7, gir:70.0, fairways:68.0, scramble:57.0, proxAvg:33.0, missDir:'right', flight:'low_fade', courseFit:{augusta:75,tpc_sawgrass:78,pebble:78,torrey_south:72,riviera:78,valhalla:72,pinehurst_2:80,royal_troon:78,quail_hollow:72,east_lake:72,bay_hill:72,harbour_town:80,colonial:82,memorial:78,tpc_scottsdale:72}, notes:'Elite iron player but can\'t putt. Highest GIR with lowest conversion.' },
+    { id:30, name:'Sepp Straka', rank:30, sgTotal:0.55, sgOtt:0.30, sgApp:0.18, sgArg:0.05, sgPutt:0.02, birdieAvg:4.0, bogeyAvg:2.2, scoringAvg:70.8, gir:67.0, fairways:63.0, scramble:59.0, proxAvg:34.5, missDir:'neutral', flight:'neutral', courseFit:{augusta:68,tpc_sawgrass:72,pebble:70,torrey_south:72,riviera:72,valhalla:72,pinehurst_2:70,royal_troon:68,quail_hollow:75,east_lake:72,bay_hill:72,harbour_town:72,colonial:72,memorial:72,tpc_scottsdale:72}, notes:'Steady ball-striker from Austria. Reliable for MC and top-20 at mid-strength events.' },
+    { id:31, name:'Chris Kirk', rank:31, sgTotal:0.52, sgOtt:0.22, sgApp:0.18, sgArg:0.08, sgPutt:0.04, birdieAvg:3.8, bogeyAvg:2.1, scoringAvg:70.8, gir:66.5, fairways:66.0, scramble:61.0, proxAvg:35.0, missDir:'neutral', flight:'neutral', courseFit:{augusta:65,tpc_sawgrass:72,pebble:72,torrey_south:68,riviera:72,valhalla:72,pinehurst_2:72,royal_troon:70,quail_hollow:72,east_lake:72,bay_hill:72,harbour_town:78,colonial:78,memorial:72,tpc_scottsdale:72}, notes:'Comeback story. Steady and consistent. Good at shorter accuracy courses.' },
+    { id:32, name:'Taylor Pendrith', rank:32, sgTotal:0.50, sgOtt:0.55, sgApp:0.10, sgArg:-0.05, sgPutt:-0.10, birdieAvg:4.3, bogeyAvg:2.5, scoringAvg:70.9, gir:65.5, fairways:57.0, scramble:55.0, proxAvg:35.0, missDir:'right', flight:'high_fade', courseFit:{augusta:68,tpc_sawgrass:65,pebble:62,torrey_south:75,riviera:68,valhalla:78,pinehurst_2:65,royal_troon:60,quail_hollow:78,east_lake:68,bay_hill:72,harbour_town:58,colonial:60,memorial:68,tpc_scottsdale:75}, notes:'Bomber who relies on length. Weak short game. Best at wide-open courses.' },
+    { id:33, name:'Matt Fitzpatrick', rank:33, sgTotal:0.48, sgOtt:0.10, sgApp:0.30, sgArg:0.05, sgPutt:0.03, birdieAvg:3.7, bogeyAvg:2.1, scoringAvg:70.9, gir:67.5, fairways:69.0, scramble:60.0, proxAvg:34.0, missDir:'left', flight:'low_draw', courseFit:{augusta:65,tpc_sawgrass:78,pebble:78,torrey_south:68,riviera:78,valhalla:68,pinehurst_2:85,royal_troon:80,quail_hollow:68,east_lake:72,bay_hill:68,harbour_town:82,colonial:85,memorial:75,tpc_scottsdale:68}, notes:'US Open champion. Precision player. Thrives on tight, demanding courses.' },
+    { id:34, name:'Robert MacIntyre', rank:34, sgTotal:0.45, sgOtt:0.32, sgApp:0.15, sgArg:0.02, sgPutt:-0.04, birdieAvg:4.0, bogeyAvg:2.3, scoringAvg:71.0, gir:66.0, fairways:62.0, scramble:58.0, proxAvg:35.0, missDir:'left', flight:'low_draw', courseFit:{augusta:62,tpc_sawgrass:68,pebble:72,torrey_south:68,riviera:72,valhalla:72,pinehurst_2:72,royal_troon:85,quail_hollow:72,east_lake:68,bay_hill:68,harbour_town:75,colonial:72,memorial:68,tpc_scottsdale:68}, notes:'Scottish lefty with links pedigree. Gritty competitor. Good in wind.' },
+    { id:35, name:'Akshay Bhatia', rank:35, sgTotal:0.42, sgOtt:0.38, sgApp:0.15, sgArg:0.02, sgPutt:-0.13, birdieAvg:4.3, bogeyAvg:2.5, scoringAvg:71.0, gir:66.0, fairways:58.0, scramble:56.0, proxAvg:35.0, missDir:'left', flight:'high_draw', courseFit:{augusta:68,tpc_sawgrass:65,pebble:62,torrey_south:72,riviera:68,valhalla:72,pinehurst_2:62,royal_troon:58,quail_hollow:72,east_lake:68,bay_hill:68,harbour_town:58,colonial:62,memorial:68,tpc_scottsdale:75}, notes:'Young lefty talent. Aggressive. Putting holds him back. High variance.' },
+    { id:36, name:'Min Woo Lee', rank:36, sgTotal:0.40, sgOtt:0.42, sgApp:0.12, sgArg:0.00, sgPutt:-0.14, birdieAvg:4.2, bogeyAvg:2.4, scoringAvg:71.0, gir:66.0, fairways:59.0, scramble:57.0, proxAvg:35.0, missDir:'left', flight:'high_draw', courseFit:{augusta:65,tpc_sawgrass:68,pebble:68,torrey_south:72,riviera:70,valhalla:72,pinehurst_2:65,royal_troon:72,quail_hollow:72,east_lake:68,bay_hill:68,harbour_town:65,colonial:68,memorial:68,tpc_scottsdale:72}, notes:'Australian talent with power. Inconsistent but can go low. Good for T20 at mid-tier.' },
+    { id:37, name:'Nicolai Hojgaard', rank:37, sgTotal:0.38, sgOtt:0.35, sgApp:0.12, sgArg:0.00, sgPutt:-0.09, birdieAvg:4.1, bogeyAvg:2.3, scoringAvg:71.1, gir:66.0, fairways:61.0, scramble:57.5, proxAvg:35.0, missDir:'right', flight:'high_fade', courseFit:{augusta:65,tpc_sawgrass:68,pebble:65,torrey_south:70,riviera:68,valhalla:72,pinehurst_2:65,royal_troon:72,quail_hollow:72,east_lake:68,bay_hill:68,harbour_town:65,colonial:68,memorial:68,tpc_scottsdale:72}, notes:'Danish twin. Athletic and powerful. Still adapting to PGA Tour courses.' },
+    { id:38, name:'Davis Thompson', rank:38, sgTotal:0.35, sgOtt:0.25, sgApp:0.12, sgArg:0.02, sgPutt:-0.04, birdieAvg:3.9, bogeyAvg:2.2, scoringAvg:71.1, gir:66.5, fairways:64.0, scramble:58.5, proxAvg:35.0, missDir:'neutral', flight:'neutral', courseFit:{augusta:62,tpc_sawgrass:72,pebble:68,torrey_south:68,riviera:68,valhalla:68,pinehurst_2:68,royal_troon:65,quail_hollow:72,east_lake:72,bay_hill:68,harbour_town:72,colonial:75,memorial:72,tpc_scottsdale:72}, notes:'Young steady player. Won his first Tour event. Good for MC props.' },
+    { id:39, name:'Austin Eckroat', rank:39, sgTotal:0.33, sgOtt:0.30, sgApp:0.08, sgArg:0.00, sgPutt:-0.05, birdieAvg:4.0, bogeyAvg:2.3, scoringAvg:71.2, gir:66.0, fairways:62.0, scramble:57.0, proxAvg:35.5, missDir:'right', flight:'high_fade', courseFit:{augusta:62,tpc_sawgrass:65,pebble:65,torrey_south:72,riviera:65,valhalla:72,pinehurst_2:62,royal_troon:60,quail_hollow:72,east_lake:65,bay_hill:68,harbour_town:62,colonial:65,memorial:68,tpc_scottsdale:72}, notes:'Oklahoma product with power. Better at longer courses. Thin field value play.' },
+    { id:40, name:'Harris English', rank:40, sgTotal:0.30, sgOtt:0.22, sgApp:0.12, sgArg:0.02, sgPutt:-0.06, birdieAvg:3.8, bogeyAvg:2.2, scoringAvg:71.2, gir:66.0, fairways:65.0, scramble:59.0, proxAvg:35.5, missDir:'neutral', flight:'neutral', courseFit:{augusta:65,tpc_sawgrass:72,pebble:70,torrey_south:72,riviera:68,valhalla:72,pinehurst_2:68,royal_troon:65,quail_hollow:72,east_lake:78,bay_hill:72,harbour_town:75,colonial:72,memorial:72,tpc_scottsdale:72}, notes:'Steady veteran. East Lake familiarity. Reliable for MC at full fields.' },
+    { id:41, name:'Jake Knapp', rank:41, sgTotal:0.28, sgOtt:0.58, sgApp:0.00, sgArg:-0.12, sgPutt:-0.18, birdieAvg:4.2, bogeyAvg:2.7, scoringAvg:71.3, gir:64.0, fairways:54.0, scramble:52.0, proxAvg:36.0, missDir:'right', flight:'high_fade', courseFit:{augusta:60,tpc_sawgrass:58,pebble:55,torrey_south:68,riviera:62,valhalla:72,pinehurst_2:55,royal_troon:50,quail_hollow:72,east_lake:60,bay_hill:65,harbour_town:48,colonial:50,memorial:62,tpc_scottsdale:72}, notes:'Longest hitter on Tour. Accuracy is a problem. Only play at bomber-friendly tracks.' },
+    { id:42, name:'Keith Mitchell', rank:42, sgTotal:0.25, sgOtt:0.48, sgApp:0.02, sgArg:-0.10, sgPutt:-0.15, birdieAvg:4.1, bogeyAvg:2.6, scoringAvg:71.3, gir:65.0, fairways:56.0, scramble:53.0, proxAvg:35.5, missDir:'right', flight:'high_fade', courseFit:{augusta:62,tpc_sawgrass:60,pebble:58,torrey_south:72,riviera:62,valhalla:75,pinehurst_2:58,royal_troon:55,quail_hollow:75,east_lake:62,bay_hill:68,harbour_town:52,colonial:55,memorial:62,tpc_scottsdale:72}, notes:'Power player with accuracy issues. Thrives at wide courses.' },
+    { id:43, name:'Stephan Jaeger', rank:43, sgTotal:0.22, sgOtt:0.15, sgApp:0.10, sgArg:0.02, sgPutt:-0.05, birdieAvg:3.7, bogeyAvg:2.2, scoringAvg:71.3, gir:66.0, fairways:65.0, scramble:58.0, proxAvg:35.5, missDir:'neutral', flight:'neutral', courseFit:{augusta:58,tpc_sawgrass:68,pebble:68,torrey_south:65,riviera:68,valhalla:65,pinehurst_2:68,royal_troon:65,quail_hollow:68,east_lake:65,bay_hill:65,harbour_town:72,colonial:72,memorial:68,tpc_scottsdale:68}, notes:'German journeyman. Shot 58 on mini-tour. Reliable for MC at weaker fields.' },
+    { id:44, name:'Eric Cole', rank:44, sgTotal:0.20, sgOtt:0.42, sgApp:0.00, sgArg:-0.08, sgPutt:-0.14, birdieAvg:4.0, bogeyAvg:2.5, scoringAvg:71.4, gir:65.0, fairways:57.0, scramble:54.0, proxAvg:35.5, missDir:'right', flight:'high_fade', courseFit:{augusta:62,tpc_sawgrass:60,pebble:58,torrey_south:68,riviera:62,valhalla:72,pinehurst_2:58,royal_troon:55,quail_hollow:72,east_lake:62,bay_hill:65,harbour_town:55,colonial:58,memorial:62,tpc_scottsdale:68}, notes:'Big hitter with inconsistent short game. Best at wide-open courses.' },
+    { id:45, name:'Christiaan Bezuidenhout', rank:45, sgTotal:0.18, sgOtt:0.15, sgApp:0.12, sgArg:0.00, sgPutt:-0.09, birdieAvg:3.7, bogeyAvg:2.2, scoringAvg:71.4, gir:66.5, fairways:66.0, scramble:58.0, proxAvg:35.0, missDir:'left', flight:'low_draw', courseFit:{augusta:62,tpc_sawgrass:72,pebble:72,torrey_south:65,riviera:72,valhalla:65,pinehurst_2:72,royal_troon:75,quail_hollow:65,east_lake:68,bay_hill:65,harbour_town:75,colonial:78,memorial:68,tpc_scottsdale:65}, notes:'South African with smooth swing. Good in wind. Putting holds him back.' },
+    { id:46, name:'Jordan Spieth', rank:46, sgTotal:0.15, sgOtt:0.10, sgApp:0.08, sgArg:0.05, sgPutt:-0.08, birdieAvg:3.8, bogeyAvg:2.4, scoringAvg:71.5, gir:65.0, fairways:60.0, scramble:62.0, proxAvg:35.5, missDir:'left', flight:'high_draw', courseFit:{augusta:88,tpc_sawgrass:72,pebble:82,torrey_south:72,riviera:72,valhalla:75,pinehurst_2:72,royal_troon:82,quail_hollow:72,east_lake:82,bay_hill:72,harbour_town:72,colonial:85,memorial:72,tpc_scottsdale:78}, notes:'3x major champ in a slump. Course history still matters — elite at Augusta, Colonial, Pebble.' },
+    { id:47, name:'Michael Thorbjornsen', rank:47, sgTotal:0.12, sgOtt:0.25, sgApp:0.05, sgArg:-0.05, sgPutt:-0.13, birdieAvg:3.9, bogeyAvg:2.4, scoringAvg:71.5, gir:65.5, fairways:61.0, scramble:55.0, proxAvg:35.5, missDir:'right', flight:'high_fade', courseFit:{augusta:58,tpc_sawgrass:62,pebble:60,torrey_south:65,riviera:62,valhalla:68,pinehurst_2:60,royal_troon:58,quail_hollow:68,east_lake:62,bay_hill:65,harbour_town:58,colonial:60,memorial:65,tpc_scottsdale:68}, notes:'Promising rookie from Stanford. Athletic and long. Watch for breakout.' },
+    { id:48, name:'Nick Dunlap', rank:48, sgTotal:0.10, sgOtt:0.28, sgApp:0.02, sgArg:-0.08, sgPutt:-0.12, birdieAvg:4.0, bogeyAvg:2.5, scoringAvg:71.5, gir:65.0, fairways:60.0, scramble:54.0, proxAvg:36.0, missDir:'left', flight:'high_draw', courseFit:{augusta:58,tpc_sawgrass:60,pebble:58,torrey_south:65,riviera:62,valhalla:68,pinehurst_2:58,royal_troon:55,quail_hollow:68,east_lake:62,bay_hill:62,harbour_town:55,colonial:58,memorial:62,tpc_scottsdale:72}, notes:'Won as amateur on Tour. Young talent still developing. DFS dart throw.' },
+    { id:49, name:'Ben Griffin', rank:49, sgTotal:0.08, sgOtt:0.18, sgApp:0.00, sgArg:-0.02, sgPutt:-0.08, birdieAvg:3.7, bogeyAvg:2.3, scoringAvg:71.5, gir:65.5, fairways:63.0, scramble:57.0, proxAvg:35.5, missDir:'neutral', flight:'neutral', courseFit:{augusta:55,tpc_sawgrass:62,pebble:62,torrey_south:62,riviera:62,valhalla:65,pinehurst_2:62,royal_troon:60,quail_hollow:65,east_lake:62,bay_hill:62,harbour_town:65,colonial:68,memorial:62,tpc_scottsdale:65}, notes:'Steady mid-tier player. MC candidate at weaker fields. Fade at marquee events.' },
+    { id:50, name:'Maverick McNealy', rank:50, sgTotal:0.05, sgOtt:0.15, sgApp:0.00, sgArg:-0.02, sgPutt:-0.08, birdieAvg:3.6, bogeyAvg:2.3, scoringAvg:71.6, gir:65.0, fairways:64.0, scramble:57.0, proxAvg:36.0, missDir:'neutral', flight:'neutral', courseFit:{augusta:55,tpc_sawgrass:62,pebble:68,torrey_south:68,riviera:65,valhalla:62,pinehurst_2:62,royal_troon:60,quail_hollow:62,east_lake:62,bay_hill:62,harbour_town:65,colonial:68,memorial:62,tpc_scottsdale:68}, notes:'Stanford product. West Coast familiarity. Pebble and Torrey specialist.' }
   ];
 
   var propBoard = [];
@@ -702,6 +791,16 @@
     return '+' + (odds * 100);
   }
 
+  // PropsBot confColor — 3-tier accent from confidence score
+  function confColor(conf) {
+    if (conf >= 70) return '#15ffc2'; // TEAL
+    if (conf >= 40) return '#22a9ec'; // BLUE
+    return '#ff1552';                  // RED
+  }
+  function confClass(conf) {
+    return conf >= 40 ? 'high' : 'low';
+  }
+
   /* ============================================================
      TAB SWITCHING
   ============================================================ */
@@ -733,10 +832,10 @@
 
     filtered.forEach(function(p) {
       var div = document.createElement('div');
-      div.className = 'player-card glass rounded-xl p-3 border border-white/5';
+      div.className = 'player-card p-3';
       div.dataset.id = p.id;
 
-      var sgColor = p.sgTotal >= 1.5 ? 'text-pb-teal' : (p.sgTotal >= 0.8 ? 'text-pb-gold' : 'text-slate-300');
+      var sgColor = p.sgTotal >= 1.5 ? 'text-pb-teal' : (p.sgTotal >= 0.5 ? 'text-pb-blue' : 'text-slate-400');
       div.innerHTML =
         '<div class="flex items-center justify-between mb-2">' +
           '<div class="flex items-center gap-2">' +
@@ -795,7 +894,7 @@
 
     el('pdSgBars').innerHTML = sgCats.map(function(cat) {
       var pct = Math.max(0, Math.min(100, (cat.value / cat.max) * 100));
-      var color = cat.value >= 0.5 ? 'bg-pb-teal' : (cat.value >= 0.2 ? 'bg-pb-gold' : (cat.value >= 0 ? 'bg-slate-400' : 'bg-pb-red'));
+      var color = cat.value >= 0.5 ? 'bg-pb-teal' : (cat.value >= 0.15 ? 'bg-pb-blue' : (cat.value >= 0 ? 'bg-slate-500' : 'bg-pb-red'));
       return '<div>' +
         '<div class="flex justify-between text-[11px] mb-0.5"><span class="text-slate-400">' + cat.label + '</span><span class="mono text-slate-200 font-semibold">' + cat.value.toFixed(2) + '</span></div>' +
         '<div class="conf-bar"><div class="conf-fill ' + color + '" style="width:' + pct + '%"></div></div>' +
@@ -919,18 +1018,20 @@
     var edge = Math.abs(mean - line);
 
     var confScore = Math.round(Math.min(95, Math.max(20, bestPct * 0.8 + edge * 5)));
-    var confColor = confScore >= 70 ? 'text-pb-teal' : (confScore >= 50 ? 'text-pb-gold' : 'text-pb-red');
-    var barGrad = confScore >= 70 ? 'background:linear-gradient(90deg,#15ffc2,#0bd4a0)' : (confScore >= 50 ? 'background:linear-gradient(90deg,#FFD600,#e6c200)' : 'background:linear-gradient(90deg,#ff1552,#cc1142)');
+    var confColorHex = confColor(confScore);
+    var confBarClass = confClass(confScore);
 
     el('propResult').classList.remove('hidden');
     el('prTitle').textContent = p.name + ' — ' + bestSide + ' ' + line + ' ' + metricName;
     el('prSubtitle').textContent = 'Model projects ' + mean.toFixed(1) + ' ' + metricName + ' per round (σ = ' + std.toFixed(1) + ')';
     el('prConf').textContent = confScore + '%';
-    el('prConf').className = 'mono text-2xl font-bold ' + confColor;
+    el('prConf').className = 'mono text-2xl font-bold';
+    el('prConf').style.color = confColorHex;
     el('prAvg').textContent = mean.toFixed(1);
     el('prOver').textContent = overPct.toFixed(1) + '%';
     el('prUnder').textContent = underPct.toFixed(1) + '%';
-    el('prConfBar').style.cssText = 'width:' + confScore + '%;' + barGrad;
+    el('prConfBar').className = 'conf-fill ' + confBarClass;
+    el('prConfBar').style.width = confScore + '%';
 
     var notes = 'The model projects ' + p.name + ' at ' + mean.toFixed(1) + ' ' + metricName + ' per round. ';
     notes += 'Against a line of ' + line + ', the raw distribution implies ' + overPct.toFixed(1) + '% over / ' + underPct.toFixed(1) + '% under. ';
@@ -952,8 +1053,8 @@
       return;
     }
     propBoard.sort(function(a, b) { return b.conf - a.conf; }).forEach(function(o) {
-      var signalColor = o.conf >= 70 ? 'bg-pb-teal/15 text-pb-teal border-pb-teal/30' : (o.conf >= 50 ? 'bg-pb-gold/15 text-pb-gold border-pb-gold/30' : 'bg-pb-red/15 text-pb-red border-pb-red/30');
-      var signalLabel = o.conf >= 70 ? 'STRONG' : (o.conf >= 50 ? 'MODERATE' : 'THIN');
+      var signalColor = o.conf >= 70 ? 'bg-pb-teal/15 text-pb-teal border-pb-teal/30' : (o.conf >= 40 ? 'bg-pb-blue/15 text-pb-blue border-pb-blue/30' : 'bg-pb-red/15 text-pb-red border-pb-red/30');
+      var signalLabel = o.conf >= 70 ? 'STRONG' : (o.conf >= 40 ? 'MODERATE' : 'THIN');
       var tr = document.createElement('tr');
       tr.className = 'hover:bg-white/[0.02] transition-colors';
       tr.innerHTML =
