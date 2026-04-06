@@ -131,6 +131,14 @@
   </div>
 </header>
 
+<!-- WEATHER BAR (shown when tournament weather data is available) -->
+<div id="weatherBar" class="hidden border-b border-white/5" style="background:rgba(15,28,46,0.6)">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-4 overflow-x-auto text-[11px]">
+    <span class="text-slate-500 font-semibold uppercase tracking-wide whitespace-nowrap" style="font-size:9px">Course Weather</span>
+    <div id="weatherDays" class="flex gap-3"></div>
+  </div>
+</div>
+
 <!-- TAB NAV -->
 <nav class="glass border-b border-white/5">
   <div class="max-w-7xl mx-auto px-4 flex gap-1.5 py-2 overflow-x-auto">
@@ -836,11 +844,27 @@
       div.dataset.id = p.id;
 
       var sgColor = p.sgTotal >= 1.5 ? 'text-pb-teal' : (p.sgTotal >= 0.5 ? 'text-pb-blue' : 'text-slate-400');
+      // Odds pills
+      var oddsHtml = '';
+      if (p.odds) {
+        if (p.odds.dk) oddsHtml += '<span class="stat-pill bg-pb-gold/10 text-pb-gold border border-pb-gold/20" style="font-size:10px">DK ' + p.odds.dk + '</span>';
+        if (p.odds.fd) oddsHtml += '<span class="stat-pill bg-pb-blue/10 text-pb-blue border border-pb-blue/20" style="font-size:10px">FD ' + p.odds.fd + '</span>';
+      }
+
+      // Recent form badge
+      var formHtml = '';
+      if (p.recentForm) {
+        var trendColor = p.recentForm.trend === 'hot' ? 'bg-pb-teal/15 text-pb-teal' : (p.recentForm.trend === 'cold' ? 'bg-pb-red/15 text-pb-red' : 'bg-white/5 text-slate-400');
+        var trendLabel = p.recentForm.trend ? p.recentForm.trend.toUpperCase() : '';
+        formHtml = '<span class="stat-pill ' + trendColor + '" style="font-size:10px">' + trendLabel + '</span>';
+        if (p.recentForm.l5AvgFinish) formHtml += '<span class="text-slate-500" style="font-size:10px">L5: ' + p.recentForm.l5AvgFinish + '</span>';
+      }
+
       div.innerHTML =
         '<div class="flex items-center justify-between mb-2">' +
           '<div class="flex items-center gap-2">' +
             '<span class="mono text-xs text-slate-500 font-semibold w-6">#' + p.rank + '</span>' +
-            '<span class="text-sm font-bold text-white">' + p.name + '</span>' +
+            '<span class="text-sm font-bold text-white" style="letter-spacing:-0.3px">' + p.name + '</span>' +
           '</div>' +
           '<span class="mono text-sm font-bold ' + sgColor + '">' + p.sgTotal.toFixed(2) + '</span>' +
         '</div>' +
@@ -850,10 +874,12 @@
           '<span class="stat-pill bg-white/5 text-slate-300">ARG ' + p.sgArg.toFixed(2) + '</span>' +
           '<span class="stat-pill bg-white/5 text-slate-300">PUTT ' + p.sgPutt.toFixed(2) + '</span>' +
         '</div>' +
-        '<div class="flex gap-3 mt-2 text-[10px] text-slate-500">' +
+        (oddsHtml ? '<div class="flex gap-1 flex-wrap mt-1.5">' + oddsHtml + '</div>' : '') +
+        '<div class="flex items-center gap-3 mt-2 text-[10px] text-slate-500">' +
           '<span>Birdies: ' + p.birdieAvg + '</span>' +
           '<span>Bogeys: ' + p.bogeyAvg + '</span>' +
           '<span>Avg: ' + p.scoringAvg + '</span>' +
+          formHtml +
         '</div>';
 
       div.addEventListener('click', function() { showPlayerDetail(p); });
@@ -935,14 +961,28 @@
     var course = el('matchCourse').value;
     var type = el('matchType').value;
 
-    var skillA = pA.sgTotal;
-    var skillB = pB.sgTotal;
+    // Weighted matchup: 60% SG + 25% course fit + 15% recent form
+    var skillA = pA.sgTotal * 0.60;
+    var skillB = pB.sgTotal * 0.60;
 
+    // Course fit adjustment (25% weight)
     if (course && pA.courseFit[course] && pB.courseFit[course]) {
-      var fitAdjA = (pA.courseFit[course] - 75) / 100;
-      var fitAdjB = (pB.courseFit[course] - 75) / 100;
-      skillA += fitAdjA;
-      skillB += fitAdjB;
+      skillA += (pA.courseFit[course] - 75) / 100 * 0.25 * 4;
+      skillB += (pB.courseFit[course] - 75) / 100 * 0.25 * 4;
+    } else {
+      // No course selected — give SG the extra weight
+      skillA = pA.sgTotal * 0.85;
+      skillB = pB.sgTotal * 0.85;
+    }
+
+    // Recent form adjustment (15% weight)
+    if (pA.recentForm && pA.recentForm.l5AvgFinish) {
+      var formA = (30 - pA.recentForm.l5AvgFinish) / 30; // Normalize: lower finish = better
+      skillA += formA * 0.15 * 2;
+    }
+    if (pB.recentForm && pB.recentForm.l5AvgFinish) {
+      var formB = (30 - pB.recentForm.l5AvgFinish) / 30;
+      skillB += formB * 0.15 * 2;
     }
 
     var diff = skillA - skillB;
@@ -990,7 +1030,13 @@
     var winner = winPctA > winPctB ? pA : pB;
     var loser = winPctA > winPctB ? pB : pA;
     var winPct = Math.max(winPctA, winPctB);
-    el('mrSummary').textContent = winner.name + ' is favored at ' + (winPct * 100).toFixed(1) + '% in this ' + (type === 'tournament' ? '72-hole' : '18-hole') + ' matchup' + (course ? ' at ' + (COURSE_DATA[course] ? COURSE_DATA[course].name : course) : '') + '. The edge of ' + Math.abs(diff).toFixed(2) + ' strokes gained per round translates to roughly ' + (Math.abs(diff) * (type === 'tournament' ? 4 : 1)).toFixed(1) + ' strokes over the ' + (type === 'tournament' ? 'tournament' : 'round') + '. ' + winner.notes.split('.')[0] + '.';
+    // Add recent form row to categories
+    el('mrCategories').innerHTML += renderFormInMatchup(pA, pB);
+
+    var summaryText = winner.name + ' is favored at ' + (winPct * 100).toFixed(1) + '% in this ' + (type === 'tournament' ? '72-hole' : '18-hole') + ' matchup' + (course ? ' at ' + (COURSE_DATA[course] ? COURSE_DATA[course].name : course) : '') + '. ';
+    summaryText += 'Model weights: 60% season SG, 25% course fit, 15% recent form. ';
+    summaryText += winner.notes.split('.')[0] + '.';
+    el('mrSummary').textContent = summaryText;
   });
 
   /* ============================================================
@@ -1265,6 +1311,12 @@
     if (data.currentEvent) {
       updateCurrentEventBanner(data.currentEvent);
     }
+    // Render weather bar if available
+    if (data.weather) {
+      renderWeatherBar(data.weather);
+    } else if (data.currentEvent && data.currentEvent.weather) {
+      renderWeatherBar({ forecast: data.currentEvent.weather });
+    }
   }
 
   function updateCurrentEventBanner(event) {
@@ -1290,6 +1342,48 @@
         nav.appendChild(div);
       }
     }
+  }
+
+  function renderWeatherBar(weatherData) {
+    if (!weatherData || !weatherData.forecast || !weatherData.forecast.length) return;
+    var bar = el('weatherBar');
+    var container = el('weatherDays');
+    bar.classList.remove('hidden');
+    container.innerHTML = '';
+
+    weatherData.forecast.forEach(function(day) {
+      var windColor = day.windAvg >= 15 ? 'text-pb-gold' : (day.windAvg >= 10 ? 'text-pb-blue' : 'text-slate-300');
+      var rainColor = day.rainPct >= 50 ? 'text-pb-red' : (day.rainPct >= 20 ? 'text-pb-gold' : 'text-slate-400');
+      var dayLabel = day.date ? day.date.slice(5) : '—';
+      var div = document.createElement('div');
+      div.className = 'flex items-center gap-2 px-3 py-1 rounded-lg border whitespace-nowrap';
+      div.style.cssText = 'border-color:var(--card-border);background:var(--surface1)';
+      div.innerHTML =
+        '<span class="text-slate-400 mono" style="font-size:10px">' + dayLabel + '</span>' +
+        '<span class="text-slate-200 mono font-semibold">' + (day.tempHigh || '—') + '°F</span>' +
+        '<span class="' + windColor + ' mono font-semibold">💨 ' + (day.windAvg || '—') + 'mph</span>' +
+        (day.rainPct > 10 ? '<span class="' + rainColor + ' mono">🌧 ' + day.rainPct + '%</span>' : '');
+      container.appendChild(div);
+    });
+  }
+
+  function renderFormInMatchup(pA, pB) {
+    // Add form badges to matchup results if available
+    var formHtml = '';
+    function formBadge(p) {
+      if (!p.recentForm) return '<span class="text-[10px] text-slate-600">No recent data</span>';
+      var t = p.recentForm.trend || 'steady';
+      var col = t === 'hot' ? 'text-pb-teal' : (t === 'cold' ? 'text-pb-red' : 'text-slate-400');
+      var out = '<span class="' + col + ' text-[11px] font-semibold">' + t.toUpperCase() + '</span>';
+      if (p.recentForm.l5AvgFinish) out += ' <span class="text-slate-500 text-[10px]">L5 avg: ' + p.recentForm.l5AvgFinish + '</span>';
+      if (p.recentForm.lastResult) out += ' <span class="text-slate-600 text-[10px]">(' + p.recentForm.lastResult + ')</span>';
+      return out;
+    }
+    return '<div class="grid grid-cols-[1fr_auto_1fr] gap-3 items-center text-[11px]">' +
+      '<div class="text-right">' + formBadge(pA) + '</div>' +
+      '<div class="text-center text-slate-500 text-[10px] w-28">Recent Form</div>' +
+      '<div>' + formBadge(pB) + '</div>' +
+    '</div>';
   }
 
   function initApp() {

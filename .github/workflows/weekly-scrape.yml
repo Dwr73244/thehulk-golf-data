@@ -2,11 +2,13 @@ name: Golf Data Update
 
 on:
   schedule:
-    # Tuesday 6 AM UTC — pre-week data refresh
+    # Tuesday 6 AM UTC — pre-week data refresh + odds
     - cron: '0 6 * * 2'
-    # Thursday 6 AM UTC — mid-tournament update (after R1)
+    # Wednesday 6 AM UTC — odds refresh (peak interest day)
+    - cron: '0 6 * * 3'
+    # Thursday 6 AM UTC — tournament start + odds
     - cron: '0 6 * * 4'
-    # Saturday 6 AM UTC — weekend update (after R2 cut)
+    # Saturday 6 AM UTC — weekend update (after R2 cut, no odds)
     - cron: '0 6 * * 6'
   workflow_dispatch:
   push:
@@ -34,6 +36,9 @@ jobs:
           python-version: '3.11'
 
       - name: Run scraper
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python scraper.py
 
       - name: Verify output
@@ -61,6 +66,6 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add golf-data.json
+          git add golf-data.json history/
           git diff --quiet --cached || git commit -m "Auto-update golf-data.json $(date +'%Y-%m-%d')"
           git push || echo "Nothing to push"

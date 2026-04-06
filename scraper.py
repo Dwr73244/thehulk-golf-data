@@ -21,6 +21,7 @@ import re
 import sys
 import time
 import os
+import math
 from datetime import datetime, timedelta
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
@@ -30,6 +31,10 @@ from urllib.error import URLError, HTTPError
 # ============================================================
 OUTPUT_FILE = "golf-data.json"
 USER_AGENT = "PropsBot-Golf-Scraper/1.0 (Educational Research Tool)"
+
+# API Keys (from environment — set in GitHub Secrets)
+ODDS_API_KEY = os.getenv("ODDS_API_KEY", "")
+DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", "")
 
 # Request timeout in seconds
 TIMEOUT = 15
@@ -417,6 +422,427 @@ def safe_float(val, default=0.0):
 
 
 # ============================================================
+# FEATURE: WEATHER (Open-Meteo — free, no key)
+# ============================================================
+
+COURSE_COORDS = {
+    "augusta": (33.503, -82.022),
+    "tpc_sawgrass": (30.198, -81.394),
+    "pebble": (36.568, -121.950),
+    "torrey_south": (32.896, -117.252),
+    "riviera": (34.049, -118.502),
+    "valhalla": (38.253, -85.498),
+    "pinehurst_2": (35.191, -79.470),
+    "royal_troon": (55.543, -4.851),
+    "quail_hollow": (35.103, -80.848),
+    "east_lake": (33.740, -84.335),
+    "bay_hill": (28.460, -81.506),
+    "harbour_town": (32.137, -80.818),
+    "colonial": (32.730, -97.392),
+    "memorial": (40.089, -83.177),
+    "tpc_scottsdale": (33.639, -111.906),
+}
+
+# Reverse lookup: match ESPN venue names to course keys
+VENUE_ALIASES = {
+    "augusta national": "augusta", "masters": "augusta",
+    "tpc sawgrass": "tpc_sawgrass", "players": "tpc_sawgrass",
+    "pebble beach": "pebble",
+    "torrey pines": "torrey_south",
+    "riviera": "riviera", "genesis": "riviera",
+    "valhalla": "valhalla",
+    "pinehurst": "pinehurst_2",
+    "royal troon": "royal_troon", "troon": "royal_troon",
+    "quail hollow": "quail_hollow",
+    "east lake": "east_lake",
+    "bay hill": "bay_hill", "arnold palmer": "bay_hill",
+    "harbour town": "harbour_town", "harbor town": "harbour_town",
+    "colonial": "colonial",
+    "muirfield village": "memorial", "memorial": "memorial",
+    "tpc scottsdale": "tpc_scottsdale", "phoenix open": "tpc_scottsdale",
+}
+
+
+def match_venue_to_course(venue_name, event_name=""):
+    """Fuzzy match an ESPN venue/event name to our course key."""
+    combined = (venue_name + " " + event_name).lower()
+    for alias, key in VENUE_ALIASES.items():
+        if alias in combined:
+            return key
+    return None
+
+
+def scrape_course_weather(course_key):
+    """Fetch 3-day weather forecast for a course from Open-Meteo (free, no key)."""
+    coords = COURSE_COORDS.get(course_key)
+    if not coords:
+        return None
+
+    lat, lon = coords
+    url = (
+        f"https://api.open-meteo.com/v1/forecast"
+        f"?latitude={lat}&longitude={lon}"
+        f"&hourly=temperature_2m,wind_speed_10m,wind_direction_10m,precipitation_probability,rain"
+        f"&temperature_unit=fahrenheit&wind_speed_unit=mph"
+        f"&timezone=auto&forecast_days=3"
+    )
+    print(f"  Fetching weather for {course_key} ({lat}, {lon})...")
+    data = fetch_json(url)
+    if not data or "hourly" not in data:
+        print(f"  Could not fetch weather for {course_key}")
+        return None
+
+    hourly = data["hourly"]
+    temps = hourly.get("temperature_2m", [])
+    winds = hourly.get("wind_speed_10m", [])
+    wind_dirs = hourly.get("wind_direction_10m", [])
+    rain_pcts = hourly.get("precipitation_probability", [])
+    times = hourly.get("time", [])
+
+    # Summarize into daily buckets (tournament hours: 7am-7pm)
+    days = {}
+    for i, t in enumerate(times):
+        date = t[:10]
+        hour = int(t[11:13]) if len(t) > 12 else 0
+        if hour < 7 or hour > 19:
+            continue
+        if date not in days:
+            days[date] = {"temps": [], "winds": [], "wind_dirs": [], "rain_pcts": []}
+        if i < len(temps): days[date]["temps"].append(temps[i])
+        if i < len(winds): days[date]["winds"].append(winds[i])
+        if i < len(wind_dirs): days[date]["wind_dirs"].append(wind_dirs[i])
+        if i < len(rain_pcts): days[date]["rain_pcts"].append(rain_pcts[i])
+
+    forecast = []
+    for date, d in sorted(days.items()):
+        forecast.append({
+            "date": date,
+            "tempHigh": round(max(d["temps"]), 1) if d["temps"] else None,
+            "tempLow": round(min(d["temps"]), 1) if d["temps"] else None,
+            "windAvg": round(sum(d["winds"]) / len(d["winds"]), 1) if d["winds"] else None,
+            "windMax": round(max(d["winds"]), 1) if d["winds"] else None,
+            "windDir": round(sum(d["wind_dirs"]) / len(d["wind_dirs"])) if d["wind_dirs"] else None,
+            "rainPct": round(max(d["rain_pcts"]), 0) if d["rain_pcts"] else None,
+        })
+
+    print(f"  Got {len(forecast)}-day forecast for {course_key}")
+    return forecast[:3]
+
+
+# ============================================================
+# FEATURE: COURSE-PLAYER FIT ALGORITHM
+# ============================================================
+
+COURSE_TRAITS = {
+    "augusta":       {"power": 0.8, "accuracy": 0.7, "scramble": 0.9, "putting": 0.6},
+    "tpc_sawgrass":  {"power": 0.5, "accuracy": 0.8, "scramble": 0.7, "putting": 0.8},
+    "pebble":        {"power": 0.4, "accuracy": 0.8, "scramble": 0.8, "putting": 0.7},
+    "torrey_south":  {"power": 0.8, "accuracy": 0.6, "scramble": 0.6, "putting": 0.5},
+    "riviera":       {"power": 0.6, "accuracy": 0.8, "scramble": 0.7, "putting": 0.7},
+    "valhalla":      {"power": 0.9, "accuracy": 0.5, "scramble": 0.5, "putting": 0.5},
+    "pinehurst_2":   {"power": 0.5, "accuracy": 0.9, "scramble": 0.9, "putting": 0.7},
+    "royal_troon":   {"power": 0.6, "accuracy": 0.8, "scramble": 0.8, "putting": 0.6},
+    "quail_hollow":  {"power": 0.8, "accuracy": 0.6, "scramble": 0.6, "putting": 0.6},
+    "east_lake":     {"power": 0.6, "accuracy": 0.7, "scramble": 0.7, "putting": 0.7},
+    "bay_hill":      {"power": 0.7, "accuracy": 0.7, "scramble": 0.6, "putting": 0.6},
+    "harbour_town":  {"power": 0.2, "accuracy": 0.9, "scramble": 0.7, "putting": 0.8},
+    "colonial":      {"power": 0.3, "accuracy": 0.9, "scramble": 0.7, "putting": 0.8},
+    "memorial":      {"power": 0.7, "accuracy": 0.8, "scramble": 0.7, "putting": 0.6},
+    "tpc_scottsdale": {"power": 0.6, "accuracy": 0.6, "scramble": 0.5, "putting": 0.7},
+}
+
+
+def calculate_course_fit(player, course_key, wind_avg=None):
+    """Calculate a 0-100 course fit score based on player SG profile and course traits."""
+    traits = COURSE_TRAITS.get(course_key)
+    if not traits:
+        return 65  # neutral default
+
+    # Base score from overall skill
+    score = 50 + player.get("sgTotal", 0) * 10
+
+    # Weight SG categories by course demands
+    score += player.get("sgOtt", 0) * traits["power"] * 8
+    score += player.get("sgApp", 0) * traits["accuracy"] * 10
+    score += player.get("sgArg", 0) * traits["scramble"] * 12
+    score += player.get("sgPutt", 0) * traits["putting"] * 10
+
+    # Wind adjustment: low ball flights benefit in wind
+    if wind_avg and wind_avg > 12:
+        flight = player.get("flight", "neutral")
+        if flight.startswith("low_"):
+            score += 4
+        elif flight.startswith("high_"):
+            score -= 3
+
+    return max(20, min(99, round(score)))
+
+
+def compute_all_course_fits(players, weather=None):
+    """Compute course fit for all players at all courses, blending 70% algo + 30% curated."""
+    wind_avg = None
+    if weather and len(weather) > 0:
+        wind_avg = weather[0].get("windAvg")
+
+    for player in players:
+        curated = player.get("courseFit", {})
+        computed = {}
+        for course_key in COURSE_TRAITS:
+            algo_score = calculate_course_fit(player, course_key, wind_avg)
+            curated_score = curated.get(course_key, algo_score)
+            # Blend: 70% algo, 30% curated (curated captures local knowledge)
+            computed[course_key] = round(algo_score * 0.7 + curated_score * 0.3)
+        player["courseFit"] = computed
+
+
+# ============================================================
+# FEATURE: HISTORICAL DATA ARCHIVING
+# ============================================================
+
+def archive_data(output, base_dir):
+    """Save a timestamped copy to history/ for trend analysis."""
+    history_dir = os.path.join(base_dir, "history")
+    os.makedirs(history_dir, exist_ok=True)
+
+    date_str = datetime.now().strftime("%Y-%m-%d")
+    archive_path = os.path.join(history_dir, f"{date_str}.json")
+    with open(archive_path, "w") as f:
+        json.dump(output, f, separators=(",", ":"))  # compact
+
+    print(f"  Archived to {archive_path}")
+
+    # Cleanup: remove files older than 365 days
+    cutoff = datetime.now() - timedelta(days=365)
+    for fname in os.listdir(history_dir):
+        if not fname.endswith(".json"):
+            continue
+        try:
+            fdate = datetime.strptime(fname[:10], "%Y-%m-%d")
+            if fdate < cutoff:
+                os.remove(os.path.join(history_dir, fname))
+                print(f"  Cleaned up old archive: {fname}")
+        except ValueError:
+            pass
+
+
+# ============================================================
+# FEATURE: BETTING ODDS (The Odds API — free tier, 500 credits/mo)
+# ============================================================
+
+def scrape_betting_odds():
+    """Fetch PGA Tour outright winner odds from The Odds API."""
+    if not ODDS_API_KEY:
+        print("[5/7] Skipping odds — no ODDS_API_KEY set")
+        return None
+
+    # Only fetch odds on Tue/Wed/Thu to conserve 500 credits/month
+    # Golf starts Thursday — most interest is Wed-Thu
+    today = datetime.now().weekday()  # 0=Mon, 1=Tue, 2=Wed, 3=Thu
+    if today not in (1, 2, 3):  # Tue, Wed, Thu
+        print("[5/7] Skipping odds — only fetched Tue/Wed/Thu to save credits")
+        return None
+
+    print("[5/7] Fetching betting odds from The Odds API...")
+    url = (
+        f"https://api.the-odds-api.com/v4/sports/golf_pga_tour_winner/odds"
+        f"?apiKey={ODDS_API_KEY}&regions=us&markets=outrights&oddsFormat=american"
+    )
+    data = fetch_json(url)
+    if not data:
+        print("  Could not fetch odds data")
+        return None
+
+    odds_map = {}
+    for event in data if isinstance(data, list) else [data]:
+        for bookmaker in event.get("bookmakers", []):
+            bk_key = bookmaker.get("key", "")
+            if bk_key not in ("draftkings", "fanduel"):
+                continue
+            short = "dk" if bk_key == "draftkings" else "fd"
+            for market in bookmaker.get("markets", []):
+                for outcome in market.get("outcomes", []):
+                    name = outcome.get("name", "")
+                    price = outcome.get("price", 0)
+                    if name not in odds_map:
+                        odds_map[name] = {}
+                    odds_map[name][short] = f"{'+' if price > 0 else ''}{price}"
+
+    print(f"  Found odds for {len(odds_map)} players")
+    return odds_map
+
+
+# ============================================================
+# FEATURE: RECENT FORM (L5/L10 from ESPN)
+# ============================================================
+
+def scrape_recent_form(espn_event_data):
+    """Build recent form data from ESPN leaderboard history.
+    Uses the current event leaderboard + any cached historical data.
+    Returns dict of {player_name: form_data}.
+    """
+    print("[6/7] Building recent form profiles...")
+    form_map = {}
+
+    # Use current leaderboard as most recent data point
+    if espn_event_data and espn_event_data.get("leaderboard"):
+        lb = espn_event_data["leaderboard"]
+        for i, entry in enumerate(lb):
+            name = entry.get("name", "")
+            if not name:
+                continue
+            position = i + 1  # Approximate position from leaderboard order
+            form_map[name] = {
+                "lastResult": f"#{position} at {espn_event_data.get('name', 'Unknown')}",
+                "lastPosition": position,
+            }
+
+    # Load historical archive files for L5/L10 calculation
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    history_dir = os.path.join(base_dir, "history")
+    if os.path.isdir(history_dir):
+        history_files = sorted(
+            [f for f in os.listdir(history_dir) if f.endswith(".json")],
+            reverse=True
+        )[:10]  # Last 10 weeks
+
+        player_finishes = {}  # {name: [list of positions]}
+        for hfile in history_files:
+            try:
+                with open(os.path.join(history_dir, hfile)) as f:
+                    hdata = json.load(f)
+                evt = hdata.get("currentEvent", {})
+                if not evt or not evt.get("leaderboard"):
+                    continue
+                for i, entry in enumerate(evt["leaderboard"]):
+                    name = entry.get("name", "")
+                    if name:
+                        if name not in player_finishes:
+                            player_finishes[name] = []
+                        player_finishes[name].append(i + 1)
+            except (json.JSONDecodeError, IOError):
+                continue
+
+        for name, finishes in player_finishes.items():
+            l5 = finishes[:5]
+            l10 = finishes[:10]
+            l5_avg = sum(l5) / len(l5) if l5 else None
+            l10_avg = sum(l10) / len(l10) if l10 else None
+
+            # Determine trend
+            trend = "steady"
+            if l5_avg and l10_avg:
+                if l5_avg < l10_avg - 5:
+                    trend = "hot"
+                elif l5_avg > l10_avg + 5:
+                    trend = "cold"
+
+            if name not in form_map:
+                form_map[name] = {}
+            form_map[name].update({
+                "l5AvgFinish": round(l5_avg, 1) if l5_avg else None,
+                "l10AvgFinish": round(l10_avg, 1) if l10_avg else None,
+                "l5McPct": round(sum(1 for f in l5 if f <= 65) / len(l5) * 100) if l5 else None,
+                "trend": trend,
+                "events": len(l10),
+            })
+
+    print(f"  Built form data for {len(form_map)} players")
+    return form_map
+
+
+# ============================================================
+# FEATURE: DISCORD ALERTS
+# ============================================================
+
+def send_discord_alerts(output):
+    """Send Discord webhook alerts for high-edge prop opportunities."""
+    if not DISCORD_WEBHOOK_URL:
+        print("  Skipping Discord alerts — no webhook URL set")
+        return
+
+    print("[7/7] Checking for high-edge prop alerts...")
+
+    alerts = []
+    event_name = ""
+    if output.get("currentEvent"):
+        event_name = output["currentEvent"].get("name", "")
+
+    for player in output.get("players", []):
+        # Check birdie over potential
+        birdie_avg = player.get("birdieAvg", 4.0)
+        line = 3.5
+        edge = birdie_avg - line
+        if edge >= 0.8:  # Strong over signal
+            conf = min(95, round(65 + edge * 15))
+            if conf >= 75:
+                alerts.append({
+                    "player": player["name"],
+                    "prop": f"OVER {line} Birdies",
+                    "model": f"{birdie_avg} avg",
+                    "edge": f"+{edge:.1f}",
+                    "conf": conf,
+                    "rank": player.get("rank", "?"),
+                })
+
+        # Check bogey under potential
+        bogey_avg = player.get("bogeyAvg", 2.5)
+        line = 2.5
+        edge = line - bogey_avg
+        if edge >= 0.4:
+            conf = min(95, round(60 + edge * 20))
+            if conf >= 75:
+                alerts.append({
+                    "player": player["name"],
+                    "prop": f"UNDER {line} Bogeys",
+                    "model": f"{bogey_avg} avg",
+                    "edge": f"+{edge:.1f}",
+                    "conf": conf,
+                    "rank": player.get("rank", "?"),
+                })
+
+    if not alerts:
+        print("  No high-edge alerts this cycle")
+        return
+
+    # Sort by confidence
+    alerts.sort(key=lambda x: x["conf"], reverse=True)
+    top_alerts = alerts[:5]  # Max 5 per cycle
+
+    # Build Discord embed
+    fields = []
+    for a in top_alerts:
+        fields.append({
+            "name": f"#{a['rank']} {a['player']}",
+            "value": f"**{a['prop']}** | Model: {a['model']} | Edge: {a['edge']} | Conf: {a['conf']}%",
+            "inline": False,
+        })
+
+    payload = {
+        "embeds": [{
+            "title": "PropsBot Golf — High-Edge Prop Alerts",
+            "description": f"**{event_name}** | {len(alerts)} signals found, showing top {len(top_alerts)}",
+            "color": 1441730,  # #15ffc2
+            "fields": fields,
+            "footer": {"text": "PropsBot Golf Intelligence | Educational Tool Only"},
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+        }]
+    }
+
+    try:
+        import urllib.request
+        req = urllib.request.Request(
+            DISCORD_WEBHOOK_URL,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST"
+        )
+        resp = urllib.request.urlopen(req, timeout=10)
+        print(f"  Sent {len(top_alerts)} alerts to Discord (HTTP {resp.status})")
+    except Exception as e:
+        print(f"  Discord alert failed: {e}")
+
+
+# ============================================================
 # MAIN PIPELINE
 # ============================================================
 
@@ -435,11 +861,14 @@ def run_pipeline():
             "DataGolf.com (rankings, hole stats)",
             "PGATour.com (official stats)",
             "ESPN API (leaderboard)",
+            "Open-Meteo (weather forecasts)",
+            "The Odds API (betting lines)",
             "Manual curation (course fit, betting notes)"
         ],
         "players": [],
         "currentEvent": None,
         "courses": {},
+        "weather": None,
     }
 
     # Step 1: Try to scrape DataGolf rankings
@@ -516,10 +945,60 @@ def run_pipeline():
     # Add course data
     output["courses"] = get_course_data()
 
+    # ---- STEP 5: WEATHER ----
+    weather_data = None
+    if espn_event:
+        course_key = match_venue_to_course(
+            espn_event.get("course", ""),
+            espn_event.get("name", "")
+        )
+        if course_key:
+            weather_data = scrape_course_weather(course_key)
+            if weather_data:
+                output["weather"] = {
+                    "course": course_key,
+                    "forecast": weather_data,
+                }
+                if output["currentEvent"]:
+                    output["currentEvent"]["weather"] = weather_data
+
+    # ---- STEP 6: COURSE FIT ALGORITHM ----
+    print("\n  Computing course fit scores...")
+    compute_all_course_fits(output["players"], weather_data)
+
+    # ---- STEP 7: BETTING ODDS ----
+    odds_data = scrape_betting_odds()
+    if odds_data:
+        for player in output["players"]:
+            # Try exact match first, then partial
+            odds = odds_data.get(player["name"])
+            if not odds:
+                for oname, odata in odds_data.items():
+                    if player["name"].lower() in oname.lower() or oname.lower() in player["name"].lower():
+                        odds = odata
+                        break
+            if odds:
+                player["odds"] = odds
+
+    # ---- STEP 8: RECENT FORM ----
+    form_data = scrape_recent_form(espn_event)
+    if form_data:
+        for player in output["players"]:
+            form = form_data.get(player["name"])
+            if form:
+                player["recentForm"] = form
+
     # ---- WRITE OUTPUT ----
-    output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), OUTPUT_FILE)
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    output_path = os.path.join(base_dir, OUTPUT_FILE)
     with open(output_path, "w") as f:
         json.dump(output, f, indent=2)
+
+    # ---- ARCHIVE ----
+    archive_data(output, base_dir)
+
+    # ---- DISCORD ALERTS ----
+    send_discord_alerts(output)
 
     file_size = os.path.getsize(output_path)
     print(f"\n{'=' * 60}")
@@ -527,6 +1006,8 @@ def run_pipeline():
     print(f"Output: {output_path} ({file_size / 1024:.1f} KB)")
     print(f"Players: {len(output['players'])}")
     print(f"Current Event: {output['currentEvent']['name'] if output.get('currentEvent') else 'None'}")
+    print(f"Weather: {'Yes' if weather_data else 'No'}")
+    print(f"Odds: {'Yes' if odds_data else 'No'}")
     print(f"Finished: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'=' * 60}")
 
