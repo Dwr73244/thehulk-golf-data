@@ -999,6 +999,243 @@ def send_discord_alerts(output):
 
 
 # ============================================================
+# MASTERS / AUGUSTA INTEL
+# ============================================================
+
+AUGUSTA_HOLE_NAMES = {
+    1: "Tea Olive", 2: "Pink Dogwood", 3: "Flowering Peach",
+    4: "Flowering Crab Apple", 5: "Magnolia", 6: "Juniper",
+    7: "Pampas", 8: "Yellow Jasmine", 9: "Carolina Cherry",
+    10: "Camellia", 11: "White Dogwood", 12: "Golden Bell",
+    13: "Azalea", 14: "Chinese Fir", 15: "Firethorn",
+    16: "Redbud", 17: "Nandina", 18: "Holly"
+}
+
+
+def bdl_build_masters_intel(tournament_id=20, course_id=37):
+    """
+    Build comprehensive Masters / Augusta National intelligence package.
+
+    Pulls course holes, historical hole-by-hole scoring, live scoring (when
+    available), past results, and player SG breakdowns. Returns a merged dict
+    ready for the PropsBot frontend.
+
+    Args:
+        tournament_id: 2026 Masters = 20 (default). 2025 Masters = 60.
+        course_id: Augusta National = 37 (default).
+
+    Returns:
+        dict with keys: augusta_holes, historical_results, augusta_hole_names
+    """
+    print("\n[MASTERS INTEL] Building Augusta intelligence package...")
+
+    # ------------------------------------------------------------------
+    # 1. Course holes — par & yardage per hole
+    # ------------------------------------------------------------------
+    print("  Fetching Augusta course holes (course_id=37)...")
+    holes_raw = bdl_fetch_all("course_holes", {"course_ids[]": str(course_id)})
+    holes_by_num = {}
+    for h in (holes_raw or []):
+        num = h.get("hole_number") or h.get("number")
+        if num:
+            holes_by_num[int(num)] = {
+                "par": h.get("par"),
+                "yards": h.get("yardage") or h.get("yards"),
+            }
+    print(f"    Got {len(holes_by_num)} holes")
+
+    # ------------------------------------------------------------------
+    # 2. Historical hole-by-hole scoring (2025 Masters, tournament_id=60)
+    # ------------------------------------------------------------------
+    print("  Fetching 2025 Masters hole-by-hole stats (tournament_id=60)...")
+    hist_stats_raw = bdl_fetch_all(
+        "tournament_course_stats",
+        {"tournament_ids[]": "60", "course_id": str(course_id)}
+    )
+    hist_by_hole = {}
+    for s in (hist_stats_raw or []):
+        num = s.get("hole_number") or s.get("hole")
+        if not num:
+            continue
+        num = int(num)
+        total_played = (
+            (s.get("eagles") or 0) + (s.get("birdies") or 0) +
+            (s.get("pars") or 0) + (s.get("bogeys") or 0) +
+            (s.get("double_bogeys") or 0)
+        )
+        birdie_pct = round((s.get("birdies") or 0) / total_played * 100, 1) if total_played else 0
+        bogey_pct = round(
+            ((s.get("bogeys") or 0) + (s.get("double_bogeys") or 0)) / total_played * 100, 1
+        ) if total_played else 0
+
+        hist_by_hole[num] = {
+            "scoringAvg": s.get("scoring_average"),
+            "scoringDiff": s.get("scoring_diff"),
+            "difficultyRank": s.get("difficulty_rank"),
+            "eagles": s.get("eagles") or 0,
+            "birdies": s.get("birdies") or 0,
+            "pars": s.get("pars") or 0,
+            "bogeys": s.get("bogeys") or 0,
+            "doublePlus": s.get("double_bogeys") or 0,
+            "birdiePct": birdie_pct,
+            "bogeyPct": bogey_pct,
+        }
+    print(f"    Got historical stats for {len(hist_by_hole)} holes")
+
+    # ------------------------------------------------------------------
+    # 3. Live hole-by-hole scoring (2026 Masters) — null before tournament
+    # ------------------------------------------------------------------
+    print(f"  Fetching 2026 Masters live stats (tournament_id={tournament_id})...")
+    live_stats_raw = bdl_fetch_all(
+        "tournament_course_stats",
+        {"tournament_ids[]": str(tournament_id), "course_id": str(course_id)}
+    )
+    live_by_hole = {}
+    for s in (live_stats_raw or []):
+        num = s.get("hole_number") or s.get("hole")
+        if not num:
+            continue
+        num = int(num)
+        total_played = (
+            (s.get("eagles") or 0) + (s.get("birdies") or 0) +
+            (s.get("pars") or 0) + (s.get("bogeys") or 0) +
+            (s.get("double_bogeys") or 0)
+        )
+        if total_played == 0:
+            continue  # No data yet — tournament hasn't started
+        birdie_pct = round((s.get("birdies") or 0) / total_played * 100, 1)
+        bogey_pct = round(
+            ((s.get("bogeys") or 0) + (s.get("double_bogeys") or 0)) / total_played * 100, 1
+        )
+        live_by_hole[num] = {
+            "scoringAvg": s.get("scoring_average"),
+            "scoringDiff": s.get("scoring_diff"),
+            "difficultyRank": s.get("difficulty_rank"),
+            "eagles": s.get("eagles") or 0,
+            "birdies": s.get("birdies") or 0,
+            "pars": s.get("pars") or 0,
+            "bogeys": s.get("bogeys") or 0,
+            "doublePlus": s.get("double_bogeys") or 0,
+            "birdiePct": birdie_pct,
+            "bogeyPct": bogey_pct,
+        }
+    if live_by_hole:
+        print(f"    Got LIVE stats for {len(live_by_hole)} holes")
+    else:
+        print("    No live data yet (tournament not started or no rounds completed)")
+
+    # ------------------------------------------------------------------
+    # 4. Merge into augusta_holes list (1-18)
+    # ------------------------------------------------------------------
+    augusta_holes = []
+    for n in range(1, 19):
+        hole_info = holes_by_num.get(n, {})
+        augusta_holes.append({
+            "hole": n,
+            "par": hole_info.get("par"),
+            "yards": hole_info.get("yards"),
+            "name": AUGUSTA_HOLE_NAMES.get(n, f"Hole {n}"),
+            "historical": hist_by_hole.get(n),
+            "live": live_by_hole.get(n) if live_by_hole else None,
+        })
+
+    # ------------------------------------------------------------------
+    # 5. Historical results — 2025 Masters (tournament_id=60), top 20
+    # ------------------------------------------------------------------
+    print("  Fetching 2025 Masters results (tournament_id=60)...")
+    results_raw = bdl_fetch_all("tournament_results", {"tournament_ids[]": "60"})
+    historical_results = []
+    for r in sorted(results_raw or [], key=lambda x: x.get("position") or 999):
+        pos = r.get("position")
+        try:
+            pos = int(pos) if pos else 999
+        except (ValueError, TypeError):
+            pos = 999
+        if pos <= 20:
+            player = r.get("player", {})
+            name = (
+                f"{player.get('first_name', '')} {player.get('last_name', '')}".strip()
+                if isinstance(player, dict) else str(r.get("player_name", "Unknown"))
+            )
+            historical_results.append({
+                "position": pos,
+                "name": name,
+                "score": r.get("score") or r.get("total_score"),
+                "earnings": r.get("earnings") or r.get("money"),
+            })
+    print(f"    Got {len(historical_results)} results (top 20)")
+
+    # ------------------------------------------------------------------
+    # 6. Player SG breakdowns — 2025 Masters player_round_stats
+    # ------------------------------------------------------------------
+    print("  Fetching 2025 Masters player round stats for SG data...")
+    sg_raw = bdl_fetch_all("player_round_stats", {"tournament_id": "60"}, max_pages=5)
+    player_sg = {}
+    for ps in (sg_raw or []):
+        player = ps.get("player", {})
+        pid = player.get("id") or ps.get("player_id")
+        if not pid:
+            continue
+        name = (
+            f"{player.get('first_name', '')} {player.get('last_name', '')}".strip()
+            if isinstance(player, dict) else "Unknown"
+        )
+        if pid not in player_sg:
+            player_sg[pid] = {
+                "name": name,
+                "rounds": 0,
+                "sg_total": 0, "sg_ott": 0, "sg_app": 0,
+                "sg_atg": 0, "sg_putt": 0,
+            }
+        entry = player_sg[pid]
+        entry["rounds"] += 1
+        entry["sg_total"] += ps.get("sg_total") or ps.get("strokes_gained_total") or 0
+        entry["sg_ott"] += ps.get("sg_off_the_tee") or ps.get("sg_ott") or 0
+        entry["sg_app"] += ps.get("sg_approach") or ps.get("sg_app") or 0
+        entry["sg_atg"] += ps.get("sg_around_the_green") or ps.get("sg_atg") or 0
+        entry["sg_putt"] += ps.get("sg_putting") or ps.get("sg_putt") or 0
+
+    # Average SG per round
+    sg_leaders = []
+    for pid, sg in player_sg.items():
+        rd = sg["rounds"]
+        if rd > 0:
+            sg_leaders.append({
+                "name": sg["name"],
+                "rounds": rd,
+                "sgTotal": round(sg["sg_total"] / rd, 2),
+                "sgOTT": round(sg["sg_ott"] / rd, 2),
+                "sgAPP": round(sg["sg_app"] / rd, 2),
+                "sgATG": round(sg["sg_atg"] / rd, 2),
+                "sgPutt": round(sg["sg_putt"] / rd, 2),
+            })
+    sg_leaders.sort(key=lambda x: x["sgTotal"], reverse=True)
+    print(f"    Got SG data for {len(sg_leaders)} players")
+
+    # ------------------------------------------------------------------
+    # FINAL OUTPUT
+    # ------------------------------------------------------------------
+    intel = {
+        "augusta_holes": augusta_holes,
+        "historical_results": historical_results,
+        "sg_leaders_2025": sg_leaders[:30],
+        "augusta_hole_names": AUGUSTA_HOLE_NAMES,
+        "meta": {
+            "source": "BallDontLie PGA API",
+            "historical_tournament_id": 60,
+            "live_tournament_id": tournament_id,
+            "course_id": course_id,
+            "built_at": datetime.utcnow().isoformat() + "Z",
+            "has_live_data": bool(live_by_hole),
+        }
+    }
+    print(f"  [MASTERS INTEL] Complete — {len(augusta_holes)} holes, "
+          f"{len(historical_results)} results, {len(sg_leaders)} SG players, "
+          f"live={'YES' if live_by_hole else 'NO'}")
+    return intel
+
+
+# ============================================================
 # MAIN PIPELINE
 # ============================================================
 
@@ -1237,6 +1474,13 @@ def run_pipeline():
             form = form_data.get(player["name"])
             if form:
                 player["recentForm"] = form
+
+    # ============================================================
+    # MASTERS INTELLIGENCE
+    # ============================================================
+    masters_intel = bdl_build_masters_intel()
+    if masters_intel:
+        output["mastersIntel"] = masters_intel
 
     # ---- WRITE OUTPUT ----
     base_dir = os.path.dirname(os.path.abspath(__file__))
