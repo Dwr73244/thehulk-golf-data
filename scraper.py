@@ -35,6 +35,8 @@ USER_AGENT = "PropsBot-Golf-Scraper/1.0 (Educational Research Tool)"
 # API Keys (from environment — set in GitHub Secrets)
 ODDS_API_KEY = os.getenv("ODDS_API_KEY", "")
 DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", "")
+BDL_API_KEY = os.getenv("BDL_API_KEY", "")
+BDL_BASE = "https://api.balldontlie.io/pga/v1"
 
 # Request timeout in seconds
 TIMEOUT = 15
@@ -306,6 +308,160 @@ def scrape_espn_leaderboard():
     except (KeyError, TypeError) as e:
         print(f"  Error parsing ESPN data: {e}")
         return None
+
+
+# ============================================================
+# BALLDONTLIE PGA API — Premium data source (GOAT tier)
+# ============================================================
+
+def bdl_fetch(endpoint, params=None):
+    """Fetch from BallDontLie PGA API with auth header."""
+    if not BDL_API_KEY:
+        return None
+    url = f"{BDL_BASE}/{endpoint}"
+    if params:
+        url += "?" + "&".join(f"{k}={v}" for k, v in params.items())
+    headers = {"User-Agent": USER_AGENT}
+    try:
+        req = Request(url, headers=headers)
+        req.add_header("Authorization", BDL_API_KEY)
+        resp = urlopen(req, timeout=TIMEOUT)
+        data = json.loads(resp.read().decode("utf-8", errors="replace"))
+        time.sleep(0.5)  # Rate limiting
+        return data
+    except (URLError, HTTPError) as e:
+        print(f"  [WARN] BDL API error for {endpoint}: {e}")
+        return None
+
+
+def bdl_fetch_all(endpoint, params=None, max_pages=10):
+    """Fetch all pages from a paginated BDL endpoint."""
+    all_data = []
+    cursor = None
+    for _ in range(max_pages):
+        p = dict(params or {})
+        p["per_page"] = "100"
+        if cursor:
+            p["cursor"] = str(cursor)
+        result = bdl_fetch(endpoint, p)
+        if not result or not result.get("data"):
+            break
+        all_data.extend(result["data"])
+        cursor = result.get("meta", {}).get("next_cursor")
+        if not cursor:
+            break
+    return all_data
+
+
+def bdl_get_current_tournament():
+    """Find the current/next tournament from BDL."""
+    print("\n[BDL] Finding current tournament...")
+    data = bdl_fetch("tournaments", {"season": "2026", "per_page": "50"})
+    if not data:
+        return None
+
+    # Find IN_PROGRESS first, then NOT_STARTED (next up)
+    tournaments = data.get("data", [])
+    for t in tournaments:
+        if t.get("status") == "IN_PROGRESS":
+            print(f"  Found live tournament: {t['name']} (id={t['id']})")
+            return t
+    for t in tournaments:
+        if t.get("status") == "NOT_STARTED":
+            print(f"  Found upcoming tournament: {t['name']} (id={t['id']})")
+            return t
+    return None
+
+
+def bdl_get_tournament_field(tournament_id):
+    """Get the full field for a tournament."""
+    print(f"[BDL] Fetching tournament field (id={tournament_id})...")
+    entries = bdl_fetch_all("tournament_field", {"tournament_id": str(tournament_id)})
+    print(f"  Got {len(entries)} players in field")
+    return entries
+
+
+def bdl_get_futures_odds(tournament_id):
+    """Get outright winner futures odds from BDL (replaces The Odds API)."""
+    print(f"[BDL] Fetching futures odds (tournament_id={tournament_id})...")
+    odds = bdl_fetch_all("futures", {"tournament_ids[]": str(tournament_id)})
+    if not odds:
+        return {}
+
+    # Group by player: {player_name: {vendor: american_odds}}
+    odds_map = {}
+    for o in odds:
+        if o.get("market_type") != "tournament_winner":
+            continue
+        player = o.get("player", {})
+        name = player.get("display_name", "")
+        vendor = o.get("vendor", "")
+        american = o.get("american_odds", 0)
+        if not name:
+            continue
+
+        # Shorten vendor names
+        short = {"fanduel": "fd", "draftkings": "dk", "betmgm": "mgm", "caesars": "czr",
+                 "pointsbet": "pb", "bet365": "365"}.get(vendor, vendor[:3])
+
+        if name not in odds_map:
+            odds_map[name] = {}
+        odds_map[name][short] = f"+{american}" if american > 0 else str(american)
+
+    print(f"  Got odds for {len(odds_map)} players")
+    return odds_map
+
+
+def bdl_get_player_props(tournament_id):
+    """Get player props (birdies, bogeys, round scores) from BDL."""
+    print(f"[BDL] Fetching player props (tournament_id={tournament_id})...")
+    data = bdl_fetch("odds/player_props", {"tournament_id": str(tournament_id)})
+    if not data:
+        return {}
+
+    # Group by player
+    props_map = {}
+    for prop in data.get("data", []):
+        player = prop.get("player", {})
+        name = player.get("display_name", "")
+        if not name:
+            continue
+        if name not in props_map:
+            props_map[name] = []
+        props_map[name].append({
+            "type": prop.get("prop_type", ""),
+            "line": prop.get("line"),
+            "over_odds": prop.get("over_odds"),
+            "under_odds": prop.get("under_odds"),
+            "vendor": prop.get("vendor", ""),
+        })
+
+    print(f"  Got props for {len(props_map)} players")
+    return props_map
+
+
+def bdl_get_tournament_results(tournament_id):
+    """Get leaderboard / results for a tournament."""
+    print(f"[BDL] Fetching tournament results (id={tournament_id})...")
+    results = bdl_fetch_all("tournament_results", {"tournament_ids[]": str(tournament_id)})
+    print(f"  Got {len(results)} result entries")
+    return results
+
+
+def bdl_get_player_round_stats(tournament_id):
+    """Get per-round SG stats for all players in a tournament."""
+    print(f"[BDL] Fetching player round stats (tournament_id={tournament_id})...")
+    stats = bdl_fetch_all("player_round_stats", {"tournament_ids[]": str(tournament_id)})
+    print(f"  Got {len(stats)} round stat entries")
+    return stats
+
+
+def bdl_get_course_holes(course_id):
+    """Get hole-by-hole data for a course."""
+    print(f"[BDL] Fetching course holes (course_id={course_id})...")
+    holes = bdl_fetch_all("course_holes", {"course_ids[]": str(course_id)})
+    print(f"  Got {len(holes)} holes")
+    return holes
 
 
 # ============================================================
@@ -854,15 +1010,14 @@ def run_pipeline():
     print("=" * 60)
 
     output = {
-        "version": 2,
+        "version": 3,
         "generatedAt": datetime.now().isoformat(),
-        "generatedBy": "PropsBot Golf Scraper v1.0",
+        "generatedBy": "PropsBot Golf Scraper v2.0",
         "sources": [
-            "DataGolf.com (rankings, hole stats)",
-            "PGATour.com (official stats)",
-            "ESPN API (leaderboard)",
+            "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
+            "DataGolf.com (rankings, SG breakdowns)",
+            "ESPN API (leaderboard fallback)",
             "Open-Meteo (weather forecasts)",
-            "The Odds API (betting lines)",
             "Manual curation (course fit, betting notes)"
         ],
         "players": [],
@@ -871,31 +1026,89 @@ def run_pipeline():
         "weather": None,
     }
 
-    # Step 1: Try to scrape DataGolf rankings
+    # ============================================================
+    # PRIMARY: BallDontLie PGA API (GOAT tier)
+    # ============================================================
+    bdl_tournament = None
+    bdl_odds = {}
+    bdl_props = {}
+    bdl_field = []
+
+    if BDL_API_KEY:
+        bdl_tournament = bdl_get_current_tournament()
+
+        if bdl_tournament:
+            tid = bdl_tournament["id"]
+
+            # Get tournament field
+            bdl_field = bdl_get_tournament_field(tid)
+
+            # Get futures odds (outright winner)
+            bdl_odds = bdl_get_futures_odds(tid)
+
+            # Get player props (if tournament is upcoming/in-progress)
+            if bdl_tournament.get("status") in ("NOT_STARTED", "IN_PROGRESS"):
+                bdl_props = bdl_get_player_props(tid)
+
+            # Get results/leaderboard if in progress or completed
+            if bdl_tournament.get("status") in ("IN_PROGRESS", "COMPLETED"):
+                bdl_results = bdl_get_tournament_results(tid)
+            else:
+                bdl_results = []
+
+            # Build currentEvent from BDL
+            output["currentEvent"] = {
+                "name": bdl_tournament.get("name", ""),
+                "course": bdl_tournament.get("course_name", ""),
+                "startDate": bdl_tournament.get("start_date", ""),
+                "status": bdl_tournament.get("status", ""),
+                "city": bdl_tournament.get("city", ""),
+                "state": bdl_tournament.get("state", ""),
+                "bdlId": tid,
+                "leaderboard": [],
+            }
+
+            # Build leaderboard from results
+            for r in bdl_results[:50]:
+                player = r.get("player", {})
+                output["currentEvent"]["leaderboard"].append({
+                    "name": player.get("display_name", ""),
+                    "position": r.get("position", ""),
+                    "score": r.get("total_to_par", ""),
+                    "totalStrokes": safe_float(r.get("total_strokes", 0)),
+                })
+
+    # ============================================================
+    # FALLBACK: Free scrapers (DataGolf, ESPN, PGA Tour)
+    # ============================================================
+    print("\n--- Free data sources (fallback + enrichment) ---")
+
+    # Step 1: DataGolf rankings
     dg_players = scrape_datagolf_rankings()
 
-    # Step 2: Try to scrape DataGolf event hole data
+    # Step 2: DataGolf event holes
     dg_event = scrape_datagolf_event_holes()
 
-    # Step 3: Try PGA Tour stats pages
+    # Step 3: PGA Tour stats
     pga_stats = scrape_pgatour_stats()
 
-    # Step 4: Fetch ESPN leaderboard
+    # Step 4: ESPN leaderboard (fallback if BDL has no results yet)
     espn_event = scrape_espn_leaderboard()
 
-    # ---- MERGE DATA ----
-    # If we got live rankings from DataGolf, merge with fallback for missing fields
+    # Use ESPN event if BDL didn't provide one
+    if not output["currentEvent"] and espn_event:
+        output["currentEvent"] = espn_event
+
+    # ============================================================
+    # MERGE PLAYER DATA
+    # ============================================================
     fallback = get_fallback_players()
 
     if dg_players and len(dg_players) > 5:
-        # Merge scraped rankings with fallback data for fields we can't scrape
-        # (courseFit, missDir, flight, notes are manually curated)
         merged = []
         for dg in dg_players:
-            # Find matching fallback player
             fb = next((f for f in fallback if f["name"].lower() == dg["name"].lower()), None)
             if fb:
-                # Use scraped SG data, keep curated fields from fallback
                 player = dict(fb)
                 player["sgTotal"] = dg["sgTotal"] if dg["sgTotal"] else fb["sgTotal"]
                 player["sgOtt"] = dg["sgOtt"] if dg["sgOtt"] else fb["sgOtt"]
@@ -905,7 +1118,6 @@ def run_pipeline():
                 player["rank"] = dg["rank"]
                 merged.append(player)
             else:
-                # New player not in fallback — add with defaults
                 dg["birdieAvg"] = 4.0
                 dg["bogeyAvg"] = 2.3
                 dg["scoringAvg"] = 70.5
@@ -916,71 +1128,109 @@ def run_pipeline():
                 dg["missDir"] = "neutral"
                 dg["flight"] = "neutral"
                 dg["courseFit"] = {}
-                dg["notes"] = "Auto-scraped player. Curated notes coming soon."
+                dg["notes"] = "Auto-scraped player."
                 merged.append(dg)
         output["players"] = merged
         print(f"\n  Merged {len(merged)} players (scraped + curated)")
     else:
-        # Scraping failed — use full fallback
         output["players"] = fallback
         print(f"\n  Using fallback data for {len(fallback)} players")
 
-    # Merge PGA Tour stats if available
+    # Merge PGA Tour stats
     if pga_stats:
         for stat_key, entries in pga_stats.items():
             for entry in entries:
                 player = next((p for p in output["players"] if entry["name"].lower() in p["name"].lower()), None)
                 if player:
-                    if stat_key == "scoring_avg":
-                        player["scoringAvg"] = entry["value"]
-                    elif stat_key == "birdie_avg":
-                        player["birdieAvg"] = entry["value"]
-                    elif stat_key == "gir_pct":
-                        player["gir"] = entry["value"]
-
-    # Add ESPN event data
-    if espn_event:
-        output["currentEvent"] = espn_event
+                    if stat_key == "scoring_avg": player["scoringAvg"] = entry["value"]
+                    elif stat_key == "birdie_avg": player["birdieAvg"] = entry["value"]
+                    elif stat_key == "gir_pct": player["gir"] = entry["value"]
 
     # Add course data
     output["courses"] = get_course_data()
 
-    # ---- STEP 5: WEATHER ----
-    weather_data = None
-    if espn_event:
-        course_key = match_venue_to_course(
-            espn_event.get("course", ""),
-            espn_event.get("name", "")
-        )
-        if course_key:
-            weather_data = scrape_course_weather(course_key)
-            if weather_data:
-                output["weather"] = {
-                    "course": course_key,
-                    "forecast": weather_data,
-                }
-                if output["currentEvent"]:
-                    output["currentEvent"]["weather"] = weather_data
-
-    # ---- STEP 6: COURSE FIT ALGORITHM ----
-    print("\n  Computing course fit scores...")
-    compute_all_course_fits(output["players"], weather_data)
-
-    # ---- STEP 7: BETTING ODDS ----
-    odds_data = scrape_betting_odds()
-    if odds_data:
+    # ============================================================
+    # ENRICH: BDL Odds + Props + Field info
+    # ============================================================
+    if bdl_odds:
         for player in output["players"]:
-            # Try exact match first, then partial
-            odds = odds_data.get(player["name"])
+            odds = bdl_odds.get(player["name"])
             if not odds:
-                for oname, odata in odds_data.items():
+                for oname, odata in bdl_odds.items():
                     if player["name"].lower() in oname.lower() or oname.lower() in player["name"].lower():
                         odds = odata
                         break
             if odds:
                 player["odds"] = odds
 
-    # ---- STEP 8: RECENT FORM ----
+    if bdl_props:
+        for player in output["players"]:
+            props = bdl_props.get(player["name"])
+            if props:
+                player["props"] = props
+
+    # Add field entry status (OWGR, qualifier info)
+    if bdl_field:
+        field_map = {}
+        for entry in bdl_field:
+            p = entry.get("player", {})
+            name = p.get("display_name", "")
+            if name:
+                field_map[name] = {
+                    "owgr": p.get("owgr"),
+                    "entryStatus": entry.get("entry_status", ""),
+                    "inField": True,
+                }
+        for player in output["players"]:
+            finfo = field_map.get(player["name"])
+            if finfo:
+                player["fieldInfo"] = finfo
+                if finfo["owgr"]:
+                    player["owgr"] = finfo["owgr"]
+
+    # ============================================================
+    # WEATHER
+    # ============================================================
+    weather_data = None
+    event_for_weather = output.get("currentEvent")
+    if event_for_weather:
+        course_key = match_venue_to_course(
+            event_for_weather.get("course", ""),
+            event_for_weather.get("name", "")
+        )
+        if course_key:
+            weather_data = scrape_course_weather(course_key)
+            if weather_data:
+                output["weather"] = {"course": course_key, "forecast": weather_data}
+                event_for_weather["weather"] = weather_data
+
+    # ============================================================
+    # COURSE FIT ALGORITHM
+    # ============================================================
+    print("\n  Computing course fit scores...")
+    compute_all_course_fits(output["players"], weather_data)
+
+    # ============================================================
+    # ODDS API (fallback — only if BDL had no odds)
+    # ============================================================
+    if not bdl_odds:
+        odds_api_data = scrape_betting_odds()
+        if odds_api_data:
+            for player in output["players"]:
+                odds = odds_api_data.get(player["name"])
+                if not odds:
+                    for oname, odata in odds_api_data.items():
+                        if player["name"].lower() in oname.lower() or oname.lower() in player["name"].lower():
+                            odds = odata
+                            break
+                if odds:
+                    player["odds"] = odds
+    else:
+        print("  Skipping The Odds API — BDL provided odds")
+
+    # ============================================================
+    # RECENT FORM
+    # ============================================================
     form_data = scrape_recent_form(espn_event)
     if form_data:
         for player in output["players"]:
@@ -1007,7 +1257,7 @@ def run_pipeline():
     print(f"Players: {len(output['players'])}")
     print(f"Current Event: {output['currentEvent']['name'] if output.get('currentEvent') else 'None'}")
     print(f"Weather: {'Yes' if weather_data else 'No'}")
-    print(f"Odds: {'Yes' if odds_data else 'No'}")
+    print(f"Odds: {'Yes (BDL)' if bdl_odds else 'No'}")
     print(f"Finished: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'=' * 60}")
 
