@@ -54,6 +54,7 @@ jobs:
           cp golf-data.json docs/
           cp PropsBot-GolfIntel.html docs/index.html
           echo '{ "headers": [{ "source": "**/*.json", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }] }' > docs/_headers
+          echo 'golf.propsbot.ai' > docs/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
