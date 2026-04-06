@@ -733,21 +733,89 @@ def scrape_course_weather(course_key):
 # ============================================================
 
 COURSE_TRAITS = {
-    "augusta":       {"power": 0.8, "accuracy": 0.7, "scramble": 0.9, "putting": 0.6},
-    "tpc_sawgrass":  {"power": 0.5, "accuracy": 0.8, "scramble": 0.7, "putting": 0.8},
-    "pebble":        {"power": 0.4, "accuracy": 0.8, "scramble": 0.8, "putting": 0.7},
-    "torrey_south":  {"power": 0.8, "accuracy": 0.6, "scramble": 0.6, "putting": 0.5},
-    "riviera":       {"power": 0.6, "accuracy": 0.8, "scramble": 0.7, "putting": 0.7},
-    "valhalla":      {"power": 0.9, "accuracy": 0.5, "scramble": 0.5, "putting": 0.5},
-    "pinehurst_2":   {"power": 0.5, "accuracy": 0.9, "scramble": 0.9, "putting": 0.7},
-    "royal_troon":   {"power": 0.6, "accuracy": 0.8, "scramble": 0.8, "putting": 0.6},
-    "quail_hollow":  {"power": 0.8, "accuracy": 0.6, "scramble": 0.6, "putting": 0.6},
-    "east_lake":     {"power": 0.6, "accuracy": 0.7, "scramble": 0.7, "putting": 0.7},
-    "bay_hill":      {"power": 0.7, "accuracy": 0.7, "scramble": 0.6, "putting": 0.6},
-    "harbour_town":  {"power": 0.2, "accuracy": 0.9, "scramble": 0.7, "putting": 0.8},
-    "colonial":      {"power": 0.3, "accuracy": 0.9, "scramble": 0.7, "putting": 0.8},
-    "memorial":      {"power": 0.7, "accuracy": 0.8, "scramble": 0.7, "putting": 0.6},
-    "tpc_scottsdale": {"power": 0.6, "accuracy": 0.6, "scramble": 0.5, "putting": 0.7},
+    # Each course has 9 trait dimensions:
+    # power/accuracy/scramble/putting = skill weighting (existing)
+    # fairway_width   = 0-1 (0=very narrow/tree-lined, 1=very wide/links)
+    # gir_difficulty  = 0-1 (0=easy greens to hit, 1=very hard due to slope/approach angle)
+    # birdie_rate     = avg birdies/round for the field (historical)
+    # bogey_rate      = avg bogeys/round for the field
+    # wind_exposure   = 0-1 (0=sheltered, 1=fully exposed links wind)
+    # morning_adv     = scoring adv morning tee (strokes vs afternoon average)
+    "augusta": {
+        "power": 0.8, "accuracy": 0.7, "scramble": 0.9, "putting": 0.6,
+        "fairway_width": 0.45, "gir_difficulty": 0.85, "birdie_rate": 3.8,
+        "bogey_rate": 2.9, "wind_exposure": 0.25, "morning_adv": 0.4,
+    },
+    "tpc_sawgrass": {
+        "power": 0.5, "accuracy": 0.8, "scramble": 0.7, "putting": 0.8,
+        "fairway_width": 0.50, "gir_difficulty": 0.70, "birdie_rate": 4.1,
+        "bogey_rate": 3.1, "wind_exposure": 0.60, "morning_adv": 0.3,
+    },
+    "pebble": {
+        "power": 0.4, "accuracy": 0.8, "scramble": 0.8, "putting": 0.7,
+        "fairway_width": 0.45, "gir_difficulty": 0.75, "birdie_rate": 3.4,
+        "bogey_rate": 3.2, "wind_exposure": 0.80, "morning_adv": 0.5,
+    },
+    "torrey_south": {
+        "power": 0.8, "accuracy": 0.6, "scramble": 0.6, "putting": 0.5,
+        "fairway_width": 0.60, "gir_difficulty": 0.65, "birdie_rate": 4.3,
+        "bogey_rate": 2.7, "wind_exposure": 0.50, "morning_adv": 0.2,
+    },
+    "riviera": {
+        "power": 0.6, "accuracy": 0.8, "scramble": 0.7, "putting": 0.7,
+        "fairway_width": 0.50, "gir_difficulty": 0.75, "birdie_rate": 3.9,
+        "bogey_rate": 2.8, "wind_exposure": 0.40, "morning_adv": 0.3,
+    },
+    "valhalla": {
+        "power": 0.9, "accuracy": 0.5, "scramble": 0.5, "putting": 0.5,
+        "fairway_width": 0.65, "gir_difficulty": 0.60, "birdie_rate": 4.4,
+        "bogey_rate": 2.6, "wind_exposure": 0.35, "morning_adv": 0.2,
+    },
+    "pinehurst_2": {
+        "power": 0.5, "accuracy": 0.9, "scramble": 0.9, "putting": 0.7,
+        "fairway_width": 0.65, "gir_difficulty": 0.90, "birdie_rate": 3.2,
+        "bogey_rate": 3.5, "wind_exposure": 0.55, "morning_adv": 0.4,
+    },
+    "royal_troon": {
+        "power": 0.6, "accuracy": 0.8, "scramble": 0.8, "putting": 0.6,
+        "fairway_width": 0.70, "gir_difficulty": 0.80, "birdie_rate": 3.3,
+        "bogey_rate": 3.4, "wind_exposure": 0.90, "morning_adv": 0.6,
+    },
+    "quail_hollow": {
+        "power": 0.8, "accuracy": 0.6, "scramble": 0.6, "putting": 0.6,
+        "fairway_width": 0.55, "gir_difficulty": 0.65, "birdie_rate": 4.2,
+        "bogey_rate": 2.8, "wind_exposure": 0.30, "morning_adv": 0.2,
+    },
+    "east_lake": {
+        "power": 0.6, "accuracy": 0.7, "scramble": 0.7, "putting": 0.7,
+        "fairway_width": 0.55, "gir_difficulty": 0.70, "birdie_rate": 3.9,
+        "bogey_rate": 2.8, "wind_exposure": 0.35, "morning_adv": 0.2,
+    },
+    "bay_hill": {
+        "power": 0.7, "accuracy": 0.7, "scramble": 0.6, "putting": 0.6,
+        "fairway_width": 0.50, "gir_difficulty": 0.70, "birdie_rate": 4.0,
+        "bogey_rate": 2.9, "wind_exposure": 0.45, "morning_adv": 0.3,
+    },
+    "harbour_town": {
+        "power": 0.2, "accuracy": 0.9, "scramble": 0.7, "putting": 0.8,
+        "fairway_width": 0.30, "gir_difficulty": 0.70, "birdie_rate": 3.7,
+        "bogey_rate": 2.6, "wind_exposure": 0.50, "morning_adv": 0.3,
+    },
+    "colonial": {
+        "power": 0.3, "accuracy": 0.9, "scramble": 0.7, "putting": 0.8,
+        "fairway_width": 0.35, "gir_difficulty": 0.72, "birdie_rate": 3.8,
+        "bogey_rate": 2.7, "wind_exposure": 0.40, "morning_adv": 0.3,
+    },
+    "memorial": {
+        "power": 0.7, "accuracy": 0.8, "scramble": 0.7, "putting": 0.6,
+        "fairway_width": 0.50, "gir_difficulty": 0.75, "birdie_rate": 3.9,
+        "bogey_rate": 2.8, "wind_exposure": 0.30, "morning_adv": 0.2,
+    },
+    "tpc_scottsdale": {
+        "power": 0.6, "accuracy": 0.6, "scramble": 0.5, "putting": 0.7,
+        "fairway_width": 0.70, "gir_difficulty": 0.50, "birdie_rate": 5.2,
+        "bogey_rate": 2.3, "wind_exposure": 0.55, "morning_adv": 0.3,
+    },
 }
 
 
@@ -1549,52 +1617,68 @@ def parse_props_by_type(bdl_props):
 
 def calculate_player_confidence_score(player, all_players, course_key="augusta"):
     """
-    PropsBot Confidence Score — 0 to 100.
-    Composite model weighting 5 factors for tournament performance prediction.
+    PropsBot Confidence Score v2 — 0 to 100.
+    9-factor composite model for tournament performance prediction.
 
-    Weights (Masters-tuned):
-      30% Strokes Gained (normalized vs full field)
-      25% Course Fit (Augusta-specific)
-      20% Augusta/Course History
-      15% Recent Form
-      10% Market Consensus (book odds as signal)
+    Weights:
+      22%  Strokes Gained            (field-normalized, course-component weighted)
+      18%  Course Fit                (algorithmic match to course trait profile)
+      12%  Tournament / Course History (finish, top-10s, cut%, avg score)
+      12%  Recent Form & Trend       (L5 recency-weighted, injury/cold-streak flag)
+      10%  GIR & Approach Quality    (GIR% × course difficulty, proximity, scramble)
+       8%  Driving Profile           (accuracy + distance matched to course needs)
+       8%  Birdie / Bogey Profile    (rate vs course avg, net scoring tendency)
+       6%  Cut Consistency           (career + recent made-cut %)
+       4%  Market Consensus          (book implied probability as outside signal)
     """
 
+    ct = COURSE_TRAITS.get(course_key, COURSE_TRAITS.get("augusta", {}))
     score = 0.0
+    score_breakdown = {}   # store component scores for frontend display
 
-    # ---- 1. STROKES GAINED (30%) ----
-    # Normalize sgTotal across all players in field
+    # =========================================================
+    # 1. STROKES GAINED  (22%)
+    # Normalize sgTotal vs full player pool, then blend with
+    # course-weighted component breakdown.
+    # =========================================================
     sg_vals = [p.get("sgTotal", 0) for p in all_players if p.get("sgTotal") is not None]
     if sg_vals:
         sg_min, sg_max = min(sg_vals), max(sg_vals)
         sg_range = sg_max - sg_min if sg_max != sg_min else 1
-        sg_norm = (player.get("sgTotal", 0) - sg_min) / sg_range  # 0–1
+        sg_norm = (player.get("sgTotal", 0) - sg_min) / sg_range
     else:
         sg_norm = 0.5
 
-    # Weight individual SG components for course-specific value
-    # Augusta rewards: approach (sg_app) > putting (sg_putt) > off-tee (sg_ott) > arg
+    # Course-weighted SG blend: Augusta values App > Putt > OTT > ARG
+    # Pull weights from course traits if available
+    acc_need  = ct.get("accuracy", 0.7)
+    pwr_need  = ct.get("power",    0.6)
+    scr_need  = ct.get("scramble", 0.7)
+    putt_need = ct.get("putting",  0.6)
+    total_need = acc_need + pwr_need * 0.5 + scr_need * 0.5 + putt_need
     sg_weighted = (
-        player.get("sgApp", 0) * 0.40 +
-        player.get("sgPutt", 0) * 0.25 +
-        player.get("sgOtt", 0) * 0.20 +
-        player.get("sgArg", 0) * 0.15
+        player.get("sgApp",  0) * (acc_need / total_need) +
+        player.get("sgPutt", 0) * (putt_need / total_need) +
+        player.get("sgOtt",  0) * (pwr_need * 0.5 / total_need) +
+        player.get("sgArg",  0) * (scr_need * 0.5 / total_need)
     )
-    # Normalize sg_weighted similarly
     sg_w_vals = [
-        p.get("sgApp", 0)*0.40 + p.get("sgPutt", 0)*0.25 +
-        p.get("sgOtt", 0)*0.20 + p.get("sgArg", 0)*0.15
+        p.get("sgApp",0)*(acc_need/total_need) + p.get("sgPutt",0)*(putt_need/total_need) +
+        p.get("sgOtt",0)*(pwr_need*0.5/total_need) + p.get("sgArg",0)*(scr_need*0.5/total_need)
         for p in all_players
     ]
-    sw_min, sw_max = min(sg_w_vals) if sg_w_vals else 0, max(sg_w_vals) if sg_w_vals else 1
+    sw_min, sw_max = (min(sg_w_vals) if sg_w_vals else 0), (max(sg_w_vals) if sg_w_vals else 1)
     sw_range = sw_max - sw_min if sw_max != sw_min else 1
     sg_w_norm = (sg_weighted - sw_min) / sw_range if sw_range else 0.5
 
-    # Blend raw total + course-weighted component
     sg_component = 0.5 * sg_norm + 0.5 * sg_w_norm
-    score += sg_component * 30.0
+    score += sg_component * 22.0
+    score_breakdown["sg"] = round(sg_component * 22.0, 1)
 
-    # ---- 2. COURSE FIT (25%) ----
+    # =========================================================
+    # 2. COURSE FIT  (18%)
+    # Pulls from curated courseFit dict; bonus for elite fit.
+    # =========================================================
     course_fit = 0
     cf = player.get("courseFit")
     if isinstance(cf, dict):
@@ -1602,45 +1686,57 @@ def calculate_player_confidence_score(player, all_players, course_key="augusta")
     elif isinstance(cf, (int, float)):
         course_fit = cf
 
-    # Bonus for elite fit (>85), penalty for poor fit (<55)
     fit_norm = max(0, min(100, course_fit)) / 100.0
     if course_fit >= 88:
-        fit_norm = min(1.0, fit_norm * 1.1)
+        fit_norm = min(1.0, fit_norm * 1.10)
     elif course_fit < 55:
-        fit_norm *= 0.85
+        fit_norm *= 0.80
 
-    score += fit_norm * 25.0
+    score += fit_norm * 18.0
+    score_breakdown["fit"] = round(fit_norm * 18.0, 1)
 
-    # ---- 3. AUGUSTA/COURSE HISTORY (20%) ----
+    # =========================================================
+    # 3. TOURNAMENT / COURSE HISTORY  (12%)
+    # Best finish + top-10 count + appearances + scoring avg.
+    # Made-cut rate is also computed here and stored separately.
+    # =========================================================
     history = player.get("augustaHistory", {})
-    hist_score = 0.0
+    hist_score = 0.35  # neutral default for debutants
 
     if history:
-        appearances = min(history.get("appearances", 0), 30)
+        appearances = max(1, min(history.get("appearances", 1), 35))
         best_finish = history.get("bestFinish", 70)
-        top10s = history.get("top10", 0)
-        avg_score = history.get("avgScore", 74.0)
+        top10s      = history.get("top10", 0)
+        avg_score   = history.get("avgScore", 74.0)
+        cuts_made   = history.get("cuts", 0)
 
-        # Best finish: 1st=100, 5th=80, 10th=60, 20th=40, 30th+=10
-        finish_pts = max(0, 100 - (best_finish - 1) * 3.5)
-        # Top 10 count: each top10 = 15pts, capped at 60
-        top10_pts = min(60, top10s * 15)
-        # Experience: more appearances = better course knowledge (capped at 25)
-        exp_pts = min(25, appearances * 1.5)
-        # Scoring average at Augusta (relative to par 72): lower is better
-        avg_pts = max(0, 40 - (avg_score - 72) * 8) if avg_score else 0
+        # Best finish points: 1→100, 5→82, 10→65, 20→40, 30+→10
+        finish_pts = max(0, 100 - (best_finish - 1) * 3.3)
+        # Top-10 rate rewards consistent excellence, not just one lucky week
+        top10_rate_pts = min(70, (top10s / appearances) * 140)
+        # Experience value (capped — appearance 20+ is mastery tier)
+        exp_pts = min(25, appearances * 1.4)
+        # Scoring average (relative to par 72)
+        avg_pts = max(0, 40 - (avg_score - 72.0) * 8) if avg_score else 0
+        # Career cut % at this course
+        career_cut_pct = cuts_made / appearances
+        cut_pts = career_cut_pct * 30  # 100% cut rate = 30pts
 
-        raw_hist = finish_pts * 0.40 + top10_pts * 0.30 + exp_pts * 0.15 + avg_pts * 0.15
-        hist_score = min(100, raw_hist) / 100.0
-    else:
-        # No history = neutral (assume average debut performance)
-        hist_score = 0.35
+        raw_hist = (finish_pts * 0.35 + top10_rate_pts * 0.25 +
+                    exp_pts * 0.15 + avg_pts * 0.15 + cut_pts * 0.10)
+        hist_score = min(100, max(0, raw_hist)) / 100.0
+        # Store for cut consistency factor later
+        player["_career_cut_pct"] = career_cut_pct
 
-    score += hist_score * 20.0
+    score += hist_score * 12.0
+    score_breakdown["history"] = round(hist_score * 12.0, 1)
 
-    # ---- 4. RECENT FORM (15%) ----
+    # =========================================================
+    # 4. RECENT FORM & TREND  (12%)
+    # Recency-weighted L5 results + hot/cold/injured penalty.
+    # =========================================================
     recent_form = player.get("recentForm", {})
-    form_score = 0.5  # default neutral
+    form_score = 0.5
 
     if recent_form and isinstance(recent_form, dict):
         results = recent_form.get("results", recent_form.get("finishes", []))
@@ -1649,40 +1745,154 @@ def calculate_player_confidence_score(player, all_players, course_key="augusta")
             for r in results[:5]:
                 pos = r.get("position", r.get("pos", 50))
                 try:
-                    pos = int(str(pos).replace("T","").replace("MC","80").replace("WD","90"))
+                    pos_int = int(str(pos).replace("T","").replace("MC","82").replace("WD","95"))
                 except:
-                    pos = 50
-                # Score each finish: Win=100, T5=85, T10=70, T20=55, T30=40, MC=15, WD=0
-                if pos == 1:    pts = 100
-                elif pos <= 3:  pts = 90
-                elif pos <= 5:  pts = 82
-                elif pos <= 10: pts = 70
-                elif pos <= 20: pts = 55
-                elif pos <= 30: pts = 40
-                elif pos <= 50: pts = 25
-                elif pos <= 70: pts = 15
-                else:           pts = 5
+                    pos_int = 50
+                if   pos_int == 1:  pts = 100
+                elif pos_int <= 3:  pts = 92
+                elif pos_int <= 5:  pts = 84
+                elif pos_int <= 10: pts = 70
+                elif pos_int <= 20: pts = 56
+                elif pos_int <= 30: pts = 42
+                elif pos_int <= 50: pts = 28
+                elif pos_int <= 70: pts = 15
+                else:               pts = 4   # MC or WD
                 form_pts.append(pts)
             if form_pts:
-                # Weight recent results more (recency bias: most recent = 2x weight)
-                weights = [2, 1.5, 1, 0.8, 0.6][:len(form_pts)]
+                weights = [2.0, 1.5, 1.0, 0.7, 0.5][:len(form_pts)]
                 form_score = sum(p*w for p,w in zip(form_pts, weights)) / sum(weights) / 100.0
 
-    # Adjust for hot/cold streaks (trend)
-    if recent_form and isinstance(recent_form, dict):
         trend = recent_form.get("trend", "neutral")
         if trend == "hot":
-            form_score = min(1.0, form_score * 1.15)
+            form_score = min(1.0, form_score * 1.18)
         elif trend == "cold":
-            form_score *= 0.85
+            form_score *= 0.82
+        elif trend == "injured" or trend == "struggling":
+            form_score *= 0.70  # significant penalty for injury/form crisis
 
-    score += form_score * 15.0
+        # Store recent cut % for cut-consistency factor
+        r_results = recent_form.get("results", recent_form.get("finishes", []))
+        if r_results:
+            recent_made = sum(1 for r in r_results[:10]
+                              if str(r.get("position", r.get("pos","MC"))).replace("T","").isdigit()
+                              and int(str(r.get("position", r.get("pos","99"))).replace("T","")) < 80)
+            player["_recent_cut_pct"] = recent_made / min(len(r_results), 10)
+        else:
+            player["_recent_cut_pct"] = 0.60
 
-    # ---- 5. MARKET CONSENSUS (10%) ----
-    # Book odds reflect sharp money and information we may not have
+    score += form_score * 12.0
+    score_breakdown["form"] = round(form_score * 12.0, 1)
+
+    # =========================================================
+    # 5. GIR & APPROACH QUALITY  (10%)
+    # GIR% adjusted by course difficulty.  Proximity + scramble
+    # bonus at courses that punish missed greens.
+    # =========================================================
+    gir         = player.get("gir", 65.0)
+    prox_avg    = player.get("proxAvg", 36.0)    # feet from hole
+    scramble    = player.get("scramble", 58.0)    # % recovery from off-green
+    sg_app      = player.get("sgApp", 0.0)
+    gir_diff    = ct.get("gir_difficulty", 0.70)
+    scr_need    = ct.get("scramble", 0.70)
+
+    # GIR norm: 52% poor → 0, 74%+ elite → 1.0
+    gir_norm    = max(0.0, min(1.0, (gir - 52.0) / 22.0))
+    # Proximity norm: 40ft avg poor → 0, 25ft excellent → 1.0
+    prox_norm   = max(0.0, min(1.0, (40.0 - prox_avg) / 15.0))
+    # Scramble norm: 45% poor → 0, 70% great → 1.0 (weighted by course need)
+    scramble_norm = max(0.0, min(1.0, (scramble - 45.0) / 25.0)) * scr_need
+    # SG:App norm: -1.5 poor → 0, +1.5 elite → 1.0
+    sgapp_norm  = max(0.0, min(1.0, (sg_app + 1.5) / 3.0))
+
+    # At harder GIR courses, weight GIR% and approach more heavily
+    gir_component = (
+        gir_norm    * (0.30 + gir_diff * 0.20) +
+        sgapp_norm  * 0.35 +
+        prox_norm   * 0.15 +
+        scramble_norm * 0.10
+    )
+    gir_component = max(0.0, min(1.0, gir_component / (0.30 + gir_diff * 0.20 + 0.60)))
+
+    score += gir_component * 10.0
+    score_breakdown["gir"] = round(gir_component * 10.0, 1)
+
+    # =========================================================
+    # 6. DRIVING PROFILE  (8%)
+    # Fairway accuracy vs distance matched to course requirements.
+    # Narrow fairways amplify the accuracy premium.
+    # =========================================================
+    fairways     = player.get("fairways", 62.0)
+    sg_ott       = player.get("sgOtt", 0.0)
+    fw_width     = ct.get("fairway_width", 0.50)   # 0 = very narrow, 1 = very wide
+    acc_need_raw = ct.get("accuracy", 0.70)
+    pwr_need_raw = ct.get("power", 0.60)
+
+    # Fairway % norm: 50% poor → 0, 78% elite → 1.0
+    fw_norm  = max(0.0, min(1.0, (fairways - 50.0) / 28.0))
+    # OTT norm: -1.0 poor → 0, +1.5 elite → 1.0
+    ott_norm = max(0.0, min(1.0, (sg_ott + 1.0) / 2.5))
+
+    # Narrow fairways increase accuracy premium (tight tree-lined tracks)
+    acc_weight = acc_need_raw + max(0, 0.5 - fw_width) * 0.4
+    pwr_weight = pwr_need_raw
+    total_drv  = acc_weight + pwr_weight
+    drv_component = (fw_norm * acc_weight + ott_norm * pwr_weight) / (total_drv if total_drv else 1)
+
+    score += drv_component * 8.0
+    score_breakdown["driving"] = round(drv_component * 8.0, 1)
+
+    # =========================================================
+    # 7. BIRDIE / BOGEY PROFILE  (8%)
+    # Birdie rate vs course avg, bogey avoidance, net tendency.
+    # Pin position context is approximated by course bogey_rate.
+    # =========================================================
+    birdie_avg       = player.get("birdieAvg", 3.5)
+    bogey_avg        = player.get("bogeyAvg",  2.5)
+    course_birdie_r  = ct.get("birdie_rate",   3.8)
+    course_bogey_r   = ct.get("bogey_rate",    2.9)
+
+    # Excess birdies vs course average: -1.5 → 0, +1.5 → 1.0
+    birdie_excess = birdie_avg - course_birdie_r
+    birdie_norm   = max(0.0, min(1.0, (birdie_excess + 1.5) / 3.0))
+
+    # Bogey avoidance: at high-bogey courses, avoiding bogeys is premium
+    # bogey_excess negative = better than course avg
+    bogey_excess  = bogey_avg - course_bogey_r
+    bogey_norm    = max(0.0, min(1.0, (1.5 - bogey_excess) / 3.0))
+
+    # Net scoring tendency: birdie - bogey delta vs course norms
+    net_tendency  = (birdie_avg - bogey_avg) - (course_birdie_r - course_bogey_r)
+    net_norm      = max(0.0, min(1.0, (net_tendency + 1.5) / 3.0))
+
+    bb_component = birdie_norm * 0.35 + bogey_norm * 0.40 + net_norm * 0.25
+    score += bb_component * 8.0
+    score_breakdown["birdie_bogey"] = round(bb_component * 8.0, 1)
+
+    # =========================================================
+    # 8. CUT CONSISTENCY  (6%)
+    # Career cut % at this course + recent L10 cut rate.
+    # Players who can't make cuts don't matter for most props.
+    # =========================================================
+    career_cut = player.get("_career_cut_pct", 0.60)
+    recent_cut = player.get("_recent_cut_pct", 0.60)
+    # Weight recent cuts 55%, career 45% (recent form more predictive)
+    cut_score  = career_cut * 0.45 + recent_cut * 0.55
+
+    # Store for frontend display
+    player["makeCutPct"]       = round(career_cut * 100, 1)
+    player["recentMakeCutPct"] = round(recent_cut * 100, 1)
+
+    score += cut_score * 6.0
+    score_breakdown["cut"] = round(cut_score * 6.0, 1)
+
+    # =========================================================
+    # 9. MARKET CONSENSUS  (4%)
+    # Sharp-money signal from book odds.  Intentionally low weight
+    # so our model leads, not follows.  BDL book list only.
+    # =========================================================
     odds = player.get("odds", {})
     best_odds = None
-    for book in ["dk", "fd", "mgm", "bovada", "bet365"]:
+    for book in ["dk", "fd", "mgm", "czr", "pb", "365"]:
         v = odds.get(book)
         if v:
             try:
@@ -1693,63 +1903,64 @@ def calculate_player_confidence_score(player, all_players, course_key="augusta")
                 pass
 
     if best_odds is not None:
-        # Convert American to implied probability
         if best_odds > 0:
-            impl_prob = 100 / (best_odds + 100)
+            impl_prob = 100.0 / (best_odds + 100.0)
         else:
-            impl_prob = abs(best_odds) / (abs(best_odds) + 100)
-        # Normalize: +100 (50%) = top end, +10000 (0.99%) = low end
-        # Map implied prob to 0–1 market score
-        # Use log scale: +150 → 0.9, +500 → 0.6, +2000 → 0.35, +10000 → 0.1
-        market_norm = min(1.0, max(0, impl_prob * 8))  # scale: 12.5% win prob → 1.0
+            impl_prob = abs(best_odds) / (abs(best_odds) + 100.0)
+        market_norm = min(1.0, max(0.0, impl_prob * 8.0))
     else:
-        # No odds — use rank as proxy
-        rank = player.get("rank", 50)
-        market_norm = max(0, min(1.0, (51 - min(rank, 50)) / 50))
+        rank = player.get("rank", 100)
+        market_norm = max(0.0, min(1.0, (101 - min(rank, 100)) / 100.0))
 
-    score += market_norm * 10.0
+    score += market_norm * 4.0
+    score_breakdown["market"] = round(market_norm * 4.0, 1)
 
-    # ---- FINAL SCORE ----
+    # =========================================================
+    # COMPETITIVENESS GATE
+    # Historical greatness cannot override current inability to
+    # compete.  Uses two independent signals (rank + SG) so that
+    # retired players AND recently injured players are caught.
+    # =========================================================
+    rank     = player.get("rank",    100)
+    sg_total = player.get("sgTotal", 0.0)
+
+    is_ceremonial     = (rank >= 500) or (sg_total < -2.0)
+    is_non_competitive= (rank > 300)  or (sg_total < -1.2)
+    is_declining      = (rank > 150)  or (sg_total < -0.3)
+
     final_score = round(min(100, max(1, score)))
 
-    # ---- CURRENT COMPETITIVENESS GATE ----
-    # Historical greatness cannot override current inability to compete.
-    # Players with rank > 200 or SG < -1.0 are not real contenders regardless
-    # of their Augusta history. Hard-cap their confScore accordingly.
-    rank = player.get("rank", 50)
-    sg_total = player.get("sgTotal", 0)
-
-    # Flag ceremonial/retired starters explicitly
-    is_ceremonial = (rank >= 500) or (sg_total < -2.0)
-    is_non_competitive = (rank > 300) or (sg_total < -1.2)
-    is_declining = (rank > 150) or (sg_total < -0.3)
-
     if is_ceremonial:
-        # Larry Mize, Bernhard Langer, Fred Couples tier — honorary starters
         final_score = min(final_score, 6)
         player["competitiveness"] = "ceremonial"
     elif is_non_competitive:
-        # Tiger (injured/unknown), Mike Weir, Bubba Watson (retired) tier
         final_score = min(final_score, 18)
         player["competitiveness"] = "non_competitive"
     elif is_declining:
-        # Phil Mickelson, older/declining players tier
         final_score = min(final_score, 35)
         player["competitiveness"] = "declining"
     else:
         player["competitiveness"] = "active"
 
-    # ---- EDGE SCORE (model vs market) ----
-    # Positive = our model rates them HIGHER than the market does
+    # Store component breakdown for frontend confidence score visualization
+    player["confBreakdown"] = score_breakdown
+
+    # =========================================================
+    # EDGE SCORE  (model win% minus market implied%)
+    # Positive = our model rates them higher than books do.
+    # =========================================================
     edge_score = None
     if best_odds is not None:
         if best_odds > 0:
-            market_implied_pct = 100 / (best_odds + 100) * 100
+            market_implied_pct = 100.0 / (best_odds + 100.0) * 100.0
         else:
-            market_implied_pct = abs(best_odds) / (abs(best_odds) + 100) * 100
-        # Our model's implied win probability (very rough: top player at 100 conf = ~15% win prob)
-        model_win_pct = (final_score / 100) * 15.0
+            market_implied_pct = abs(best_odds) / (abs(best_odds) + 100.0) * 100.0
+        model_win_pct = (final_score / 100.0) * 15.0
         edge_score = round(model_win_pct - market_implied_pct, 2)
+
+    # Clean up temp keys
+    player.pop("_career_cut_pct", None)
+    player.pop("_recent_cut_pct", None)
 
     return final_score, edge_score
 

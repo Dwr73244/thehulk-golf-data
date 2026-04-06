@@ -509,89 +509,81 @@
   </div>
 
   <!-- ==================== TAB: PROPS ==================== -->
-  <div id="tab-props" class="tab-content hidden fade-in space-y-5">
+  <div id="tab-props" class="tab-content hidden fade-in space-y-4">
 
-    <!-- PROPS MARKET BOARD (cross-reference matrix) -->
-    <div class="glass rounded-2xl p-5 glow-teal">
-      <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+    <!-- HEADER + PROP CATEGORY SELECTOR -->
+    <div class="glass rounded-2xl p-4 glow-teal">
+      <div class="flex items-start justify-between gap-3 flex-wrap mb-4">
         <div>
-          <h2 class="text-base font-bold text-white mb-0.5">Props Market Board</h2>
-          <p class="text-xs text-slate-400">All markets in one view · Click any column header to sort · Model-estimated odds shown where book data unavailable</p>
+          <h2 class="text-base font-bold text-white mb-0.5">Props Line Shopping</h2>
+          <p class="text-xs text-slate-400">Compare every book side by side. Best price highlighted in teal. Model edge shown in green.</p>
         </div>
-        <div class="flex items-center gap-2 flex-wrap">
-          <!-- Book filter -->
-          <div class="flex gap-1">
-            <button class="book-filter-btn active mono text-[10px] px-2.5 py-1 rounded-md border" data-book="best" style="border-color:rgba(21,255,194,0.4);color:var(--teal);background:rgba(21,255,194,0.08);">Best</button>
-            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="dk" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">DK</button>
-            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="fd" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">FD</button>
-            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="mgm" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">MGM</button>
-            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="czr" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">CZR</button>
-            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="pb" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">PB</button>
-            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="365" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">365</button>
-          </div>
-          <!-- EV filter -->
-          <label class="flex items-center gap-1.5 cursor-pointer">
-            <input type="checkbox" id="propEvFilter" class="w-3.5 h-3.5 accent-teal-400">
-            <span class="text-[11px] font-semibold" style="color:var(--teal)">+EV Only</span>
-          </label>
-          <!-- Search -->
-          <input type="text" id="propPlayerSearch" placeholder="Search player..." style="font-size:11px;padding:5px 10px;border-radius:7px;background:rgba(14,26,44,0.8);border:1px solid rgba(100,180,200,0.15);color:#eef2f7;width:140px;">
-        </div>
+        <span id="propsCardCount" class="mono text-[10px] text-slate-500 self-start pt-1"></span>
       </div>
 
-      <!-- Best Value spotlight — top 3 value plays across all markets -->
-      <div id="propsSpotlight" class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4"></div>
-
-      <!-- Cross-reference table -->
-      <div class="overflow-x-auto rounded-xl border border-white/5" style="-webkit-overflow-scrolling:touch;">
-        <table class="min-w-full text-[11px]" id="propsMatrixTable">
-          <thead style="background:rgba(14,26,44,0.9);position:sticky;top:0;z-index:2;">
-            <tr class="text-slate-500 uppercase text-[9px] tracking-wider border-b border-white/5">
-              <th class="px-3 py-2.5 text-left font-semibold sticky left-0 z-10" style="background:rgba(14,26,44,0.97);min-width:160px;">
-                Player
-              </th>
-              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="winner" style="min-width:90px;">
-                🏆 Win
-              </th>
-              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="top3" style="min-width:80px;">
-                Top 3
-              </th>
-              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="top5" style="min-width:80px;">
-                Top 5
-              </th>
-              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="top10" style="min-width:80px;">
-                Top 10
-              </th>
-              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="top20" style="min-width:80px;">
-                Top 20
-              </th>
-              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="makeCut" style="min-width:80px;">
-                Cut
-              </th>
-              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="r1Leader" style="min-width:80px;">
-                R1 Lead
-              </th>
-              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col active-sort" data-col="confScore" style="min-width:90px;border-left:1px solid rgba(21,255,194,0.15);">
-                <span style="color:var(--teal);">PB Score ↓</span>
-              </th>
-              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="ev" style="min-width:70px;">
-                EV%
-              </th>
-              <th class="px-2 py-2.5 text-center font-semibold" style="min-width:60px;">
-                Parlay
-              </th>
-            </tr>
-          </thead>
-          <tbody id="propsMatrixBody" class="divide-y divide-white/5"></tbody>
-        </table>
+      <!-- Prop category pills -->
+      <div class="flex gap-1.5 flex-wrap mb-3">
+        <button class="prop-cat-btn active mono text-[10px] px-3 py-1.5 rounded-md border font-semibold whitespace-nowrap" data-cat="winner"  style="border-color:rgba(240,192,64,0.5);color:#f0c040;background:rgba(240,192,64,0.08);">🏆 Win</button>
+        <button class="prop-cat-btn mono text-[10px] px-3 py-1.5 rounded-md border font-semibold whitespace-nowrap" data-cat="top5"    style="border-color:rgba(100,180,200,0.2);color:rgba(200,215,230,0.7);background:transparent;">Top 5</button>
+        <button class="prop-cat-btn mono text-[10px] px-3 py-1.5 rounded-md border font-semibold whitespace-nowrap" data-cat="top10"   style="border-color:rgba(100,180,200,0.2);color:rgba(200,215,230,0.7);background:transparent;">Top 10</button>
+        <button class="prop-cat-btn mono text-[10px] px-3 py-1.5 rounded-md border font-semibold whitespace-nowrap" data-cat="top20"   style="border-color:rgba(100,180,200,0.2);color:rgba(200,215,230,0.7);background:transparent;">Top 20</button>
+        <button class="prop-cat-btn mono text-[10px] px-3 py-1.5 rounded-md border font-semibold whitespace-nowrap" data-cat="makeCut" style="border-color:rgba(100,180,200,0.2);color:rgba(200,215,230,0.7);background:transparent;">Make Cut</button>
+        <button class="prop-cat-btn mono text-[10px] px-3 py-1.5 rounded-md border font-semibold whitespace-nowrap" data-cat="birdies" style="border-color:rgba(21,255,194,0.2);color:rgba(21,255,194,0.7);background:transparent;">🦅 Birdies O/U</button>
+        <button class="prop-cat-btn mono text-[10px] px-3 py-1.5 rounded-md border font-semibold whitespace-nowrap" data-cat="bogeys"  style="border-color:rgba(255,21,82,0.2);color:rgba(255,21,82,0.7);background:transparent;">⛳ Bogeys O/U</button>
+        <button class="prop-cat-btn mono text-[10px] px-3 py-1.5 rounded-md border font-semibold whitespace-nowrap" data-cat="scoring" style="border-color:rgba(171,143,255,0.2);color:rgba(171,143,255,0.7);background:transparent;">📊 Scoring</button>
       </div>
-      <div class="flex items-center justify-between mt-2 flex-wrap gap-2">
-        <p class="text-[9px] text-slate-600">Model odds estimated where book data unavailable. Not betting advice. Verify before wagering.</p>
-        <p class="text-[9px] text-slate-600" id="propsMatrixCount"></p>
+
+      <!-- Filters row -->
+      <div class="flex gap-3 items-center flex-wrap">
+        <input type="text" id="propPlayerSearch" placeholder="Search player…" style="font-size:11px;padding:5px 10px;border-radius:7px;background:rgba(14,26,44,0.8);border:1px solid rgba(100,180,200,0.15);color:#eef2f7;width:145px;">
+        <label class="flex items-center gap-1.5 cursor-pointer">
+          <input type="checkbox" id="propEvFilter" class="w-3.5 h-3.5 accent-teal-400">
+          <span class="text-[11px] font-semibold" style="color:var(--teal)">+EV Only</span>
+        </label>
+        <label class="flex items-center gap-1.5 cursor-pointer">
+          <input type="checkbox" id="propHotOnly" class="w-3.5 h-3.5 accent-orange-400">
+          <span class="text-[11px] font-semibold text-orange-400">🔥 Hot Only</span>
+        </label>
+        <select id="propSortSel" class="mono text-[10px] bg-white/5 border border-white/10 rounded-md px-2 py-1.5 text-slate-300 cursor-pointer">
+          <option value="confScore">Sort: PB Score ↓</option>
+          <option value="rank">Sort: Rank</option>
+          <option value="edge">Sort: Edge %</option>
+          <option value="name">Sort: Name A-Z</option>
+        </select>
       </div>
     </div>
 
-    <!-- Keep existing custom prop builder below -->
+    <!-- TOP VALUE SPOTLIGHT -->
+    <div id="propsSpotlight" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+
+    <!-- BOOK COLUMN HEADERS (sticky when scrolling the card list) -->
+    <div class="glass rounded-xl overflow-hidden">
+      <!-- Header row -->
+      <div class="flex items-stretch border-b border-white/5" style="background:rgba(14,26,44,0.97);">
+        <div style="width:220px;flex-shrink:0;" class="px-4 py-2 flex items-center">
+          <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Player / Prop</span>
+        </div>
+        <div style="width:160px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.05);" class="px-3 py-2 flex items-center">
+          <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Best Odds</span>
+        </div>
+        <div class="flex-1 overflow-hidden">
+          <div id="propBookHeaders" class="flex" style="min-width:480px;">
+            <!-- injected by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD LIST -->
+      <div id="propsLineCards" class="divide-y divide-white/[0.04]"></div>
+
+      <!-- Footer -->
+      <div class="px-4 py-2.5 flex items-center justify-between gap-2 border-t border-white/5" style="background:rgba(14,26,44,0.5);">
+        <p class="text-[9px] text-slate-600">⚡ = Model-estimated odds where book line unavailable. Teal highlight = best price. Green = +EV vs model. Not betting advice.</p>
+        <span id="propsMatrixCount" class="mono text-[10px] text-slate-600"></span>
+      </div>
+    </div>
+
+    <!-- CUSTOM PROP BUILDER (legacy tool, kept below) -->
     <div class="glass rounded-2xl p-5">
       <h3 class="text-sm font-bold text-white mb-1">Custom Prop Builder</h3>
       <p class="text-xs text-slate-400 mb-4">Build and analyze custom prop combinations manually.</p>
@@ -1817,15 +1809,24 @@
     });
 
     var results = competitivePlayers.map(function(p) {
-      // Use confScore-weighted skill if available, otherwise fall back to raw SG
-      // confScore normalizes all factors (SG + fit + history + form + market)
-      var baseSkill = p.sgTotal;
-      var confBoost = p.confScore ? (p.confScore - 50) / 200 : 0; // ±0.25 adjustment
-      var skill = baseSkill + confBoost;
+      // confScore is the PRIMARY skill driver. It already bakes in:
+      // SG (22%) + course fit (18%) + history (12%) + recent form (12%) +
+      // GIR quality (10%) + driving (8%) + birdie/bogey profile (8%) +
+      // cut consistency (6%) + market (4%) + competitiveness gate.
+      //
+      // Map confScore to a skill unit on the same scale as sgTotal:
+      //   confScore 50 (avg)   → skill  0.0
+      //   confScore 85 (elite) → skill +1.25
+      //   confScore 20 (poor)  → skill -1.07
+      //   confScore  6 (Mize)  → skill -1.57  ← naturally bottom of board
+      var confSkill = p.confScore ? (p.confScore - 50) / 28 : 0;
+      // Blend 70% confScore-derived + 30% raw SG (catches very recent form data)
+      var skill = confSkill * 0.70 + (p.sgTotal || 0) * 0.30;
 
+      // Course fit is already in confScore, but apply a small additional
+      // course-specific adjustment for the selected sim course
       if (course !== 'neutral' && p.courseFit && p.courseFit[course]) {
-        // Use actual course fit score, normalized around 70 as baseline
-        skill += (p.courseFit[course] - 70) / 100;
+        skill += (p.courseFit[course] - 70) / 150; // smaller weight — already baked in
       }
       if (fieldStrength === 'weak') skill *= 1.05;
       if (fieldStrength === 'signature') skill *= 0.98;
@@ -2938,13 +2939,16 @@
   el('playerSort').addEventListener('change', function() { setTimeout(enhancePlayerGrid, 0); });
 
   // ============================================================
-  // PROPS MATRIX BOARD
+  // PROPS LINE SHOPPING
   // ============================================================
 
-  var _propBookFilter = 'best';
-  var _propMatrixSort = { col: 'confScore', dir: -1 }; // -1 = desc
-  var _propEvFilter = false;
+  var _propCat        = 'winner';   // current prop category
+  var _propBookFilter = 'best';     // legacy (kept for parlay compat)
+  var _propMatrixSort = { col: 'confScore', dir: -1 };
+  var _propEvFilter   = false;
+  var _propHotOnly    = false;
   var _propPlayerSearch = '';
+  var _propSortKey    = 'confScore';
 
   // Multipliers: how much more likely is Top X vs outright win
   var PROP_MULT = { winner:1, top3:2.8, top5:4.2, top10:7.5, top20:13, makeCut:28, r1Leader:0.85, r2Leader:0.80 };
@@ -3244,6 +3248,344 @@
     });
   }
 
+  /* ============================================================
+     PROPS LINE SHOPPING — new card-based UI
+  ============================================================ */
+
+  var BOOKS = [
+    { key:'dk',  label:'DraftKings' },
+    { key:'fd',  label:'FanDuel'    },
+    { key:'mgm', label:'BetMGM'     },
+    { key:'czr', label:'Caesars'    },
+    { key:'pb',  label:'PointsBet'  },
+    { key:'365', label:'Bet365'     }
+  ];
+
+  // How many times more likely Top-X is vs outright win (for estimation)
+  var PLACEMENT_MULT = { winner:1, top5:3.8, top10:6.5, top20:11.5, makeCut:26, r1Leader:0.9 };
+
+  function _winOddsForPlayer(p) {
+    var o = p.odds || {};
+    return o.dk || o.fd || o.mgm || o.czr || o.pb || o['365'] || null;
+  }
+
+  function _estimatePlacementOdds(winOdds, market) {
+    if (!winOdds) return null;
+    var mult = PLACEMENT_MULT[market] || 1;
+    var w    = parseInt(winOdds);
+    var wDec = w > 0 ? (w/100+1) : (100/Math.abs(w)+1);
+    var nDec = 1 + (wDec - 1) / mult;
+    return nDec >= 2 ? Math.round((nDec-1)*100) : Math.round(-100/(nDec-1));
+  }
+
+  // For a given placement market + book, return best available odds
+  function _bookOddsForMarket(p, market, bookKey) {
+    var o = p.odds || {};
+    if (market === 'winner') {
+      return o[bookKey] ? parseInt(o[bookKey]) : null;
+    }
+    // For other markets, estimate from that book's win odds
+    var bookWin = o[bookKey] ? parseInt(o[bookKey]) : null;
+    return bookWin ? _estimatePlacementOdds(bookWin, market) : null;
+  }
+
+  // For stat props (birdies/bogeys/scoring), compute the model line and estimate O/U
+  function _statLine(p, cat) {
+    var rds = 4;
+    if (cat === 'birdies') {
+      var raw  = (p.birdieAvg || 3.5) * rds;
+      var line = Math.round(raw * 2) / 2;    // nearest 0.5
+      return { line: line, modelProj: +raw.toFixed(1) };
+    }
+    if (cat === 'bogeys') {
+      var raw  = (p.bogeyAvg || 2.5) * rds;
+      var line = Math.round(raw * 2) / 2;
+      return { line: line, modelProj: +raw.toFixed(1) };
+    }
+    if (cat === 'scoring') {
+      var raw  = (p.scoringAvg || 71.5) * rds;
+      var line = Math.round(raw * 2) / 2;
+      return { line: line, modelProj: +raw.toFixed(1) };
+    }
+    return null;
+  }
+
+  // Compute model fair probability for a placement market
+  function _modelFairPct(p, market) {
+    var conf = (p.confScore || 50) / 100;
+    var mult = PLACEMENT_MULT[market] || 1;
+    var fit  = p.courseFit && p.courseFit.augusta ? p.courseFit.augusta / 100 : 0.65;
+    return Math.min(96, conf * 0.15 * mult * (0.7 + 0.3 * fit) * 100);
+  }
+
+  function _oddsStr(american) {
+    if (!american && american !== 0) return '—';
+    return american > 0 ? '+' + american : '' + american;
+  }
+
+  function renderPropsLineShopping() {
+    var isStatProp = (_propCat === 'birdies' || _propCat === 'bogeys' || _propCat === 'scoring');
+
+    // Build book header
+    var hdr = el('propBookHeaders');
+    if (hdr) {
+      hdr.innerHTML = BOOKS.map(function(b) {
+        return '<div style="width:80px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.04);" class="px-2 py-2 text-center">' +
+          '<span class="mono text-[9px] font-semibold text-slate-500 uppercase">' + b.label + '</span>' +
+        '</div>';
+      }).join('');
+    }
+
+    var search = (_propPlayerSearch || '').toLowerCase();
+    var players = PLAYERS.filter(function(p) {
+      if (search && p.name.toLowerCase().indexOf(search) < 0) return false;
+      if (_propHotOnly) {
+        var trend = p.recentForm && p.recentForm.trend;
+        if (trend !== 'hot') return false;
+      }
+      return true;
+    });
+
+    // Sort
+    players.sort(function(a, b) {
+      if (_propSortKey === 'confScore') return (b.confScore||0) - (a.confScore||0);
+      if (_propSortKey === 'rank')      return (a.rank||999) - (b.rank||999);
+      if (_propSortKey === 'name')      return a.name.localeCompare(b.name);
+      if (_propSortKey === 'edge') {
+        var ea = a.edgeScore || 0, eb = b.edgeScore || 0;
+        return eb - ea;
+      }
+      return 0;
+    });
+
+    // +EV filter: keep only players where at least one book has +EV
+    if (_propEvFilter && !isStatProp) {
+      players = players.filter(function(p) {
+        var modelPct = _modelFairPct(p, _propCat);
+        return BOOKS.some(function(b) {
+          var odds = _bookOddsForMarket(p, _propCat, b.key);
+          if (!odds) return false;
+          var dec   = odds > 0 ? (odds/100+1) : (100/Math.abs(odds)+1);
+          var bPct  = (1/dec)*100;
+          return modelPct > bPct;
+        });
+      });
+    }
+
+    // Spotlight top 3 value plays
+    var spotlight = [];
+    if (!isStatProp) {
+      players.forEach(function(p) {
+        var modelPct = _modelFairPct(p, _propCat);
+        BOOKS.forEach(function(b) {
+          var odds = _bookOddsForMarket(p, _propCat, b.key);
+          if (!odds) return;
+          var dec  = odds > 0 ? (odds/100+1) : (100/Math.abs(odds)+1);
+          var bPct = (1/dec)*100;
+          var ev   = +((modelPct - bPct)/bPct*100).toFixed(1);
+          if (ev > 0) spotlight.push({ name:p.name, book:b.label, odds:odds, ev:ev, market:_propCat });
+        });
+      });
+      spotlight.sort(function(a,b){return b.ev-a.ev;});
+    }
+
+    var spotEl = el('propsSpotlight');
+    if (spotEl) {
+      if (spotlight.length) {
+        spotEl.innerHTML = spotlight.slice(0,3).map(function(s,i) {
+          var catLabel = {winner:'Win',top5:'Top 5',top10:'Top 10',top20:'Top 20',makeCut:'Cut',r1Leader:'R1 Lead'}[s.market]||s.market;
+          return '<div class="glass rounded-xl p-3 border border-pb-teal/20">' +
+            '<div class="text-[10px] font-bold text-pb-teal mb-0.5">#' + (i+1) + ' VALUE PLAY</div>' +
+            '<div class="text-sm font-bold text-white">' + s.name + '</div>' +
+            '<div class="mono text-xs text-pb-gold mt-0.5">' + catLabel + ' · ' + s.book + ' · ' + _oddsStr(s.odds) + '</div>' +
+            '<div class="mono text-xs font-bold mt-1" style="color:var(--teal)">+' + s.ev + '% edge</div>' +
+          '</div>';
+        }).join('');
+      } else {
+        spotEl.innerHTML = '';
+      }
+    }
+
+    // Render cards
+    var container = el('propsLineCards');
+    if (!container) return;
+    container.innerHTML = '';
+
+    var catLabels = { winner:'Win',top5:'Top 5',top10:'Top 10',top20:'Top 20',makeCut:'Make Cut',r1Leader:'R1 Lead',birdies:'Birdies (4 Rnd)',bogeys:'Bogeys (4 Rnd)',scoring:'Score (4 Rnd)' };
+    var catLabel  = catLabels[_propCat] || _propCat;
+
+    players.slice(0,40).forEach(function(p) {
+      var initials = p.name.split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
+      var confColor = (p.confScore||0)>=70?'var(--teal)':(p.confScore||0)>=40?'#22a9ec':'rgba(180,190,205,0.5)';
+      var trend     = p.recentForm && p.recentForm.trend;
+      var trendBadge= trend==='hot'?'<span class="mono text-[9px] font-bold px-1.5 py-0.5 rounded ml-1" style="background:rgba(240,148,0,0.15);color:#f09400">🔥HOT</span>':
+                      trend==='cold'?'<span class="mono text-[9px] font-bold px-1.5 py-0.5 rounded ml-1" style="background:rgba(100,150,220,0.1);color:#64a0dc">❄COLD</span>':'';
+
+      if (isStatProp) {
+        // ---- STAT PROP (birdies / bogeys / scoring) ----
+        var sl = _statLine(p, _propCat);
+        if (!sl) return;
+        var direction = sl.modelProj > sl.line ? 'OVER' : (sl.modelProj < sl.line ? 'UNDER' : 'PUSH');
+        var dirColor  = direction==='OVER'?'var(--teal)':direction==='UNDER'?'var(--red)':'rgba(200,215,230,0.5)';
+        var dirBg     = direction==='OVER'?'rgba(21,255,194,0.1)':direction==='UNDER'?'rgba(255,21,82,0.1)':'rgba(200,215,230,0.05)';
+        var diff      = Math.abs(sl.modelProj - sl.line).toFixed(1);
+
+        // Build book cells — estimated O/U at standard -110/-110 vig
+        var bookCells = BOOKS.map(function(b) {
+          // Estimated book odds: -110 standard, adjust slightly based on direction
+          var estOver  = -110;
+          var estUnder = -110;
+          return '<div style="width:80px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.04);" class="px-2 py-2 text-center">' +
+            '<div class="mono text-[10px] font-semibold" style="color:rgba(200,215,230,0.5)">o ' + estOver + '</div>' +
+            '<div class="mono text-[11px] font-bold text-white">' + sl.line + '</div>' +
+            '<div class="mono text-[10px] font-semibold" style="color:rgba(200,215,230,0.5)">u -110</div>' +
+          '</div>';
+        }).join('');
+
+        container.innerHTML +=
+          '<div class="flex items-stretch hover:bg-white/[0.015] transition-colors">' +
+          // Left: player
+          '<div style="width:220px;flex-shrink:0;" class="px-4 py-3 flex items-center gap-3">' +
+            '<div class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 mono text-xs font-bold" style="background:rgba(21,255,194,0.1);color:var(--teal);border:1px solid rgba(21,255,194,0.2)">' + initials + '</div>' +
+            '<div class="min-w-0">' +
+              '<div class="text-sm font-semibold text-white truncate">' + p.name + trendBadge + '</div>' +
+              '<div class="mono text-[10px] text-slate-500">#' + (p.rank||'—') + ' · <span style="color:' + confColor + '">' + (p.confScore||'—') + '</span></div>' +
+              '<div class="mono text-[10px] mt-0.5"><span class="font-bold">' + catLabel + '</span> <span style="color:rgba(200,215,230,0.5)">· line ' + sl.line + '</span></div>' +
+            '</div>' +
+          '</div>' +
+          // Middle: model recommendation
+          '<div style="width:160px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.05);" class="px-3 py-3 flex flex-col justify-center">' +
+            '<div class="text-[9px] font-bold text-slate-600 uppercase tracking-wide mb-1">Model Says</div>' +
+            '<div class="mono text-sm font-bold" style="color:' + dirColor + ';background:' + dirBg + ';padding:3px 8px;border-radius:5px;display:inline-block">' + direction + '</div>' +
+            '<div class="mono text-[10px] text-slate-400 mt-1">Proj: <span class="text-white font-bold">' + sl.modelProj + '</span> vs ' + sl.line + '</div>' +
+            '<div class="text-[9px] text-slate-600 mt-0.5">Δ ' + diff + ' ' + (direction==='OVER'?'over':'under') + ' line</div>' +
+          '</div>' +
+          // Right: book cells
+          '<div class="flex-1 overflow-hidden"><div class="flex" style="min-width:480px;">' + bookCells + '</div></div>' +
+          '</div>';
+
+      } else {
+        // ---- PLACEMENT PROP (win / top5 / top10 / top20 / cut) ----
+        var modelPct  = _modelFairPct(p, _propCat);
+        var modelOdds = pctToAmerican(modelPct);
+
+        // Find best odds across all books
+        var bestOdds  = null, bestBookLabel = '—';
+        BOOKS.forEach(function(b) {
+          var o = _bookOddsForMarket(p, _propCat, b.key);
+          if (o !== null && (bestOdds === null || o > bestOdds)) {
+            bestOdds = o; bestBookLabel = b.label;
+          }
+        });
+
+        // Compute EV vs best
+        var bestEV = null;
+        if (bestOdds !== null) {
+          var bDec  = bestOdds > 0 ? (bestOdds/100+1):(100/Math.abs(bestOdds)+1);
+          var bPct  = (1/bDec)*100;
+          bestEV    = +((modelPct - bPct)/bPct*100).toFixed(1);
+        }
+        var evColor = bestEV!==null&&bestEV>0?'var(--teal)':bestEV!==null&&bestEV<0?'var(--red)':'rgba(200,215,230,0.4)';
+        var evStr   = bestEV!==null ? ((bestEV>0?'+':'')+bestEV+'%') : '—';
+
+        // Build book cells
+        var bookCells = BOOKS.map(function(b) {
+          var odds = _bookOddsForMarket(p, _propCat, b.key);
+          var isBest = odds !== null && odds === bestOdds;
+          var isEst  = odds !== null && !(p.odds && p.odds[b.key]);
+          var oStr   = odds !== null ? _oddsStr(odds) : '—';
+          var cellBg = isBest ? 'background:rgba(21,255,194,0.07);' : '';
+          var oColor = odds===null?'rgba(200,215,230,0.15)':isBest?'var(--teal)':'rgba(200,215,230,0.8)';
+          // Compute per-book EV
+          var bEV = null;
+          if (odds !== null) {
+            var bD  = odds>0?(odds/100+1):(100/Math.abs(odds)+1);
+            var bP  = (1/bD)*100;
+            bEV     = +((modelPct-bP)/bP*100).toFixed(1);
+          }
+          var bEvStr  = bEV!==null ? (bEV>0?'+':'')+bEV+'%' : '';
+          var bEvColor= bEV>0?'var(--teal)':bEV<0?'rgba(255,21,82,0.5)':'';
+          return '<div style="width:80px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.04);' + cellBg + '" class="px-2 py-3 text-center">' +
+            '<div class="mono font-bold" style="font-size:12px;color:' + oColor + '">' + (isEst?'<span style="opacity:0.5">⚡</span>':'') + oStr + '</div>' +
+            (bEvStr ? '<div class="mono text-[9px] font-semibold mt-0.5" style="color:' + bEvColor + '">' + bEvStr + '</div>' : '<div style="height:13px"></div>') +
+          '</div>';
+        }).join('');
+
+        container.innerHTML +=
+          '<div class="flex items-stretch hover:bg-white/[0.015] transition-colors">' +
+          // Left: player identity
+          '<div style="width:220px;flex-shrink:0;" class="px-4 py-3 flex items-center gap-3">' +
+            '<div class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 mono text-xs font-bold" style="background:rgba(21,255,194,0.1);color:var(--teal);border:1px solid rgba(21,255,194,0.2)">' + initials + '</div>' +
+            '<div class="min-w-0">' +
+              '<div class="text-sm font-semibold text-white truncate">' + p.name + trendBadge + '</div>' +
+              '<div class="mono text-[10px] text-slate-500">#' + (p.rank||'—') + ' · <span style="color:' + confColor + '">' + (p.confScore||'—') + '</span></div>' +
+              '<div class="mono text-[10px] mt-0.5 font-semibold" style="color:' + evColor + '">' + catLabel + ' · ' + evStr + ' edge</div>' +
+            '</div>' +
+          '</div>' +
+          // Middle: best odds panel
+          '<div style="width:160px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.05);" class="px-3 py-3 flex flex-col justify-center">' +
+            '<div class="text-[9px] font-bold text-slate-600 uppercase tracking-wide mb-1.5">Best Odds</div>' +
+            (bestOdds !== null
+              ? '<div class="mono text-[11px] font-bold text-pb-teal">' + _oddsStr(bestOdds) + '</div>' +
+                '<div class="text-[10px] text-slate-400 mt-0.5">' + bestBookLabel + '</div>' +
+                '<div class="mono text-[9px] font-bold mt-1.5" style="color:' + evColor + '">' + evStr + ' vs model</div>'
+              : '<div class="text-[10px] text-slate-600">No lines available</div>') +
+            '<button onclick="window.addPropToParlay(\'' + p.name.replace(/'/g,"\\'") + '\',\'' + _propCat + '\',' + (bestOdds||0) + ')" ' +
+            'class="mono text-[9px] px-2 py-1 rounded border mt-2 transition-all" ' +
+            'style="border-color:rgba(21,255,194,0.2);color:rgba(21,255,194,0.55);" ' +
+            'onmouseover="this.style.background=\'rgba(21,255,194,0.08)\'" onmouseout="this.style.background=\'transparent\'">+ Parlay</button>' +
+          '</div>' +
+          // Right: per-book odds
+          '<div class="flex-1 overflow-hidden"><div class="flex" style="min-width:480px;">' + bookCells + '</div></div>' +
+          '</div>';
+      }
+    });
+
+    if (container.innerHTML === '') {
+      container.innerHTML = '<div class="px-6 py-8 text-center text-slate-500 text-sm">No players match your filters.</div>';
+    }
+
+    var cnt = el('propsCardCount');
+    if (cnt) cnt.textContent = Math.min(players.length, 40) + ' of ' + players.length + ' players';
+    var cnt2 = el('propsMatrixCount');
+    if (cnt2) cnt2.textContent = Math.min(players.length, 40) + ' of ' + PLAYERS.length + ' players';
+  }
+
+  function initPropsLineShopping() {
+    // Prop category buttons
+    document.querySelectorAll('.prop-cat-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.prop-cat-btn').forEach(function(b) {
+          b.style.background='transparent';
+          b.style.opacity='0.7';
+          b.style.borderColor='rgba(100,180,200,0.2)';
+        });
+        this.style.opacity='1';
+        this.style.background='rgba(21,255,194,0.08)';
+        this.style.borderColor='rgba(21,255,194,0.4)';
+        this.style.color='var(--teal)';
+        _propCat = this.getAttribute('data-cat');
+        renderPropsLineShopping();
+      });
+    });
+    // Search
+    var s = el('propPlayerSearch');
+    if (s) s.addEventListener('input', function() { _propPlayerSearch=this.value; renderPropsLineShopping(); });
+    // EV filter
+    var ev = el('propEvFilter');
+    if (ev) ev.addEventListener('change', function() { _propEvFilter=this.checked; renderPropsLineShopping(); });
+    // Hot filter
+    var hot = el('propHotOnly');
+    if (hot) hot.addEventListener('change', function() { _propHotOnly=this.checked; renderPropsLineShopping(); });
+    // Sort
+    var srt = el('propSortSel');
+    if (srt) srt.addEventListener('change', function() { _propSortKey=this.value; renderPropsLineShopping(); });
+  }
+
+  // Legacy functions kept for parlay + other references
+  function renderPropsMatrix() { renderPropsLineShopping(); }
+  function initPropsMatrix()    { initPropsLineShopping(); }
+
   function initApp() {
     loadParlayFromStorage();
     renderPlayerGrid();
@@ -3263,8 +3605,8 @@
     renderTeeTimes(1);
     renderAllPropsTypeTables();
     window._playerData = PLAYERS;
-    initPropsMatrix();
-    renderPropsMatrix();
+    initPropsLineShopping();
+    renderPropsLineShopping();
     initEdgeFinder();
   }
 
@@ -3304,9 +3646,9 @@
     var fieldSize = 88; // Augusta field size
 
     return pool.map(function(p) {
-      var skill = (p.sgTotal || 0)
-        + (p.confScore ? (p.confScore - 50) / 200 : 0)
-        + (p.courseFit && p.courseFit.augusta ? (p.courseFit.augusta - 70) / 100 : 0);
+      var confSkill = p.confScore ? (p.confScore - 50) / 28 : 0;
+      var skill = confSkill * 0.70 + (p.sgTotal || 0) * 0.30
+        + (p.courseFit && p.courseFit.augusta ? (p.courseFit.augusta - 70) / 150 : 0);
 
       var wins=0, t5=0, t10=0, t20=0, mc=0;
       for (var i=0; i<sims; i++) {
