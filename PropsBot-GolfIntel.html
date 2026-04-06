@@ -346,6 +346,7 @@
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="livescores">📺 Live Scores</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="parlay">🎰 Parlay</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="news">📰 News</button>
+    <button class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="edgefinder" style="border:1.5px solid rgba(21,255,194,0.35);background:rgba(21,255,194,0.05);color:#15ffc2;">🔍 Edge Finder</button>
   </div>
 </nav>
 
@@ -524,7 +525,9 @@
             <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="dk" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">DK</button>
             <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="fd" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">FD</button>
             <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="mgm" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">MGM</button>
-            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="bovada" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">Bovada</button>
+            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="czr" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">CZR</button>
+            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="pb" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">PB</button>
+            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="365" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">365</button>
           </div>
           <!-- EV filter -->
           <label class="flex items-center gap-1.5 cursor-pointer">
@@ -1138,6 +1141,91 @@
     </div>
   </div>
 
+  <!-- EDGE FINDER TAB -->
+  <div id="tab-edgefinder" class="tab-content hidden fade-in space-y-5">
+
+    <!-- Header -->
+    <div class="glass rounded-2xl p-5 glow-teal">
+      <div class="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <h2 class="text-base font-bold text-white mb-1">🔍 Odds Discrepancy Scanner</h2>
+          <p class="text-xs text-slate-400 max-w-2xl">Our model's projected win/placement probabilities vs what sportsbooks imply. <span class="text-pb-teal font-semibold">Positive edge = our model rates the player more likely than the book does.</span> Find overpriced lines before you bet.</p>
+        </div>
+        <span class="mono text-[10px] px-2 py-1 rounded border border-pb-teal/30 text-pb-teal/60 whitespace-nowrap self-start">BETA MODEL</span>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="glass rounded-2xl p-4">
+      <div class="flex flex-wrap gap-3 items-center">
+        <div class="flex gap-1 flex-wrap">
+          <span class="text-xs text-slate-500 self-center mr-1">Book:</span>
+          <button class="edge-book-btn active mono text-[10px] px-2.5 py-1 rounded-md border" data-book="best" style="border-color:rgba(21,255,194,0.4);color:var(--teal);background:rgba(21,255,194,0.08);">Best</button>
+          <button class="edge-book-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="dk" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">DK</button>
+          <button class="edge-book-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="fd" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">FD</button>
+          <button class="edge-book-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="mgm" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">MGM</button>
+          <button class="edge-book-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="czr" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">CZR</button>
+          <button class="edge-book-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="pb" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">PB</button>
+          <button class="edge-book-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="365" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">365</button>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-500">Market:</span>
+          <select id="edgeMarketFilter" class="mono text-[11px] bg-white/5 border border-white/10 rounded-md px-2.5 py-1.5 text-slate-300 cursor-pointer">
+            <option value="all">All Markets</option>
+            <option value="winner">Win</option>
+            <option value="top5">Top 5</option>
+            <option value="top10">Top 10</option>
+            <option value="top20">Top 20</option>
+            <option value="makeCut">Make Cut</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-500">Min Edge:</span>
+          <input type="range" id="edgeMinEdge" min="-50" max="50" value="0" step="5" class="w-24 accent-[#15ffc2]" />
+          <span id="edgeMinEdgeLabel" class="mono text-xs text-pb-teal w-8">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div id="edgeSummary" class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="glass rounded-xl p-4 text-center col-span-2 md:col-span-4">
+        <p class="text-slate-500 text-sm">Click the tab to run the discrepancy scan…</p>
+      </div>
+    </div>
+
+    <!-- Results Table -->
+    <div class="glass rounded-2xl overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-3 border-b border-white/5">
+        <h3 class="text-sm font-semibold text-white">Value Plays — Sorted by Edge</h3>
+        <span id="edgeFinderCount" class="mono text-xs text-slate-500"></span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-white/5 bg-white/[0.015]">
+              <th class="px-3 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Player</th>
+              <th class="px-3 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Market</th>
+              <th class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Model %</th>
+              <th class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Book %</th>
+              <th class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Edge</th>
+              <th class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Book Odds</th>
+              <th class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Fair Odds</th>
+              <th class="px-3 py-2.5 text-center text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Add</th>
+            </tr>
+          </thead>
+          <tbody id="edgeFinderBody">
+            <tr><td colspan="8" class="px-4 py-8 text-center text-slate-600 text-sm">Open this tab to scan for discrepancies…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="px-5 py-3 border-t border-white/5">
+        <p class="text-[10px] text-slate-600">Edge % = (Model Prob − Book Implied Prob) ÷ Book Implied Prob × 100. Positive edge = model rates player as more likely than the book implies. Placement market odds estimated from win odds using standard market multipliers where direct lines unavailable. For research purposes only — not betting advice.</p>
+      </div>
+    </div>
+
+  </div>
+
 </main>
 
 <!-- FOOTER -->
@@ -1397,6 +1485,8 @@
       document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.add('hidden'); });
       var target = el('tab-' + btn.dataset.tab);
       if (target) target.classList.remove('hidden');
+      // Lazy-render Edge Finder when its tab is opened
+      if (btn.dataset.tab === 'edgefinder') renderEdgeFinder();
     });
   });
 
@@ -1703,17 +1793,26 @@
     var course = el('tourneyCourse').value;
     var fieldStrength = el('tourneyField').value;
 
-    // Filter to competitive players only — exclude ceremonial starters,
-    // injured players (Tiger), and retired players (Bubba, Langer, Mize, etc.)
-    // A player is competitive if: rank < 300 AND sgTotal > -1.0
-    // This mirrors the server-side competitiveness gate in the confidence model.
+    // Hard-exclude list — ceremonial starters, injured, and retired players
+    // who should never appear in win probability simulations
+    var SIM_EXCLUDE = [
+      'Larry Mize','Bernhard Langer','Fred Couples','Tiger Woods',
+      'Mike Weir','Fuzzy Zoeller','Sandy Lyle','Ian Woosnam',
+      'Jose Maria Olazabal','Vijay Singh','Bubba Watson','Angel Cabrera',
+      'Trevor Immelman','Charl Schwartzel'
+    ];
+
     var competitivePlayers = PLAYERS.filter(function(p) {
+      // Name-based hard exclusion (most reliable — catches legacy data issues)
+      if (SIM_EXCLUDE.indexOf(p.name) !== -1) return false;
+      // Server-side competitiveness field (from confidence model in scraper)
+      if (p.competitiveness === 'ceremonial' || p.competitiveness === 'non_competitive') return false;
       var rank = p.rank || 999;
       var sg = p.sgTotal || -5;
-      // Hard exclude: rank 999 / sg < -1.0 = clearly not competitive
-      if (rank >= 999 || sg < -1.0) return false;
-      // Also exclude retired/non-competitive tier
-      if (rank > 300 && sg < -0.5) return false;
+      // Unranked or strongly negative SG = not competitive
+      if (rank >= 400 || sg < -1.0) return false;
+      // Declining: outside top 150 with negative SG = fade
+      if (rank > 150 && sg < -0.2) return false;
       return true;
     });
 
@@ -1769,7 +1868,7 @@
 
     // Show how many players were filtered
     var filtered = PLAYERS.length - competitivePlayers.length;
-    el('tourneyNotes').textContent = filtered + ' ceremonial/non-competitive players excluded (Tiger Woods — injured, Bernhard Langer, Larry Mize, Fred Couples, Bubba Watson — retired). Simulating ' + competitivePlayers.length + ' active field players.';
+    el('tourneyNotes').textContent = filtered + ' ceremonial/retired players excluded from sim (Tiger Woods, Larry Mize, Bernhard Langer, Fred Couples, Mike Weir, Bubba Watson and others — not competitive at Augusta 2026). Simulating ' + competitivePlayers.length + ' active field players.';
 
     results.forEach(function(r, idx) {
       var tr = document.createElement('tr');
@@ -2890,7 +2989,7 @@
       var odds = player.odds || {};
       if (bookFilter === 'best') {
         var best = null;
-        ['dk','fd','mgm','bovada','bet365'].forEach(function(b) {
+        ['dk','fd','mgm','czr','pb','365'].forEach(function(b) {
           var v = odds[b] ? parseInt(odds[b]) : null;
           if (v && (!best || v > best)) best = v;
         });
@@ -3166,6 +3265,266 @@
     window._playerData = PLAYERS;
     initPropsMatrix();
     renderPropsMatrix();
+    initEdgeFinder();
+  }
+
+  /* ============================================================
+     EDGE FINDER — Odds Discrepancy Scanner
+     Runs a quick Monte Carlo sim, then compares model probabilities
+     against sportsbook-implied probabilities to surface +EV plays.
+  ============================================================ */
+  var _edgeFinderCache = null;
+  var _edgeBookFilter  = 'best';
+  var _edgeMarketFilter = 'all';
+  var _edgeMinEdge     = 0;
+
+  // Same exclusion list as Tournament Sim — must stay in sync
+  var EDGE_EXCLUDE = [
+    'Larry Mize','Bernhard Langer','Fred Couples','Tiger Woods',
+    'Mike Weir','Fuzzy Zoeller','Sandy Lyle','Ian Woosnam',
+    'Jose Maria Olazabal','Vijay Singh','Bubba Watson','Angel Cabrera',
+    'Trevor Immelman','Charl Schwartzel'
+  ];
+
+  function _buildEdgePool() {
+    return PLAYERS.filter(function(p) {
+      if (EDGE_EXCLUDE.indexOf(p.name) !== -1) return false;
+      if (p.competitiveness === 'ceremonial' || p.competitiveness === 'non_competitive') return false;
+      var rank = p.rank || 999;
+      var sg   = p.sgTotal || -5;
+      if (rank >= 400 || sg < -1.0) return false;
+      if (rank > 150 && sg < -0.2) return false;
+      return true;
+    });
+  }
+
+  function _runEdgeSim() {
+    var pool = _buildEdgePool();
+    var sims = 5000;
+    var fieldSize = 88; // Augusta field size
+
+    return pool.map(function(p) {
+      var skill = (p.sgTotal || 0)
+        + (p.confScore ? (p.confScore - 50) / 200 : 0)
+        + (p.courseFit && p.courseFit.augusta ? (p.courseFit.augusta - 70) / 100 : 0);
+
+      var wins=0, t5=0, t10=0, t20=0, mc=0;
+      for (var i=0; i<sims; i++) {
+        var score=0;
+        for (var r=0; r<4; r++) {
+          score += -skill + (Math.random()+Math.random()+Math.random()+Math.random()-2)*2.8;
+        }
+        var finish = Math.max(1, Math.round(fieldSize/2 - score*3 + (Math.random()-0.5)*fieldSize*0.4));
+        if (finish<=1)  wins++;
+        if (finish<=5)  t5++;
+        if (finish<=10) t10++;
+        if (finish<=20) t20++;
+        if (finish<=Math.round(fieldSize*0.55)) mc++;
+      }
+      return {
+        player: p,
+        probs: {
+          winner:  +(wins/sims*100).toFixed(2),
+          top5:    +(t5/sims*100).toFixed(2),
+          top10:   +(t10/sims*100).toFixed(2),
+          top20:   +(t20/sims*100).toFixed(2),
+          makeCut: +(mc/sims*100).toFixed(2)
+        }
+      };
+    });
+  }
+
+  function _bestBookOdds(player, book) {
+    var odds  = player.odds || {};
+    var books = book === 'best' ? ['dk','fd','mgm','czr','pb','365'] : [book];
+    var best  = null;
+    books.forEach(function(b) {
+      var v = odds[b] ? parseInt(odds[b]) : null;
+      if (v !== null && (best === null || v > best)) best = v;
+    });
+    return best;
+  }
+
+  function _estimateMarketOdds(winOdds, market) {
+    if (!winOdds) return null;
+    // Standard multipliers: how many times more likely vs outright win
+    var MULT = { top5:3.5, top10:6.0, top20:11.0, makeCut:25.0 };
+    var mult  = MULT[market] || 1;
+    var wDec  = winOdds > 0 ? (winOdds/100+1) : (100/Math.abs(winOdds)+1);
+    var newDec = 1 + (wDec-1)/mult;
+    return newDec >= 2 ? Math.round((newDec-1)*100) : Math.round(-100/(newDec-1));
+  }
+
+  function _buildEdgeRows(simData, book, marketFilter, minEdge) {
+    var MARKETS = [
+      { key:'winner',  label:'Win',      color:'var(--gold)' },
+      { key:'top5',    label:'Top 5',    color:'#ab8fff' },
+      { key:'top10',   label:'Top 10',   color:'#22a9ec' },
+      { key:'top20',   label:'Top 20',   color:'rgba(200,215,230,0.7)' },
+      { key:'makeCut', label:'Make Cut', color:'rgba(200,215,230,0.45)' }
+    ];
+    var markets = marketFilter === 'all' ? MARKETS : MARKETS.filter(function(m){return m.key===marketFilter;});
+    var rows = [];
+
+    simData.forEach(function(sr) {
+      var winOdds = _bestBookOdds(sr.player, book);
+      markets.forEach(function(m) {
+        var bookOdds = m.key === 'winner'
+          ? winOdds
+          : _estimateMarketOdds(winOdds, m.key);
+        if (!bookOdds) return;
+
+        var modelPct  = sr.probs[m.key];
+        var bookDec   = bookOdds > 0 ? (bookOdds/100+1) : (100/Math.abs(bookOdds)+1);
+        var bookPct   = +(1/bookDec*100).toFixed(2);
+        var edge      = +((modelPct - bookPct) / bookPct * 100).toFixed(1);
+        if (edge < minEdge) return;
+
+        var fairOdds = pctToAmerican(modelPct);
+        rows.push({
+          playerName: sr.player.name,
+          market:     m.label,
+          marketKey:  m.key,
+          marketColor:m.color,
+          modelPct:   +modelPct.toFixed(1),
+          bookPct:    +bookPct.toFixed(1),
+          edge:       edge,
+          bookOdds:   bookOdds,
+          fairOdds:   fairOdds,
+          confScore:  sr.player.confScore || 0
+        });
+      });
+    });
+
+    rows.sort(function(a,b){ return b.edge - a.edge; });
+    return rows;
+  }
+
+  function renderEdgeFinder() {
+    // Run sim once and cache result
+    if (!_edgeFinderCache) {
+      var countEl = el('edgeFinderCount');
+      if (countEl) countEl.textContent = 'Running 5,000 simulations…';
+      setTimeout(function() {
+        _edgeFinderCache = _runEdgeSim();
+        _drawEdgeFinder();
+      }, 20); // yield to browser so "Running…" message paints
+    } else {
+      _drawEdgeFinder();
+    }
+  }
+
+  function _drawEdgeFinder() {
+    var rows     = _buildEdgeRows(_edgeFinderCache, _edgeBookFilter, _edgeMarketFilter, _edgeMinEdge);
+    var posRows  = rows.filter(function(r){ return r.edge > 0; });
+    var avgEdge  = posRows.length
+      ? (posRows.reduce(function(s,r){return s+r.edge;},0)/posRows.length).toFixed(1)
+      : '0.0';
+    var topBet   = rows.length ? rows[0] : null;
+
+    // Summary cards
+    var sumEl = el('edgeSummary');
+    if (sumEl) {
+      sumEl.innerHTML =
+        '<div class="glass rounded-xl p-3 text-center">' +
+          '<div class="mono text-2xl font-bold text-pb-teal">' + posRows.length + '</div>' +
+          '<div class="text-xs text-slate-400 mt-1">+EV Plays Found</div>' +
+        '</div>' +
+        '<div class="glass rounded-xl p-3 text-center">' +
+          '<div class="mono text-2xl font-bold text-pb-gold">' + avgEdge + '%</div>' +
+          '<div class="text-xs text-slate-400 mt-1">Avg Edge</div>' +
+        '</div>' +
+        '<div class="glass rounded-xl p-3 text-center">' +
+          '<div class="mono text-2xl font-bold text-slate-200">' + _buildEdgePool().length + '</div>' +
+          '<div class="text-xs text-slate-400 mt-1">Players in Field</div>' +
+        '</div>' +
+        (topBet
+          ? '<div class="glass rounded-xl p-3 text-center">' +
+              '<div class="mono text-sm font-bold text-white leading-tight">' + topBet.playerName + '</div>' +
+              '<div class="mono text-xs font-semibold mt-0.5" style="color:var(--teal)">' + topBet.market + ' · +' + topBet.edge + '% edge</div>' +
+              '<div class="text-[10px] text-slate-500 mt-0.5">Top Value Bet</div>' +
+            '</div>'
+          : '<div class="glass rounded-xl p-3 text-center"><div class="text-xs text-slate-500">No top bet</div></div>');
+    }
+
+    // Table
+    var tbody = el('edgeFinderBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    if (rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-8 text-center text-slate-500 text-sm">No discrepancies match your current filters. Try lowering the minimum edge slider or selecting "All Markets".</td></tr>';
+      var cEl = el('edgeFinderCount');
+      if (cEl) cEl.textContent = '0 results';
+      return;
+    }
+
+    rows.slice(0,60).forEach(function(r) {
+      var tr = document.createElement('tr');
+      tr.className = 'hover:bg-white/[0.02] transition-colors border-b border-white/[0.03]';
+      var edgeColor = r.edge >= 25  ? 'var(--teal)'
+                    : r.edge >= 10  ? '#22a9ec'
+                    : r.edge >= 0   ? 'rgba(200,215,230,0.6)'
+                    : 'var(--red)';
+      var bookStr  = r.bookOdds > 0  ? '+'+r.bookOdds  : ''+r.bookOdds;
+      var fairStr  = r.fairOdds > 0  ? '+'+r.fairOdds  : ''+r.fairOdds;
+      var edgeStr  = (r.edge > 0 ? '+' : '') + r.edge + '%';
+      var bgRow    = r.edge >= 20
+        ? 'background:rgba(21,255,194,0.03)'
+        : r.edge < 0 ? 'background:rgba(255,21,82,0.02)' : '';
+
+      tr.setAttribute('style', bgRow);
+      tr.innerHTML =
+        '<td class="px-3 py-2.5 text-white font-medium text-sm">' + r.playerName + '</td>' +
+        '<td class="px-3 py-2.5"><span class="mono text-[10px] font-bold px-2 py-0.5 rounded" style="background:rgba(255,255,255,0.05);color:' + r.marketColor + '">' + r.market + '</span></td>' +
+        '<td class="px-3 py-2.5 mono text-right text-sm text-slate-300">' + r.modelPct + '%</td>' +
+        '<td class="px-3 py-2.5 mono text-right text-sm text-slate-500">' + r.bookPct + '%</td>' +
+        '<td class="px-3 py-2.5 mono text-right font-bold text-sm" style="color:' + edgeColor + '">' + edgeStr + '</td>' +
+        '<td class="px-3 py-2.5 mono text-right text-pb-gold font-semibold text-sm">' + bookStr + '</td>' +
+        '<td class="px-3 py-2.5 mono text-right text-slate-500 text-sm">' + fairStr + '</td>' +
+        '<td class="px-3 py-2.5 text-center">' +
+          '<button onclick="window.addPropToParlay(\'' + r.playerName.replace(/'/g, "\\'") + '\',\'' + r.marketKey + '\',' + r.bookOdds + ')" ' +
+          'class="mono text-[10px] px-2.5 py-1 rounded border transition-all" ' +
+          'style="border-color:rgba(21,255,194,0.25);color:rgba(21,255,194,0.6);" ' +
+          'onmouseover="this.style.background=\'rgba(21,255,194,0.1)\';this.style.borderColor=\'rgba(21,255,194,0.5)\'" ' +
+          'onmouseout="this.style.background=\'transparent\';this.style.borderColor=\'rgba(21,255,194,0.25)\'">+ Parlay</button>' +
+        '</td>';
+      tbody.appendChild(tr);
+    });
+
+    var cEl = el('edgeFinderCount');
+    if (cEl) cEl.textContent = Math.min(rows.length,60) + ' of ' + rows.length + ' results';
+  }
+
+  function initEdgeFinder() {
+    // Book buttons
+    document.querySelectorAll('.edge-book-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.edge-book-btn').forEach(function(b) {
+          b.style.background = 'transparent';
+          b.style.color = 'rgba(200,215,230,0.6)';
+          b.style.borderColor = 'rgba(100,180,200,0.15)';
+        });
+        this.style.background = 'rgba(21,255,194,0.08)';
+        this.style.color = 'var(--teal)';
+        this.style.borderColor = 'rgba(21,255,194,0.4)';
+        _edgeBookFilter = this.getAttribute('data-book');
+        if (_edgeFinderCache) _drawEdgeFinder();
+      });
+    });
+    // Market dropdown
+    var mf = el('edgeMarketFilter');
+    if (mf) mf.addEventListener('change', function() {
+      _edgeMarketFilter = this.value;
+      if (_edgeFinderCache) _drawEdgeFinder();
+    });
+    // Min edge slider
+    var me = el('edgeMinEdge'), lbl = el('edgeMinEdgeLabel');
+    if (me) me.addEventListener('input', function() {
+      _edgeMinEdge = parseFloat(this.value) || 0;
+      if (lbl) lbl.textContent = (_edgeMinEdge > 0 ? '+' : '') + _edgeMinEdge + '%';
+      if (_edgeFinderCache) _drawEdgeFinder();
+    });
   }
 
   // Try to load external data, then initialize
