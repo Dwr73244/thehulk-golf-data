@@ -2,13 +2,13 @@ name: Golf Data Update
 
 on:
   schedule:
-    # Tuesday 6 AM UTC — pre-week data refresh + odds
-    - cron: '0 6 * * 2'
-    # Wednesday 6 AM UTC — odds refresh (peak interest day)
+    # Monday 6 AM UTC — early odds pull + data refresh
+    - cron: '0 6 * * 1'
+    # Wednesday 6 AM UTC — firmed-up odds pull + Discord alerts
     - cron: '0 6 * * 3'
-    # Thursday 6 AM UTC — tournament start + odds
+    # Thursday 6 AM UTC — R1 day, leaderboard + weather
     - cron: '0 6 * * 4'
-    # Saturday 6 AM UTC — weekend update (after R2 cut, no odds)
+    # Saturday 6 AM UTC — after R2 cut, leaderboard update
     - cron: '0 6 * * 6'
   workflow_dispatch:
   push:

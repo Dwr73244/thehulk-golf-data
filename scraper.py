@@ -635,11 +635,11 @@ def scrape_betting_odds():
         print("[5/7] Skipping odds — no ODDS_API_KEY set")
         return None
 
-    # Only fetch odds on Tue/Wed/Thu to conserve 500 credits/month
-    # Golf starts Thursday — most interest is Wed-Thu
-    today = datetime.now().weekday()  # 0=Mon, 1=Tue, 2=Wed, 3=Thu
-    if today not in (1, 2, 3):  # Tue, Wed, Thu
-        print("[5/7] Skipping odds — only fetched Tue/Wed/Thu to save credits")
+    # Only fetch odds Mon/Wed to conserve 500 credits/month
+    # Monday = early lines, Wednesday = firmed-up lines before R1 Thursday
+    today = datetime.now().weekday()  # 0=Mon, 2=Wed
+    if today not in (0, 2):  # Mon + Wed only
+        print("[5/7] Skipping odds — only fetched Mon/Wed to save credits")
         return None
 
     print("[5/7] Fetching betting odds from The Odds API...")
@@ -833,7 +833,7 @@ def send_discord_alerts(output):
         req = urllib.request.Request(
             DISCORD_WEBHOOK_URL,
             data=json.dumps(payload).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
+            headers={"Content-Type": "application/json", "User-Agent": USER_AGENT},
             method="POST"
         )
         resp = urllib.request.urlopen(req, timeout=10)
