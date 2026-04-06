@@ -128,7 +128,7 @@
     .glass { background: var(--surface1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--card-border); }
     .glass-strong { background: var(--glass); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(120,160,200,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
 
-    .tab-pill { transition: all 0.25s ease; border-radius: 6px; }
+    .tab-pill { transition: all 0.25s ease; border-radius: 6px; min-height: 36px; display: inline-flex; align-items: center; }
     .tab-pill.active { background: rgba(21,255,194,0.05); border: 1.5px solid rgba(21,255,194,0.6); color: var(--teal); font-weight: 600; }
     .tab-pill:not(.active) { border: 1.5px solid rgba(120,160,200,0.1); color: rgba(210,220,235,0.75); }
     .tab-pill:hover:not(.active) { background: rgba(21,255,194,0.03); }
@@ -163,14 +163,14 @@
 
     .btn-primary {
       background: linear-gradient(135deg, #09d5a0, #22a9ec); color: var(--bg); font-weight: 700;
-      padding: 8px 20px; border-radius: 10px; font-size: 13px; border: none; cursor: pointer;
+      padding: 10px 20px; min-height: 44px; border-radius: 10px; font-size: 13px; border: none; cursor: pointer;
       transition: all 0.2s; box-shadow: 0 4px 12px rgba(21,255,194,0.25);
     }
     .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(21,255,194,0.35); }
 
     .btn-gold {
       background: linear-gradient(135deg, #f0c040, #d4a830); color: var(--bg); font-weight: 700;
-      padding: 8px 20px; border-radius: 10px; font-size: 13px; border: none; cursor: pointer;
+      padding: 10px 20px; min-height: 44px; border-radius: 10px; font-size: 13px; border: none; cursor: pointer;
       transition: all 0.2s; box-shadow: 0 4px 12px rgba(240,192,64,0.2);
     }
 
@@ -183,9 +183,97 @@
 
     /* Section label style */
     .section-label { font-size: 9px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-secondary); }
+
+    /* Countdown boxes */
+    .cd-box { background: var(--surface1); border: 1px solid var(--card-border); border-radius: 12px; padding: 16px 20px; min-width: 68px; text-align: center; }
+    .cd-box .cd-num { font-family: var(--mono); font-size: 32px; font-weight: 800; color: var(--teal); line-height: 1; }
+    .cd-box .cd-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); margin-top: 4px; }
+
+    /* Score coloring */
+    .score-under { color: #ff1552; font-weight: 700; }
+    .score-even  { color: rgba(200,215,230,0.75); }
+    .score-over  { color: rgba(200,215,230,0.55); }
+
+    /* Parlay leg row */
+    .parlay-leg { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 10px; background: var(--surface1); border: 1px solid var(--card-border); }
+
+    /* Props sub-table */
+    .props-type-table { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); font-size: 11px; }
+    .props-type-table thead { background: rgba(255,255,255,0.02); }
+    .props-type-table th { padding: 8px 12px; color: rgba(150,180,210,0.5); font-weight: 600; text-align: right; }
+    .props-type-table th:first-child { text-align: left; }
+    .props-type-table td { padding: 7px 12px; text-align: right; border-top: 1px solid var(--divider); }
+    .props-type-table td:first-child { text-align: left; }
+
+    /* News cards */
+    .news-card { background: var(--surface1); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden; transition: all 0.2s ease; }
+    .news-card:hover { border-color: rgba(21,255,194,0.2); transform: translateY(-1px); }
+
+    /* ── Mobile / Responsive Utilities ── */
+
+    /* Scrollable tab bar — hide scrollbar visually */
+    .tab-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .tab-scroll::-webkit-scrollbar { display: none; }
+
+    @media (max-width: 640px) {
+      /* Hide round columns in leaderboard and "Notes" columns on small screens */
+      .mobile-hide { display: none !important; }
+
+      /* Stack flex-row panels vertically */
+      .mobile-stack { flex-direction: column !important; }
+
+      /* Full-width utility */
+      .mobile-full { width: 100% !important; }
+
+      /* Stack side-by-side comparison grid to single column */
+      .compare-panel { display: flex !important; flex-direction: column !important; gap: 1rem; }
+
+      /* Shrink mono numbers on mobile */
+      .mono { font-size: 0.75rem; }
+
+      /* Countdown boxes smaller on mobile */
+      .cd-box { min-width: 52px; padding: 10px 12px; }
+      .cd-box .cd-num { font-size: 24px; }
+
+      /* Header subtitle hidden on mobile */
+      .header-subtitle { display: none; }
+    }
   </style>
 </head>
 <body class="h-full text-slate-100 min-h-screen">
+
+<!-- DISCLAIMER MODAL -->
+<div id="disclaimerModal" style="position:fixed;inset:0;z-index:9999;background:rgba(7,14,26,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:1rem;">
+  <div class="glass-strong" style="max-width:520px;width:100%;border-radius:16px;padding:2rem;border:1px solid rgba(240,192,64,0.25);box-shadow:0 0 40px rgba(240,192,64,0.08);">
+    <!-- Icon + Title -->
+    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;">
+      <div style="width:42px;height:42px;border-radius:10px;background:rgba(240,192,64,0.12);border:1px solid rgba(240,192,64,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <span style="font-size:1.25rem;">⚠️</span>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-weight:700;font-size:1rem;color:var(--gold);">Beta Tool — Free & Early Access</div>
+        <div style="font-size:0.7rem;color:rgba(200,215,230,0.5);margin-top:2px;">PropsBot Golf Intelligence v0.9 (Beta)</div>
+      </div>
+    </div>
+    <!-- Body -->
+    <div style="font-size:0.82rem;line-height:1.65;color:rgba(200,215,230,0.8);margin-bottom:1.5rem;">
+      <p style="margin-bottom:0.75rem;">This tool is <strong style="color:var(--teal);">completely free</strong> and provided as-is during our early beta phase. It's built to help you research, not to replace your own judgment.</p>
+      <p style="margin-bottom:0.75rem;">Data is pulled from multiple sources and updated automatically — but no tool is perfect. Odds, stats, and projections <strong style="color:rgba(240,192,64,0.9);">may contain errors or lag behind real-time lines.</strong></p>
+      <p style="margin-bottom:0rem;padding:0.75rem;background:rgba(255,21,82,0.08);border:1px solid rgba(255,21,82,0.2);border-radius:8px;color:rgba(255,150,165,0.9);">
+        🚨 <strong>Gambling involves risk.</strong> This is not financial or betting advice. Only bet what you can afford to lose. Must be 21+ and in a legal jurisdiction to wager.
+      </p>
+    </div>
+    <!-- Footer links + button -->
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
+      <div style="font-size:0.72rem;color:rgba(200,215,230,0.4);">
+        More tools at <a href="https://propsbot.ai" target="_blank" style="color:var(--teal);text-decoration:none;">propsbot.ai</a>
+      </div>
+      <button onclick="dismissDisclaimer()" style="background:linear-gradient(135deg,#09d5a0,#22a9ec);color:#070e1a;font-family:var(--mono);font-weight:700;font-size:0.82rem;padding:0.6rem 1.5rem;border-radius:8px;border:none;cursor:pointer;min-height:44px;">
+        I Understand — Enter Tool
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- HEADER -->
 <header class="glass-strong sticky top-0 z-50 border-b border-white/5">
@@ -196,7 +284,7 @@
       </div>
       <div>
         <h1 class="text-lg font-bold tracking-tight">PropsBot <span class="text-pb-teal">Golf Intelligence</span></h1>
-        <p class="text-[10px] text-slate-500 -mt-0.5 tracking-wide uppercase">Betting Analytics Platform · Beta</p>
+        <p class="header-subtitle text-[10px] text-slate-500 -mt-0.5 tracking-wide uppercase">Betting Analytics Platform · Beta</p>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -218,7 +306,7 @@
 
 <!-- TAB NAV -->
 <nav class="glass border-b border-white/5">
-  <div class="max-w-7xl mx-auto px-4 flex gap-1.5 py-2 overflow-x-auto">
+  <div class="tab-scroll max-w-7xl mx-auto px-4 flex gap-1.5 py-2">
     <button class="tab-pill active rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="players">Players</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="matchups">Matchup Predictor</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="props">Props Builder</button>
@@ -226,6 +314,9 @@
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="coursedata">Course Data</button>
     <button class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="mastershq" style="border:1.5px solid rgba(240,192,64,0.4);background:rgba(240,192,64,0.06);color:#f0c040">Masters HQ</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="holeanalysis">Hole Analysis</button>
+    <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="livescores">📺 Live Scores</button>
+    <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="parlay">🎰 Parlay</button>
+    <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="news">📰 News</button>
   </div>
 </nav>
 
@@ -289,7 +380,7 @@
       <h2 class="text-base font-bold text-white mb-1">Head-to-Head Matchup Predictor</h2>
       <p class="text-xs text-slate-400 mb-4">Compare two players across all stat categories and predict who wins a tournament or round matchup</p>
 
-      <div class="grid gap-4 sm:grid-cols-[1fr_auto_1fr] items-end">
+      <div class="compare-panel grid gap-4 sm:grid-cols-[1fr_auto_1fr] items-end">
         <div class="space-y-1.5">
           <label class="text-[11px] font-semibold text-slate-300 uppercase">Player A</label>
           <select id="matchA" class="w-full"></select>
@@ -341,7 +432,7 @@
     <!-- Matchup Results -->
     <div id="matchupResult" class="hidden fade-in space-y-4">
       <div class="glass rounded-2xl p-5">
-        <div class="grid grid-cols-[1fr_auto_1fr] gap-4 items-center">
+        <div class="compare-panel grid grid-cols-[1fr_auto_1fr] gap-4 items-center">
           <div class="text-center">
             <p class="text-lg font-bold text-white" id="mrNameA">—</p>
             <p class="mono text-3xl font-extrabold mt-1" id="mrPctA">—</p>
@@ -371,6 +462,19 @@
         <p class="text-[10px] text-slate-500 uppercase font-semibold mb-2">Analysis Summary</p>
         <p id="mrSummary" class="text-xs text-slate-300 leading-relaxed">—</p>
       </div>
+
+      <!-- Augusta H2H History -->
+      <div id="mrAugustaH2H" class="hidden glass rounded-2xl p-5" style="border-color:rgba(240,192,64,0.2)">
+        <p class="text-[10px] uppercase font-semibold mb-3" style="color:rgba(240,192,64,0.7);letter-spacing:0.5px">Augusta National H2H Record</p>
+        <div class="compare-panel grid grid-cols-[1fr_auto_1fr] gap-4 items-start mb-4">
+          <div id="mrAugA" class="space-y-1.5"></div>
+          <div class="text-center pt-1">
+            <span class="text-[10px] text-slate-600 uppercase font-semibold">Augusta<br>Pedigree</span>
+          </div>
+          <div id="mrAugB" class="space-y-1.5 text-right"></div>
+        </div>
+        <div id="mrAugEdge" class="text-center text-xs font-bold mt-2" style="color:#f0c040"></div>
+      </div>
     </div>
   </div>
 
@@ -378,91 +482,126 @@
   <div id="tab-props" class="tab-content hidden fade-in space-y-5">
     <div class="glass rounded-2xl p-5 glow-teal">
       <h2 class="text-base font-bold text-white mb-1">Props Builder</h2>
-      <p class="text-xs text-slate-400 mb-4">Predict over/under on birdies, bogeys, and round score for any player</p>
+      <p class="text-xs text-slate-400 mb-3">Predict over/under on birdies, bogeys, and round score for any player</p>
+      <!-- Sub-tab switcher -->
+      <div class="flex gap-1.5 flex-wrap border-b border-white/5 pb-3 mb-4" id="propsSubTabs">
+        <button class="props-sub-btn tab-pill active rounded-lg border border-transparent px-3 py-1.5 text-xs font-semibold text-slate-400" data-props-sub="custom">Outright / Custom</button>
+        <button class="props-sub-btn tab-pill rounded-lg border border-transparent px-3 py-1.5 text-xs font-semibold text-slate-400" data-props-sub="top5">Top 5</button>
+        <button class="props-sub-btn tab-pill rounded-lg border border-transparent px-3 py-1.5 text-xs font-semibold text-slate-400" data-props-sub="top10">Top 10</button>
+        <button class="props-sub-btn tab-pill rounded-lg border border-transparent px-3 py-1.5 text-xs font-semibold text-slate-400" data-props-sub="top20">Top 20</button>
+        <button class="props-sub-btn tab-pill rounded-lg border border-transparent px-3 py-1.5 text-xs font-semibold text-slate-400" data-props-sub="r1leader">R1 Leader</button>
+        <button class="props-sub-btn tab-pill rounded-lg border border-transparent px-3 py-1.5 text-xs font-semibold text-slate-400" data-props-sub="makecut">Make Cut</button>
+      </div>
 
-      <div class="grid gap-4 sm:grid-cols-4">
-        <div class="space-y-1.5">
-          <label class="text-[11px] font-semibold text-slate-300 uppercase">Player</label>
-          <select id="propPlayer" class="w-full"></select>
+      <!-- Sub-section: Custom prop builder -->
+      <div id="propsSub-custom">
+        <div class="grid gap-4 sm:grid-cols-4">
+          <div class="space-y-1.5">
+            <label class="text-[11px] font-semibold text-slate-300 uppercase">Player</label>
+            <select id="propPlayer" class="w-full"></select>
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-[11px] font-semibold text-slate-300 uppercase">Prop Type</label>
+            <select id="propType" class="w-full">
+              <option value="birdies">Birdies or Better</option>
+              <option value="bogeys">Bogeys or Worse</option>
+              <option value="strokes">Round Score (Strokes)</option>
+              <option value="pars">Pars</option>
+            </select>
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-[11px] font-semibold text-slate-300 uppercase">Line</label>
+            <input id="propLine" type="number" step="0.5" placeholder="e.g. 3.5" />
+          </div>
+          <div class="pt-5">
+            <button id="runProp" class="btn-primary w-full">Analyze Prop</button>
+          </div>
         </div>
-        <div class="space-y-1.5">
-          <label class="text-[11px] font-semibold text-slate-300 uppercase">Prop Type</label>
-          <select id="propType" class="w-full">
-            <option value="birdies">Birdies or Better</option>
-            <option value="bogeys">Bogeys or Worse</option>
-            <option value="strokes">Round Score (Strokes)</option>
-            <option value="pars">Pars</option>
-          </select>
-        </div>
-        <div class="space-y-1.5">
-          <label class="text-[11px] font-semibold text-slate-300 uppercase">Line</label>
-          <input id="propLine" type="number" step="0.5" placeholder="e.g. 3.5" />
-        </div>
-        <div class="pt-5">
-          <button id="runProp" class="btn-primary w-full">Analyze Prop</button>
-        </div>
+      </div>
+      <!-- Sub-section: Props by type tables -->
+      <div id="propsSub-top5" class="hidden">
+        <p class="text-xs text-slate-400 mb-3">Top 5 Finish odds from live book data</p>
+        <div id="propsTable-top5"></div>
+      </div>
+      <div id="propsSub-top10" class="hidden">
+        <p class="text-xs text-slate-400 mb-3">Top 10 Finish odds from live book data</p>
+        <div id="propsTable-top10"></div>
+      </div>
+      <div id="propsSub-top20" class="hidden">
+        <p class="text-xs text-slate-400 mb-3">Top 20 Finish odds from live book data</p>
+        <div id="propsTable-top20"></div>
+      </div>
+      <div id="propsSub-r1leader" class="hidden">
+        <p class="text-xs text-slate-400 mb-3">Round 1 Leader odds from live book data</p>
+        <div id="propsTable-r1leader"></div>
+      </div>
+      <div id="propsSub-makecut" class="hidden">
+        <p class="text-xs text-slate-400 mb-3">Make Cut odds from live book data</p>
+        <div id="propsTable-makecut"></div>
       </div>
     </div>
 
-    <div id="propResult" class="hidden fade-in">
-      <div class="glass rounded-2xl p-5 space-y-4">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm font-bold text-white" id="prTitle">—</p>
-            <p class="text-xs text-slate-400" id="prSubtitle">—</p>
+    <div id="propCustomContent">
+      <div id="propResult" class="hidden fade-in">
+        <div class="glass rounded-2xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-bold text-white" id="prTitle">—</p>
+              <p class="text-xs text-slate-400" id="prSubtitle">—</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[10px] text-slate-500 uppercase">Model Confidence</p>
+              <p class="mono text-2xl font-bold" id="prConf">—</p>
+            </div>
           </div>
-          <div class="text-right">
-            <p class="text-[10px] text-slate-500 uppercase">Model Confidence</p>
-            <p class="mono text-2xl font-bold" id="prConf">—</p>
-          </div>
-        </div>
 
-        <div class="grid gap-3 sm:grid-cols-3">
-          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
-            <p class="text-[10px] text-slate-500 uppercase font-semibold">Projected Avg</p>
-            <p class="mono text-xl font-bold text-white mt-1" id="prAvg">—</p>
+          <div class="grid gap-3 sm:grid-cols-3">
+            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
+              <p class="text-[10px] text-slate-500 uppercase font-semibold">Projected Avg</p>
+              <p class="mono text-xl font-bold text-white mt-1" id="prAvg">—</p>
+            </div>
+            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
+              <p class="text-[10px] text-slate-500 uppercase font-semibold">Over %</p>
+              <p class="mono text-xl font-bold text-pb-teal mt-1" id="prOver">—</p>
+            </div>
+            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
+              <p class="text-[10px] text-slate-500 uppercase font-semibold">Under %</p>
+              <p class="mono text-xl font-bold text-pb-red mt-1" id="prUnder">—</p>
+            </div>
           </div>
-          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
-            <p class="text-[10px] text-slate-500 uppercase font-semibold">Over %</p>
-            <p class="mono text-xl font-bold text-pb-teal mt-1" id="prOver">—</p>
-          </div>
-          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
-            <p class="text-[10px] text-slate-500 uppercase font-semibold">Under %</p>
-            <p class="mono text-xl font-bold text-pb-red mt-1" id="prUnder">—</p>
-          </div>
-        </div>
 
-        <div class="conf-bar"><div id="prConfBar" class="conf-fill" style="width:0%"></div></div>
+          <div class="conf-bar"><div id="prConfBar" class="conf-fill" style="width:0%"></div></div>
 
-        <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3">
-          <p class="text-[10px] text-slate-500 uppercase font-semibold mb-1">Model Notes</p>
-          <p id="prNotes" class="text-xs text-slate-300">—</p>
+          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3">
+            <p class="text-[10px] text-slate-500 uppercase font-semibold mb-1">Model Notes</p>
+            <p id="prNotes" class="text-xs text-slate-300">—</p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Prop Board -->
-    <div class="glass rounded-2xl p-5">
-      <div class="flex items-center justify-between mb-3">
-        <h3 class="text-sm font-bold text-white">Prop Opportunity Board</h3>
-        <button id="clearProps" class="text-[11px] text-slate-500 hover:text-slate-300 underline underline-offset-2">Clear</button>
-      </div>
-      <div class="overflow-x-auto border border-white/5 rounded-xl">
-        <table class="min-w-full text-[11px]">
-          <thead class="bg-white/[0.02]">
-            <tr class="text-slate-500">
-              <th class="px-3 py-2 text-left font-semibold">Player</th>
-              <th class="px-3 py-2 text-left font-semibold">Prop</th>
-              <th class="px-3 py-2 text-right font-semibold">Line</th>
-              <th class="px-3 py-2 text-right font-semibold">Model Avg</th>
-              <th class="px-3 py-2 text-right font-semibold">Over %</th>
-              <th class="px-3 py-2 text-right font-semibold">Under %</th>
-              <th class="px-3 py-2 text-right font-semibold">Edge</th>
-              <th class="px-3 py-2 text-right font-semibold">Signal</th>
-            </tr>
-          </thead>
-          <tbody id="propBoard" class="divide-y divide-white/5"></tbody>
-        </table>
+      <!-- Prop Board -->
+      <div class="glass rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-bold text-white">Prop Opportunity Board</h3>
+          <button id="clearProps" class="text-[11px] text-slate-500 hover:text-slate-300 underline underline-offset-2">Clear</button>
+        </div>
+        <div class="overflow-x-auto border border-white/5 rounded-xl">
+          <table class="min-w-full text-[11px]">
+            <thead class="bg-white/[0.02]">
+              <tr class="text-slate-500">
+                <th class="px-3 py-2 text-left font-semibold">Player</th>
+                <th class="px-3 py-2 text-left font-semibold">Prop</th>
+                <th class="px-3 py-2 text-right font-semibold">Line</th>
+                <th class="px-3 py-2 text-right font-semibold">Model Avg</th>
+                <th class="px-3 py-2 text-right font-semibold">Over %</th>
+                <th class="px-3 py-2 text-right font-semibold">Under %</th>
+                <th class="px-3 py-2 text-right font-semibold">Edge</th>
+                <th class="px-3 py-2 text-right font-semibold">Signal</th>
+              </tr>
+            </thead>
+            <tbody id="propBoard" class="divide-y divide-white/5"></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -590,7 +729,7 @@
         </div>
 
         <!-- Hole cards -->
-        <div id="cdHoleGrid" class="grid grid-cols-9 gap-2 mb-4"></div>
+        <div id="cdHoleGrid" class="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-9 gap-2 mb-4"></div>
 
         <!-- Scoring table -->
         <div class="overflow-x-auto border border-white/5 rounded-xl">
@@ -666,7 +805,7 @@
     <!-- Augusta 18-Hole Grid -->
     <div class="glass rounded-2xl p-5">
       <p class="section-label mb-3">Augusta National — Hole-by-Hole (2025 Historical)</p>
-      <div id="mhq_holeGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2"></div>
+      <div id="mhq_holeGrid" class="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-9 gap-2"></div>
     </div>
 
     <!-- Difficulty Ranking + Key Stats -->
@@ -707,6 +846,63 @@
           </thead>
           <tbody id="mhq_fieldTable" class="divide-y" style="border-color:var(--divider)"></tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Cut Line Predictor -->
+    <div class="rounded-2xl p-5" style="background:linear-gradient(165deg,rgba(240,192,64,0.06),rgba(15,28,46,0.6));border:1.5px solid rgba(240,192,64,0.3)">
+      <div class="flex items-center justify-between mb-3">
+        <p class="section-label" style="color:rgba(240,192,64,0.8)">Cut Line Predictor</p>
+        <span id="mhq_cutConfBadge" class="stat-pill text-[10px]" style="background:rgba(240,192,64,0.12);color:#f0c040;border:1px solid rgba(240,192,64,0.3)">—</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+        <div class="rounded-xl p-3 text-center" style="background:rgba(0,0,0,0.25);border:1px solid rgba(240,192,64,0.15)">
+          <p class="text-[9px] font-semibold uppercase tracking-wide" style="color:rgba(240,192,64,0.6)">Predicted Cut</p>
+          <p class="mono text-2xl font-extrabold mt-1" style="color:#f0c040" id="mhq_cutScore">—</p>
+        </div>
+        <div class="rounded-xl p-3 text-center" style="background:rgba(0,0,0,0.25);border:1px solid rgba(240,192,64,0.15)">
+          <p class="text-[9px] text-slate-500 uppercase font-semibold">Strokes</p>
+          <p class="mono text-2xl font-bold text-white mt-1" id="mhq_cutStrokes">—</p>
+        </div>
+        <div class="rounded-xl p-3 text-center" style="background:rgba(0,0,0,0.25);border:1px solid rgba(240,192,64,0.15)">
+          <p class="text-[9px] text-slate-500 uppercase font-semibold">Hist. Avg</p>
+          <p class="mono text-xl font-bold text-pb-blue mt-1" id="mhq_cutHistAvg">—</p>
+        </div>
+        <div class="rounded-xl p-3 text-center" style="background:rgba(0,0,0,0.25);border:1px solid rgba(240,192,64,0.15)">
+          <p class="text-[9px] text-slate-500 uppercase font-semibold">Field Strength</p>
+          <p class="mono text-sm font-bold text-slate-300 mt-1" id="mhq_cutField">—</p>
+        </div>
+      </div>
+      <div id="mhq_cutNote" class="text-xs text-slate-400 mb-3 hidden"></div>
+      <div id="mhq_cutHistoryWrap" class="hidden">
+        <p class="text-[10px] text-slate-500 uppercase font-semibold mb-2">Recent Cut History</p>
+        <div class="overflow-x-auto border border-white/5 rounded-xl">
+          <table class="min-w-full text-[11px]">
+            <thead class="bg-white/[0.02]">
+              <tr class="text-slate-500">
+                <th class="px-3 py-1.5 text-left font-semibold">Year</th>
+                <th class="px-3 py-1.5 text-right font-semibold">Cut</th>
+              </tr>
+            </thead>
+            <tbody id="mhq_cutHistoryBody" class="divide-y divide-white/5"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tee Times -->
+    <div class="glass rounded-2xl p-5">
+      <div class="flex items-center justify-between mb-3">
+        <p class="section-label">Tee Times</p>
+        <div class="flex gap-1" id="mhq_ttRoundBtns">
+          <button class="tt-round-btn tab-pill active rounded-lg border border-transparent px-2.5 py-1 text-[11px] font-semibold text-slate-400" data-round="1">R1</button>
+          <button class="tt-round-btn tab-pill rounded-lg border border-transparent px-2.5 py-1 text-[11px] font-semibold text-slate-400" data-round="2">R2</button>
+          <button class="tt-round-btn tab-pill rounded-lg border border-transparent px-2.5 py-1 text-[11px] font-semibold text-slate-400" data-round="3">R3</button>
+          <button class="tt-round-btn tab-pill rounded-lg border border-transparent px-2.5 py-1 text-[11px] font-semibold text-slate-400" data-round="4">R4</button>
+        </div>
+      </div>
+      <div id="mhq_ttContent">
+        <p class="text-xs text-slate-500 text-center py-6">Tee times will be posted Tuesday</p>
       </div>
     </div>
 
@@ -762,6 +958,115 @@
     </div>
   </div>
 
+
+  <!-- ==================== TAB: LIVE SCORES ==================== -->
+  <div id="tab-livescores" class="tab-content hidden fade-in space-y-5">
+    <!-- Tournament Status Banner -->
+    <div id="ls_statusBanner" class="rounded-2xl p-4 flex items-center justify-between gap-4" style="background:linear-gradient(165deg,rgba(21,255,194,0.06),rgba(15,28,46,0.6));border:1px solid rgba(21,255,194,0.15)">
+      <div class="flex items-center gap-3">
+        <div id="ls_liveDot" class="hidden h-3 w-3 rounded-full bg-pb-teal animate-pulse"></div>
+        <div>
+          <h2 class="text-base font-bold text-white" id="ls_tourneyName">2026 Masters Tournament</h2>
+          <p class="text-xs text-slate-400" id="ls_statusText">Apr 9–12 · Augusta National</p>
+        </div>
+      </div>
+      <div id="ls_statusBadge" class="text-right"></div>
+    </div>
+    <!-- Countdown (shown when NOT_STARTED) -->
+    <div id="ls_countdown" class="hidden glass rounded-2xl p-8 text-center">
+      <p class="text-[11px] text-slate-500 uppercase font-semibold tracking-wide mb-2">Tournament Begins In</p>
+      <div class="flex justify-center gap-5 mt-2" id="ls_countdownDisplay"></div>
+      <p class="text-xs text-slate-500 mt-4">First round tee-off: Thursday, April 9, 2026</p>
+    </div>
+    <!-- Leaderboard Table -->
+    <div id="ls_leaderboardWrap" class="glass rounded-2xl p-5">
+      <div class="flex items-center justify-between mb-3">
+        <p class="section-label">Live Leaderboard</p>
+        <span id="ls_updatedAt" class="text-[10px] text-slate-600"></span>
+      </div>
+      <div class="overflow-x-auto border border-white/5 rounded-xl">
+        <table class="min-w-full text-[11px]">
+          <thead class="bg-white/[0.02]">
+            <tr class="text-slate-500">
+              <th class="px-3 py-2 text-left font-semibold w-10">Pos</th>
+              <th class="px-3 py-2 text-left font-semibold">Player</th>
+              <th class="px-3 py-2 text-right font-semibold">Total</th>
+              <th class="px-3 py-2 text-right font-semibold mobile-hide">Today</th>
+              <th class="px-3 py-2 text-right font-semibold">Thru</th>
+              <th class="px-3 py-2 text-right font-semibold mobile-hide">R1</th>
+              <th class="px-3 py-2 text-right font-semibold mobile-hide">R2</th>
+              <th class="px-3 py-2 text-right font-semibold mobile-hide">R3</th>
+              <th class="px-3 py-2 text-right font-semibold mobile-hide">R4</th>
+            </tr>
+          </thead>
+          <tbody id="ls_leaderboard" class="divide-y divide-white/5">
+            <tr><td colspan="9" class="px-3 py-8 text-center text-slate-500 text-xs">Tournament has not started yet. Check back April 9.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: PARLAY BUILDER ==================== -->
+  <div id="tab-parlay" class="tab-content hidden fade-in space-y-5">
+    <div class="glass rounded-2xl p-5 glow-teal">
+      <div class="flex items-center justify-between mb-1">
+        <div>
+          <h2 class="text-base font-bold text-white">Parlay Builder</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Add legs from the Players tab · Max 6 legs</p>
+        </div>
+        <button id="parlayClrBtn" class="text-[11px] text-slate-500 hover:text-pb-red underline underline-offset-2 transition-colors">Clear All</button>
+      </div>
+    </div>
+    <!-- Parlay Slip -->
+    <div class="glass rounded-2xl p-5">
+      <p class="section-label mb-3">Parlay Slip</p>
+      <div id="parlayLegs" class="space-y-2 min-h-[80px]">
+        <p class="text-xs text-slate-500 text-center py-6">No legs added yet. Click <span class="text-pb-teal font-semibold">+ Add</span> on any player card in the Players tab.</p>
+      </div>
+    </div>
+    <!-- Parlay Payout Calculator -->
+    <div id="parlayPayoutCard" class="hidden glass rounded-2xl p-5">
+      <p class="section-label mb-4">Payout Calculator</p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+        <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
+          <p class="text-[9px] text-slate-500 uppercase font-semibold">Legs</p>
+          <p class="mono text-xl font-bold text-white mt-1" id="parlayLegCount">0</p>
+        </div>
+        <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
+          <p class="text-[9px] text-slate-500 uppercase font-semibold">Combined Odds</p>
+          <p class="mono text-xl font-bold text-pb-gold mt-1" id="parlayCombinedOdds">—</p>
+        </div>
+        <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
+          <p class="text-[9px] text-slate-500 uppercase font-semibold">$25 Pays</p>
+          <p class="mono text-xl font-bold text-pb-teal mt-1" id="parlay25Pays">—</p>
+        </div>
+        <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
+          <p class="text-[9px] text-slate-500 uppercase font-semibold">$100 Pays</p>
+          <p class="mono text-xl font-bold text-pb-teal mt-1" id="parlay100Pays">—</p>
+        </div>
+      </div>
+      <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 flex items-center justify-between">
+        <span class="text-[11px] text-slate-400">$10 bet pays</span>
+        <span class="mono text-lg font-bold text-pb-teal" id="parlay10Pays">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: NEWS ==================== -->
+  <div id="tab-news" class="tab-content hidden fade-in space-y-5">
+    <div class="glass rounded-2xl p-5 glow-teal">
+      <h2 class="text-base font-bold text-white mb-1">Masters News Feed</h2>
+      <p class="text-xs text-slate-400">Latest news, injury updates, and course conditions from ESPN and major outlets</p>
+    </div>
+    <div id="newsGrid" class="grid gap-4 grid-cols-1 md:grid-cols-2">
+      <div class="glass rounded-2xl p-6 text-center col-span-full">
+        <p class="text-slate-400 text-sm">Loading news...</p>
+        <p class="text-slate-600 text-xs mt-1">News updates during tournament week</p>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <!-- FOOTER -->
@@ -774,6 +1079,22 @@
 <!-- ================================================================ -->
 <!-- JS ENGINE -->
 <!-- ================================================================ -->
+<script>
+  // Disclaimer — show once per session (localStorage persists across refreshes)
+  function dismissDisclaimer() {
+    document.getElementById('disclaimerModal').style.display = 'none';
+    try { sessionStorage.setItem('pb_disclaimer_seen', '1'); } catch(e) {}
+  }
+  (function() {
+    try {
+      if (sessionStorage.getItem('pb_disclaimer_seen')) {
+        var m = document.getElementById('disclaimerModal');
+        if (m) m.style.display = 'none';
+      }
+    } catch(e) {}
+  })();
+</script>
+
 <script>
 (function() {
   'use strict';
@@ -1505,6 +1826,13 @@
     // Update current event info
     if (data.currentEvent) {
       updateCurrentEventBanner(data.currentEvent);
+      // Feature 1: Leaderboard
+      if (data.currentEvent.leaderboard && data.currentEvent.leaderboard.length) {
+        _liveLeaderboard = data.currentEvent.leaderboard;
+      }
+      if (data.currentEvent.status) {
+        _tournamentStatus = data.currentEvent.status;
+      }
     }
     // Render weather bar if available
     if (data.weather) {
@@ -1517,6 +1845,26 @@
       MASTERS_INTEL = data.mastersIntel;
       window._liveData = data;
       console.log('[PropsBot] Masters Intel loaded:', MASTERS_INTEL.augusta_holes.length, 'holes');
+    }
+    // Feature 2: Tee Times
+    if (data.teeTimes && data.teeTimes.length) {
+      _teeTimes = data.teeTimes;
+    }
+    // Feature 3: Odds Movement
+    if (data.oddsMovement) {
+      _oddsMovement = data.oddsMovement;
+    }
+    // Feature 4: Cut Prediction
+    if (data.cutPrediction) {
+      _cutPrediction = data.cutPrediction;
+    }
+    // Feature 5: Props By Type
+    if (data.propsByType) {
+      _propsByType = data.propsByType;
+    }
+    // Feature 8: News
+    if (data.news && data.news.length) {
+      _newsData = data.news;
     }
   }
 
@@ -1709,6 +2057,10 @@
 
     // Weather row in Masters HQ
     renderWeatherBar(MASTERS_INTEL.weather || (window._liveData && window._liveData.weather));
+
+    // Render new sections that live in Masters HQ
+    renderCutPredictor();
+    renderTeeTimes(_ttActiveRound);
   }
 
   function renderHolePills() {
@@ -1807,16 +2159,598 @@
     });
   }
 
-  function initApp() {
+  /* ============================================================
+     FEATURE 1: LIVE LEADERBOARD
+  ============================================================ */
+  var _liveLeaderboard = null;
+  var _tournamentStatus = 'NOT_STARTED';
+
+  function scoreDisplay(val) {
+    if (val == null || val === '') return '<span class="score-even mono">—</span>';
+    var n = Number(val);
+    if (isNaN(n)) return '<span class="score-even mono">' + val + '</span>';
+    if (n < 0) return '<span class="score-under mono">' + n + '</span>';
+    if (n === 0) return '<span class="score-even mono">E</span>';
+    return '<span class="score-over mono">+' + n + '</span>';
+  }
+
+  function renderLiveLeaderboard() {
+    var lb = _liveLeaderboard;
+    var status = _tournamentStatus;
+
+    // Update status badge
+    var statusBadge = el('ls_statusBadge');
+    var statusText = el('ls_statusText');
+    var liveDot = el('ls_liveDot');
+
+    if (status === 'IN_PROGRESS') {
+      statusBadge.innerHTML = '<span class="stat-pill bg-pb-teal/15 text-pb-teal border border-pb-teal/30" style="font-size:10px">🟢 LIVE</span>';
+      statusText.textContent = 'Tournament in progress · Augusta National';
+      liveDot.classList.remove('hidden');
+      el('ls_countdown').classList.add('hidden');
+      el('ls_leaderboardWrap').classList.remove('hidden');
+    } else if (status === 'COMPLETED') {
+      statusBadge.innerHTML = '<span class="stat-pill bg-white/5 text-slate-400 border border-white/10" style="font-size:10px">FINAL</span>';
+      statusText.textContent = 'Tournament complete · Augusta National';
+      liveDot.classList.add('hidden');
+      el('ls_countdown').classList.add('hidden');
+      el('ls_leaderboardWrap').classList.remove('hidden');
+    } else {
+      // NOT_STARTED — show countdown
+      statusBadge.innerHTML = '<span class="stat-pill bg-pb-gold/10 text-pb-gold border border-pb-gold/20" style="font-size:10px">UPCOMING</span>';
+      statusText.textContent = 'Apr 9–12, 2026 · Augusta National';
+      liveDot.classList.add('hidden');
+      el('ls_countdown').classList.remove('hidden');
+      renderCountdown();
+      el('ls_leaderboardWrap').classList.remove('hidden');
+    }
+
+    if (!lb || !lb.length) return;
+    var tbody = el('ls_leaderboard');
+    tbody.innerHTML = '';
+    lb.forEach(function(row, idx) {
+      var tr = document.createElement('tr');
+      tr.className = 'hover:bg-white/[0.02] transition-colors' + (idx < 3 ? ' bg-white/[0.01]' : '');
+      var thruText = row.thru === 'F' ? '<span class="text-slate-400">F</span>' : (row.thru != null ? row.thru : '—');
+      tr.innerHTML =
+        '<td class="px-3 py-2 mono text-slate-400 font-semibold">' + (row.position || (idx + 1)) + '</td>' +
+        '<td class="px-3 py-2 text-white font-medium">' + (row.player || row.name || '—') + '</td>' +
+        '<td class="px-3 py-2 text-right">' + scoreDisplay(row.totalScore !== undefined ? row.totalScore : row.total) + '</td>' +
+        '<td class="px-3 py-2 text-right mobile-hide">' + scoreDisplay(row.today) + '</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-400">' + thruText + '</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-400 mobile-hide">' + (row.r1 != null ? row.r1 : '—') + '</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-400 mobile-hide">' + (row.r2 != null ? row.r2 : '—') + '</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-400 mobile-hide">' + (row.r3 != null ? row.r3 : '—') + '</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-400 mobile-hide">' + (row.r4 != null ? row.r4 : '—') + '</td>';
+      tbody.appendChild(tr);
+    });
+    var upEl = el('ls_updatedAt');
+    if (upEl && window._liveData && window._liveData.generatedAt) {
+      upEl.textContent = 'Updated: ' + window._liveData.generatedAt;
+    }
+  }
+
+  function renderCountdown() {
+    var target = new Date('2026-04-09T08:00:00-04:00').getTime();
+    var container = el('ls_countdownDisplay');
+    if (!container) return;
+    function tick() {
+      var now = Date.now();
+      var diff = Math.max(0, target - now);
+      var days    = Math.floor(diff / 86400000);
+      var hours   = Math.floor((diff % 86400000) / 3600000);
+      var minutes = Math.floor((diff % 3600000) / 60000);
+      var seconds = Math.floor((diff % 60000) / 1000);
+      container.innerHTML =
+        '<div class="cd-box"><div class="cd-num">' + days + '</div><div class="cd-label">Days</div></div>' +
+        '<div class="cd-box"><div class="cd-num">' + String(hours).padStart(2,'0') + '</div><div class="cd-label">Hours</div></div>' +
+        '<div class="cd-box"><div class="cd-num">' + String(minutes).padStart(2,'0') + '</div><div class="cd-label">Min</div></div>' +
+        '<div class="cd-box"><div class="cd-num">' + String(seconds).padStart(2,'0') + '</div><div class="cd-label">Sec</div></div>';
+      if (diff > 0) setTimeout(tick, 1000);
+    }
+    tick();
+  }
+
+  // Auto-default to Live Scores tab during tournament (Apr 9-12)
+  (function checkTournamentDefault() {
+    var now = new Date();
+    var start = new Date('2026-04-09T00:00:00');
+    var end = new Date('2026-04-12T23:59:59');
+    if (now >= start && now <= end) {
+      // Switch active tab to livescores
+      document.querySelectorAll('.tab-pill[data-tab]').forEach(function(t) { t.classList.remove('active'); });
+      var lsBtn = document.querySelector('.tab-pill[data-tab="livescores"]');
+      if (lsBtn) lsBtn.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.add('hidden'); });
+      var lsTab = el('tab-livescores');
+      if (lsTab) lsTab.classList.remove('hidden');
+    }
+  })();
+
+  /* ============================================================
+     FEATURE 2: TEE TIMES (Masters HQ)
+  ============================================================ */
+  var _teeTimes = [];
+  var _ttActiveRound = 1;
+
+  function renderTeeTimes(round) {
+    _ttActiveRound = round || _ttActiveRound;
+    var container = el('mhq_ttContent');
+    if (!container) return;
+    var filtered = _teeTimes.filter(function(t) { return String(t.round) === String(_ttActiveRound); });
+    if (!filtered.length) {
+      container.innerHTML = '<p class="text-xs text-slate-500 text-center py-6">Tee times will be posted Tuesday</p>';
+      return;
+    }
+    // Group by morning (before 12:00) / afternoon
+    var morning = filtered.filter(function(t) {
+      var h = parseInt((t.teeTime || '').split(':')[0]);
+      return h < 12;
+    });
+    var afternoon = filtered.filter(function(t) {
+      var h = parseInt((t.teeTime || '').split(':')[0]);
+      return h >= 12;
+    });
+
+    function buildGroup(label, items) {
+      if (!items.length) return '';
+      var rows = items.map(function(t) {
+        return '<tr class="hover:bg-white/[0.02]">' +
+          '<td class="px-3 py-2 text-white font-medium">' + (t.player || '—') + '</td>' +
+          '<td class="px-3 py-2 text-right mono text-pb-gold">' + (t.teeTime || '—') + '</td>' +
+          '<td class="px-3 py-2 text-right mono text-slate-300">' + (t.startHole || 1) + '</td>' +
+          '<td class="px-3 py-2 text-right text-slate-400">' + (t.group || '—') + '</td>' +
+          '</tr>';
+      }).join('');
+      return '<div class="mb-3"><p class="text-[10px] font-semibold uppercase tracking-wide text-slate-500 px-1 mb-1">' + label + '</p>' +
+        '<div class="overflow-x-auto border border-white/5 rounded-xl"><table class="min-w-full text-[11px]">' +
+        '<thead class="bg-white/[0.02]"><tr class="text-slate-500">' +
+        '<th class="px-3 py-1.5 text-left font-semibold">Player</th>' +
+        '<th class="px-3 py-1.5 text-right font-semibold">Tee Time</th>' +
+        '<th class="px-3 py-1.5 text-right font-semibold">Hole</th>' +
+        '<th class="px-3 py-1.5 text-right font-semibold">Group</th>' +
+        '</tr></thead><tbody class="divide-y divide-white/5">' + rows + '</tbody></table></div></div>';
+    }
+
+    container.innerHTML = buildGroup('Morning', morning) + buildGroup('Afternoon', afternoon);
+  }
+
+  document.querySelectorAll('.tt-round-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tt-round-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderTeeTimes(parseInt(btn.dataset.round));
+    });
+  });
+
+  /* ============================================================
+     FEATURE 3: ODDS MOVEMENT (already wired into renderPlayerGrid — see below)
+  ============================================================ */
+  var _oddsMovement = {};
+
+  function getOddsMovementHtml(playerName) {
+    var mv = _oddsMovement[playerName];
+    if (!mv || Math.abs(mv.change || 0) < 500) return '';
+    var arrow = mv.direction === 'up' ? '▲' : '▼';
+    var changeStr = (mv.change > 0 ? '+' : '') + mv.change;
+    // direction 'up' = shorter odds = more favored = show RED
+    // direction 'down' = longer odds = less favored = better value = show GREEN
+    var color = mv.direction === 'up' ? 'text-pb-red bg-pb-red/10 border-pb-red/20' : 'text-pb-teal bg-pb-teal/10 border-pb-teal/20';
+    return '<span class="stat-pill border ' + color + '" style="font-size:9px;margin-left:3px">' + arrow + ' ' + changeStr + '</span>';
+  }
+
+  /* ============================================================
+     FEATURE 4: CUT LINE PREDICTOR (Masters HQ)
+  ============================================================ */
+  var _cutPrediction = null;
+
+  function renderCutPredictor() {
+    var cp = _cutPrediction;
+    if (!cp) return;
+    var scoreEl = el('mhq_cutScore');
+    var strokesEl = el('mhq_cutStrokes');
+    var histEl = el('mhq_cutHistAvg');
+    var fieldEl = el('mhq_cutField');
+    var badgeEl = el('mhq_cutConfBadge');
+    var noteEl = el('mhq_cutNote');
+    var histWrap = el('mhq_cutHistoryWrap');
+    var histBody = el('mhq_cutHistoryBody');
+
+    if (scoreEl && cp.predictedCut != null) {
+      var cut = Number(cp.predictedCut);
+      scoreEl.textContent = (cut >= 0 ? '+' : '') + cut;
+    }
+    if (strokesEl && cp.predictedScore != null) strokesEl.textContent = cp.predictedScore;
+    if (histEl && cp.historicalAvg != null) histEl.textContent = cp.historicalAvg;
+    if (fieldEl && cp.fieldStrength) fieldEl.textContent = cp.fieldStrength;
+    if (badgeEl && cp.confidence != null) {
+      badgeEl.textContent = cp.confidence + '% Conf';
+      if (cp.confidence >= 70) { badgeEl.style.background = 'rgba(21,255,194,0.12)'; badgeEl.style.color = '#15ffc2'; badgeEl.style.borderColor = 'rgba(21,255,194,0.3)'; }
+      else if (cp.confidence >= 40) { badgeEl.style.background = 'rgba(34,169,236,0.12)'; badgeEl.style.color = '#22a9ec'; badgeEl.style.borderColor = 'rgba(34,169,236,0.3)'; }
+    }
+    if (noteEl && cp.note) { noteEl.textContent = cp.note; noteEl.classList.remove('hidden'); }
+    if (histWrap && histBody && cp.history && cp.history.length) {
+      histBody.innerHTML = cp.history.slice(0, 5).map(function(h) {
+        var c = Number(h.cut);
+        return '<tr class="hover:bg-white/[0.02]">' +
+          '<td class="px-3 py-1.5 mono text-slate-300">' + h.year + '</td>' +
+          '<td class="px-3 py-1.5 text-right mono ' + (c <= 0 ? 'text-pb-red' : 'text-slate-300') + '">' + (c >= 0 ? '+' : '') + c + '</td>' +
+          '</tr>';
+      }).join('');
+      histWrap.classList.remove('hidden');
+    }
+  }
+
+  /* ============================================================
+     FEATURE 5: PROPS BY TYPE TABLES
+  ============================================================ */
+  var _propsByType = {};
+
+  function buildPropsTypeTable(typeKey) {
+    var container = el('propsTable-' + typeKey);
+    if (!container) return;
+    var data = _propsByType[typeKey];
+    if (!data || !Object.keys(data).length) {
+      container.innerHTML = '<p class="text-xs text-slate-500 text-center py-6">Live odds data not yet available for this prop type</p>';
+      return;
+    }
+    // Convert object to array sorted by odds value (ascending = most favored)
+    var rows = Object.entries(data).map(function(e) {
+      return { name: e[0], odds: e[1] };
+    });
+    // Sort by absolute odds value ascending
+    rows.sort(function(a, b) {
+      var av = Math.abs(Number(String(a.odds).replace('+', '')));
+      var bv = Math.abs(Number(String(b.odds).replace('+', '')));
+      return av - bv;
+    });
+
+    var typeLabel = { top5: 'Top 5', top10: 'Top 10', top20: 'Top 20', r1leader: 'R1 Leader', makecut: 'Make Cut' }[typeKey] || typeKey;
+
+    var theadHtml = '<thead class="bg-white/[0.02]"><tr class="text-slate-500">' +
+      '<th class="px-3 py-2 text-left font-semibold">#</th>' +
+      '<th class="px-3 py-2 text-left font-semibold">Player</th>' +
+      '<th class="px-3 py-2 text-right font-semibold">Odds</th>' +
+      '<th class="px-3 py-2 text-right font-semibold">Augusta Fit</th>' +
+      '<th class="px-3 py-2 text-right font-semibold">SG Total</th>' +
+      '<th class="px-3 py-2 text-right font-semibold">Conf</th>' +
+      '<th class="px-3 py-2 text-right font-semibold">EV</th>' +
+      '</tr></thead>';
+
+    var tbodyHtml = rows.slice(0, 30).map(function(r, idx) {
+      var p = PLAYERS.find(function(pl) { return pl.name.toLowerCase() === r.name.toLowerCase(); });
+      var fit = p && p.courseFit ? (p.courseFit.augusta || '—') : '—';
+      var fitColor = fit >= 85 ? 'text-pb-teal' : (fit >= 70 ? 'text-pb-blue' : 'text-slate-400');
+      var sgt = p ? p.sgTotal.toFixed(2) : '—';
+      var conf = p ? Math.min(95, Math.round(50 + p.sgTotal * 12 + (Number(fit) || 70) * 0.15)) : 50;
+      var confColor2 = conf >= 70 ? 'text-pb-teal' : (conf >= 50 ? 'text-pb-blue' : 'text-slate-400');
+      // EV: simple positive if sgTotal > 1 and odds > +300
+      var oddsNum = Number(String(r.odds).replace('+', ''));
+      var evPos = p && p.sgTotal > 0.8 && oddsNum > 300;
+      var evHtml = p ? '<span class="mono text-[10px] px-1.5 py-0.5 rounded" style="background:' + (evPos ? 'rgba(21,255,194,0.12)' : 'rgba(255,21,82,0.08)') + ';color:' + (evPos ? '#15ffc2' : 'rgba(200,215,230,0.4)') + ';border:1px solid ' + (evPos ? 'rgba(21,255,194,0.25)' : 'transparent') + '">' + (evPos ? '+EV' : 'NEU') + '</span>' : '—';
+      return '<tr class="hover:bg-white/[0.02] transition-colors">' +
+        '<td class="px-3 py-2 mono text-slate-500">' + (idx + 1) + '</td>' +
+        '<td class="px-3 py-2 text-white font-medium">' + r.name + '</td>' +
+        '<td class="px-3 py-2 text-right mono text-pb-gold font-semibold">' + r.odds + '</td>' +
+        '<td class="px-3 py-2 text-right mono ' + fitColor + '">' + fit + '</td>' +
+        '<td class="px-3 py-2 text-right mono text-slate-200">' + sgt + '</td>' +
+        '<td class="px-3 py-2 text-right mono ' + confColor2 + '">' + conf + '%</td>' +
+        '<td class="px-3 py-2 text-right">' + evHtml + '</td>' +
+        '</tr>';
+    }).join('');
+
+    container.innerHTML = '<div class="overflow-x-auto border border-white/5 rounded-xl"><table class="props-type-table">' + theadHtml + '<tbody class="divide-y divide-white/5">' + tbodyHtml + '</tbody></table></div>';
+  }
+
+  function renderAllPropsTypeTables() {
+    ['top5', 'top10', 'top20', 'r1leader', 'makecut'].forEach(buildPropsTypeTable);
+  }
+
+  // Props sub-tab switcher
+  document.querySelectorAll('.props-sub-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var sub = btn.dataset.propsSub;
+      document.querySelectorAll('.props-sub-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      // Show/hide custom content
+      var customContent = el('propCustomContent');
+      if (customContent) customContent.style.display = sub === 'custom' ? '' : 'none';
+      // Show/hide sub-panels
+      ['top5', 'top10', 'top20', 'r1leader', 'makecut'].forEach(function(k) {
+        var panel = el('propsSub-' + k);
+        if (panel) panel.classList.toggle('hidden', k !== sub);
+      });
+    });
+  });
+
+  /* ============================================================
+     FEATURE 6: PARLAY BUILDER
+  ============================================================ */
+  var PARLAY_MAX = 6;
+  var _parlayLegs = [];
+
+  function loadParlayFromStorage() {
+    try {
+      var stored = localStorage.getItem('pb_parlay_legs');
+      if (stored) {
+        _parlayLegs = JSON.parse(stored) || [];
+      }
+    } catch(e) {}
+  }
+
+  function saveParlayToStorage() {
+    try {
+      localStorage.setItem('pb_parlay_legs', JSON.stringify(_parlayLegs));
+    } catch(e) {}
+  }
+
+  function americanToDecimal(american) {
+    var n = Number(String(american).replace('+',''));
+    if (isNaN(n)) return 1;
+    if (n >= 0) return (n / 100) + 1;
+    return (100 / Math.abs(n)) + 1;
+  }
+
+  function decimalToAmerican(decimal) {
+    if (decimal >= 2) return '+' + Math.round((decimal - 1) * 100);
+    return '-' + Math.round(100 / (decimal - 1));
+  }
+
+  function renderParlay() {
+    var container = el('parlayLegs');
+    var payoutCard = el('parlayPayoutCard');
+    if (!container) return;
+
+    if (!_parlayLegs.length) {
+      container.innerHTML = '<p class="text-xs text-slate-500 text-center py-6">No legs added yet. Click <span class="text-pb-teal font-semibold">+ Add</span> on any player card in the Players tab.</p>';
+      if (payoutCard) payoutCard.classList.add('hidden');
+      return;
+    }
+
+    container.innerHTML = _parlayLegs.map(function(leg, i) {
+      return '<div class="parlay-leg">' +
+        '<div class="flex items-center gap-3">' +
+          '<span class="mono text-xs text-slate-500 font-semibold w-5">' + (i + 1) + '</span>' +
+          '<div>' +
+            '<p class="text-sm font-semibold text-white">' + leg.player + '</p>' +
+            '<p class="text-[10px] text-slate-500">' + leg.betType + '</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="flex items-center gap-3">' +
+          '<span class="mono text-sm font-bold text-pb-gold">' + (leg.odds || '—') + '</span>' +
+          '<button data-parlay-remove="' + i + '" class="text-slate-600 hover:text-pb-red text-xs transition-colors" title="Remove">✕</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    // Wire remove buttons
+    container.querySelectorAll('[data-parlay-remove]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        _parlayLegs.splice(parseInt(btn.dataset.parlayRemove), 1);
+        saveParlayToStorage();
+        renderParlay();
+        renderPlayerGrid(); // Refresh add buttons
+      });
+    });
+
+    // Calculate combined odds
+    var combinedDecimal = _parlayLegs.reduce(function(acc, leg) {
+      return acc * americanToDecimal(leg.odds || 100);
+    }, 1);
+    var combinedAmerican = decimalToAmerican(combinedDecimal);
+
+    el('parlayLegCount').textContent = _parlayLegs.length;
+    el('parlayCombinedOdds').textContent = combinedAmerican;
+    el('parlay10Pays').textContent = '$' + ((10 * combinedDecimal)).toFixed(2);
+    el('parlay25Pays').textContent = '$' + ((25 * combinedDecimal)).toFixed(2);
+    el('parlay100Pays').textContent = '$' + ((100 * combinedDecimal)).toFixed(2);
+
+    if (payoutCard) payoutCard.classList.remove('hidden');
+  }
+
+  function addToParlayIfValid(player, betType, odds) {
+    // Check duplicates
+    if (_parlayLegs.some(function(l) { return l.player === player && l.betType === betType; })) {
+      alert('Warning: ' + player + ' already in parlay for ' + betType);
+      return;
+    }
+    if (_parlayLegs.length >= PARLAY_MAX) {
+      alert('Max ' + PARLAY_MAX + ' legs allowed in parlay');
+      return;
+    }
+    _parlayLegs.push({ player: player, betType: betType, odds: odds });
+    saveParlayToStorage();
+    renderParlay();
+  }
+
+  el('parlayClrBtn').addEventListener('click', function() {
+    _parlayLegs = [];
+    saveParlayToStorage();
+    renderParlay();
     renderPlayerGrid();
+  });
+
+  /* ============================================================
+     FEATURE 7: AUGUSTA H2H IN MATCHUP PREDICTOR
+  ============================================================ */
+  function augustaSpecialistScore(hist) {
+    if (!hist) return 0;
+    var score = (10 - Math.min(hist.bestFinish || 10, 10)) * 5 +
+                (hist.top10 || 0) * 8 +
+                ((hist.appearances || 0) / 2);
+    return Math.min(100, Math.round(score));
+  }
+
+  function renderAugustaH2H(pA, pB) {
+    var h2hDiv = el('mrAugustaH2H');
+    var augADiv = el('mrAugA');
+    var augBDiv = el('mrAugB');
+    var augEdge = el('mrAugEdge');
+    if (!h2hDiv) return;
+
+    if (!pA.augustaHistory && !pB.augustaHistory) {
+      h2hDiv.classList.add('hidden');
+      return;
+    }
+    h2hDiv.classList.remove('hidden');
+
+    function histHtml(hist, alignRight) {
+      if (!hist) return '<p class="text-xs text-slate-600">No Augusta data</p>';
+      var scoreVal = augustaSpecialistScore(hist);
+      var scoreColor = scoreVal >= 70 ? 'color:#f0c040' : (scoreVal >= 40 ? 'color:#22a9ec' : 'color:rgba(200,215,230,0.5)');
+      var rightClass = alignRight ? 'text-right' : '';
+      return '<p class="text-[10px] text-slate-400 ' + rightClass + '">Appearances: <span class="mono text-white font-semibold">' + (hist.appearances || 0) + '</span></p>' +
+        '<p class="text-[10px] text-slate-400 ' + rightClass + '">Best Finish: <span class="mono font-semibold" style="color:#f0c040">T' + (hist.bestFinish || '—') + '</span></p>' +
+        '<p class="text-[10px] text-slate-400 ' + rightClass + '">Top 10s: <span class="mono text-pb-teal font-semibold">' + (hist.top10 || 0) + '</span></p>' +
+        '<p class="text-[10px] text-slate-400 ' + rightClass + '">Avg Score: <span class="mono text-slate-200">' + (hist.avgScore || '—') + '</span></p>' +
+        '<div class="mt-2"><p class="text-[9px] text-slate-600 ' + rightClass + '">Specialist Score</p><p class="mono text-xl font-extrabold ' + rightClass + '" style="' + scoreColor + '">' + scoreVal + '</p></div>';
+    }
+
+    augADiv.innerHTML = histHtml(pA.augustaHistory, false);
+    augBDiv.innerHTML = histHtml(pB.augustaHistory, true);
+
+    var scoreA = augustaSpecialistScore(pA.augustaHistory);
+    var scoreB = augustaSpecialistScore(pB.augustaHistory);
+    if (scoreA > scoreB) {
+      augEdge.textContent = 'EDGE: ' + pA.name.split(' ')[1] + ' has stronger Augusta pedigree';
+      augEdge.style.color = '#15ffc2';
+    } else if (scoreB > scoreA) {
+      augEdge.textContent = 'EDGE: ' + pB.name.split(' ')[1] + ' has stronger Augusta pedigree';
+      augEdge.style.color = '#15ffc2';
+    } else {
+      augEdge.textContent = 'Matched Augusta pedigree';
+      augEdge.style.color = 'rgba(200,215,230,0.5)';
+    }
+  }
+
+  // Patch runMatchup to also render Augusta H2H
+  var _origRunMatchup = el('runMatchup').onclick;
+  el('runMatchup').addEventListener('click', function() {
+    var pA = PLAYERS.find(function(p) { return p.id === parseInt(el('matchA').value); });
+    var pB = PLAYERS.find(function(p) { return p.id === parseInt(el('matchB').value); });
+    if (pA && pB && pA.id !== pB.id) {
+      setTimeout(function() { renderAugustaH2H(pA, pB); }, 50);
+    }
+  });
+
+  /* ============================================================
+     FEATURE 8: NEWS FEED
+  ============================================================ */
+  var _newsData = [];
+
+  function timeAgo(dateStr) {
+    if (!dateStr) return '';
+    var then = new Date(dateStr).getTime();
+    var diff = Date.now() - then;
+    if (isNaN(diff)) return dateStr;
+    var mins = Math.floor(diff / 60000);
+    if (mins < 60) return mins + 'm ago';
+    var hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + 'h ago';
+    return Math.floor(hrs / 24) + 'd ago';
+  }
+
+  function renderNewsGrid() {
+    var grid = el('newsGrid');
+    if (!grid) return;
+    if (!_newsData.length) {
+      grid.innerHTML = '<div class="glass rounded-2xl p-6 text-center col-span-full"><p class="text-slate-400 text-sm">No news available yet</p><p class="text-slate-600 text-xs mt-1">News updates during tournament week (Apr 9–12)</p></div>';
+      return;
+    }
+    grid.innerHTML = _newsData.slice(0, 12).map(function(item) {
+      var desc = (item.description || '').slice(0, 120) + ((item.description || '').length > 120 ? '…' : '');
+      var playerBadge = item.player ? '<span class="stat-pill bg-pb-gold/10 text-pb-gold border border-pb-gold/20 text-[10px] mb-2 inline-flex">' + item.player + '</span>' : '';
+      var imgHtml = item.image ? '<img src="' + item.image + '" alt="" class="w-full h-36 object-cover" loading="lazy" onerror="this.style.display=\'none\'">' : '';
+      var linkHtml = item.link ? '<a href="' + item.link + '" target="_blank" rel="noopener noreferrer" class="text-[10px] text-pb-teal hover:underline mt-2 inline-block">Read more →</a>' : '';
+      return '<div class="news-card">' +
+        imgHtml +
+        '<div class="p-4">' +
+          playerBadge +
+          '<h3 class="text-sm font-bold text-white leading-snug mb-1">' + (item.headline || 'Untitled') + '</h3>' +
+          (desc ? '<p class="text-xs text-slate-400 leading-relaxed mb-2">' + desc + '</p>' : '') +
+          '<div class="flex items-center justify-between">' +
+            '<span class="text-[10px] text-slate-600">' + timeAgo(item.published) + '</span>' +
+            linkHtml +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  /* ============================================================
+     enhancePlayerGrid — adds odds movement + parlay buttons
+     Called after renderPlayerGrid() in initApp and on demand
+  ============================================================ */
+  function enhancePlayerGrid() {
+    var cards = document.querySelectorAll('#playerGrid .player-card');
+    cards.forEach(function(card) {
+      var pid = parseInt(card.dataset.id);
+      var p = PLAYERS.find(function(pl) { return pl.id === pid; });
+      if (!p) return;
+
+      // Odds movement badges — append to odds row if present
+      var movHtml = getOddsMovementHtml(p.name);
+      if (movHtml) {
+        var oddsRows = card.querySelectorAll('.flex.flex-wrap');
+        // Find the one that has DK/FD pills
+        oddsRows.forEach(function(row) {
+          if (row.textContent.indexOf('DK') >= 0 || row.textContent.indexOf('FD') >= 0) {
+            if (!row.querySelector('.odds-mov')) {
+              var span = document.createElement('span');
+              span.className = 'odds-mov';
+              span.innerHTML = movHtml;
+              row.appendChild(span);
+            }
+          }
+        });
+      }
+
+      // Parlay add button — only add if not already present
+      if (card.querySelector('.parlay-add-btn')) return;
+      var inParlay = _parlayLegs.some(function(l) { return l.player === p.name; });
+      var btn = document.createElement('button');
+      btn.className = 'parlay-add-btn text-[10px] px-2 py-0.5 rounded-lg border transition-all ' +
+        (inParlay ? 'text-pb-gold border-pb-gold/40 bg-pb-gold/10' : 'text-slate-500 border-white/10 hover:text-pb-teal hover:border-pb-teal/30');
+      btn.dataset.playerId = p.id;
+      btn.title = 'Add to Parlay';
+      btn.textContent = inParlay ? '✓ Parlay' : '+ Parlay';
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var player = PLAYERS.find(function(pl) { return pl.id === parseInt(btn.dataset.playerId); });
+        if (!player) return;
+        var odds = (player.odds && player.odds.dk) ? player.odds.dk : (player.odds && player.odds.fd ? player.odds.fd : '+1000');
+        addToParlayIfValid(player.name, 'Outright Winner', odds);
+        renderPlayerGrid();
+        setTimeout(enhancePlayerGrid, 0);
+      });
+      // Append to the bottom metadata row
+      var bottomRow = card.lastElementChild;
+      if (bottomRow) bottomRow.appendChild(btn);
+    });
+  }
+
+  // Wire player search/sort to also re-enhance after re-render
+  el('playerSearch').addEventListener('input', function() { setTimeout(enhancePlayerGrid, 0); });
+  el('playerSort').addEventListener('change', function() { setTimeout(enhancePlayerGrid, 0); });
+
+  function initApp() {
+    loadParlayFromStorage();
+    renderPlayerGrid();
+    enhancePlayerGrid();
     populatePlayerSelects();
     renderPropBoard();
+    renderParlay();
+    renderLiveLeaderboard();
+    renderNewsGrid();
     updateDataStatus();
     // Masters tabs
     if (MASTERS_INTEL) {
       renderMastersHQ();
       renderHolePills();
     }
+    renderCutPredictor();
+    renderTeeTimes(1);
+    renderAllPropsTypeTables();
   }
 
   // Try to load external data, then initialize
