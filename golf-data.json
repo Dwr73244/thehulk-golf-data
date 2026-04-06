@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-06T21:58:04.048275",
+  "generatedAt": "2026-04-06T22:30:15.230615",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier \u2014 players, field, odds, props, stats)",
@@ -51,7 +51,7 @@
         "bet": "+550",
         "mgm": "+550",
         "bov": "+300",
-        "dk": "+485"
+        "dk": "+490"
       },
       "fieldInfo": {
         "owgr": 1,
@@ -151,7 +151,7 @@
         "bet": "+1200",
         "mgm": "+1100",
         "bov": "+700",
-        "dk": "+1150"
+        "dk": "+1175"
       },
       "fieldInfo": {
         "owgr": 2,
@@ -652,7 +652,7 @@
         "bet": "+5000",
         "mgm": "+6600",
         "bov": "+4500",
-        "dk": "+6900"
+        "dk": "+6800"
       },
       "fieldInfo": {
         "owgr": 26,
@@ -898,7 +898,7 @@
         "bet": "+6600",
         "mgm": "+6000",
         "bov": "+3500",
-        "dk": "+5300"
+        "dk": "+5400"
       },
       "fieldInfo": {
         "owgr": 9,
@@ -2861,7 +2861,7 @@
         "bet": "+50000",
         "mgm": "+50000",
         "bov": "+40000",
-        "dk": "+57500"
+        "dk": "+55000"
       },
       "fieldInfo": {
         "owgr": 274,
@@ -3082,7 +3082,7 @@
         "bet": "+5000",
         "mgm": "+6600",
         "bov": "+4500",
-        "dk": "+6900"
+        "dk": "+6800"
       },
       "fieldInfo": {
         "owgr": 26,
@@ -4624,20 +4624,20 @@
     "weather": [
       {
         "date": "2026-04-06",
-        "tempHigh": 67.8,
+        "tempHigh": 66.7,
         "tempLow": 50.3,
-        "windAvg": 7.1,
+        "windAvg": 6.8,
         "windMax": 10.5,
-        "windDir": 68,
+        "windDir": 66,
         "rainPct": 2
       },
       {
         "date": "2026-04-07",
         "tempHigh": 74.9,
-        "tempLow": 49.1,
-        "windAvg": 8.6,
+        "tempLow": 48.0,
+        "windAvg": 8.7,
         "windMax": 11.1,
-        "windDir": 77,
+        "windDir": 79,
         "rainPct": 0
       },
       {
@@ -4778,20 +4778,20 @@
     "forecast": [
       {
         "date": "2026-04-06",
-        "tempHigh": 67.8,
+        "tempHigh": 66.7,
         "tempLow": 50.3,
-        "windAvg": 7.1,
+        "windAvg": 6.8,
         "windMax": 10.5,
-        "windDir": 68,
+        "windDir": 66,
         "rainPct": 2
       },
       {
         "date": "2026-04-07",
         "tempHigh": 74.9,
-        "tempLow": 49.1,
-        "windAvg": 8.6,
+        "tempLow": 48.0,
+        "windAvg": 8.7,
         "windMax": 11.1,
-        "windDir": 77,
+        "windDir": 79,
         "rainPct": 0
       },
       {
@@ -5479,8 +5479,958 @@
       "historical_tournament_id": 60,
       "live_tournament_id": 20,
       "course_id": 37,
-      "built_at": "2026-04-06T21:59:40.256713Z",
+      "built_at": "2026-04-06T22:31:55.735946Z",
       "has_live_data": false
     }
+  },
+  "teeTimes": [
+    {
+      "player": "J.J. Spaun",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Matt Wallace",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Michael Kim",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Robert MacIntyre",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Andrew Putnam",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Ludvig \u00c5berg",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Kevin Yu",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Chandler Phillips",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Ryo Hisatsune",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Si Woo Kim",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Tommy Fleetwood",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Austin Eckroat",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Kristoffer Reitan",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Andrew Novak",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "John Parry",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Sudarshan Yellamaraju",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Sami V\u00e4lim\u00e4ki",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Eric Cole",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Davis Thompson",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Alex Smalley",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "J.T. Poston",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "S.H. Kim",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Hideki Matsuyama",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Maverick McNealy",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Bud Cauley",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Marco Penge",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Sam Ryder",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Nick Taylor",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Zach Bauchou",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Paul Waring",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Mac Meissner",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "A.J. Ewart",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Doug Ghim",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Alex Noren",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Kevin Roy",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Billy Horschel",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Austin Smotherman",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Chris Kirk",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Rico Hoey",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Matt McCarty",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Brandt Snedeker",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Brian Harman",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Taylor Moore",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Chad Ramey",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Kevin Streelman",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Christiaan Bezuidenhout",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Adam Schenk",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Adam Svensson",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Christo Lamprecht",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Beau Hossler",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Adrien Dumont de Chassart",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Thorbj\u00f8rn Olesen",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Tony Finau",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Bronson Burgoon",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Vince Whaley",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Gordon Sargent",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Steven Fisk",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Hank Lebioda",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "David Ford",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Erik van Rooyen",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Stephan Jaeger",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Takumi Kanaya",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Peter Malnati",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Jordan Spieth",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Mark Hubbard",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Jeffrey Kang",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Danny Walker",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Will Zalatoris",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Joe Highsmith",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Luke Clanton",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Keith Mitchell",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "John VanDerLaan",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Denny McCarthy",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Russell Henley",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Alejandro Tosti",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "William Mouw",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Davis Chatfield",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Lee Hodges",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Tom Hoge",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Jimmy Stanger",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Max McGreevy",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Kensei Hirata",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Chandler Blanchet",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Max Homa",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Karl Vilips",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Pontus Nyholm",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Jordan Smith",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Tom Kim",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Justin Lower",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Marcelo Rozo",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Charlie Crockett",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Mackenzie Hughes",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Kris Ventura",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Brendon Todd",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Sepp Straka",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Haotong Li",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Neal Shipley",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Carson Young",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Dylan Wu",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Charley Hoffman",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "S\u00e9amus Power",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Michael Thorbjornsen",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Dan Brown",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Nick Hardy",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Matt Kuchar",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Camilo Villegas",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Emiliano Grillo",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Lanto Griffin",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Rickie Fowler",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Nick Dunlap",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Jhonattan Vegas",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Garrick Higgo",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Jimmy Walker",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Johnny Keefer",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Adrien Saddier",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Ryan Palmer",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Patton Kizzire",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Rafael Campos",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Jackson Suber",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Matthieu Pavon",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Zecheng Dou",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Joel Dahmen",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Patrick Fishburn",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Chan Kim",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Frankie Capan III",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Jesper Svensson",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Brice Garnett",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Austin Wylie",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Patrick Rodgers",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "K.H. Lee",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Lucas Glover",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Webb Simpson",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    }
+  ],
+  "oddsMovement": {},
+  "cutPrediction": {
+    "predictedCut": 2,
+    "predictedScore": 146,
+    "historicalAvg": 2.3,
+    "fieldStrength": 1.13,
+    "likelyMakers": 50,
+    "confidence": "High",
+    "note": "Augusta historical avg cut: +2.3. Average field this week.",
+    "history": {
+      "2024": 3,
+      "2023": 2,
+      "2022": 2,
+      "2021": 4,
+      "2020": 1,
+      "2019": 2,
+      "2018": 2,
+      "2017": 1,
+      "2016": 3,
+      "2015": 2,
+      "2014": 2,
+      "2013": 3,
+      "2012": 2,
+      "2011": 4,
+      "2010": 2
+    }
+  },
+  "news": [
+    {
+      "headline": "Collin Morikawa to play Masters despite ongoing back injury",
+      "description": "Collin Morikawa is set to play in the Masters this week despite dealing with an ongoing back injury and withdrawing from last week's Valero Texas Open.",
+      "published": "2026-04-06T20:27:01Z",
+      "link": "https://www.espn.com/golf/story/_/id/48414015/collin-morikawa-play-masters-ongoing-back-injury",
+      "player": "Collin Morikawa",
+      "image": "https://a.espncdn.com/photo/2026/0310/r1626446_600x400_3-2.jpg"
+    },
+    {
+      "headline": "Tiger Woods on golfers' minds at Masters following DUI arrest",
+      "description": "Golfers at the Masters said they're pulling for Tiger Woods, who purportedly entered treatment following his DUI arrest in Florida on March 27.",
+      "published": "2026-04-06T20:31:50Z",
+      "link": "https://www.espn.com/golf/story/_/id/48413938/tiger-woods-golfers-minds-masters-following-dui-arrest",
+      "player": "Tiger Woods",
+      "image": "https://a.espncdn.com/photo/2026/0406/r1639448_1296x729_16-9.jpg"
+    },
+    {
+      "headline": "J.J. Spaun takes Texas Open for first win since U.S. Open",
+      "description": "J.J. Spaun came up with two big shots at the end of a long, wet Sunday for a one-shot victory in the Valero Texas Open.",
+      "published": "2026-04-05T23:21:27Z",
+      "link": "https://www.espn.com/golf/story/_/id/48407163/jj-spaun-takes-texas-open-first-win-us-open",
+      "player": "JJ Spaun",
+      "image": "https://a.espncdn.com/photo/2026/0405/r1639100_600x400_3-2.jpg"
+    },
+    {
+      "headline": "Scottie Scheffler arrives at Masters with 9-day-old son, Remy",
+      "description": "Two-time Masters champion Scottie Scheffler arrived at Augusta National on Sunday, along with his 9-day-old son, Remy.",
+      "published": "2026-04-06T00:36:20Z",
+      "link": "https://www.espn.com/golf/story/_/id/48405738/scottie-scheffler-arrives-masters-9-day-old-son-remy",
+      "player": "Scottie Scheffler",
+      "image": "https://a.espncdn.com/photo/2025/0319/r1466412_600x600_1-1.jpg"
+    },
+    {
+      "headline": "Masters 2026: Ranking favorites, contenders, hopefuls and everyone else",
+      "description": "Can Rory McIlroy repeat? Will Scottie Scheffler find more magic at Augusta? We break down the Masters field from the favorites to the players just looking to make the cut.",
+      "published": "2026-04-06T15:22:26Z",
+      "link": "https://www.espn.com/golf/story/_/id/48347092/masters-2026-ranking-favorites-contenders-rory-mcilroy-scottie-scheffler-bryson-dechambeau",
+      "player": "Rory McIlroy",
+      "image": "https://a.espncdn.com/photo/2026/0328/pga_masters-tier-rankings_16x9.jpg"
+    },
+    {
+      "headline": "Rory McIlroy and the town in Northern Ireland that will always be part of his story",
+      "description": "Through all of McIlroy's up and downs at the Masters, his hometown of Holywood has been right there with him.",
+      "published": "2026-04-05T15:36:59Z",
+      "link": "https://www.espn.com/golf/story/_/id/48346722/rory-mcilroy-holywood-golf-club-northern-ireland-masters-champion",
+      "player": "Rory McIlroy",
+      "image": "https://a.espncdn.com/photo/2026/0331/r1636372_1296x729_16-9.jpg"
+    },
+    {
+      "headline": "SC Featured: 'Rory's Roots'",
+      "description": "Marty Smith travels to Northern Ireland to tell the story of Rory McIlroy's humble beginnings at Holywood Golf Club.",
+      "published": "2026-04-05T14:48:36Z",
+      "link": "https://www.espn.com/video/clip?id=48403474",
+      "player": "Rory McIlroy",
+      "image": "https://a.espncdn.com/media/motion/2026/0405/ss_20260405_103749553_3476019/ss_20260405_103749553_3476019.jpg"
+    },
+    {
+      "headline": "Masters 2026: Latest news and analysis, how to watch and more coverage",
+      "description": "The Masters returns as Scottie Scheffler, Rory McIlroy and more compete for a green jacket. Here's all the coverage.",
+      "published": "2026-04-05T18:35:52Z",
+      "link": "https://www.espn.com/golf/story/_/page/MastersTournament2026/masters-2026-news-tee-schedule-television-complete-coverage-analysis",
+      "player": "Rory McIlroy",
+      "image": "https://a.espncdn.com/photo/2026/0403/r1638029_1296x729_16-9.jpg"
+    },
+    {
+      "headline": "Robert MacIntyre grabs 2-shot lead at storm-delayed Texas Open",
+      "description": "Robert MacIntyre leads the Texas Open by two shots after making one birdie in six holes. Storms halted play for five hours Saturday and play finally was called.",
+      "published": "2026-04-04T23:57:51Z",
+      "link": "https://www.espn.com/golf/story/_/id/48398849/robert-macintyre-grabs-2-shot-lead-storm-delayed-texas-open",
+      "player": "Robert MacIntyre",
+      "image": "https://a.espncdn.com/photo/2025/0615/r1507094_600x400_3-2.jpg"
+    },
+    {
+      "headline": "Robert MacIntyre takes charge, builds 4-shot lead at Texas Open",
+      "description": "Robert MacIntyre birdied four of his last five holes and took a four-shot lead over Ludvig Aberg at the Texas Open.",
+      "published": "2026-04-04T16:24:34Z",
+      "link": "https://www.espn.com/golf/story/_/id/48390358/macintyre-takes-charge-builds-4-shot-lead-texas-open",
+      "player": "Robert MacIntyre",
+      "image": "https://a.espncdn.com/photo/2026/0404/r1638273_600x400_3-2.jpg"
+    },
+    {
+      "headline": "Mark Hubbard's birdie spree gives him 1-shot lead in Texas Open",
+      "description": "Mark Hubbard is leading the Valero Texas Open after a big run of birdied that ended in darkness.",
+      "published": "2026-04-03T01:55:00Z",
+      "link": "https://www.espn.com/golf/story/_/id/48382023/mark-hubbard-birdie-spree-gives-1-shot-lead-texas-open",
+      "player": "Mark Hubbard",
+      "image": "https://a.espncdn.com/photo/2019/1016/r613849_600x400_3-2.jpg"
+    },
+    {
+      "headline": "Betting odds for The Masters, future golf majors: Scottie Scheffler, Rory McIlroy favored",
+      "description": "Odds for next four golf majors: the Masters, PGA Championship, U.S. Open and the Open Championship.",
+      "published": "2026-04-02T23:02:01Z",
+      "link": "https://www.espn.com/betting/golf/story/_/id/48380375/golf-pga-tour-odds-win-major-masters-pga-championship-us-open-open-championship",
+      "player": "",
+      "image": "https://a.espncdn.com/photo/2026/0402/r1637809_1296x729_16-9.jpg"
+    },
+    {
+      "headline": "Phil Mickelson to miss Masters due to family health matter",
+      "description": "Phil Mickelson announced Thursday that he won't play in next week's Masters and will be out for an extended period as his family continues to \"navigate a personal health matter.\"",
+      "published": "2026-04-03T20:50:08Z",
+      "link": "https://www.espn.com/golf/story/_/id/48379971/phil-mickelson-miss-masters-personal-health-matter",
+      "player": "Phil Mickelson",
+      "image": "https://a.espncdn.com/photo/2023/0409/r1156722_600x400_3-2.jpg"
+    },
+    {
+      "headline": "Bodycam footage of Tiger Woods' arrest revealed",
+      "description": "Police release bodycam footage of Tiger Woods' DUI arrest.",
+      "published": "2026-04-02T21:40:33Z",
+      "link": "https://www.espn.com/video/clip?id=48379160",
+      "player": "Tiger Woods",
+      "image": "https://a.espncdn.com/media/motion/wsc/2026/0402/5431e31d-1234-45ba-bc83-58cc12d06720/5431e31d-1234-45ba-bc83-58cc12d06720.jpg"
+    },
+    {
+      "headline": "Tiger Woods said he was 'talking to president,' footage says",
+      "description": "After crashing his SUV last week in Florida, Tiger Woods took out his phone and told a deputy, \"I was just talking to the president,\" according to body camera footage showing the golfer's arrest on a DUI charge.",
+      "published": "2026-04-03T10:30:52Z",
+      "link": "https://www.espn.com/golf/story/_/id/48378214/bodycam-shows-tiger-woods-surprised-dui-arrest",
+      "player": "Tiger Woods",
+      "image": "https://a.espncdn.com/photo/2026/0331/r1636708_1296x729_16-9.jpg"
+    }
+  ],
+  "propsByType": {
+    "top5": {},
+    "top10": {},
+    "top20": {},
+    "r1Leader": {},
+    "makeCut": {}
   }
 }
