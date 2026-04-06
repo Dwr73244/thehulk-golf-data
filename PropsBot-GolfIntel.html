@@ -699,6 +699,7 @@
               <th class="px-3 py-2 text-left font-semibold">Player</th>
               <th class="px-3 py-2 text-right font-semibold">OWGR</th>
               <th class="px-3 py-2 text-right font-semibold">Augusta Fit</th>
+              <th class="px-3 py-2 text-right font-semibold" style="color:var(--gold)">Aug. History</th>
               <th class="px-3 py-2 text-right font-semibold">DK</th>
               <th class="px-3 py-2 text-right font-semibold">FD</th>
               <th class="px-3 py-2 text-right font-semibold">Form</th>
@@ -1666,6 +1667,16 @@
       var formTrend = (p.recentForm && p.recentForm.trend) ? p.recentForm.trend.toUpperCase() : '—';
       var formCol = formTrend === 'HOT' ? 'text-pb-teal' : (formTrend === 'COLD' ? 'text-pb-red' : 'text-slate-500');
 
+      var hist = p.augustaHistory;
+      var histHtml = hist ? '<td class="px-3 py-2 text-right mono text-xs" style="color:var(--gold)">' +
+        hist.appearances + ' starts<br>' +
+        '<span style="color:var(--teal)">Best: T' + hist.bestFinish + '</span><br>' +
+        '<span style="opacity:0.7">Top10: ' + hist.top10 + '</span>' +
+        '</td>' : '<td class="px-3 py-2 text-right mono text-xs opacity-40">—</td>';
+
+      var ev = p.evScore;
+      var evHtml = ev != null ? '<span class="mono text-xs px-1 rounded" style="background:' + (ev > 0 ? 'rgba(21,255,194,0.15)' : 'rgba(255,21,82,0.15)') + '; color:' + (ev > 0 ? 'var(--teal)' : 'var(--red)') + '; border:1px solid ' + (ev > 0 ? 'rgba(21,255,194,0.3)' : 'rgba(255,21,82,0.3)') + '">' + (ev > 0 ? '+' : '') + ev + '% EV</span>' : '';
+
       var tr = document.createElement('tr');
       tr.className = 'hover:bg-white/[0.02] transition-colors';
       tr.innerHTML =
@@ -1673,7 +1684,8 @@
         '<td class="px-3 py-2 text-white font-medium">' + p.name + '</td>' +
         '<td class="px-3 py-2 text-right mono text-slate-300">' + (p.owgr || '—') + '</td>' +
         '<td class="px-3 py-2 text-right mono font-semibold ' + fitColor + '">' + fit + '</td>' +
-        '<td class="px-3 py-2 text-right mono text-pb-gold">' + (odds.dk || '—') + '</td>' +
+        histHtml +
+        '<td class="px-3 py-2 text-right mono text-pb-gold">' + (odds.dk || '—') + ' ' + evHtml + '</td>' +
         '<td class="px-3 py-2 text-right mono text-pb-blue">' + (odds.fd || '—') + '</td>' +
         '<td class="px-3 py-2 text-right ' + formCol + ' font-semibold">' + formTrend + '</td>';
       tbody.appendChild(tr);
