@@ -646,11 +646,27 @@
           <label class="text-[11px] font-semibold text-slate-300 uppercase">Course</label>
           <select id="tourneyCourse" class="w-full">
             <option value="neutral">Neutral Course (Tour Avg)</option>
-            <option value="augusta">Augusta National</option>
-            <option value="tpc_sawgrass">TPC Sawgrass</option>
-            <option value="pebble">Pebble Beach</option>
-            <option value="torrey_south">Torrey Pines South</option>
-            <option value="riviera">Riviera CC</option>
+            <optgroup label="── Majors ──">
+              <option value="augusta">Augusta National — The Masters</option>
+              <option value="valhalla">Valhalla — PGA Championship</option>
+              <option value="pinehurst_2">Pinehurst No. 2 — US Open</option>
+              <option value="royal_troon">Royal Troon — The Open</option>
+            </optgroup>
+            <optgroup label="── Signature / Elevated ──">
+              <option value="tpc_sawgrass">TPC Sawgrass — THE PLAYERS</option>
+              <option value="pebble">Pebble Beach — AT&amp;T</option>
+              <option value="riviera">Riviera CC — Genesis</option>
+              <option value="torrey_south">Torrey Pines South — Farmers</option>
+              <option value="bay_hill">Bay Hill — Arnold Palmer</option>
+              <option value="quail_hollow">Quail Hollow — Wells Fargo</option>
+              <option value="memorial">Muirfield Village — Memorial</option>
+            </optgroup>
+            <optgroup label="── Other Tour Events ──">
+              <option value="east_lake">East Lake — Tour Championship</option>
+              <option value="harbour_town">Harbour Town — RBC Heritage</option>
+              <option value="colonial">Colonial CC — Charles Schwab</option>
+              <option value="tpc_scottsdale">TPC Scottsdale — WM Phoenix</option>
+            </optgroup>
           </select>
         </div>
         <div class="space-y-1.5">
@@ -1129,7 +1145,7 @@
      If the fetch fails (offline, CORS, etc), it falls back to
      the hardcoded data below.
   ============================================================ */
-  var DATA_URL = 'https://dwr73244.github.io/thehulk-golf-data/golf-data.json';
+  var DATA_URL = 'https://golf.propsbot.ai/golf-data.json';
   var DATA_LOADED_FROM = 'built-in';
 
   /* ============================================================
@@ -2112,12 +2128,13 @@
     el('ha_holeRank').textContent = '#' + rank;
     el('ha_holeRank').style.color = rank <= 4 ? '#ff1552' : (rank <= 9 ? '#f0c040' : '#22a9ec');
 
-    // Distribution bar
-    var ep = hist.eaglePct || 0;
-    var bp = hist.birdiePct || 0;
-    var pp = hist.parPct || 0;
-    var bogp = hist.bogeyPct || 0;
-    var dp = hist.doublePct || 0;
+    // Distribution bar — compute pcts from raw counts if pct fields missing
+    var totalShots = (hist.eagles||0) + (hist.birdies||0) + (hist.pars||0) + (hist.bogeys||0) + (hist.doublePlus||0);
+    var ep   = hist.eaglePct  || (totalShots ? +((hist.eagles||0)     / totalShots * 100).toFixed(1) : 0);
+    var bp   = hist.birdiePct || (totalShots ? +((hist.birdies||0)    / totalShots * 100).toFixed(1) : 0);
+    var pp   = hist.parPct    || (totalShots ? +((hist.pars||0)       / totalShots * 100).toFixed(1) : 0);
+    var bogp = hist.bogeyPct  || (totalShots ? +((hist.bogeys||0)     / totalShots * 100).toFixed(1) : 0);
+    var dp   = hist.doublePct || (totalShots ? +((hist.doublePlus||0) / totalShots * 100).toFixed(1) : 0);
     var bar = el('ha_distBar');
     bar.innerHTML =
       (ep > 0 ? '<div style="width:' + ep + '%;background:#AB8FFF" title="Eagle ' + ep + '%"></div>' : '') +
