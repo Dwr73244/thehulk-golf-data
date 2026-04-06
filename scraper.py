@@ -534,7 +534,7 @@ def get_fallback_players():
         {"id":55,"name":"Bubba Watson","rank":250,"sgTotal":-0.80,"sgOtt":0.30,"sgApp":-0.60,"sgArg":-0.30,"sgPutt":-0.20,"birdieAvg":3.2,"bogeyAvg":3.2,"scoringAvg":73.5,"gir":60.0,"fairways":55.0,"scramble":55.0,"proxAvg":38.0,"missDir":"left","flight":"high_draw","courseFit":{"augusta":78,"tpc_sawgrass":60,"pebble":65,"torrey_south":60,"riviera":65,"valhalla":68,"pinehurst_2":62,"royal_troon":60,"quail_hollow":65,"east_lake":60,"bay_hill":62,"harbour_town":58,"colonial":60,"memorial":62,"tpc_scottsdale":65},"augustaHistory":{"appearances":14,"bestFinish":1,"cuts":11,"top10":3,"avgScore":71.9},"notes":"2x champion (2012, 2014). Retired from PGA Tour. Invited as champion. Big fade — not competitive anymore."},
         {"id":56,"name":"Mike Weir","rank":300,"sgTotal":-1.20,"sgOtt":-0.20,"sgApp":-0.50,"sgArg":-0.30,"sgPutt":-0.20,"birdieAvg":2.8,"bogeyAvg":3.0,"scoringAvg":74.0,"gir":58.0,"fairways":63.0,"scramble":55.0,"proxAvg":38.0,"missDir":"left","flight":"high_draw","courseFit":{"augusta":65,"tpc_sawgrass":58,"pebble":65,"torrey_south":60,"riviera":62,"valhalla":62,"pinehurst_2":62,"royal_troon":65,"quail_hollow":58,"east_lake":58,"bay_hill":60,"harbour_town":60,"colonial":62,"memorial":60,"tpc_scottsdale":62},"augustaHistory":{"appearances":18,"bestFinish":1,"cuts":12,"top10":2,"avgScore":72.8},"notes":"2003 champion. Playing on Champions Tour. Augusta invite is honorary at this stage. MC prop only."},
         {"id":57,"name":"Zach Johnson","rank":180,"sgTotal":-0.40,"sgOtt":-0.10,"sgApp":-0.10,"sgArg":-0.05,"sgPutt":-0.15,"birdieAvg":3.3,"bogeyAvg":2.5,"scoringAvg":72.5,"gir":64.0,"fairways":68.0,"scramble":58.0,"proxAvg":35.5,"missDir":"neutral","flight":"low_fade","courseFit":{"augusta":72,"tpc_sawgrass":70,"pebble":72,"torrey_south":65,"riviera":68,"valhalla":68,"pinehurst_2":70,"royal_troon":75,"quail_hollow":65,"east_lake":68,"bay_hill":65,"harbour_town":70,"colonial":72,"memorial":68,"tpc_scottsdale":65},"augustaHistory":{"appearances":20,"bestFinish":1,"cuts":17,"top10":4,"avgScore":71.5},"notes":"2007 champion. Precision iron player who thrives at Augusta. Former Ryder Cup captain. Fade for outright; MC solid."},
-        {"id":58,"name":"Tiger Woods","rank":999,"sgTotal":-1.50,"sgOtt":-0.20,"sgApp":-0.80,"sgArg":-0.20,"sgPutt":-0.30,"birdieAvg":2.5,"bogeyAvg":3.5,"scoringAvg":74.5,"gir":58.0,"fairways":58.0,"scramble":55.0,"proxAvg":38.0,"missDir":"right","flight":"high_fade","courseFit":{"augusta":90,"tpc_sawgrass":82,"pebble":90,"torrey_south":88,"riviera":85,"valhalla":80,"pinehurst_2":82,"royal_troon":78,"quail_hollow":80,"east_lake":80,"bay_hill":88,"harbour_town":72,"colonial":72,"memorial":85,"tpc_scottsdale":80},"augustaHistory":{"appearances":24,"bestFinish":1,"cuts":22,"top10":14,"avgScore":70.5},"notes":"5x champion (1997, 2001, 2002, 2005, 2019). Health unknown post-accident. Augusta knowledge unprecedented. Course fit 90 is legacy data — current form a massive unknown. Not a betting play."},
+        {"id":58,"name":"Tiger Woods","rank":999,"sgTotal":-1.50,"sgOtt":-0.20,"sgApp":-0.80,"sgArg":-0.20,"sgPutt":-0.30,"birdieAvg":2.5,"bogeyAvg":3.5,"scoringAvg":74.5,"gir":58.0,"fairways":58.0,"scramble":55.0,"proxAvg":38.0,"missDir":"right","flight":"high_fade","courseFit":{"augusta":38,"tpc_sawgrass":35,"pebble":38,"torrey_south":35,"riviera":35,"valhalla":33,"pinehurst_2":35,"royal_troon":32,"quail_hollow":33,"east_lake":33,"bay_hill":36,"harbour_town":30,"colonial":30,"memorial":35,"tpc_scottsdale":33},"augustaHistory":{"appearances":24,"bestFinish":1,"cuts":22,"top10":14,"avgScore":70.5},"notes":"5x champion (1997, 2001, 2002, 2005, 2019). NOT PLAYING 2026 — ongoing injury recovery. Course fit reflects current physical condition, not peak-era legacy. Do not use for any props or sim."},
         {"id":59,"name":"Fred Couples","rank":500,"sgTotal":-2.0,"sgOtt":-0.30,"sgApp":-1.0,"sgArg":-0.40,"sgPutt":-0.30,"birdieAvg":2.2,"bogeyAvg":3.8,"scoringAvg":76.0,"gir":55.0,"fairways":58.0,"scramble":50.0,"proxAvg":40.0,"missDir":"left","flight":"high_draw","courseFit":{"augusta":75,"tpc_sawgrass":60,"pebble":68,"torrey_south":62,"riviera":70,"valhalla":62,"pinehurst_2":62,"royal_troon":65,"quail_hollow":60,"east_lake":62,"bay_hill":65,"harbour_town":62,"colonial":65,"memorial":62,"tpc_scottsdale":62},"augustaHistory":{"appearances":33,"bestFinish":1,"cuts":30,"top10":8,"avgScore":71.8},"notes":"1992 champion. Champions Tour legend. Ball never short of 12th hole (famous). Playing as a past champ — for the love of the game."},
         # ---- ACTIVE PGA TOUR — MASTERS FIELD QUALIFIERS ----
         {"id":60,"name":"Sam Burns","rank":22,"sgTotal":1.05,"sgOtt":0.45,"sgApp":0.35,"sgArg":0.15,"sgPutt":0.10,"birdieAvg":4.4,"bogeyAvg":2.0,"scoringAvg":70.1,"gir":68.0,"fairways":63.0,"scramble":60.0,"proxAvg":32.0,"missDir":"left","flight":"high_draw","courseFit":{"augusta":80,"tpc_sawgrass":75,"pebble":72,"torrey_south":75,"riviera":78,"valhalla":80,"pinehurst_2":75,"royal_troon":70,"quail_hollow":82,"east_lake":82,"bay_hill":78,"harbour_town":72,"colonial":78,"memorial":80,"tpc_scottsdale":78},"augustaHistory":{"appearances":4,"bestFinish":8,"cuts":3,"top10":1,"avgScore":71.8},"notes":"Elite ball-striker with draw bias that suits Augusta perfectly. Ryder Cup player. Top-10 machine at demanding courses. Legit contender."},
@@ -1711,6 +1711,33 @@ def calculate_player_confidence_score(player, all_players, course_key="augusta")
 
     # ---- FINAL SCORE ----
     final_score = round(min(100, max(1, score)))
+
+    # ---- CURRENT COMPETITIVENESS GATE ----
+    # Historical greatness cannot override current inability to compete.
+    # Players with rank > 200 or SG < -1.0 are not real contenders regardless
+    # of their Augusta history. Hard-cap their confScore accordingly.
+    rank = player.get("rank", 50)
+    sg_total = player.get("sgTotal", 0)
+
+    # Flag ceremonial/retired starters explicitly
+    is_ceremonial = (rank >= 500) or (sg_total < -2.0)
+    is_non_competitive = (rank > 300) or (sg_total < -1.2)
+    is_declining = (rank > 150) or (sg_total < -0.3)
+
+    if is_ceremonial:
+        # Larry Mize, Bernhard Langer, Fred Couples tier — honorary starters
+        final_score = min(final_score, 6)
+        player["competitiveness"] = "ceremonial"
+    elif is_non_competitive:
+        # Tiger (injured/unknown), Mike Weir, Bubba Watson (retired) tier
+        final_score = min(final_score, 18)
+        player["competitiveness"] = "non_competitive"
+    elif is_declining:
+        # Phil Mickelson, older/declining players tier
+        final_score = min(final_score, 35)
+        player["competitiveness"] = "declining"
+    else:
+        player["competitiveness"] = "active"
 
     # ---- EDGE SCORE (model vs market) ----
     # Positive = our model rates them HIGHER than the market does

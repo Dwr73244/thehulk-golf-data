@@ -1703,10 +1703,30 @@
     var course = el('tourneyCourse').value;
     var fieldStrength = el('tourneyField').value;
 
-    var results = PLAYERS.map(function(p) {
-      var skill = p.sgTotal;
-      if (course !== 'neutral' && p.courseFit[course]) {
-        skill += (p.courseFit[course] - 75) / 80;
+    // Filter to competitive players only — exclude ceremonial starters,
+    // injured players (Tiger), and retired players (Bubba, Langer, Mize, etc.)
+    // A player is competitive if: rank < 300 AND sgTotal > -1.0
+    // This mirrors the server-side competitiveness gate in the confidence model.
+    var competitivePlayers = PLAYERS.filter(function(p) {
+      var rank = p.rank || 999;
+      var sg = p.sgTotal || -5;
+      // Hard exclude: rank 999 / sg < -1.0 = clearly not competitive
+      if (rank >= 999 || sg < -1.0) return false;
+      // Also exclude retired/non-competitive tier
+      if (rank > 300 && sg < -0.5) return false;
+      return true;
+    });
+
+    var results = competitivePlayers.map(function(p) {
+      // Use confScore-weighted skill if available, otherwise fall back to raw SG
+      // confScore normalizes all factors (SG + fit + history + form + market)
+      var baseSkill = p.sgTotal;
+      var confBoost = p.confScore ? (p.confScore - 50) / 200 : 0; // ±0.25 adjustment
+      var skill = baseSkill + confBoost;
+
+      if (course !== 'neutral' && p.courseFit && p.courseFit[course]) {
+        // Use actual course fit score, normalized around 70 as baseline
+        skill += (p.courseFit[course] - 70) / 100;
       }
       if (fieldStrength === 'weak') skill *= 1.05;
       if (fieldStrength === 'signature') skill *= 0.98;
@@ -1746,6 +1766,10 @@
     el('tourneyResult').classList.remove('hidden');
     var tbody = el('tourneyBoard');
     tbody.innerHTML = '';
+
+    // Show how many players were filtered
+    var filtered = PLAYERS.length - competitivePlayers.length;
+    el('tourneyNotes').textContent = filtered + ' ceremonial/non-competitive players excluded (Tiger Woods — injured, Bernhard Langer, Larry Mize, Fred Couples, Bubba Watson — retired). Simulating ' + competitivePlayers.length + ' active field players.';
 
     results.forEach(function(r, idx) {
       var tr = document.createElement('tr');
