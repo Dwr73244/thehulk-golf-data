@@ -1544,6 +1544,190 @@ def parse_props_by_type(bdl_props):
 
 
 # ============================================================
+# CONFIDENCE SCORE MODEL
+# ============================================================
+
+def calculate_player_confidence_score(player, all_players, course_key="augusta"):
+    """
+    PropsBot Confidence Score — 0 to 100.
+    Composite model weighting 5 factors for tournament performance prediction.
+
+    Weights (Masters-tuned):
+      30% Strokes Gained (normalized vs full field)
+      25% Course Fit (Augusta-specific)
+      20% Augusta/Course History
+      15% Recent Form
+      10% Market Consensus (book odds as signal)
+    """
+
+    score = 0.0
+
+    # ---- 1. STROKES GAINED (30%) ----
+    # Normalize sgTotal across all players in field
+    sg_vals = [p.get("sgTotal", 0) for p in all_players if p.get("sgTotal") is not None]
+    if sg_vals:
+        sg_min, sg_max = min(sg_vals), max(sg_vals)
+        sg_range = sg_max - sg_min if sg_max != sg_min else 1
+        sg_norm = (player.get("sgTotal", 0) - sg_min) / sg_range  # 0–1
+    else:
+        sg_norm = 0.5
+
+    # Weight individual SG components for course-specific value
+    # Augusta rewards: approach (sg_app) > putting (sg_putt) > off-tee (sg_ott) > arg
+    sg_weighted = (
+        player.get("sgApp", 0) * 0.40 +
+        player.get("sgPutt", 0) * 0.25 +
+        player.get("sgOtt", 0) * 0.20 +
+        player.get("sgArg", 0) * 0.15
+    )
+    # Normalize sg_weighted similarly
+    sg_w_vals = [
+        p.get("sgApp", 0)*0.40 + p.get("sgPutt", 0)*0.25 +
+        p.get("sgOtt", 0)*0.20 + p.get("sgArg", 0)*0.15
+        for p in all_players
+    ]
+    sw_min, sw_max = min(sg_w_vals) if sg_w_vals else 0, max(sg_w_vals) if sg_w_vals else 1
+    sw_range = sw_max - sw_min if sw_max != sw_min else 1
+    sg_w_norm = (sg_weighted - sw_min) / sw_range if sw_range else 0.5
+
+    # Blend raw total + course-weighted component
+    sg_component = 0.5 * sg_norm + 0.5 * sg_w_norm
+    score += sg_component * 30.0
+
+    # ---- 2. COURSE FIT (25%) ----
+    course_fit = 0
+    cf = player.get("courseFit")
+    if isinstance(cf, dict):
+        course_fit = cf.get(course_key, cf.get("augusta", 0))
+    elif isinstance(cf, (int, float)):
+        course_fit = cf
+
+    # Bonus for elite fit (>85), penalty for poor fit (<55)
+    fit_norm = max(0, min(100, course_fit)) / 100.0
+    if course_fit >= 88:
+        fit_norm = min(1.0, fit_norm * 1.1)
+    elif course_fit < 55:
+        fit_norm *= 0.85
+
+    score += fit_norm * 25.0
+
+    # ---- 3. AUGUSTA/COURSE HISTORY (20%) ----
+    history = player.get("augustaHistory", {})
+    hist_score = 0.0
+
+    if history:
+        appearances = min(history.get("appearances", 0), 30)
+        best_finish = history.get("bestFinish", 70)
+        top10s = history.get("top10", 0)
+        avg_score = history.get("avgScore", 74.0)
+
+        # Best finish: 1st=100, 5th=80, 10th=60, 20th=40, 30th+=10
+        finish_pts = max(0, 100 - (best_finish - 1) * 3.5)
+        # Top 10 count: each top10 = 15pts, capped at 60
+        top10_pts = min(60, top10s * 15)
+        # Experience: more appearances = better course knowledge (capped at 25)
+        exp_pts = min(25, appearances * 1.5)
+        # Scoring average at Augusta (relative to par 72): lower is better
+        avg_pts = max(0, 40 - (avg_score - 72) * 8) if avg_score else 0
+
+        raw_hist = finish_pts * 0.40 + top10_pts * 0.30 + exp_pts * 0.15 + avg_pts * 0.15
+        hist_score = min(100, raw_hist) / 100.0
+    else:
+        # No history = neutral (assume average debut performance)
+        hist_score = 0.35
+
+    score += hist_score * 20.0
+
+    # ---- 4. RECENT FORM (15%) ----
+    recent_form = player.get("recentForm", {})
+    form_score = 0.5  # default neutral
+
+    if recent_form and isinstance(recent_form, dict):
+        results = recent_form.get("results", recent_form.get("finishes", []))
+        if results:
+            form_pts = []
+            for r in results[:5]:
+                pos = r.get("position", r.get("pos", 50))
+                try:
+                    pos = int(str(pos).replace("T","").replace("MC","80").replace("WD","90"))
+                except:
+                    pos = 50
+                # Score each finish: Win=100, T5=85, T10=70, T20=55, T30=40, MC=15, WD=0
+                if pos == 1:    pts = 100
+                elif pos <= 3:  pts = 90
+                elif pos <= 5:  pts = 82
+                elif pos <= 10: pts = 70
+                elif pos <= 20: pts = 55
+                elif pos <= 30: pts = 40
+                elif pos <= 50: pts = 25
+                elif pos <= 70: pts = 15
+                else:           pts = 5
+                form_pts.append(pts)
+            if form_pts:
+                # Weight recent results more (recency bias: most recent = 2x weight)
+                weights = [2, 1.5, 1, 0.8, 0.6][:len(form_pts)]
+                form_score = sum(p*w for p,w in zip(form_pts, weights)) / sum(weights) / 100.0
+
+    # Adjust for hot/cold streaks (trend)
+    if recent_form and isinstance(recent_form, dict):
+        trend = recent_form.get("trend", "neutral")
+        if trend == "hot":
+            form_score = min(1.0, form_score * 1.15)
+        elif trend == "cold":
+            form_score *= 0.85
+
+    score += form_score * 15.0
+
+    # ---- 5. MARKET CONSENSUS (10%) ----
+    # Book odds reflect sharp money and information we may not have
+    odds = player.get("odds", {})
+    best_odds = None
+    for book in ["dk", "fd", "mgm", "bovada", "bet365"]:
+        v = odds.get(book)
+        if v:
+            try:
+                american = int(v)
+                if best_odds is None or american < best_odds:
+                    best_odds = american
+            except:
+                pass
+
+    if best_odds is not None:
+        # Convert American to implied probability
+        if best_odds > 0:
+            impl_prob = 100 / (best_odds + 100)
+        else:
+            impl_prob = abs(best_odds) / (abs(best_odds) + 100)
+        # Normalize: +100 (50%) = top end, +10000 (0.99%) = low end
+        # Map implied prob to 0–1 market score
+        # Use log scale: +150 → 0.9, +500 → 0.6, +2000 → 0.35, +10000 → 0.1
+        market_norm = min(1.0, max(0, impl_prob * 8))  # scale: 12.5% win prob → 1.0
+    else:
+        # No odds — use rank as proxy
+        rank = player.get("rank", 50)
+        market_norm = max(0, min(1.0, (51 - min(rank, 50)) / 50))
+
+    score += market_norm * 10.0
+
+    # ---- FINAL SCORE ----
+    final_score = round(min(100, max(1, score)))
+
+    # ---- EDGE SCORE (model vs market) ----
+    # Positive = our model rates them HIGHER than the market does
+    edge_score = None
+    if best_odds is not None:
+        if best_odds > 0:
+            market_implied_pct = 100 / (best_odds + 100) * 100
+        else:
+            market_implied_pct = abs(best_odds) / (abs(best_odds) + 100) * 100
+        # Our model's implied win probability (very rough: top player at 100 conf = ~15% win prob)
+        model_win_pct = (final_score / 100) * 15.0
+        edge_score = round(model_win_pct - market_implied_pct, 2)
+
+    return final_score, edge_score
+
+
+# ============================================================
 # MAIN PIPELINE
 # ============================================================
 
@@ -1784,6 +1968,32 @@ def run_pipeline():
                 player["recentForm"] = form
 
     # ============================================================
+    # CONFIDENCE SCORE MODEL
+    # ============================================================
+    print("\n  Calculating PropsBot Confidence Scores...")
+    for player in output["players"]:
+        try:
+            conf, edge = calculate_player_confidence_score(
+                player,
+                output["players"],
+                course_key=match_venue_to_course(
+                    output.get("currentEvent", {}).get("course", ""),
+                    output.get("currentEvent", {}).get("name", "")
+                ) or "augusta"
+            )
+            player["confScore"] = conf
+            if edge is not None:
+                player["edgeScore"] = edge
+        except Exception as e:
+            player["confScore"] = 50
+            player["edgeScore"] = 0
+            print(f"    confScore error for {player.get('name','?')}: {e}")
+
+    # Sort players by confScore descending
+    output["players"].sort(key=lambda p: p.get("confScore", 0), reverse=True)
+    print(f"  Confidence scores calculated for {len(output['players'])} players")
+
+    # ============================================================
     # EV SCORING
     # ============================================================
     for player in output["players"]:
@@ -1792,7 +2002,10 @@ def run_pipeline():
         if best_odds:
             dk_odds = best_odds.get("dk") or best_odds.get("fd") or best_odds.get("mgm")
             if dk_odds and player.get("confScore"):
-                player["evScore"] = calculate_ev_score(dk_odds, player["confScore"] * 0.8)
+                # Use confScore as our model probability proxy
+                # confScore 100 ≈ 15% win prob, confScore 50 ≈ 7.5%, confScore 10 ≈ 1.5%
+                model_win_pct = (player["confScore"] / 100) * 15.0
+                player["evScore"] = calculate_ev_score(dk_odds, model_win_pct)
 
     # ============================================================
     # MASTERS INTELLIGENCE

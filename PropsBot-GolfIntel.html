@@ -510,64 +510,82 @@
   <!-- ==================== TAB: PROPS ==================== -->
   <div id="tab-props" class="tab-content hidden fade-in space-y-5">
 
-    <!-- PROPS BETTING BOARD -->
+    <!-- PROPS MARKET BOARD (cross-reference matrix) -->
     <div class="glass rounded-2xl p-5 glow-teal">
       <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
         <div>
-          <h2 class="text-base font-bold text-white mb-0.5">Props Betting Board</h2>
-          <p class="text-xs text-slate-400">Model probabilities vs live book odds · Updated Mon/Wed/Thu/Sat</p>
+          <h2 class="text-base font-bold text-white mb-0.5">Props Market Board</h2>
+          <p class="text-xs text-slate-400">All markets in one view · Click any column header to sort · Model-estimated odds shown where book data unavailable</p>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 flex-wrap">
+          <!-- Book filter -->
+          <div class="flex gap-1">
+            <button class="book-filter-btn active mono text-[10px] px-2.5 py-1 rounded-md border" data-book="best" style="border-color:rgba(21,255,194,0.4);color:var(--teal);background:rgba(21,255,194,0.08);">Best</button>
+            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="dk" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">DK</button>
+            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="fd" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">FD</button>
+            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="mgm" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">MGM</button>
+            <button class="book-filter-btn mono text-[10px] px-2.5 py-1 rounded-md border" data-book="bovada" style="border-color:rgba(100,180,200,0.15);color:rgba(200,215,230,0.6);background:transparent;">Bovada</button>
+          </div>
+          <!-- EV filter -->
           <label class="flex items-center gap-1.5 cursor-pointer">
-            <input type="checkbox" id="evOnlyToggle" class="w-3.5 h-3.5 accent-teal-400">
-            <span class="text-xs font-semibold" style="color:var(--teal)">+EV Only</span>
+            <input type="checkbox" id="propEvFilter" class="w-3.5 h-3.5 accent-teal-400">
+            <span class="text-[11px] font-semibold" style="color:var(--teal)">+EV Only</span>
           </label>
-          <select id="propSortSelect" style="font-size:11px;padding:4px 8px;border-radius:6px;background:rgba(14,26,44,0.8);border:1px solid rgba(100,180,200,0.15);color:#eef2f7;">
-            <option value="ev">Sort: EV%</option>
-            <option value="model">Sort: Model Prob</option>
-            <option value="odds">Sort: Book Odds</option>
-            <option value="fit">Sort: Course Fit</option>
-          </select>
+          <!-- Search -->
+          <input type="text" id="propPlayerSearch" placeholder="Search player..." style="font-size:11px;padding:5px 10px;border-radius:7px;background:rgba(14,26,44,0.8);border:1px solid rgba(100,180,200,0.15);color:#eef2f7;width:140px;">
         </div>
       </div>
 
-      <!-- Prop type pills -->
-      <div class="tab-scroll flex gap-1.5 mb-4" id="propTypePills">
-        <button class="prop-type-pill tab-pill active text-xs px-3 py-1.5" data-type="winner">🏆 Winner</button>
-        <button class="prop-type-pill tab-pill text-xs px-3 py-1.5" data-type="top3">Top 3</button>
-        <button class="prop-type-pill tab-pill text-xs px-3 py-1.5" data-type="top5">Top 5</button>
-        <button class="prop-type-pill tab-pill text-xs px-3 py-1.5" data-type="top10">Top 10</button>
-        <button class="prop-type-pill tab-pill text-xs px-3 py-1.5" data-type="top20">Top 20</button>
-        <button class="prop-type-pill tab-pill text-xs px-3 py-1.5" data-type="makeCut">Make Cut</button>
-        <button class="prop-type-pill tab-pill text-xs px-3 py-1.5" data-type="r1Leader">R1 Leader</button>
-        <button class="prop-type-pill tab-pill text-xs px-3 py-1.5" data-type="r2Leader">R2 Leader</button>
-        <button class="prop-type-pill tab-pill text-xs px-3 py-1.5" data-type="36hLeader">36H Leader</button>
-      </div>
+      <!-- Best Value spotlight — top 3 value plays across all markets -->
+      <div id="propsSpotlight" class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4"></div>
 
-      <!-- Best Value spotlight -->
-      <div id="propValueSpotlight" class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4"></div>
-
-      <!-- Main board table -->
-      <div class="overflow-x-auto rounded-xl border border-white/5">
-        <table class="min-w-full text-[11px]">
-          <thead class="bg-white/[0.02]">
-            <tr class="text-slate-500 uppercase text-[9px] tracking-wider">
-              <th class="px-3 py-2 text-left font-semibold">Player</th>
-              <th class="px-3 py-2 text-right font-semibold">Model %</th>
-              <th class="px-3 py-2 text-right font-semibold">Model Odds</th>
-              <th class="px-3 py-2 text-right font-semibold">DraftKings</th>
-              <th class="px-3 py-2 text-right font-semibold">FanDuel</th>
-              <th class="px-3 py-2 text-right font-semibold">BetMGM</th>
-              <th class="px-3 py-2 text-right font-semibold">Best Book</th>
-              <th class="px-3 py-2 text-right font-semibold">EV%</th>
-              <th class="px-3 py-2 text-right font-semibold">Aug Fit</th>
-              <th class="px-3 py-2 text-right font-semibold">Parlay</th>
+      <!-- Cross-reference table -->
+      <div class="overflow-x-auto rounded-xl border border-white/5" style="-webkit-overflow-scrolling:touch;">
+        <table class="min-w-full text-[11px]" id="propsMatrixTable">
+          <thead style="background:rgba(14,26,44,0.9);position:sticky;top:0;z-index:2;">
+            <tr class="text-slate-500 uppercase text-[9px] tracking-wider border-b border-white/5">
+              <th class="px-3 py-2.5 text-left font-semibold sticky left-0 z-10" style="background:rgba(14,26,44,0.97);min-width:160px;">
+                Player
+              </th>
+              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="winner" style="min-width:90px;">
+                🏆 Win
+              </th>
+              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="top3" style="min-width:80px;">
+                Top 3
+              </th>
+              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="top5" style="min-width:80px;">
+                Top 5
+              </th>
+              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="top10" style="min-width:80px;">
+                Top 10
+              </th>
+              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="top20" style="min-width:80px;">
+                Top 20
+              </th>
+              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="makeCut" style="min-width:80px;">
+                Cut
+              </th>
+              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="r1Leader" style="min-width:80px;">
+                R1 Lead
+              </th>
+              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col active-sort" data-col="confScore" style="min-width:90px;border-left:1px solid rgba(21,255,194,0.15);">
+                <span style="color:var(--teal);">PB Score ↓</span>
+              </th>
+              <th class="px-2 py-2.5 text-center font-semibold cursor-pointer hover:text-slate-300 sort-col" data-col="ev" style="min-width:70px;">
+                EV%
+              </th>
+              <th class="px-2 py-2.5 text-center font-semibold" style="min-width:60px;">
+                Parlay
+              </th>
             </tr>
           </thead>
-          <tbody id="propBettingBoard" class="divide-y divide-white/5"></tbody>
+          <tbody id="propsMatrixBody" class="divide-y divide-white/5"></tbody>
         </table>
       </div>
-      <p class="text-[9px] text-slate-600 mt-2">Model odds derived from AI confidence scores. Not financial advice. Always verify odds before wagering.</p>
+      <div class="flex items-center justify-between mt-2 flex-wrap gap-2">
+        <p class="text-[9px] text-slate-600">Model odds estimated where book data unavailable. Not betting advice. Verify before wagering.</p>
+        <p class="text-[9px] text-slate-600" id="propsMatrixCount"></p>
+      </div>
     </div>
 
     <!-- Keep existing custom prop builder below -->
@@ -2797,25 +2815,16 @@
   el('playerSort').addEventListener('change', function() { setTimeout(enhancePlayerGrid, 0); });
 
   // ============================================================
-  // PROPS BETTING BOARD
+  // PROPS MATRIX BOARD
   // ============================================================
 
-  var _currentPropType = 'winner';
-  var _propSortMode = 'ev';
-  var _evOnlyFilter = false;
+  var _propBookFilter = 'best';
+  var _propMatrixSort = { col: 'confScore', dir: -1 }; // -1 = desc
+  var _propEvFilter = false;
+  var _propPlayerSearch = '';
 
-  // Model probability multipliers per prop type (relative to win prob)
-  var PROP_MULTIPLIERS = {
-    winner:   1.0,
-    top3:     2.8,
-    top5:     4.2,
-    top10:    7.5,
-    top20:    13.0,
-    makeCut:  28.0,
-    r1Leader: 0.85,
-    r2Leader: 0.80,
-    '36hLeader': 0.75
-  };
+  // Multipliers: how much more likely is Top X vs outright win
+  var PROP_MULT = { winner:1, top3:2.8, top5:4.2, top10:7.5, top20:13, makeCut:28, r1Leader:0.85, r2Leader:0.80 };
 
   function americanToDecimal(american) {
     var a = parseFloat(american);
@@ -2830,16 +2839,10 @@
 
   function calcModelProb(player, propType) {
     var conf = (player.confScore || 50) / 100;
-    var mult = PROP_MULTIPLIERS[propType] || 1;
+    var mult = PROP_MULT[propType] || 1;
     var rawProb = Math.min(conf * mult * 0.15, 0.98);
     var fit = (player.courseFit && player.courseFit.augusta) ? player.courseFit.augusta / 100 : 0.65;
     return Math.min(rawProb * (0.7 + 0.3 * fit), 0.98);
-  }
-
-  function modelProbToAmericanOdds(prob) {
-    if (!prob || prob <= 0) return null;
-    var dec = 1 / prob;
-    return decimalToAmerican(dec);
   }
 
   function calcEV(modelProb, bookOddsAmerican) {
@@ -2850,112 +2853,199 @@
     return +((modelProb - bookProb) / bookProb * 100).toFixed(1);
   }
 
-  function getBestBook(player, propType) {
+  function pctToAmerican(pct) {
+    if (!pct || pct <= 0) return null;
+    var dec = 1 / (pct / 100);
+    return dec >= 2 ? Math.round((dec - 1) * 100) : Math.round(-100 / (dec - 1));
+  }
+
+  function americanOddsForCell(player, propType, bookFilter) {
+    var pt = window._liveData && window._liveData.propsByType;
+
     if (propType === 'winner') {
       var odds = player.odds || {};
-      var best = null, bestBook = '—';
-      ['dk','fd','mgm','bovada','bet365'].forEach(function(b) {
-        if (odds[b]) {
-          var v = parseInt(odds[b]);
-          if (!best || v > best) { best = v; bestBook = b.toUpperCase(); }
-        }
-      });
-      return { odds: best, book: bestBook };
+      if (bookFilter === 'best') {
+        var best = null;
+        ['dk','fd','mgm','bovada','bet365'].forEach(function(b) {
+          var v = odds[b] ? parseInt(odds[b]) : null;
+          if (v && (!best || v > best)) best = v;
+        });
+        return best;
+      }
+      return odds[bookFilter] ? parseInt(odds[bookFilter]) : null;
     }
-    var pt = window._liveData && window._liveData.propsByType;
+
+    // For other prop types, use propsByType from live data
     if (pt && pt[propType] && pt[propType][player.name]) {
-      return { odds: parseInt(pt[propType][player.name]), book: 'BDL' };
+      return parseInt(pt[propType][player.name]);
     }
-    return { odds: null, book: '—' };
+
+    // Estimate from win odds using multiplier
+    var winOdds = player.odds && (player.odds.dk || player.odds.fd || player.odds.mgm);
+    if (!winOdds) return null;
+    var w = parseInt(winOdds);
+    var winDec = w > 0 ? (w/100 + 1) : (100/Math.abs(w) + 1);
+    var mult = PROP_MULT[propType] || 1;
+    var newDec = 1 + (winDec - 1) / mult;
+    return newDec >= 2 ? Math.round((newDec-1)*100) : Math.round(-100/(newDec-1));
   }
 
-  function fmtOdds(v) {
-    if (!v) return '<span class="text-slate-600">—</span>';
-    var n = parseInt(v);
-    return '<span class="mono ' + (n > 0 ? 'text-slate-300' : 'text-slate-400') + '">' + (n > 0 ? '+' : '') + n + '</span>';
+  function modelPctForProp(player, propType) {
+    var conf = (player.confScore || 50) / 100;
+    var mult = PROP_MULT[propType] || 1;
+    var base = conf * 0.15 * mult; // conf=100 → 15% win prob
+    var fit = player.courseFit && player.courseFit.augusta ? player.courseFit.augusta / 100 : 0.65;
+    return Math.min(98, base * (0.7 + 0.3 * fit) * 100);
   }
 
-  function renderPropsBettingBoard() {
-    var players = window._playerData || PLAYERS;
-    if (!players || !players.length) return;
+  function cellEV(modelPct, bookOdds) {
+    if (!modelPct || !bookOdds) return null;
+    var dec = bookOdds > 0 ? (bookOdds/100+1) : (100/Math.abs(bookOdds)+1);
+    var bookPct = (1/dec)*100;
+    return +((modelPct - bookPct) / bookPct * 100).toFixed(1);
+  }
 
-    var type = _currentPropType;
+  function renderOddsCell(odds, modelOdds, ev) {
+    if (!odds && !modelOdds) {
+      return '<td class="px-2 py-2 text-center"><span style="color:rgba(200,215,230,0.2)">&#8212;</span></td>';
+    }
+    var isEstimate = !odds;
+    var displayOdds = odds || modelOdds;
+    var oddsStr = displayOdds > 0 ? '+' + displayOdds : displayOdds;
 
-    var rows = players.map(function(p) {
-      var modelProb = calcModelProb(p, type);
-      var modelOdds = modelProbToAmericanOdds(modelProb);
-      var best = getBestBook(p, type);
-      var bookOdds = best.odds;
-      var dkOdds  = (type === 'winner' && p.odds && p.odds.dk)  ? parseInt(p.odds.dk)  : null;
-      var fdOdds  = (type === 'winner' && p.odds && p.odds.fd)  ? parseInt(p.odds.fd)  : null;
-      var mgmOdds = (type === 'winner' && p.odds && p.odds.mgm) ? parseInt(p.odds.mgm) : null;
-      var ev = calcEV(modelProb, bookOdds);
-      var fit = (p.courseFit && p.courseFit.augusta) ? p.courseFit.augusta : 0;
-      return { p: p, modelProb: modelProb, modelOdds: modelOdds, bookOdds: bookOdds, bestBook: best.book, dkOdds: dkOdds, fdOdds: fdOdds, mgmOdds: mgmOdds, ev: ev, fit: fit };
-    }).filter(function(r) {
-      if (_evOnlyFilter && (!r.ev || r.ev <= 0)) return false;
+    var evColor = '';
+    var evBadge = '';
+    if (ev !== null) {
+      if (ev >= 15) { evColor = 'color:var(--teal);font-weight:700;'; evBadge = '<br><span style="font-size:8px;color:var(--teal);">+' + ev + '%EV</span>'; }
+      else if (ev >= 5) { evColor = 'color:#86efac;'; evBadge = '<br><span style="font-size:8px;color:#86efac;">+' + ev + '%EV</span>'; }
+      else if (ev < -10) { evColor = 'color:rgba(200,215,230,0.35);'; }
+    }
+
+    return '<td class="px-2 py-2 text-center' + (isEstimate ? ' opacity-60' : '') + '">' +
+      '<span class="mono text-xs font-semibold" style="' + evColor + '">' + oddsStr + '</span>' +
+      (isEstimate ? '<span style="font-size:7px;color:rgba(200,215,230,0.3);display:block;">est.</span>' : evBadge) +
+      '</td>';
+  }
+
+  function renderPropsMatrix() {
+    var players = window._playerData || [];
+    if (!players.length) return;
+
+    var propCols = ['winner','top3','top5','top10','top20','makeCut','r1Leader'];
+
+    // Filter
+    var rows = players.filter(function(p) {
+      if (_propPlayerSearch && p.name.toLowerCase().indexOf(_propPlayerSearch.toLowerCase()) < 0) return false;
+      if (_propEvFilter) {
+        var ev = p.evScore || cellEV(modelPctForProp(p,'winner'), p.odds && parseInt(p.odds.dk || p.odds.fd || p.odds.mgm));
+        if (!ev || ev <= 0) return false;
+      }
       return true;
     });
 
-    rows.sort(function(a, b) {
-      if (_propSortMode === 'ev') return (b.ev || -999) - (a.ev || -999);
-      if (_propSortMode === 'model') return b.modelProb - a.modelProb;
-      if (_propSortMode === 'odds') return (b.bookOdds || 0) - (a.bookOdds || 0);
-      if (_propSortMode === 'fit') return b.fit - a.fit;
-      return 0;
+    // Build row data
+    var rowData = rows.map(function(p) {
+      var colOdds = {};
+      var colModel = {};
+      var colEV = {};
+      propCols.forEach(function(col) {
+        var bookOdds = americanOddsForCell(p, col, _propBookFilter);
+        var modelPct = modelPctForProp(p, col);
+        var modelO = pctToAmerican(modelPct);
+        colOdds[col] = bookOdds;
+        colModel[col] = modelO;
+        colEV[col] = cellEV(modelPct, bookOdds);
+      });
+      return { p: p, colOdds: colOdds, colModel: colModel, colEV: colEV };
     });
 
-    // Render spotlight (top 3 EV plays)
-    var spotlight = rows.filter(function(r) { return r.ev > 0 && r.bookOdds; }).slice(0, 3);
-    var spotEl = el('propValueSpotlight');
+    // Sort
+    rowData.sort(function(a, b) {
+      var col = _propMatrixSort.col;
+      var dir = _propMatrixSort.dir;
+      if (col === 'confScore') return dir * ((b.p.confScore||0) - (a.p.confScore||0));
+      if (col === 'ev') return dir * ((b.colEV['winner']||0) - (a.colEV['winner']||0));
+      // Sorting by prop column: lower odds (more favored) = sort first when dir=1
+      var aOdds = a.colOdds[col] || 99999;
+      var bOdds = b.colOdds[col] || 99999;
+      return dir * (aOdds - bOdds);
+    });
+
+    // Spotlight — top 3 best EV plays across all columns
+    var spotlight = [];
+    rowData.forEach(function(r) {
+      propCols.forEach(function(col) {
+        var ev = r.colEV[col];
+        var odds = r.colOdds[col];
+        if (ev > 5 && odds) {
+          spotlight.push({ name: r.p.name, prop: col, odds: odds, ev: ev, conf: r.p.confScore });
+        }
+      });
+    });
+    spotlight.sort(function(a,b){ return b.ev - a.ev; });
+    var spotEl = el('propsSpotlight');
     if (spotEl) {
-      if (spotlight.length) {
-        spotEl.innerHTML = spotlight.map(function(r) {
-          return '<div style="background:rgba(21,255,194,0.05);border:1px solid rgba(21,255,194,0.18);border-radius:10px;padding:0.75rem 1rem;">' +
-            '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.35rem;">' +
-              '<span class="mono text-xs font-bold" style="color:#eef2f7;">' + r.p.name + '</span>' +
-              '<span class="mono text-xs font-bold" style="color:var(--teal);background:rgba(21,255,194,0.1);padding:1px 7px;border-radius:20px;border:1px solid rgba(21,255,194,0.25);">+' + r.ev + '% EV</span>' +
+      var top3 = spotlight.slice(0,3);
+      if (top3.length) {
+        spotEl.innerHTML = top3.map(function(s) {
+          var propLabel = { winner:'Win', top3:'Top 3', top5:'Top 5', top10:'Top 10', top20:'Top 20', makeCut:'Make Cut', r1Leader:'R1 Leader' }[s.prop] || s.prop;
+          var oddsStr = s.odds > 0 ? '+' + s.odds : s.odds;
+          return '<div style="background:rgba(21,255,194,0.05);border:1px solid rgba(21,255,194,0.18);border-radius:10px;padding:0.7rem 1rem;display:flex;flex-direction:column;gap:0.25rem;">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+              '<span class="mono text-xs font-bold" style="color:#eef2f7;">' + s.name + '</span>' +
+              '<span class="mono" style="font-size:9px;background:rgba(21,255,194,0.12);color:var(--teal);padding:1px 7px;border-radius:20px;border:1px solid rgba(21,255,194,0.25);">+' + s.ev + '% EV</span>' +
             '</div>' +
-            '<div style="font-size:0.68rem;color:rgba(200,215,230,0.5);margin-bottom:0.35rem;">' + (type.charAt(0).toUpperCase() + type.slice(1)).replace(/([A-Z])/g,' $1') + ' · ' + r.bestBook + '</div>' +
-            '<div style="display:flex;gap:0.5rem;align-items:baseline;">' +
-              '<span class="mono text-base font-bold" style="color:var(--gold);">' + (r.bookOdds > 0 ? '+' : '') + r.bookOdds + '</span>' +
-              '<span style="font-size:0.68rem;color:rgba(200,215,230,0.4);">book · model <span class="mono" style="color:var(--teal);">' + (r.modelOdds > 0 ? '+' : '') + r.modelOdds + '</span></span>' +
+            '<div style="display:flex;justify-content:space-between;align-items:baseline;">' +
+              '<span style="font-size:9px;color:rgba(200,215,230,0.45);">' + propLabel + '</span>' +
+              '<span class="mono font-bold" style="font-size:1rem;color:var(--gold);">' + oddsStr + '</span>' +
             '</div>' +
+            '<div style="font-size:8px;color:rgba(200,215,230,0.3);">PB Score: ' + s.conf + '</div>' +
           '</div>';
         }).join('');
       } else {
-        spotEl.innerHTML = '<div class="col-span-3 text-xs text-slate-500 text-center py-2">No +EV plays detected for this prop type yet — check back closer to tournament.</div>';
+        spotEl.innerHTML = '<div style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(200,215,230,0.3);padding:0.5rem;">No strong +EV plays detected yet &#8212; odds update Mon/Wed/Thu/Sat</div>';
       }
     }
 
-    // Render table
-    var tbody = el('propBettingBoard');
+    // Table
+    var tbody = el('propsMatrixBody');
     if (!tbody) return;
-    if (!rows.length) {
-      tbody.innerHTML = '<tr><td colspan="10" class="px-4 py-6 text-center text-slate-500 text-xs">No data available for this prop type.</td></tr>';
-      return;
-    }
-    tbody.innerHTML = rows.map(function(r) {
-      var evBadge = r.ev != null
-        ? '<span class="mono font-bold" style="' + (r.ev > 0 ? 'color:var(--teal)' : 'color:var(--red)') + '">' + (r.ev > 0 ? '+' : '') + r.ev + '%</span>'
-        : '<span class="text-slate-600">—</span>';
-      var fitColor = r.fit >= 80 ? 'var(--teal)' : r.fit >= 65 ? 'var(--gold)' : 'var(--red)';
-      var parlayInSlip = window._parlayLegs && window._parlayLegs.some(function(l) { return l.player === r.p.name && l.type === type; });
+
+    tbody.innerHTML = rowData.map(function(r) {
+      var p = r.p;
+      var confColor = (p.confScore||0) >= 70 ? 'var(--teal)' : (p.confScore||0) >= 40 ? 'var(--blue)' : 'rgba(200,215,230,0.5)';
+      var evTotal = r.colEV['winner'];
+      var evBadge = evTotal != null
+        ? '<span style="font-size:9px;' + (evTotal>0?'color:var(--teal)':'color:var(--red)') + ';">' + (evTotal>0?'+':'') + evTotal + '%</span>'
+        : '<span style="color:rgba(200,215,230,0.25);">&#8212;</span>';
+
+      var cells = propCols.map(function(col) {
+        return renderOddsCell(r.colOdds[col], r.colModel[col], r.colEV[col]);
+      }).join('');
+
       return '<tr class="hover:bg-white/[0.02] transition-colors">' +
-        '<td class="px-3 py-2.5"><span class="font-semibold text-white text-xs">' + r.p.name + '</span>' +
-          (r.p.rank ? '<span class="text-slate-500 text-[9px] ml-1">#' + r.p.rank + '</span>' : '') + '</td>' +
-        '<td class="px-3 py-2.5 text-right mono text-xs text-slate-300">' + (r.modelProb * 100).toFixed(1) + '%</td>' +
-        '<td class="px-3 py-2.5 text-right mono text-xs text-slate-400">' + (r.modelOdds ? (r.modelOdds > 0 ? '+' : '') + r.modelOdds : '—') + '</td>' +
-        '<td class="px-3 py-2.5 text-right">' + fmtOdds(r.dkOdds) + '</td>' +
-        '<td class="px-3 py-2.5 text-right">' + fmtOdds(r.fdOdds) + '</td>' +
-        '<td class="px-3 py-2.5 text-right">' + fmtOdds(r.mgmOdds) + '</td>' +
-        '<td class="px-3 py-2.5 text-right"><span class="mono text-xs font-semibold text-slate-300">' + (r.bookOdds ? (r.bookOdds > 0 ? '+' : '') + r.bookOdds : '—') + '</span>' +
-          (r.bestBook !== '—' ? ' <span style="font-size:9px;color:rgba(200,215,230,0.35);">' + r.bestBook + '</span>' : '') + '</td>' +
-        '<td class="px-3 py-2.5 text-right">' + evBadge + '</td>' +
-        '<td class="px-3 py-2.5 text-right mono text-xs font-semibold" style="color:' + fitColor + '">' + (r.fit || '—') + '</td>' +
-        '<td class="px-3 py-2.5 text-right"><button onclick="addPropToParlay(\'' + r.p.name.replace(/'/g,"\\'") + '\',\'' + type + '\',' + (r.bookOdds || r.modelOdds || 0) + ')" style="font-size:9px;padding:2px 8px;border-radius:5px;border:1px solid rgba(21,255,194,0.25);background:rgba(21,255,194,0.05);color:var(--teal);cursor:pointer;">' + (parlayInSlip ? '&#10003;' : '+') + '</button></td>' +
+        // Player name — sticky left
+        '<td class="px-3 py-2.5 sticky left-0 z-10" style="background:var(--bg);min-width:160px;">' +
+          '<div class="font-semibold text-white text-xs leading-tight">' + p.name + '</div>' +
+          '<div style="font-size:9px;color:rgba(200,215,230,0.35);">#' + (p.rank||'?') + ' &middot; SG ' + (p.sgTotal>0?'+':'') + (p.sgTotal||0).toFixed(2) + '</div>' +
+        '</td>' +
+        cells +
+        // PropsBot Score
+        '<td class="px-2 py-2.5 text-center" style="border-left:1px solid rgba(21,255,194,0.1);">' +
+          '<div class="mono font-bold text-sm" style="color:' + confColor + ';">' + (p.confScore||'&#8212;') + '</div>' +
+          '<div style="font-size:8px;color:rgba(200,215,230,0.3);">/ 100</div>' +
+        '</td>' +
+        // EV%
+        '<td class="px-2 py-2.5 text-center">' + evBadge + '</td>' +
+        // Parlay
+        '<td class="px-2 py-2.5 text-center">' +
+          '<button onclick="addPropToParlay(\'' + p.name.replace(/'/g,"\\'") + '\',\'winner\',' + (r.colOdds['winner']||r.colModel['winner']||0) + ')" style="font-size:9px;padding:2px 7px;border-radius:5px;border:1px solid rgba(21,255,194,0.2);background:rgba(21,255,194,0.04);color:var(--teal);cursor:pointer;">+</button>' +
+        '</td>' +
       '</tr>';
     }).join('');
+
+    var countEl = el('propsMatrixCount');
+    if (countEl) countEl.textContent = rowData.length + ' players shown';
   }
 
   window.addPropToParlay = function(playerName, propType, odds) {
@@ -2971,30 +3061,63 @@
     }
     saveParlayToStorage();
     renderParlay();
-    renderPropsBettingBoard();
+    renderPropsMatrix();
   };
 
-  function initPropsBettingBoard() {
-    var pills = document.querySelectorAll('.prop-type-pill');
-    pills.forEach(function(btn) {
+  function initPropsMatrix() {
+    // Book filter buttons
+    document.querySelectorAll('.book-filter-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        pills.forEach(function(b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        _currentPropType = btn.getAttribute('data-type');
-        renderPropsBettingBoard();
+        document.querySelectorAll('.book-filter-btn').forEach(function(b) {
+          b.style.background = 'transparent';
+          b.style.color = 'rgba(200,215,230,0.6)';
+          b.style.borderColor = 'rgba(100,180,200,0.15)';
+        });
+        this.style.background = 'rgba(21,255,194,0.08)';
+        this.style.color = 'var(--teal)';
+        this.style.borderColor = 'rgba(21,255,194,0.4)';
+        _propBookFilter = this.getAttribute('data-book');
+        renderPropsMatrix();
       });
     });
 
-    var evToggle = el('evOnlyToggle');
-    if (evToggle) evToggle.addEventListener('change', function() {
-      _evOnlyFilter = this.checked;
-      renderPropsBettingBoard();
+    // EV filter
+    var evF = el('propEvFilter');
+    if (evF) evF.addEventListener('change', function() {
+      _propEvFilter = this.checked;
+      renderPropsMatrix();
     });
 
-    var sortSel = el('propSortSelect');
-    if (sortSel) sortSel.addEventListener('change', function() {
-      _propSortMode = this.value;
-      renderPropsBettingBoard();
+    // Search
+    var srch = el('propPlayerSearch');
+    if (srch) srch.addEventListener('input', function() {
+      _propPlayerSearch = this.value;
+      renderPropsMatrix();
+    });
+
+    // Sortable column headers
+    document.querySelectorAll('.sort-col').forEach(function(th) {
+      th.addEventListener('click', function() {
+        var col = this.getAttribute('data-col');
+        if (_propMatrixSort.col === col) {
+          _propMatrixSort.dir *= -1;
+        } else {
+          _propMatrixSort.col = col;
+          _propMatrixSort.dir = col === 'confScore' ? -1 : 1;
+        }
+        // Update header indicators
+        document.querySelectorAll('.sort-col').forEach(function(t) {
+          t.innerHTML = t.innerHTML.replace(' &#8593;','').replace(' &#8595;','').replace(' ↑','').replace(' ↓','');
+          t.classList.remove('active-sort');
+          var span = t.querySelector('span');
+          if (span) span.style.color = '';
+        });
+        this.classList.add('active-sort');
+        this.innerHTML = this.innerHTML + (_propMatrixSort.dir === -1 ? ' &#8595;' : ' &#8593;');
+        var sp = this.querySelector('span');
+        if (sp) sp.style.color = 'var(--teal)';
+        renderPropsMatrix();
+      });
     });
   }
 
@@ -3017,8 +3140,8 @@
     renderTeeTimes(1);
     renderAllPropsTypeTables();
     window._playerData = PLAYERS;
-    initPropsBettingBoard();
-    renderPropsBettingBoard();
+    initPropsMatrix();
+    renderPropsMatrix();
   }
 
   // Try to load external data, then initialize
