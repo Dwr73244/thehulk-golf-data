@@ -1,13 +1,12 @@
 {
-  "version": 2,
-  "generatedAt": "2026-04-06T20:32:47.462623",
-  "generatedBy": "PropsBot Golf Scraper v1.0",
+  "version": 3,
+  "generatedAt": "2026-04-06T20:55:55.620675",
+  "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
-    "DataGolf.com (rankings, hole stats)",
-    "PGATour.com (official stats)",
-    "ESPN API (leaderboard)",
+    "BallDontLie PGA API (GOAT tier \u2014 players, field, odds, props, stats)",
+    "DataGolf.com (rankings, SG breakdowns)",
+    "ESPN API (leaderboard fallback)",
     "Open-Meteo (weather forecasts)",
-    "The Odds API (betting lines)",
     "Manual curation (course fit, betting notes)"
   ],
   "players": [
@@ -46,7 +45,20 @@
         "memorial": 91,
         "tpc_scottsdale": 86
       },
-      "notes": "Elite ball-striker. Best SG:Approach on Tour. Premium plays: strokes under, birdies over."
+      "notes": "Elite ball-striker. Best SG:Approach on Tour. Premium plays: strokes under, birdies over.",
+      "odds": {
+        "fd": "+550",
+        "bet": "+550",
+        "mgm": "+550",
+        "bov": "+300",
+        "dk": "+485"
+      },
+      "fieldInfo": {
+        "owgr": 1,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 1
     },
     {
       "id": 2,
@@ -83,7 +95,20 @@
         "memorial": 85,
         "tpc_scottsdale": 83
       },
-      "notes": "Most well-rounded player on Tour. No weakness. Excels at Torrey Pines."
+      "notes": "Most well-rounded player on Tour. No weakness. Excels at Torrey Pines.",
+      "odds": {
+        "fd": "+1500",
+        "bet": "+1600",
+        "mgm": "+1400",
+        "bov": "+1600",
+        "dk": "+1800"
+      },
+      "fieldInfo": {
+        "owgr": 4,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 4
     },
     {
       "id": 3,
@@ -120,7 +145,20 @@
         "memorial": 82,
         "tpc_scottsdale": 79
       },
-      "notes": "Best driver on Tour. High birdie ceiling but volatile. Great for matchups."
+      "notes": "Best driver on Tour. High birdie ceiling but volatile. Great for matchups.",
+      "odds": {
+        "fd": "+1100",
+        "bet": "+1200",
+        "mgm": "+1100",
+        "bov": "+700",
+        "dk": "+1150"
+      },
+      "fieldInfo": {
+        "owgr": 2,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 2
     },
     {
       "id": 4,
@@ -157,7 +195,20 @@
         "memorial": 82,
         "tpc_scottsdale": 78
       },
-      "notes": "Second-best iron player. Low ball flight suits firm/windy. Premium bogey under play."
+      "notes": "Second-best iron player. Low ball flight suits firm/windy. Premium bogey under play.",
+      "odds": {
+        "fd": "+2700",
+        "bet": "+3300",
+        "mgm": "+3000",
+        "bov": "+2000",
+        "dk": "+3100"
+      },
+      "fieldInfo": {
+        "owgr": 16,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 16
     },
     {
       "id": 5,
@@ -231,7 +282,20 @@
         "memorial": 78,
         "tpc_scottsdale": 76
       },
-      "notes": "Elite putter. Lowest bogey rate. Best bogey under play on Tour. Riviera specialist."
+      "notes": "Elite putter. Lowest bogey rate. Best bogey under play on Tour. Riviera specialist.",
+      "odds": {
+        "fd": "+5500",
+        "bet": "+5000",
+        "mgm": "+6000",
+        "bov": "+5500",
+        "dk": "+5800"
+      },
+      "fieldInfo": {
+        "owgr": 24,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 24
     },
     {
       "id": 7,
@@ -268,7 +332,20 @@
         "memorial": 74,
         "tpc_scottsdale": 74
       },
-      "notes": "Powerful driver. Higher bogey rate offsets birdies. Volatile for props."
+      "notes": "Powerful driver. Higher bogey rate offsets birdies. Volatile for props.",
+      "odds": {
+        "fd": "+12500",
+        "bet": "+20000",
+        "mgm": "+15000",
+        "bov": "+8000",
+        "dk": "+21000"
+      },
+      "fieldInfo": {
+        "owgr": 46,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 46
     },
     {
       "id": 8,
@@ -305,7 +382,20 @@
         "memorial": 74,
         "tpc_scottsdale": 72
       },
-      "notes": "Great ball-striker but short game liability. Negative SG:ARG. Risky bogey unders."
+      "notes": "Great ball-striker but short game liability. Negative SG:ARG. Risky bogey unders.",
+      "odds": {
+        "fd": "+4000",
+        "bet": "+4500",
+        "mgm": "+4000",
+        "bov": "+3500",
+        "dk": "+4500"
+      },
+      "fieldInfo": {
+        "owgr": 14,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 14
     },
     {
       "id": 9,
@@ -343,6 +433,19 @@
         "tpc_scottsdale": 71
       },
       "notes": "Links-style player. Low ball flight suits windy conditions. Good bogey under candidate.",
+      "odds": {
+        "fd": "+2200",
+        "bet": "+2000",
+        "mgm": "+2200",
+        "bov": "+1800",
+        "dk": "+2300"
+      },
+      "fieldInfo": {
+        "owgr": 3,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 3,
       "recentForm": {
         "lastResult": "#11 at Valero Texas Open",
         "lastPosition": 11,
@@ -388,7 +491,12 @@
         "memorial": 71,
         "tpc_scottsdale": 71
       },
-      "notes": "High birdie upside but high bogey rate. Very aggressive. Best for birdie overs."
+      "notes": "High birdie upside but high bogey rate. Very aggressive. Best for birdie overs.",
+      "odds": {
+        "fd": "+8000",
+        "bov": "+8000",
+        "dk": "+8000"
+      }
     },
     {
       "id": 11,
@@ -426,6 +534,19 @@
         "tpc_scottsdale": 73
       },
       "notes": "Masters champion. Elite approach play with high ball flight. Streaky putter \u2014 hot weeks can win anywhere.",
+      "odds": {
+        "fd": "+3500",
+        "bet": "+2500",
+        "mgm": "+2800",
+        "bov": "+3000",
+        "dk": "+2700"
+      },
+      "fieldInfo": {
+        "owgr": 17,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 17,
       "recentForm": {
         "lastResult": "#23 at Valero Texas Open",
         "lastPosition": 23,
@@ -471,7 +592,20 @@
         "memorial": 69,
         "tpc_scottsdale": 68
       },
-      "notes": "Solid all-around. Riviera and Torrey specialist. Reliable at home courses."
+      "notes": "Solid all-around. Riviera and Torrey specialist. Reliable at home courses.",
+      "odds": {
+        "fd": "+10000",
+        "bet": "+12500",
+        "mgm": "+12500",
+        "bov": "+8000",
+        "dk": "+12000"
+      },
+      "fieldInfo": {
+        "owgr": 140,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 140
     },
     {
       "id": 13,
@@ -508,7 +642,20 @@
         "memorial": 68,
         "tpc_scottsdale": 67
       },
-      "notes": "Links specialist. Open champion. Low ball flight dominates in wind. Best in coastal/windy conditions."
+      "notes": "Links specialist. Open champion. Low ball flight dominates in wind. Best in coastal/windy conditions.",
+      "odds": {
+        "fd": "+4500",
+        "bet": "+5000",
+        "mgm": "+6600",
+        "bov": "+4500",
+        "dk": "+6900"
+      },
+      "fieldInfo": {
+        "owgr": 26,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 26
     },
     {
       "id": 14,
@@ -545,7 +692,20 @@
         "memorial": 69,
         "tpc_scottsdale": 68
       },
-      "notes": "Iron man \u2014 plays every week. Rarely misses cuts. Great for MC and top 20 props."
+      "notes": "Iron man \u2014 plays every week. Rarely misses cuts. Great for MC and top 20 props.",
+      "odds": {
+        "fd": "+7000",
+        "bet": "+9000",
+        "mgm": "+10000",
+        "bov": "+7500",
+        "dk": "+11500"
+      },
+      "fieldInfo": {
+        "owgr": 41,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 41
     },
     {
       "id": 15,
@@ -582,7 +742,20 @@
         "memorial": 69,
         "tpc_scottsdale": 69
       },
-      "notes": "Talented ball-striker with streaky putting. When putter is hot, can contend anywhere."
+      "notes": "Talented ball-striker with streaky putting. When putter is hot, can contend anywhere.",
+      "odds": {
+        "fd": "+6500",
+        "bet": "+6600",
+        "mgm": "+6600",
+        "bov": "+10000",
+        "dk": "+7000"
+      },
+      "fieldInfo": {
+        "owgr": 25,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 25
     },
     {
       "id": 16,
@@ -619,7 +792,12 @@
         "memorial": 68,
         "tpc_scottsdale": 69
       },
-      "notes": "Elite power but inconsistent approach and flat-stick. Best at bombers courses. Fade candidate at short tracks."
+      "notes": "Elite power but inconsistent approach and flat-stick. Best at bombers courses. Fade candidate at short tracks.",
+      "odds": {
+        "fd": "+10000",
+        "bov": "+8000",
+        "dk": "+10000"
+      }
     },
     {
       "id": 17,
@@ -656,7 +834,20 @@
         "memorial": 68,
         "tpc_scottsdale": 66
       },
-      "notes": "Steady veteran. Consistent without being flashy. Good MC and top-20 candidate."
+      "notes": "Steady veteran. Consistent without being flashy. Good MC and top-20 candidate.",
+      "odds": {
+        "fd": "+15000",
+        "bet": "+15000",
+        "mgm": "+20000",
+        "bov": "+12500",
+        "dk": "+13500"
+      },
+      "fieldInfo": {
+        "owgr": 15,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 15
     },
     {
       "id": 18,
@@ -693,7 +884,20 @@
         "memorial": 69,
         "tpc_scottsdale": 68
       },
-      "notes": "Former world #1 in a slump. Ball-striking still elite but putter has gone cold. High ceiling, low floor."
+      "notes": "Former world #1 in a slump. Ball-striking still elite but putter has gone cold. High ceiling, low floor.",
+      "odds": {
+        "fd": "+6500",
+        "bet": "+6600",
+        "mgm": "+6000",
+        "bov": "+3500",
+        "dk": "+5300"
+      },
+      "fieldInfo": {
+        "owgr": 9,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 9
     },
     {
       "id": 19,
@@ -730,7 +934,20 @@
         "memorial": 68,
         "tpc_scottsdale": 68
       },
-      "notes": "Resurgent veteran. Short game wizard when healthy. Bay Hill specialist. Good at TPC Sawgrass."
+      "notes": "Resurgent veteran. Short game wizard when healthy. Bay Hill specialist. Good at TPC Sawgrass.",
+      "odds": {
+        "fd": "+6500",
+        "bet": "+7000",
+        "mgm": "+6600",
+        "bov": "+6000",
+        "dk": "+6700"
+      },
+      "fieldInfo": {
+        "owgr": 54,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 54
     },
     {
       "id": 20,
@@ -767,7 +984,20 @@
         "memorial": 67,
         "tpc_scottsdale": 66
       },
-      "notes": "Extremely accurate. Low bogey rate. Great at precision courses like Harbour Town and Colonial."
+      "notes": "Extremely accurate. Low bogey rate. Great at precision courses like Harbour Town and Colonial.",
+      "odds": {
+        "fd": "+5500",
+        "bet": "+5000",
+        "mgm": "+5500",
+        "bov": "+6500",
+        "dk": "+4700"
+      },
+      "fieldInfo": {
+        "owgr": 5,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 5
     },
     {
       "id": 21,
@@ -805,6 +1035,19 @@
         "tpc_scottsdale": 64
       },
       "notes": "Open champion. Lefty with great short game. Not a power player. Thrives on accuracy courses and links.",
+      "odds": {
+        "fd": "+10000",
+        "bet": "+15000",
+        "mgm": "+17500",
+        "bov": "+15000",
+        "dk": "+22500"
+      },
+      "fieldInfo": {
+        "owgr": 35,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 35,
       "recentForm": {
         "lastResult": "#42 at Valero Texas Open",
         "lastPosition": 42,
@@ -850,7 +1093,20 @@
         "memorial": 65,
         "tpc_scottsdale": 65
       },
-      "notes": "Huge power but accuracy issues. Multiple runner-up finishes. Volatile scorer \u2014 birdie overs at long courses."
+      "notes": "Huge power but accuracy issues. Multiple runner-up finishes. Volatile scorer \u2014 birdie overs at long courses.",
+      "odds": {
+        "fd": "+2000",
+        "bet": "+1800",
+        "mgm": "+2000",
+        "bov": "+4000",
+        "dk": "+2300"
+      },
+      "fieldInfo": {
+        "owgr": 19,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 19
     },
     {
       "id": 23,
@@ -887,7 +1143,11 @@
         "memorial": 64,
         "tpc_scottsdale": 65
       },
-      "notes": "Best putter on Tour. Short off the tee. Needs accuracy courses where length doesn't matter. Elite bogey under."
+      "notes": "Best putter on Tour. Short off the tee. Needs accuracy courses where length doesn't matter. Elite bogey under.",
+      "odds": {
+        "fd": "+30000",
+        "bov": "+15000"
+      }
     },
     {
       "id": 24,
@@ -924,7 +1184,12 @@
         "memorial": 65,
         "tpc_scottsdale": 64
       },
-      "notes": "Consistent ball-striker. No elite category but no major weakness. Reliable for top-20 finishes."
+      "notes": "Consistent ball-striker. No elite category but no major weakness. Reliable for top-20 finishes.",
+      "odds": {
+        "fd": "+17500",
+        "bet": "+20000",
+        "bov": "+15000"
+      }
     },
     {
       "id": 25,
@@ -961,7 +1226,20 @@
         "memorial": 66,
         "tpc_scottsdale": 64
       },
-      "notes": "Veteran with elite swing. Augusta specialist. Still competitive but ceiling has lowered."
+      "notes": "Veteran with elite swing. Augusta specialist. Still competitive but ceiling has lowered.",
+      "odds": {
+        "fd": "+6500",
+        "bet": "+6600",
+        "mgm": "+6600",
+        "bov": "+15000",
+        "dk": "+6000"
+      },
+      "fieldInfo": {
+        "owgr": 63,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 63
     },
     {
       "id": 26,
@@ -998,7 +1276,20 @@
         "memorial": 64,
         "tpc_scottsdale": 63
       },
-      "notes": "Precise iron player. Accuracy over power. Good at courses that demand shotmaking. Steady for props."
+      "notes": "Precise iron player. Accuracy over power. Good at courses that demand shotmaking. Steady for props.",
+      "odds": {
+        "fd": "+12500",
+        "bet": "+17500",
+        "mgm": "+20000",
+        "bov": "+12500",
+        "dk": "+23000"
+      },
+      "fieldInfo": {
+        "owgr": 23,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 23
     },
     {
       "id": 27,
@@ -1036,6 +1327,11 @@
         "tpc_scottsdale": 64
       },
       "notes": "East Lake specialist. TPC Sawgrass has history. Emotional player \u2014 performs well when locked in.",
+      "odds": {
+        "fd": "+15000",
+        "bet": "+20000",
+        "bov": "+15000"
+      },
       "recentForm": {
         "lastResult": "#36 at Valero Texas Open",
         "lastPosition": 36,
@@ -1081,7 +1377,10 @@
         "memorial": 64,
         "tpc_scottsdale": 65
       },
-      "notes": "Young talent with flair. Aggressive player with high birdie ceiling. Inconsistent but fun for props."
+      "notes": "Young talent with flair. Aggressive player with high birdie ceiling. Inconsistent but fun for props.",
+      "odds": {
+        "fd": "+12500"
+      }
     },
     {
       "id": 29,
@@ -1118,7 +1417,20 @@
         "memorial": 65,
         "tpc_scottsdale": 63
       },
-      "notes": "Elite iron player but can't putt. Highest GIR with lowest conversion. Great approach stats, fade putting props."
+      "notes": "Elite iron player but can't putt. Highest GIR with lowest conversion. Great approach stats, fade putting props.",
+      "odds": {
+        "fd": "+6500",
+        "bet": "+7000",
+        "mgm": "+6600",
+        "bov": "+7000",
+        "dk": "+7800"
+      },
+      "fieldInfo": {
+        "owgr": 30,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 30
     },
     {
       "id": 30,
@@ -1155,7 +1467,20 @@
         "memorial": 63,
         "tpc_scottsdale": 62
       },
-      "notes": "Steady ball-striker from Austria. No standout category. Reliable for MC and top-20 at mid-strength events."
+      "notes": "Steady ball-striker from Austria. No standout category. Reliable for MC and top-20 at mid-strength events.",
+      "odds": {
+        "fd": "+6000",
+        "bet": "+6600",
+        "mgm": "+6600",
+        "bov": "+8000",
+        "dk": "+7400"
+      },
+      "fieldInfo": {
+        "owgr": 12,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 12
     },
     {
       "id": 31,
@@ -1193,6 +1518,9 @@
         "tpc_scottsdale": 62
       },
       "notes": "Comeback story. Steady and consistent. Good at shorter accuracy courses. Low variance player.",
+      "odds": {
+        "bov": "+20000"
+      },
       "recentForm": {
         "lastResult": "#38 at Valero Texas Open",
         "lastPosition": 38,
@@ -1238,7 +1566,14 @@
         "memorial": 61,
         "tpc_scottsdale": 62
       },
-      "notes": "Bomber who relies on length. Weak short game. Best at wide-open bombers courses. Fade at precision tracks."
+      "notes": "Bomber who relies on length. Weak short game. Best at wide-open bombers courses. Fade at precision tracks.",
+      "odds": {
+        "fd": "+17500",
+        "bet": "+15000",
+        "mgm": "+15000",
+        "bov": "+15000",
+        "dk": "+15000"
+      }
     },
     {
       "id": 33,
@@ -1275,7 +1610,20 @@
         "memorial": 63,
         "tpc_scottsdale": 61
       },
-      "notes": "US Open champion. Precision player. Not long but very accurate. Thrives on tight, demanding courses."
+      "notes": "US Open champion. Precision player. Not long but very accurate. Thrives on tight, demanding courses.",
+      "odds": {
+        "fd": "+2000",
+        "bet": "+2000",
+        "mgm": "+2200",
+        "bov": "+8000",
+        "dk": "+2350"
+      },
+      "fieldInfo": {
+        "owgr": 22,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 22
     },
     {
       "id": 34,
@@ -1313,6 +1661,19 @@
         "tpc_scottsdale": 60
       },
       "notes": "Scottish lefty with links pedigree. Gritty competitor. Good in wind. Putter can go cold.",
+      "odds": {
+        "fd": "+2500",
+        "bet": "+2800",
+        "mgm": "+3000",
+        "bov": "+4000",
+        "dk": "+3400"
+      },
+      "fieldInfo": {
+        "owgr": 7,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 7,
       "recentForm": {
         "lastResult": "#4 at Valero Texas Open",
         "lastPosition": 4,
@@ -1358,7 +1719,20 @@
         "memorial": 60,
         "tpc_scottsdale": 62
       },
-      "notes": "Young lefty talent. Aggressive. Putting holds him back. High birdie ceiling with high floor."
+      "notes": "Young lefty talent. Aggressive. Putting holds him back. High birdie ceiling with high floor.",
+      "odds": {
+        "fd": "+5500",
+        "bet": "+5500",
+        "mgm": "+5500",
+        "bov": "+8000",
+        "dk": "+5700"
+      },
+      "fieldInfo": {
+        "owgr": 45,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 45
     },
     {
       "id": 36,
@@ -1395,7 +1769,20 @@
         "memorial": 60,
         "tpc_scottsdale": 61
       },
-      "notes": "Australian talent with power. Sister Minjee is LPGA star. Inconsistent but can go low. Good for T20 at mid-tier."
+      "notes": "Australian talent with power. Sister Minjee is LPGA star. Inconsistent but can go low. Good for T20 at mid-tier.",
+      "odds": {
+        "fd": "+3500",
+        "bet": "+3000",
+        "mgm": "+3300",
+        "bov": "+7000",
+        "dk": "+3500"
+      },
+      "fieldInfo": {
+        "owgr": 43,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 43
     },
     {
       "id": 37,
@@ -1470,6 +1857,11 @@
         "tpc_scottsdale": 60
       },
       "notes": "Young steady player. Won his first Tour event. No standout skill but consistent. Good for MC props.",
+      "odds": {
+        "fd": "+17500",
+        "bov": "+12500",
+        "dk": "+14000"
+      },
       "recentForm": {
         "lastResult": "#19 at Valero Texas Open",
         "lastPosition": 19,
@@ -1516,6 +1908,9 @@
         "tpc_scottsdale": 60
       },
       "notes": "Oklahoma product with power. Still developing consistency. Better at longer courses. Thin field value play.",
+      "odds": {
+        "bov": "+20000"
+      },
       "recentForm": {
         "lastResult": "#12 at Valero Texas Open",
         "lastPosition": 12,
@@ -1561,7 +1956,20 @@
         "memorial": 60,
         "tpc_scottsdale": 59
       },
-      "notes": "Steady veteran. Good all-around game without elite skill. East Lake familiarity. Reliable for MC at full fields."
+      "notes": "Steady veteran. Good all-around game without elite skill. East Lake familiarity. Reliable for MC at full fields.",
+      "odds": {
+        "fd": "+8000",
+        "bet": "+8000",
+        "mgm": "+10000",
+        "bov": "+10000",
+        "dk": "+10000"
+      },
+      "fieldInfo": {
+        "owgr": 13,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 13
     },
     {
       "id": 41,
@@ -1598,7 +2006,19 @@
         "memorial": 56,
         "tpc_scottsdale": 59
       },
-      "notes": "Longest hitter on Tour. Accuracy is a problem. Short game is Tour-worst tier. Only play at bomber-friendly tracks."
+      "notes": "Longest hitter on Tour. Accuracy is a problem. Short game is Tour-worst tier. Only play at bomber-friendly tracks.",
+      "odds": {
+        "dk": "+6700",
+        "mgm": "+6600",
+        "bet": "+5000",
+        "fd": "+6500"
+      },
+      "fieldInfo": {
+        "owgr": 105,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 105
     },
     {
       "id": 42,
@@ -1672,7 +2092,10 @@
         "memorial": 58,
         "tpc_scottsdale": 57
       },
-      "notes": "German journeyman having a solid stretch. Shot 58 on mini-tour. Reliable for MC at weaker fields."
+      "notes": "German journeyman having a solid stretch. Shot 58 on mini-tour. Reliable for MC at weaker fields.",
+      "odds": {
+        "bov": "+20000"
+      }
     },
     {
       "id": 44,
@@ -1756,6 +2179,9 @@
         "tpc_scottsdale": 57
       },
       "notes": "South African with smooth swing. Accuracy player. Good in wind. Putting holds him back from contending.",
+      "odds": {
+        "bov": "+20000"
+      },
       "recentForm": {
         "lastResult": "#46 at Valero Texas Open",
         "lastPosition": 46,
@@ -1801,7 +2227,20 @@
         "memorial": 59,
         "tpc_scottsdale": 60
       },
-      "notes": "3x major champ in a slump. Course history still matters \u2014 elite at Augusta, Colonial, Pebble. Buy low candidate."
+      "notes": "3x major champ in a slump. Course history still matters \u2014 elite at Augusta, Colonial, Pebble. Buy low candidate.",
+      "odds": {
+        "fd": "+3300",
+        "bet": "+4500",
+        "mgm": "+4000",
+        "bov": "+5000",
+        "dk": "+4200"
+      },
+      "fieldInfo": {
+        "owgr": 80,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 80
     },
     {
       "id": 47,
@@ -1875,7 +2314,10 @@
         "memorial": 54,
         "tpc_scottsdale": 57
       },
-      "notes": "Won as amateur on Tour. Young talent still developing. High variance \u2014 DFS dart throw at big courses."
+      "notes": "Won as amateur on Tour. Young talent still developing. High variance \u2014 DFS dart throw at big courses.",
+      "odds": {
+        "bov": "+30000"
+      }
     },
     {
       "id": 49,
@@ -1912,7 +2354,20 @@
         "memorial": 54,
         "tpc_scottsdale": 55
       },
-      "notes": "Steady mid-tier player. No outstanding skill. MC candidate at weaker fields. Fade at marquee events."
+      "notes": "Steady mid-tier player. No outstanding skill. MC candidate at weaker fields. Fade at marquee events.",
+      "odds": {
+        "fd": "+10000",
+        "bet": "+12500",
+        "mgm": "+15000",
+        "bov": "+6000",
+        "dk": "+11000"
+      },
+      "fieldInfo": {
+        "owgr": 8,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 8
     },
     {
       "id": 50,
@@ -1950,6 +2405,19 @@
         "tpc_scottsdale": 56
       },
       "notes": "Stanford product. West Coast familiarity helps. Pebble and Torrey specialist. Thin field MC candidate.",
+      "odds": {
+        "fd": "+10000",
+        "bet": "+7000",
+        "mgm": "+8000",
+        "bov": "+10000",
+        "dk": "+8400"
+      },
+      "fieldInfo": {
+        "owgr": 21,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 21,
       "recentForm": {
         "lastResult": "#24 at Valero Texas Open",
         "lastPosition": 24,
@@ -1962,562 +2430,41 @@
     }
   ],
   "currentEvent": {
-    "name": "Valero Texas Open",
-    "course": "",
-    "startDate": "2026-04-02T04:00Z",
-    "status": "Final",
-    "city": "",
-    "state": "",
-    "leaderboard": [
+    "name": "Masters Tournament",
+    "course": "Augusta National Golf Club",
+    "startDate": "2026-04-09T00:00:00.000Z",
+    "status": "NOT_STARTED",
+    "city": "Augusta",
+    "state": "Georgia",
+    "bdlId": 20,
+    "leaderboard": [],
+    "weather": [
       {
-        "name": "J.J. Spaun",
-        "position": "",
-        "score": "-17",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
+        "date": "2026-04-06",
+        "tempHigh": 68.6,
+        "tempLow": 50.3,
+        "windAvg": 7.3,
+        "windMax": 10.5,
+        "windDir": 72,
+        "rainPct": 2
       },
       {
-        "name": "Matt Wallace",
-        "position": "",
-        "score": "-16",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
+        "date": "2026-04-07",
+        "tempHigh": 74.9,
+        "tempLow": 49.7,
+        "windAvg": 8.6,
+        "windMax": 11.1,
+        "windDir": 77,
+        "rainPct": 0
       },
       {
-        "name": "Michael Kim",
-        "position": "",
-        "score": "-16",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Robert MacIntyre",
-        "position": "",
-        "score": "-16",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Andrew Putnam",
-        "position": "",
-        "score": "-15",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Ludvig \u00c5berg",
-        "position": "",
-        "score": "-15",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Kevin Yu",
-        "position": "",
-        "score": "-14",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Chandler Phillips",
-        "position": "",
-        "score": "-13",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Ryo Hisatsune",
-        "position": "",
-        "score": "-13",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Si Woo Kim",
-        "position": "",
-        "score": "-11",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Tommy Fleetwood",
-        "position": "",
-        "score": "-11",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Austin Eckroat",
-        "position": "",
-        "score": "-11",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Kristoffer Reitan",
-        "position": "",
-        "score": "-11",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Andrew Novak",
-        "position": "",
-        "score": "-10",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "John Parry",
-        "position": "",
-        "score": "-10",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Sudarshan Yellamaraju",
-        "position": "",
-        "score": "-10",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Sami V\u00e4lim\u00e4ki",
-        "position": "",
-        "score": "-10",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Eric Cole",
-        "position": "",
-        "score": "-10",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Davis Thompson",
-        "position": "",
-        "score": "-10",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Alex Smalley",
-        "position": "",
-        "score": "-10",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "J.T. Poston",
-        "position": "",
-        "score": "-9",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "S.H. Kim",
-        "position": "",
-        "score": "-9",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Hideki Matsuyama",
-        "position": "",
-        "score": "-9",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Maverick McNealy",
-        "position": "",
-        "score": "-9",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Bud Cauley",
-        "position": "",
-        "score": "-9",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Marco Penge",
-        "position": "",
-        "score": "-9",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Sam Ryder",
-        "position": "",
-        "score": "-9",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Nick Taylor",
-        "position": "",
-        "score": "-8",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Zach Bauchou",
-        "position": "",
-        "score": "-8",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Paul Waring",
-        "position": "",
-        "score": "-7",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Mac Meissner",
-        "position": "",
-        "score": "-7",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "A.J. Ewart",
-        "position": "",
-        "score": "-7",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Doug Ghim",
-        "position": "",
-        "score": "-7",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Alex Noren",
-        "position": "",
-        "score": "-7",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Kevin Roy",
-        "position": "",
-        "score": "-7",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Billy Horschel",
-        "position": "",
-        "score": "-6",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Austin Smotherman",
-        "position": "",
-        "score": "-6",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Chris Kirk",
-        "position": "",
-        "score": "-6",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Rico Hoey",
-        "position": "",
-        "score": "-5",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Matt McCarty",
-        "position": "",
-        "score": "-5",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Brandt Snedeker",
-        "position": "",
-        "score": "-5",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Brian Harman",
-        "position": "",
-        "score": "-5",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Taylor Moore",
-        "position": "",
-        "score": "-5",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Chad Ramey",
-        "position": "",
-        "score": "-5",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Kevin Streelman",
-        "position": "",
-        "score": "-5",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Christiaan Bezuidenhout",
-        "position": "",
-        "score": "-5",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Adam Schenk",
-        "position": "",
-        "score": "-5",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Adam Svensson",
-        "position": "",
-        "score": "-5",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Christo Lamprecht",
-        "position": "",
-        "score": "-4",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Beau Hossler",
-        "position": "",
-        "score": "-4",
-        "totalStrokes": 0.0,
-        "round1": 0.0,
-        "round2": 0.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
+        "date": "2026-04-08",
+        "tempHigh": 63.7,
+        "tempLow": 49.6,
+        "windAvg": 12.5,
+        "windMax": 13.7,
+        "windDir": 62,
+        "rainPct": 2
       }
     ]
   },
@@ -2643,5 +2590,714 @@
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     }
   },
-  "weather": null
+  "weather": {
+    "course": "augusta",
+    "forecast": [
+      {
+        "date": "2026-04-06",
+        "tempHigh": 68.6,
+        "tempLow": 50.3,
+        "windAvg": 7.3,
+        "windMax": 10.5,
+        "windDir": 72,
+        "rainPct": 2
+      },
+      {
+        "date": "2026-04-07",
+        "tempHigh": 74.9,
+        "tempLow": 49.7,
+        "windAvg": 8.6,
+        "windMax": 11.1,
+        "windDir": 77,
+        "rainPct": 0
+      },
+      {
+        "date": "2026-04-08",
+        "tempHigh": 63.7,
+        "tempLow": 49.6,
+        "windAvg": 12.5,
+        "windMax": 13.7,
+        "windDir": 62,
+        "rainPct": 2
+      }
+    ]
+  },
+  "mastersIntel": {
+    "augusta_holes": [
+      {
+        "hole": 1,
+        "par": 4,
+        "yards": 445,
+        "name": "Tea Olive",
+        "historical": {
+          "scoringAvg": 4.137,
+          "scoringDiff": 0.137,
+          "difficultyRank": 7,
+          "eagles": 0,
+          "birdies": 10,
+          "pars": 63,
+          "bogeys": 21,
+          "doublePlus": 1,
+          "birdiePct": 10.5,
+          "bogeyPct": 23.2
+        },
+        "live": null
+      },
+      {
+        "hole": 2,
+        "par": 5,
+        "yards": 585,
+        "name": "Pink Dogwood",
+        "historical": {
+          "scoringAvg": 4.768,
+          "scoringDiff": -0.232,
+          "difficultyRank": 17,
+          "eagles": 1,
+          "birdies": 30,
+          "pars": 55,
+          "bogeys": 8,
+          "doublePlus": 1,
+          "birdiePct": 31.6,
+          "bogeyPct": 9.5
+        },
+        "live": null
+      },
+      {
+        "hole": 3,
+        "par": 4,
+        "yards": 350,
+        "name": "Flowering Peach",
+        "historical": {
+          "scoringAvg": 3.832,
+          "scoringDiff": -0.168,
+          "difficultyRank": 16,
+          "eagles": 0,
+          "birdies": 28,
+          "pars": 55,
+          "bogeys": 12,
+          "doublePlus": 0,
+          "birdiePct": 29.5,
+          "bogeyPct": 12.6
+        },
+        "live": null
+      },
+      {
+        "hole": 4,
+        "par": 3,
+        "yards": 240,
+        "name": "Flowering Crab Apple",
+        "historical": {
+          "scoringAvg": 3.032,
+          "scoringDiff": 0.032,
+          "difficultyRank": 12,
+          "eagles": 0,
+          "birdies": 12,
+          "pars": 70,
+          "bogeys": 11,
+          "doublePlus": 2,
+          "birdiePct": 12.6,
+          "bogeyPct": 13.7
+        },
+        "live": null
+      },
+      {
+        "hole": 5,
+        "par": 4,
+        "yards": 495,
+        "name": "Magnolia",
+        "historical": {
+          "scoringAvg": 4.547,
+          "scoringDiff": 0.547,
+          "difficultyRank": 1,
+          "eagles": 0,
+          "birdies": 2,
+          "pars": 49,
+          "bogeys": 36,
+          "doublePlus": 6,
+          "birdiePct": 2.2,
+          "bogeyPct": 45.2
+        },
+        "live": null
+      },
+      {
+        "hole": 6,
+        "par": 3,
+        "yards": 180,
+        "name": "Juniper",
+        "historical": {
+          "scoringAvg": 3.095,
+          "scoringDiff": 0.095,
+          "difficultyRank": 9,
+          "eagles": 0,
+          "birdies": 7,
+          "pars": 72,
+          "bogeys": 16,
+          "doublePlus": 0,
+          "birdiePct": 7.4,
+          "bogeyPct": 16.8
+        },
+        "live": null
+      },
+      {
+        "hole": 7,
+        "par": 4,
+        "yards": 450,
+        "name": "Pampas",
+        "historical": {
+          "scoringAvg": 4.2,
+          "scoringDiff": 0.2,
+          "difficultyRank": 6,
+          "eagles": 0,
+          "birdies": 10,
+          "pars": 60,
+          "bogeys": 21,
+          "doublePlus": 4,
+          "birdiePct": 10.5,
+          "bogeyPct": 26.3
+        },
+        "live": null
+      },
+      {
+        "hole": 8,
+        "par": 5,
+        "yards": 570,
+        "name": "Yellow Jasmine",
+        "historical": {
+          "scoringAvg": 4.716,
+          "scoringDiff": -0.284,
+          "difficultyRank": 18,
+          "eagles": 0,
+          "birdies": 34,
+          "pars": 55,
+          "bogeys": 5,
+          "doublePlus": 1,
+          "birdiePct": 35.8,
+          "bogeyPct": 6.3
+        },
+        "live": null
+      },
+      {
+        "hole": 9,
+        "par": 4,
+        "yards": 460,
+        "name": "Carolina Cherry",
+        "historical": {
+          "scoringAvg": 4.042,
+          "scoringDiff": 0.042,
+          "difficultyRank": 11,
+          "eagles": 0,
+          "birdies": 20,
+          "pars": 55,
+          "bogeys": 16,
+          "doublePlus": 4,
+          "birdiePct": 21.1,
+          "bogeyPct": 21.1
+        },
+        "live": null
+      },
+      {
+        "hole": 10,
+        "par": 4,
+        "yards": 495,
+        "name": "Camellia",
+        "historical": {
+          "scoringAvg": 4.326,
+          "scoringDiff": 0.326,
+          "difficultyRank": 2,
+          "eagles": 0,
+          "birdies": 6,
+          "pars": 59,
+          "bogeys": 24,
+          "doublePlus": 5,
+          "birdiePct": 6.4,
+          "bogeyPct": 30.9
+        },
+        "live": null
+      },
+      {
+        "hole": 11,
+        "par": 4,
+        "yards": 520,
+        "name": "White Dogwood",
+        "historical": {
+          "scoringAvg": 4.284,
+          "scoringDiff": 0.284,
+          "difficultyRank": 3,
+          "eagles": 0,
+          "birdies": 4,
+          "pars": 65,
+          "bogeys": 22,
+          "doublePlus": 3,
+          "birdiePct": 4.3,
+          "bogeyPct": 26.6
+        },
+        "live": null
+      },
+      {
+        "hole": 12,
+        "par": 3,
+        "yards": 155,
+        "name": "Golden Bell",
+        "historical": {
+          "scoringAvg": 3.095,
+          "scoringDiff": 0.095,
+          "difficultyRank": 9,
+          "eagles": 0,
+          "birdies": 16,
+          "pars": 61,
+          "bogeys": 13,
+          "doublePlus": 4,
+          "birdiePct": 17.0,
+          "bogeyPct": 18.1
+        },
+        "live": null
+      },
+      {
+        "hole": 13,
+        "par": 5,
+        "yards": 545,
+        "name": "Azalea",
+        "historical": {
+          "scoringAvg": 5.032,
+          "scoringDiff": 0.032,
+          "difficultyRank": 12,
+          "eagles": 2,
+          "birdies": 27,
+          "pars": 43,
+          "bogeys": 14,
+          "doublePlus": 8,
+          "birdiePct": 28.7,
+          "bogeyPct": 23.4
+        },
+        "live": null
+      },
+      {
+        "hole": 14,
+        "par": 4,
+        "yards": 440,
+        "name": "Chinese Fir",
+        "historical": {
+          "scoringAvg": 4.105,
+          "scoringDiff": 0.105,
+          "difficultyRank": 8,
+          "eagles": 1,
+          "birdies": 10,
+          "pars": 65,
+          "bogeys": 16,
+          "doublePlus": 3,
+          "birdiePct": 10.5,
+          "bogeyPct": 20.0
+        },
+        "live": null
+      },
+      {
+        "hole": 15,
+        "par": 5,
+        "yards": 550,
+        "name": "Firethorn",
+        "historical": {
+          "scoringAvg": 4.916,
+          "scoringDiff": -0.084,
+          "difficultyRank": 15,
+          "eagles": 2,
+          "birdies": 25,
+          "pars": 52,
+          "bogeys": 12,
+          "doublePlus": 3,
+          "birdiePct": 26.6,
+          "bogeyPct": 16.0
+        },
+        "live": null
+      },
+      {
+        "hole": 16,
+        "par": 3,
+        "yards": 170,
+        "name": "Redbud",
+        "historical": {
+          "scoringAvg": 3.221,
+          "scoringDiff": 0.221,
+          "difficultyRank": 5,
+          "eagles": 0,
+          "birdies": 9,
+          "pars": 63,
+          "bogeys": 16,
+          "doublePlus": 7,
+          "birdiePct": 9.5,
+          "bogeyPct": 24.2
+        },
+        "live": null
+      },
+      {
+        "hole": 17,
+        "par": 4,
+        "yards": 450,
+        "name": "Nandina",
+        "historical": {
+          "scoringAvg": 4.274,
+          "scoringDiff": 0.274,
+          "difficultyRank": 4,
+          "eagles": 0,
+          "birdies": 11,
+          "pars": 51,
+          "bogeys": 29,
+          "doublePlus": 4,
+          "birdiePct": 11.6,
+          "bogeyPct": 34.7
+        },
+        "live": null
+      },
+      {
+        "hole": 18,
+        "par": 4,
+        "yards": 465,
+        "name": "Holly",
+        "historical": {
+          "scoringAvg": 3.968,
+          "scoringDiff": -0.032,
+          "difficultyRank": 14,
+          "eagles": 0,
+          "birdies": 18,
+          "pars": 63,
+          "bogeys": 13,
+          "doublePlus": 1,
+          "birdiePct": 18.9,
+          "bogeyPct": 14.7
+        },
+        "live": null
+      }
+    ],
+    "historical_results": [
+      {
+        "position": 1,
+        "name": "Rory McIlroy",
+        "score": 277,
+        "earnings": 4200000
+      },
+      {
+        "position": 2,
+        "name": "Justin Rose",
+        "score": 277,
+        "earnings": 2268000
+      },
+      {
+        "position": 3,
+        "name": "Patrick Reed",
+        "score": 279,
+        "earnings": 1428000
+      },
+      {
+        "position": 4,
+        "name": "Scottie Scheffler",
+        "score": 280,
+        "earnings": 1008000
+      },
+      {
+        "position": 7,
+        "name": "Ludvig \u00c5berg",
+        "score": 282,
+        "earnings": 703500
+      }
+    ],
+    "sg_leaders_2025": [
+      {
+        "name": "Nick Taylor",
+        "rounds": 1,
+        "sgTotal": 10.7,
+        "sgOTT": 0.0,
+        "sgAPP": 5.85,
+        "sgATG": 0.0,
+        "sgPutt": 2.47
+      },
+      {
+        "name": "Sami Valimaki",
+        "rounds": 1,
+        "sgTotal": 10.35,
+        "sgOTT": 0.0,
+        "sgAPP": 2.27,
+        "sgATG": 0.0,
+        "sgPutt": 5.08
+      },
+      {
+        "name": "Alex Noren",
+        "rounds": 1,
+        "sgTotal": 9.7,
+        "sgOTT": 0.0,
+        "sgAPP": 1.53,
+        "sgATG": 0.0,
+        "sgPutt": 7.62
+      },
+      {
+        "name": "J.J. Spaun",
+        "rounds": 2,
+        "sgTotal": 8.7,
+        "sgOTT": 0.0,
+        "sgAPP": 5.45,
+        "sgATG": 0.0,
+        "sgPutt": -1.15
+      },
+      {
+        "name": "Nico Echavarria",
+        "rounds": 2,
+        "sgTotal": 8.53,
+        "sgOTT": 0.0,
+        "sgAPP": -0.19,
+        "sgATG": 0.0,
+        "sgPutt": 5.29
+      },
+      {
+        "name": "Hideki Matsuyama",
+        "rounds": 2,
+        "sgTotal": 7.7,
+        "sgOTT": 0.0,
+        "sgAPP": 1.2,
+        "sgATG": 0.0,
+        "sgPutt": 3.14
+      },
+      {
+        "name": "Scottie Scheffler",
+        "rounds": 1,
+        "sgTotal": 7.7,
+        "sgOTT": 0.0,
+        "sgAPP": 0.99,
+        "sgATG": 0.0,
+        "sgPutt": 4.73
+      },
+      {
+        "name": "Eric Cole",
+        "rounds": 2,
+        "sgTotal": 7.03,
+        "sgOTT": 0.0,
+        "sgAPP": 4.89,
+        "sgATG": 0.0,
+        "sgPutt": 3.57
+      },
+      {
+        "name": "Patrick Fishburn",
+        "rounds": 2,
+        "sgTotal": 7.03,
+        "sgOTT": 0.0,
+        "sgAPP": -0.23,
+        "sgATG": 0.0,
+        "sgPutt": 4.7
+      },
+      {
+        "name": "Russell Henley",
+        "rounds": 1,
+        "sgTotal": 6.7,
+        "sgOTT": 0.0,
+        "sgAPP": 2.98,
+        "sgATG": 0.0,
+        "sgPutt": 1.14
+      },
+      {
+        "name": "Harry Hall",
+        "rounds": 1,
+        "sgTotal": 6.7,
+        "sgOTT": 0.0,
+        "sgAPP": -0.9,
+        "sgATG": 0.0,
+        "sgPutt": 6.21
+      },
+      {
+        "name": "Nick Dunlap",
+        "rounds": 1,
+        "sgTotal": 6.7,
+        "sgOTT": 0.0,
+        "sgAPP": 1.84,
+        "sgATG": 0.0,
+        "sgPutt": 7.63
+      },
+      {
+        "name": "Sepp Straka",
+        "rounds": 2,
+        "sgTotal": 6.2,
+        "sgOTT": 0.0,
+        "sgAPP": 3.19,
+        "sgATG": 0.0,
+        "sgPutt": 2.36
+      },
+      {
+        "name": "Lee Hodges",
+        "rounds": 2,
+        "sgTotal": 6.1,
+        "sgOTT": 0.0,
+        "sgAPP": 1.82,
+        "sgATG": 0.0,
+        "sgPutt": 4.3
+      },
+      {
+        "name": "Gary Woodland",
+        "rounds": 1,
+        "sgTotal": 5.7,
+        "sgOTT": 0.0,
+        "sgAPP": 0.67,
+        "sgATG": 0.0,
+        "sgPutt": -0.06
+      },
+      {
+        "name": "Justin Rose",
+        "rounds": 1,
+        "sgTotal": 5.7,
+        "sgOTT": 0.0,
+        "sgAPP": -0.11,
+        "sgATG": 0.0,
+        "sgPutt": 0.63
+      },
+      {
+        "name": "Antoine Rozner",
+        "rounds": 1,
+        "sgTotal": 5.35,
+        "sgOTT": 0.0,
+        "sgAPP": 0.02,
+        "sgATG": 0.0,
+        "sgPutt": 4.17
+      },
+      {
+        "name": "Stephan Jaeger",
+        "rounds": 2,
+        "sgTotal": 5.16,
+        "sgOTT": 0.0,
+        "sgAPP": 2.18,
+        "sgATG": 0.0,
+        "sgPutt": 3.34
+      },
+      {
+        "name": "Webb Simpson",
+        "rounds": 2,
+        "sgTotal": 5.03,
+        "sgOTT": 0.0,
+        "sgAPP": 1.49,
+        "sgATG": 0.0,
+        "sgPutt": 1.17
+      },
+      {
+        "name": "Mac Meissner",
+        "rounds": 2,
+        "sgTotal": 5.03,
+        "sgOTT": 0.0,
+        "sgAPP": 3.28,
+        "sgATG": 0.0,
+        "sgPutt": 1.31
+      },
+      {
+        "name": "Lucas Glover",
+        "rounds": 1,
+        "sgTotal": 4.7,
+        "sgOTT": 0.0,
+        "sgAPP": 3.38,
+        "sgATG": 0.0,
+        "sgPutt": 0.68
+      },
+      {
+        "name": "C.T. Pan",
+        "rounds": 1,
+        "sgTotal": 4.7,
+        "sgOTT": 0.0,
+        "sgAPP": -1.08,
+        "sgATG": 0.0,
+        "sgPutt": 3.56
+      },
+      {
+        "name": "Kensei Hirata",
+        "rounds": 1,
+        "sgTotal": 4.7,
+        "sgOTT": 0.0,
+        "sgAPP": 1.96,
+        "sgATG": 0.0,
+        "sgPutt": 1.42
+      },
+      {
+        "name": "Keith Mitchell",
+        "rounds": 2,
+        "sgTotal": 4.03,
+        "sgOTT": 0.0,
+        "sgAPP": -1.21,
+        "sgATG": 0.0,
+        "sgPutt": 1.21
+      },
+      {
+        "name": "Erik van Rooyen",
+        "rounds": 1,
+        "sgTotal": 3.7,
+        "sgOTT": 0.0,
+        "sgAPP": 0.35,
+        "sgATG": 0.0,
+        "sgPutt": 0.3
+      },
+      {
+        "name": "Zac Blair",
+        "rounds": 2,
+        "sgTotal": 3.68,
+        "sgOTT": 0.0,
+        "sgAPP": 2.86,
+        "sgATG": 0.0,
+        "sgPutt": 1.22
+      },
+      {
+        "name": "Zach Johnson",
+        "rounds": 2,
+        "sgTotal": 3.66,
+        "sgOTT": 0.0,
+        "sgAPP": 2.4,
+        "sgATG": 0.0,
+        "sgPutt": 0.33
+      },
+      {
+        "name": "Si Woo Kim",
+        "rounds": 2,
+        "sgTotal": 3.6,
+        "sgOTT": 0.0,
+        "sgAPP": 1.44,
+        "sgATG": 0.0,
+        "sgPutt": -2.22
+      },
+      {
+        "name": "Max McGreevy",
+        "rounds": 2,
+        "sgTotal": 3.52,
+        "sgOTT": 0.0,
+        "sgAPP": 1.07,
+        "sgATG": 0.0,
+        "sgPutt": 1.37
+      },
+      {
+        "name": "Niklas Norgaard",
+        "rounds": 1,
+        "sgTotal": 3.51,
+        "sgOTT": 0.0,
+        "sgAPP": -1.75,
+        "sgATG": 0.0,
+        "sgPutt": 3.85
+      }
+    ],
+    "augusta_hole_names": {
+      "1": "Tea Olive",
+      "2": "Pink Dogwood",
+      "3": "Flowering Peach",
+      "4": "Flowering Crab Apple",
+      "5": "Magnolia",
+      "6": "Juniper",
+      "7": "Pampas",
+      "8": "Yellow Jasmine",
+      "9": "Carolina Cherry",
+      "10": "Camellia",
+      "11": "White Dogwood",
+      "12": "Golden Bell",
+      "13": "Azalea",
+      "14": "Chinese Fir",
+      "15": "Firethorn",
+      "16": "Redbud",
+      "17": "Nandina",
+      "18": "Holly"
+    },
+    "meta": {
+      "source": "BallDontLie PGA API",
+      "historical_tournament_id": 60,
+      "live_tournament_id": 20,
+      "course_id": 37,
+      "built_at": "2026-04-06T20:57:36.533920Z",
+      "has_live_data": false
+    }
+  }
 }
