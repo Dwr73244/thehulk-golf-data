@@ -568,6 +568,12 @@ def get_fallback_players():
         {"id":88,"name":"Lee Hodges","rank":86,"sgTotal":0.12,"sgOtt":0.15,"sgApp":0.05,"sgArg":0.00,"sgPutt":-0.08,"birdieAvg":3.6,"bogeyAvg":2.2,"scoringAvg":71.8,"gir":66.0,"fairways":65.0,"scramble":58.0,"proxAvg":35.5,"missDir":"neutral","flight":"mid_fade","courseFit":{"augusta":62,"tpc_sawgrass":62,"pebble":62,"torrey_south":62,"riviera":62,"valhalla":65,"pinehurst_2":62,"royal_troon":60,"quail_hollow":65,"east_lake":65,"bay_hill":62,"harbour_town":65,"colonial":65,"memorial":62,"tpc_scottsdale":65},"augustaHistory":{"appearances":2,"bestFinish":32,"cuts":1,"top10":0,"avgScore":73.8},"notes":"Alabama native making his Masters bones. Good ballstriker still learning major speeds. Development player."},
         {"id":89,"name":"Bernhard Langer","rank":999,"sgTotal":-3.0,"sgOtt":-1.0,"sgApp":-1.2,"sgArg":-0.5,"sgPutt":-0.3,"birdieAvg":2.0,"bogeyAvg":4.0,"scoringAvg":77.0,"gir":52.0,"fairways":60.0,"scramble":50.0,"proxAvg":42.0,"missDir":"neutral","flight":"low_fade","courseFit":{"augusta":72,"tpc_sawgrass":55,"pebble":60,"torrey_south":55,"riviera":58,"valhalla":58,"pinehurst_2":60,"royal_troon":65,"quail_hollow":55,"east_lake":55,"bay_hill":55,"harbour_town":58,"colonial":60,"memorial":58,"tpc_scottsdale":55},"augustaHistory":{"appearances":40,"bestFinish":1,"cuts":36,"top10":10,"avgScore":72.0},"notes":"2x champion (1985, 1993). Augusta legend. Playing as a 68-year-old past champion. Beloved but not a betting proposition. Avoid all props."},
         {"id":90,"name":"Larry Mize","rank":999,"sgTotal":-3.5,"sgOtt":-1.2,"sgApp":-1.5,"sgArg":-0.5,"sgPutt":-0.3,"birdieAvg":1.8,"bogeyAvg":4.5,"scoringAvg":78.0,"gir":50.0,"fairways":58.0,"scramble":48.0,"proxAvg":43.0,"missDir":"neutral","flight":"mid_fade","courseFit":{"augusta":68,"tpc_sawgrass":50,"pebble":55,"torrey_south":50,"riviera":52,"valhalla":52,"pinehurst_2":55,"royal_troon":55,"quail_hollow":50,"east_lake":52,"bay_hill":52,"harbour_town":55,"colonial":55,"memorial":52,"tpc_scottsdale":50},"augustaHistory":{"appearances":38,"bestFinish":1,"cuts":28,"top10":3,"avgScore":73.2},"notes":"1987 champion — famous chip-in on 11 in playoff vs Norman. Augusta resident. Honorary start only at this stage. Beloved local."},
+        # ---- LIV GOLF — MAJOR INVITEES (Past champions + OWGR qualifiers) ----
+        {"id":91,"name":"Bryson DeChambeau","rank":8,"sgTotal":1.55,"sgOtt":1.10,"sgApp":0.48,"sgArg":0.10,"sgPutt":-0.13,"birdieAvg":5.2,"bogeyAvg":2.8,"scoringAvg":69.3,"gir":67.0,"fairways":52.0,"scramble":58.0,"proxAvg":30.0,"missDir":"right","flight":"high_fade","courseFit":{"augusta":80,"tpc_sawgrass":72,"pebble":85,"torrey_south":82,"riviera":75,"valhalla":80,"pinehurst_2":78,"royal_troon":68,"quail_hollow":82,"east_lake":80,"bay_hill":78,"harbour_town":60,"colonial":65,"memorial":80,"tpc_scottsdale":82},"augustaHistory":{"appearances":7,"bestFinish":2,"cuts":6,"top10":2,"avgScore":71.0},"notes":"2024 US Open champion. Longest driver on tour. Power game with improving short game. T2 at Augusta 2020. High birdie ceiling, high bogey floor. LIV player invited via past champion status."},
+        {"id":92,"name":"Brooks Koepka","rank":12,"sgTotal":1.30,"sgOtt":0.60,"sgApp":0.55,"sgArg":0.15,"sgPutt":0.00,"birdieAvg":4.4,"bogeyAvg":2.2,"scoringAvg":69.8,"gir":68.5,"fairways":60.0,"scramble":61.0,"proxAvg":32.0,"missDir":"right","flight":"high_fade","courseFit":{"augusta":82,"tpc_sawgrass":75,"pebble":78,"torrey_south":80,"riviera":78,"valhalla":85,"pinehurst_2":88,"royal_troon":80,"quail_hollow":82,"east_lake":82,"bay_hill":78,"harbour_town":68,"colonial":70,"memorial":82,"tpc_scottsdale":80},"augustaHistory":{"appearances":8,"bestFinish":2,"cuts":7,"top10":3,"avgScore":71.3},"notes":"4x major champion (2x US Open, 2x PGA). Elevated in majors — consistently raises his level when it matters most. T2 Augusta 2023. LIV player but proves up for any major challenge."},
+        {"id":93,"name":"Dustin Johnson","rank":18,"sgTotal":1.10,"sgOtt":0.80,"sgApp":0.30,"sgArg":0.05,"sgPutt":-0.05,"birdieAvg":4.6,"bogeyAvg":2.4,"scoringAvg":69.8,"gir":68.0,"fairways":58.0,"scramble":59.0,"proxAvg":32.5,"missDir":"right","flight":"high_fade","courseFit":{"augusta":88,"tpc_sawgrass":80,"pebble":82,"torrey_south":85,"riviera":80,"valhalla":85,"pinehurst_2":80,"royal_troon":78,"quail_hollow":85,"east_lake":82,"bay_hill":82,"harbour_town":72,"colonial":72,"memorial":85,"tpc_scottsdale":85},"augustaHistory":{"appearances":13,"bestFinish":1,"cuts":12,"top10":5,"avgScore":70.8},"notes":"2020 Masters champion. Elite driver and iron combo. Augusta is perfect for his power fade. Still among the world's best in LIV. Perennial Masters contender."},
+        {"id":94,"name":"Jon Rahm","rank":6,"sgTotal":1.60,"sgOtt":0.55,"sgApp":0.72,"sgArg":0.22,"sgPutt":0.11,"birdieAvg":4.9,"bogeyAvg":2.3,"scoringAvg":69.1,"gir":69.5,"fairways":62.0,"scramble":62.0,"proxAvg":31.5,"missDir":"left","flight":"mid_draw","courseFit":{"augusta":90,"tpc_sawgrass":82,"pebble":88,"torrey_south":90,"riviera":88,"valhalla":85,"pinehurst_2":82,"royal_troon":85,"quail_hollow":88,"east_lake":85,"bay_hill":82,"harbour_town":78,"colonial":78,"memorial":88,"tpc_scottsdale":85},"augustaHistory":{"appearances":7,"bestFinish":1,"cuts":7,"top10":4,"avgScore":70.2},"notes":"2023 Masters champion. World-class all-around player. Augusta specialist — multiple top-5s. LIV transfer hasn't dulled his elite ball-striking. Top-3 contender every major."},
+        {"id":95,"name":"Patrick Reed","rank":45,"sgTotal":0.55,"sgOtt":0.30,"sgApp":0.20,"sgArg":0.15,"sgPutt":-0.10,"birdieAvg":4.0,"bogeyAvg":2.3,"scoringAvg":70.7,"gir":66.5,"fairways":62.0,"scramble":60.0,"proxAvg":34.0,"missDir":"left","flight":"high_draw","courseFit":{"augusta":82,"tpc_sawgrass":72,"pebble":72,"torrey_south":70,"riviera":72,"valhalla":75,"pinehurst_2":72,"royal_troon":70,"quail_hollow":72,"east_lake":78,"bay_hill":72,"harbour_town":68,"colonial":68,"memorial":72,"tpc_scottsdale":72},"augustaHistory":{"appearances":9,"bestFinish":1,"cuts":8,"top10":2,"avgScore":71.5},"notes":"2018 Masters champion. Augusta specialist with gritty short game. Elevated in majors despite off-course controversy. Draw suits Augusta. Legit sleeper every year."},
     ]
 
 
@@ -741,80 +747,91 @@ COURSE_TRAITS = {
     # bogey_rate      = avg bogeys/round for the field
     # wind_exposure   = 0-1 (0=sheltered, 1=fully exposed links wind)
     # morning_adv     = scoring adv morning tee (strokes vs afternoon average)
+    # par5_count = reachable par-5s in regulation (drives par-5 scoring bonus)
     "augusta": {
         "power": 0.8, "accuracy": 0.7, "scramble": 0.9, "putting": 0.6,
         "fairway_width": 0.45, "gir_difficulty": 0.85, "birdie_rate": 3.8,
-        "bogey_rate": 2.9, "wind_exposure": 0.25, "morning_adv": 0.4,
+        "bogey_rate": 2.9, "wind_exposure": 0.25, "morning_adv": 0.4, "par5_count": 4,
     },
     "tpc_sawgrass": {
         "power": 0.5, "accuracy": 0.8, "scramble": 0.7, "putting": 0.8,
         "fairway_width": 0.50, "gir_difficulty": 0.70, "birdie_rate": 4.1,
-        "bogey_rate": 3.1, "wind_exposure": 0.60, "morning_adv": 0.3,
+        "bogey_rate": 3.1, "wind_exposure": 0.60, "morning_adv": 0.3, "par5_count": 2,
     },
     "pebble": {
         "power": 0.4, "accuracy": 0.8, "scramble": 0.8, "putting": 0.7,
         "fairway_width": 0.45, "gir_difficulty": 0.75, "birdie_rate": 3.4,
-        "bogey_rate": 3.2, "wind_exposure": 0.80, "morning_adv": 0.5,
+        "bogey_rate": 3.2, "wind_exposure": 0.80, "morning_adv": 0.5, "par5_count": 2,
     },
     "torrey_south": {
         "power": 0.8, "accuracy": 0.6, "scramble": 0.6, "putting": 0.5,
         "fairway_width": 0.60, "gir_difficulty": 0.65, "birdie_rate": 4.3,
-        "bogey_rate": 2.7, "wind_exposure": 0.50, "morning_adv": 0.2,
+        "bogey_rate": 2.7, "wind_exposure": 0.50, "morning_adv": 0.2, "par5_count": 3,
     },
     "riviera": {
         "power": 0.6, "accuracy": 0.8, "scramble": 0.7, "putting": 0.7,
         "fairway_width": 0.50, "gir_difficulty": 0.75, "birdie_rate": 3.9,
-        "bogey_rate": 2.8, "wind_exposure": 0.40, "morning_adv": 0.3,
+        "bogey_rate": 2.8, "wind_exposure": 0.40, "morning_adv": 0.3, "par5_count": 2,
     },
     "valhalla": {
         "power": 0.9, "accuracy": 0.5, "scramble": 0.5, "putting": 0.5,
         "fairway_width": 0.65, "gir_difficulty": 0.60, "birdie_rate": 4.4,
-        "bogey_rate": 2.6, "wind_exposure": 0.35, "morning_adv": 0.2,
+        "bogey_rate": 2.6, "wind_exposure": 0.35, "morning_adv": 0.2, "par5_count": 3,
     },
     "pinehurst_2": {
         "power": 0.5, "accuracy": 0.9, "scramble": 0.9, "putting": 0.7,
         "fairway_width": 0.65, "gir_difficulty": 0.90, "birdie_rate": 3.2,
-        "bogey_rate": 3.5, "wind_exposure": 0.55, "morning_adv": 0.4,
+        "bogey_rate": 3.5, "wind_exposure": 0.55, "morning_adv": 0.4, "par5_count": 1,
     },
     "royal_troon": {
         "power": 0.6, "accuracy": 0.8, "scramble": 0.8, "putting": 0.6,
         "fairway_width": 0.70, "gir_difficulty": 0.80, "birdie_rate": 3.3,
-        "bogey_rate": 3.4, "wind_exposure": 0.90, "morning_adv": 0.6,
+        "bogey_rate": 3.4, "wind_exposure": 0.90, "morning_adv": 0.6, "par5_count": 1,
+    },
+    "royal_portrush": {
+        "power": 0.6, "accuracy": 0.8, "scramble": 0.8, "putting": 0.6,
+        "fairway_width": 0.65, "gir_difficulty": 0.78, "birdie_rate": 3.4,
+        "bogey_rate": 3.3, "wind_exposure": 0.95, "morning_adv": 0.6, "par5_count": 1,
+    },
+    "oakmont": {
+        "power": 0.5, "accuracy": 0.9, "scramble": 0.9, "putting": 0.9,
+        "fairway_width": 0.30, "gir_difficulty": 0.95, "birdie_rate": 2.8,
+        "bogey_rate": 4.0, "wind_exposure": 0.45, "morning_adv": 0.5, "par5_count": 1,
     },
     "quail_hollow": {
         "power": 0.8, "accuracy": 0.6, "scramble": 0.6, "putting": 0.6,
         "fairway_width": 0.55, "gir_difficulty": 0.65, "birdie_rate": 4.2,
-        "bogey_rate": 2.8, "wind_exposure": 0.30, "morning_adv": 0.2,
+        "bogey_rate": 2.8, "wind_exposure": 0.30, "morning_adv": 0.2, "par5_count": 3,
     },
     "east_lake": {
         "power": 0.6, "accuracy": 0.7, "scramble": 0.7, "putting": 0.7,
         "fairway_width": 0.55, "gir_difficulty": 0.70, "birdie_rate": 3.9,
-        "bogey_rate": 2.8, "wind_exposure": 0.35, "morning_adv": 0.2,
+        "bogey_rate": 2.8, "wind_exposure": 0.35, "morning_adv": 0.2, "par5_count": 2,
     },
     "bay_hill": {
         "power": 0.7, "accuracy": 0.7, "scramble": 0.6, "putting": 0.6,
         "fairway_width": 0.50, "gir_difficulty": 0.70, "birdie_rate": 4.0,
-        "bogey_rate": 2.9, "wind_exposure": 0.45, "morning_adv": 0.3,
+        "bogey_rate": 2.9, "wind_exposure": 0.45, "morning_adv": 0.3, "par5_count": 2,
     },
     "harbour_town": {
         "power": 0.2, "accuracy": 0.9, "scramble": 0.7, "putting": 0.8,
         "fairway_width": 0.30, "gir_difficulty": 0.70, "birdie_rate": 3.7,
-        "bogey_rate": 2.6, "wind_exposure": 0.50, "morning_adv": 0.3,
+        "bogey_rate": 2.6, "wind_exposure": 0.50, "morning_adv": 0.3, "par5_count": 2,
     },
     "colonial": {
         "power": 0.3, "accuracy": 0.9, "scramble": 0.7, "putting": 0.8,
         "fairway_width": 0.35, "gir_difficulty": 0.72, "birdie_rate": 3.8,
-        "bogey_rate": 2.7, "wind_exposure": 0.40, "morning_adv": 0.3,
+        "bogey_rate": 2.7, "wind_exposure": 0.40, "morning_adv": 0.3, "par5_count": 2,
     },
     "memorial": {
         "power": 0.7, "accuracy": 0.8, "scramble": 0.7, "putting": 0.6,
         "fairway_width": 0.50, "gir_difficulty": 0.75, "birdie_rate": 3.9,
-        "bogey_rate": 2.8, "wind_exposure": 0.30, "morning_adv": 0.2,
+        "bogey_rate": 2.8, "wind_exposure": 0.30, "morning_adv": 0.2, "par5_count": 2,
     },
     "tpc_scottsdale": {
         "power": 0.6, "accuracy": 0.6, "scramble": 0.5, "putting": 0.7,
         "fairway_width": 0.70, "gir_difficulty": 0.50, "birdie_rate": 5.2,
-        "bogey_rate": 2.3, "wind_exposure": 0.55, "morning_adv": 0.3,
+        "bogey_rate": 2.3, "wind_exposure": 0.55, "morning_adv": 0.3, "par5_count": 2,
     },
 }
 
@@ -929,9 +946,12 @@ def scrape_betting_odds():
         print("[5/7] Skipping Odds API — no ODDS_API_KEY set")
         return None
 
-    # Only fetch Mon/Wed/Thu/Sat to conserve credits (matches workflow schedule)
-    # Odds API runs every scrape day (workflow controls scheduling)
-    # No day-of-week restriction — let the workflow cron handle frequency
+    # Throttle: only run at UTC hour 6 (off-week morning) or 11 (7AM ET, first tournament run).
+    # BDL fires every 3h during tournament week; Odds API fires once per day to conserve credits.
+    now_utc_hour = datetime.utcnow().hour
+    if now_utc_hour not in (6, 11):
+        print(f"[5/7] Skipping Odds API — throttled to once/day (current UTC hour: {now_utc_hour}, allowed: 6, 11)")
+        return None
 
     print("[5/7] Fetching ALL sportsbook odds from The Odds API...")
 
@@ -1092,9 +1112,17 @@ def scrape_recent_form(espn_event_data):
 # ============================================================
 
 def send_discord_alerts(output):
-    """Send Discord webhook alerts for high-edge prop opportunities."""
+    """Send Discord webhook alerts for high-edge prop opportunities.
+    Throttled to 3 sends/day: UTC hours 11, 17, 23 (7AM, 1PM, 7PM ET).
+    """
     if not DISCORD_WEBHOOK_URL:
         print("  Skipping Discord alerts — no webhook URL set")
+        return
+
+    # Throttle to 3x/day — only fire at 11, 17, 23 UTC (7AM, 1PM, 7PM ET)
+    now_utc_hour = datetime.utcnow().hour
+    if now_utc_hour not in (11, 17, 23):
+        print(f"[7/7] Skipping Discord alerts — throttled to 3x/day (current UTC hour: {now_utc_hour}, allowed: 11, 17, 23)")
         return
 
     print("[7/7] Checking for high-edge prop alerts...")
@@ -1156,11 +1184,11 @@ def send_discord_alerts(output):
 
     payload = {
         "embeds": [{
-            "title": "PropsBot Golf — High-Edge Prop Alerts",
-            "description": f"**{event_name}** | {len(alerts)} signals found, showing top {len(top_alerts)}",
+            "title": "🔬 PropsBot Golf — High-Edge Prop Alerts [BETA]",
+            "description": f"**{event_name}** | {len(alerts)} signals found, showing top {len(top_alerts)}\n*Beta signals — model confidence thresholds are experimental.*",
             "color": 1441730,  # #15ffc2
             "fields": fields,
-            "footer": {"text": "PropsBot Golf Intelligence | Educational Tool Only"},
+            "footer": {"text": "PropsBot Golf Intelligence [BETA] · Educational Tool Only · Not financial advice"},
             "timestamp": datetime.utcnow().isoformat() + "Z",
         }]
     }
@@ -1976,6 +2004,43 @@ def calculate_player_confidence_score(player, all_players, course_key="augusta")
     is_declining      = (rank > 150)  or (sg_total < -0.3)
 
     final_score = round(min(100, max(1, score)))
+
+    # =========================================================
+    # POST-PROCESSING ADJUSTMENT A: PAR-5 SCORING BONUS
+    # Courses with many reachable par-5s reward power + approach
+    # together — Bryson/DJ benefit significantly at Augusta.
+    # Effect: ±4 pts at Augusta (4 par-5s), ±2 pts at 2-par-5 courses.
+    # =========================================================
+    par5_count = ct.get("par5_count", 2)
+    if par5_count >= 3:
+        # par-5 scoring proxy: blended OTT (reach in 2) + App (layup conversion)
+        par5_skill = player.get("sgOtt", 0.0) * 0.65 + player.get("sgApp", 0.0) * 0.35
+        # Scale: +1.5 elite → +4pts, -1.0 poor → -3pts
+        par5_adj = max(-3.0, min(4.0, par5_skill * 2.5 * (par5_count / 3.0)))
+        final_score = max(1, min(100, final_score + round(par5_adj, 1)))
+        score_breakdown["par5"] = round(par5_adj, 1)
+
+    # =========================================================
+    # POST-PROCESSING ADJUSTMENT B: WEATHER / WIND ADAPTATION
+    # Only applied when forecast data is available via Open-Meteo.
+    # Low ball flight players gain on exposed/windy courses;
+    # high ball flight players are penalised. Max ±4 pts.
+    # =========================================================
+    weather_data = player.get("_weather", {})
+    wind_avg = weather_data.get("wind_avg", 0)
+    wind_exp = ct.get("wind_exposure", 0.30)
+    if wind_avg > 10 and wind_exp >= 0.40:
+        flight = player.get("flight", "neutral")
+        wind_factor = min(1.0, (wind_avg - 10) / 15.0) * wind_exp
+        if "low" in flight:
+            weather_adj = round(wind_factor * 4.0, 1)   # low flight = advantage
+        elif "high" in flight:
+            weather_adj = round(-wind_factor * 3.5, 1)  # high flight = penalised
+        else:
+            weather_adj = 0
+        if weather_adj != 0:
+            final_score = max(1, min(100, final_score + weather_adj))
+            score_breakdown["weather"] = weather_adj
 
     if is_ceremonial:
         final_score = min(final_score, 6)

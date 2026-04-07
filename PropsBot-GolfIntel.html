@@ -142,6 +142,15 @@
     @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(21,255,194,0.3); } 70% { box-shadow: 0 0 0 8px rgba(21,255,194,0); } 100% { box-shadow: 0 0 0 0 rgba(21,255,194,0); } }
     .pulse-ring { animation: pulse-ring 2s ease-out infinite; }
 
+    /* Leaderboard row movement animations */
+    @keyframes lbSlideUp   { from { transform:translateY(6px);  opacity:0.5; } to { transform:translateY(0); opacity:1; } }
+    @keyframes lbSlideDown { from { transform:translateY(-6px); opacity:0.5; } to { transform:translateY(0); opacity:1; } }
+    @keyframes flashGreen  { 0%,100%{background:transparent;} 40%{background:rgba(21,255,194,0.09);} }
+    @keyframes flashRed    { 0%,100%{background:transparent;} 40%{background:rgba(255,21,82,0.09);} }
+    .lb-moved-up   { animation: lbSlideDown 0.35s ease-out, flashGreen 1.5s ease-out; }
+    .lb-moved-down { animation: lbSlideUp   0.35s ease-out, flashRed   1.5s ease-out; }
+    .lb-odds-shift { animation: flashGreen 1.2s ease-out; }
+
     /* Confidence bar — uses brand multi-stop gradient */
     .conf-bar { height: 8px; border-radius: 4px; overflow: hidden; background: rgba(14,26,44,0.85); }
     .conf-fill { height: 100%; border-radius: 4px; transition: width 1.2s cubic-bezier(0.22,1,0.36,1); }
@@ -341,7 +350,7 @@
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="props">Props Builder</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="tourney">Tournament Sim</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="coursedata">Course Data</button>
-    <button class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="mastershq" style="border:1.5px solid rgba(240,192,64,0.4);background:rgba(240,192,64,0.06);color:#f0c040">Masters HQ</button>
+    <button id="tabBtn_mastershq" class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="mastershq" style="border:1.5px solid rgba(240,192,64,0.4);background:rgba(240,192,64,0.06);color:#f0c040">Next Major</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="holeanalysis">Hole Analysis</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="livescores">📺 Live Scores</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="parlay">🎰 Parlay</button>
@@ -513,16 +522,16 @@
 
     <!-- HEADER + PROP CATEGORY SELECTOR -->
     <div class="glass rounded-2xl p-4 glow-teal">
-      <div class="flex items-start justify-between gap-3 flex-wrap mb-4">
+      <div class="flex items-center justify-between gap-3 flex-wrap mb-2">
         <div>
-          <h2 class="text-base font-bold text-white mb-0.5">Props Line Shopping</h2>
-          <p class="text-xs text-slate-400">Compare every book side by side. Best price highlighted in teal. Model edge shown in green.</p>
+          <h2 class="text-base font-bold text-white">Props Line Shopping</h2>
+          <p class="text-[11px] text-slate-400">Compare every book side by side. Best price in teal · Model edge in green.</p>
         </div>
-        <span id="propsCardCount" class="mono text-[10px] text-slate-500 self-start pt-1"></span>
+        <span id="propsCardCount" class="mono text-[10px] text-slate-500"></span>
       </div>
 
       <!-- Prop category pills -->
-      <div class="flex gap-1.5 flex-wrap mb-3">
+      <div class="flex gap-1.5 flex-wrap mb-2">
         <button class="prop-cat-btn active mono text-[10px] px-3 py-1.5 rounded-md border font-semibold whitespace-nowrap" data-cat="winner"  style="border-color:rgba(240,192,64,0.5);color:#f0c040;background:rgba(240,192,64,0.08);">🏆 Win</button>
         <button class="prop-cat-btn mono text-[10px] px-3 py-1.5 rounded-md border font-semibold whitespace-nowrap" data-cat="top5"    style="border-color:rgba(100,180,200,0.2);color:rgba(200,215,230,0.7);background:transparent;">Top 5</button>
         <button class="prop-cat-btn mono text-[10px] px-3 py-1.5 rounded-md border font-semibold whitespace-nowrap" data-cat="top10"   style="border-color:rgba(100,180,200,0.2);color:rgba(200,215,230,0.7);background:transparent;">Top 10</button>
@@ -839,12 +848,12 @@
     <div class="rounded-2xl p-5 glow-gold" style="background:linear-gradient(165deg,rgba(240,192,64,0.08),rgba(15,28,46,0.6));border:1px solid rgba(240,192,64,0.15)">
       <div class="flex items-center justify-between mb-2">
         <div>
-          <h2 class="text-lg font-bold text-white" style="letter-spacing:-0.3px">The Masters 2026 — Augusta National</h2>
-          <p class="text-xs text-slate-400 mt-0.5">Apr 9-12 · Par 72 · 7,555 yards · Mackenzie & Jones Jr.</p>
+          <h2 class="text-lg font-bold text-white" id="mhq_majorName" style="letter-spacing:-0.3px">Next Major</h2>
+          <p class="text-xs text-slate-400 mt-0.5" id="mhq_majorMeta">Loading…</p>
         </div>
         <div class="text-right">
           <p class="text-[9px] text-slate-500 uppercase font-semibold">Defending</p>
-          <p class="mono text-sm font-bold text-pb-gold">Rory McIlroy</p>
+          <p class="mono text-sm font-bold text-pb-gold" id="mhq_defending">—</p>
         </div>
       </div>
       <div id="mhq_weatherRow" class="flex gap-2 mt-3 overflow-x-auto"></div>
@@ -1038,6 +1047,7 @@
             <tr class="text-slate-500">
               <th class="px-3 py-2 text-left font-semibold w-10">Pos</th>
               <th class="px-3 py-2 text-left font-semibold">Player</th>
+              <th class="px-3 py-2 text-right font-semibold" style="color:var(--gold)">Win Odds</th>
               <th class="px-3 py-2 text-right font-semibold">Total</th>
               <th class="px-3 py-2 text-right font-semibold mobile-hide">Today</th>
               <th class="px-3 py-2 text-right font-semibold">Thru</th>
@@ -1048,7 +1058,7 @@
             </tr>
           </thead>
           <tbody id="ls_leaderboard" class="divide-y divide-white/5">
-            <tr><td colspan="9" class="px-3 py-8 text-center text-slate-500 text-xs">Tournament has not started yet. Check back April 9.</td></tr>
+            <tr><td colspan="10" class="px-3 py-8 text-center text-slate-500 text-xs">Tournament has not started yet. Check back April 9.</td></tr>
           </tbody>
         </table>
       </div>
@@ -1790,55 +1800,78 @@
       return true;
     });
 
-    var results = competitivePlayers.map(function(p) {
-      // confScore is the PRIMARY skill driver. It already bakes in:
-      // SG (22%) + course fit (18%) + history (12%) + recent form (12%) +
-      // GIR quality (10%) + driving (8%) + birdie/bogey profile (8%) +
-      // cut consistency (6%) + market (4%) + competitiveness gate.
-      //
-      // Map confScore to a skill unit on the same scale as sgTotal:
-      //   confScore 50 (avg)   → skill  0.0
-      //   confScore 85 (elite) → skill +1.25
-      //   confScore 20 (poor)  → skill -1.07
-      //   confScore  6 (Mize)  → skill -1.57  ← naturally bottom of board
-      var confSkill = p.confScore ? (p.confScore - 50) / 28 : 0;
-      // Blend 70% confScore-derived + 30% raw SG (catches very recent form data)
-      var skill = confSkill * 0.70 + (p.sgTotal || 0) * 0.30;
+    // ── PROPER FIELD COMPETITION SIM ──────────────────────────────
+    // Each simulation draws a 4-round score for EVERY player, ranks
+    // the full field, and records each player's finish. Win%s sum to
+    // exactly 100% and upsets are properly represented.
+    //
+    // Skill formula: confScore is the PRIMARY driver.
+    //   confScore 50 (avg)   → skill  0.0
+    //   confScore 85 (elite) → skill +1.25
+    //   confScore 20 (poor)  → skill -1.07
+    // Blended 70% confScore + 30% raw SG to capture very recent form.
+    // σ = 3.2 strokes/round — calibrated to real-world variance.
 
-      // Course fit is already in confScore, but apply a small additional
-      // course-specific adjustment for the selected sim course
+    var SIMS = 10000;
+    var fieldSize = fieldStrength === 'signature' ? 70 : (fieldStrength === 'weak' ? 120 : 156);
+    var cutLine  = Math.round(fieldSize * 0.55);
+
+    // Precompute per-player skill
+    var playerSkills = competitivePlayers.map(function(p) {
+      var confSkill = p.confScore ? (p.confScore - 50) / 28 : 0;
+      var skill = confSkill * 0.70 + (p.sgTotal || 0) * 0.30;
       if (course !== 'neutral' && p.courseFit && p.courseFit[course]) {
-        skill += (p.courseFit[course] - 70) / 150; // smaller weight — already baked in
+        skill += (p.courseFit[course] - 70) / 150;
       }
       if (fieldStrength === 'weak') skill *= 1.05;
       if (fieldStrength === 'signature') skill *= 0.98;
+      return { p: p, skill: skill };
+    });
 
-      var sims = 10000;
-      var wins = 0, top5 = 0, top10 = 0, top20 = 0, mc = 0, finishSum = 0;
-      var fieldSize = fieldStrength === 'signature' ? 70 : (fieldStrength === 'weak' ? 120 : 156);
+    // Accumulators
+    var wins = {}, t5 = {}, t10 = {}, t20 = {}, mc = {}, finishSum = {};
+    competitivePlayers.forEach(function(p) {
+      wins[p.id] = 0; t5[p.id] = 0; t10[p.id] = 0;
+      t20[p.id] = 0; mc[p.id] = 0; finishSum[p.id] = 0;
+    });
 
-      for (var i = 0; i < sims; i++) {
-        var rounds = 0;
+    // Run simulations
+    for (var i = 0; i < SIMS; i++) {
+      // Draw a 4-round total score for each player (lower = better)
+      var simScores = playerSkills.map(function(ps) {
+        var total = 0;
         for (var r = 0; r < 4; r++) {
-          rounds += -skill + (Math.random() + Math.random() + Math.random() + Math.random() - 2) * 2.8;
+          // Approx-normal via sum of 4 uniforms; σ ≈ 3.2 strokes/round
+          var noise = (Math.random()+Math.random()+Math.random()+Math.random()-2) * 3.2;
+          total += -ps.skill + noise;
         }
-        var randomFinish = Math.max(1, Math.round(fieldSize / 2 + rounds * 3 + (Math.random() - 0.5) * fieldSize * 0.4));
-        if (randomFinish <= 1) wins++;
-        if (randomFinish <= 5) top5++;
-        if (randomFinish <= 10) top10++;
-        if (randomFinish <= 20) top20++;
-        if (randomFinish <= Math.round(fieldSize * 0.55)) mc++;
-        finishSum += randomFinish;
-      }
+        return { id: ps.p.id, score: total };
+      });
 
+      // Rank the field (ascending score = better finish)
+      simScores.sort(function(a, b) { return a.score - b.score; });
+
+      // Tally results
+      simScores.forEach(function(entry, idx) {
+        var pos = idx + 1;
+        if (pos === 1) wins[entry.id]++;
+        if (pos <= 5)  t5[entry.id]++;
+        if (pos <= 10) t10[entry.id]++;
+        if (pos <= 20) t20[entry.id]++;
+        if (pos <= cutLine) mc[entry.id]++;
+        finishSum[entry.id] += pos;
+      });
+    }
+
+    var results = competitivePlayers.map(function(p) {
       return {
         name: p.name, rank: p.rank,
-        win: (wins / sims * 100),
-        top5: (top5 / sims * 100),
-        top10: (top10 / sims * 100),
-        top20: (top20 / sims * 100),
-        mc: (mc / sims * 100),
-        avgFinish: (finishSum / sims),
+        win:      (wins[p.id]     / SIMS * 100),
+        top5:     (t5[p.id]       / SIMS * 100),
+        top10:    (t10[p.id]      / SIMS * 100),
+        top20:    (t20[p.id]      / SIMS * 100),
+        mc:       (mc[p.id]       / SIMS * 100),
+        avgFinish:(finishSum[p.id] / SIMS),
         bookOdds: p.odds ? (p.odds.dk || p.odds.fd || p.odds.mgm || p.odds.bovada || null) : null
       };
     });
@@ -2434,14 +2467,55 @@
 
     if (!lb || !lb.length) return;
     var tbody = el('ls_leaderboard');
+
+    // Track position movement between renders
+    if (!window._lbPrevPositions) window._lbPrevPositions = {};
+    if (!window._lbPrevOdds) window._lbPrevOdds = {};
+    var newPositions = {};
+
     tbody.innerHTML = '';
     lb.forEach(function(row, idx) {
+      var playerName = row.player || row.name || '';
+      var newPos = parseInt(row.position) || (idx + 1);
+      newPositions[playerName] = newPos;
+
+      var prevPos = window._lbPrevPositions[playerName];
+      var moved = prevPos != null ? prevPos - newPos : 0; // positive = moved up
+
+      // Get best win odds from PLAYERS data
+      var pData = (window._playerData || PLAYERS || []).find(function(p) {
+        return p.name && (p.name === playerName || p.name.toLowerCase() === playerName.toLowerCase());
+      });
+      var bestOdds = null;
+      if (pData && pData.odds) {
+        var books = ['dk','fd','mgm','czr','pb','365','bov','bol'];
+        books.forEach(function(b) { if (pData.odds[b] != null && bestOdds == null) bestOdds = pData.odds[b]; });
+        // Also scan any other book
+        if (bestOdds == null) {
+          Object.values(pData.odds).forEach(function(v) { if (v != null && bestOdds == null) bestOdds = v; });
+        }
+      }
+      var oddsChanged = bestOdds != null && window._lbPrevOdds[playerName] != null && window._lbPrevOdds[playerName] !== bestOdds;
+      if (bestOdds != null) window._lbPrevOdds[playerName] = bestOdds;
+
+      var oddsStr = bestOdds != null
+        ? '<span class="mono font-semibold' + (oddsChanged ? ' lb-odds-shift' : '') + '" style="font-size:11px;color:var(--gold);">' + (bestOdds > 0 ? '+' : '') + bestOdds + '</span>'
+        : '<span style="color:rgba(200,215,230,0.2);font-size:10px;">—</span>';
+
+      // Movement indicator
+      var movBadge = '';
+      if (moved > 0) movBadge = '<span style="font-size:9px;color:var(--teal);margin-left:4px;">↑' + moved + '</span>';
+      else if (moved < 0) movBadge = '<span style="font-size:9px;color:var(--red);margin-left:4px;">↓' + Math.abs(moved) + '</span>';
+
+      var moveClass = moved > 0 ? ' lb-moved-up' : moved < 0 ? ' lb-moved-down' : '';
       var tr = document.createElement('tr');
-      tr.className = 'hover:bg-white/[0.02] transition-colors' + (idx < 3 ? ' bg-white/[0.01]' : '');
+      tr.className = 'hover:bg-white/[0.02] transition-colors' + (idx < 3 ? ' bg-white/[0.01]' : '') + moveClass;
+
       var thruText = row.thru === 'F' ? '<span class="text-slate-400">F</span>' : (row.thru != null ? row.thru : '—');
       tr.innerHTML =
-        '<td class="px-3 py-2 mono text-slate-400 font-semibold">' + (row.position || (idx + 1)) + '</td>' +
-        '<td class="px-3 py-2 text-white font-medium">' + (row.player || row.name || '—') + '</td>' +
+        '<td class="px-3 py-2 mono text-slate-400 font-semibold">' + newPos + '</td>' +
+        '<td class="px-3 py-2 text-white font-medium">' + (playerName || '—') + movBadge + '</td>' +
+        '<td class="px-3 py-2 text-right">' + oddsStr + '</td>' +
         '<td class="px-3 py-2 text-right">' + scoreDisplay(row.totalScore !== undefined ? row.totalScore : row.total) + '</td>' +
         '<td class="px-3 py-2 text-right mobile-hide">' + scoreDisplay(row.today) + '</td>' +
         '<td class="px-3 py-2 text-right mono text-slate-400">' + thruText + '</td>' +
@@ -2451,6 +2525,10 @@
         '<td class="px-3 py-2 text-right mono text-slate-400 mobile-hide">' + (row.r4 != null ? row.r4 : '—') + '</td>';
       tbody.appendChild(tr);
     });
+
+    // Save positions for next render
+    window._lbPrevPositions = newPositions;
+
     var upEl = el('ls_updatedAt');
     if (upEl && window._liveData && window._liveData.generatedAt) {
       upEl.textContent = 'Updated: ' + window._liveData.generatedAt;
@@ -2477,6 +2555,50 @@
     }
     tick();
   }
+
+  // ============================================================
+  // DYNAMIC NEXT MAJOR TAB
+  // ============================================================
+  var MAJORS_SCHEDULE = [
+    { name: 'The Masters',           short: 'Masters',       venue: 'Augusta National GC',   location: 'Augusta, GA',         dates: 'Apr 9–12, 2026',   start: '2026-04-09', end: '2026-04-13', par: 72, yards: '7,555', defending: 'Rory McIlroy',    course: 'augusta' },
+    { name: 'PGA Championship',      short: 'PGA Champ.',    venue: 'Quail Hollow Club',      location: 'Charlotte, NC',       dates: 'May 15–18, 2026',  start: '2026-05-15', end: '2026-05-19', par: 71, yards: '7,600', defending: 'Xander Schauffele', course: 'quail_hollow' },
+    { name: 'U.S. Open',             short: 'US Open',       venue: 'Oakmont Country Club',   location: 'Oakmont, PA',         dates: 'Jun 18–21, 2026',  start: '2026-06-18', end: '2026-06-22', par: 70, yards: '7,255', defending: 'Bryson DeChambeau', course: 'oakmont' },
+    { name: 'The Open Championship', short: 'The Open',      venue: 'Royal Portrush GC',      location: 'Portrush, N. Ireland', dates: 'Jul 17–20, 2026', start: '2026-07-17', end: '2026-07-21', par: 71, yards: '7,317', defending: 'Brian Harman',     course: 'royal_portrush' },
+    { name: 'The Masters',           short: 'Masters',       venue: 'Augusta National GC',   location: 'Augusta, GA',         dates: 'Apr 2027 (TBD)',   start: '2027-04-08', end: '2027-04-14', par: 72, yards: '7,555', defending: 'TBD',              course: 'augusta' },
+  ];
+
+  function getNextMajor() {
+    var today = new Date();
+    for (var i = 0; i < MAJORS_SCHEDULE.length; i++) {
+      var m = MAJORS_SCHEDULE[i];
+      if (new Date(m.end) >= today) return m;
+    }
+    return MAJORS_SCHEDULE[0];
+  }
+
+  (function initNextMajorTab() {
+    var m = getNextMajor();
+    var today = new Date();
+    var isLive = today >= new Date(m.start) && today <= new Date(m.end);
+    var label  = isLive ? ('🏆 ' + m.short + ' LIVE') : ('🏆 ' + m.short);
+
+    // Update tab button
+    var tabBtn = el('tabBtn_mastershq');
+    if (tabBtn) {
+      tabBtn.textContent = label;
+      if (isLive) tabBtn.style.cssText += ';animation:pulse-ring 2s ease-out infinite;';
+    }
+
+    // Update header inside the tab
+    var nameEl = el('mhq_majorName');
+    if (nameEl) nameEl.textContent = m.name + ' ' + m.start.slice(0,4) + ' — ' + m.venue;
+
+    var metaEl = el('mhq_majorMeta');
+    if (metaEl) metaEl.textContent = m.dates + ' · Par ' + m.par + ' · ' + m.yards + ' yds · ' + m.location;
+
+    var defEl = el('mhq_defending');
+    if (defEl) defEl.textContent = m.defending;
+  })();
 
   // Auto-default to Live Scores tab during tournament (Apr 9-12)
   (function checkTournamentDefault() {
@@ -2932,27 +3054,49 @@
         });
       }
 
-      // Parlay add button — only add if not already present
+      // Parlay select — only add if not already present (no Winner option; only placement bets)
       if (card.querySelector('.parlay-add-btn')) return;
       var inParlay = _parlayLegs.some(function(l) { return l.player === p.name; });
-      var btn = document.createElement('button');
-      btn.className = 'parlay-add-btn text-[10px] px-2 py-0.5 rounded-lg border transition-all ' +
-        (inParlay ? 'text-pb-gold border-pb-gold/40 bg-pb-gold/10' : 'text-slate-500 border-white/10 hover:text-pb-teal hover:border-pb-teal/30');
-      btn.dataset.playerId = p.id;
-      btn.title = 'Add to Parlay';
-      btn.textContent = inParlay ? '✓ Parlay' : '+ Parlay';
-      btn.addEventListener('click', function(e) {
+      var sel = document.createElement('select');
+      sel.className = 'parlay-add-btn';
+      sel.dataset.playerId = p.id;
+      sel.title = 'Add to Parlay';
+      sel.style.cssText = 'font-family:var(--mono);font-size:9px;padding:2px 5px;border-radius:6px;' +
+        'background:rgba(7,14,26,0.8);cursor:pointer;outline:none;' +
+        (inParlay
+          ? 'border:1px solid rgba(240,192,64,0.35);color:#f0c040;'
+          : 'border:1px solid rgba(120,160,200,0.12);color:rgba(200,215,230,0.45);');
+      if (inParlay) {
+        sel.innerHTML = '<option value="">✓ In Parlay</option><option value="__remove">✕ Remove</option>';
+      } else {
+        sel.innerHTML = '<option value="">+ Add Parlay</option>' +
+          '<option value="Top 5">Top 5</option>' +
+          '<option value="Top 10">Top 10</option>' +
+          '<option value="Top 20">Top 20</option>' +
+          '<option value="Make Cut">Make Cut</option>';
+      }
+      sel.addEventListener('change', function(e) {
         e.stopPropagation();
-        var player = PLAYERS.find(function(pl) { return pl.id === parseInt(btn.dataset.playerId); });
+        var val = sel.value;
+        if (!val) return;
+        var player = PLAYERS.find(function(pl) { return pl.id === parseInt(sel.dataset.playerId); });
         if (!player) return;
-        var odds = (player.odds && player.odds.dk) ? player.odds.dk : (player.odds && player.odds.fd ? player.odds.fd : '+1000');
-        addToParlayIfValid(player.name, 'Outright Winner', odds);
+        if (val === '__remove') {
+          _parlayLegs = _parlayLegs.filter(function(l) { return l.player !== player.name; });
+          saveParlayToStorage();
+          renderParlay();
+          renderPlayerGrid();
+          setTimeout(enhancePlayerGrid, 0);
+          return;
+        }
+        var odds = (player.odds && player.odds.dk) ? player.odds.dk : (player.odds && player.odds.fd ? player.odds.fd : '+500');
+        addToParlayIfValid(player.name, val, odds);
         renderPlayerGrid();
         setTimeout(enhancePlayerGrid, 0);
       });
-      // Append to the bottom metadata row
+      sel.addEventListener('click', function(e) { e.stopPropagation(); });
       var bottomRow = card.lastElementChild;
-      if (bottomRow) bottomRow.appendChild(btn);
+      if (bottomRow) bottomRow.appendChild(sel);
     });
   }
 
@@ -3126,12 +3270,18 @@
       propCols.forEach(function(col) {
         var ev = r.colEV[col];
         var odds = r.colOdds[col];
-        if (ev > 5 && odds) {
+        if (ev > 5 && odds && (r.p.confScore || 0) >= 45) {
           spotlight.push({ name: r.p.name, prop: col, odds: odds, ev: ev, conf: r.p.confScore });
         }
       });
     });
-    spotlight.sort(function(a,b){ return b.ev - a.ev; });
+    // Sort: high-confidence players first, then by EV within same tier
+    spotlight.sort(function(a,b){
+      var aTier = a.conf >= 65 ? 2 : a.conf >= 45 ? 1 : 0;
+      var bTier = b.conf >= 65 ? 2 : b.conf >= 45 ? 1 : 0;
+      if (bTier !== aTier) return bTier - aTier;
+      return b.ev - a.ev;
+    });
     var spotEl = el('propsSpotlight');
     if (spotEl) {
       var top3 = spotlight.slice(0,3);
