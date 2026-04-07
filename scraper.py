@@ -2543,6 +2543,51 @@ def calculate_player_confidence_score(player, all_players, course_key="augusta",
         model_win_pct = (final_score / 100.0) * 15.0
         edge_score = round(model_win_pct - market_implied_pct, 2)
 
+    # =========================================================
+    # PROP-ADJUSTED SCORES
+    # Different prop types reward different player profiles.
+    # Reweight the component breakdown for each prop type.
+    # Win = SG/fit/closing dominant; MakeCut = consistency/cut dominant.
+    # =========================================================
+    PROP_WEIGHTS = {
+        "win":     {"sg":25,"fit":18,"form":14,"history":10,"gir":8,"driving":5,"birdie_bogey":5,"cut":2,"market":3,"closing":4,"field_strength":4,"consistency":2},
+        "top5":    {"sg":20,"fit":15,"form":14,"history":10,"gir":9,"driving":6,"birdie_bogey":6,"cut":4,"market":3,"closing":5,"field_strength":3,"consistency":5},
+        "top10":   {"sg":16,"fit":12,"form":14,"history":10,"gir":9,"driving":6,"birdie_bogey":7,"cut":6,"market":3,"closing":4,"field_strength":2,"consistency":11},
+        "top20":   {"sg":10,"fit":8,"form":14,"history":10,"gir":8,"driving":6,"birdie_bogey":8,"cut":10,"market":2,"closing":2,"field_strength":1,"consistency":21},
+        "makeCut": {"sg":6,"fit":5,"form":12,"history":10,"gir":6,"driving":5,"birdie_bogey":6,"cut":22,"market":2,"closing":0,"field_strength":0,"consistency":26},
+    }
+
+    prop_scores = {}
+    for prop_type, weights in PROP_WEIGHTS.items():
+        # Reconstruct score from stored component breakdown using prop-specific weights
+        ps = 0.0
+        for factor, weight in weights.items():
+            # Component values were stored as raw points (factor_norm * original_weight)
+            # We need the normalized 0-1 value, so divide by original weight
+            raw = score_breakdown.get(factor, 0)
+            # Original weights from v3 model
+            orig_w = {"sg":20,"fit":16,"form":14,"history":10,"gir":10,"driving":7,
+                      "birdie_bogey":7,"cut":5,"market":3,"closing":4,
+                      "field_strength":2,"consistency":2}.get(factor, 1)
+            if orig_w > 0:
+                norm_val = raw / orig_w  # back to 0-1 range
+                ps += norm_val * weight
+        # Apply same post-processing adjustments (par5, weather, tee, cross, ml)
+        for adj_key in ["par5", "weather", "tee_time", "cross_signal", "ml_bayes"]:
+            adj = score_breakdown.get(adj_key, 0)
+            ps += adj
+        ps = max(1, min(100, round(ps)))
+        # Apply competitiveness gate
+        if is_ceremonial:
+            ps = min(ps, 6)
+        elif is_non_competitive:
+            ps = min(ps, 18)
+        elif is_declining:
+            ps = min(ps, 35)
+        prop_scores[prop_type] = ps
+
+    player["propScores"] = prop_scores
+
     # Clean up temp keys
     player.pop("_career_cut_pct", None)
     player.pop("_recent_cut_pct", None)

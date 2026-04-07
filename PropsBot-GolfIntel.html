@@ -415,6 +415,9 @@
             <option value="sgArg">Sort: SG Around Green</option>
             <option value="confScore">Sort: PropsBot Score</option>
             <option value="birdieAvg">Sort: Birdie Avg</option>
+            <option value="bogeyAvg">Sort: Bogey Avg (low)</option>
+            <option value="scoringAvg">Sort: Scoring Avg (low)</option>
+            <option value="courseFit">Sort: Course Fit</option>
           </select>
           <span id="playerCount" style="font-size:10px;color:rgba(200,215,230,0.3);white-space:nowrap;"></span>
         </div>
@@ -594,8 +597,14 @@
         </label>
         <select id="propSortSel" class="mono text-[10px] bg-white/5 border border-white/10 rounded-md px-2 py-1.5 text-slate-300 cursor-pointer">
           <option value="confScore">Sort: PropsBot Score ↓</option>
+          <option value="propScore">Sort: Prop Score ↓</option>
           <option value="rank">Sort: Rank</option>
           <option value="edge">Sort: Edge %</option>
+          <option value="sgApp">Sort: SG Approach</option>
+          <option value="sgPutt">Sort: SG Putting</option>
+          <option value="sgOtt">Sort: SG Off-the-Tee</option>
+          <option value="courseFit">Sort: Course Fit</option>
+          <option value="birdieAvg">Sort: Birdie Avg</option>
           <option value="name">Sort: Name A-Z</option>
         </select>
       </div>
@@ -1545,6 +1554,14 @@
       if (sortKey === 'dgRank') return (a.rank||999) - (b.rank||999);
       if (sortKey === 'confScore') return (b.confScore||0) - (a.confScore||0);
       if (sortKey === 'birdieAvg') return (b.birdieAvg||0) - (a.birdieAvg||0);
+      // Lower is better for bogey avg and scoring avg
+      if (sortKey === 'bogeyAvg') return (a.bogeyAvg||99) - (b.bogeyAvg||99);
+      if (sortKey === 'scoringAvg') return (a.scoringAvg||99) - (b.scoringAvg||99);
+      if (sortKey === 'courseFit') {
+        var aCf = a.courseFit && typeof a.courseFit === 'object' ? (a.courseFit[_activeCourse]||0) : (a.courseFit||0);
+        var bCf = b.courseFit && typeof b.courseFit === 'object' ? (b.courseFit[_activeCourse]||0) : (b.courseFit||0);
+        return bCf - aCf;
+      }
       return (b[sortKey]||0) - (a[sortKey]||0);
     });
 
@@ -1664,7 +1681,31 @@
       '</div>';
     }).join('');
 
-    el('pdNotes').innerHTML = '<p>' + p.notes + '</p>';
+    // Prop-adjusted scores table
+    var propScoreHtml = '';
+    if (p.propScores) {
+      var propTypes = [
+        { key:'win', label:'Win', icon:'🏆' },
+        { key:'top5', label:'Top 5', icon:'🥇' },
+        { key:'top10', label:'Top 10', icon:'📊' },
+        { key:'top20', label:'Top 20', icon:'📈' },
+        { key:'makeCut', label:'Make Cut', icon:'✂️' }
+      ];
+      propScoreHtml = '<div style="margin-top:1rem;">' +
+        '<p class="text-[10px] text-slate-500 uppercase font-semibold tracking-wide mb-2">PropsBot Score by Prop Type</p>' +
+        '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+        propTypes.map(function(pt) {
+          var sc = p.propScores[pt.key] || 0;
+          var col = sc >= 70 ? 'var(--teal)' : sc >= 40 ? 'var(--blue)' : 'rgba(200,215,230,0.5)';
+          var bg = sc >= 70 ? 'rgba(21,255,194,0.08)' : sc >= 40 ? 'rgba(34,169,236,0.06)' : 'rgba(100,180,200,0.03)';
+          return '<div style="flex:1;min-width:56px;text-align:center;background:' + bg + ';border:1px solid ' + (sc>=70?'rgba(21,255,194,0.2)':sc>=40?'rgba(34,169,236,0.15)':'rgba(100,180,200,0.08)') + ';border-radius:8px;padding:6px 4px;" data-tip="PropsBot Score optimized for ' + pt.label + ' props. Weights emphasize ' + (pt.key==='win'?'SG, closing ability, course fit':pt.key==='makeCut'?'consistency, cut history, bogey avoidance':'balanced factors') + '.">' +
+            '<div style="font-size:8px;color:rgba(200,215,230,0.45);">' + pt.icon + ' ' + pt.label + '</div>' +
+            '<div class="mono font-bold" style="font-size:1.1rem;color:' + col + ';line-height:1.2;">' + sc + '</div>' +
+          '</div>';
+        }).join('') +
+        '</div></div>';
+    }
+    el('pdNotes').innerHTML = propScoreHtml + '<p style="margin-top:0.75rem;">' + p.notes + '</p>';
   }
 
   el('playerSearch').addEventListener('input', renderPlayerGrid);
@@ -2137,6 +2178,20 @@
       data.players.forEach(function(p) { PLAYERS.push(p); });
       DATA_LOADED_FROM = 'live (' + (data.generatedAt || 'unknown') + ')';
       window._playerData = PLAYERS;
+      // Resolve active course for course fit sorting
+      if (data.currentEvent && data.currentEvent.course) {
+        var cn = data.currentEvent.course.toLowerCase();
+        if (cn.indexOf('augusta') >= 0) _activeCourse = 'augusta';
+        else if (cn.indexOf('valhalla') >= 0) _activeCourse = 'valhalla';
+        else if (cn.indexOf('pinehurst') >= 0) _activeCourse = 'pinehurst_2';
+        else if (cn.indexOf('troon') >= 0) _activeCourse = 'royal_troon';
+        else if (cn.indexOf('quail') >= 0) _activeCourse = 'quail_hollow';
+        else if (cn.indexOf('sawgrass') >= 0) _activeCourse = 'tpc_sawgrass';
+        else if (cn.indexOf('pebble') >= 0) _activeCourse = 'pebble';
+        else if (cn.indexOf('torrey') >= 0) _activeCourse = 'torrey_south';
+        else if (cn.indexOf('riviera') >= 0) _activeCourse = 'riviera';
+        else if (cn.indexOf('scottsdale') >= 0) _activeCourse = 'tpc_scottsdale';
+      }
     }
     // Merge course data if present
     if (data.courses) {
@@ -3199,6 +3254,20 @@
   var _propHotOnly    = false;
   var _propPlayerSearch = '';
   var _propSortKey    = 'confScore';
+  var _activeCourse   = 'augusta';  // current course key for course fit sort
+
+  // Map prop UI categories to propScores keys from the scraper
+  function _propCatToScoreKey(cat) {
+    var map = { winner:'win', top5:'top5', top10:'top10', top20:'top20', makeCut:'makeCut',
+                birdies:'win', bogeys:'win', scoring:'win' };
+    return map[cat] || 'win';
+  }
+
+  // Get a player's prop-adjusted score for the current prop category
+  function _getPropScore(p) {
+    var key = _propCatToScoreKey(_propCat);
+    return p.propScores ? (p.propScores[key] || p.confScore || 0) : (p.confScore || 0);
+  }
 
   // Multipliers: how much more likely is Top X vs outright win
   var PROP_MULT = { winner:1, top3:2.8, top5:4.2, top10:7.5, top20:13, makeCut:28, r1Leader:0.85, r2Leader:0.80 };
@@ -3341,7 +3410,14 @@
       var col = _propMatrixSort.col;
       var dir = _propMatrixSort.dir;
       if (col === 'confScore') return dir * ((b.p.confScore||0) - (a.p.confScore||0));
+      if (col === 'propScore') return dir * (_getPropScore(b.p) - _getPropScore(a.p));
       if (col === 'ev') return dir * ((b.colEV['winner']||0) - (a.colEV['winner']||0));
+      if (col === 'sgApp')     return dir * ((b.p.sgApp||0) - (a.p.sgApp||0));
+      if (col === 'sgPutt')    return dir * ((b.p.sgPutt||0) - (a.p.sgPutt||0));
+      if (col === 'sgOtt')     return dir * ((b.p.sgOtt||0) - (a.p.sgOtt||0));
+      if (col === 'sgTotal')   return dir * ((b.p.sgTotal||0) - (a.p.sgTotal||0));
+      if (col === 'birdieAvg') return dir * ((b.p.birdieAvg||0) - (a.p.birdieAvg||0));
+      if (col === 'rank')      return dir * ((a.p.rank||999) - (b.p.rank||999));
       // Sorting by prop column: lower odds (more favored) = sort first when dir=1
       var aOdds = a.colOdds[col] || 99999;
       var bOdds = b.colOdds[col] || 99999;
@@ -3396,7 +3472,8 @@
 
     tbody.innerHTML = rowData.map(function(r) {
       var p = r.p;
-      var confColor = (p.confScore||0) >= 70 ? 'var(--teal)' : (p.confScore||0) >= 40 ? 'var(--blue)' : 'rgba(200,215,230,0.5)';
+      var displayScore = _getPropScore(p);
+      var confColor = displayScore >= 70 ? 'var(--teal)' : displayScore >= 40 ? 'var(--blue)' : 'rgba(200,215,230,0.5)';
       var evTotal = r.colEV['winner'];
       var evBadge = evTotal != null
         ? '<span style="font-size:9px;' + (evTotal>0?'color:var(--teal)':'color:var(--red)') + ';">' + (evTotal>0?'+':'') + evTotal + '%</span>'
@@ -3427,10 +3504,10 @@
           '<div style="font-size:9px;color:rgba(200,215,230,0.35);">#' + (p.rank||'?') + ' &middot; SG ' + (p.sgTotal>0?'+':'') + (p.sgTotal||0).toFixed(2) + '</div>' +
         '</td>' +
         cells +
-        // PropsBot Score
-        '<td class="px-2 py-2.5 text-center" style="border-left:1px solid rgba(21,255,194,0.1);" data-tip="PropsBot Score (0-100): 12-factor ML model. 70+ = elite (teal), 40-69 = solid (blue), &lt;40 = longshot.">' +
-          '<div class="mono font-bold" style="font-size:1.25rem;color:' + confColor + ';line-height:1;">' + (p.confScore||'&#8212;') + '</div>' +
-          '<div style="font-size:8px;color:rgba(200,215,230,0.3);">/ 100</div>' +
+        // PropsBot Score (prop-adjusted)
+        '<td class="px-2 py-2.5 text-center" style="border-left:1px solid rgba(21,255,194,0.1);" data-tip="PropsBot Score adjusted for ' + ({win:'Win',top5:'Top 5',top10:'Top 10',top20:'Top 20',makeCut:'Make Cut'}[_propCatToScoreKey(_propCat)]||'Win') + ' props. Weights shift per prop type: Win favors SG/closing, Make Cut favors consistency/cut history.">' +
+          '<div class="mono font-bold" style="font-size:1.25rem;color:' + confColor + ';line-height:1;">' + (displayScore||'&#8212;') + '</div>' +
+          '<div style="font-size:7px;color:rgba(200,215,230,0.25);">' + ({win:'WIN',top5:'T5',top10:'T10',top20:'T20',makeCut:'MC'}[_propCatToScoreKey(_propCat)]||'WIN') + ' / 100</div>' +
         '</td>' +
         // EV%
         '<td class="px-2 py-2.5 text-center" data-tip="Expected Value: positive = model sees more value than books. +5% or more = strong play.">' + evBadge + '</td>' +
@@ -3638,9 +3715,24 @@
     // Sort
     players.sort(function(a, b) {
       if (_propSortKey === 'confScore') return (b.confScore||0) - (a.confScore||0);
+      if (_propSortKey === 'propScore') {
+        var cat = _propCatToScoreKey(_propCat);
+        var aPs = a.propScores ? (a.propScores[cat]||0) : (a.confScore||0);
+        var bPs = b.propScores ? (b.propScores[cat]||0) : (b.confScore||0);
+        return bPs - aPs;
+      }
       if (_propSortKey === 'rank')      return (a.rank||999) - (b.rank||999);
       if (_propSortKey === 'name')      return a.name.localeCompare(b.name);
       if (_propSortKey === 'edge')      return (b.edgeScore||0) - (a.edgeScore||0);
+      if (_propSortKey === 'sgApp')     return (b.sgApp||0) - (a.sgApp||0);
+      if (_propSortKey === 'sgPutt')    return (b.sgPutt||0) - (a.sgPutt||0);
+      if (_propSortKey === 'sgOtt')     return (b.sgOtt||0) - (a.sgOtt||0);
+      if (_propSortKey === 'birdieAvg') return (b.birdieAvg||0) - (a.birdieAvg||0);
+      if (_propSortKey === 'courseFit') {
+        var aCf = a.courseFit && typeof a.courseFit === 'object' ? (a.courseFit[_activeCourse]||0) : (a.courseFit||0);
+        var bCf = b.courseFit && typeof b.courseFit === 'object' ? (b.courseFit[_activeCourse]||0) : (b.courseFit||0);
+        return bCf - aCf;
+      }
       return 0;
     });
 
@@ -3691,7 +3783,8 @@
 
     players.slice(0,40).forEach(function(p) {
       var initials  = p.name.split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
-      var confColor = (p.confScore||0)>=70?'var(--teal)':(p.confScore||0)>=40?'#22a9ec':'rgba(180,190,205,0.5)';
+      var propSc    = _getPropScore(p);
+      var confColor = propSc>=70?'var(--teal)':propSc>=40?'#22a9ec':'rgba(180,190,205,0.5)';
       var trend     = p.recentForm && p.recentForm.trend;
       var hotBadge  = trend==='hot'
         ? ' <span style="font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(21,255,194,0.12);color:var(--teal);border:1px solid rgba(21,255,194,0.2);">HOT 🔥</span>'
@@ -3828,8 +3921,8 @@
               '</div>' +
               '<div style="display:flex;align-items:center;gap:8px;margin-top:2px">' +
                 '<span style="font-size:10px;color:rgba(200,215,230,0.5)">#' + (p.rank||'—') + '</span>' +
-                '<span style="font-family:var(--mono);font-size:13px;font-weight:800;color:' + confColor + '">' + (p.confScore||'—') + '</span>' +
-                '<span style="font-size:9px;color:rgba(200,215,230,0.4);font-weight:600;"> PropsBot Score</span>' +
+                '<span style="font-family:var(--mono);font-size:13px;font-weight:800;color:' + confColor + '">' + (propSc||'—') + '</span>' +
+                '<span style="font-size:9px;color:rgba(200,215,230,0.4);font-weight:600;"> ' + ({win:'Win',top5:'T5',top10:'T10',top20:'T20',makeCut:'MC'}[_propCatToScoreKey(_propCat)]||'') + ' Score</span>' +
                 '<span style="font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;' +
                   'background:rgba(240,192,64,0.08);border:1px solid rgba(240,192,64,0.2);color:var(--gold)">' + catLabel + '</span>' +
               '</div>' +
