@@ -2827,6 +2827,7 @@ def run_pipeline():
     # ============================================================
     # ML: LOAD HISTORICAL DATA FOR BAYESIAN ENSEMBLE
     # ============================================================
+    base_dir = os.path.dirname(os.path.abspath(__file__))
     history_dir = os.path.join(base_dir, "history")
     ml_player_history = _load_historical_performances(history_dir, max_weeks=20)
     ml_count = sum(1 for v in ml_player_history.values() if len(v) >= 3)
