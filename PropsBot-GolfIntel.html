@@ -1545,11 +1545,11 @@
           return (american > 0 ? '+' : '') + american;
         }
         propsStrip = '<div style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.4rem;padding-top:0.4rem;border-top:1px solid rgba(100,180,200,0.06);">' +
-          '<span style="font-size:9px;color:rgba(200,215,230,0.35);font-weight:600;text-transform:uppercase;letter-spacing:.05em;align-self:center;">Props:</span>' +
-          '<span style="font-size:9px;font-family:var(--mono);background:rgba(240,192,64,0.08);color:var(--gold);border:1px solid rgba(240,192,64,0.2);padding:1px 6px;border-radius:12px;" title="Win odds">Win ' + (winOdds > 0 ? '+' : '') + winOdds + '</span>' +
-          '<span style="font-size:9px;font-family:var(--mono);background:rgba(21,255,194,0.06);color:var(--teal);border:1px solid rgba(21,255,194,0.15);padding:1px 6px;border-radius:12px;" title="Estimated Top 5">T5 ' + estOdds(winOdds, 4.2) + '</span>' +
-          '<span style="font-size:9px;font-family:var(--mono);background:rgba(34,169,236,0.06);color:var(--blue);border:1px solid rgba(34,169,236,0.15);padding:1px 6px;border-radius:12px;" title="Estimated Top 10">T10 ' + estOdds(winOdds, 7.5) + '</span>' +
-          '<span style="font-size:9px;font-family:var(--mono);background:rgba(100,180,200,0.05);color:rgba(200,215,230,0.5);border:1px solid rgba(100,180,200,0.1);padding:1px 6px;border-radius:12px;" title="Estimated Top 20">T20 ' + estOdds(winOdds, 13) + '</span>' +
+          '<span style="font-size:9px;color:rgba(200,215,230,0.35);font-weight:600;text-transform:uppercase;letter-spacing:.05em;align-self:center;" title="Estimated prop odds derived from outright win odds. Negative odds (-150) = favored, positive (+300) = underdog. Lower number = more likely.">Props:</span>' +
+          '<span style="font-size:9px;font-family:var(--mono);background:rgba(240,192,64,0.08);color:var(--gold);border:1px solid rgba(240,192,64,0.2);padding:1px 6px;border-radius:12px;" title="Outright winner odds from sportsbooks. +500 means bet $100 to win $500. Shorter odds = more favored.">Win ' + (winOdds > 0 ? '+' : '') + winOdds + '</span>' +
+          '<span style="font-size:9px;font-family:var(--mono);background:rgba(21,255,194,0.06);color:var(--teal);border:1px solid rgba(21,255,194,0.15);padding:1px 6px;border-radius:12px;" title="Estimated Top 5 finish odds. Derived from win odds using historical conversion rates. Great for parlays.">T5 ' + estOdds(winOdds, 4.2) + '</span>' +
+          '<span style="font-size:9px;font-family:var(--mono);background:rgba(34,169,236,0.06);color:var(--blue);border:1px solid rgba(34,169,236,0.15);padding:1px 6px;border-radius:12px;" title="Estimated Top 10 finish odds. Safer prop with lower payout. Good for conservative plays.">T10 ' + estOdds(winOdds, 7.5) + '</span>' +
+          '<span style="font-size:9px;font-family:var(--mono);background:rgba(100,180,200,0.05);color:rgba(200,215,230,0.5);border:1px solid rgba(100,180,200,0.1);padding:1px 6px;border-radius:12px;" title="Estimated Top 20 finish odds. High-probability prop, low payout. Stack these for consistent parlays.">T20 ' + estOdds(winOdds, 13) + '</span>' +
         '</div>';
       }
 
@@ -1559,19 +1559,19 @@
             '<span class="mono text-xs text-slate-500 font-semibold w-6">#' + p.rank + '</span>' +
             '<span class="text-sm font-bold text-white" style="letter-spacing:-0.3px">' + p.name + '</span>' +
           '</div>' +
-          '<span class="mono text-sm font-bold ' + sgColor + '">' + p.sgTotal.toFixed(2) + '</span>' +
+          '<span class="mono text-sm font-bold ' + sgColor + '" title="Strokes Gained: Total — how many strokes better (+) or worse (-) than field average per round. +1.5 or higher is elite.">' + p.sgTotal.toFixed(2) + '</span>' +
         '</div>' +
         '<div class="flex gap-1 flex-wrap">' +
-          '<span class="stat-pill bg-white/5 text-slate-300">OTT ' + p.sgOtt.toFixed(2) + '</span>' +
-          '<span class="stat-pill bg-white/5 text-slate-300">APP ' + p.sgApp.toFixed(2) + '</span>' +
-          '<span class="stat-pill bg-white/5 text-slate-300">ARG ' + p.sgArg.toFixed(2) + '</span>' +
-          '<span class="stat-pill bg-white/5 text-slate-300">PUTT ' + p.sgPutt.toFixed(2) + '</span>' +
+          '<span class="stat-pill bg-white/5 text-slate-300" title="Strokes Gained: Off-the-Tee — driving distance + accuracy combined. Higher = better driver. Elite: +0.60">OTT ' + p.sgOtt.toFixed(2) + '</span>' +
+          '<span class="stat-pill bg-white/5 text-slate-300" title="Strokes Gained: Approach — iron play quality, proximity to hole. The most predictive SG category. Elite: +0.80">APP ' + p.sgApp.toFixed(2) + '</span>' +
+          '<span class="stat-pill bg-white/5 text-slate-300" title="Strokes Gained: Around the Green — chipping, pitching, bunker play. Negative = liability. Elite: +0.30">ARG ' + p.sgArg.toFixed(2) + '</span>' +
+          '<span class="stat-pill bg-white/5 text-slate-300" title="Strokes Gained: Putting — putting performance vs field. Streaky stat, less predictive week-to-week. Elite: +0.30">PUTT ' + p.sgPutt.toFixed(2) + '</span>' +
         '</div>' +
         (oddsHtml ? '<div class="flex gap-1 flex-wrap mt-1.5">' + oddsHtml + '</div>' : '') +
         '<div class="flex items-center gap-3 mt-2 text-[10px] text-slate-500">' +
-          '<span>Birdies: ' + p.birdieAvg + '</span>' +
-          '<span>Bogeys: ' + p.bogeyAvg + '</span>' +
-          '<span>Avg: ' + p.scoringAvg + '</span>' +
+          '<span title="Average birdies per round — higher is better for birdie over props. Tour avg: ~3.5">Birdies: ' + p.birdieAvg + '</span>' +
+          '<span title="Average bogeys per round — lower is better for bogey under props. Tour avg: ~2.5">Bogeys: ' + p.bogeyAvg + '</span>' +
+          '<span title="Scoring average per round — lower is better. Sub-70 is elite.">Avg: ' + p.scoringAvg + '</span>' +
           formHtml +
         '</div>' +
         propsStrip;
@@ -3367,14 +3367,14 @@
       var trendBadge = '';
       var rf = p.recentForm || {};
       var trend = rf.trend || '';
-      if (trend === 'hot') trendBadge = ' <span style="font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(21,255,194,0.12);color:var(--teal);border:1px solid rgba(21,255,194,0.2);">HOT</span>';
-      else if (trend === 'cold') trendBadge = ' <span style="font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(255,21,82,0.10);color:var(--red);border:1px solid rgba(255,21,82,0.2);">COLD</span>';
+      if (trend === 'hot') trendBadge = ' <span style="font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(21,255,194,0.12);color:var(--teal);border:1px solid rgba(21,255,194,0.2);cursor:help;" title="HOT: This player\'s last 5 results are significantly better than their last 10. Trending up — momentum play.">HOT</span>';
+      else if (trend === 'cold') trendBadge = ' <span style="font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(255,21,82,0.10);color:var(--red);border:1px solid rgba(255,21,82,0.2);cursor:help;" title="COLD: This player\'s last 5 results are significantly worse than their last 10. Trending down — possible injury, confidence issues, or slump.">COLD</span>';
       // ML anomaly badge
       var anomalyBadge = '';
       if (p.anomalies && p.anomalies.length) {
         var a0 = p.anomalies[0];
-        if (a0.direction === 'UNDERPRICED') anomalyBadge = ' <span style="font-size:7px;font-weight:800;padding:1px 4px;border-radius:3px;background:rgba(240,192,64,0.15);color:var(--gold);border:1px solid rgba(240,192,64,0.25);">ML VALUE</span>';
-        else if (a0.direction === 'OVERPRICED') anomalyBadge = ' <span style="font-size:7px;font-weight:800;padding:1px 4px;border-radius:3px;background:rgba(255,21,82,0.08);color:var(--red);border:1px solid rgba(255,21,82,0.15);">FADE</span>';
+        if (a0.direction === 'UNDERPRICED') anomalyBadge = ' <span style="font-size:7px;font-weight:800;padding:1px 4px;border-radius:3px;background:rgba(240,192,64,0.15);color:var(--gold);border:1px solid rgba(240,192,64,0.25);cursor:help;" title="ML VALUE: Our anomaly detection model found this player\'s odds are longer than their performance warrants. The market may be undervaluing them — potential edge in placement props (Top 20, Make Cut).">ML VALUE</span>';
+        else if (a0.direction === 'OVERPRICED') anomalyBadge = ' <span style="font-size:7px;font-weight:800;padding:1px 4px;border-radius:3px;background:rgba(255,21,82,0.08);color:var(--red);border:1px solid rgba(255,21,82,0.15);cursor:help;" title="FADE: Our anomaly detection model found this player\'s odds are shorter than their actual skill level. The market may be overvaluing name recognition — consider fading or avoiding.">FADE</span>';
       }
 
       return '<tr class="hover:bg-white/[0.02] transition-colors">' +
@@ -3385,12 +3385,12 @@
         '</td>' +
         cells +
         // PropsBot Score
-        '<td class="px-2 py-2.5 text-center" style="border-left:1px solid rgba(21,255,194,0.1);">' +
+        '<td class="px-2 py-2.5 text-center" style="border-left:1px solid rgba(21,255,194,0.1);" title="PropsBot Score (0-100): 12-factor ML model measuring tournament win probability. 70+ = elite contender (teal), 40-69 = solid (blue), below 40 = longshot. Factors: SG, course fit, recent form, GIR, driving, birdies/bogeys, closing ability, field strength, consistency, market odds, and Bayesian ML adjustment.">' +
           '<div class="mono font-bold" style="font-size:1.25rem;color:' + confColor + ';line-height:1;">' + (p.confScore||'&#8212;') + '</div>' +
           '<div style="font-size:8px;color:rgba(200,215,230,0.3);">/ 100</div>' +
         '</td>' +
         // EV%
-        '<td class="px-2 py-2.5 text-center">' + evBadge + '</td>' +
+        '<td class="px-2 py-2.5 text-center" title="Expected Value %: positive = our model sees more value than the books. Higher is better. +5% or more = strong play.">' + evBadge + '</td>' +
         // Parlay
         '<td class="px-2 py-2.5 text-center">' +
           '<button onclick="addPropToParlay(\'' + p.name.replace(/'/g,"\\'") + '\',\'winner\',' + (r.colOdds['winner']||r.colModel['winner']||0) + ')" style="font-size:9px;padding:2px 7px;border-radius:5px;border:1px solid rgba(21,255,194,0.2);background:rgba(21,255,194,0.04);color:var(--teal);cursor:pointer;">+</button>' +
