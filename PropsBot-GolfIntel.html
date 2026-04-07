@@ -297,17 +297,18 @@
           <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ NFL / NBA / MLB / NHL</span>
           <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ Daily Updates</span>
         </div>
-        <!-- CTA Button -->
-        <a href="https://app.propsbot.ai/register" target="_blank" style="display:block;text-align:center;background:linear-gradient(135deg,#09d5a0,#22a9ec);color:#070e1a;font-family:var(--mono);font-weight:800;font-size:0.85rem;padding:0.75rem 1rem;border-radius:9px;text-decoration:none;letter-spacing:0.02em;min-height:44px;line-height:1.4;">
-          Start Free 7-Day Trial → propsbot.ai
-        </a>
         <div style="text-align:center;font-size:0.67rem;color:rgba(200,215,230,0.35);margin-top:0.45rem;">No credit card required · Cancel anytime</div>
       </div>
 
-      <!-- Enter tool button -->
-      <button onclick="dismissDisclaimer()" style="width:100%;background:rgba(255,255,255,0.04);color:rgba(200,215,230,0.65);font-family:var(--mono);font-weight:600;font-size:0.78rem;padding:0.65rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.08);cursor:pointer;min-height:44px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.07)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
-        Continue to Free Tool — I Understand the Risks
-      </button>
+      <!-- Action buttons — side by side -->
+      <div style="display:flex;gap:0.5rem;width:100%;">
+        <button onclick="dismissDisclaimer()" style="flex:1;background:rgba(255,255,255,0.04);color:rgba(200,215,230,0.65);font-family:var(--mono);font-weight:600;font-size:0.72rem;padding:0.65rem 0.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.08);cursor:pointer;min-height:44px;transition:all 0.2s;line-height:1.3;" onmouseover="this.style.background='rgba(255,255,255,0.07)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+          Continue to Free Tool
+        </button>
+        <a href="https://link.propsbot.ai/l9nGbOacHYb" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#09d5a0,#22a9ec);color:#070e1a;font-family:var(--mono);font-weight:800;font-size:0.72rem;padding:0.65rem 0.5rem;border-radius:8px;text-decoration:none;letter-spacing:0.02em;min-height:44px;line-height:1.3;">
+          Start Free Trial →
+        </a>
+      </div>
 
     </div>
   </div>
@@ -370,14 +371,22 @@
           <h2 class="text-base font-bold text-white">Player Database</h2>
           <p class="text-xs text-slate-400 mt-0.5">Select a player to view stats, tendencies, and course fit analysis</p>
         </div>
-        <div class="flex gap-2">
-          <input id="playerSearch" type="text" placeholder="Search players…" class="w-48" />
-          <select id="playerSort" class="w-36">
-            <option value="dgRank">DG Rank</option>
-            <option value="sgTotal">SG: Total</option>
-            <option value="sgApp">SG: Approach</option>
-            <option value="sgPutt">SG: Putting</option>
+        <div class="flex gap-2 items-center flex-wrap">
+          <div style="position:relative;">
+            <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;color:rgba(200,215,230,0.35);pointer-events:none;">&#x1F50D;</span>
+            <input id="playerSearch" type="text" placeholder="Search players…" class="w-56 sm:w-64" style="padding-left:32px;background:rgba(255,255,255,0.04);border:1px solid rgba(21,255,194,0.15);border-radius:10px;color:#eef2f7;font-size:13px;padding-top:8px;padding-bottom:8px;" />
+          </div>
+          <select id="playerSort" class="w-40" style="background:rgba(255,255,255,0.04);border:1px solid rgba(100,180,200,0.12);border-radius:10px;color:rgba(200,215,230,0.7);font-size:11px;padding:8px 10px;">
+            <option value="dgRank">Sort: Rank</option>
+            <option value="sgTotal">Sort: SG Total</option>
+            <option value="sgApp">Sort: SG Approach</option>
+            <option value="sgPutt">Sort: SG Putting</option>
+            <option value="sgOtt">Sort: SG Off-the-Tee</option>
+            <option value="sgArg">Sort: SG Around Green</option>
+            <option value="confScore">Sort: PropsBot Score</option>
+            <option value="birdieAvg">Sort: Birdie Avg</option>
           </select>
+          <span id="playerCount" style="font-size:10px;color:rgba(200,215,230,0.3);white-space:nowrap;"></span>
         </div>
       </div>
       <div id="playerGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
@@ -554,7 +563,7 @@
           <span class="text-[11px] font-semibold text-orange-400">🔥 Hot Only</span>
         </label>
         <select id="propSortSel" class="mono text-[10px] bg-white/5 border border-white/10 rounded-md px-2 py-1.5 text-slate-300 cursor-pointer">
-          <option value="confScore">Sort: PB Score ↓</option>
+          <option value="confScore">Sort: PropsBot Score ↓</option>
           <option value="rank">Sort: Rank</option>
           <option value="edge">Sort: Edge %</option>
           <option value="name">Sort: Name A-Z</option>
@@ -1047,6 +1056,7 @@
             <tr class="text-slate-500">
               <th class="px-3 py-2 text-left font-semibold w-10">Pos</th>
               <th class="px-3 py-2 text-left font-semibold">Player</th>
+              <th class="px-3 py-2 text-center font-semibold mobile-hide" style="color:rgba(200,215,230,0.5)">Tee Time</th>
               <th class="px-3 py-2 text-right font-semibold" style="color:var(--gold)">Win Odds</th>
               <th class="px-3 py-2 text-right font-semibold">Total</th>
               <th class="px-3 py-2 text-right font-semibold mobile-hide">Today</th>
@@ -1058,7 +1068,7 @@
             </tr>
           </thead>
           <tbody id="ls_leaderboard" class="divide-y divide-white/5">
-            <tr><td colspan="10" class="px-3 py-8 text-center text-slate-500 text-xs">Tournament has not started yet. Check back April 9.</td></tr>
+            <tr><td colspan="11" class="px-3 py-8 text-center text-slate-500 text-xs">Tournament has not started yet. Check back April 9.</td></tr>
           </tbody>
         </table>
       </div>
@@ -1299,7 +1309,13 @@
     { id:47, name:'Michael Thorbjornsen', rank:47, sgTotal:0.12, sgOtt:0.25, sgApp:0.05, sgArg:-0.05, sgPutt:-0.13, birdieAvg:3.9, bogeyAvg:2.4, scoringAvg:71.5, gir:65.5, fairways:61.0, scramble:55.0, proxAvg:35.5, missDir:'right', flight:'high_fade', courseFit:{augusta:58,tpc_sawgrass:62,pebble:60,torrey_south:65,riviera:62,valhalla:68,pinehurst_2:60,royal_troon:58,quail_hollow:68,east_lake:62,bay_hill:65,harbour_town:58,colonial:60,memorial:65,tpc_scottsdale:68}, notes:'Promising rookie from Stanford. Athletic and long. Watch for breakout.' },
     { id:48, name:'Nick Dunlap', rank:48, sgTotal:0.10, sgOtt:0.28, sgApp:0.02, sgArg:-0.08, sgPutt:-0.12, birdieAvg:4.0, bogeyAvg:2.5, scoringAvg:71.5, gir:65.0, fairways:60.0, scramble:54.0, proxAvg:36.0, missDir:'left', flight:'high_draw', courseFit:{augusta:58,tpc_sawgrass:60,pebble:58,torrey_south:65,riviera:62,valhalla:68,pinehurst_2:58,royal_troon:55,quail_hollow:68,east_lake:62,bay_hill:62,harbour_town:55,colonial:58,memorial:62,tpc_scottsdale:72}, notes:'Won as amateur on Tour. Young talent still developing. DFS dart throw.' },
     { id:49, name:'Ben Griffin', rank:49, sgTotal:0.08, sgOtt:0.18, sgApp:0.00, sgArg:-0.02, sgPutt:-0.08, birdieAvg:3.7, bogeyAvg:2.3, scoringAvg:71.5, gir:65.5, fairways:63.0, scramble:57.0, proxAvg:35.5, missDir:'neutral', flight:'neutral', courseFit:{augusta:55,tpc_sawgrass:62,pebble:62,torrey_south:62,riviera:62,valhalla:65,pinehurst_2:62,royal_troon:60,quail_hollow:65,east_lake:62,bay_hill:62,harbour_town:65,colonial:68,memorial:62,tpc_scottsdale:65}, notes:'Steady mid-tier player. MC candidate at weaker fields. Fade at marquee events.' },
-    { id:50, name:'Maverick McNealy', rank:50, sgTotal:0.05, sgOtt:0.15, sgApp:0.00, sgArg:-0.02, sgPutt:-0.08, birdieAvg:3.6, bogeyAvg:2.3, scoringAvg:71.6, gir:65.0, fairways:64.0, scramble:57.0, proxAvg:36.0, missDir:'neutral', flight:'neutral', courseFit:{augusta:55,tpc_sawgrass:62,pebble:68,torrey_south:68,riviera:65,valhalla:62,pinehurst_2:62,royal_troon:60,quail_hollow:62,east_lake:62,bay_hill:62,harbour_town:65,colonial:68,memorial:62,tpc_scottsdale:68}, notes:'Stanford product. West Coast familiarity. Pebble and Torrey specialist.' }
+    { id:50, name:'Maverick McNealy', rank:50, sgTotal:0.05, sgOtt:0.15, sgApp:0.00, sgArg:-0.02, sgPutt:-0.08, birdieAvg:3.6, bogeyAvg:2.3, scoringAvg:71.6, gir:65.0, fairways:64.0, scramble:57.0, proxAvg:36.0, missDir:'neutral', flight:'neutral', courseFit:{augusta:55,tpc_sawgrass:62,pebble:68,torrey_south:68,riviera:65,valhalla:62,pinehurst_2:62,royal_troon:60,quail_hollow:62,east_lake:62,bay_hill:62,harbour_town:65,colonial:68,memorial:62,tpc_scottsdale:68}, notes:'Stanford product. West Coast familiarity. Pebble and Torrey specialist.' },
+    // --- LIV Golf Players ---
+    { id:91, name:'Bryson DeChambeau', rank:8, sgTotal:1.55, sgOtt:1.10, sgApp:0.48, sgArg:0.02, sgPutt:-0.05, birdieAvg:5.2, bogeyAvg:2.6, scoringAvg:69.5, gir:68.0, fairways:55.0, scramble:58.0, proxAvg:32.0, missDir:'left', flight:'high_draw', courseFit:{augusta:80,tpc_sawgrass:72,pebble:75,torrey_south:82,riviera:78,valhalla:88,pinehurst_2:85,royal_troon:72,quail_hollow:82,east_lake:78,bay_hill:80,harbour_town:62,colonial:68,memorial:80,tpc_scottsdale:82,oakmont:88}, notes:'Back-to-back US Open champion. Elite power + improved short game. LIV Golf Crushers. Dominant recent form — multiple LIV wins in 2025-26.' },
+    { id:92, name:'Brooks Koepka', rank:14, sgTotal:1.30, sgOtt:0.72, sgApp:0.45, sgArg:0.08, sgPutt:0.05, birdieAvg:4.5, bogeyAvg:2.3, scoringAvg:70.0, gir:68.5, fairways:60.0, scramble:59.0, proxAvg:33.0, missDir:'right', flight:'high_fade', courseFit:{augusta:82,tpc_sawgrass:75,pebble:78,torrey_south:80,riviera:75,valhalla:85,pinehurst_2:88,royal_troon:78,quail_hollow:82,east_lake:78,bay_hill:78,harbour_town:65,colonial:70,memorial:80,tpc_scottsdale:78,oakmont:85}, notes:'5x major champion. Elevates for big events. LIV Golf Smash. Major-week course fit premium.' },
+    { id:93, name:'Dustin Johnson', rank:22, sgTotal:1.10, sgOtt:0.85, sgApp:0.35, sgArg:-0.02, sgPutt:-0.08, birdieAvg:4.6, bogeyAvg:2.5, scoringAvg:70.2, gir:67.0, fairways:56.0, scramble:56.0, proxAvg:33.5, missDir:'left', flight:'high_draw', courseFit:{augusta:88,tpc_sawgrass:72,pebble:80,torrey_south:82,riviera:82,valhalla:82,pinehurst_2:78,royal_troon:72,quail_hollow:80,east_lake:85,bay_hill:80,harbour_town:65,colonial:68,memorial:78,tpc_scottsdale:80,oakmont:80}, notes:'2020 Masters champion. Still elite distance. LIV Golf 4 Aces. Augusta course history is premium.' },
+    { id:94, name:'Jon Rahm', rank:6, sgTotal:1.60, sgOtt:0.65, sgApp:0.58, sgArg:0.18, sgPutt:0.19, birdieAvg:4.9, bogeyAvg:2.3, scoringAvg:69.3, gir:70.0, fairways:63.0, scramble:62.0, proxAvg:31.5, missDir:'left', flight:'high_draw', courseFit:{augusta:90,tpc_sawgrass:85,pebble:82,torrey_south:92,riviera:82,valhalla:85,pinehurst_2:82,royal_troon:80,quail_hollow:85,east_lake:88,bay_hill:82,harbour_town:72,colonial:75,memorial:85,tpc_scottsdale:88,oakmont:82}, notes:'2023 Masters champion. Former world #1. LIV Golf Legion XIII. Elite ball-striker with fiery competitiveness.' },
+    { id:95, name:'Patrick Reed', rank:45, sgTotal:0.55, sgOtt:0.22, sgApp:0.18, sgArg:0.10, sgPutt:0.05, birdieAvg:3.9, bogeyAvg:2.4, scoringAvg:71.0, gir:65.5, fairways:62.0, scramble:61.0, proxAvg:35.0, missDir:'left', flight:'low_draw', courseFit:{augusta:82,tpc_sawgrass:72,pebble:70,torrey_south:68,riviera:68,valhalla:72,pinehurst_2:70,royal_troon:72,quail_hollow:72,east_lake:72,bay_hill:70,harbour_town:72,colonial:72,memorial:72,tpc_scottsdale:72,oakmont:68}, notes:'2018 Masters champion. Augusta course history is his biggest asset. LIV Golf 4 Aces.' }
   ];
 
   var propBoard = [];
@@ -1483,9 +1499,14 @@
     var filtered = PLAYERS.filter(function(p) { return p.name.toLowerCase().indexOf(search) >= 0; });
 
     filtered.sort(function(a, b) {
-      if (sortKey === 'dgRank') return a.rank - b.rank;
-      return b[sortKey] - a[sortKey];
+      if (sortKey === 'dgRank') return (a.rank||999) - (b.rank||999);
+      if (sortKey === 'confScore') return (b.confScore||0) - (a.confScore||0);
+      if (sortKey === 'birdieAvg') return (b.birdieAvg||0) - (a.birdieAvg||0);
+      return (b[sortKey]||0) - (a[sortKey]||0);
     });
+
+    var countEl = el('playerCount');
+    if (countEl) countEl.textContent = filtered.length + ' players';
 
     var grid = el('playerGrid');
     grid.innerHTML = '';
@@ -1898,7 +1919,7 @@
     _renderTourneyRows(results);
 
     var courseName = course !== 'neutral' && COURSE_DATA[course] ? COURSE_DATA[course].name : 'a neutral course';
-    el('tourneyNotes').textContent = 'Based on 10,000 Monte Carlo simulations at ' + courseName + ' with a ' + fieldStrength + ' field. Win probabilities incorporate each player\'s confScore (9-factor model), SG:Total, course fit, and 4-round variance (σ ≈ 2.8 strokes/round). Click any column header to re-sort.';
+    el('tourneyNotes').textContent = 'Based on 10,000 Monte Carlo simulations at ' + courseName + ' with a ' + fieldStrength + ' field. Win probabilities incorporate each player\'s PropsBot Score (12-factor v3 model), SG:Total, course fit, closing ability, field strength, and 4-round variance (σ ≈ 3.2 strokes/round). Click any column header to re-sort.';
 
     // Store results for column sorting
     window._tourneyResults = results;
@@ -2511,10 +2532,30 @@
       var tr = document.createElement('tr');
       tr.className = 'hover:bg-white/[0.02] transition-colors' + (idx < 3 ? ' bg-white/[0.01]' : '') + moveClass;
 
+      // Tee time lookup
+      var teeTimeStr = '—';
+      var ttArr = (window._liveData || {}).teeTimes || [];
+      for (var ti = 0; ti < ttArr.length; ti++) {
+        if (ttArr[ti].player === playerName) {
+          var raw = ttArr[ti].teeTime || '';
+          if (raw) {
+            try {
+              var d = new Date(raw);
+              var h = d.getHours(), m = d.getMinutes();
+              var ampm = h >= 12 ? 'PM' : 'AM';
+              if (h > 12) h -= 12; if (h === 0) h = 12;
+              teeTimeStr = '<span class="mono" style="font-size:10px;color:rgba(200,215,230,0.55);">' + h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm + '</span>';
+            } catch(e) {}
+          }
+          break;
+        }
+      }
+
       var thruText = row.thru === 'F' ? '<span class="text-slate-400">F</span>' : (row.thru != null ? row.thru : '—');
       tr.innerHTML =
         '<td class="px-3 py-2 mono text-slate-400 font-semibold">' + newPos + '</td>' +
         '<td class="px-3 py-2 text-white font-medium">' + (playerName || '—') + movBadge + '</td>' +
+        '<td class="px-3 py-2 text-center mobile-hide">' + teeTimeStr + '</td>' +
         '<td class="px-3 py-2 text-right">' + oddsStr + '</td>' +
         '<td class="px-3 py-2 text-right">' + scoreDisplay(row.totalScore !== undefined ? row.totalScore : row.total) + '</td>' +
         '<td class="px-3 py-2 text-right mobile-hide">' + scoreDisplay(row.today) + '</td>' +
@@ -3298,7 +3339,7 @@
               '<span style="font-size:9px;color:rgba(200,215,230,0.45);">' + propLabel + '</span>' +
               '<span class="mono font-bold" style="font-size:1rem;color:var(--gold);">' + oddsStr + '</span>' +
             '</div>' +
-            '<div style="font-size:8px;color:rgba(200,215,230,0.3);">PB Score: ' + s.conf + '</div>' +
+            '<div style="font-size:10px;font-weight:700;color:rgba(200,215,230,0.5);">PropsBot Score: <span style="color:var(--teal);font-size:12px;">' + s.conf + '</span></div>' +
           '</div>';
         }).join('');
       } else {
@@ -3322,16 +3363,30 @@
         return renderOddsCell(r.colOdds[col], r.colModel[col], r.colEV[col]);
       }).join('');
 
+      // Trend badge from recentForm
+      var trendBadge = '';
+      var rf = p.recentForm || {};
+      var trend = rf.trend || '';
+      if (trend === 'hot') trendBadge = ' <span style="font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(21,255,194,0.12);color:var(--teal);border:1px solid rgba(21,255,194,0.2);">HOT</span>';
+      else if (trend === 'cold') trendBadge = ' <span style="font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(255,21,82,0.10);color:var(--red);border:1px solid rgba(255,21,82,0.2);">COLD</span>';
+      // ML anomaly badge
+      var anomalyBadge = '';
+      if (p.anomalies && p.anomalies.length) {
+        var a0 = p.anomalies[0];
+        if (a0.direction === 'UNDERPRICED') anomalyBadge = ' <span style="font-size:7px;font-weight:800;padding:1px 4px;border-radius:3px;background:rgba(240,192,64,0.15);color:var(--gold);border:1px solid rgba(240,192,64,0.25);">ML VALUE</span>';
+        else if (a0.direction === 'OVERPRICED') anomalyBadge = ' <span style="font-size:7px;font-weight:800;padding:1px 4px;border-radius:3px;background:rgba(255,21,82,0.08);color:var(--red);border:1px solid rgba(255,21,82,0.15);">FADE</span>';
+      }
+
       return '<tr class="hover:bg-white/[0.02] transition-colors">' +
         // Player name — sticky left
         '<td class="px-3 py-2.5 sticky left-0 z-10" style="background:var(--bg);min-width:160px;">' +
-          '<div class="font-semibold text-white text-xs leading-tight">' + p.name + '</div>' +
+          '<div class="font-semibold text-white text-xs leading-tight">' + p.name + trendBadge + anomalyBadge + '</div>' +
           '<div style="font-size:9px;color:rgba(200,215,230,0.35);">#' + (p.rank||'?') + ' &middot; SG ' + (p.sgTotal>0?'+':'') + (p.sgTotal||0).toFixed(2) + '</div>' +
         '</td>' +
         cells +
         // PropsBot Score
         '<td class="px-2 py-2.5 text-center" style="border-left:1px solid rgba(21,255,194,0.1);">' +
-          '<div class="mono font-bold text-sm" style="color:' + confColor + ';">' + (p.confScore||'&#8212;') + '</div>' +
+          '<div class="mono font-bold" style="font-size:1.25rem;color:' + confColor + ';line-height:1;">' + (p.confScore||'&#8212;') + '</div>' +
           '<div style="font-size:8px;color:rgba(200,215,230,0.3);">/ 100</div>' +
         '</td>' +
         // EV%
@@ -3595,7 +3650,11 @@
       var initials  = p.name.split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
       var confColor = (p.confScore||0)>=70?'var(--teal)':(p.confScore||0)>=40?'#22a9ec':'rgba(180,190,205,0.5)';
       var trend     = p.recentForm && p.recentForm.trend;
-      var hotBadge  = trend==='hot' ? ' <span style="font-size:9px;color:#f09400;font-weight:700">🔥</span>' : '';
+      var hotBadge  = trend==='hot'
+        ? ' <span style="font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(21,255,194,0.12);color:var(--teal);border:1px solid rgba(21,255,194,0.2);">HOT 🔥</span>'
+        : trend==='cold'
+        ? ' <span style="font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(255,21,82,0.10);color:var(--red);border:1px solid rgba(255,21,82,0.2);">COLD</span>'
+        : '';
 
       // Compute model data
       var modelPct  = _modelFairPct(p, _propCat);
@@ -3726,7 +3785,8 @@
               '</div>' +
               '<div style="display:flex;align-items:center;gap:8px;margin-top:2px">' +
                 '<span style="font-size:10px;color:rgba(200,215,230,0.5)">#' + (p.rank||'—') + '</span>' +
-                '<span style="font-family:var(--mono);font-size:10px;font-weight:700;color:' + confColor + '">' + (p.confScore||'—') + ' PB</span>' +
+                '<span style="font-family:var(--mono);font-size:13px;font-weight:800;color:' + confColor + '">' + (p.confScore||'—') + '</span>' +
+                '<span style="font-size:9px;color:rgba(200,215,230,0.4);font-weight:600;"> PropsBot Score</span>' +
                 '<span style="font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;' +
                   'background:rgba(240,192,64,0.08);border:1px solid rgba(240,192,64,0.2);color:var(--gold)">' + catLabel + '</span>' +
               '</div>' +
