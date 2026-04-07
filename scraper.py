@@ -930,10 +930,8 @@ def scrape_betting_odds():
         return None
 
     # Only fetch Mon/Wed/Thu/Sat to conserve credits (matches workflow schedule)
-    today = datetime.now().weekday()  # 0=Mon, 2=Wed, 3=Thu, 5=Sat
-    if today not in (0, 2, 3, 5):
-        print("[5/7] Skipping Odds API — not a scrape day")
-        return None
+    # Odds API runs every scrape day (workflow controls scheduling)
+    # No day-of-week restriction — let the workflow cron handle frequency
 
     print("[5/7] Fetching ALL sportsbook odds from The Odds API...")
     url = (
