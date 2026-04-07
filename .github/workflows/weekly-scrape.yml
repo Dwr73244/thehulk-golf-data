@@ -2,14 +2,37 @@ name: Golf Data Update
 
 on:
   schedule:
-    # Monday 6 AM UTC — early odds pull + data refresh
-    - cron: '0 6 * * 1'
-    # Wednesday 6 AM UTC — firmed-up odds pull + Discord alerts
-    - cron: '0 6 * * 3'
-    # Thursday 6 AM UTC — R1 day, leaderboard + weather
-    - cron: '0 6 * * 4'
-    # Saturday 6 AM UTC — after R2 cut, leaderboard update
-    - cron: '0 6 * * 6'
+    # --- OFF-WEEK (Mon-Wed): 1x/day early morning ---
+    - cron: '0 6 * * 1'    # Monday 6AM UTC (2AM ET) — early odds
+    - cron: '0 6 * * 2'    # Tuesday 6AM UTC
+    - cron: '0 6 * * 3'    # Wednesday 6AM UTC — firmed-up odds before R1
+
+    # --- TOURNAMENT WEEK (Thu-Sun): every 3 hours during play ---
+    # Covers 7AM ET through 10PM ET (peak play + evening line moves)
+    - cron: '0 11 * * 4'   # Thursday  7AM ET — pre-R1 morning
+    - cron: '0 14 * * 4'   # Thursday 10AM ET — R1 in progress
+    - cron: '0 17 * * 4'   # Thursday  1PM ET — R1 afternoon
+    - cron: '0 20 * * 4'   # Thursday  4PM ET — R1 leaders posting
+    - cron: '0 23 * * 4'   # Thursday  7PM ET — R1 complete
+    - cron: '0 2 * * 5'    # Thursday 10PM ET — overnight lines
+
+    - cron: '0 11 * * 5'   # Friday    7AM ET — pre-R2
+    - cron: '0 14 * * 5'   # Friday   10AM ET — R2 in progress
+    - cron: '0 17 * * 5'   # Friday    1PM ET — cut line forming
+    - cron: '0 20 * * 5'   # Friday    4PM ET — cut confirmed
+    - cron: '0 23 * * 5'   # Friday    7PM ET — post-cut lines
+
+    - cron: '0 11 * * 6'   # Saturday  7AM ET — moving day
+    - cron: '0 14 * * 6'   # Saturday 10AM ET — R3 in progress
+    - cron: '0 17 * * 6'   # Saturday  1PM ET — leaders pulling away
+    - cron: '0 20 * * 6'   # Saturday  4PM ET — R3 leaders
+    - cron: '0 23 * * 6'   # Saturday  7PM ET — Sunday odds set
+
+    - cron: '0 11 * * 0'   # Sunday    7AM ET — final round
+    - cron: '0 14 * * 0'   # Sunday   10AM ET — back 9 push
+    - cron: '0 17 * * 0'   # Sunday    1PM ET — leaders on back 9
+    - cron: '0 20 * * 0'   # Sunday    4PM ET — champion crowned
+    - cron: '0 23 * * 0'   # Sunday    7PM ET — final update
   workflow_dispatch:
   push:
     branches: [main]
