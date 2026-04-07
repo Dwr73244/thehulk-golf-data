@@ -556,31 +556,13 @@
     <!-- TOP VALUE SPOTLIGHT -->
     <div id="propsSpotlight" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
 
-    <!-- BOOK COLUMN HEADERS (sticky when scrolling the card list) -->
-    <div class="glass rounded-xl overflow-hidden">
-      <!-- Header row -->
-      <div class="flex items-stretch border-b border-white/5" style="background:rgba(14,26,44,0.97);">
-        <div style="width:220px;flex-shrink:0;" class="px-4 py-2 flex items-center">
-          <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Player / Prop</span>
-        </div>
-        <div style="width:160px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.05);" class="px-3 py-2 flex items-center">
-          <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Best Odds</span>
-        </div>
-        <div class="flex-1 overflow-hidden">
-          <div id="propBookHeaders" class="flex" style="min-width:480px;">
-            <!-- injected by JS -->
-          </div>
-        </div>
-      </div>
+    <!-- PLAYER PROP CARDS -->
+    <div id="propsLineCards" class="space-y-3"></div>
 
-      <!-- CARD LIST -->
-      <div id="propsLineCards" class="divide-y divide-white/[0.04]"></div>
-
-      <!-- Footer -->
-      <div class="px-4 py-2.5 flex items-center justify-between gap-2 border-t border-white/5" style="background:rgba(14,26,44,0.5);">
-        <p class="text-[9px] text-slate-600">⚡ = Model-estimated odds where book line unavailable. Teal highlight = best price. Green = +EV vs model. Not betting advice.</p>
-        <span id="propsMatrixCount" class="mono text-[10px] text-slate-600"></span>
-      </div>
+    <!-- Footer -->
+    <div class="glass rounded-xl px-4 py-2.5 flex items-center justify-between gap-2">
+      <p class="text-[9px] text-slate-600">Teal border = best price. Over/Under estimated from model where book line unavailable. Not betting advice.</p>
+      <span id="propsMatrixCount" class="mono text-[10px] text-slate-600"></span>
     </div>
 
     <!-- CUSTOM PROP BUILDER (legacy tool, kept below) -->
@@ -3325,16 +3307,8 @@
 
   function renderPropsLineShopping() {
     var isStatProp = (_propCat === 'birdies' || _propCat === 'bogeys' || _propCat === 'scoring');
-
-    // Build book header
-    var hdr = el('propBookHeaders');
-    if (hdr) {
-      hdr.innerHTML = BOOKS.map(function(b) {
-        return '<div style="width:80px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.04);" class="px-2 py-2 text-center">' +
-          '<span class="mono text-[9px] font-semibold text-slate-500 uppercase">' + b.label + '</span>' +
-        '</div>';
-      }).join('');
-    }
+    var catLabels  = { winner:'Win',top5:'Top 5',top10:'Top 10',top20:'Top 20',makeCut:'Make Cut',birdies:'Birdies (4 Rnd)',bogeys:'Bogeys (4 Rnd)',scoring:'Score (4 Rnd)' };
+    var catLabel   = catLabels[_propCat] || _propCat;
 
     var search = (_propPlayerSearch || '').toLowerCase();
     var players = PLAYERS.filter(function(p) {
@@ -3351,28 +3325,24 @@
       if (_propSortKey === 'confScore') return (b.confScore||0) - (a.confScore||0);
       if (_propSortKey === 'rank')      return (a.rank||999) - (b.rank||999);
       if (_propSortKey === 'name')      return a.name.localeCompare(b.name);
-      if (_propSortKey === 'edge') {
-        var ea = a.edgeScore || 0, eb = b.edgeScore || 0;
-        return eb - ea;
-      }
+      if (_propSortKey === 'edge')      return (b.edgeScore||0) - (a.edgeScore||0);
       return 0;
     });
 
-    // +EV filter: keep only players where at least one book has +EV
+    // +EV filter
     if (_propEvFilter && !isStatProp) {
       players = players.filter(function(p) {
         var modelPct = _modelFairPct(p, _propCat);
         return BOOKS.some(function(b) {
           var odds = _bookOddsForMarket(p, _propCat, b.key);
           if (!odds) return false;
-          var dec   = odds > 0 ? (odds/100+1) : (100/Math.abs(odds)+1);
-          var bPct  = (1/dec)*100;
-          return modelPct > bPct;
+          var dec = odds > 0 ? (odds/100+1) : (100/Math.abs(odds)+1);
+          return modelPct > (1/dec)*100;
         });
       });
     }
 
-    // Spotlight top 3 value plays
+    // Spotlight
     var spotlight = [];
     if (!isStatProp) {
       players.forEach(function(p) {
@@ -3380,169 +3350,201 @@
         BOOKS.forEach(function(b) {
           var odds = _bookOddsForMarket(p, _propCat, b.key);
           if (!odds) return;
-          var dec  = odds > 0 ? (odds/100+1) : (100/Math.abs(odds)+1);
-          var bPct = (1/dec)*100;
-          var ev   = +((modelPct - bPct)/bPct*100).toFixed(1);
+          var dec = odds > 0 ? (odds/100+1) : (100/Math.abs(odds)+1);
+          var ev  = +((modelPct - (1/dec)*100)/((1/dec)*100)*100).toFixed(1);
           if (ev > 0) spotlight.push({ name:p.name, book:b.label, odds:odds, ev:ev, market:_propCat });
         });
       });
-      spotlight.sort(function(a,b){return b.ev-a.ev;});
+      spotlight.sort(function(a,b){ return b.ev - a.ev; });
     }
-
     var spotEl = el('propsSpotlight');
     if (spotEl) {
-      if (spotlight.length) {
-        spotEl.innerHTML = spotlight.slice(0,3).map(function(s,i) {
-          var catLabel = {winner:'Win',top5:'Top 5',top10:'Top 10',top20:'Top 20',makeCut:'Cut',r1Leader:'R1 Lead'}[s.market]||s.market;
-          return '<div class="glass rounded-xl p-3 border border-pb-teal/20">' +
-            '<div class="text-[10px] font-bold text-pb-teal mb-0.5">#' + (i+1) + ' VALUE PLAY</div>' +
-            '<div class="text-sm font-bold text-white">' + s.name + '</div>' +
-            '<div class="mono text-xs text-pb-gold mt-0.5">' + catLabel + ' · ' + s.book + ' · ' + _oddsStr(s.odds) + '</div>' +
-            '<div class="mono text-xs font-bold mt-1" style="color:var(--teal)">+' + s.ev + '% edge</div>' +
-          '</div>';
-        }).join('');
-      } else {
-        spotEl.innerHTML = '';
-      }
+      spotEl.innerHTML = spotlight.length ? spotlight.slice(0,3).map(function(s,i) {
+        return '<div class="glass rounded-xl p-3 border" style="border-color:rgba(21,255,194,0.15)">' +
+          '<div class="text-[10px] font-bold mb-0.5" style="color:var(--teal)">#' + (i+1) + ' VALUE</div>' +
+          '<div class="text-sm font-bold text-white">' + s.name + '</div>' +
+          '<div class="mono text-xs mt-0.5" style="color:var(--gold)">' + catLabel + ' · ' + s.book + ' · ' + _oddsStr(s.odds) + '</div>' +
+          '<div class="mono text-xs font-bold mt-1" style="color:var(--teal)">+' + s.ev + '% edge</div>' +
+        '</div>';
+      }).join('') : '';
     }
 
-    // Render cards
+    // --- Render player cards (PropsBot app card slider style) ---
     var container = el('propsLineCards');
     if (!container) return;
     container.innerHTML = '';
 
-    var catLabels = { winner:'Win',top5:'Top 5',top10:'Top 10',top20:'Top 20',makeCut:'Make Cut',r1Leader:'R1 Lead',birdies:'Birdies (4 Rnd)',bogeys:'Bogeys (4 Rnd)',scoring:'Score (4 Rnd)' };
-    var catLabel  = catLabels[_propCat] || _propCat;
-
     players.slice(0,40).forEach(function(p) {
-      var initials = p.name.split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
+      var initials  = p.name.split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
       var confColor = (p.confScore||0)>=70?'var(--teal)':(p.confScore||0)>=40?'#22a9ec':'rgba(180,190,205,0.5)';
       var trend     = p.recentForm && p.recentForm.trend;
-      var trendBadge= trend==='hot'?'<span class="mono text-[9px] font-bold px-1.5 py-0.5 rounded ml-1" style="background:rgba(240,148,0,0.15);color:#f09400">🔥HOT</span>':
-                      trend==='cold'?'<span class="mono text-[9px] font-bold px-1.5 py-0.5 rounded ml-1" style="background:rgba(100,150,220,0.1);color:#64a0dc">❄COLD</span>':'';
+      var hotBadge  = trend==='hot' ? ' <span style="font-size:9px;color:#f09400;font-weight:700">🔥</span>' : '';
 
-      if (isStatProp) {
-        // ---- STAT PROP (birdies / bogeys / scoring) ----
-        var sl = _statLine(p, _propCat);
-        if (!sl) return;
-        var direction = sl.modelProj > sl.line ? 'OVER' : (sl.modelProj < sl.line ? 'UNDER' : 'PUSH');
-        var dirColor  = direction==='OVER'?'var(--teal)':direction==='UNDER'?'var(--red)':'rgba(200,215,230,0.5)';
-        var dirBg     = direction==='OVER'?'rgba(21,255,194,0.1)':direction==='UNDER'?'rgba(255,21,82,0.1)':'rgba(200,215,230,0.05)';
-        var diff      = Math.abs(sl.modelProj - sl.line).toFixed(1);
+      // Compute model data
+      var modelPct  = _modelFairPct(p, _propCat);
+      var modelOdds = pctToAmerican(modelPct);
 
-        // Build book cells — estimated O/U at standard -110/-110 vig
-        var bookCells = BOOKS.map(function(b) {
-          // Estimated book odds: -110 standard, adjust slightly based on direction
-          var estOver  = -110;
-          var estUnder = -110;
-          return '<div style="width:80px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.04);" class="px-2 py-2 text-center">' +
-            '<div class="mono text-[10px] font-semibold" style="color:rgba(200,215,230,0.5)">o ' + estOver + '</div>' +
-            '<div class="mono text-[11px] font-bold text-white">' + sl.line + '</div>' +
-            '<div class="mono text-[10px] font-semibold" style="color:rgba(200,215,230,0.5)">u -110</div>' +
-          '</div>';
-        }).join('');
+      // Find best odds
+      var bestOdds = null, bestBookKey = '';
+      BOOKS.forEach(function(b) {
+        var o = _bookOddsForMarket(p, _propCat, b.key);
+        if (o !== null && (bestOdds === null || o > bestOdds)) { bestOdds = o; bestBookKey = b.key; }
+      });
 
-        container.innerHTML +=
-          '<div class="flex items-stretch hover:bg-white/[0.015] transition-colors">' +
-          // Left: player
-          '<div style="width:220px;flex-shrink:0;" class="px-4 py-3 flex items-center gap-3">' +
-            '<div class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 mono text-xs font-bold" style="background:rgba(21,255,194,0.1);color:var(--teal);border:1px solid rgba(21,255,194,0.2)">' + initials + '</div>' +
-            '<div class="min-w-0">' +
-              '<div class="text-sm font-semibold text-white truncate">' + p.name + trendBadge + '</div>' +
-              '<div class="mono text-[10px] text-slate-500">#' + (p.rank||'—') + ' · <span style="color:' + confColor + '">' + (p.confScore||'—') + '</span></div>' +
-              '<div class="mono text-[10px] mt-0.5"><span class="font-bold">' + catLabel + '</span> <span style="color:rgba(200,215,230,0.5)">· line ' + sl.line + '</span></div>' +
+      // EV vs best
+      var bestEV = null;
+      if (bestOdds !== null) {
+        var bD = bestOdds>0?(bestOdds/100+1):(100/Math.abs(bestOdds)+1);
+        bestEV = +((modelPct - (1/bD)*100)/((1/bD)*100)*100).toFixed(1);
+      }
+
+      // Stat prop line
+      var sl = isStatProp ? _statLine(p, _propCat) : null;
+      var direction = sl ? (sl.modelProj > sl.line ? 'OVER' : sl.modelProj < sl.line ? 'UNDER' : 'PUSH') : '';
+      var dirColor  = direction==='OVER'?'var(--teal)':direction==='UNDER'?'var(--red)':'rgba(200,215,230,0.5)';
+
+      // --- Build sportsbook card slider (matches PropsBot app pattern) ---
+      var bookCards = BOOKS.map(function(b) {
+        var odds    = isStatProp ? null : _bookOddsForMarket(p, _propCat, b.key);
+        var isBest  = odds !== null && b.key === bestBookKey;
+        var isEst   = odds !== null && !(p.odds && p.odds[b.key]);
+        var border  = isBest ? '1.5px solid rgba(21,255,194,0.35)' : '1.5px solid rgba(100,200,220,0.08)';
+        var bg      = isBest
+          ? 'linear-gradient(160deg, rgba(21,255,194,0.06), rgba(15,28,46,0.7))'
+          : 'rgba(15,28,46,0.5)';
+
+        if (isStatProp && sl) {
+          // Over / Under card for stat props
+          return '<div style="flex-shrink:0;border-radius:8px;overflow:hidden;border:' + border + ';background:' + bg + ';backdrop-filter:blur(12px);min-width:105px">' +
+            '<div style="padding:4px 8px 3px;text-align:center;border-bottom:1px solid rgba(100,200,220,0.06)">' +
+              '<span style="font-size:9px;font-weight:600;color:rgba(200,215,235,0.7)">' + b.label + '</span>' +
             '</div>' +
-          '</div>' +
-          // Middle: model recommendation
-          '<div style="width:160px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.05);" class="px-3 py-3 flex flex-col justify-center">' +
-            '<div class="text-[9px] font-bold text-slate-600 uppercase tracking-wide mb-1">Model Says</div>' +
-            '<div class="mono text-sm font-bold" style="color:' + dirColor + ';background:' + dirBg + ';padding:3px 8px;border-radius:5px;display:inline-block">' + direction + '</div>' +
-            '<div class="mono text-[10px] text-slate-400 mt-1">Proj: <span class="text-white font-bold">' + sl.modelProj + '</span> vs ' + sl.line + '</div>' +
-            '<div class="text-[9px] text-slate-600 mt-0.5">Δ ' + diff + ' ' + (direction==='OVER'?'over':'under') + ' line</div>' +
-          '</div>' +
-          // Right: book cells
-          '<div class="flex-1 overflow-hidden"><div class="flex" style="min-width:480px;">' + bookCells + '</div></div>' +
+            '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0">' +
+              '<div style="padding:5px 6px;border-right:1px solid rgba(100,200,220,0.06);text-align:center">' +
+                '<div style="font-size:8px;color:rgba(200,215,230,0.4);margin-bottom:1px">OVER</div>' +
+                '<span style="font-family:var(--mono);font-size:12px;font-weight:800;color:var(--teal)">-110</span>' +
+              '</div>' +
+              '<div style="padding:5px 6px;text-align:center">' +
+                '<div style="font-size:8px;color:rgba(200,215,230,0.4);margin-bottom:1px">UNDER</div>' +
+                '<span style="font-family:var(--mono);font-size:12px;font-weight:800;color:var(--red)">-110</span>' +
+              '</div>' +
+            '</div>' +
+            '<div style="text-align:center;padding:2px;border-top:1px solid rgba(100,200,220,0.04)">' +
+              '<span style="font-family:var(--mono);font-size:10px;font-weight:700;color:rgba(200,215,230,0.6)">' + sl.line + '</span>' +
+            '</div>' +
           '</div>';
-
-      } else {
-        // ---- PLACEMENT PROP (win / top5 / top10 / top20 / cut) ----
-        var modelPct  = _modelFairPct(p, _propCat);
-        var modelOdds = pctToAmerican(modelPct);
-
-        // Find best odds across all books
-        var bestOdds  = null, bestBookLabel = '—';
-        BOOKS.forEach(function(b) {
-          var o = _bookOddsForMarket(p, _propCat, b.key);
-          if (o !== null && (bestOdds === null || o > bestOdds)) {
-            bestOdds = o; bestBookLabel = b.label;
-          }
-        });
-
-        // Compute EV vs best
-        var bestEV = null;
-        if (bestOdds !== null) {
-          var bDec  = bestOdds > 0 ? (bestOdds/100+1):(100/Math.abs(bestOdds)+1);
-          var bPct  = (1/bDec)*100;
-          bestEV    = +((modelPct - bPct)/bPct*100).toFixed(1);
         }
-        var evColor = bestEV!==null&&bestEV>0?'var(--teal)':bestEV!==null&&bestEV<0?'var(--red)':'rgba(200,215,230,0.4)';
-        var evStr   = bestEV!==null ? ((bestEV>0?'+':'')+bestEV+'%') : '—';
 
-        // Build book cells
-        var bookCells = BOOKS.map(function(b) {
-          var odds = _bookOddsForMarket(p, _propCat, b.key);
-          var isBest = odds !== null && odds === bestOdds;
-          var isEst  = odds !== null && !(p.odds && p.odds[b.key]);
-          var oStr   = odds !== null ? _oddsStr(odds) : '—';
-          var cellBg = isBest ? 'background:rgba(21,255,194,0.07);' : '';
-          var oColor = odds===null?'rgba(200,215,230,0.15)':isBest?'var(--teal)':'rgba(200,215,230,0.8)';
-          // Compute per-book EV
-          var bEV = null;
-          if (odds !== null) {
-            var bD  = odds>0?(odds/100+1):(100/Math.abs(odds)+1);
-            var bP  = (1/bD)*100;
-            bEV     = +((modelPct-bP)/bP*100).toFixed(1);
-          }
-          var bEvStr  = bEV!==null ? (bEV>0?'+':'')+bEV+'%' : '';
-          var bEvColor= bEV>0?'var(--teal)':bEV<0?'rgba(255,21,82,0.5)':'';
-          return '<div style="width:80px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.04);' + cellBg + '" class="px-2 py-3 text-center">' +
-            '<div class="mono font-bold" style="font-size:12px;color:' + oColor + '">' + (isEst?'<span style="opacity:0.5">⚡</span>':'') + oStr + '</div>' +
-            (bEvStr ? '<div class="mono text-[9px] font-semibold mt-0.5" style="color:' + bEvColor + '">' + bEvStr + '</div>' : '<div style="height:13px"></div>') +
-          '</div>';
-        }).join('');
+        // Placement prop card — show odds + EV
+        var evForBook = null;
+        if (odds !== null) {
+          var d = odds>0?(odds/100+1):(100/Math.abs(odds)+1);
+          evForBook = +((modelPct - (1/d)*100)/((1/d)*100)*100).toFixed(1);
+        }
+        var evC = evForBook !== null && evForBook > 0 ? 'var(--teal)' : evForBook !== null && evForBook < 0 ? 'var(--red)' : '';
+        var nameColor = isBest ? 'var(--teal)' : 'rgba(200,215,235,0.7)';
+        var oddsColor = odds === null ? 'rgba(200,215,230,0.2)' : isBest ? 'var(--teal)' : '#eef2f7';
 
-        container.innerHTML +=
-          '<div class="flex items-stretch hover:bg-white/[0.015] transition-colors">' +
-          // Left: player identity
-          '<div style="width:220px;flex-shrink:0;" class="px-4 py-3 flex items-center gap-3">' +
-            '<div class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 mono text-xs font-bold" style="background:rgba(21,255,194,0.1);color:var(--teal);border:1px solid rgba(21,255,194,0.2)">' + initials + '</div>' +
-            '<div class="min-w-0">' +
-              '<div class="text-sm font-semibold text-white truncate">' + p.name + trendBadge + '</div>' +
-              '<div class="mono text-[10px] text-slate-500">#' + (p.rank||'—') + ' · <span style="color:' + confColor + '">' + (p.confScore||'—') + '</span></div>' +
-              '<div class="mono text-[10px] mt-0.5 font-semibold" style="color:' + evColor + '">' + catLabel + ' · ' + evStr + ' edge</div>' +
+        return '<div style="flex-shrink:0;border-radius:8px;overflow:hidden;border:' + border + ';background:' + bg + ';backdrop-filter:blur(12px);min-width:105px">' +
+          '<div style="padding:4px 8px 3px;text-align:center;border-bottom:1px solid rgba(100,200,220,0.06)">' +
+            '<span style="font-size:9px;font-weight:' + (isBest?'700':'600') + ';color:' + nameColor + '">' + (isBest ? '🔗 ' : '') + b.label + '</span>' +
+          '</div>' +
+          '<div style="padding:6px 8px;text-align:center">' +
+            '<div style="font-family:var(--mono);font-size:14px;font-weight:800;color:' + oddsColor + '">' +
+              (odds !== null ? (isEst ? '<span style="opacity:0.4;font-size:9px">⚡</span>' : '') + _oddsStr(odds) : '—') +
             '</div>' +
+            (evForBook !== null
+              ? '<div style="font-family:var(--mono);font-size:9px;font-weight:700;color:' + evC + ';margin-top:2px">' + (evForBook>0?'+':'') + evForBook + '%</div>'
+              : '<div style="height:13px"></div>') +
           '</div>' +
-          // Middle: best odds panel
-          '<div style="width:160px;flex-shrink:0;border-left:1px solid rgba(255,255,255,0.05);" class="px-3 py-3 flex flex-col justify-center">' +
-            '<div class="text-[9px] font-bold text-slate-600 uppercase tracking-wide mb-1.5">Best Odds</div>' +
+        '</div>';
+      }).join('');
+
+      // --- Build the full player card ---
+      var evColor = bestEV!==null&&bestEV>0?'var(--teal)':bestEV!==null&&bestEV<0?'var(--red)':'rgba(200,215,230,0.4)';
+      var evStr   = bestEV!==null ? ((bestEV>0?'+':'')+bestEV+'%') : '—';
+      var bestBookName = '';
+      BOOKS.forEach(function(b){ if(b.key===bestBookKey) bestBookName=b.label; });
+
+      // Line display for stat props
+      var lineInfo = '';
+      if (isStatProp && sl) {
+        lineInfo =
+          '<div style="display:flex;align-items:center;gap:6px;margin-top:6px">' +
+            '<span style="font-family:var(--mono);font-size:14px;font-weight:900;color:#eef2f7">' + sl.line + '</span>' +
+            '<span style="font-size:11px;font-weight:800;letter-spacing:0.5px;color:' + dirColor + '">' + direction + '</span>' +
+          '</div>' +
+          '<div style="font-family:var(--mono);font-size:9px;color:rgba(200,215,230,0.5);margin-top:2px">Proj: ' + sl.modelProj + ' · Δ' + Math.abs(sl.modelProj - sl.line).toFixed(1) + '</div>';
+      }
+
+      // Placement display
+      var placementInfo = '';
+      if (!isStatProp) {
+        placementInfo =
+          '<div style="display:flex;align-items:center;gap:8px;margin-top:5px">' +
             (bestOdds !== null
-              ? '<div class="mono text-[11px] font-bold text-pb-teal">' + _oddsStr(bestOdds) + '</div>' +
-                '<div class="text-[10px] text-slate-400 mt-0.5">' + bestBookLabel + '</div>' +
-                '<div class="mono text-[9px] font-bold mt-1.5" style="color:' + evColor + '">' + evStr + ' vs model</div>'
-              : '<div class="text-[10px] text-slate-600">No lines available</div>') +
-            '<button onclick="window.addPropToParlay(\'' + p.name.replace(/'/g,"\\'") + '\',\'' + _propCat + '\',' + (bestOdds||0) + ')" ' +
-            'class="mono text-[9px] px-2 py-1 rounded border mt-2 transition-all" ' +
-            'style="border-color:rgba(21,255,194,0.2);color:rgba(21,255,194,0.55);" ' +
-            'onmouseover="this.style.background=\'rgba(21,255,194,0.08)\'" onmouseout="this.style.background=\'transparent\'">+ Parlay</button>' +
+              ? '<span style="font-family:var(--mono);font-size:14px;font-weight:900;color:var(--teal)">' + _oddsStr(bestOdds) + '</span>' +
+                '<span style="font-size:9px;color:rgba(200,215,230,0.5)">' + bestBookName + '</span>'
+              : '<span style="font-size:10px;color:rgba(200,215,230,0.3)">No odds</span>') +
           '</div>' +
-          // Right: per-book odds
-          '<div class="flex-1 overflow-hidden"><div class="flex" style="min-width:480px;">' + bookCells + '</div></div>' +
+          '<div style="display:flex;align-items:center;gap:5px;margin-top:3px">' +
+            '<span style="font-size:9px;color:rgba(200,215,230,0.45)">Model: ' + _oddsStr(modelOdds) + '</span>' +
+            '<span style="font-family:var(--mono);font-size:9px;font-weight:700;color:' + evColor + '">' + evStr + '</span>' +
           '</div>';
       }
+
+      var card =
+        '<div class="glass" style="border-radius:12px;overflow:hidden;border:1px solid rgba(100,200,220,0.07)">' +
+
+          // Top section: player info
+          '<div style="padding:12px 14px 10px;display:flex;align-items:flex-start;gap:10px">' +
+            '<div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;' +
+              'background:rgba(21,255,194,0.08);border:1.5px solid rgba(21,255,194,0.2);font-family:var(--mono);font-size:13px;font-weight:800;color:var(--teal)">' +
+              initials +
+            '</div>' +
+            '<div style="flex:1;min-width:0">' +
+              '<div style="display:flex;align-items:center;gap:6px">' +
+                '<span style="font-size:14px;font-weight:800;color:#eef2f7;letter-spacing:-0.3px">' + p.name + '</span>' +
+                hotBadge +
+              '</div>' +
+              '<div style="display:flex;align-items:center;gap:8px;margin-top:2px">' +
+                '<span style="font-size:10px;color:rgba(200,215,230,0.5)">#' + (p.rank||'—') + '</span>' +
+                '<span style="font-family:var(--mono);font-size:10px;font-weight:700;color:' + confColor + '">' + (p.confScore||'—') + ' PB</span>' +
+                '<span style="font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;' +
+                  'background:rgba(240,192,64,0.08);border:1px solid rgba(240,192,64,0.2);color:var(--gold)">' + catLabel + '</span>' +
+              '</div>' +
+              (isStatProp ? lineInfo : placementInfo) +
+            '</div>' +
+            '<button onclick="window.addPropToParlay(\'' + p.name.replace(/'/g,"\\'") + '\',\'' + _propCat + '\',' + (bestOdds||0) + ')" ' +
+              'style="align-self:center;flex-shrink:0;font-family:var(--mono);font-size:9px;padding:5px 10px;border-radius:6px;' +
+              'border:1px solid rgba(21,255,194,0.2);color:rgba(21,255,194,0.6);background:transparent;cursor:pointer;transition:all 0.2s" ' +
+              'onmouseover="this.style.background=\'rgba(21,255,194,0.08)\';this.style.borderColor=\'rgba(21,255,194,0.4)\'" ' +
+              'onmouseout="this.style.background=\'transparent\';this.style.borderColor=\'rgba(21,255,194,0.2)\'">+ Parlay</button>' +
+          '</div>' +
+
+          // Sportsbook Odds — horizontal card slider
+          '<div style="padding:0 14px 12px">' +
+            '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">' +
+              '<span style="font-size:10px;font-weight:700;color:#eef2f7">Sportsbook Odds</span>' +
+              '<span style="font-size:8px;color:rgba(150,180,210,0.3);font-weight:500;text-transform:uppercase;letter-spacing:0.5px">' +
+                (isStatProp ? 'Over / Under' : catLabel + ' · American') +
+              '</span>' +
+            '</div>' +
+            '<div style="position:relative">' +
+              '<div style="display:flex;gap:5px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none">' +
+                bookCards +
+              '</div>' +
+              '<div style="position:absolute;right:0;top:0;bottom:3px;width:40px;background:linear-gradient(90deg,transparent,rgba(10,18,32,0.95));pointer-events:none;border-radius:0 8px 8px 0"></div>' +
+            '</div>' +
+          '</div>' +
+
+        '</div>';
+
+      container.innerHTML += card;
     });
 
     if (container.innerHTML === '') {
-      container.innerHTML = '<div class="px-6 py-8 text-center text-slate-500 text-sm">No players match your filters.</div>';
+      container.innerHTML = '<div class="glass" style="border-radius:12px;padding:32px;text-align:center;color:rgba(200,215,230,0.4);font-size:13px">No players match your filters.</div>';
     }
 
     var cnt = el('propsCardCount');
