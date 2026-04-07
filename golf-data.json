@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-07T10:52:26.606863",
+  "generatedAt": "2026-04-07T11:16:35.450221",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier \u2014 players, field, odds, props, stats)",
@@ -53,7 +53,9 @@
         "bet": "+550",
         "mgm": "+550",
         "bov": "+300",
-        "dk": "+490"
+        "dk": "+490",
+        "riv": "+550",
+        "bol": "+600"
       },
       "fieldInfo": {
         "owgr": 1,
@@ -92,7 +94,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -4.05,
+          "z": -4.1,
           "direction": "OVERPRICED",
           "edge_pct": -4.54,
           "market": "outright"
@@ -101,7 +103,7 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": -4.54,
-          "fence": 1.62,
+          "fence": 1.64,
           "market": "outright"
         }
       ],
@@ -150,7 +152,9 @@
         "bet": "+1400",
         "mgm": "+1400",
         "bov": "+1600",
-        "dk": "+1800"
+        "dk": "+1800",
+        "riv": "+1400",
+        "bol": "+1400"
       },
       "fieldInfo": {
         "owgr": 4,
@@ -238,7 +242,9 @@
         "bet": "+1000",
         "mgm": "+1000",
         "bov": "+1600",
-        "dk": "+910"
+        "dk": "+910",
+        "riv": "+1000",
+        "bol": "+1100"
       },
       "fieldInfo": {
         "owgr": 84,
@@ -276,10 +282,17 @@
       "edgeScore": 1.42,
       "anomalies": [
         {
+          "type": "z_score",
+          "z": -1.8,
+          "direction": "OVERPRICED",
+          "edge_pct": 1.42,
+          "market": "outright"
+        },
+        {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": 1.42,
-          "fence": 11.47,
+          "fence": 11.43,
           "market": "outright"
         }
       ],
@@ -328,7 +341,9 @@
         "bet": "+1200",
         "mgm": "+1200",
         "bov": "+700",
-        "dk": "+1175"
+        "dk": "+1175",
+        "riv": "+1200",
+        "bol": "+1400"
       },
       "fieldInfo": {
         "owgr": 2,
@@ -409,7 +424,9 @@
         "bet": "+3300",
         "mgm": "+3000",
         "bov": "+2000",
-        "dk": "+3100"
+        "dk": "+3100",
+        "riv": "+3300",
+        "bol": "+4000"
       },
       "fieldInfo": {
         "owgr": 16,
@@ -497,7 +514,9 @@
         "bet": "+1000",
         "mgm": "+1200",
         "bov": "+1600",
-        "dk": "+1075"
+        "dk": "+1075",
+        "riv": "+1000",
+        "bol": "+1400"
       },
       "fieldInfo": {
         "owgr": 27,
@@ -573,6 +592,12 @@
         "tpc_scottsdale": 77
       },
       "notes": "Young star with elite power. Short game still developing. High upside.",
+      "odds": {
+        "riv": "+1400",
+        "mgm": "+1400",
+        "bol": "+1800",
+        "dk": "+1700"
+      },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "competitiveness": "active",
@@ -585,7 +610,7 @@
         "driving": 3.8,
         "birdie_bogey": 5.7,
         "cut": 3.0,
-        "market": 2.9,
+        "market": 1.6,
         "closing": 2.0,
         "field_strength": 2.0,
         "consistency": 1.4,
@@ -593,13 +618,15 @@
         "cross_signal": 1.5
       },
       "propScores": {
-        "win": 74,
-        "top5": 72,
-        "top10": 71,
-        "top20": 69,
+        "win": 72,
+        "top5": 71,
+        "top10": 69,
+        "top20": 68,
         "makeCut": 67
       },
-      "confScore": 71.8
+      "confScore": 70.8,
+      "edgeScore": 3.95,
+      "evScore": 91.2
     },
     {
       "id": 6,
@@ -644,7 +671,9 @@
         "bet": "+5000",
         "mgm": "+6000",
         "bov": "+5500",
-        "dk": "+5800"
+        "dk": "+5800",
+        "riv": "+5000",
+        "bol": "+7500"
       },
       "fieldInfo": {
         "owgr": 24,
@@ -740,7 +769,9 @@
         "bet": "+3500",
         "mgm": "+4000",
         "bov": "+4000",
-        "dk": "+3700"
+        "dk": "+3700",
+        "riv": "+3500",
+        "bol": "+5000"
       },
       "fieldInfo": {
         "owgr": 246,
@@ -828,7 +859,9 @@
         "bet": "+20000",
         "mgm": "+15000",
         "bov": "+12500",
-        "dk": "+26000"
+        "dk": "+26000",
+        "riv": "+20000",
+        "bol": "+35000"
       },
       "fieldInfo": {
         "owgr": 639,
@@ -916,7 +949,9 @@
         "bet": "+2000",
         "mgm": "+2200",
         "bov": "+1800",
-        "dk": "+2300"
+        "dk": "+2300",
+        "riv": "+2000",
+        "bol": "+2200"
       },
       "fieldInfo": {
         "owgr": 3,
@@ -1007,7 +1042,9 @@
         "bet": "+2500",
         "mgm": "+2800",
         "bov": "+3000",
-        "dk": "+2700"
+        "dk": "+2700",
+        "riv": "+2500",
+        "bol": "+2500"
       },
       "fieldInfo": {
         "owgr": 17,
@@ -1105,7 +1142,9 @@
         "bet": "+6600",
         "mgm": "+6600",
         "bov": "+10000",
-        "dk": "+7000"
+        "dk": "+7000",
+        "riv": "+6600",
+        "bol": "+11000"
       },
       "fieldInfo": {
         "owgr": 25,
@@ -1201,7 +1240,9 @@
         "bet": "+7000",
         "mgm": "+6600",
         "bov": "+7000",
-        "dk": "+7800"
+        "dk": "+7800",
+        "riv": "+7000",
+        "bol": "+10000"
       },
       "fieldInfo": {
         "owgr": 30,
@@ -1289,7 +1330,9 @@
         "bet": "+4500",
         "mgm": "+4000",
         "bov": "+3500",
-        "dk": "+4500"
+        "dk": "+4500",
+        "riv": "+4500",
+        "bol": "+7000"
       },
       "fieldInfo": {
         "owgr": 14,
@@ -1369,7 +1412,9 @@
         "bet": "+20000",
         "mgm": "+15000",
         "bov": "+8000",
-        "dk": "+21000"
+        "dk": "+21000",
+        "riv": "+20000",
+        "bol": "+30000"
       },
       "fieldInfo": {
         "owgr": 46,
@@ -1464,7 +1509,9 @@
         "bet": "+5000",
         "mgm": "+5500",
         "bov": "+6500",
-        "dk": "+4700"
+        "dk": "+4700",
+        "riv": "+5000",
+        "bol": "+5500"
       },
       "fieldInfo": {
         "owgr": 5,
@@ -1555,7 +1602,9 @@
         "bet": "+5000",
         "mgm": "+6600",
         "bov": "+4500",
-        "dk": "+6800"
+        "dk": "+6800",
+        "riv": "+5000",
+        "bol": "+8500"
       },
       "fieldInfo": {
         "owgr": 26,
@@ -1642,7 +1691,9 @@
         "bet": "+6600",
         "mgm": "+6600",
         "bov": "+8000",
-        "dk": "+7400"
+        "dk": "+7400",
+        "riv": "+6600",
+        "bol": "+9000"
       },
       "fieldInfo": {
         "owgr": 12,
@@ -1814,7 +1865,9 @@
         "bet": "+5000",
         "mgm": "+6600",
         "bov": "+4500",
-        "dk": "+6800"
+        "dk": "+6800",
+        "riv": "+5000",
+        "bol": "+8500"
       },
       "fieldInfo": {
         "owgr": 26,
@@ -1894,7 +1947,9 @@
         "bet": "+9000",
         "mgm": "+10000",
         "bov": "+7500",
-        "dk": "+11500"
+        "dk": "+11500",
+        "riv": "+9000",
+        "bol": "+15000"
       },
       "fieldInfo": {
         "owgr": 41,
@@ -1989,7 +2044,9 @@
         "bet": "+6600",
         "mgm": "+6600",
         "bov": "+15000",
-        "dk": "+6000"
+        "dk": "+6000",
+        "riv": "+6600",
+        "bol": "+9000"
       },
       "fieldInfo": {
         "owgr": 63,
@@ -2161,7 +2218,9 @@
         "bet": "+6600",
         "mgm": "+6000",
         "bov": "+3500",
-        "dk": "+5400"
+        "dk": "+5400",
+        "riv": "+6600",
+        "bol": "+9000"
       },
       "fieldInfo": {
         "owgr": 9,
@@ -2249,7 +2308,9 @@
         "bet": "+12500",
         "mgm": "+12500",
         "bov": "+8000",
-        "dk": "+12000"
+        "dk": "+12000",
+        "riv": "+12500",
+        "bol": "+25000"
       },
       "fieldInfo": {
         "owgr": 140,
@@ -2341,7 +2402,9 @@
         "bet": "+6600",
         "mgm": "+6600",
         "bov": "+10000",
-        "dk": "+7000"
+        "dk": "+7000",
+        "riv": "+6600",
+        "bol": "+11000"
       },
       "fieldInfo": {
         "owgr": 25,
@@ -2429,7 +2492,9 @@
         "bet": "+7000",
         "mgm": "+6600",
         "bov": "+6000",
-        "dk": "+6700"
+        "dk": "+6700",
+        "riv": "+7000",
+        "bol": "+10000"
       },
       "fieldInfo": {
         "owgr": 54,
@@ -2524,7 +2589,9 @@
         "bet": "+5500",
         "mgm": "+5500",
         "bov": "+8000",
-        "dk": "+5700"
+        "dk": "+5700",
+        "riv": "+5500",
+        "bol": "+7500"
       },
       "fieldInfo": {
         "owgr": 45,
@@ -2612,7 +2679,9 @@
         "bet": "+15000",
         "mgm": "+20000",
         "bov": "+12500",
-        "dk": "+13500"
+        "dk": "+13500",
+        "riv": "+15000",
+        "bol": "+22500"
       },
       "fieldInfo": {
         "owgr": 15,
@@ -2700,7 +2769,9 @@
         "bet": "+5000",
         "mgm": "+5500",
         "bov": "+6500",
-        "dk": "+4700"
+        "dk": "+4700",
+        "riv": "+5000",
+        "bol": "+5500"
       },
       "fieldInfo": {
         "owgr": 5,
@@ -2791,7 +2862,9 @@
         "bet": "+3300",
         "mgm": "+3300",
         "bov": "+2500",
-        "dk": "+4300"
+        "dk": "+4300",
+        "riv": "+3300",
+        "bol": "+4000"
       },
       "fieldInfo": {
         "owgr": 42,
@@ -2871,7 +2944,9 @@
         "bet": "+6600",
         "mgm": "+6600",
         "bov": "+15000",
-        "dk": "+6000"
+        "dk": "+6000",
+        "riv": "+6600",
+        "bol": "+9000"
       },
       "fieldInfo": {
         "owgr": 63,
@@ -2959,7 +3034,9 @@
         "bet": "+7000",
         "mgm": "+6600",
         "bov": "+7000",
-        "dk": "+7800"
+        "dk": "+7800",
+        "riv": "+7000",
+        "bol": "+10000"
       },
       "fieldInfo": {
         "owgr": 30,
@@ -3054,7 +3131,9 @@
         "bet": "+7000",
         "mgm": "+6600",
         "bov": "+6000",
-        "dk": "+6700"
+        "dk": "+6700",
+        "riv": "+7000",
+        "bol": "+10000"
       },
       "fieldInfo": {
         "owgr": 54,
@@ -3142,7 +3221,9 @@
         "bet": "+15000",
         "mgm": "+17500",
         "bov": "+15000",
-        "dk": "+22500"
+        "dk": "+22500",
+        "riv": "+15000",
+        "bol": "+22500"
       },
       "fieldInfo": {
         "owgr": 35,
@@ -3232,7 +3313,9 @@
         "bet": "+1800",
         "mgm": "+2000",
         "bov": "+4000",
-        "dk": "+2300"
+        "dk": "+2300",
+        "riv": "+1800",
+        "bol": "+2200"
       },
       "fieldInfo": {
         "owgr": 19,
@@ -3391,7 +3474,9 @@
         "bet": "+12500",
         "mgm": "+12500",
         "bov": "+8000",
-        "dk": "+12000"
+        "dk": "+12000",
+        "riv": "+12500",
+        "bol": "+25000"
       },
       "fieldInfo": {
         "owgr": 140,
@@ -3483,7 +3568,9 @@
         "bet": "+17500",
         "mgm": "+20000",
         "bov": "+12500",
-        "dk": "+23000"
+        "dk": "+23000",
+        "riv": "+17500",
+        "bol": "+25000"
       },
       "fieldInfo": {
         "owgr": 23,
@@ -3959,7 +4046,9 @@
         "bet": "+6600",
         "mgm": "+6600",
         "bov": "+8000",
-        "dk": "+7400"
+        "dk": "+7400",
+        "riv": "+6600",
+        "bol": "+9000"
       },
       "fieldInfo": {
         "owgr": 12,
@@ -4007,71 +4096,6 @@
         }
       ],
       "evScore": 540.1
-    },
-    {
-      "id": 37,
-      "name": "Nicolai Hojgaard",
-      "rank": 37,
-      "sgTotal": 0.38,
-      "sgOtt": 0.35,
-      "sgApp": 0.12,
-      "sgArg": 0.0,
-      "sgPutt": -0.09,
-      "birdieAvg": 4.1,
-      "bogeyAvg": 2.3,
-      "scoringAvg": 71.1,
-      "gir": 66.0,
-      "fairways": 61.0,
-      "scramble": 57.5,
-      "proxAvg": 35.0,
-      "missDir": "right",
-      "flight": "high_fade",
-      "courseFit": {
-        "augusta": 59,
-        "tpc_sawgrass": 59,
-        "pebble": 58,
-        "torrey_south": 60,
-        "riviera": 60,
-        "valhalla": 61,
-        "pinehurst_2": 59,
-        "royal_troon": 61,
-        "royal_portrush": 56,
-        "oakmont": 55,
-        "quail_hollow": 61,
-        "east_lake": 60,
-        "bay_hill": 60,
-        "harbour_town": 58,
-        "colonial": 59,
-        "memorial": 60,
-        "tpc_scottsdale": 61
-      },
-      "notes": "Danish twin (brother Rasmus also on Tour). Athletic and powerful. Still adapting to PGA Tour courses.",
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 12.8,
-        "fit": 9.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.4,
-        "driving": 3.3,
-        "birdie_bogey": 4.8,
-        "cut": 3.0,
-        "market": 1.9,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.6,
-        "par5": 0.9
-      },
-      "propScores": {
-        "win": 57,
-        "top5": 57,
-        "top10": 58,
-        "top20": 61,
-        "makeCut": 62
-      },
-      "confScore": 56.9
     },
     {
       "id": 52,
@@ -4123,7 +4147,9 @@
         "bet": "+20000",
         "mgm": "+17500",
         "bov": "+12500",
-        "dk": "+24000"
+        "dk": "+24000",
+        "riv": "+20000",
+        "bol": "+45000"
       },
       "fieldInfo": {
         "owgr": 491,
@@ -4210,7 +4236,9 @@
         "bet": "+4000",
         "mgm": "+5000",
         "bov": "+6500",
-        "dk": "+4900"
+        "dk": "+4900",
+        "riv": "+4000",
+        "bol": "+5000"
       },
       "fieldInfo": {
         "owgr": 47,
@@ -4374,7 +4402,9 @@
         "bet": "+2800",
         "mgm": "+3000",
         "bov": "+4000",
-        "dk": "+3400"
+        "dk": "+3400",
+        "riv": "+2800",
+        "bol": "+3500"
       },
       "fieldInfo": {
         "owgr": 7,
@@ -4937,7 +4967,9 @@
         "bet": "+5500",
         "mgm": "+5500",
         "bov": "+8000",
-        "dk": "+5700"
+        "dk": "+5700",
+        "riv": "+5500",
+        "bol": "+7500"
       },
       "fieldInfo": {
         "owgr": 45,
@@ -5025,7 +5057,9 @@
         "bet": "+3000",
         "mgm": "+3300",
         "bov": "+7000",
-        "dk": "+3500"
+        "dk": "+3500",
+        "riv": "+3000",
+        "bol": "+3500"
       },
       "fieldInfo": {
         "owgr": 43,
@@ -5061,6 +5095,79 @@
       "confScore": 55.0,
       "edgeScore": 5.31,
       "evScore": 197.0
+    },
+    {
+      "id": 37,
+      "name": "Nicolai Hojgaard",
+      "rank": 37,
+      "sgTotal": 0.38,
+      "sgOtt": 0.35,
+      "sgApp": 0.12,
+      "sgArg": 0.0,
+      "sgPutt": -0.09,
+      "birdieAvg": 4.1,
+      "bogeyAvg": 2.3,
+      "scoringAvg": 71.1,
+      "gir": 66.0,
+      "fairways": 61.0,
+      "scramble": 57.5,
+      "proxAvg": 35.0,
+      "missDir": "right",
+      "flight": "high_fade",
+      "courseFit": {
+        "augusta": 59,
+        "tpc_sawgrass": 59,
+        "pebble": 58,
+        "torrey_south": 60,
+        "riviera": 60,
+        "valhalla": 61,
+        "pinehurst_2": 59,
+        "royal_troon": 61,
+        "royal_portrush": 56,
+        "oakmont": 55,
+        "quail_hollow": 61,
+        "east_lake": 60,
+        "bay_hill": 60,
+        "harbour_town": 58,
+        "colonial": 59,
+        "memorial": 60,
+        "tpc_scottsdale": 61
+      },
+      "notes": "Danish twin (brother Rasmus also on Tour). Athletic and powerful. Still adapting to PGA Tour courses.",
+      "odds": {
+        "riv": "+6600",
+        "mgm": "+6600",
+        "bol": "+8000",
+        "dk": "+7800"
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 12.8,
+        "fit": 9.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.4,
+        "driving": 3.3,
+        "birdie_bogey": 4.8,
+        "cut": 3.0,
+        "market": 0.4,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.6,
+        "par5": 0.9
+      },
+      "propScores": {
+        "win": 55,
+        "top5": 56,
+        "top10": 57,
+        "top20": 60,
+        "makeCut": 61
+      },
+      "confScore": 54.9,
+      "edgeScore": 6.74,
+      "evScore": 550.6
     },
     {
       "id": 70,
@@ -5112,7 +5219,9 @@
         "bet": "+15000",
         "mgm": "+20000",
         "bov": "+12500",
-        "dk": "+13500"
+        "dk": "+13500",
+        "riv": "+15000",
+        "bol": "+22500"
       },
       "fieldInfo": {
         "owgr": 15,
@@ -5354,7 +5463,9 @@
         "bet": "+8000",
         "mgm": "+10000",
         "bov": "+10000",
-        "dk": "+10000"
+        "dk": "+10000",
+        "riv": "+8000",
+        "bol": "+11000"
       },
       "fieldInfo": {
         "owgr": 13,
@@ -5462,78 +5573,6 @@
         "makeCut": 61
       },
       "confScore": 54.6
-    },
-    {
-      "id": 82,
-      "name": "Rasmus Hojgaard",
-      "rank": 74,
-      "sgTotal": 0.22,
-      "sgOtt": 0.18,
-      "sgApp": 0.12,
-      "sgArg": 0.05,
-      "sgPutt": -0.13,
-      "birdieAvg": 3.8,
-      "bogeyAvg": 2.3,
-      "scoringAvg": 71.3,
-      "gir": 66.5,
-      "fairways": 63.0,
-      "scramble": 57.0,
-      "proxAvg": 34.5,
-      "missDir": "right",
-      "flight": "mid_fade",
-      "courseFit": {
-        "augusta": 58,
-        "tpc_sawgrass": 57,
-        "pebble": 57,
-        "torrey_south": 57,
-        "riviera": 57,
-        "valhalla": 59,
-        "pinehurst_2": 58,
-        "royal_troon": 60,
-        "royal_portrush": 54,
-        "oakmont": 53,
-        "quail_hollow": 58,
-        "east_lake": 57,
-        "bay_hill": 57,
-        "harbour_town": 57,
-        "colonial": 57,
-        "memorial": 58,
-        "tpc_scottsdale": 57
-      },
-      "augustaHistory": {
-        "appearances": 1,
-        "bestFinish": 14,
-        "cuts": 1,
-        "top10": 0,
-        "avgScore": 72.2
-      },
-      "notes": "Danish twin with DP World Tour pedigree. Solid debut at Augusta. European-style patience suits the course. Rising stock.",
-      "makeCutPct": 100.0,
-      "recentMakeCutPct": 60.0,
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 12.3,
-        "fit": 9.3,
-        "history": 2.9,
-        "form": 7.0,
-        "gir": 5.6,
-        "driving": 3.3,
-        "birdie_bogey": 4.4,
-        "cut": 3.9,
-        "market": 0.8,
-        "closing": 2.0,
-        "field_strength": 0.5,
-        "consistency": 1.6,
-        "par5": 0.5
-      },
-      "propScores": {
-        "win": 53,
-        "top5": 54,
-        "top10": 56,
-        "top20": 60,
-        "makeCut": 64
-      },
-      "confScore": 54.5
     },
     {
       "id": 43,
@@ -5824,6 +5863,86 @@
       "confScore": 53.5
     },
     {
+      "id": 82,
+      "name": "Rasmus Hojgaard",
+      "rank": 74,
+      "sgTotal": 0.22,
+      "sgOtt": 0.18,
+      "sgApp": 0.12,
+      "sgArg": 0.05,
+      "sgPutt": -0.13,
+      "birdieAvg": 3.8,
+      "bogeyAvg": 2.3,
+      "scoringAvg": 71.3,
+      "gir": 66.5,
+      "fairways": 63.0,
+      "scramble": 57.0,
+      "proxAvg": 34.5,
+      "missDir": "right",
+      "flight": "mid_fade",
+      "courseFit": {
+        "augusta": 58,
+        "tpc_sawgrass": 57,
+        "pebble": 57,
+        "torrey_south": 57,
+        "riviera": 57,
+        "valhalla": 59,
+        "pinehurst_2": 58,
+        "royal_troon": 60,
+        "royal_portrush": 54,
+        "oakmont": 53,
+        "quail_hollow": 58,
+        "east_lake": 57,
+        "bay_hill": 57,
+        "harbour_town": 57,
+        "colonial": 57,
+        "memorial": 58,
+        "tpc_scottsdale": 57
+      },
+      "augustaHistory": {
+        "appearances": 1,
+        "bestFinish": 14,
+        "cuts": 1,
+        "top10": 0,
+        "avgScore": 72.2
+      },
+      "notes": "Danish twin with DP World Tour pedigree. Solid debut at Augusta. European-style patience suits the course. Rising stock.",
+      "odds": {
+        "riv": "+12500",
+        "mgm": "+15000",
+        "bol": "+20000",
+        "dk": "+12500"
+      },
+      "makeCutPct": 100.0,
+      "recentMakeCutPct": 60.0,
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 12.3,
+        "fit": 9.3,
+        "history": 2.9,
+        "form": 7.0,
+        "gir": 5.6,
+        "driving": 3.3,
+        "birdie_bogey": 4.4,
+        "cut": 3.9,
+        "market": 0.2,
+        "closing": 2.0,
+        "field_strength": 0.5,
+        "consistency": 1.6,
+        "par5": 0.5
+      },
+      "propScores": {
+        "win": 53,
+        "top5": 54,
+        "top10": 56,
+        "top20": 60,
+        "makeCut": 64
+      },
+      "confScore": 53.5,
+      "edgeScore": 7.23,
+      "evScore": 911.2
+    },
+    {
       "id": 78,
       "name": "Mackenzie Hughes",
       "rank": 68,
@@ -5942,7 +6061,9 @@
         "bet": "+4500",
         "mgm": "+4000",
         "bov": "+5000",
-        "dk": "+4200"
+        "dk": "+4200",
+        "riv": "+4500",
+        "bol": "+4500"
       },
       "fieldInfo": {
         "owgr": 80,
@@ -6200,7 +6321,9 @@
         "bet": "+3000",
         "mgm": "+3300",
         "bov": "+7000",
-        "dk": "+3500"
+        "dk": "+3500",
+        "riv": "+3000",
+        "bol": "+3500"
       },
       "fieldInfo": {
         "owgr": 43,
@@ -6287,7 +6410,9 @@
         "bet": "+35000",
         "mgm": "+40000",
         "bov": "+25000",
-        "dk": "+85000"
+        "dk": "+85000",
+        "riv": "+35000",
+        "bol": "+100000"
       },
       "fieldInfo": {
         "owgr": 101,
@@ -6366,7 +6491,9 @@
         "dk": "+6700",
         "mgm": "+6600",
         "bet": "+5000",
-        "fd": "+6500"
+        "fd": "+6500",
+        "riv": "+5000",
+        "bol": "+7500"
       },
       "fieldInfo": {
         "owgr": 105,
@@ -6663,7 +6790,9 @@
         "bet": "+12500",
         "mgm": "+15000",
         "bov": "+6000",
-        "dk": "+11000"
+        "dk": "+11000",
+        "riv": "+12500",
+        "bol": "+18500"
       },
       "fieldInfo": {
         "owgr": 8,
@@ -6750,7 +6879,9 @@
         "bet": "+17500",
         "mgm": "+20000",
         "bov": "+12500",
-        "dk": "+23000"
+        "dk": "+23000",
+        "riv": "+17500",
+        "bol": "+25000"
       },
       "fieldInfo": {
         "owgr": 23,
@@ -6837,7 +6968,9 @@
         "bet": "+15000",
         "mgm": "+17500",
         "bov": "+12500",
-        "dk": "+21000"
+        "dk": "+21000",
+        "riv": "+15000",
+        "bol": "+35000"
       },
       "fieldInfo": {
         "owgr": 39,
@@ -7147,7 +7280,9 @@
         "bet": "+7000",
         "mgm": "+8000",
         "bov": "+10000",
-        "dk": "+8400"
+        "dk": "+8400",
+        "riv": "+7000",
+        "bol": "+7500"
       },
       "fieldInfo": {
         "owgr": 21,
@@ -7325,7 +7460,9 @@
         "bet": "+50000",
         "mgm": "+75000",
         "bov": "+40000",
-        "dk": "+250000"
+        "dk": "+250000",
+        "riv": "+50000",
+        "bol": "+100000"
       },
       "fieldInfo": {
         "owgr": 346,
@@ -7363,7 +7500,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -2.11,
+          "z": -2.13,
           "direction": "OVERPRICED",
           "edge_pct": 0.57,
           "market": "outright"
@@ -7372,7 +7509,7 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": 0.57,
-          "fence": 11.47,
+          "fence": 11.43,
           "market": "outright"
         }
       ],
@@ -7428,7 +7565,9 @@
         "bet": "+35000",
         "mgm": "+35000",
         "bov": "+30000",
-        "dk": "+55000"
+        "dk": "+55000",
+        "riv": "+35000",
+        "bol": "+75000"
       },
       "fieldInfo": {
         "owgr": 638,
@@ -7466,7 +7605,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -2.11,
+          "z": -2.13,
           "direction": "OVERPRICED",
           "edge_pct": 0.57,
           "market": "outright"
@@ -7475,7 +7614,7 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": 0.57,
-          "fence": 11.47,
+          "fence": 11.43,
           "market": "outright"
         }
       ],
@@ -7530,7 +7669,9 @@
         "bet": "+100000",
         "mgm": "+200000",
         "bov": "+250000",
-        "dk": "+500000"
+        "dk": "+500000",
+        "riv": "+100000",
+        "bol": "+350000"
       },
       "fieldInfo": {
         "owgr": null,
@@ -7567,7 +7708,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -2.0,
+          "z": -2.03,
           "direction": "OVERPRICED",
           "edge_pct": 0.85,
           "market": "outright"
@@ -7576,7 +7717,7 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": 0.85,
-          "fence": 11.47,
+          "fence": 11.43,
           "market": "outright"
         }
       ],
@@ -7632,7 +7773,9 @@
         "bet": "+50000",
         "mgm": "+50000",
         "bov": "+40000",
-        "dk": "+55000"
+        "dk": "+55000",
+        "riv": "+50000",
+        "bol": "+125000"
       },
       "fieldInfo": {
         "owgr": 274,
@@ -7670,7 +7813,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -2.07,
+          "z": -2.1,
           "direction": "OVERPRICED",
           "edge_pct": 0.65,
           "market": "outright"
@@ -7679,7 +7822,7 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": 0.65,
-          "fence": 11.47,
+          "fence": 11.43,
           "market": "outright"
         }
       ],
@@ -7768,7 +7911,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -2.23,
+          "z": -2.26,
           "direction": "OVERPRICED",
           "edge_pct": 0.24,
           "market": "outright"
@@ -7777,7 +7920,7 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": 0.24,
-          "fence": 11.47,
+          "fence": 11.43,
           "market": "outright"
         }
       ],
@@ -7833,7 +7976,9 @@
         "bet": "+100000",
         "mgm": "+250000",
         "bov": "+250000",
-        "dk": "+500000"
+        "dk": "+500000",
+        "riv": "+100000",
+        "bol": "+350000"
       },
       "fieldInfo": {
         "owgr": null,
@@ -7871,7 +8016,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -2.02,
+          "z": -2.04,
           "direction": "OVERPRICED",
           "edge_pct": 0.8,
           "market": "outright"
@@ -7880,7 +8025,7 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": 0.8,
-          "fence": 11.47,
+          "fence": 11.43,
           "market": "outright"
         }
       ],
@@ -8043,36 +8188,7 @@
     "city": "Augusta",
     "state": "Georgia",
     "bdlId": 20,
-    "leaderboard": [],
-    "weather": [
-      {
-        "date": "2026-04-07",
-        "tempHigh": 75.0,
-        "tempLow": 45.3,
-        "windAvg": 9.1,
-        "windMax": 12.4,
-        "windDir": 125,
-        "rainPct": 0
-      },
-      {
-        "date": "2026-04-08",
-        "tempHigh": 68.5,
-        "tempLow": 50.1,
-        "windAvg": 12.9,
-        "windMax": 14.3,
-        "windDir": 56,
-        "rainPct": 1
-      },
-      {
-        "date": "2026-04-09",
-        "tempHigh": 70.3,
-        "tempLow": 45.5,
-        "windAvg": 9.9,
-        "windMax": 10.9,
-        "windDir": 51,
-        "rainPct": 2
-      }
-    ]
+    "leaderboard": []
   },
   "courses": {
     "augusta": {
@@ -8196,38 +8312,7 @@
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     }
   },
-  "weather": {
-    "course": "augusta",
-    "forecast": [
-      {
-        "date": "2026-04-07",
-        "tempHigh": 75.0,
-        "tempLow": 45.3,
-        "windAvg": 9.1,
-        "windMax": 12.4,
-        "windDir": 125,
-        "rainPct": 0
-      },
-      {
-        "date": "2026-04-08",
-        "tempHigh": 68.5,
-        "tempLow": 50.1,
-        "windAvg": 12.9,
-        "windMax": 14.3,
-        "windDir": 56,
-        "rainPct": 1
-      },
-      {
-        "date": "2026-04-09",
-        "tempHigh": 70.3,
-        "tempLow": 45.5,
-        "windAvg": 9.9,
-        "windMax": 10.9,
-        "windDir": 51,
-        "rainPct": 2
-      }
-    ]
-  },
+  "weather": null,
   "teeTimes": [
     {
       "player": "J.J. Spaun",
@@ -9026,7 +9111,7 @@
     "Scottie Scheffler": [
       {
         "type": "z_score",
-        "z": -4.05,
+        "z": -4.1,
         "direction": "OVERPRICED",
         "edge_pct": -4.54,
         "market": "outright"
@@ -9035,16 +9120,23 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": -4.54,
-        "fence": 1.62,
+        "fence": 1.64,
         "market": "outright"
       }
     ],
     "Jon Rahm": [
       {
+        "type": "z_score",
+        "z": -1.8,
+        "direction": "OVERPRICED",
+        "edge_pct": 1.42,
+        "market": "outright"
+      },
+      {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": 1.42,
-        "fence": 11.47,
+        "fence": 11.43,
         "market": "outright"
       }
     ],
@@ -9171,7 +9263,7 @@
     "Danny Willett": [
       {
         "type": "z_score",
-        "z": -2.11,
+        "z": -2.13,
         "direction": "OVERPRICED",
         "edge_pct": 0.57,
         "market": "outright"
@@ -9180,14 +9272,14 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": 0.57,
-        "fence": 11.47,
+        "fence": 11.43,
         "market": "outright"
       }
     ],
     "Bubba Watson": [
       {
         "type": "z_score",
-        "z": -2.11,
+        "z": -2.13,
         "direction": "OVERPRICED",
         "edge_pct": 0.57,
         "market": "outright"
@@ -9196,14 +9288,14 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": 0.57,
-        "fence": 11.47,
+        "fence": 11.43,
         "market": "outright"
       }
     ],
     "Mike Weir": [
       {
         "type": "z_score",
-        "z": -2.0,
+        "z": -2.03,
         "direction": "OVERPRICED",
         "edge_pct": 0.85,
         "market": "outright"
@@ -9212,14 +9304,14 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": 0.85,
-        "fence": 11.47,
+        "fence": 11.43,
         "market": "outright"
       }
     ],
     "Zach Johnson": [
       {
         "type": "z_score",
-        "z": -2.07,
+        "z": -2.1,
         "direction": "OVERPRICED",
         "edge_pct": 0.65,
         "market": "outright"
@@ -9228,14 +9320,14 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": 0.65,
-        "fence": 11.47,
+        "fence": 11.43,
         "market": "outright"
       }
     ],
     "Tiger Woods": [
       {
         "type": "z_score",
-        "z": -2.23,
+        "z": -2.26,
         "direction": "OVERPRICED",
         "edge_pct": 0.24,
         "market": "outright"
@@ -9244,14 +9336,14 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": 0.24,
-        "fence": 11.47,
+        "fence": 11.43,
         "market": "outright"
       }
     ],
     "Fred Couples": [
       {
         "type": "z_score",
-        "z": -2.02,
+        "z": -2.04,
         "direction": "OVERPRICED",
         "edge_pct": 0.8,
         "market": "outright"
@@ -9260,7 +9352,7 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": 0.8,
-        "fence": 11.47,
+        "fence": 11.43,
         "market": "outright"
       }
     ]
@@ -9939,7 +10031,7 @@
       "historical_tournament_id": 60,
       "live_tournament_id": 20,
       "course_id": 37,
-      "built_at": "2026-04-07T10:54:09.085193Z",
+      "built_at": "2026-04-07T11:18:57.867633Z",
       "has_live_data": false
     }
   },
