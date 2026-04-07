@@ -920,19 +920,22 @@ def archive_data(output, base_dir):
 # ============================================================
 
 def scrape_betting_odds():
-    """Fetch PGA Tour outright winner odds from The Odds API."""
+    """
+    Fetch PGA Tour outright winner odds from The Odds API.
+    Used as a SUPPLEMENT to BDL — fills in books that BDL doesn't cover.
+    Pulls ALL available US-region bookmakers (not just DK/FD).
+    """
     if not ODDS_API_KEY:
-        print("[5/7] Skipping odds — no ODDS_API_KEY set")
+        print("[5/7] Skipping Odds API — no ODDS_API_KEY set")
         return None
 
-    # Only fetch odds Mon/Wed to conserve 500 credits/month
-    # Monday = early lines, Wednesday = firmed-up lines before R1 Thursday
-    today = datetime.now().weekday()  # 0=Mon, 2=Wed
-    if today not in (0, 2):  # Mon + Wed only
-        print("[5/7] Skipping odds — only fetched Mon/Wed to save credits")
+    # Only fetch Mon/Wed/Thu/Sat to conserve credits (matches workflow schedule)
+    today = datetime.now().weekday()  # 0=Mon, 2=Wed, 3=Thu, 5=Sat
+    if today not in (0, 2, 3, 5):
+        print("[5/7] Skipping Odds API — not a scrape day")
         return None
 
-    print("[5/7] Fetching betting odds from The Odds API...")
+    print("[5/7] Fetching ALL sportsbook odds from The Odds API...")
     url = (
         f"https://api.the-odds-api.com/v4/sports/golf_pga_tour_winner/odds"
         f"?apiKey={ODDS_API_KEY}&regions=us&markets=outrights&oddsFormat=american"
@@ -942,22 +945,49 @@ def scrape_betting_odds():
         print("  Could not fetch odds data")
         return None
 
+    # Map Odds API bookmaker keys to short display names
+    BOOK_MAP = {
+        "draftkings":       "dk",
+        "fanduel":          "fd",
+        "betmgm":           "mgm",
+        "caesars":           "czr",
+        "pointsbetus":      "pb",
+        "bet365":            "365",
+        "bovada":            "bov",
+        "betonlineag":       "bol",
+        "betrivers":         "riv",
+        "unibet_us":         "uni",
+        "wynnbet":           "wyn",
+        "superbook":         "sup",
+        "twinspires":        "twn",
+        "betus":             "bus",
+        "lowvig":            "low",
+        "mybookieag":        "myb",
+        "williamhill_us":    "czr",   # William Hill = Caesars rebrand
+        "espnbet":           "espn",
+        "fliff":             "flf",
+        "hardrockbet":       "hrb",
+        "fanatics":          "fan",
+    }
+
     odds_map = {}
+    books_seen = set()
     for event in data if isinstance(data, list) else [data]:
         for bookmaker in event.get("bookmakers", []):
             bk_key = bookmaker.get("key", "")
-            if bk_key not in ("draftkings", "fanduel"):
-                continue
-            short = "dk" if bk_key == "draftkings" else "fd"
+            short = BOOK_MAP.get(bk_key, bk_key[:3])
+            books_seen.add(f"{bk_key}={short}")
             for market in bookmaker.get("markets", []):
                 for outcome in market.get("outcomes", []):
                     name = outcome.get("name", "")
                     price = outcome.get("price", 0)
+                    if not name:
+                        continue
                     if name not in odds_map:
                         odds_map[name] = {}
                     odds_map[name][short] = f"{'+' if price > 0 else ''}{price}"
 
-    print(f"  Found odds for {len(odds_map)} players")
+    print(f"  Odds API: {len(odds_map)} players from {len(books_seen)} books: {', '.join(sorted(books_seen))}")
     return odds_map
 
 
@@ -2178,22 +2208,34 @@ def run_pipeline():
     compute_all_course_fits(output["players"], weather_data)
 
     # ============================================================
-    # ODDS API (fallback — only if BDL had no odds)
+    # ODDS API (SUPPLEMENT — merges books BDL doesn't cover)
+    # Always runs on scrape days. BDL odds take priority for any
+    # book it already covers; Odds API fills in the rest.
     # ============================================================
-    if not bdl_odds:
-        odds_api_data = scrape_betting_odds()
-        if odds_api_data:
-            for player in output["players"]:
-                odds = odds_api_data.get(player["name"])
-                if not odds:
-                    for oname, odata in odds_api_data.items():
-                        if player["name"].lower() in oname.lower() or oname.lower() in player["name"].lower():
-                            odds = odata
-                            break
-                if odds:
-                    player["odds"] = odds
-    else:
-        print("  Skipping The Odds API — BDL provided odds")
+    odds_api_data = scrape_betting_odds()
+    if odds_api_data:
+        merged_count = 0
+        new_books = set()
+        for player in output["players"]:
+            api_odds = odds_api_data.get(player["name"])
+            if not api_odds:
+                # Fuzzy match
+                for oname, odata in odds_api_data.items():
+                    if player["name"].lower() in oname.lower() or oname.lower() in player["name"].lower():
+                        api_odds = odata
+                        break
+            if api_odds:
+                existing = player.get("odds", {})
+                added = 0
+                for book, price in api_odds.items():
+                    if book not in existing:
+                        existing[book] = price
+                        new_books.add(book)
+                        added += 1
+                if added > 0:
+                    merged_count += 1
+                player["odds"] = existing
+        print(f"  Odds API supplement: merged {merged_count} players, new books: {', '.join(sorted(new_books)) if new_books else 'none'}")
 
     # ============================================================
     # RECENT FORM

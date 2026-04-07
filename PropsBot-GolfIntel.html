@@ -3015,8 +3015,8 @@
       var odds = player.odds || {};
       if (bookFilter === 'best') {
         var best = null;
-        ['dk','fd','mgm','czr','pb','365'].forEach(function(b) {
-          var v = odds[b] ? parseInt(odds[b]) : null;
+        BOOKS.forEach(function(b) {
+          var v = odds[b.key] ? parseInt(odds[b.key]) : null;
           if (v && (!best || v > best)) best = v;
         });
         return best;
@@ -3274,7 +3274,8 @@
      PROPS LINE SHOPPING — new card-based UI
   ============================================================ */
 
-  var BOOKS = [
+  // Core books (always shown) + additional books discovered from live data
+  var BOOKS_CORE = [
     { key:'dk',  label:'DraftKings' },
     { key:'fd',  label:'FanDuel'    },
     { key:'mgm', label:'BetMGM'     },
@@ -3282,6 +3283,32 @@
     { key:'pb',  label:'PointsBet'  },
     { key:'365', label:'Bet365'     }
   ];
+  var BOOK_LABELS = {
+    dk:'DraftKings', fd:'FanDuel', mgm:'BetMGM', czr:'Caesars', pb:'PointsBet',
+    '365':'Bet365', bov:'Bovada', bol:'BetOnline', riv:'BetRivers', uni:'Unibet',
+    wyn:'WynnBet', sup:'SuperBook', twn:'TwinSpires', bus:'BetUS', low:'LowVig',
+    myb:'MyBookie', espn:'ESPN Bet', flf:'Fliff', hrb:'Hard Rock', fan:'Fanatics'
+  };
+  // Dynamically build BOOKS list from player data — includes any book found in odds
+  var BOOKS = (function() {
+    var seen = {};
+    BOOKS_CORE.forEach(function(b) { seen[b.key] = b; });
+    (window._playerData || PLAYERS || []).forEach(function(p) {
+      var o = p.odds || {};
+      Object.keys(o).forEach(function(k) {
+        if (!seen[k]) {
+          seen[k] = { key: k, label: BOOK_LABELS[k] || k.toUpperCase() };
+        }
+      });
+    });
+    // Return core first, then extras sorted
+    var extras = [];
+    Object.keys(seen).forEach(function(k) {
+      if (!BOOKS_CORE.some(function(c){return c.key===k;})) extras.push(seen[k]);
+    });
+    extras.sort(function(a,b){return a.label.localeCompare(b.label);});
+    return BOOKS_CORE.concat(extras);
+  })();
 
   // How many times more likely Top-X is vs outright win (for estimation)
   var PLACEMENT_MULT = { winner:1, top5:3.8, top10:6.5, top20:11.5, makeCut:26, r1Leader:0.9 };
@@ -3720,7 +3747,7 @@
 
   function _bestBookOdds(player, book) {
     var odds  = player.odds || {};
-    var books = book === 'best' ? ['dk','fd','mgm','czr','pb','365'] : [book];
+    var books = book === 'best' ? BOOKS.map(function(b){return b.key;}) : [book];
     var best  = null;
     books.forEach(function(b) {
       var v = odds[b] ? parseInt(odds[b]) : null;
