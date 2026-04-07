@@ -151,14 +151,12 @@
     .lb-moved-down { animation: lbSlideUp   0.35s ease-out, flashRed   1.5s ease-out; }
     .lb-odds-shift { animation: flashGreen 1.2s ease-out; }
 
-    /* PropsBot Tooltip System — works on desktop hover + mobile tap */
-    [data-tip] { position:relative; cursor:help; }
-    [data-tip]::after {
-      content: attr(data-tip);
-      position: absolute;
-      bottom: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
+    /* PropsBot Tooltip — cursor:help on data-tip elements */
+    [data-tip] { cursor:help; }
+    /* Tooltip bubble rendered by JS, appended to body */
+    .pb-tooltip {
+      position: fixed;
+      z-index: 99999;
       background: rgba(10,18,32,0.97);
       color: rgba(200,215,230,0.85);
       font-size: 11px;
@@ -170,16 +168,12 @@
       border: 1px solid rgba(21,255,194,0.15);
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
       white-space: normal;
-      width: max-content;
       max-width: 260px;
-      z-index: 9000;
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.15s;
     }
-    [data-tip]:hover::after, [data-tip].tip-show::after { opacity:1; }
-    /* Flip tooltip below if near top of screen */
-    [data-tip-pos="below"]::after { bottom:auto; top:calc(100% + 8px); }
+    .pb-tooltip.visible { opacity: 1; }
 
     /* Confidence bar — uses brand multi-stop gradient */
     .conf-bar { height: 8px; border-radius: 4px; overflow: hidden; background: rgba(14,26,44,0.85); }
@@ -1277,18 +1271,68 @@
     document.getElementById('disclaimerModal').style.display = 'none';
   }
 
-  // Tooltip tap handler for mobile (toggles tip-show class)
-  document.addEventListener('click', function(e) {
-    // Remove any existing visible tooltip
-    var prev = document.querySelector('.tip-show');
-    if (prev && prev !== e.target && !prev.contains(e.target)) prev.classList.remove('tip-show');
-    // Toggle tooltip on tapped element
-    var el = e.target.closest('[data-tip]');
-    if (el) {
-      e.stopPropagation();
-      el.classList.toggle('tip-show');
+  // Tooltip system — fixed-position bubble appended to body (escapes overflow:hidden)
+  (function() {
+    var bubble = document.createElement('div');
+    bubble.className = 'pb-tooltip';
+    document.body.appendChild(bubble);
+    var activeEl = null;
+    var hideTimer = null;
+
+    function show(el) {
+      if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+      activeEl = el;
+      bubble.textContent = el.getAttribute('data-tip');
+      bubble.classList.add('visible');
+      position(el);
     }
-  });
+
+    function hide() {
+      bubble.classList.remove('visible');
+      activeEl = null;
+    }
+
+    function position(el) {
+      var r = el.getBoundingClientRect();
+      var bw = bubble.offsetWidth, bh = bubble.offsetHeight;
+      // Center horizontally above the element
+      var left = r.left + r.width / 2 - bw / 2;
+      var top = r.top - bh - 8;
+      // If clipped at top, show below instead
+      if (top < 4) top = r.bottom + 8;
+      // Keep within viewport horizontally
+      if (left < 4) left = 4;
+      if (left + bw > window.innerWidth - 4) left = window.innerWidth - bw - 4;
+      bubble.style.left = left + 'px';
+      bubble.style.top = top + 'px';
+    }
+
+    // Desktop: hover
+    document.addEventListener('mouseover', function(e) {
+      var el = e.target.closest('[data-tip]');
+      if (el) show(el);
+    });
+    document.addEventListener('mouseout', function(e) {
+      var el = e.target.closest('[data-tip]');
+      if (el && el === activeEl) {
+        hideTimer = setTimeout(hide, 100);
+      }
+    });
+
+    // Mobile: tap to toggle
+    document.addEventListener('click', function(e) {
+      var el = e.target.closest('[data-tip]');
+      if (el) {
+        e.stopPropagation();
+        if (activeEl === el) { hide(); } else { show(el); }
+      } else {
+        hide();
+      }
+    });
+
+    // Hide on scroll
+    window.addEventListener('scroll', hide, true);
+  })();
 </script>
 
 <script>
