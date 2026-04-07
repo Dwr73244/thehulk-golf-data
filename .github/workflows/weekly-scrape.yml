@@ -15,6 +15,7 @@ on:
     branches: [main]
     paths:
       - 'scraper.py'
+      - 'PropsBot-GolfIntel.html'
       - '.github/workflows/weekly-scrape.yml'
 
 permissions:
