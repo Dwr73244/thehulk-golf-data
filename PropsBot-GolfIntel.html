@@ -689,19 +689,19 @@
         <div class="overflow-x-auto border border-white/5 rounded-xl">
           <table class="min-w-full text-[11px]">
             <thead class="bg-white/[0.02]">
-              <tr class="text-slate-500">
+              <tr class="text-slate-500 text-[10px] uppercase tracking-wider">
                 <th class="px-3 py-2 text-left font-semibold">#</th>
                 <th class="px-3 py-2 text-left font-semibold">Player</th>
-                <th class="px-3 py-2 text-right font-semibold">Win %</th>
+                <th class="px-3 py-2 text-right font-semibold cursor-pointer hover:text-pb-teal tsort-col" data-tsort="win">Win % ↓</th>
                 <th class="px-3 py-2 text-right font-semibold">Model Odds</th>
                 <th class="px-3 py-2 text-right font-semibold">Book Odds</th>
-                <th class="px-3 py-2 text-right font-semibold">EV%</th>
-                <th class="px-3 py-2 text-right font-semibold">Top 5 %</th>
-                <th class="px-3 py-2 text-right font-semibold">Top 10 %</th>
-                <th class="px-3 py-2 text-right font-semibold">Top 20 %</th>
-                <th class="px-3 py-2 text-right font-semibold">MC %</th>
+                <th class="px-3 py-2 text-right font-semibold cursor-pointer hover:text-pb-teal tsort-col" data-tsort="ev">EV%</th>
+                <th class="px-3 py-2 text-right font-semibold cursor-pointer hover:text-pb-teal tsort-col" data-tsort="top5">Top 5 %</th>
+                <th class="px-3 py-2 text-right font-semibold cursor-pointer hover:text-pb-teal tsort-col" data-tsort="top10">Top 10 %</th>
+                <th class="px-3 py-2 text-right font-semibold cursor-pointer hover:text-pb-teal tsort-col" data-tsort="top20">Top 20 %</th>
+                <th class="px-3 py-2 text-right font-semibold cursor-pointer hover:text-pb-teal tsort-col" data-tsort="mc">MC %</th>
                 <th class="px-3 py-2 text-right font-semibold">Implied Odds</th>
-                <th class="px-3 py-2 text-right font-semibold">Avg Finish</th>
+                <th class="px-3 py-2 text-right font-semibold cursor-pointer hover:text-pb-teal tsort-col" data-tsort="avgFinish">Avg Finish</th>
               </tr>
             </thead>
             <tbody id="tourneyBoard" class="divide-y divide-white/5"></tbody>
@@ -1822,7 +1822,7 @@
         for (var r = 0; r < 4; r++) {
           rounds += -skill + (Math.random() + Math.random() + Math.random() + Math.random() - 2) * 2.8;
         }
-        var randomFinish = Math.max(1, Math.round(fieldSize / 2 - rounds * 3 + (Math.random() - 0.5) * fieldSize * 0.4));
+        var randomFinish = Math.max(1, Math.round(fieldSize / 2 + rounds * 3 + (Math.random() - 0.5) * fieldSize * 0.4));
         if (randomFinish <= 1) wins++;
         if (randomFinish <= 5) top5++;
         if (randomFinish <= 10) top10++;
@@ -1845,28 +1845,71 @@
 
     results.sort(function(a, b) { return b.win - a.win; });
 
-    el('tourneyResult').classList.remove('hidden');
-    var tbody = el('tourneyBoard');
-    tbody.innerHTML = '';
-
-    // Show how many players were filtered
-    var filtered = PLAYERS.length - competitivePlayers.length;
-    el('tourneyNotes').textContent = filtered + ' ceremonial/retired players excluded from sim (Tiger Woods, Larry Mize, Bernhard Langer, Fred Couples, Mike Weir, Bubba Watson and others — not competitive at Augusta 2026). Simulating ' + competitivePlayers.length + ' active field players.';
-
-    results.forEach(function(r, idx) {
-      var tr = document.createElement('tr');
-      tr.className = 'hover:bg-white/[0.02] transition-colors';
-      var winColor = r.win >= 10 ? 'text-pb-teal font-bold' : (r.win >= 5 ? 'text-pb-gold' : 'text-slate-300');
-      // Model vs Market columns
-      var modelOddsStr = pctToOdds(r.win);
-      var bookOddsStr = r.bookOdds ? (parseInt(r.bookOdds) > 0 ? '+' + parseInt(r.bookOdds) : '' + parseInt(r.bookOdds)) : '—';
-      var tEV = null;
+    // Compute EV for each result and store on the object
+    results.forEach(function(r) {
+      r._ev = null;
       if (r.bookOdds && r.win > 0) {
         var bDec = parseInt(r.bookOdds) > 0 ? (parseInt(r.bookOdds)/100+1) : (100/Math.abs(parseInt(r.bookOdds))+1);
         var bProb = 1 / bDec;
         var mProb = r.win / 100;
-        tEV = +((mProb - bProb) / bProb * 100).toFixed(1);
+        r._ev = +((mProb - bProb) / bProb * 100).toFixed(1);
       }
+    });
+
+    el('tourneyResult').classList.remove('hidden');
+
+    // Show how many players were filtered
+    var filtered = PLAYERS.length - competitivePlayers.length;
+
+    // Initial render using shared function
+    _renderTourneyRows(results);
+
+    var courseName = course !== 'neutral' && COURSE_DATA[course] ? COURSE_DATA[course].name : 'a neutral course';
+    el('tourneyNotes').textContent = 'Based on 10,000 Monte Carlo simulations at ' + courseName + ' with a ' + fieldStrength + ' field. Win probabilities incorporate each player\'s confScore (9-factor model), SG:Total, course fit, and 4-round variance (σ ≈ 2.8 strokes/round). Click any column header to re-sort.';
+
+    // Store results for column sorting
+    window._tourneyResults = results;
+    window._tourneySortCol = 'win';
+    window._tourneySortDir = -1; // -1 = desc
+
+    // Sortable column headers
+    document.querySelectorAll('.tsort-col').forEach(function(th) {
+      th.onclick = function() {
+        var col = this.getAttribute('data-tsort');
+        if (window._tourneySortCol === col) {
+          window._tourneySortDir *= -1;
+        } else {
+          window._tourneySortCol = col;
+          window._tourneySortDir = (col === 'avgFinish') ? 1 : -1; // avgFinish lower = better
+        }
+        // Update header indicators
+        document.querySelectorAll('.tsort-col').forEach(function(t) {
+          t.textContent = t.textContent.replace(/ ↓/g,'').replace(/ ↑/g,'');
+          t.style.color = '';
+        });
+        this.textContent += (window._tourneySortDir === -1 ? ' ↓' : ' ↑');
+        this.style.color = 'var(--teal)';
+        // Re-sort and re-render
+        var sorted = window._tourneyResults.slice().sort(function(a,b) {
+          var av = a[col] || 0, bv = b[col] || 0;
+          if (col === 'ev') { av = a._ev || 0; bv = b._ev || 0; }
+          return window._tourneySortDir * (bv - av);
+        });
+        _renderTourneyRows(sorted);
+      };
+    });
+  });
+
+  function _renderTourneyRows(results) {
+    var tbody = el('tourneyBoard');
+    tbody.innerHTML = '';
+    results.forEach(function(r, idx) {
+      var tr = document.createElement('tr');
+      tr.className = 'hover:bg-white/[0.02] transition-colors';
+      var winColor = r.win >= 10 ? 'text-pb-teal font-bold' : (r.win >= 5 ? 'text-pb-gold' : 'text-slate-300');
+      var modelOddsStr = pctToOdds(r.win);
+      var bookOddsStr = r.bookOdds ? (parseInt(r.bookOdds) > 0 ? '+' + parseInt(r.bookOdds) : '' + parseInt(r.bookOdds)) : '—';
+      var tEV = r._ev;
       var evCell = tEV != null
         ? '<span class="mono font-bold" style="' + (tEV > 0 ? 'color:var(--teal)' : 'color:var(--red)') + '">' + (tEV > 0 ? '+' : '') + tEV + '%</span>'
         : '<span class="text-slate-600">—</span>';
@@ -1885,10 +1928,6 @@
         '<td class="px-3 py-2 text-right mono text-slate-500">' + r.avgFinish.toFixed(1) + '</td>';
       tbody.appendChild(tr);
     });
-
-    var courseName = course !== 'neutral' && COURSE_DATA[course] ? COURSE_DATA[course].name : 'a neutral course';
-    el('tourneyNotes').textContent = 'Based on 10,000 Monte Carlo simulations at ' + courseName + ' with a ' + fieldStrength + ' field. Win probabilities incorporate each player\'s SG:Total rating, course fit adjustment, and 4-round variance (σ ≈ 2.8 strokes/round). Implied odds show what fair-value moneyline would be. Compare against sportsbook prices to find value.';
-  });
 
   /* ============================================================
      COURSE DATA TAB
@@ -3658,7 +3697,7 @@
         for (var r=0; r<4; r++) {
           score += -skill + (Math.random()+Math.random()+Math.random()+Math.random()-2)*2.8;
         }
-        var finish = Math.max(1, Math.round(fieldSize/2 - score*3 + (Math.random()-0.5)*fieldSize*0.4));
+        var finish = Math.max(1, Math.round(fieldSize/2 + score*3 + (Math.random()-0.5)*fieldSize*0.4));
         if (finish<=1)  wins++;
         if (finish<=5)  t5++;
         if (finish<=10) t10++;
