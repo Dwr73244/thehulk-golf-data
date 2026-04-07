@@ -194,6 +194,30 @@
       padding: 8px 12px; color: var(--text-primary); appearance: auto;
     }
 
+    /* Searchable dropdown */
+    .search-select { position: relative; }
+    .search-select input.ss-input {
+      background: rgba(7,14,26,0.8); border: 1px solid rgba(120,160,200,0.12); border-radius: 10px;
+      padding: 8px 12px; color: var(--text-primary); font-family: var(--mono); font-size: 12px;
+      width: 100%; box-sizing: border-box; cursor: pointer;
+    }
+    .search-select input.ss-input:focus { border-color: rgba(21,255,194,0.4); box-shadow: 0 0 0 2px rgba(21,255,194,0.1); outline: none; }
+    .search-select .ss-dropdown {
+      display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 100;
+      background: rgba(7,14,26,0.95); border: 1px solid rgba(120,160,200,0.2); border-radius: 10px;
+      max-height: 240px; overflow-y: auto; margin-top: 4px;
+      backdrop-filter: blur(12px); box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .search-select .ss-dropdown.open { display: block; }
+    .search-select .ss-option {
+      padding: 7px 12px; font-size: 12px; color: var(--text-secondary); cursor: pointer;
+      font-family: var(--mono); transition: background 0.15s;
+    }
+    .search-select .ss-option:hover, .search-select .ss-option.active {
+      background: rgba(21,255,194,0.1); color: var(--text-primary);
+    }
+    .search-select .ss-option .ss-rank { color: rgba(21,255,194,0.5); font-size: 10px; margin-left: 6px; }
+
     .btn-primary {
       background: linear-gradient(135deg, #09d5a0, #22a9ec); color: var(--bg); font-weight: 700;
       padding: 10px 20px; min-height: 44px; border-radius: 10px; font-size: 13px; border: none; cursor: pointer;
@@ -458,14 +482,14 @@
       <div class="compare-panel grid gap-4 sm:grid-cols-[1fr_auto_1fr] items-end">
         <div class="space-y-1.5">
           <label class="text-[11px] font-semibold text-slate-300 uppercase">Player A</label>
-          <select id="matchA" class="w-full"></select>
+          <div class="search-select" data-ss="matchA"><input class="ss-input" placeholder="Search player…" autocomplete="off"><input type="hidden" id="matchA"><div class="ss-dropdown"></div></div>
         </div>
         <div class="text-center pb-2">
           <span class="matchup-vs">VS</span>
         </div>
         <div class="space-y-1.5">
           <label class="text-[11px] font-semibold text-slate-300 uppercase">Player B</label>
-          <select id="matchB" class="w-full"></select>
+          <div class="search-select" data-ss="matchB"><input class="ss-input" placeholder="Search player…" autocomplete="off"><input type="hidden" id="matchB"><div class="ss-dropdown"></div></div>
         </div>
       </div>
 
@@ -623,7 +647,7 @@
       <div class="grid gap-3 sm:grid-cols-3 mb-4">
         <div class="space-y-1.5">
           <label class="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">Player</label>
-          <select id="propPlayer" class="w-full"></select>
+          <div class="search-select" data-ss="propPlayer"><input class="ss-input" placeholder="Search player…" autocomplete="off"><input type="hidden" id="propPlayer"><div class="ss-dropdown"></div></div>
         </div>
         <div class="space-y-1.5">
           <label class="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">Prop Type</label>
@@ -866,6 +890,89 @@
         <div class="glass rounded-xl p-4 text-center">
           <p class="text-[10px] text-slate-500 uppercase font-semibold">Easiest Hole</p>
           <p class="mono text-2xl font-bold text-pb-teal mt-1" id="cdEasiest">—</p>
+        </div>
+      </div>
+
+      <!-- Hole Prop Helper -->
+      <div class="glass rounded-2xl p-5">
+        <h3 class="text-sm font-bold text-white mb-1">Hole Prop Helper</h3>
+        <p class="text-xs text-slate-400 mb-4">Check historical over/under hit rates for any hole by round. Great for hole-specific props.</p>
+        <div class="grid gap-3 sm:grid-cols-4 items-end mb-4">
+          <div class="space-y-1.5">
+            <label class="text-[11px] font-semibold text-slate-300 uppercase">Hole</label>
+            <select id="propHole" class="w-full">
+              <option value="1">Hole 1</option><option value="2">Hole 2</option><option value="3">Hole 3</option>
+              <option value="4">Hole 4</option><option value="5">Hole 5</option><option value="6">Hole 6</option>
+              <option value="7">Hole 7</option><option value="8">Hole 8</option><option value="9">Hole 9</option>
+              <option value="10">Hole 10</option><option value="11">Hole 11</option><option value="12">Hole 12</option>
+              <option value="13">Hole 13</option><option value="14">Hole 14</option><option value="15">Hole 15</option>
+              <option value="16">Hole 16</option><option value="17">Hole 17</option><option value="18">Hole 18</option>
+            </select>
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-[11px] font-semibold text-slate-300 uppercase">Round</label>
+            <select id="propRound" class="w-full">
+              <option value="all">All Rounds</option>
+              <option value="1">Round 1</option><option value="2">Round 2</option>
+              <option value="3">Round 3</option><option value="4">Round 4</option>
+            </select>
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-[11px] font-semibold text-slate-300 uppercase">O/U Line</label>
+            <input type="number" id="propLine" step="0.5" value="3.5" class="w-full" style="padding:8px 12px;">
+          </div>
+          <button id="runHoleProp" class="btn-primary text-xs" style="min-height:38px;">Analyze</button>
+        </div>
+        <div id="holePropResult" class="hidden">
+          <div class="grid gap-3 sm:grid-cols-4 mb-3">
+            <div class="glass rounded-xl p-3 text-center">
+              <p class="text-[10px] text-slate-500 uppercase font-semibold">Avg Score</p>
+              <p class="mono text-xl font-bold text-white mt-1" id="hpAvg">—</p>
+            </div>
+            <div class="glass rounded-xl p-3 text-center">
+              <p class="text-[10px] text-slate-500 uppercase font-semibold">Over Hit Rate</p>
+              <p class="mono text-xl font-bold text-pb-red mt-1" id="hpOver">—</p>
+            </div>
+            <div class="glass rounded-xl p-3 text-center">
+              <p class="text-[10px] text-slate-500 uppercase font-semibold">Under Hit Rate</p>
+              <p class="mono text-xl font-bold text-pb-teal mt-1" id="hpUnder">—</p>
+            </div>
+            <div class="glass rounded-xl p-3 text-center">
+              <p class="text-[10px] text-slate-500 uppercase font-semibold">Verdict</p>
+              <p class="mono text-xl font-bold mt-1" id="hpVerdict">—</p>
+            </div>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-4 text-center text-[10px] text-slate-500">
+            <p id="hpRoundBreakdown"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Round Leaders Summary Table -->
+      <div class="glass rounded-2xl p-5">
+        <h3 class="text-sm font-bold text-white mb-1">Round-by-Round Hole Difficulty</h3>
+        <p class="text-xs text-slate-400 mb-4">Compare how each hole plays across rounds. Large deltas highlight pin placement / scoring variance — great for round-specific props.</p>
+        <div class="flex gap-2 mb-3">
+          <button id="rlSortHole" class="tab-pill active rounded-lg border border-transparent px-3 py-1 text-[11px] font-semibold text-slate-400">Sort: Hole</button>
+          <button id="rlSortDelta" class="tab-pill rounded-lg border border-transparent px-3 py-1 text-[11px] font-semibold text-slate-400">Sort: Biggest Delta</button>
+        </div>
+        <div class="overflow-x-auto border border-white/5 rounded-xl">
+          <table class="min-w-full text-[11px]">
+            <thead class="bg-white/[0.02]">
+              <tr class="text-slate-500">
+                <th class="px-2 py-2 text-left font-semibold">Hole</th>
+                <th class="px-2 py-2 text-center font-semibold">Par</th>
+                <th class="px-2 py-2 text-right font-semibold">R1 Avg</th>
+                <th class="px-2 py-2 text-right font-semibold">R2 Avg</th>
+                <th class="px-2 py-2 text-right font-semibold">R3 Avg</th>
+                <th class="px-2 py-2 text-right font-semibold">R4 Avg</th>
+                <th class="px-2 py-2 text-right font-semibold">Max Delta</th>
+                <th class="px-2 py-2 text-right font-semibold">Hardest Rd</th>
+                <th class="px-2 py-2 text-right font-semibold">Easiest Rd</th>
+              </tr>
+            </thead>
+            <tbody id="rlTable" class="divide-y divide-white/5"></tbody>
+          </table>
         </div>
       </div>
 
@@ -1660,7 +1767,7 @@
       div.innerHTML =
         '<div class="flex items-center justify-between mb-2">' +
           '<div class="flex items-center gap-2">' +
-            '<span class="mono text-xs text-slate-500 font-semibold w-6">#' + p.rank + '</span>' +
+            '<span class="mono text-xs text-slate-500 font-semibold w-6" title="PropsBot #' + p.rank + (p.owgrRank ? ' · OWGR #' + p.owgrRank : '') + '">#' + p.rank + '</span>' +
             '<span class="text-sm font-bold text-white" style="letter-spacing:-0.3px">' + p.name + '</span>' +
           '</div>' +
           '<span class="mono text-sm font-bold ' + sgColor + '" data-tip="Strokes Gained: Total — how many strokes better (+) or worse (-) than field average per round. +1.5 or higher is elite.">' + p.sgTotal.toFixed(2) + '</span>' +
@@ -1688,7 +1795,7 @@
   function showPlayerDetail(p) {
     el('playerDetail').classList.remove('hidden');
     el('pdName').textContent = p.name;
-    el('pdMeta').textContent = 'Rank #' + p.rank + ' · Miss: ' + p.missDir + ' · Flight: ' + p.flight.replace('_', ' ');
+    el('pdMeta').textContent = 'PB #' + p.rank + (p.owgrRank && p.owgrRank < 900 ? ' · OWGR #' + p.owgrRank : '') + ' · Miss: ' + p.missDir + ' · Flight: ' + p.flight.replace('_', ' ');
     el('pdRank').textContent = '#' + p.rank;
 
     var stats = [
@@ -1758,18 +1865,78 @@
   /* ============================================================
      POPULATE SELECTS
   ============================================================ */
-  function populatePlayerSelects() {
-    ['matchA', 'matchB', 'propPlayer'].forEach(function(selId) {
-      var sel = el(selId);
-      sel.innerHTML = '';
-      PLAYERS.forEach(function(p) {
-        var opt = document.createElement('option');
-        opt.value = p.id;
-        opt.textContent = p.name + ' (#' + p.rank + ')';
-        sel.appendChild(opt);
+  /* Searchable select component */
+  function initSearchSelect(wrapper) {
+    var input = wrapper.querySelector('.ss-input');
+    var hidden = wrapper.querySelector('input[type="hidden"]');
+    var dropdown = wrapper.querySelector('.ss-dropdown');
+    var sorted = [];
+    var activeIdx = -1;
+
+    function lastName(n) { var p = n.trim().split(' '); return p[p.length - 1].toLowerCase(); }
+
+    function render(filter) {
+      var q = (filter || '').toLowerCase();
+      var html = '';
+      activeIdx = -1;
+      sorted.forEach(function(p, i) {
+        if (q && p.name.toLowerCase().indexOf(q) < 0) return;
+        html += '<div class="ss-option" data-id="' + p.id + '" data-idx="' + i + '">'
+          + p.name + '<span class="ss-rank">#' + (p.owgrRank || p.rank) + '</span></div>';
       });
+      dropdown.innerHTML = html || '<div class="ss-option" style="color:#667">No matches</div>';
+    }
+
+    function pick(id) {
+      var p = sorted.find(function(x) { return x.id === id; });
+      if (!p) return;
+      hidden.value = id;
+      input.value = p.name;
+      dropdown.classList.remove('open');
+    }
+
+    function populate(players) {
+      sorted = players.slice().sort(function(a, b) {
+        return lastName(a.name).localeCompare(lastName(b.name));
+      });
+      render('');
+    }
+
+    input.addEventListener('focus', function() {
+      input.select();
+      render(input.value === (sorted.find(function(p) { return p.id === parseInt(hidden.value); }) || {}).name ? '' : input.value);
+      dropdown.classList.add('open');
     });
-    if (el('matchB').options.length > 1) el('matchB').selectedIndex = 1;
+    input.addEventListener('input', function() { render(input.value); dropdown.classList.add('open'); });
+    input.addEventListener('keydown', function(e) {
+      var opts = dropdown.querySelectorAll('.ss-option[data-id]');
+      if (e.key === 'ArrowDown') { e.preventDefault(); activeIdx = Math.min(activeIdx + 1, opts.length - 1); opts.forEach(function(o, i) { o.classList.toggle('active', i === activeIdx); }); if (opts[activeIdx]) opts[activeIdx].scrollIntoView({block:'nearest'}); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdx = Math.max(activeIdx - 1, 0); opts.forEach(function(o, i) { o.classList.toggle('active', i === activeIdx); }); if (opts[activeIdx]) opts[activeIdx].scrollIntoView({block:'nearest'}); }
+      else if (e.key === 'Enter') { e.preventDefault(); if (opts[activeIdx]) pick(parseInt(opts[activeIdx].dataset.id)); }
+      else if (e.key === 'Escape') { dropdown.classList.remove('open'); input.blur(); }
+    });
+    dropdown.addEventListener('mousedown', function(e) {
+      var opt = e.target.closest('.ss-option[data-id]');
+      if (opt) { e.preventDefault(); pick(parseInt(opt.dataset.id)); }
+    });
+    document.addEventListener('click', function(e) {
+      if (!wrapper.contains(e.target)) dropdown.classList.remove('open');
+    });
+
+    return { populate: populate, pick: pick, getValue: function() { return parseInt(hidden.value); } };
+  }
+
+  var _ssInstances = {};
+  document.querySelectorAll('.search-select[data-ss]').forEach(function(w) {
+    _ssInstances[w.dataset.ss] = initSearchSelect(w);
+  });
+
+  function populatePlayerSelects() {
+    Object.keys(_ssInstances).forEach(function(key) {
+      _ssInstances[key].populate(PLAYERS);
+      if (PLAYERS.length > 0) _ssInstances[key].pick(PLAYERS[0].id);
+    });
+    if (PLAYERS.length > 1) _ssInstances['matchB'].pick(PLAYERS[1].id);
   }
 
   /* ============================================================
@@ -2198,6 +2365,137 @@
     el('cdHardest').textContent = '#' + hardest.hole + ' (+' + hardest.diff.toFixed(2) + ')';
     el('cdEasiest').textContent = '#' + easiest.hole + ' (' + easiest.diff.toFixed(2) + ')';
   }
+
+  /* ============================================================
+     HOLE PROP HELPER
+  ============================================================ */
+  el('runHoleProp').addEventListener('click', function() {
+    var courseKey = el('cdCourse').value;
+    var data = COURSE_DATA[courseKey];
+    if (!data || !data.holes) return;
+
+    var holeNum = parseInt(el('propHole').value);
+    var round = el('propRound').value;
+    var line = parseFloat(el('propLine').value);
+    var h = data.holes.find(function(x) { return x.hole === holeNum; });
+    if (!h) return;
+
+    var avg;
+    if (round === 'all') avg = (h.r1 + h.r2 + h.r3 + h.r4) / 4;
+    else avg = h['r' + round];
+
+    // Estimate over/under using normal distribution around the avg
+    // Sigma based on par: par3 ~0.55, par4 ~0.65, par5 ~0.75
+    var sigma = h.par === 3 ? 0.55 : h.par === 5 ? 0.75 : 0.65;
+    var z = (line - avg) / sigma;
+    // Approximate CDF using logistic approximation
+    var overPct = 1 / (1 + Math.exp(1.7 * z));
+    var underPct = 1 - overPct;
+
+    el('hpAvg').textContent = avg.toFixed(2);
+    el('hpOver').textContent = (overPct * 100).toFixed(0) + '%';
+    el('hpUnder').textContent = (underPct * 100).toFixed(0) + '%';
+
+    var edge = Math.abs(overPct - 0.5);
+    var verdict, verdictColor;
+    if (edge < 0.05) { verdict = 'PUSH ZONE'; verdictColor = 'color:var(--text-secondary)'; }
+    else if (overPct > 0.55) { verdict = edge > 0.15 ? 'BET OVER' : 'LEAN OVER'; verdictColor = 'color:var(--pb-red)'; }
+    else { verdict = edge > 0.15 ? 'BET UNDER' : 'LEAN UNDER'; verdictColor = 'color:var(--pb-teal)'; }
+    el('hpVerdict').textContent = verdict;
+    el('hpVerdict').style.cssText = verdictColor;
+
+    // Show round breakdown
+    var bd = 'R1: ' + h.r1.toFixed(2) + ' · R2: ' + h.r2.toFixed(2) + ' · R3: ' + h.r3.toFixed(2) + ' · R4: ' + h.r4.toFixed(2);
+    var rounds = [h.r1, h.r2, h.r3, h.r4];
+    var maxR = Math.max.apply(null, rounds), minR = Math.min.apply(null, rounds);
+    var hardR = rounds.indexOf(maxR) + 1, easyR = rounds.indexOf(minR) + 1;
+    bd += ' · Hardest: R' + hardR + ' (' + maxR.toFixed(2) + ') · Easiest: R' + easyR + ' (' + minR.toFixed(2) + ')';
+    el('hpRoundBreakdown').textContent = bd;
+    el('holePropResult').classList.remove('hidden');
+  });
+
+  /* ============================================================
+     ROUND LEADERS SUMMARY TABLE
+  ============================================================ */
+  var _rlSortBy = 'hole';
+  function renderRoundLeaders() {
+    var courseKey = el('cdCourse').value;
+    var data = COURSE_DATA[courseKey];
+    if (!data || !data.holes) return;
+
+    var rows = data.holes.map(function(h) {
+      var rounds = [h.r1, h.r2, h.r3, h.r4];
+      var maxVal = Math.max.apply(null, rounds), minVal = Math.min.apply(null, rounds);
+      var delta = maxVal - minVal;
+      var hardR = rounds.indexOf(maxVal) + 1;
+      var easyR = rounds.indexOf(minVal) + 1;
+      return { hole: h.hole, par: h.par, r1: h.r1, r2: h.r2, r3: h.r3, r4: h.r4, delta: delta, hardR: hardR, easyR: easyR };
+    });
+
+    if (_rlSortBy === 'delta') rows.sort(function(a, b) { return b.delta - a.delta; });
+    else rows.sort(function(a, b) { return a.hole - b.hole; });
+
+    var tbody = el('rlTable');
+    tbody.innerHTML = '';
+    rows.forEach(function(r) {
+      var maxR = Math.max(r.r1, r.r2, r.r3, r.r4);
+      var minR = Math.min(r.r1, r.r2, r.r3, r.r4);
+      function cellColor(v) {
+        if (v === maxR) return 'text-red-400 font-semibold';
+        if (v === minR) return 'text-emerald-400 font-semibold';
+        return 'text-slate-300';
+      }
+      var deltaColor = r.delta >= 0.20 ? 'text-amber-400 font-bold' : r.delta >= 0.10 ? 'text-amber-500' : 'text-slate-500';
+      var tr = document.createElement('tr');
+      tr.className = 'hover:bg-white/[0.02]' + (r.delta >= 0.20 ? ' bg-amber-900/10' : '');
+      tr.innerHTML =
+        '<td class="px-2 py-1.5 mono text-slate-200 font-semibold">' + r.hole + '</td>' +
+        '<td class="px-2 py-1.5 text-center text-slate-400">' + r.par + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono ' + cellColor(r.r1) + '">' + r.r1.toFixed(2) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono ' + cellColor(r.r2) + '">' + r.r2.toFixed(2) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono ' + cellColor(r.r3) + '">' + r.r3.toFixed(2) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono ' + cellColor(r.r4) + '">' + r.r4.toFixed(2) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono ' + deltaColor + '">' + r.delta.toFixed(2) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono text-red-400">R' + r.hardR + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono text-emerald-400">R' + r.easyR + '</td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  el('rlSortHole').addEventListener('click', function() {
+    _rlSortBy = 'hole';
+    el('rlSortHole').classList.add('active'); el('rlSortDelta').classList.remove('active');
+    renderRoundLeaders();
+  });
+  el('rlSortDelta').addEventListener('click', function() {
+    _rlSortBy = 'delta';
+    el('rlSortDelta').classList.add('active'); el('rlSortHole').classList.remove('active');
+    renderRoundLeaders();
+  });
+
+  // Also enhance renderCourseHoles: add round delta highlights to hole cards when viewing specific round
+  var _origRenderCourseHoles = renderCourseHoles;
+  renderCourseHoles = function(data, round) {
+    _origRenderCourseHoles(data, round);
+    renderRoundLeaders();
+
+    // Add delta badges to hole cards when viewing a specific round
+    if (round !== 'all' && data && data.holes) {
+      var cards = el('cdHoleGrid').children;
+      data.holes.forEach(function(h, i) {
+        if (!cards[i]) return;
+        var allAvg = (h.r1 + h.r2 + h.r3 + h.r4) / 4;
+        var roundAvg = h['r' + round];
+        var delta = roundAvg - allAvg;
+        if (Math.abs(delta) >= 0.05) {
+          var badge = document.createElement('p');
+          badge.className = 'text-[8px] mt-0.5 font-semibold ' + (delta > 0 ? 'text-red-400' : 'text-emerald-400');
+          badge.textContent = (delta > 0 ? '+' : '') + delta.toFixed(2) + ' vs avg';
+          cards[i].appendChild(badge);
+        }
+      });
+    }
+  };
 
   el('exportCourseData').addEventListener('click', function() {
     var courseKey = el('cdCourse').value;
