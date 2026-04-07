@@ -611,7 +611,11 @@
         </label>
         <label class="flex items-center gap-1.5 cursor-pointer">
           <input type="checkbox" id="propHotOnly" class="w-3.5 h-3.5 accent-orange-400">
-          <span class="text-[11px] font-semibold text-orange-400">🔥 Hot Only</span>
+          <span class="text-[11px] font-semibold text-orange-400">Hot Only</span>
+        </label>
+        <label class="flex items-center gap-1.5 cursor-pointer">
+          <input type="checkbox" id="propCompetitiveOnly" class="w-3.5 h-3.5 accent-blue-400" checked>
+          <span class="text-[11px] font-semibold text-blue-400">Competitive Only</span>
         </label>
         <select id="propSortSel" class="mono text-[10px] bg-white/5 border border-white/10 rounded-md px-2 py-1.5 text-slate-300 cursor-pointer">
           <option value="confScore">Sort: PropsBot Score ↓</option>
@@ -3594,6 +3598,7 @@
   var _propMatrixSort = { col: 'confScore', dir: -1 };
   var _propEvFilter   = false;
   var _propHotOnly    = false;
+  var _propCompetitiveOnly = true;
   var _propPlayerSearch = '';
   var _propSortKey    = 'confScore';
   var _activeCourse   = 'augusta';  // current course key for course fit sort
@@ -3626,10 +3631,11 @@
   }
 
   function calcModelProb(player, propType) {
+    if (!_isCompetitive(player)) return 0.001;
     var conf = (player.confScore || 50) / 100;
     var mult = PROP_MULT[propType] || 1;
     var rawProb = Math.min(conf * mult * 0.15, 0.98);
-    var fit = (player.courseFit && player.courseFit.augusta) ? player.courseFit.augusta / 100 : 0.65;
+    var fit = (player.courseFit && player.courseFit[_activeCourse]) ? player.courseFit[_activeCourse] / 100 : 0.65;
     return Math.min(rawProb * (0.7 + 0.3 * fit), 0.98);
   }
 
@@ -3679,10 +3685,11 @@
   }
 
   function modelPctForProp(player, propType) {
+    if (!_isCompetitive(player)) return 0.1;
     var conf = (player.confScore || 50) / 100;
     var mult = PROP_MULT[propType] || 1;
     var base = conf * 0.15 * mult; // conf=100 → 15% win prob
-    var fit = player.courseFit && player.courseFit.augusta ? player.courseFit.augusta / 100 : 0.65;
+    var fit = player.courseFit && player.courseFit[_activeCourse] ? player.courseFit[_activeCourse] / 100 : 0.65;
     return Math.min(98, base * (0.7 + 0.3 * fit) * 100);
   }
 
@@ -3723,6 +3730,7 @@
 
     // Filter
     var rows = players.filter(function(p) {
+      if (_propCompetitiveOnly && !_isCompetitive(p)) return false;
       if (_propPlayerSearch && p.name.toLowerCase().indexOf(_propPlayerSearch.toLowerCase()) < 0) return false;
       if (_propEvFilter) {
         var ev = p.evScore || cellEV(modelPctForProp(p,'winner'), p.odds && parseInt(p.odds.dk || p.odds.fd || p.odds.mgm));
@@ -3766,13 +3774,14 @@
       return dir * (aOdds - bOdds);
     });
 
-    // Spotlight — top 3 best EV plays across all columns
+    // Spotlight — top 3 best EV plays across all columns (competitive players only)
     var spotlight = [];
     rowData.forEach(function(r) {
+      if (!_isCompetitive(r.p)) return;
       propCols.forEach(function(col) {
         var ev = r.colEV[col];
         var odds = r.colOdds[col];
-        if (ev > 5 && odds && (r.p.confScore || 0) >= 45) {
+        if (ev > 5 && ev < 200 && odds && (r.p.confScore || 0) >= 50) {
           spotlight.push({ name: r.p.name, prop: col, odds: odds, ev: ev, conf: r.p.confScore });
         }
       });
@@ -4026,11 +4035,21 @@
     return null;
   }
 
+  // Minimum thresholds for competitive players
+  var COMPETITIVE_MIN_CONF = 15;    // confScore floor
+  var COMPETITIVE_MIN_SG   = -1.0;  // sgTotal floor
+
+  function _isCompetitive(p) {
+    return (p.confScore || 0) >= COMPETITIVE_MIN_CONF && (p.sgTotal || 0) >= COMPETITIVE_MIN_SG;
+  }
+
   // Compute model fair probability for a placement market
   function _modelFairPct(p, market) {
+    // Non-competitive players get near-zero probability — prevents fake +EV on longshots
+    if (!_isCompetitive(p)) return 0.1;
     var conf = (p.confScore || 50) / 100;
     var mult = PLACEMENT_MULT[market] || 1;
-    var fit  = p.courseFit && p.courseFit.augusta ? p.courseFit.augusta / 100 : 0.65;
+    var fit  = p.courseFit && p.courseFit[_activeCourse] ? p.courseFit[_activeCourse] / 100 : 0.65;
     return Math.min(96, conf * 0.15 * mult * (0.7 + 0.3 * fit) * 100);
   }
 
@@ -4046,6 +4065,7 @@
 
     var search = (_propPlayerSearch || '').toLowerCase();
     var players = PLAYERS.filter(function(p) {
+      if (_propCompetitiveOnly && !_isCompetitive(p)) return false;
       if (search && p.name.toLowerCase().indexOf(search) < 0) return false;
       if (_propHotOnly) {
         var trend = p.recentForm && p.recentForm.trend;
@@ -4091,17 +4111,18 @@
       });
     }
 
-    // Spotlight
+    // Spotlight (competitive players only, capped EV to filter noise)
     var spotlight = [];
     if (!isStatProp) {
       players.forEach(function(p) {
+        if (!_isCompetitive(p) || (p.confScore || 0) < 50) return;
         var modelPct = _modelFairPct(p, _propCat);
         BOOKS.forEach(function(b) {
           var odds = _bookOddsForMarket(p, _propCat, b.key);
           if (!odds) return;
           var dec = odds > 0 ? (odds/100+1) : (100/Math.abs(odds)+1);
           var ev  = +((modelPct - (1/dec)*100)/((1/dec)*100)*100).toFixed(1);
-          if (ev > 0) spotlight.push({ name:p.name, book:b.label, odds:odds, ev:ev, market:_propCat });
+          if (ev > 0 && ev < 200) spotlight.push({ name:p.name, book:b.label, odds:odds, ev:ev, market:_propCat });
         });
       });
       spotlight.sort(function(a,b){ return b.ev - a.ev; });
@@ -4334,6 +4355,9 @@
     // Hot filter
     var hot = el('propHotOnly');
     if (hot) hot.addEventListener('change', function() { _propHotOnly=this.checked; renderPropsLineShopping(); });
+    // Competitive filter
+    var comp = el('propCompetitiveOnly');
+    if (comp) comp.addEventListener('change', function() { _propCompetitiveOnly=this.checked; renderPropsLineShopping(); });
     // Sort
     var srt = el('propSortSel');
     if (srt) srt.addEventListener('change', function() { _propSortKey=this.value; renderPropsLineShopping(); });
