@@ -934,13 +934,32 @@ def scrape_betting_odds():
     # No day-of-week restriction — let the workflow cron handle frequency
 
     print("[5/7] Fetching ALL sportsbook odds from The Odds API...")
-    url = (
-        f"https://api.the-odds-api.com/v4/sports/golf_pga_tour_winner/odds"
-        f"?apiKey={ODDS_API_KEY}&regions=us&markets=outrights&oddsFormat=american"
-    )
-    data = fetch_json(url)
+
+    # Try multiple golf sport keys — active key depends on which tournament is upcoming
+    GOLF_SPORT_KEYS = [
+        "golf_masters_tournament_winner",
+        "golf_pga_championship_winner",
+        "golf_us_open_winner",
+        "golf_the_open_championship_winner",
+        "golf_pga_tour_winner",
+    ]
+
+    data = None
+    for sport_key in GOLF_SPORT_KEYS:
+        url = (
+            f"https://api.the-odds-api.com/v4/sports/{sport_key}/odds"
+            f"?apiKey={ODDS_API_KEY}&regions=us&markets=outrights&oddsFormat=american"
+        )
+        result = fetch_json(url)
+        if result:
+            print(f"  Got data from sport key: {sport_key}")
+            data = result
+            break
+        else:
+            print(f"  No data for {sport_key}, trying next...")
+
     if not data:
-        print("  Could not fetch odds data")
+        print("  Could not fetch odds from any golf sport key")
         return None
 
     # Map Odds API bookmaker keys to short display names
