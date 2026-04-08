@@ -294,6 +294,40 @@
 
       /* Header subtitle hidden on mobile */
       .header-subtitle { display: none; }
+
+      /* Tab pills: tighter on mobile */
+      .tab-pill { padding: 6px 10px !important; font-size: 10px !important; }
+
+      /* Section labels smaller */
+      .section-label { font-size: 11px !important; }
+
+      /* Player card padding tighter */
+      .player-card { padding: 10px !important; }
+
+      /* Props Builder search/filter row: stack vertically */
+      #tab-props .flex.gap-2 { flex-wrap: wrap; }
+
+      /* Sportsbook card slider: smaller cards */
+      .book-card-slider { gap: 4px !important; }
+
+      /* Table cell padding tighter */
+      td, th { padding-left: 6px !important; padding-right: 6px !important; }
+
+      /* Max-width container: less side padding */
+      .max-w-7xl { padding-left: 8px !important; padding-right: 8px !important; }
+
+      /* Tooltip max-width narrower */
+      .pb-tooltip { max-width: 220px; font-size: 10px; }
+    }
+
+    /* Extra small screens — iPhone SE, Galaxy Fold */
+    @media (max-width: 375px) {
+      .tab-pill { padding: 5px 7px !important; font-size: 9px !important; }
+      .player-card { padding: 8px !important; }
+      .glass { padding: 12px !important; }
+      td, th { padding-left: 4px !important; padding-right: 4px !important; font-size: 10px !important; }
+      .pb-tooltip { max-width: 180px; }
+      h2 { font-size: 14px !important; }
     }
   </style>
 </head>
@@ -1257,6 +1291,10 @@
         <span class="text-[11px] text-slate-400">$10 bet pays</span>
         <span class="mono text-lg font-bold text-pb-teal" id="parlay10Pays">—</span>
       </div>
+      <button id="parlayShareBtn" style="width:100%;margin-top:0.75rem;padding:0.6rem;border-radius:10px;background:linear-gradient(135deg,rgba(21,255,194,0.08),rgba(34,169,236,0.06));border:1px solid rgba(21,255,194,0.2);color:var(--teal);font-family:var(--mono);font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(21,255,194,0.12)'" onmouseout="this.style.background='linear-gradient(135deg,rgba(21,255,194,0.08),rgba(34,169,236,0.06))'">
+        📋 Copy Parlay to Clipboard
+      </button>
+      <span id="parlayShareMsg" style="display:block;text-align:center;font-size:10px;color:var(--teal);opacity:0;transition:opacity 0.3s;margin-top:4px;"></span>
     </div>
   </div>
 
@@ -2606,7 +2644,8 @@
       if (nav) {
         var div = document.createElement('div');
         div.className = 'max-w-7xl mx-auto px-4 flex justify-end';
-        div.innerHTML = '<span data-status class="text-[9px] text-slate-600 py-0.5">Data: ' + DATA_LOADED_FROM + '</span>';
+        div.innerHTML = '<span data-status class="text-[9px] text-slate-600 py-0.5">Data: ' + DATA_LOADED_FROM + '</span>' +
+          '<span id="refreshBadge" class="text-[9px] text-pb-teal ml-3" style="opacity:0;transition:opacity 0.5s;"></span>';
         nav.appendChild(div);
       }
     }
@@ -2750,7 +2789,7 @@
         '<td class="px-3 py-2 mono text-slate-500">' + (idx + 1) + '</td>' +
         '<td class="px-3 py-2 text-white font-medium">' + p.name + '</td>' +
         '<td class="px-3 py-2 text-right mono text-slate-300">' + (p.owgr || '—') + '</td>' +
-        '<td class="px-3 py-2 text-right mono font-semibold ' + fitColor + '">' + fit + '</td>' +
+        '<td class="px-3 py-2 text-right">' + _fitBadge(fit, false) + '</td>' +
         histHtml +
         '<td class="px-3 py-2 text-right mono text-pb-gold">' + (odds.dk || '—') + ' ' + evHtml + '</td>' +
         '<td class="px-3 py-2 text-right mono text-pb-blue">' + (odds.fd || '—') + '</td>' +
@@ -3261,7 +3300,7 @@
         '<td class="px-3 py-2 mono text-slate-500">' + (idx + 1) + '</td>' +
         '<td class="px-3 py-2 text-white font-medium">' + r.name + '</td>' +
         '<td class="px-3 py-2 text-right mono text-pb-gold font-semibold">' + r.odds + '</td>' +
-        '<td class="px-3 py-2 text-right mono ' + fitColor + '">' + fit + '</td>' +
+        '<td class="px-3 py-2 text-right">' + _fitBadge(fit, false) + '</td>' +
         '<td class="px-3 py-2 text-right mono text-slate-200">' + sgt + '</td>' +
         '<td class="px-3 py-2 text-right mono ' + confColor2 + '">' + conf + '%</td>' +
         '<td class="px-3 py-2 text-right">' + evHtml + '</td>' +
@@ -3397,6 +3436,43 @@
     saveParlayToStorage();
     renderParlay();
     renderPlayerGrid();
+  });
+
+  // Parlay share — copy formatted text to clipboard
+  el('parlayShareBtn').addEventListener('click', function() {
+    if (!_parlayLegs.length) return;
+    var combinedDecimal = _parlayLegs.reduce(function(acc, leg) {
+      return acc * americanToDecimal(leg.odds || 100);
+    }, 1);
+    var combinedAmerican = decimalToAmerican(combinedDecimal);
+    var text = '🏌️ PropsBot Masters Parlay\n' +
+      '━━━━━━━━━━━━━━━━━━━━\n';
+    _parlayLegs.forEach(function(leg, i) {
+      text += (i + 1) + '. ' + leg.player + ' — ' + leg.betType + ' (' + (leg.odds || '—') + ')\n';
+    });
+    text += '━━━━━━━━━━━━━━━━━━━━\n' +
+      'Combined: ' + combinedAmerican + '\n' +
+      '$10 → $' + (10 * combinedDecimal).toFixed(2) + ' | $25 → $' + (25 * combinedDecimal).toFixed(2) + '\n\n' +
+      'Built with golf.propsbot.ai';
+
+    navigator.clipboard.writeText(text).then(function() {
+      var msg = el('parlayShareMsg');
+      if (msg) {
+        msg.textContent = 'Copied! Paste anywhere to share.';
+        msg.style.opacity = '1';
+        setTimeout(function() { msg.style.opacity = '0'; }, 3000);
+      }
+    }).catch(function() {
+      // Fallback for older browsers
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      var msg = el('parlayShareMsg');
+      if (msg) { msg.textContent = 'Copied!'; msg.style.opacity = '1'; setTimeout(function() { msg.style.opacity = '0'; }, 3000); }
+    });
   });
 
   /* ============================================================
@@ -4030,6 +4106,23 @@
     return null;
   }
 
+  // Course fit display helper — shows "82/100" with colored mini bar
+  function _fitBadge(fit, compact) {
+    if (!fit && fit !== 0) return '<span style="font-size:9px;color:rgba(200,215,230,0.3)">—</span>';
+    var col = fit >= 85 ? 'var(--teal)' : fit >= 70 ? '#22a9ec' : fit >= 55 ? 'rgba(200,215,230,0.55)' : 'var(--red)';
+    var pct = Math.max(0, Math.min(100, fit));
+    if (compact) {
+      return '<span style="font-size:9px;color:rgba(200,215,230,0.45)">Fit: <span style="color:' + col + ';font-weight:700">' + fit + '</span><span style="color:rgba(200,215,230,0.25)">/100</span></span>';
+    }
+    return '<span style="display:inline-flex;align-items:center;gap:4px;font-size:9px;">' +
+      '<span style="width:28px;height:4px;border-radius:2px;background:rgba(100,180,200,0.1);overflow:hidden;display:inline-block;">' +
+        '<span style="display:block;width:' + pct + '%;height:100%;border-radius:2px;background:' + col + ';"></span>' +
+      '</span>' +
+      '<span style="color:' + col + ';font-weight:700;font-family:var(--mono);">' + fit + '</span>' +
+      '<span style="color:rgba(200,215,230,0.25)">/100</span>' +
+    '</span>';
+  }
+
   // Minimum thresholds for competitive players
   var COMPETITIVE_MIN_CONF = 15;    // confScore floor
   var COMPETITIVE_MIN_SG   = -1.0;  // sgTotal floor
@@ -4143,7 +4236,7 @@
           '</div>' +
           '<div class="text-sm font-bold text-white">' + p.name + '</div>' +
           '<div class="mono text-[10px] mt-1" style="color:rgba(200,215,230,0.5)">PB Score: <span style="color:' + t.color + ';font-weight:700">' + (p.confScore||0).toFixed(0) + '</span>' +
-            ' · Fit: ' + fit + ' · SG: ' + (p.sgTotal>0?'+':'') + (p.sgTotal||0).toFixed(2) + '</div>' +
+            ' · ' + _fitBadge(fit, true) + ' · SG: ' + (p.sgTotal>0?'+':'') + (p.sgTotal||0).toFixed(2) + '</div>' +
           (bestOdds !== null ? '<div class="mono text-xs font-bold mt-1" style="color:var(--gold)">' + catLabel + ' ' + _oddsStr(bestOdds) + '</div>' : '') +
         '</div>';
       }).join('') : '';
@@ -4197,14 +4290,32 @@
               '<span style="font-size:9px;font-weight:600;color:rgba(200,215,235,0.7)">' + b.label + '</span>' +
             '</div>' +
             '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0">' +
-              '<div style="padding:5px 6px;border-right:1px solid rgba(100,200,220,0.06);text-align:center">' +
-                '<div style="font-size:8px;color:rgba(200,215,230,0.4);margin-bottom:1px">OVER</div>' +
-                '<span style="font-family:var(--mono);font-size:12px;font-weight:800;color:var(--teal)">-110</span>' +
-              '</div>' +
-              '<div style="padding:5px 6px;text-align:center">' +
-                '<div style="font-size:8px;color:rgba(200,215,230,0.4);margin-bottom:1px">UNDER</div>' +
-                '<span style="font-family:var(--mono);font-size:12px;font-weight:800;color:var(--red)">-110</span>' +
-              '</div>' +
+              (function() {
+                // Compute O/U odds from model projection vs line
+                var delta = sl.modelProj - sl.line;
+                var absDelta = Math.abs(delta);
+                // Bigger delta = more lopsided odds; 0 delta = -110/-110 (vig)
+                var favJuice, dogJuice;
+                if (absDelta < 0.3) { favJuice = -110; dogJuice = -110; }
+                else if (absDelta < 0.8) { favJuice = -125; dogJuice = +105; }
+                else if (absDelta < 1.5) { favJuice = -145; dogJuice = +125; }
+                else if (absDelta < 2.5) { favJuice = -170; dogJuice = +145; }
+                else { favJuice = -200; dogJuice = +170; }
+                var overOdds = delta >= 0 ? favJuice : dogJuice;
+                var underOdds = delta >= 0 ? dogJuice : favJuice;
+                var overStr = overOdds > 0 ? '+' + overOdds : overOdds;
+                var underStr = underOdds > 0 ? '+' + underOdds : underOdds;
+                var overColor = delta > 0.3 ? 'var(--teal)' : delta < -0.3 ? 'rgba(200,215,230,0.5)' : 'rgba(200,215,230,0.7)';
+                var underColor = delta < -0.3 ? 'var(--teal)' : delta > 0.3 ? 'rgba(200,215,230,0.5)' : 'rgba(200,215,230,0.7)';
+                return '<div style="padding:5px 6px;border-right:1px solid rgba(100,200,220,0.06);text-align:center">' +
+                  '<div style="font-size:8px;color:rgba(200,215,230,0.4);margin-bottom:1px">OVER</div>' +
+                  '<span style="font-family:var(--mono);font-size:12px;font-weight:800;color:' + overColor + '">' + overStr + '</span>' +
+                '</div>' +
+                '<div style="padding:5px 6px;text-align:center">' +
+                  '<div style="font-size:8px;color:rgba(200,215,230,0.4);margin-bottom:1px">UNDER</div>' +
+                  '<span style="font-family:var(--mono);font-size:12px;font-weight:800;color:' + underColor + '">' + underStr + '</span>' +
+                '</div>';
+              })() +
             '</div>' +
             '<div style="text-align:center;padding:2px;border-top:1px solid rgba(100,200,220,0.04)">' +
               '<span style="font-family:var(--mono);font-size:10px;font-weight:700;color:rgba(200,215,230,0.6)">' + sl.line + '</span>' +
@@ -4255,7 +4366,7 @@
           '</div>' +
           '<div style="display:flex;align-items:center;gap:6px;margin-top:4px;flex-wrap:wrap">' +
             '<span class="mono" style="font-size:9px;padding:1px 6px;border-radius:3px;background:' + tier.bg + ';border:1px solid ' + tier.border + ';color:' + tier.color + ';font-weight:700">' + tier.label + '</span>' +
-            (fit ? '<span style="font-size:9px;color:rgba(200,215,230,0.45)">Fit: <span style="color:' + (fit>=80?'var(--teal)':fit>=65?'#22a9ec':'rgba(200,215,230,0.5)') + ';font-weight:600">' + fit + '</span></span>' : '') +
+            (fit ? _fitBadge(fit, false) : '') +
             '<span style="font-size:9px;color:rgba(200,215,230,0.45)">SG: <span style="color:' + ((p.sgTotal||0)>=1.5?'var(--teal)':(p.sgTotal||0)>=0.5?'#22a9ec':'rgba(200,215,230,0.5)') + ';font-weight:600">' + (p.sgTotal>0?'+':'') + (p.sgTotal||0).toFixed(2) + '</span></span>' +
           '</div>';
       }
@@ -4641,24 +4752,63 @@
   }
 
   // Try to load external data, then initialize
-  if (DATA_URL) {
-    fetch(DATA_URL)
+  function loadLiveData(isRefresh) {
+    if (!DATA_URL) return Promise.resolve();
+    return fetch(DATA_URL + '?t=' + Date.now())
       .then(function(resp) {
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         return resp.json();
       })
       .then(function(data) {
-        console.log('[PropsBot] Loaded live data:', data.generatedAt);
+        var prev = window._liveData ? window._liveData.generatedAt : null;
+        if (isRefresh && prev === data.generatedAt) {
+          console.log('[PropsBot] Data unchanged, skipping refresh');
+          return;
+        }
+        console.log('[PropsBot] ' + (isRefresh ? 'Refreshed' : 'Loaded') + ' live data:', data.generatedAt);
+        window._liveData = data;
         applyExternalData(data);
-        initApp();
+        if (isRefresh) {
+          // Re-render active views without full re-init
+          renderPlayerGrid();
+          setTimeout(enhancePlayerGrid, 0);
+          renderPropsMatrix();
+          renderPropsLineShopping();
+          renderLeaderboard();
+          // Flash refresh indicator
+          var badge = el('refreshBadge');
+          if (badge) {
+            badge.textContent = 'Updated ' + new Date().toLocaleTimeString();
+            badge.style.opacity = '1';
+            setTimeout(function() { badge.style.opacity = '0'; }, 4000);
+          }
+        }
       })
       .catch(function(err) {
-        console.warn('[PropsBot] Could not load live data, using built-in:', err.message);
-        initApp();
+        console.warn('[PropsBot] ' + (isRefresh ? 'Refresh' : 'Load') + ' failed:', err.message);
       });
+  }
+
+  if (DATA_URL) {
+    loadLiveData(false).then(function() { initApp(); }).catch(function() { initApp(); });
   } else {
     initApp();
   }
+
+  // Auto-refresh: every 5 min during tournament hours (Thu-Sun 8am-8pm ET), 30 min otherwise
+  setInterval(function() {
+    var now = new Date();
+    var day = now.getDay(); // 0=Sun, 4=Thu, 5=Fri, 6=Sat
+    var hour = now.getHours();
+    var isTournamentHours = (day >= 4 || day === 0) && hour >= 8 && hour <= 20;
+    var intervalOk = isTournamentHours
+      ? true  // every 5 min during play
+      : (now.getMinutes() % 30 < 5);  // ~every 30 min otherwise (fires only near :00/:30)
+    if (intervalOk && DATA_URL) {
+      console.log('[PropsBot] Auto-refresh triggered');
+      loadLiveData(true);
+    }
+  }, 5 * 60 * 1000); // Check every 5 min
 
 })();
 </script>
