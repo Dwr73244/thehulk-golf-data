@@ -1244,9 +1244,9 @@
               <th class="px-3 py-2 text-left font-semibold w-10">Pos</th>
               <th class="px-3 py-2 text-left font-semibold">Player</th>
               <th class="px-3 py-2 text-center font-semibold mobile-hide" style="color:rgba(200,215,230,0.5)">Tee Time</th>
-              <th class="px-3 py-2 text-right font-semibold" style="color:var(--gold)">Win Odds</th>
+              <th class="px-3 py-2 text-right font-semibold" style="color:var(--gold)">Odds</th>
               <th class="px-3 py-2 text-right font-semibold">Total</th>
-              <th class="px-3 py-2 text-right font-semibold mobile-hide">Today</th>
+              <th class="px-3 py-2 text-right font-semibold">Today</th>
               <th class="px-3 py-2 text-right font-semibold">Thru</th>
               <th class="px-3 py-2 text-right font-semibold mobile-hide">R1</th>
               <th class="px-3 py-2 text-right font-semibold mobile-hide">R2</th>
@@ -3145,7 +3145,7 @@
         '<td class="px-3 py-2 text-center mobile-hide">' + teeTimeStr + '</td>' +
         '<td class="px-3 py-2 text-right">' + oddsStr + '</td>' +
         '<td class="px-3 py-2 text-right">' + scoreDisplay(row.totalScore !== undefined ? row.totalScore : row.total) + '</td>' +
-        '<td class="px-3 py-2 text-right mobile-hide">' + scoreDisplay(row.today) + '</td>' +
+        '<td class="px-3 py-2 text-right">' + scoreDisplay(row.today) + '</td>' +
         '<td class="px-3 py-2 text-right mono text-slate-400">' + thruText + '</td>' +
         '<td class="px-3 py-2 text-right mono text-slate-400 mobile-hide">' + (row.r1 != null ? row.r1 : '—') + '</td>' +
         '<td class="px-3 py-2 text-right mono text-slate-400 mobile-hide">' + (row.r2 != null ? row.r2 : '—') + '</td>' +

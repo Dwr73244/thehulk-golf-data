@@ -22,10 +22,23 @@ import sys
 import time
 import os
 import math
+import unicodedata
 from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
+
+
+def normalize_name(name):
+    """Strip accents/diacritics and lowercase for fuzzy name matching.
+    'Ludvig Åberg' → 'ludvig aberg', 'José María Olazábal' → 'jose maria olazabal'
+    """
+    if not name:
+        return ""
+    # Decompose unicode, strip combining marks (accents), re-compose
+    nfkd = unicodedata.normalize('NFKD', name)
+    stripped = ''.join(c for c in nfkd if not unicodedata.combining(c))
+    return stripped.lower().strip()
 
 # ============================================================
 # CONFIG
@@ -2727,6 +2740,54 @@ def run_pipeline():
         output["players"] = fallback
         print(f"\n  Using fallback data for {len(fallback)} players")
 
+    # ============================================================
+    # ADD MISSING FIELD PLAYERS FROM BDL FIELD + ESPN LEADERBOARD
+    # Players on the actual course but not in our data get auto-added
+    # with minimal stats so they can receive odds and appear on leaderboard.
+    # ============================================================
+    existing_names = {normalize_name(p["name"]) for p in output["players"]}
+    field_additions = 0
+
+    # From BDL field list
+    if bdl_field:
+        for entry in bdl_field:
+            p = entry.get("player", {})
+            name = p.get("display_name", "")
+            if name and normalize_name(name) not in existing_names:
+                output["players"].append({
+                    "id": 9000 + field_additions,
+                    "name": name,
+                    "rank": p.get("owgr", 200),
+                    "sgTotal": 0.0, "sgOtt": 0.0, "sgApp": 0.0, "sgArg": 0.0, "sgPutt": 0.0,
+                    "birdieAvg": 3.5, "bogeyAvg": 2.5, "scoringAvg": 72.0,
+                    "gir": 65.0, "fairways": 60.0, "scramble": 57.0, "proxAvg": 35.0,
+                    "missDir": "neutral", "flight": "neutral", "courseFit": {},
+                    "notes": "Auto-added from tournament field.",
+                })
+                existing_names.add(normalize_name(name))
+                field_additions += 1
+
+    # From ESPN leaderboard (catches amateurs, past champions, qualifiers)
+    espn_lb = output.get("currentEvent", {}).get("leaderboard", [])
+    for entry in espn_lb:
+        name = entry.get("name", "")
+        if name and normalize_name(name) not in existing_names:
+            output["players"].append({
+                "id": 9500 + field_additions,
+                "name": name,
+                "rank": 200,
+                "sgTotal": 0.0, "sgOtt": 0.0, "sgApp": 0.0, "sgArg": 0.0, "sgPutt": 0.0,
+                "birdieAvg": 3.5, "bogeyAvg": 2.5, "scoringAvg": 72.0,
+                "gir": 65.0, "fairways": 60.0, "scramble": 57.0, "proxAvg": 35.0,
+                "missDir": "neutral", "flight": "neutral", "courseFit": {},
+                "notes": "Auto-added from ESPN leaderboard.",
+            })
+            existing_names.add(normalize_name(name))
+            field_additions += 1
+
+    if field_additions:
+        print(f"  Added {field_additions} missing field players from BDL/ESPN")
+
     # Merge PGA Tour stats
     if pga_stats:
         for stat_key, entries in pga_stats.items():
@@ -2744,15 +2805,35 @@ def run_pipeline():
     # ENRICH: BDL Odds + Props + Field info
     # ============================================================
     if bdl_odds:
+        # Build normalized name lookup for odds
+        odds_norm = {normalize_name(k): v for k, v in bdl_odds.items()}
+        odds_norm_keys = list(odds_norm.keys())
+        matched_odds = 0
         for player in output["players"]:
-            odds = bdl_odds.get(player["name"])
+            pn = normalize_name(player["name"])
+            # Exact normalized match first
+            odds = odds_norm.get(pn)
             if not odds:
-                for oname, odata in bdl_odds.items():
-                    if player["name"].lower() in oname.lower() or oname.lower() in player["name"].lower():
-                        odds = odata
+                # Fuzzy: check substring both ways
+                for oname in odds_norm_keys:
+                    if pn in oname or oname in pn:
+                        odds = odds_norm[oname]
                         break
+                # Last resort: last name match
+                if not odds:
+                    p_last = pn.split()[-1] if pn else ''
+                    if len(p_last) > 3:
+                        for oname in odds_norm_keys:
+                            o_last = oname.split()[-1] if oname else ''
+                            o_first = oname.split()[0] if oname else ''
+                            p_first = pn.split()[0] if pn else ''
+                            if p_last == o_last and p_first[0] == o_first[0]:
+                                odds = odds_norm[oname]
+                                break
             if odds:
                 player["odds"] = odds
+                matched_odds += 1
+        print(f"  BDL odds matched: {matched_odds}/{len(output['players'])} players")
 
     if bdl_props:
         for player in output["players"]:
@@ -2810,13 +2891,15 @@ def run_pipeline():
     if odds_api_data:
         merged_count = 0
         new_books = set()
+        api_norm = {normalize_name(k): v for k, v in odds_api_data.items()}
+        api_norm_keys = list(api_norm.keys())
         for player in output["players"]:
-            api_odds = odds_api_data.get(player["name"])
+            pn = normalize_name(player["name"])
+            api_odds = api_norm.get(pn)
             if not api_odds:
-                # Fuzzy match
-                for oname, odata in odds_api_data.items():
-                    if player["name"].lower() in oname.lower() or oname.lower() in player["name"].lower():
-                        api_odds = odata
+                for oname in api_norm_keys:
+                    if pn in oname or oname in pn:
+                        api_odds = api_norm[oname]
                         break
             if api_odds:
                 existing = player.get("odds", {})
