@@ -1155,8 +1155,22 @@
   <!-- ==================== TAB: HOLE ANALYSIS ==================== -->
   <div id="tab-holeanalysis" class="tab-content hidden fade-in space-y-5">
     <div class="glass rounded-2xl p-5 glow-teal">
-      <h2 class="text-base font-bold text-white mb-1">Hole Deep Dive — Augusta National</h2>
-      <p class="text-xs text-slate-400 mb-4">Select a hole to see scoring breakdown, difficulty, and betting angles</p>
+      <div class="flex items-center justify-between mb-2">
+        <div>
+          <h2 class="text-base font-bold text-white mb-0.5">Hole Deep Dive — Augusta National</h2>
+          <p class="text-xs text-slate-400">Select a hole to see scoring breakdown, difficulty, and betting angles</p>
+        </div>
+        <div class="flex gap-2 items-center">
+          <select id="ha_dataSource" class="mono text-[10px] bg-white/5 border border-white/10 rounded-md px-2 py-1.5 text-slate-300 cursor-pointer">
+            <option value="historic">Historic Avg (2019-2025)</option>
+            <option value="liveR1">Live Round 1 (2026)</option>
+            <option value="liveR2">Live Round 2 (2026)</option>
+            <option value="liveR3">Live Round 3 (2026)</option>
+            <option value="liveR4">Live Round 4 (2026)</option>
+          </select>
+        </div>
+      </div>
+      <div id="ha_liveStatus" style="display:none;font-size:10px;color:var(--teal);margin-bottom:8px;"></div>
       <div class="flex gap-1.5 flex-wrap" id="ha_holePills"></div>
     </div>
 
@@ -1801,11 +1815,23 @@
         '</div>';
       }
 
+      // Live tournament score badge
+      var liveBadge = '';
+      if (p._liveScore != null && p._liveScore !== '') {
+        var liveNum = parseInt(p._liveScore);
+        var liveCol = liveNum < 0 ? 'var(--teal)' : liveNum === 0 ? 'rgba(200,215,230,0.6)' : 'var(--red)';
+        var liveThru = p._liveThru === 'F' ? 'F' : (p._liveThru || '');
+        liveBadge = '<span style="display:inline-flex;align-items:center;gap:3px;font-family:var(--mono);font-size:11px;font-weight:800;color:' + liveCol + ';background:rgba(21,255,194,0.06);border:1px solid rgba(21,255,194,0.15);padding:1px 7px;border-radius:12px;" data-tip="Live tournament score. Position: ' + (p._livePos||'—') + ' · Thru: ' + liveThru + '">' +
+          p._liveScore + (liveThru ? '<span style="font-size:8px;font-weight:600;color:rgba(200,215,230,0.4);margin-left:2px">thru ' + liveThru + '</span>' : '') +
+        '</span>';
+      }
+
       div.innerHTML =
         '<div class="flex items-center justify-between mb-2">' +
           '<div class="flex items-center gap-2">' +
             '<span class="mono text-xs text-slate-500 font-semibold w-6" title="PropsBot #' + p.rank + (p.owgrRank ? ' · OWGR #' + p.owgrRank : '') + '">#' + p.rank + '</span>' +
             '<span class="text-sm font-bold text-white" style="letter-spacing:-0.3px">' + p.name + '</span>' +
+            liveBadge +
           '</div>' +
           '<span class="mono text-sm font-bold ' + sgColor + '" data-tip="Strokes Gained: Total — how many strokes better (+) or worse (-) than field average per round. +1.5 or higher is elite.">' + p.sgTotal.toFixed(2) + '</span>' +
         '</div>' +
@@ -2837,20 +2863,103 @@
     });
   }
 
+  var _haSelectedHole = null;
+  var _haDataSource = 'historic';
+
+  // Compute live hole stats from ESPN hole-by-hole data
+  function _computeLiveHoleStats(holeNum, roundNum) {
+    var holeData = window._liveHoleData || {};
+    var eagles = 0, birdies = 0, pars = 0, bogeys = 0, doubles = 0, totalStrokes = 0, count = 0;
+    // Augusta par for each hole
+    var augustaPars = [0,4,5,4,3,4,3,4,5,4,4,4,3,5,4,5,3,4,4]; // index 0 unused
+
+    Object.keys(holeData).forEach(function(playerName) {
+      var rounds = holeData[playerName];
+      var rd = rounds[roundNum];
+      if (!rd) return;
+      var holeScore = rd.find(function(h) { return h.hole === holeNum; });
+      if (!holeScore) return;
+
+      var strokes = holeScore.strokes;
+      var par = augustaPars[holeNum] || 4;
+      var diff = strokes - par;
+      totalStrokes += strokes;
+      count++;
+
+      if (diff <= -2) eagles++;
+      else if (diff === -1) birdies++;
+      else if (diff === 0) pars++;
+      else if (diff === 1) bogeys++;
+      else doubles++;
+    });
+
+    if (count === 0) return null;
+    var par = augustaPars[holeNum] || 4;
+    return {
+      eagles: eagles, birdies: birdies, pars: pars, bogeys: bogeys, doublePlus: doubles,
+      scoringAvg: +(totalStrokes / count).toFixed(2),
+      scoringDiff: +((totalStrokes / count) - par).toFixed(3),
+      playerCount: count,
+      eaglePct: +(eagles/count*100).toFixed(1),
+      birdiePct: +(birdies/count*100).toFixed(1),
+      parPct: +(pars/count*100).toFixed(1),
+      bogeyPct: +(bogeys/count*100).toFixed(1),
+      doublePct: +(doubles/count*100).toFixed(1),
+    };
+  }
+
   function showHoleDetail(holeNum) {
     if (!MASTERS_INTEL) return;
+    _haSelectedHole = holeNum;
     var h = MASTERS_INTEL.augusta_holes.find(function(x) { return x.hole === holeNum; });
     if (!h) return;
-    var hist = h.historical || {};
+
+    // Determine data source
+    var src = _haDataSource;
+    var hist;
+    var sourceLabel;
+    if (src === 'historic') {
+      hist = h.historical || {};
+      sourceLabel = 'Historic Avg (2019-2025)';
+    } else {
+      var roundNum = parseInt(src.replace('liveR', ''));
+      hist = _computeLiveHoleStats(holeNum, roundNum);
+      sourceLabel = 'Live Round ' + roundNum + ' (2026)';
+      if (!hist) {
+        // No live data for this round yet
+        el('ha_liveStatus').style.display = 'block';
+        el('ha_liveStatus').textContent = 'No live data for Round ' + roundNum + ' yet. Showing historic instead.';
+        hist = h.historical || {};
+        sourceLabel = 'Historic (fallback)';
+      } else {
+        el('ha_liveStatus').style.display = 'block';
+        el('ha_liveStatus').innerHTML = '🟢 Live data from <strong>' + hist.playerCount + ' players</strong> who have completed hole #' + holeNum + ' in R' + roundNum;
+      }
+    }
+    if (src === 'historic') el('ha_liveStatus').style.display = 'none';
 
     el('ha_holeDetail').classList.remove('hidden');
     el('ha_holeName').textContent = '#' + h.hole + ' ' + h.name;
-    el('ha_holeMeta').textContent = 'Par ' + h.par + ' · ' + h.yards + ' yards · Augusta National';
-    var rank = hist.difficultyRank || '?';
+    el('ha_holeMeta').textContent = 'Par ' + h.par + ' · ' + h.yards + ' yards · ' + sourceLabel;
+
+    // Difficulty rank — only meaningful for historic data
+    var rank = (h.historical || {}).difficultyRank || '?';
+    if (src !== 'historic' && hist.scoringDiff != null) {
+      // Compute live difficulty relative rank (approximate)
+      var allHoleDiffs = [];
+      for (var hi = 1; hi <= 18; hi++) {
+        var roundNum2 = parseInt(src.replace('liveR', ''));
+        var ls = _computeLiveHoleStats(hi, roundNum2);
+        if (ls) allHoleDiffs.push({ hole: hi, diff: ls.scoringDiff });
+      }
+      allHoleDiffs.sort(function(a, b) { return b.diff - a.diff; });
+      rank = allHoleDiffs.findIndex(function(x) { return x.hole === holeNum; }) + 1;
+      if (rank === 0) rank = '?';
+    }
     el('ha_holeRank').textContent = '#' + rank;
     el('ha_holeRank').style.color = rank <= 4 ? '#ff1552' : (rank <= 9 ? '#f0c040' : '#22a9ec');
 
-    // Distribution bar — compute pcts from raw counts if pct fields missing
+    // Distribution bar
     var totalShots = (hist.eagles||0) + (hist.birdies||0) + (hist.pars||0) + (hist.bogeys||0) + (hist.doublePlus||0);
     var ep   = hist.eaglePct  || (totalShots ? +((hist.eagles||0)     / totalShots * 100).toFixed(1) : 0);
     var bp   = hist.birdiePct || (totalShots ? +((hist.birdies||0)    / totalShots * 100).toFixed(1) : 0);
@@ -3082,8 +3191,9 @@
           _tournamentStatus = 'NOT_STARTED';
         }
 
-        // Parse leaderboard from competitors
+        // Parse leaderboard from competitors using linescores structure
         var lb = [];
+        var liveHoleData = {};  // {playerName: {round: [holeScores]}}
         var competitions = event.competitions || [];
         for (var ci = 0; ci < competitions.length; ci++) {
           var comp = competitions[ci];
@@ -3091,23 +3201,67 @@
           for (var pi = 0; pi < competitors.length; pi++) {
             var c = competitors[pi];
             var athlete = c.athlete || {};
-            var stats = {};
-            (c.statistics || []).forEach(function(s) {
-              stats[s.name] = s.displayValue || s.value;
-            });
+            var name = athlete.displayName || '';
+            var rounds = c.linescores || [];
+
+            // Extract per-round strokes from linescores
+            var r1 = null, r2 = null, r3 = null, r4 = null;
+            var currentRoundHoles = 0;
+            var currentRoundScore = null;
+            var currentRoundNum = 0;
+
+            for (var ri = 0; ri < rounds.length; ri++) {
+              var rd = rounds[ri];
+              var rdNum = rd.period || (ri + 1);
+              var holesPlayed = rd.linescores ? rd.linescores.length : 0;
+              var strokes = rd.value;
+
+              if (rdNum === 1 && holesPlayed > 0) r1 = strokes;
+              if (rdNum === 2 && holesPlayed > 0) r2 = strokes;
+              if (rdNum === 3 && holesPlayed > 0) r3 = strokes;
+              if (rdNum === 4 && holesPlayed > 0) r4 = strokes;
+
+              // Current round = latest round with holes played
+              if (holesPlayed > 0 && holesPlayed <= 18) {
+                currentRoundNum = rdNum;
+                currentRoundHoles = holesPlayed;
+                currentRoundScore = rd.displayValue || '';  // e.g. "-3"
+              }
+
+              // Store hole-by-hole data for hole analysis
+              if (name && rd.linescores && rd.linescores.length > 0) {
+                if (!liveHoleData[name]) liveHoleData[name] = {};
+                liveHoleData[name][rdNum] = rd.linescores.map(function(h) {
+                  return { hole: h.period, strokes: h.value, toPar: h.scoreType ? h.scoreType.displayValue : '' };
+                });
+              }
+            }
+
+            // Thru: if current round has < 18 holes, show hole count
+            var thru = '';
+            if (currentRoundHoles === 18) {
+              thru = 'F';
+            } else if (currentRoundHoles > 0) {
+              thru = currentRoundHoles;
+            }
+
+            // Position from order field (1-indexed)
+            var pos = c.order || (pi + 1);
+
+            // Also check status object as fallback
             var statusObj = c.status || {};
             var posObj = statusObj.position || {};
+            if (posObj.displayName) pos = posObj.displayName;
+            if (statusObj.thru) thru = statusObj.thru;
 
             lb.push({
-              name: athlete.displayName || '',
-              position: posObj.displayName || posObj.id || (pi + 1),
-              totalScore: c.score || stats.totalStrokes || '',
-              today: stats.currentRoundScore || stats.today || '',
-              thru: statusObj.thru || (statusObj.type && statusObj.type.shortDetail) || '',
-              r1: stats.round1 ? parseInt(stats.round1) : null,
-              r2: stats.round2 ? parseInt(stats.round2) : null,
-              r3: stats.round3 ? parseInt(stats.round3) : null,
-              r4: stats.round4 ? parseInt(stats.round4) : null,
+              name: name,
+              position: pos,
+              totalScore: c.score || '',
+              today: currentRoundScore || '',
+              thru: thru,
+              r1: r1, r2: r2, r3: r3, r4: r4,
+              currentRound: currentRoundNum,
             });
           }
         }
@@ -3115,21 +3269,26 @@
         if (lb.length > 0) {
           _liveLeaderboard = lb;
 
-          // Also update tee times from this ESPN data
-          var ttArr = [];
-          competitions.forEach(function(comp) {
-            (comp.competitors || []).forEach(function(c) {
-              var name = c.athlete ? c.athlete.displayName : '';
-              var tt = c.status && c.status.teeTime ? c.status.teeTime : '';
-              if (name && tt) ttArr.push({ player: name, teeTime: tt });
+          // Store live hole data globally for hole analysis tab
+          window._liveHoleData = liveHoleData;
+
+          // Update live scores on player objects for Players tab
+          var playerData = window._playerData || PLAYERS || [];
+          lb.forEach(function(row) {
+            var p = playerData.find(function(pl) {
+              return pl.name && (pl.name === row.name || pl.name.toLowerCase() === row.name.toLowerCase());
             });
+            if (p) {
+              p._liveScore = row.totalScore;
+              p._liveToday = row.today;
+              p._liveThru = row.thru;
+              p._livePos = row.position;
+              p._liveR1 = row.r1;
+            }
           });
-          if (ttArr.length && window._liveData) {
-            window._liveData.teeTimes = ttArr;
-          }
 
           renderLiveLeaderboard();
-          console.log('[ESPN Live] Updated leaderboard: ' + lb.length + ' players, status: ' + _tournamentStatus);
+          console.log('[ESPN Live] Updated: ' + lb.length + ' players, ' + Object.keys(liveHoleData).length + ' with hole data, status: ' + _tournamentStatus);
         }
       })
       .catch(function(err) {
@@ -4587,6 +4746,12 @@
       renderMastersHQ();
       renderHolePills();
     }
+    // Hole analysis data source selector
+    var haSrc = el('ha_dataSource');
+    if (haSrc) haSrc.addEventListener('change', function() {
+      _haDataSource = this.value;
+      if (_haSelectedHole) showHoleDetail(_haSelectedHole);
+    });
     renderCutPredictor();
     renderTeeTimes(1);
     renderAllPropsTypeTables();
