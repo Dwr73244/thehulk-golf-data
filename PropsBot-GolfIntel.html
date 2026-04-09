@@ -3049,8 +3049,112 @@
     window._lbPrevPositions = newPositions;
 
     var upEl = el('ls_updatedAt');
-    if (upEl && window._liveData && window._liveData.generatedAt) {
-      upEl.textContent = 'Updated: ' + window._liveData.generatedAt;
+    if (upEl) {
+      upEl.textContent = 'Updated: ' + new Date().toLocaleTimeString();
+    }
+  }
+
+  // ============================================================
+  // CLIENT-SIDE LIVE ESPN SCORING — 60-second refresh
+  // Fetches directly from ESPN's public API for near-real-time
+  // leaderboard. Independent of the scraper pipeline.
+  // Does NOT touch Odds API or BDL — scores only.
+  // ============================================================
+  var _espnLiveInterval = null;
+
+  function fetchESPNLiveScores() {
+    var url = 'https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard';
+    fetch(url)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var events = data.events || [];
+        if (!events.length) return;
+        var event = events[0];
+        var eventName = event.name || '';
+        var statusType = event.status && event.status.type ? event.status.type.name : '';
+
+        // Determine tournament status
+        if (statusType === 'STATUS_IN_PROGRESS' || statusType === 'STATUS_PLAY_COMPLETE') {
+          _tournamentStatus = 'IN_PROGRESS';
+        } else if (statusType === 'STATUS_FINAL') {
+          _tournamentStatus = 'COMPLETED';
+        } else {
+          _tournamentStatus = 'NOT_STARTED';
+        }
+
+        // Parse leaderboard from competitors
+        var lb = [];
+        var competitions = event.competitions || [];
+        for (var ci = 0; ci < competitions.length; ci++) {
+          var comp = competitions[ci];
+          var competitors = comp.competitors || [];
+          for (var pi = 0; pi < competitors.length; pi++) {
+            var c = competitors[pi];
+            var athlete = c.athlete || {};
+            var stats = {};
+            (c.statistics || []).forEach(function(s) {
+              stats[s.name] = s.displayValue || s.value;
+            });
+            var statusObj = c.status || {};
+            var posObj = statusObj.position || {};
+
+            lb.push({
+              name: athlete.displayName || '',
+              position: posObj.displayName || posObj.id || (pi + 1),
+              totalScore: c.score || stats.totalStrokes || '',
+              today: stats.currentRoundScore || stats.today || '',
+              thru: statusObj.thru || (statusObj.type && statusObj.type.shortDetail) || '',
+              r1: stats.round1 ? parseInt(stats.round1) : null,
+              r2: stats.round2 ? parseInt(stats.round2) : null,
+              r3: stats.round3 ? parseInt(stats.round3) : null,
+              r4: stats.round4 ? parseInt(stats.round4) : null,
+            });
+          }
+        }
+
+        if (lb.length > 0) {
+          _liveLeaderboard = lb;
+
+          // Also update tee times from this ESPN data
+          var ttArr = [];
+          competitions.forEach(function(comp) {
+            (comp.competitors || []).forEach(function(c) {
+              var name = c.athlete ? c.athlete.displayName : '';
+              var tt = c.status && c.status.teeTime ? c.status.teeTime : '';
+              if (name && tt) ttArr.push({ player: name, teeTime: tt });
+            });
+          });
+          if (ttArr.length && window._liveData) {
+            window._liveData.teeTimes = ttArr;
+          }
+
+          renderLiveLeaderboard();
+          console.log('[ESPN Live] Updated leaderboard: ' + lb.length + ' players, status: ' + _tournamentStatus);
+        }
+      })
+      .catch(function(err) {
+        console.warn('[ESPN Live] Fetch failed:', err.message);
+      });
+  }
+
+  // Start live scoring loop — every 60 seconds
+  function startLiveScoring() {
+    if (_espnLiveInterval) return; // Already running
+    fetchESPNLiveScores(); // Immediate first fetch
+    _espnLiveInterval = setInterval(fetchESPNLiveScores, 60 * 1000);
+    console.log('[ESPN Live] Started 60-second refresh loop');
+  }
+
+  // Auto-start when Live Scores tab is visible or tournament is active
+  // Will be called from initApp and tab switches
+  function checkAndStartLiveScoring() {
+    // Always start during tournament week (Apr 9-13)
+    var now = new Date();
+    var month = now.getMonth(); // 0-indexed, April = 3
+    var day = now.getDate();
+    var isMastersWeek = month === 3 && day >= 7 && day <= 14; // Apr 7-14 buffer
+    if (isMastersWeek) {
+      startLiveScoring();
     }
   }
 
@@ -4490,6 +4594,8 @@
     initPropsLineShopping();
     renderPropsLineShopping();
     initEdgeFinder();
+    // Start live ESPN scoring during Masters week
+    checkAndStartLiveScoring();
   }
 
   /* ============================================================
