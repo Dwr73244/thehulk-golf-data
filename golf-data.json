@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-09T12:37:17.239946",
+  "generatedAt": "2026-04-09T21:39:37.740301",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier \u2014 players, field, odds, props, stats)",
@@ -50,20 +50,20 @@
       "notes": "Elite ball-striker. Best SG:Approach on Tour. Premium plays: strokes under, birdies over.",
       "odds": {
         "fd": "+550",
-        "bet": "+525",
+        "bet": "+390",
         "mgm": "+600",
         "bov": "+300",
-        "dk": "+520"
+        "dk": "+330"
       },
       "fieldInfo": {
         "owgr": 1,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 1,
       "recentForm": {
-        "lastResult": "#87 at Masters Tournament",
-        "lastPosition": 87,
+        "lastResult": "#10 at Masters Tournament",
+        "lastPosition": 10,
         "l5AvgFinish": 87.0,
         "l10AvgFinish": 87.0,
         "l5McPct": 0,
@@ -98,25 +98,25 @@
         "makeCut": 76
       },
       "confScore": 82.7,
-      "edgeScore": -3.72,
+      "edgeScore": -10.85,
       "owgrRank": 1,
       "anomalies": [
         {
           "type": "z_score",
-          "z": -3.48,
+          "z": -3.39,
           "direction": "OVERPRICED",
-          "edge_pct": -3.72,
+          "edge_pct": -10.85,
           "market": "outright"
         },
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -3.72,
-          "fence": 0.49,
+          "edge_pct": -10.85,
+          "fence": -1.61,
           "market": "outright"
         }
       ],
-      "evScore": -23.1
+      "evScore": -46.7
     },
     {
       "id": 2,
@@ -158,25 +158,25 @@
       "notes": "Most well-rounded player on Tour. No weakness. Excels at Torrey Pines.",
       "odds": {
         "fd": "+1500",
-        "bet": "+1400",
+        "bet": "+850",
         "mgm": "+1400",
         "bov": "+1600",
-        "dk": "+1550"
+        "dk": "+1050"
       },
       "fieldInfo": {
         "owgr": 4,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 4,
       "recentForm": {
-        "lastResult": "#38 at Masters Tournament",
-        "lastPosition": 38,
+        "lastResult": "#8 at Masters Tournament",
+        "lastPosition": 8,
         "l5AvgFinish": 38.0,
         "l10AvgFinish": 38.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 60.0,
@@ -191,7 +191,7 @@
         "driving": 4.2,
         "birdie_bogey": 5.9,
         "cut": 3.0,
-        "market": 1.6,
+        "market": 2.1,
         "closing": 2.0,
         "field_strength": 2.0,
         "consistency": 1.6,
@@ -199,16 +199,16 @@
         "cross_signal": 3.0
       },
       "propScores": {
-        "win": 78,
-        "top5": 76,
-        "top10": 75,
-        "top20": 74,
-        "makeCut": 72
+        "win": 79,
+        "top5": 77,
+        "top10": 76,
+        "top20": 75,
+        "makeCut": 73
       },
-      "confScore": 76.1,
-      "edgeScore": 4.75,
+      "confScore": 77.1,
+      "edgeScore": 2.87,
       "owgrRank": 2,
-      "evScore": 88.3
+      "evScore": 33.0
     },
     {
       "id": 94,
@@ -257,14 +257,14 @@
       "notes": "2023 Masters champion. World-class all-around player. Augusta specialist \u2014 multiple top-5s. LIV transfer hasn't dulled his elite ball-striking. Top-3 contender every major.",
       "odds": {
         "fd": "+1000",
-        "bet": "+950",
+        "bet": "+15000",
         "mgm": "+1000",
         "bov": "+1600",
-        "dk": "+920"
+        "dk": "+22500"
       },
       "fieldInfo": {
         "owgr": 84,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 84,
@@ -290,7 +290,7 @@
         "driving": 3.7,
         "birdie_bogey": 5.8,
         "cut": 3.9,
-        "market": 2.4,
+        "market": 2.2,
         "closing": 2.0,
         "field_strength": 2.0,
         "consistency": 1.3,
@@ -305,9 +305,9 @@
         "makeCut": 73
       },
       "confScore": 75.5,
-      "edgeScore": 1.52,
+      "edgeScore": 2.23,
       "owgrRank": 6,
-      "evScore": 15.5
+      "evScore": 2459.4
     },
     {
       "id": 3,
@@ -349,25 +349,25 @@
       "notes": "Best driver on Tour. High birdie ceiling but volatile. Great for matchups.",
       "odds": {
         "fd": "+1100",
-        "bet": "+1400",
+        "bet": "+240",
         "mgm": "+1200",
         "bov": "+700",
-        "dk": "+1225"
+        "dk": "+220"
       },
       "fieldInfo": {
         "owgr": 2,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 2,
       "recentForm": {
-        "lastResult": "#42 at Masters Tournament",
-        "lastPosition": 42,
+        "lastResult": "#2 at Masters Tournament",
+        "lastPosition": 2,
         "l5AvgFinish": 42.0,
         "l10AvgFinish": 42.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 60.0,
@@ -382,7 +382,7 @@
         "driving": 3.7,
         "birdie_bogey": 5.7,
         "cut": 3.0,
-        "market": 2.0,
+        "market": 3.0,
         "closing": 2.0,
         "field_strength": 2.0,
         "consistency": 1.4,
@@ -390,16 +390,32 @@
         "cross_signal": 1.5
       },
       "propScores": {
-        "win": 75,
-        "top5": 73,
-        "top10": 72,
+        "win": 76,
+        "top5": 74,
+        "top10": 73,
         "top20": 70,
         "makeCut": 68
       },
-      "confScore": 73.2,
-      "edgeScore": 2.65,
+      "confScore": 74.2,
+      "edgeScore": -20.12,
       "owgrRank": 3,
-      "evScore": 45.5
+      "anomalies": [
+        {
+          "type": "z_score",
+          "z": -5.35,
+          "direction": "OVERPRICED",
+          "edge_pct": -20.12,
+          "market": "outright"
+        },
+        {
+          "type": "iqr_outlier",
+          "direction": "OVERPRICED",
+          "edge_pct": -20.12,
+          "fence": -1.61,
+          "market": "outright"
+        }
+      ],
+      "evScore": -64.4
     },
     {
       "id": 4,
@@ -441,25 +457,25 @@
       "notes": "Second-best iron player. Low ball flight suits firm/windy. Premium bogey under play.",
       "odds": {
         "fd": "+2700",
-        "bet": "+3300",
+        "bet": "+12000",
         "mgm": "+3500",
         "bov": "+2000",
-        "dk": "+3600"
+        "dk": "+14500"
       },
       "fieldInfo": {
         "owgr": 16,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 16,
       "recentForm": {
-        "lastResult": "#41 at Masters Tournament",
-        "lastPosition": 41,
-        "l5AvgFinish": 41.0,
-        "l10AvgFinish": 41.0,
+        "lastResult": "#45 at Masters Tournament",
+        "lastPosition": 45,
+        "l5AvgFinish": 40.5,
+        "l10AvgFinish": 40.5,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 60.0,
@@ -491,7 +507,7 @@
       "confScore": 72.9,
       "edgeScore": 7.36,
       "owgrRank": 4,
-      "evScore": 304.6
+      "evScore": 1496.5
     },
     {
       "id": 91,
@@ -540,25 +556,25 @@
       "notes": "2024 US Open champion. Longest driver on tour. Power game with improving short game. T2 at Augusta 2020. High birdie ceiling, high bogey floor. LIV player invited via past champion status.",
       "odds": {
         "fd": "+1000",
-        "bet": "+950",
+        "bet": "+6000",
         "mgm": "+1100",
         "bov": "+1600",
-        "dk": "+1025"
+        "dk": "+11500"
       },
       "fieldInfo": {
         "owgr": 27,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 27,
       "recentForm": {
-        "lastResult": "#37 at Masters Tournament",
-        "lastPosition": 37,
-        "l5AvgFinish": 37.0,
-        "l10AvgFinish": 37.0,
+        "lastResult": "#61 at Masters Tournament",
+        "lastPosition": 61,
+        "l5AvgFinish": 36.5,
+        "l10AvgFinish": 36.5,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 85.7,
@@ -590,7 +606,7 @@
       "confScore": 72.4,
       "edgeScore": 1.77,
       "owgrRank": 8,
-      "evScore": 22.2
+      "evScore": 1159.8
     },
     {
       "id": 5,
@@ -699,25 +715,25 @@
       "notes": "Elite putter. Lowest bogey rate. Best bogey under play on Tour. Riviera specialist.",
       "odds": {
         "fd": "+5500",
-        "bet": "+6600",
+        "bet": "+47500",
         "mgm": "+6000",
         "bov": "+5500",
-        "dk": "+6700"
+        "dk": "+180000"
       },
       "fieldInfo": {
         "owgr": 24,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 24,
       "recentForm": {
-        "lastResult": "#46 at Masters Tournament",
-        "lastPosition": 46,
+        "lastResult": "#72 at Masters Tournament",
+        "lastPosition": 72,
         "l5AvgFinish": 46.0,
         "l10AvgFinish": 46.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 60.0,
@@ -757,7 +773,7 @@
           "note": "confScore 70.3 but odds +5500 \u2014 likely value in placement markets"
         }
       ],
-      "evScore": 617.1
+      "evScore": 18891.5
     },
     {
       "id": 92,
@@ -806,20 +822,20 @@
       "notes": "4x major champion (2x US Open, 2x PGA). Elevated in majors \u2014 consistently raises his level when it matters most. T2 Augusta 2023. LIV player but proves up for any major challenge.",
       "odds": {
         "fd": "+4000",
-        "bet": "+3400",
+        "bet": "+7000",
         "mgm": "+4000",
         "bov": "+4000",
-        "dk": "+3600"
+        "dk": "+9400"
       },
       "fieldInfo": {
         "owgr": 246,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 246,
       "recentForm": {
-        "lastResult": "#82 at Masters Tournament",
-        "lastPosition": 82,
+        "lastResult": "#39 at Masters Tournament",
+        "lastPosition": 39,
         "l5AvgFinish": 82.0,
         "l10AvgFinish": 82.0,
         "l5McPct": 0,
@@ -854,9 +870,9 @@
         "makeCut": 71
       },
       "confScore": 69.4,
-      "edgeScore": 7.71,
+      "edgeScore": 7.97,
       "owgrRank": 12,
-      "evScore": 285.2
+      "evScore": 889.0
     },
     {
       "id": 93,
@@ -905,25 +921,25 @@
       "notes": "2020 Masters champion. Elite driver and iron combo. Augusta is perfect for his power fade. Still among the world's best in LIV. Perennial Masters contender.",
       "odds": {
         "fd": "+12500",
-        "bet": "+20000",
+        "bet": "+35000",
         "mgm": "+15000",
         "bov": "+12500",
-        "dk": "+24000"
+        "dk": "+52500"
       },
       "fieldInfo": {
         "owgr": 639,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 639,
       "recentForm": {
-        "lastResult": "#31 at Masters Tournament",
-        "lastPosition": 31,
-        "l5AvgFinish": 31.0,
-        "l10AvgFinish": 31.0,
+        "lastResult": "#32 at Masters Tournament",
+        "lastPosition": 32,
+        "l5AvgFinish": 30.5,
+        "l10AvgFinish": 30.5,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 92.3,
@@ -962,7 +978,7 @@
           "note": "confScore 66.1 but odds +12500 \u2014 likely value in placement markets"
         }
       ],
-      "evScore": 2289.5
+      "evScore": 5115.3
     },
     {
       "id": 9,
@@ -1004,29 +1020,36 @@
       "notes": "Links-style player. Low ball flight suits windy conditions. Good bogey under candidate.",
       "odds": {
         "fd": "+2200",
-        "bet": "+1900",
+        "bet": "+1700",
         "mgm": "+2200",
         "bov": "+1800",
-        "dk": "+2300"
+        "dk": "+2250"
       },
       "fieldInfo": {
         "owgr": 3,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 3,
       "recentForm": {
-        "lastResult": "#33 at Masters Tournament",
-        "lastPosition": 33,
-        "l5AvgFinish": 22.0,
-        "l10AvgFinish": 22.0,
+        "lastResult": "#13 at Masters Tournament",
+        "lastPosition": 13,
+        "l5AvgFinish": 26.0,
+        "l10AvgFinish": 26.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 2,
+        "events": 3,
         "roundAvgs": null
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 67,
+        "prior": 75.0,
+        "likelihood": 56.9,
+        "posterior_sigma": 13.2,
+        "data_points": 3
+      },
       "competitiveness": "active",
       "confBreakdown": {
         "sg": 15.9,
@@ -1054,7 +1077,7 @@
       "confScore": 65.9,
       "edgeScore": 5.54,
       "owgrRank": 9,
-      "evScore": 137.2
+      "evScore": 132.3
     },
     {
       "id": 11,
@@ -1096,29 +1119,36 @@
       "notes": "Masters champion. Elite approach play with high ball flight. Streaky putter \u2014 hot weeks can win anywhere.",
       "odds": {
         "fd": "+3500",
-        "bet": "+2400",
+        "bet": "+3300",
         "mgm": "+2800",
         "bov": "+3000",
-        "dk": "+2900"
+        "dk": "+4400"
       },
       "fieldInfo": {
         "owgr": 17,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 17,
       "recentForm": {
-        "lastResult": "#40 at Masters Tournament",
-        "lastPosition": 40,
-        "l5AvgFinish": 31.5,
-        "l10AvgFinish": 31.5,
+        "lastResult": "#23 at Masters Tournament",
+        "lastPosition": 23,
+        "l5AvgFinish": 34.0,
+        "l10AvgFinish": 34.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 2,
+        "events": 3,
         "roundAvgs": null
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 56,
+        "prior": 72.4,
+        "likelihood": 43.8,
+        "posterior_sigma": 11.9,
+        "data_points": 3
+      },
       "competitiveness": "active",
       "confBreakdown": {
         "sg": 15.4,
@@ -1134,19 +1164,20 @@
         "field_strength": 1.5,
         "consistency": 1.5,
         "par5": 1.4,
-        "cross_signal": 1.5
+        "cross_signal": 1.5,
+        "ml_bayes": -1.1
       },
       "propScores": {
-        "win": 67,
-        "top5": 66,
-        "top10": 66,
-        "top20": 66,
-        "makeCut": 65
+        "win": 66,
+        "top5": 65,
+        "top10": 65,
+        "top20": 65,
+        "makeCut": 64
       },
-      "confScore": 65.9,
-      "edgeScore": 6.44,
+      "confScore": 64.80000000000001,
+      "edgeScore": 6.27,
       "owgrRank": 11,
-      "evScore": 196.6
+      "evScore": 337.4
     },
     {
       "id": 8,
@@ -1188,25 +1219,25 @@
       "notes": "Great ball-striker but short game liability. Negative SG:ARG. Risky bogey unders.",
       "odds": {
         "fd": "+4000",
-        "bet": "+4500",
+        "bet": "+25000",
         "mgm": "+4500",
         "bov": "+3500",
-        "dk": "+4400"
+        "dk": "+31000"
       },
       "fieldInfo": {
         "owgr": 14,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 14,
       "recentForm": {
-        "lastResult": "#47 at Masters Tournament",
-        "lastPosition": 47,
-        "l5AvgFinish": 47.0,
-        "l10AvgFinish": 47.0,
+        "lastResult": "#50 at Masters Tournament",
+        "lastPosition": 50,
+        "l5AvgFinish": 46.0,
+        "l10AvgFinish": 46.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 60.0,
@@ -1237,7 +1268,7 @@
       "confScore": 64.8,
       "edgeScore": 7.28,
       "owgrRank": 8,
-      "evScore": 337.4
+      "evScore": 2922.9
     },
     {
       "id": 13,
@@ -1286,25 +1317,25 @@
       "notes": "Links specialist. Open champion. Low ball flight dominates in wind. Best in coastal/windy conditions.",
       "odds": {
         "fd": "+4500",
-        "bet": "+5000",
+        "bet": "+2800",
         "mgm": "+6600",
         "bov": "+4500",
-        "dk": "+6500"
+        "dk": "+3400"
       },
       "fieldInfo": {
         "owgr": 26,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 26,
       "recentForm": {
-        "lastResult": "#32 at Masters Tournament",
-        "lastPosition": 32,
-        "l5AvgFinish": 32.0,
-        "l10AvgFinish": 32.0,
+        "lastResult": "#7 at Masters Tournament",
+        "lastPosition": 7,
+        "l5AvgFinish": 31.5,
+        "l10AvgFinish": 31.5,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 83.3,
@@ -1319,7 +1350,7 @@
         "driving": 3.8,
         "birdie_bogey": 5.1,
         "cut": 3.5,
-        "market": 0.5,
+        "market": 0.7,
         "closing": 2.0,
         "field_strength": 1.5,
         "consistency": 1.5,
@@ -1328,14 +1359,14 @@
       "propScores": {
         "win": 65,
         "top5": 64,
-        "top10": 64,
+        "top10": 65,
         "top20": 66,
         "makeCut": 67
       },
       "confScore": 64.1,
-      "edgeScore": 7.44,
+      "edgeScore": 6.76,
       "owgrRank": 13,
-      "evScore": 534.6
+      "evScore": 236.5
     },
     {
       "id": 7,
@@ -1380,17 +1411,17 @@
         "bet": "+20000",
         "mgm": "+15000",
         "bov": "+8000",
-        "dk": "+20000"
+        "dk": "+24000"
       },
       "fieldInfo": {
         "owgr": 46,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 46,
       "recentForm": {
-        "lastResult": "#54 at Masters Tournament",
-        "lastPosition": 54,
+        "lastResult": "#25 at Masters Tournament",
+        "lastPosition": 25,
         "l5AvgFinish": 54.0,
         "l10AvgFinish": 54.0,
         "l5McPct": 100,
@@ -1434,12 +1465,110 @@
           "note": "confScore 63.9 but odds +12500 \u2014 likely value in placement markets"
         }
       ],
-      "evScore": 1826.6
+      "evScore": 2210.0
+    },
+    {
+      "id": 15,
+      "name": "Sam Burns",
+      "rank": 16,
+      "sgTotal": 0.92,
+      "sgOtt": 0.45,
+      "sgApp": 0.35,
+      "sgArg": 0.08,
+      "sgPutt": 0.04,
+      "birdieAvg": 4.5,
+      "bogeyAvg": 2.4,
+      "scoringAvg": 70.3,
+      "gir": 67.0,
+      "fairways": 60.0,
+      "scramble": 58.5,
+      "proxAvg": 34.5,
+      "missDir": "right",
+      "flight": "high_fade",
+      "courseFit": {
+        "augusta": 68,
+        "tpc_sawgrass": 69,
+        "pebble": 66,
+        "torrey_south": 68,
+        "riviera": 67,
+        "valhalla": 69,
+        "pinehurst_2": 67,
+        "royal_troon": 65,
+        "royal_portrush": 65,
+        "oakmont": 65,
+        "quail_hollow": 69,
+        "east_lake": 69,
+        "bay_hill": 68,
+        "harbour_town": 66,
+        "colonial": 67,
+        "memorial": 69,
+        "tpc_scottsdale": 69
+      },
+      "augustaHistory": {
+        "appearances": 4,
+        "bestFinish": 8,
+        "cuts": 3,
+        "top10": 1,
+        "avgScore": 71.8
+      },
+      "notes": "Talented ball-striker with streaky putting. When putter is hot, can contend anywhere.",
+      "odds": {
+        "fd": "+6500",
+        "bet": "+1050",
+        "mgm": "+6600",
+        "bov": "+10000",
+        "dk": "+1025"
+      },
+      "fieldInfo": {
+        "owgr": 25,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 25,
+      "recentForm": {
+        "lastResult": "#1 at Masters Tournament",
+        "lastPosition": 1,
+        "l5AvgFinish": 25.5,
+        "l10AvgFinish": 25.5,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": null
+      },
+      "makeCutPct": 75.0,
+      "recentMakeCutPct": 60.0,
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 14.7,
+        "fit": 10.9,
+        "history": 4.5,
+        "form": 7.0,
+        "gir": 6.0,
+        "driving": 3.3,
+        "birdie_bogey": 5.2,
+        "cut": 3.3,
+        "market": 2.1,
+        "closing": 2.0,
+        "field_strength": 1.5,
+        "consistency": 1.4,
+        "par5": 1.4
+      },
+      "propScores": {
+        "win": 64,
+        "top5": 63,
+        "top10": 64,
+        "top20": 64,
+        "makeCut": 64
+      },
+      "confScore": 63.4,
+      "edgeScore": 0.62,
+      "owgrRank": 15,
+      "evScore": 7.0
     },
     {
       "id": 19,
       "name": "Jason Day",
-      "rank": 16,
+      "rank": 17,
       "sgTotal": 0.82,
       "sgOtt": 0.4,
       "sgApp": 0.28,
@@ -1483,25 +1612,25 @@
       "notes": "Resurgent veteran. Short game wizard when healthy. Bay Hill specialist. Good at TPC Sawgrass.",
       "odds": {
         "fd": "+6500",
-        "bet": "+6600",
+        "bet": "+1900",
         "mgm": "+6600",
         "bov": "+6000",
-        "dk": "+7200"
+        "dk": "+2150"
       },
       "fieldInfo": {
         "owgr": 54,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 54,
       "recentForm": {
-        "lastResult": "#30 at Masters Tournament",
-        "lastPosition": 30,
-        "l5AvgFinish": 30.0,
-        "l10AvgFinish": 30.0,
+        "lastResult": "#4 at Masters Tournament",
+        "lastPosition": 4,
+        "l5AvgFinish": 31.0,
+        "l10AvgFinish": 31.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 85.7,
@@ -1516,36 +1645,28 @@
         "driving": 3.5,
         "birdie_bogey": 5.0,
         "cut": 3.6,
-        "market": 0.4,
+        "market": 1.1,
         "closing": 2.0,
         "field_strength": 1.5,
         "consistency": 1.5,
         "par5": 1.2
       },
       "propScores": {
-        "win": 63,
-        "top5": 63,
+        "win": 64,
+        "top5": 64,
         "top10": 64,
-        "top20": 65,
+        "top20": 66,
         "makeCut": 67
       },
-      "confScore": 62.2,
-      "edgeScore": 7.81,
+      "confScore": 63.2,
+      "edgeScore": 5.04,
       "owgrRank": 19,
-      "anomalies": [
-        {
-          "type": "low_freq_value",
-          "direction": "UNDERPRICED",
-          "market": "top20_makecut",
-          "note": "confScore 62.2 but odds +6500 \u2014 likely value in placement markets"
-        }
-      ],
-      "evScore": 581.1
+      "evScore": 113.3
     },
     {
       "id": 25,
       "name": "Adam Scott",
-      "rank": 17,
+      "rank": 18,
       "sgTotal": 0.68,
       "sgOtt": 0.35,
       "sgApp": 0.25,
@@ -1589,20 +1710,20 @@
       "notes": "Veteran with elite swing. Augusta specialist. Still competitive but ceiling has lowered.",
       "odds": {
         "fd": "+6500",
-        "bet": "+6600",
+        "bet": "+5000",
         "mgm": "+6600",
         "bov": "+15000",
-        "dk": "+5800"
+        "dk": "+7800"
       },
       "fieldInfo": {
         "owgr": 63,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 63,
       "recentForm": {
-        "lastResult": "#62 at Masters Tournament",
-        "lastPosition": 62,
+        "lastResult": "#26 at Masters Tournament",
+        "lastPosition": 26,
         "l5AvgFinish": 62.0,
         "l10AvgFinish": 62.0,
         "l5McPct": 100,
@@ -1636,22 +1757,22 @@
         "makeCut": 66
       },
       "confScore": 62.0,
-      "edgeScore": 7.61,
+      "edgeScore": 7.78,
       "owgrRank": 25,
       "anomalies": [
         {
           "type": "low_freq_value",
           "direction": "UNDERPRICED",
           "market": "top20_makecut",
-          "note": "confScore 62.0 but odds +5800 \u2014 likely value in placement markets"
+          "note": "confScore 62.0 but odds +6500 \u2014 likely value in placement markets"
         }
       ],
-      "evScore": 448.7
+      "evScore": 634.7
     },
     {
       "id": 29,
       "name": "Corey Conners",
-      "rank": 18,
+      "rank": 19,
       "sgTotal": 0.58,
       "sgOtt": 0.2,
       "sgApp": 0.45,
@@ -1695,20 +1816,20 @@
       "notes": "Elite iron player but can't putt. Highest GIR with lowest conversion. Great approach stats, fade putting props.",
       "odds": {
         "fd": "+6500",
-        "bet": "+6600",
+        "bet": "+20000",
         "mgm": "+6600",
         "bov": "+7000",
-        "dk": "+8200"
+        "dk": "+38000"
       },
       "fieldInfo": {
         "owgr": 30,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 30,
       "recentForm": {
-        "lastResult": "#71 at Masters Tournament",
-        "lastPosition": 71,
+        "lastResult": "#47 at Masters Tournament",
+        "lastPosition": 47,
         "l5AvgFinish": 71.0,
         "l10AvgFinish": 71.0,
         "l5McPct": 0,
@@ -1752,12 +1873,12 @@
           "note": "confScore 62.0 but odds +6500 \u2014 likely value in placement markets"
         }
       ],
-      "evScore": 671.9
+      "evScore": 3443.3
     },
     {
       "id": 20,
       "name": "Russell Henley",
-      "rank": 19,
+      "rank": 20,
       "sgTotal": 0.8,
       "sgOtt": 0.22,
       "sgApp": 0.38,
@@ -1801,25 +1922,25 @@
       "notes": "Extremely accurate. Low bogey rate. Great at precision courses like Harbour Town and Colonial.",
       "odds": {
         "fd": "+5500",
-        "bet": "+5000",
+        "bet": "+10000",
         "mgm": "+5500",
         "bov": "+6500",
-        "dk": "+5200"
+        "dk": "+12000"
       },
       "fieldInfo": {
         "owgr": 5,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 5,
       "recentForm": {
-        "lastResult": "#39 at Masters Tournament",
-        "lastPosition": 39,
-        "l5AvgFinish": 39.0,
-        "l10AvgFinish": 39.0,
+        "lastResult": "#34 at Masters Tournament",
+        "lastPosition": 34,
+        "l5AvgFinish": 40.0,
+        "l10AvgFinish": 40.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 87.5,
@@ -1834,7 +1955,7 @@
         "driving": 4.0,
         "birdie_bogey": 5.0,
         "cut": 3.6,
-        "market": 0.5,
+        "market": 0.4,
         "closing": 2.0,
         "field_strength": 1.5,
         "consistency": 1.6,
@@ -1845,25 +1966,25 @@
         "top5": 63,
         "top10": 64,
         "top20": 66,
-        "makeCut": 68
+        "makeCut": 67
       },
       "confScore": 61.9,
-      "edgeScore": 7.4,
+      "edgeScore": 7.5,
       "owgrRank": 20,
       "anomalies": [
         {
           "type": "low_freq_value",
           "direction": "UNDERPRICED",
           "market": "top20_makecut",
-          "note": "confScore 61.9 but odds +5200 \u2014 likely value in placement markets"
+          "note": "confScore 61.9 but odds +5500 \u2014 likely value in placement markets"
         }
       ],
-      "evScore": 392.1
+      "evScore": 1023.5
     },
     {
       "id": 10,
       "name": "Sahith Theegala",
-      "rank": 20,
+      "rank": 21,
       "sgTotal": 1.18,
       "sgOtt": 0.52,
       "sgApp": 0.42,
@@ -1942,112 +2063,6 @@
       "evScore": 648.4
     },
     {
-      "id": 15,
-      "name": "Sam Burns",
-      "rank": 21,
-      "sgTotal": 0.92,
-      "sgOtt": 0.45,
-      "sgApp": 0.35,
-      "sgArg": 0.08,
-      "sgPutt": 0.04,
-      "birdieAvg": 4.5,
-      "bogeyAvg": 2.4,
-      "scoringAvg": 70.3,
-      "gir": 67.0,
-      "fairways": 60.0,
-      "scramble": 58.5,
-      "proxAvg": 34.5,
-      "missDir": "right",
-      "flight": "high_fade",
-      "courseFit": {
-        "augusta": 68,
-        "tpc_sawgrass": 69,
-        "pebble": 66,
-        "torrey_south": 68,
-        "riviera": 67,
-        "valhalla": 69,
-        "pinehurst_2": 67,
-        "royal_troon": 65,
-        "royal_portrush": 65,
-        "oakmont": 65,
-        "quail_hollow": 69,
-        "east_lake": 69,
-        "bay_hill": 68,
-        "harbour_town": 66,
-        "colonial": 67,
-        "memorial": 69,
-        "tpc_scottsdale": 69
-      },
-      "augustaHistory": {
-        "appearances": 4,
-        "bestFinish": 8,
-        "cuts": 3,
-        "top10": 1,
-        "avgScore": 71.8
-      },
-      "notes": "Talented ball-striker with streaky putting. When putter is hot, can contend anywhere.",
-      "odds": {
-        "fd": "+6500",
-        "bet": "+6600",
-        "mgm": "+6600",
-        "bov": "+10000",
-        "dk": "+7000"
-      },
-      "fieldInfo": {
-        "owgr": 25,
-        "entryStatus": "WITHDRAWN",
-        "inField": true
-      },
-      "owgr": 25,
-      "recentForm": {
-        "lastResult": "#26 at Masters Tournament",
-        "lastPosition": 26,
-        "l5AvgFinish": 26.0,
-        "l10AvgFinish": 26.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
-      },
-      "makeCutPct": 75.0,
-      "recentMakeCutPct": 60.0,
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 14.7,
-        "fit": 10.9,
-        "history": 4.5,
-        "form": 7.0,
-        "gir": 6.0,
-        "driving": 3.3,
-        "birdie_bogey": 5.2,
-        "cut": 3.3,
-        "market": 0.4,
-        "closing": 2.0,
-        "field_strength": 1.5,
-        "consistency": 1.4,
-        "par5": 1.4
-      },
-      "propScores": {
-        "win": 63,
-        "top5": 62,
-        "top10": 62,
-        "top20": 63,
-        "makeCut": 63
-      },
-      "confScore": 61.4,
-      "edgeScore": 7.69,
-      "owgrRank": 15,
-      "anomalies": [
-        {
-          "type": "low_freq_value",
-          "direction": "UNDERPRICED",
-          "market": "top20_makecut",
-          "note": "confScore 61.4 but odds +6500 \u2014 likely value in placement markets"
-        }
-      ],
-      "evScore": 553.9
-    },
-    {
       "id": 14,
       "name": "Sungjae Im",
       "rank": 22,
@@ -2087,25 +2102,25 @@
       "notes": "Iron man \u2014 plays every week. Rarely misses cuts. Great for MC and top 20 props.",
       "odds": {
         "fd": "+7000",
-        "bet": "+9000",
+        "bet": "+47500",
         "mgm": "+10000",
         "bov": "+7500",
-        "dk": "+11500"
+        "dk": "+150000"
       },
       "fieldInfo": {
         "owgr": 41,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 41,
       "recentForm": {
-        "lastResult": "#48 at Masters Tournament",
-        "lastPosition": 48,
-        "l5AvgFinish": 48.0,
-        "l10AvgFinish": 48.0,
+        "lastResult": "#62 at Masters Tournament",
+        "lastPosition": 62,
+        "l5AvgFinish": 48.5,
+        "l10AvgFinish": 48.5,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 60.0,
@@ -2144,12 +2159,110 @@
           "note": "confScore 61.1 but odds +7000 \u2014 likely value in placement markets"
         }
       ],
-      "evScore": 963.1
+      "evScore": 13656.7
+    },
+    {
+      "id": 95,
+      "name": "Patrick Reed",
+      "rank": 23,
+      "sgTotal": 0.55,
+      "sgOtt": 0.3,
+      "sgApp": 0.2,
+      "sgArg": 0.15,
+      "sgPutt": -0.1,
+      "birdieAvg": 4.0,
+      "bogeyAvg": 2.3,
+      "scoringAvg": 70.7,
+      "gir": 66.5,
+      "fairways": 62.0,
+      "scramble": 60.0,
+      "proxAvg": 34.0,
+      "missDir": "left",
+      "flight": "high_draw",
+      "courseFit": {
+        "augusta": 67,
+        "tpc_sawgrass": 63,
+        "pebble": 63,
+        "torrey_south": 62,
+        "riviera": 63,
+        "valhalla": 64,
+        "pinehurst_2": 63,
+        "royal_troon": 62,
+        "royal_portrush": 59,
+        "oakmont": 59,
+        "quail_hollow": 63,
+        "east_lake": 65,
+        "bay_hill": 63,
+        "harbour_town": 61,
+        "colonial": 61,
+        "memorial": 63,
+        "tpc_scottsdale": 62
+      },
+      "augustaHistory": {
+        "appearances": 9,
+        "bestFinish": 1,
+        "cuts": 8,
+        "top10": 2,
+        "avgScore": 71.5
+      },
+      "notes": "2018 Masters champion. Augusta specialist with gritty short game. Elevated in majors despite off-course controversy. Draw suits Augusta. Legit sleeper every year.",
+      "odds": {
+        "fd": "+2700",
+        "bet": "+1400",
+        "mgm": "+3300",
+        "bov": "+2500",
+        "dk": "+1550"
+      },
+      "fieldInfo": {
+        "owgr": 42,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 42,
+      "recentForm": {
+        "lastResult": "#5 at Masters Tournament",
+        "lastPosition": 5,
+        "l5AvgFinish": 33.5,
+        "l10AvgFinish": 33.5,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": null
+      },
+      "makeCutPct": 88.9,
+      "recentMakeCutPct": 60.0,
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 13.4,
+        "fit": 10.7,
+        "history": 5.4,
+        "form": 7.0,
+        "gir": 5.8,
+        "driving": 3.3,
+        "birdie_bogey": 4.7,
+        "cut": 3.6,
+        "market": 1.5,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.5,
+        "par5": 0.9
+      },
+      "propScores": {
+        "win": 61,
+        "top5": 61,
+        "top10": 62,
+        "top20": 64,
+        "makeCut": 66
+      },
+      "confScore": 60.9,
+      "edgeScore": 3.07,
+      "owgrRank": 45,
+      "evScore": 50.7
     },
     {
       "id": 16,
       "name": "Tony Finau",
-      "rank": 23,
+      "rank": 24,
       "sgTotal": 0.9,
       "sgOtt": 0.55,
       "sgApp": 0.3,
@@ -2230,7 +2343,7 @@
     {
       "id": 18,
       "name": "Justin Thomas",
-      "rank": 24,
+      "rank": 25,
       "sgTotal": 0.85,
       "sgOtt": 0.48,
       "sgApp": 0.42,
@@ -2270,17 +2383,17 @@
         "bet": "+6600",
         "mgm": "+6000",
         "bov": "+3500",
-        "dk": "+5800"
+        "dk": "+10000"
       },
       "fieldInfo": {
         "owgr": 9,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 9,
       "recentForm": {
-        "lastResult": "#83 at Masters Tournament",
-        "lastPosition": 83,
+        "lastResult": "#29 at Masters Tournament",
+        "lastPosition": 29,
         "l5AvgFinish": 83.0,
         "l10AvgFinish": 83.0,
         "l5McPct": 0,
@@ -2314,22 +2427,22 @@
         "makeCut": 61
       },
       "confScore": 60.5,
-      "edgeScore": 7.38,
+      "edgeScore": 7.44,
       "owgrRank": 18,
       "anomalies": [
         {
           "type": "low_freq_value",
           "direction": "UNDERPRICED",
           "market": "top20_makecut",
-          "note": "confScore 60.5 but odds +5800 \u2014 likely value in placement markets"
+          "note": "confScore 60.5 but odds +6000 \u2014 likely value in placement markets"
         }
       ],
-      "evScore": 435.4
+      "evScore": 816.6
     },
     {
       "id": 12,
       "name": "Max Homa",
-      "rank": 25,
+      "rank": 26,
       "sgTotal": 1.05,
       "sgOtt": 0.42,
       "sgApp": 0.38,
@@ -2373,25 +2486,25 @@
       "notes": "Solid all-around. Riviera and Torrey specialist. Reliable at home courses.",
       "odds": {
         "fd": "+10000",
-        "bet": "+12000",
+        "bet": "+20000",
         "mgm": "+12500",
         "bov": "+8000",
-        "dk": "+17000"
+        "dk": "+18500"
       },
       "fieldInfo": {
         "owgr": 140,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 140,
       "recentForm": {
-        "lastResult": "#3 at Masters Tournament",
-        "lastPosition": 3,
-        "l5AvgFinish": 4.0,
-        "l10AvgFinish": 4.0,
+        "lastResult": "#18 at Masters Tournament",
+        "lastPosition": 18,
+        "l5AvgFinish": 3.5,
+        "l10AvgFinish": 3.5,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 75.0,
@@ -2430,105 +2543,7 @@
           "note": "confScore 60.4 but odds +10000 \u2014 likely value in placement markets"
         }
       ],
-      "evScore": 1449.3
-    },
-    {
-      "id": 95,
-      "name": "Patrick Reed",
-      "rank": 26,
-      "sgTotal": 0.55,
-      "sgOtt": 0.3,
-      "sgApp": 0.2,
-      "sgArg": 0.15,
-      "sgPutt": -0.1,
-      "birdieAvg": 4.0,
-      "bogeyAvg": 2.3,
-      "scoringAvg": 70.7,
-      "gir": 66.5,
-      "fairways": 62.0,
-      "scramble": 60.0,
-      "proxAvg": 34.0,
-      "missDir": "left",
-      "flight": "high_draw",
-      "courseFit": {
-        "augusta": 67,
-        "tpc_sawgrass": 63,
-        "pebble": 63,
-        "torrey_south": 62,
-        "riviera": 63,
-        "valhalla": 64,
-        "pinehurst_2": 63,
-        "royal_troon": 62,
-        "royal_portrush": 59,
-        "oakmont": 59,
-        "quail_hollow": 63,
-        "east_lake": 65,
-        "bay_hill": 63,
-        "harbour_town": 61,
-        "colonial": 61,
-        "memorial": 63,
-        "tpc_scottsdale": 62
-      },
-      "augustaHistory": {
-        "appearances": 9,
-        "bestFinish": 1,
-        "cuts": 8,
-        "top10": 2,
-        "avgScore": 71.5
-      },
-      "notes": "2018 Masters champion. Augusta specialist with gritty short game. Elevated in majors despite off-course controversy. Draw suits Augusta. Legit sleeper every year.",
-      "odds": {
-        "fd": "+2700",
-        "bet": "+3300",
-        "mgm": "+3300",
-        "bov": "+2500",
-        "dk": "+3800"
-      },
-      "fieldInfo": {
-        "owgr": 42,
-        "entryStatus": "WITHDRAWN",
-        "inField": true
-      },
-      "owgr": 42,
-      "recentForm": {
-        "lastResult": "#34 at Masters Tournament",
-        "lastPosition": 34,
-        "l5AvgFinish": 34.0,
-        "l10AvgFinish": 34.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
-      },
-      "makeCutPct": 88.9,
-      "recentMakeCutPct": 60.0,
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 13.4,
-        "fit": 10.7,
-        "history": 5.4,
-        "form": 7.0,
-        "gir": 5.8,
-        "driving": 3.3,
-        "birdie_bogey": 4.7,
-        "cut": 3.6,
-        "market": 0.9,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.5,
-        "par5": 0.9
-      },
-      "propScores": {
-        "win": 60,
-        "top5": 60,
-        "top10": 61,
-        "top20": 63,
-        "makeCut": 65
-      },
-      "confScore": 59.9,
-      "edgeScore": 5.41,
-      "owgrRank": 45,
-      "evScore": 250.4
+      "evScore": 1585.2
     },
     {
       "id": 17,
@@ -2580,22 +2595,22 @@
         "bet": "+15000",
         "mgm": "+20000",
         "bov": "+12500",
-        "dk": "+13500"
+        "dk": "+17000"
       },
       "fieldInfo": {
         "owgr": 15,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 15,
       "recentForm": {
-        "lastResult": "#28 at Masters Tournament",
-        "lastPosition": 28,
-        "l5AvgFinish": 28.0,
-        "l10AvgFinish": 28.0,
+        "lastResult": "#21 at Masters Tournament",
+        "lastPosition": 21,
+        "l5AvgFinish": 27.5,
+        "l10AvgFinish": 27.5,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 70.0,
@@ -2624,9 +2639,9 @@
         "makeCut": 62
       },
       "confScore": 59.1,
-      "edgeScore": 8.13,
+      "edgeScore": 8.2,
       "owgrRank": 17,
-      "evScore": 1105.6
+      "evScore": 1415.9
     },
     {
       "id": 30,
@@ -2675,20 +2690,20 @@
       "notes": "Steady ball-striker from Austria. No standout category. Reliable for MC and top-20 at mid-strength events.",
       "odds": {
         "fd": "+6000",
-        "bet": "+6600",
+        "bet": "+9000",
         "mgm": "+6600",
         "bov": "+8000",
-        "dk": "+7400"
+        "dk": "+14500"
       },
       "fieldInfo": {
         "owgr": 12,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 12,
       "recentForm": {
-        "lastResult": "#84 at Masters Tournament",
-        "lastPosition": 84,
+        "lastResult": "#40 at Masters Tournament",
+        "lastPosition": 40,
         "l5AvgFinish": 84.0,
         "l10AvgFinish": 84.0,
         "l5McPct": 0,
@@ -2724,7 +2739,7 @@
       "confScore": 58.9,
       "edgeScore": 7.2,
       "owgrRank": 30,
-      "evScore": 562.6
+      "evScore": 1189.9
     },
     {
       "id": 21,
@@ -2766,20 +2781,20 @@
       "notes": "Open champion. Lefty with great short game. Not a power player. Thrives on accuracy courses and links.",
       "odds": {
         "fd": "+10000",
-        "bet": "+15000",
+        "bet": "+47500",
         "mgm": "+17500",
         "bov": "+15000",
-        "dk": "+21000"
+        "dk": "+500000"
       },
       "fieldInfo": {
         "owgr": 35,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 35,
       "recentForm": {
-        "lastResult": "#63 at Masters Tournament",
-        "lastPosition": 63,
+        "lastResult": "#82 at Masters Tournament",
+        "lastPosition": 82,
         "l5AvgFinish": 52.5,
         "l10AvgFinish": 52.5,
         "l5McPct": 100,
@@ -2815,7 +2830,7 @@
       "confScore": 58.7,
       "edgeScore": 7.81,
       "owgrRank": 21,
-      "evScore": 1757.9
+      "evScore": 43933.8
     },
     {
       "id": 22,
@@ -2857,25 +2872,25 @@
       "notes": "Huge power but accuracy issues. Multiple runner-up finishes. Volatile scorer \u2014 birdie overs at long courses.",
       "odds": {
         "fd": "+2000",
-        "bet": "+1700",
+        "bet": "+4000",
         "mgm": "+2000",
         "bov": "+4000",
-        "dk": "+1900"
+        "dk": "+4800"
       },
       "fieldInfo": {
         "owgr": 19,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 19,
       "recentForm": {
-        "lastResult": "#43 at Masters Tournament",
-        "lastPosition": 43,
+        "lastResult": "#35 at Masters Tournament",
+        "lastPosition": 35,
         "l5AvgFinish": 43.0,
         "l10AvgFinish": 43.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 60.0,
@@ -2890,7 +2905,7 @@
         "driving": 3.1,
         "birdie_bogey": 4.9,
         "cut": 3.0,
-        "market": 1.2,
+        "market": 1.1,
         "closing": 2.0,
         "field_strength": 1.5,
         "consistency": 1.4,
@@ -2904,9 +2919,9 @@
         "makeCut": 60
       },
       "confScore": 58.6,
-      "edgeScore": 3.79,
+      "edgeScore": 4.03,
       "owgrRank": 22,
-      "evScore": 75.8
+      "evScore": 330.7
     },
     {
       "id": 24,
@@ -3035,25 +3050,25 @@
       "notes": "Young lefty talent. Aggressive. Putting holds him back. High birdie ceiling with high floor.",
       "odds": {
         "fd": "+5500",
-        "bet": "+5500",
+        "bet": "+9000",
         "mgm": "+5000",
         "bov": "+8000",
-        "dk": "+5000"
+        "dk": "+12000"
       },
       "fieldInfo": {
         "owgr": 45,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 45,
       "recentForm": {
-        "lastResult": "#35 at Masters Tournament",
-        "lastPosition": 35,
+        "lastResult": "#33 at Masters Tournament",
+        "lastPosition": 33,
         "l5AvgFinish": 35.0,
         "l10AvgFinish": 35.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 100.0,
@@ -3084,7 +3099,7 @@
       "confScore": 58.0,
       "edgeScore": 6.74,
       "owgrRank": 35,
-      "evScore": 343.7
+      "evScore": 952.7
     },
     {
       "id": 31,
@@ -3210,25 +3225,25 @@
       "notes": "US Open champion. Precision player. Not long but very accurate. Thrives on tight, demanding courses.",
       "odds": {
         "fd": "+2000",
-        "bet": "+1700",
+        "bet": "+6000",
         "mgm": "+2200",
         "bov": "+8000",
-        "dk": "+2100"
+        "dk": "+8600"
       },
       "fieldInfo": {
         "owgr": 22,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 22,
       "recentForm": {
-        "lastResult": "#36 at Masters Tournament",
-        "lastPosition": 36,
-        "l5AvgFinish": 36.0,
-        "l10AvgFinish": 36.0,
+        "lastResult": "#44 at Masters Tournament",
+        "lastPosition": 44,
+        "l5AvgFinish": 36.5,
+        "l10AvgFinish": 36.5,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 60.0,
@@ -3259,7 +3274,7 @@
       "confScore": 57.6,
       "edgeScore": 3.88,
       "owgrRank": 33,
-      "evScore": 90.1
+      "evScore": 651.7
     },
     {
       "id": 23,
@@ -3527,14 +3542,14 @@
       "notes": "2017 champion. One of Augusta's great history makers \u2014 23 prior top-10s. Putter remains the weakness. Respect the track record.",
       "odds": {
         "fd": "+17500",
-        "bet": "+20000",
+        "bet": "+25000",
         "mgm": "+17500",
         "bov": "+12500",
-        "dk": "+24000"
+        "dk": "+27500"
       },
       "fieldInfo": {
         "owgr": 491,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 491,
@@ -3566,7 +3581,7 @@
       "confScore": 56.8,
       "edgeScore": 7.95,
       "owgrRank": 75,
-      "evScore": 1953.3
+      "evScore": 2251.5
     },
     {
       "id": 66,
@@ -3615,20 +3630,20 @@
       "notes": "Versatile Korean player with multiple wins. Solid all-around game. Steady at Augusta but ceiling is top-10. Reliable MC prop.",
       "odds": {
         "fd": "+5500",
-        "bet": "+4000",
+        "bet": "+9000",
         "mgm": "+5000",
         "bov": "+6500",
-        "dk": "+5300"
+        "dk": "+27000"
       },
       "fieldInfo": {
         "owgr": 47,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 47,
       "recentForm": {
-        "lastResult": "#90 at Masters Tournament",
-        "lastPosition": 90,
+        "lastResult": "#57 at Masters Tournament",
+        "lastPosition": 57,
         "l5AvgFinish": 50.0,
         "l10AvgFinish": 50.0,
         "l5McPct": 50,
@@ -3664,7 +3679,7 @@
       "confScore": 56.6,
       "edgeScore": 6.53,
       "owgrRank": 38,
-      "evScore": 358.5
+      "evScore": 2200.8
     },
     {
       "id": 28,
@@ -3784,20 +3799,20 @@
       "notes": "Scottish lefty with links pedigree. Gritty competitor. Good in wind. Putter can go cold.",
       "odds": {
         "fd": "+2500",
-        "bet": "+2800",
+        "bet": "+12000",
         "mgm": "+3000",
         "bov": "+4000",
-        "dk": "+3400"
+        "dk": "+15500"
       },
       "fieldInfo": {
         "owgr": 7,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 7,
       "recentForm": {
-        "lastResult": "#88 at Masters Tournament",
-        "lastPosition": 88,
+        "lastResult": "#56 at Masters Tournament",
+        "lastPosition": 56,
         "l5AvgFinish": 46.0,
         "l10AvgFinish": 46.0,
         "l5McPct": 50,
@@ -3833,7 +3848,7 @@
       "confScore": 55.9,
       "edgeScore": 4.54,
       "owgrRank": 34,
-      "evScore": 193.5
+      "evScore": 1208.1
     },
     {
       "id": 39,
@@ -4187,20 +4202,20 @@
       "notes": "Australian talent with power. Sister Minjee is LPGA star. Inconsistent but can go low. Good for T20 at mid-tier.",
       "odds": {
         "fd": "+3500",
-        "bet": "+3300",
+        "bet": "+47500",
         "mgm": "+3300",
         "bov": "+7000",
-        "dk": "+3700"
+        "dk": "+140000"
       },
       "fieldInfo": {
         "owgr": 43,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 43,
       "recentForm": {
-        "lastResult": "#66 at Masters Tournament",
-        "lastPosition": 66,
+        "lastResult": "#76 at Masters Tournament",
+        "lastPosition": 76,
         "l5AvgFinish": 66.0,
         "l10AvgFinish": 66.0,
         "l5McPct": 0,
@@ -4236,7 +4251,7 @@
       "confScore": 55.0,
       "edgeScore": 5.31,
       "owgrRank": 36,
-      "evScore": 213.5
+      "evScore": 11458.3
     },
     {
       "id": 72,
@@ -4432,20 +4447,20 @@
       "notes": "Steady veteran. Good all-around game without elite skill. East Lake familiarity. Reliable for MC at full fields.",
       "odds": {
         "fd": "+8000",
-        "bet": "+9000",
+        "bet": "+20000",
         "mgm": "+10000",
         "bov": "+10000",
-        "dk": "+10000"
+        "dk": "+17000"
       },
       "fieldInfo": {
         "owgr": 13,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 13,
       "recentForm": {
-        "lastResult": "#89 at Masters Tournament",
-        "lastPosition": 89,
+        "lastResult": "#41 at Masters Tournament",
+        "lastPosition": 41,
         "l5AvgFinish": 89.0,
         "l10AvgFinish": 89.0,
         "l5McPct": 0,
@@ -4481,7 +4496,7 @@
       "confScore": 54.6,
       "edgeScore": 6.96,
       "owgrRank": 40,
-      "evScore": 727.2
+      "evScore": 1300.5
     },
     {
       "id": 76,
@@ -4811,20 +4826,20 @@
       "notes": "Precise iron player. Accuracy over power. Good at courses that demand shotmaking. Steady for props.",
       "odds": {
         "fd": "+12500",
-        "bet": "+16000",
+        "bet": "+9000",
         "mgm": "+20000",
         "bov": "+12500",
-        "dk": "+24000"
+        "dk": "+13000"
       },
       "fieldInfo": {
         "owgr": 23,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 23,
       "recentForm": {
-        "lastResult": "#69 at Masters Tournament",
-        "lastPosition": 69,
+        "lastResult": "#15 at Masters Tournament",
+        "lastPosition": 15,
         "l5AvgFinish": 69.0,
         "l10AvgFinish": 69.0,
         "l5McPct": 0,
@@ -4860,7 +4875,7 @@
       "confScore": 53.8,
       "edgeScore": 7.28,
       "owgrRank": 26,
-      "evScore": 1844.9
+      "evScore": 957.2
     },
     {
       "id": 77,
@@ -5051,17 +5066,17 @@
         "bet": "+3300",
         "mgm": "+4000",
         "bov": "+5000",
-        "dk": "+3800"
+        "dk": "+4400"
       },
       "fieldInfo": {
         "owgr": 80,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 80,
       "recentForm": {
-        "lastResult": "#81 at Masters Tournament",
-        "lastPosition": 81,
+        "lastResult": "#17 at Masters Tournament",
+        "lastPosition": 17,
         "l5AvgFinish": 81.0,
         "l10AvgFinish": 81.0,
         "l5McPct": 0,
@@ -5097,7 +5112,7 @@
       "confScore": 53.3,
       "edgeScore": 5.05,
       "owgrRank": 46,
-      "evScore": 211.8
+      "evScore": 259.8
     },
     {
       "id": 79,
@@ -5230,20 +5245,20 @@
       "notes": "Alabama native still adjusting to major speed. Solid iron player. Mid-tier Augusta floor. Better at more forgiving venues.",
       "odds": {
         "fd": "+25000",
-        "bet": "+35000",
+        "bet": "+47500",
         "mgm": "+40000",
         "bov": "+25000",
-        "dk": "+80000"
+        "dk": "+500000"
       },
       "fieldInfo": {
         "owgr": 101,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 101,
       "recentForm": {
-        "lastResult": "#60 at Masters Tournament",
-        "lastPosition": 60,
+        "lastResult": "#89 at Masters Tournament",
+        "lastPosition": 89,
         "l5AvgFinish": 60.0,
         "l10AvgFinish": 60.0,
         "l5McPct": 100,
@@ -5279,7 +5294,7 @@
       "confScore": 52.8,
       "edgeScore": 7.52,
       "owgrRank": 42,
-      "evScore": 6243.9
+      "evScore": 39507.9
     },
     {
       "id": 41,
@@ -5320,25 +5335,25 @@
       },
       "notes": "Longest hitter on Tour. Accuracy is a problem. Short game is Tour-worst tier. Only play at bomber-friendly tracks.",
       "odds": {
-        "dk": "+6300",
+        "dk": "+15000",
         "mgm": "+6600",
-        "bet": "+5000",
+        "bet": "+15000",
         "fd": "+6500"
       },
       "fieldInfo": {
         "owgr": 105,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 105,
       "recentForm": {
-        "lastResult": "#25 at Masters Tournament",
-        "lastPosition": 25,
-        "l5AvgFinish": 25.0,
-        "l10AvgFinish": 25.0,
+        "lastResult": "#31 at Masters Tournament",
+        "lastPosition": 31,
+        "l5AvgFinish": 25.5,
+        "l10AvgFinish": 25.5,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 60.0,
@@ -5367,9 +5382,9 @@
         "makeCut": 59
       },
       "confScore": 52.3,
-      "edgeScore": 6.28,
+      "edgeScore": 6.33,
       "owgrRank": 41,
-      "evScore": 402.1
+      "evScore": 1084.6
     },
     {
       "id": 44,
@@ -5700,20 +5715,20 @@
       "notes": "Steady mid-tier player. No outstanding skill. MC candidate at weaker fields. Fade at marquee events.",
       "odds": {
         "fd": "+10000",
-        "bet": "+12000",
+        "bet": "+15000",
         "mgm": "+15000",
         "bov": "+6000",
-        "dk": "+10500"
+        "dk": "+14500"
       },
       "fieldInfo": {
         "owgr": 8,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 8,
       "recentForm": {
-        "lastResult": "#85 at Masters Tournament",
-        "lastPosition": 85,
+        "lastResult": "#30 at Masters Tournament",
+        "lastPosition": 30,
         "l5AvgFinish": 85.0,
         "l10AvgFinish": 85.0,
         "l5McPct": 0,
@@ -5749,7 +5764,7 @@
       "confScore": 50.4,
       "edgeScore": 6.57,
       "owgrRank": 49,
-      "evScore": 701.4
+      "evScore": 1003.8
     },
     {
       "id": 87,
@@ -5798,25 +5813,25 @@
       "notes": "New Zealand bomber. Son of Grant Fox. Huge off the tee but Augusta short game demands more. Better on longer bombers tracks.",
       "odds": {
         "fd": "+12500",
-        "bet": "+15000",
+        "bet": "+100000",
         "mgm": "+17500",
         "bov": "+12500",
-        "dk": "+19500"
+        "dk": "+500000"
       },
       "fieldInfo": {
         "owgr": 39,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 39,
       "recentForm": {
-        "lastResult": "#13 at Masters Tournament",
-        "lastPosition": 13,
-        "l5AvgFinish": 13.0,
-        "l10AvgFinish": 13.0,
+        "lastResult": "#68 at Masters Tournament",
+        "lastPosition": 68,
+        "l5AvgFinish": 13.5,
+        "l10AvgFinish": 13.5,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 50.0,
@@ -5847,7 +5862,7 @@
       "confScore": 49.7,
       "edgeScore": 6.66,
       "owgrRank": 84,
-      "evScore": 1361.2
+      "evScore": 37182.5
     },
     {
       "id": 97,
@@ -5889,19 +5904,19 @@
       "notes": "Former Clemson standout. Athletic young player building tour experience. High ceiling but still raw.",
       "odds": {
         "fd": "+7500",
-        "bet": "+6600",
+        "bet": "+15000",
         "mgm": "+8000",
-        "dk": "+8600"
+        "dk": "+10000"
       },
       "fieldInfo": {
         "owgr": 81,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 81,
       "recentForm": {
-        "lastResult": "#70 at Masters Tournament",
-        "lastPosition": 70,
+        "lastResult": "#27 at Masters Tournament",
+        "lastPosition": 27,
         "l5AvgFinish": 70.0,
         "l10AvgFinish": 70.0,
         "l5McPct": 0,
@@ -5937,7 +5952,7 @@
       "confScore": 49.4,
       "edgeScore": 6.09,
       "owgrRank": 115,
-      "evScore": 544.7
+      "evScore": 648.4
     },
     {
       "id": 85,
@@ -6201,20 +6216,20 @@
       "notes": "English DP World Tour graduate. Steady but unspectacular. Still building PGA Tour r\u00e9sum\u00e9.",
       "odds": {
         "fd": "+7000",
-        "bet": "+8000",
+        "bet": "+35000",
         "mgm": "+8000",
         "bov": "+10000",
-        "dk": "+14000"
+        "dk": "+135000"
       },
       "fieldInfo": {
         "owgr": 29,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 29,
       "recentForm": {
-        "lastResult": "#91 at Masters Tournament",
-        "lastPosition": 91,
+        "lastResult": "#66 at Masters Tournament",
+        "lastPosition": 66,
         "l5AvgFinish": 58.5,
         "l10AvgFinish": 58.5,
         "l5McPct": 50,
@@ -6250,7 +6265,7 @@
       "confScore": 48.3,
       "edgeScore": 5.84,
       "owgrRank": 120,
-      "evScore": 921.5
+      "evScore": 9688.0
     },
     {
       "id": 50,
@@ -6299,20 +6314,20 @@
       "notes": "Stanford product. West Coast familiarity helps. Pebble and Torrey specialist. Thin field MC candidate.",
       "odds": {
         "fd": "+10000",
-        "bet": "+6600",
+        "bet": "+47500",
         "mgm": "+8000",
         "bov": "+10000",
-        "dk": "+8000"
+        "dk": "+180000"
       },
       "fieldInfo": {
         "owgr": 21,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 21,
       "recentForm": {
-        "lastResult": "#75 at Masters Tournament",
-        "lastPosition": 75,
+        "lastResult": "#73 at Masters Tournament",
+        "lastPosition": 73,
         "l5AvgFinish": 49.5,
         "l10AvgFinish": 49.5,
         "l5McPct": 50,
@@ -6348,7 +6363,7 @@
       "confScore": 45.3,
       "edgeScore": 5.56,
       "owgrRank": 50,
-      "evScore": 450.4
+      "evScore": 12137.8
     },
     {
       "id": 54,
@@ -6479,20 +6494,20 @@
       "notes": "2016 champion in stunning Jordan Spieth collapse. Inconsistent since. Pedigree at Augusta \u2014 can't fully fade the champion.",
       "odds": {
         "fd": "+30000",
-        "bet": "+47500",
+        "bet": "+100000",
         "mgm": "+75000",
         "bov": "+40000",
-        "dk": "+225000"
+        "dk": "+500000"
       },
       "fieldInfo": {
         "owgr": 346,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 346,
       "recentForm": {
-        "lastResult": "#59 at Masters Tournament",
-        "lastPosition": 59,
+        "lastResult": "#64 at Masters Tournament",
+        "lastPosition": 64,
         "l5AvgFinish": 59.0,
         "l10AvgFinish": 59.0,
         "l5McPct": 100,
@@ -6528,16 +6543,7 @@
       "confScore": 6,
       "edgeScore": 0.0,
       "owgrRank": 88,
-      "anomalies": [
-        {
-          "type": "z_score",
-          "z": -1.92,
-          "direction": "OVERPRICED",
-          "edge_pct": 0.57,
-          "market": "outright"
-        }
-      ],
-      "evScore": 1925.9
+      "evScore": 4400.9
     },
     {
       "id": 55,
@@ -6586,25 +6592,25 @@
       "notes": "2x champion (2012, 2014). Retired from PGA Tour. Invited as champion. Big fade \u2014 not competitive anymore.",
       "odds": {
         "fd": "+30000",
-        "bet": "+35000",
+        "bet": "+200000",
         "mgm": "+35000",
         "bov": "+30000",
-        "dk": "+50000"
+        "dk": "+500000"
       },
       "fieldInfo": {
         "owgr": 638,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 638,
       "recentForm": {
-        "lastResult": "#21 at Masters Tournament",
-        "lastPosition": 21,
+        "lastResult": "#60 at Masters Tournament",
+        "lastPosition": 60,
         "l5AvgFinish": 21.0,
         "l10AvgFinish": 21.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
+        "events": 2,
         "roundAvgs": null
       },
       "makeCutPct": 78.6,
@@ -6635,16 +6641,7 @@
       "confScore": 6,
       "edgeScore": 0.0,
       "owgrRank": 250,
-      "anomalies": [
-        {
-          "type": "z_score",
-          "z": -1.92,
-          "direction": "OVERPRICED",
-          "edge_pct": 0.57,
-          "market": "outright"
-        }
-      ],
-      "evScore": 350.9
+      "evScore": 4400.9
     },
     {
       "id": 56,
@@ -6692,19 +6689,19 @@
       },
       "notes": "2003 champion. Playing on Champions Tour. Augusta invite is honorary at this stage. MC prop only.",
       "odds": {
-        "bet": "+100000",
+        "bet": "+200000",
         "mgm": "+200000",
         "bov": "+250000",
         "dk": "+500000"
       },
       "fieldInfo": {
         "owgr": null,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "recentForm": {
-        "lastResult": "#53 at Masters Tournament",
-        "lastPosition": 53,
+        "lastResult": "#87 at Masters Tournament",
+        "lastPosition": 87,
         "l5AvgFinish": 53.0,
         "l10AvgFinish": 53.0,
         "l5McPct": 100,
@@ -6740,15 +6737,6 @@
       "confScore": 6,
       "edgeScore": 0.0,
       "owgrRank": 300,
-      "anomalies": [
-        {
-          "type": "z_score",
-          "z": -1.82,
-          "direction": "OVERPRICED",
-          "edge_pct": 0.85,
-          "market": "outright"
-        }
-      ],
       "evScore": 4400.9
     },
     {
@@ -6798,20 +6786,20 @@
       "notes": "2007 champion. Precision iron player who thrives at Augusta. Former Ryder Cup captain. Fade for outright; MC solid.",
       "odds": {
         "fd": "+40000",
-        "bet": "+47500",
+        "bet": "+35000",
         "mgm": "+50000",
         "bov": "+40000",
-        "dk": "+52500"
+        "dk": "+350000"
       },
       "fieldInfo": {
         "owgr": 274,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "owgr": 274,
       "recentForm": {
-        "lastResult": "#56 at Masters Tournament",
-        "lastPosition": 56,
+        "lastResult": "#53 at Masters Tournament",
+        "lastPosition": 53,
         "l5AvgFinish": 56.0,
         "l10AvgFinish": 56.0,
         "l5McPct": 100,
@@ -6847,16 +6835,7 @@
       "confScore": 6,
       "edgeScore": 0.0,
       "owgrRank": 180,
-      "anomalies": [
-        {
-          "type": "z_score",
-          "z": -1.89,
-          "direction": "OVERPRICED",
-          "edge_pct": 0.65,
-          "market": "outright"
-        }
-      ],
-      "evScore": 373.4
+      "evScore": 3050.9
     },
     {
       "id": 58,
@@ -6939,22 +6918,6 @@
       "confScore": 6,
       "edgeScore": 0.0,
       "owgrRank": 999,
-      "anomalies": [
-        {
-          "type": "z_score",
-          "z": -2.04,
-          "direction": "OVERPRICED",
-          "edge_pct": 0.24,
-          "market": "outright"
-        },
-        {
-          "type": "iqr_outlier",
-          "direction": "OVERPRICED",
-          "edge_pct": 0.24,
-          "fence": 12.11,
-          "market": "outright"
-        }
-      ],
       "evScore": 35.9
     },
     {
@@ -7007,16 +6970,16 @@
         "bet": "+100000",
         "mgm": "+250000",
         "bov": "+250000",
-        "dk": "+500000"
+        "dk": "+400000"
       },
       "fieldInfo": {
         "owgr": null,
-        "entryStatus": "WITHDRAWN",
+        "entryStatus": "IN",
         "inField": true
       },
       "recentForm": {
-        "lastResult": "#65 at Masters Tournament",
-        "lastPosition": 65,
+        "lastResult": "#75 at Masters Tournament",
+        "lastPosition": 75,
         "l5AvgFinish": 65.0,
         "l10AvgFinish": 65.0,
         "l5McPct": 100,
@@ -7053,16 +7016,7 @@
       "confScore": 6,
       "edgeScore": 0.0,
       "owgrRank": 500,
-      "anomalies": [
-        {
-          "type": "z_score",
-          "z": -1.84,
-          "direction": "OVERPRICED",
-          "edge_pct": 0.8,
-          "market": "outright"
-        }
-      ],
-      "evScore": 4400.9
+      "evScore": 3500.9
     },
     {
       "id": 89,
@@ -7225,302 +7179,302 @@
     "bdlId": 20,
     "leaderboard": [
       {
-        "name": "Naoyuki Kataoka",
-        "position": "1",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Haotong Li",
-        "position": "T2",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Max Homa",
-        "position": "T2",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Jos\u00e9 Mar\u00eda Olaz\u00e1bal",
-        "position": "T2",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Rasmus Neergaard-Petersen",
-        "position": "T2",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Johnny Keefer",
-        "position": "6",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Aldrich Potgieter",
-        "position": "7",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Carlos Ortiz",
-        "position": "8",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "\u00c1ngel Cabrera",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Sami Valimaki",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Herrington, Jackson",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Charl Schwartzel",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Max Greyserman",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Ryan Fox",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Vijay Singh",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Matt McCarty",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Rasmus H\u00f8jgaard",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Kurt Kitayama",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Kristoffer Reitan",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Casey Jarvis",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Bubba Watson",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Nico Echavarria",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Holtz, Brandon",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Cameron Smith",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
         "name": "Sam Burns",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Jake Knapp",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Keegan Bradley",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Ryan Gerard",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Nick Taylor",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Dustin Johnson",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Shane Lowry",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Jason Day",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Patrick Reed",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Tommy Fleetwood",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Akshay Bhatia",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Bryson DeChambeau",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Matt Fitzpatrick",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Xander Schauffele",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Hideki Matsuyama",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Collin Morikawa",
-        "position": "-",
-        "score": "",
-        "totalStrokes": 0.0
-      },
-      {
-        "name": "Russell Henley",
-        "position": "-",
+        "position": "T1",
         "score": "",
         "totalStrokes": 0.0
       },
       {
         "name": "Rory McIlroy",
-        "position": "-",
+        "position": "T1",
         "score": "",
         "totalStrokes": 0.0
       },
       {
-        "name": "Cameron Young",
-        "position": "-",
+        "name": "Justin Rose",
+        "position": "3",
         "score": "",
         "totalStrokes": 0.0
       },
       {
-        "name": "Mason Howell",
-        "position": "-",
+        "name": "Kurt Kitayama",
+        "position": "T4",
         "score": "",
         "totalStrokes": 0.0
       },
       {
-        "name": "Viktor Hovland",
-        "position": "-",
+        "name": "Jason Day",
+        "position": "T4",
         "score": "",
         "totalStrokes": 0.0
       },
       {
-        "name": "Patrick Cantlay",
-        "position": "-",
+        "name": "Patrick Reed",
+        "position": "T4",
         "score": "",
         "totalStrokes": 0.0
       },
       {
-        "name": "Alex Noren",
-        "position": "-",
+        "name": "Shane Lowry",
+        "position": "T7",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Xander Schauffele",
+        "position": "T7",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Aaron Rai",
+        "position": "T7",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Michael Brennan",
+        "position": "T7",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Jordan Spieth",
+        "position": "T7",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Scottie Scheffler",
+        "position": "T7",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Gary Woodland",
+        "position": "T7",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Haotong Li",
+        "position": "T14",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Nick Taylor",
+        "position": "T14",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Tommy Fleetwood",
+        "position": "T14",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Brian Campbell",
+        "position": "T14",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Max Homa",
+        "position": "T18",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Matt McCarty",
+        "position": "T18",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Kristoffer Reitan",
+        "position": "T18",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Keegan Bradley",
+        "position": "T18",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Ryan Gerard",
+        "position": "T18",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Hideki Matsuyama",
+        "position": "T18",
         "score": "",
         "totalStrokes": 0.0
       },
       {
         "name": "Sam Stevens",
-        "position": "-",
+        "position": "T18",
         "score": "",
         "totalStrokes": 0.0
       },
       {
-        "name": "Sungjae Im",
-        "position": "-",
+        "name": "Wyndham Clark",
+        "position": "T18",
         "score": "",
         "totalStrokes": 0.0
       },
       {
-        "name": "Andrew Novak",
-        "position": "-",
+        "name": "Adam Scott",
+        "position": "T18",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Sergio Garcia",
+        "position": "T18",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Jacob Bridgeman",
+        "position": "T18",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Ben Griffin",
+        "position": "T18",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Justin Thomas",
+        "position": "T18",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Jake Knapp",
+        "position": "T31",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Dustin Johnson",
+        "position": "T31",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Akshay Bhatia",
+        "position": "T31",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Russell Henley",
+        "position": "T31",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Cameron Young",
+        "position": "T31",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "J.J. Spaun",
+        "position": "T31",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Tyrrell Hatton",
+        "position": "T31",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Chris Gotterup",
+        "position": "T31",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Brooks Koepka",
+        "position": "T31",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Sepp Straka",
+        "position": "T31",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Harris English",
+        "position": "T31",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Jos\u00e9 Mar\u00eda Olaz\u00e1bal",
+        "position": "T42",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Cameron Smith",
+        "position": "T42",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Matt Fitzpatrick",
+        "position": "T42",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Collin Morikawa",
+        "position": "T42",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Ethan Fang",
+        "position": "T42",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Corey Conners",
+        "position": "T42",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Ludvig \u00c5berg",
+        "position": "T42",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Charl Schwartzel",
+        "position": "T49",
+        "score": "",
+        "totalStrokes": 0.0
+      },
+      {
+        "name": "Viktor Hovland",
+        "position": "T49",
         "score": "",
         "totalStrokes": 0.0
       }
@@ -7528,30 +7482,30 @@
     "weather": [
       {
         "date": "2026-04-09",
-        "tempHigh": 72.0,
+        "tempHigh": 72.5,
         "tempLow": 43.7,
-        "windAvg": 7.1,
-        "windMax": 9.1,
-        "windDir": 89,
+        "windAvg": 6.2,
+        "windMax": 8.5,
+        "windDir": 85,
         "rainPct": 0
       },
       {
         "date": "2026-04-10",
-        "tempHigh": 78.2,
-        "tempLow": 48.4,
-        "windAvg": 3.2,
-        "windMax": 4.6,
-        "windDir": 88,
+        "tempHigh": 78.4,
+        "tempLow": 48.7,
+        "windAvg": 2.3,
+        "windMax": 3.8,
+        "windDir": 134,
         "rainPct": 0
       },
       {
         "date": "2026-04-11",
-        "tempHigh": 84.7,
-        "tempLow": 57.2,
-        "windAvg": 2.9,
-        "windMax": 5.6,
-        "windDir": 208,
-        "rainPct": 1
+        "tempHigh": 84.9,
+        "tempLow": 52.5,
+        "windAvg": 3.4,
+        "windMax": 5.5,
+        "windDir": 184,
+        "rainPct": 0
       }
     ]
   },
@@ -7682,132 +7636,42 @@
     "forecast": [
       {
         "date": "2026-04-09",
-        "tempHigh": 72.0,
+        "tempHigh": 72.5,
         "tempLow": 43.7,
-        "windAvg": 7.1,
-        "windMax": 9.1,
-        "windDir": 89,
+        "windAvg": 6.2,
+        "windMax": 8.5,
+        "windDir": 85,
         "rainPct": 0
       },
       {
         "date": "2026-04-10",
-        "tempHigh": 78.2,
-        "tempLow": 48.4,
-        "windAvg": 3.2,
-        "windMax": 4.6,
-        "windDir": 88,
+        "tempHigh": 78.4,
+        "tempLow": 48.7,
+        "windAvg": 2.3,
+        "windMax": 3.8,
+        "windDir": 134,
         "rainPct": 0
       },
       {
         "date": "2026-04-11",
-        "tempHigh": 84.7,
-        "tempLow": 57.2,
-        "windAvg": 2.9,
-        "windMax": 5.6,
-        "windDir": 208,
-        "rainPct": 1
+        "tempHigh": 84.9,
+        "tempLow": 52.5,
+        "windAvg": 3.4,
+        "windMax": 5.5,
+        "windDir": 184,
+        "rainPct": 0
       }
     ]
   },
   "teeTimes": [
     {
-      "player": "Naoyuki Kataoka",
+      "player": "Sam Burns",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Haotong Li",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Max Homa",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Jos\u00e9 Mar\u00eda Olaz\u00e1bal",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "\u00c1ngel Cabrera",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Sami V\u00e4lim\u00e4ki",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Johnny Keefer",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Rasmus Neergaard-Petersen",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Jackson Herrington",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Aldrich Potgieter",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Carlos Ortiz",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Charl Schwartzel",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Ryan Fox",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Max Greyserman",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Vijay Singh",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Rasmus H\u00f8jgaard",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Matt McCarty",
+      "player": "Rory McIlroy",
       "teeTime": "",
       "round": 1,
       "startHole": 1
@@ -7819,55 +7683,103 @@
       "startHole": 1
     },
     {
-      "player": "Kristoffer Reitan",
+      "player": "Jason Day",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Casey Jarvis",
+      "player": "Patrick Reed",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Bubba Watson",
+      "player": "Justin Rose",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Brandon Holtz",
+      "player": "Shane Lowry",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Nico Echavarria",
+      "player": "Xander Schauffele",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Cameron Smith",
+      "player": "Gary Woodland",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Jake Knapp",
+      "player": "Scottie Scheffler",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Sam Burns",
+      "player": "Haotong Li",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
       "player": "Nick Taylor",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Tommy Fleetwood",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Brian Campbell",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Aaron Rai",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Michael Brennan",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Jordan Spieth",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Max Homa",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Matt McCarty",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Kristoffer Reitan",
       "teeTime": "",
       "round": 1,
       "startHole": 1
@@ -7885,7 +7797,55 @@
       "startHole": 1
     },
     {
-      "player": "Jason Day",
+      "player": "Hideki Matsuyama",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Sam Stevens",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Wyndham Clark",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Adam Scott",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Jacob Bridgeman",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Sergio Garc\u00eda",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Justin Thomas",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Ben Griffin",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Jake Knapp",
       "teeTime": "",
       "round": 1,
       "startHole": 1
@@ -7897,43 +7857,7 @@
       "startHole": 1
     },
     {
-      "player": "Shane Lowry",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Tommy Fleetwood",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Patrick Reed",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
       "player": "Akshay Bhatia",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Matt Fitzpatrick",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Bryson DeChambeau",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Xander Schauffele",
       "teeTime": "",
       "round": 1,
       "startHole": 1
@@ -7945,7 +7869,61 @@
       "startHole": 1
     },
     {
-      "player": "Hideki Matsuyama",
+      "player": "Cameron Young",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Tyrrell Hatton",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "J.J. Spaun",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Chris Gotterup",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Brooks Koepka",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Sepp Straka",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Harris English",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Jos\u00e9 Mar\u00eda Olaz\u00e1bal",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Cameron Smith",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Matt Fitzpatrick",
       "teeTime": "",
       "round": 1,
       "startHole": 1
@@ -7957,13 +7935,145 @@
       "startHole": 1
     },
     {
-      "player": "Rory McIlroy",
+      "player": "Ethan Fang",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Cameron Young",
+      "player": "Corey Conners",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Ludvig \u00c5berg",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Charl Schwartzel",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Viktor Hovland",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Andrew Novak",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Tom McKibbin",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Zach Johnson",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Michael Kim",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Harry Hall",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Robert MacIntyre",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Si Woo Kim",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Johnny Keefer",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Jackson Herrington",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Bubba Watson",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Bryson DeChambeau",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Sungjae Im",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Nicolai H\u00f8jgaard",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Danny Willett",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Daniel Berger",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Marco Penge",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Rasmus Neergaard-Petersen",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Ryan Fox",
+      "teeTime": "",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Casey Jarvis",
       "teeTime": "",
       "round": 1,
       "startHole": 1
@@ -7987,109 +8097,13 @@
       "startHole": 1
     },
     {
-      "player": "Viktor Hovland",
+      "player": "Maverick McNealy",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Sungjae Im",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Sam Stevens",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Brian Campbell",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Andrew Novak",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Tom McKibbin",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Mike Weir",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Wyndham Clark",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Mateo Pulcini",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Zach Johnson",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Michael Kim",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Nicolai H\u00f8jgaard",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Danny Willett",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Davis Riley",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Ethan Fang",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Adam Scott",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Brian Harman",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Daniel Berger",
+      "player": "Rasmus H\u00f8jgaard",
       "teeTime": "",
       "round": 1,
       "startHole": 1
@@ -8107,151 +8121,91 @@
       "startHole": 1
     },
     {
-      "player": "Fifa Laopakdee",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Sergio Garc\u00eda",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Aaron Rai",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Jacob Bridgeman",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Corey Conners",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Harry Hall",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Michael Brennan",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Tyrrell Hatton",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Maverick McNealy",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "J.J. Spaun",
-      "teeTime": "",
-      "round": 1,
-      "startHole": 1
-    },
-    {
       "player": "Jon Rahm",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Ludvig \u00c5berg",
+      "player": "\u00c1ngel Cabrera",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Chris Gotterup",
+      "player": "Max Greyserman",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Justin Rose",
+      "player": "Vijay Singh",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Jordan Spieth",
+      "player": "Nico Echavarria",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Brooks Koepka",
+      "player": "Brian Harman",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Justin Thomas",
+      "player": "Carlos Ortiz",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Sepp Straka",
+      "player": "Sami V\u00e4lim\u00e4ki",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Ben Griffin",
+      "player": "Fifa Laopakdee",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Gary Woodland",
+      "player": "Brandon Holtz",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Scottie Scheffler",
+      "player": "Mike Weir",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Robert MacIntyre",
+      "player": "Mateo Pulcini",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Harris English",
+      "player": "Davis Riley",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Si Woo Kim",
+      "player": "Naoyuki Kataoka",
       "teeTime": "",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Marco Penge",
+      "player": "Aldrich Potgieter",
       "teeTime": "",
       "round": 1,
       "startHole": 1
@@ -8261,16 +8215,32 @@
     "Scottie Scheffler": [
       {
         "type": "z_score",
-        "z": -3.48,
+        "z": -3.39,
         "direction": "OVERPRICED",
-        "edge_pct": -3.72,
+        "edge_pct": -10.85,
         "market": "outright"
       },
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -3.72,
-        "fence": 0.49,
+        "edge_pct": -10.85,
+        "fence": -1.61,
+        "market": "outright"
+      }
+    ],
+    "Rory McIlroy": [
+      {
+        "type": "z_score",
+        "z": -5.35,
+        "direction": "OVERPRICED",
+        "edge_pct": -20.12,
+        "market": "outright"
+      },
+      {
+        "type": "iqr_outlier",
+        "direction": "OVERPRICED",
+        "edge_pct": -20.12,
+        "fence": -1.61,
         "market": "outright"
       }
     ],
@@ -8298,20 +8268,12 @@
         "note": "confScore 63.9 but odds +12500 \u2014 likely value in placement markets"
       }
     ],
-    "Jason Day": [
-      {
-        "type": "low_freq_value",
-        "direction": "UNDERPRICED",
-        "market": "top20_makecut",
-        "note": "confScore 62.2 but odds +6500 \u2014 likely value in placement markets"
-      }
-    ],
     "Adam Scott": [
       {
         "type": "low_freq_value",
         "direction": "UNDERPRICED",
         "market": "top20_makecut",
-        "note": "confScore 62.0 but odds +5800 \u2014 likely value in placement markets"
+        "note": "confScore 62.0 but odds +6500 \u2014 likely value in placement markets"
       }
     ],
     "Corey Conners": [
@@ -8327,7 +8289,7 @@
         "type": "low_freq_value",
         "direction": "UNDERPRICED",
         "market": "top20_makecut",
-        "note": "confScore 61.9 but odds +5200 \u2014 likely value in placement markets"
+        "note": "confScore 61.9 but odds +5500 \u2014 likely value in placement markets"
       }
     ],
     "Sahith Theegala": [
@@ -8336,14 +8298,6 @@
         "direction": "UNDERPRICED",
         "market": "top20_makecut",
         "note": "confScore 61.6 but odds +8000 \u2014 likely value in placement markets"
-      }
-    ],
-    "Sam Burns": [
-      {
-        "type": "low_freq_value",
-        "direction": "UNDERPRICED",
-        "market": "top20_makecut",
-        "note": "confScore 61.4 but odds +6500 \u2014 likely value in placement markets"
       }
     ],
     "Sungjae Im": [
@@ -8367,7 +8321,7 @@
         "type": "low_freq_value",
         "direction": "UNDERPRICED",
         "market": "top20_makecut",
-        "note": "confScore 60.5 but odds +5800 \u2014 likely value in placement markets"
+        "note": "confScore 60.5 but odds +6000 \u2014 likely value in placement markets"
       }
     ],
     "Max Homa": [
@@ -8376,67 +8330,6 @@
         "direction": "UNDERPRICED",
         "market": "top20_makecut",
         "note": "confScore 60.4 but odds +10000 \u2014 likely value in placement markets"
-      }
-    ],
-    "Danny Willett": [
-      {
-        "type": "z_score",
-        "z": -1.92,
-        "direction": "OVERPRICED",
-        "edge_pct": 0.57,
-        "market": "outright"
-      }
-    ],
-    "Bubba Watson": [
-      {
-        "type": "z_score",
-        "z": -1.92,
-        "direction": "OVERPRICED",
-        "edge_pct": 0.57,
-        "market": "outright"
-      }
-    ],
-    "Mike Weir": [
-      {
-        "type": "z_score",
-        "z": -1.82,
-        "direction": "OVERPRICED",
-        "edge_pct": 0.85,
-        "market": "outright"
-      }
-    ],
-    "Zach Johnson": [
-      {
-        "type": "z_score",
-        "z": -1.89,
-        "direction": "OVERPRICED",
-        "edge_pct": 0.65,
-        "market": "outright"
-      }
-    ],
-    "Tiger Woods": [
-      {
-        "type": "z_score",
-        "z": -2.04,
-        "direction": "OVERPRICED",
-        "edge_pct": 0.24,
-        "market": "outright"
-      },
-      {
-        "type": "iqr_outlier",
-        "direction": "OVERPRICED",
-        "edge_pct": 0.24,
-        "fence": 12.11,
-        "market": "outright"
-      }
-    ],
-    "Fred Couples": [
-      {
-        "type": "z_score",
-        "z": -1.84,
-        "direction": "OVERPRICED",
-        "edge_pct": 0.8,
-        "market": "outright"
       }
     ]
   },
@@ -9114,302 +9007,330 @@
       "historical_tournament_id": 60,
       "live_tournament_id": 20,
       "course_id": 37,
-      "built_at": "2026-04-09T12:38:56.060182Z",
+      "built_at": "2026-04-09T21:41:18.203053Z",
       "has_live_data": false
     }
   },
   "oddsMovement": {
     "Scottie Scheffler": {
-      "current": "+520",
+      "current": "+330",
       "previous": "+495",
-      "change": 25,
-      "direction": "longer",
-      "significant": false
-    },
-    "Xander Schauffele": {
-      "current": "+1550",
-      "previous": "+1800",
-      "change": -250,
+      "change": -165,
       "direction": "shorter",
       "significant": false
     },
+    "Xander Schauffele": {
+      "current": "+1050",
+      "previous": "+1800",
+      "change": -750,
+      "direction": "shorter",
+      "significant": true
+    },
     "Jon Rahm": {
-      "current": "+920",
+      "current": "+22500",
       "previous": "+910",
-      "change": 10,
+      "change": 21590,
       "direction": "longer",
-      "significant": false
+      "significant": true
     },
     "Rory McIlroy": {
-      "current": "+1225",
+      "current": "+220",
       "previous": "+1175",
-      "change": 50,
-      "direction": "longer",
-      "significant": false
+      "change": -955,
+      "direction": "shorter",
+      "significant": true
     },
     "Collin Morikawa": {
-      "current": "+3600",
+      "current": "+14500",
       "previous": "+3100",
-      "change": 500,
+      "change": 11400,
       "direction": "longer",
       "significant": true
     },
     "Bryson DeChambeau": {
-      "current": "+1025",
+      "current": "+11500",
       "previous": "+1050",
-      "change": -25,
-      "direction": "shorter",
-      "significant": false
+      "change": 10450,
+      "direction": "longer",
+      "significant": true
     },
     "Patrick Cantlay": {
-      "current": "+6700",
+      "current": "+180000",
       "previous": "+5800",
-      "change": 900,
+      "change": 174200,
       "direction": "longer",
       "significant": true
     },
     "Brooks Koepka": {
-      "current": "+3600",
+      "current": "+9400",
       "previous": "+3700",
-      "change": -100,
-      "direction": "shorter",
-      "significant": false
+      "change": 5700,
+      "direction": "longer",
+      "significant": true
     },
     "Dustin Johnson": {
-      "current": "+24000",
+      "current": "+52500",
       "previous": "+25000",
-      "change": -1000,
+      "change": 27500,
+      "direction": "longer",
+      "significant": true
+    },
+    "Hideki Matsuyama": {
+      "current": "+4400",
+      "previous": "+2700",
+      "change": 1700,
+      "direction": "longer",
+      "significant": true
+    },
+    "Viktor Hovland": {
+      "current": "+31000",
+      "previous": "+4500",
+      "change": 26500,
+      "direction": "longer",
+      "significant": true
+    },
+    "Shane Lowry": {
+      "current": "+3400",
+      "previous": "+6700",
+      "change": -3300,
       "direction": "shorter",
       "significant": true
     },
-    "Tommy Fleetwood": {
-      "current": "+2300",
-      "previous": "+2250",
-      "change": 50,
-      "direction": "longer",
-      "significant": false
-    },
-    "Hideki Matsuyama": {
-      "current": "+2900",
-      "previous": "+2700",
-      "change": 200,
-      "direction": "longer",
-      "significant": false
-    },
-    "Viktor Hovland": {
-      "current": "+4400",
-      "previous": "+4500",
-      "change": -100,
-      "direction": "shorter",
-      "significant": false
-    },
-    "Shane Lowry": {
-      "current": "+6500",
-      "previous": "+6700",
-      "change": -200,
-      "direction": "shorter",
-      "significant": false
-    },
-    "Jason Day": {
-      "current": "+7200",
-      "previous": "+6800",
-      "change": 400,
-      "direction": "longer",
-      "significant": false
-    },
-    "Adam Scott": {
-      "current": "+5800",
-      "previous": "+6000",
-      "change": -200,
-      "direction": "shorter",
-      "significant": false
-    },
-    "Corey Conners": {
-      "current": "+8200",
-      "previous": "+8400",
-      "change": -200,
-      "direction": "shorter",
-      "significant": false
-    },
-    "Russell Henley": {
-      "current": "+5200",
-      "previous": "+4700",
-      "change": 500,
+    "Wyndham Clark": {
+      "current": "+24000",
+      "previous": "+20000",
+      "change": 4000,
       "direction": "longer",
       "significant": true
     },
     "Sam Burns": {
-      "current": "+7000",
+      "current": "+1025",
       "previous": "+7200",
-      "change": -200,
+      "change": -6175,
       "direction": "shorter",
-      "significant": false
+      "significant": true
     },
-    "Justin Thomas": {
-      "current": "+5800",
-      "previous": "+5400",
-      "change": 400,
+    "Jason Day": {
+      "current": "+2150",
+      "previous": "+6800",
+      "change": -4650,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Adam Scott": {
+      "current": "+7800",
+      "previous": "+6000",
+      "change": 1800,
       "direction": "longer",
-      "significant": false
+      "significant": true
     },
-    "Max Homa": {
-      "current": "+17000",
-      "previous": "+12000",
-      "change": 5000,
+    "Corey Conners": {
+      "current": "+38000",
+      "previous": "+8400",
+      "change": 29600,
+      "direction": "longer",
+      "significant": true
+    },
+    "Russell Henley": {
+      "current": "+12000",
+      "previous": "+4700",
+      "change": 7300,
+      "direction": "longer",
+      "significant": true
+    },
+    "Sungjae Im": {
+      "current": "+150000",
+      "previous": "+11500",
+      "change": 138500,
       "direction": "longer",
       "significant": true
     },
     "Patrick Reed": {
-      "current": "+3800",
+      "current": "+1550",
       "previous": "+4300",
-      "change": -500,
+      "change": -2750,
       "direction": "shorter",
+      "significant": true
+    },
+    "Justin Thomas": {
+      "current": "+10000",
+      "previous": "+5400",
+      "change": 4600,
+      "direction": "longer",
+      "significant": true
+    },
+    "Max Homa": {
+      "current": "+18500",
+      "previous": "+12000",
+      "change": 6500,
+      "direction": "longer",
       "significant": true
     },
     "Keegan Bradley": {
-      "current": "+13500",
+      "current": "+17000",
       "previous": "+14000",
-      "change": -500,
-      "direction": "shorter",
+      "change": 3000,
+      "direction": "longer",
       "significant": true
     },
     "Sepp Straka": {
-      "current": "+7400",
+      "current": "+14500",
       "previous": "+7800",
-      "change": -400,
-      "direction": "shorter",
-      "significant": false
+      "change": 6700,
+      "direction": "longer",
+      "significant": true
     },
     "Brian Harman": {
-      "current": "+21000",
+      "current": "+500000",
       "previous": "+22000",
-      "change": -1000,
-      "direction": "shorter",
+      "change": 478000,
+      "direction": "longer",
       "significant": true
     },
     "Cameron Young": {
-      "current": "+1900",
+      "current": "+4800",
       "previous": "+2300",
-      "change": -400,
-      "direction": "shorter",
-      "significant": false
+      "change": 2500,
+      "direction": "longer",
+      "significant": true
     },
     "Akshay Bhatia": {
-      "current": "+5000",
+      "current": "+12000",
       "previous": "+5600",
-      "change": -600,
-      "direction": "shorter",
+      "change": 6400,
+      "direction": "longer",
       "significant": true
     },
     "Matt Fitzpatrick": {
-      "current": "+2100",
+      "current": "+8600",
       "previous": "+2350",
-      "change": -250,
-      "direction": "shorter",
-      "significant": false
+      "change": 6250,
+      "direction": "longer",
+      "significant": true
     },
     "Sergio Garcia": {
-      "current": "+24000",
+      "current": "+27500",
       "previous": "+25000",
-      "change": -1000,
-      "direction": "shorter",
+      "change": 2500,
+      "direction": "longer",
       "significant": true
     },
     "Si Woo Kim": {
-      "current": "+5300",
+      "current": "+27000",
       "previous": "+5000",
-      "change": 300,
+      "change": 22000,
       "direction": "longer",
-      "significant": false
+      "significant": true
     },
     "Robert MacIntyre": {
-      "current": "+3400",
+      "current": "+15500",
       "previous": "+3500",
-      "change": -100,
-      "direction": "shorter",
-      "significant": false
+      "change": 12000,
+      "direction": "longer",
+      "significant": true
     },
     "Min Woo Lee": {
-      "current": "+3700",
+      "current": "+140000",
       "previous": "+3400",
-      "change": 300,
+      "change": 136600,
       "direction": "longer",
-      "significant": false
+      "significant": true
+    },
+    "Harris English": {
+      "current": "+17000",
+      "previous": "+10000",
+      "change": 7000,
+      "direction": "longer",
+      "significant": true
     },
     "Aaron Rai": {
-      "current": "+24000",
+      "current": "+13000",
       "previous": "+25000",
-      "change": -1000,
+      "change": -12000,
       "direction": "shorter",
       "significant": true
     },
     "Jordan Spieth": {
-      "current": "+3800",
+      "current": "+4400",
       "previous": "+4200",
-      "change": -400,
-      "direction": "shorter",
+      "change": 200,
+      "direction": "longer",
       "significant": false
     },
     "Davis Riley": {
-      "current": "+80000",
+      "current": "+500000",
       "previous": "+82500",
-      "change": -2500,
-      "direction": "shorter",
+      "change": 417500,
+      "direction": "longer",
       "significant": true
     },
     "Jake Knapp": {
-      "current": "+6300",
+      "current": "+15000",
       "previous": "+6500",
-      "change": -200,
-      "direction": "shorter",
-      "significant": false
+      "change": 8500,
+      "direction": "longer",
+      "significant": true
     },
     "Ben Griffin": {
-      "current": "+10500",
+      "current": "+14500",
       "previous": "+11000",
-      "change": -500,
-      "direction": "shorter",
+      "change": 3500,
+      "direction": "longer",
       "significant": true
     },
     "Ryan Fox": {
-      "current": "+19500",
+      "current": "+500000",
       "previous": "+20000",
-      "change": -500,
-      "direction": "shorter",
+      "change": 480000,
+      "direction": "longer",
       "significant": true
     },
     "Jacob Bridgeman": {
-      "current": "+8600",
+      "current": "+10000",
       "previous": "+8400",
-      "change": 200,
+      "change": 1600,
       "direction": "longer",
-      "significant": false
+      "significant": true
     },
     "Marco Penge": {
-      "current": "+14000",
+      "current": "+135000",
       "previous": "+14500",
-      "change": -500,
-      "direction": "shorter",
+      "change": 120500,
+      "direction": "longer",
       "significant": true
     },
     "Maverick McNealy": {
-      "current": "+8000",
+      "current": "+180000",
       "previous": "+7800",
-      "change": 200,
+      "change": 172200,
       "direction": "longer",
-      "significant": false
+      "significant": true
+    },
+    "Danny Willett": {
+      "current": "+500000",
+      "previous": "+225000",
+      "change": 275000,
+      "direction": "longer",
+      "significant": true
     },
     "Bubba Watson": {
-      "current": "+50000",
+      "current": "+500000",
       "previous": "+52500",
-      "change": -2500,
-      "direction": "shorter",
+      "change": 447500,
+      "direction": "longer",
       "significant": true
     },
     "Zach Johnson": {
-      "current": "+52500",
+      "current": "+350000",
       "previous": "+55000",
-      "change": -2500,
+      "change": 295000,
+      "direction": "longer",
+      "significant": true
+    },
+    "Fred Couples": {
+      "current": "+400000",
+      "previous": "+500000",
+      "change": -100000,
       "direction": "shorter",
       "significant": true
     }
@@ -9441,6 +9362,70 @@
     }
   },
   "news": [
+    {
+      "headline": "Rory McIlroy fires 67 in his lowest Masters Round 1 since '11",
+      "description": "Rory McIlroy did not, by his standards, play his best golf in the opening round yet still managed a 5-under 67, good for a share of the early lead with Sam Burns and his lowest opening round at the Masters since 2011.",
+      "published": "2026-04-09T21:37:08Z",
+      "link": "https://www.espn.com/golf/story/_/id/48441676/rory-mcilroy-fires-67-lowest-masters-round-1-11",
+      "player": "Rory McIlroy",
+      "image": "https://a.espncdn.com/photo/2026/0409/r1641001_600x600_1-1.jpg"
+    },
+    {
+      "headline": "Rory McIlroy: \u2018I still felt nerves\u2019 on first tee as Masters reigning champ",
+      "description": "Rory McIlroy sits down with Scott Van Pelt to detail his feelings being reigning champion heading into the Masters.",
+      "published": "2026-04-09T21:03:18Z",
+      "link": "https://www.espn.com/video/clip?id=48441178",
+      "player": "Rory McIlroy",
+      "image": "https://a.espncdn.com/media/motion/wsc/2026/0409/8eac5df3-0aea-4895-be2c-9384edae9571/8eac5df3-0aea-4895-be2c-9384edae9571.jpg"
+    },
+    {
+      "headline": "Forty years later, Jack Nicklaus' 1986 Masters win is still as magical as ever",
+      "description": "Nicklaus kicked off the 2026 Masters with the traditional ceremonial tee shot. Forty years earlier he delivered one of the greatest wins in Masters history.",
+      "published": "2026-04-09T15:41:27Z",
+      "link": "https://www.espn.com/golf/story/_/id/48437441/forty-years-later-jack-nicklaus-1986-masters-win-magical-ever",
+      "player": "",
+      "image": "https://a.espncdn.com/photo/2026/0409/r1640876_1296x729_16-9.jpg"
+    },
+    {
+      "headline": "A history of Masters celebrity caddies",
+      "description": "Take a look back at the history of celebrity caddies at the Masters Par 3 Contest.",
+      "published": "2026-04-09T14:34:33Z",
+      "link": "https://www.espn.com/video/clip?id=48438176",
+      "player": "",
+      "image": "https://a.espncdn.com/media/motion/2026/0409/dm_260409_caddies_16x9/dm_260409_caddies_16x9.jpg"
+    },
+    {
+      "headline": "Nicklaus, Watson, Player favor rolling back golf ball distance",
+      "description": "The Masters' honorary starters -- Jack Nicklaus, Gary Player and Tom Watson -- said they feel strongly that professional golf should roll back ball distances for the good of the game.",
+      "published": "2026-04-09T14:49:15Z",
+      "link": "https://www.espn.com/golf/story/_/id/48437955/nicklaus-watson-player-favor-rolling-back-golf-ball-distance",
+      "player": "",
+      "image": "https://a.espncdn.com/photo/2026/0409/r1640877_600x400_3-2.jpg"
+    },
+    {
+      "headline": "Gary Player, Jack Nicklaus address Tiger Woods arrest, recovery",
+      "description": "Former Masters champion Gary Player said he sympathizes with Tiger Woods' ongoing pain from multiple injuries but said the 15-time major champion needs to hire a driver and stop operating vehicles while medicated.",
+      "published": "2026-04-09T14:59:04Z",
+      "link": "https://www.espn.com/golf/story/_/id/48437536/gary-player-jack-nicklaus-address-tiger-woods-arrest-recovery",
+      "player": "Tiger Woods",
+      "image": "https://a.espncdn.com/photo/2026/0409/r1640877_1296x729_16-9.jpg"
+    },
+    {
+      "headline": "Masters 2026: Latest news and analysis, how to watch and more coverage",
+      "description": "The Masters returns as Scottie Scheffler, Rory McIlroy and more compete for a green jacket. Here's all the coverage.",
+      "published": "2026-04-09T20:52:37Z",
+      "link": "https://www.espn.com/golf/story/_/page/MastersTournament2026/masters-2026-news-tee-schedule-television-complete-coverage-analysis",
+      "player": "Rory McIlroy",
+      "image": "https://a.espncdn.com/photo/2026/0403/r1638029_1296x729_16-9.jpg"
+    },
+    {
+      "headline": "Player, Nicklaus, Watson take ceremonial tee shots to open Masters",
+      "description": "Gary Player, Jack Nicklaus and Tom Watson each take their ceremonial tee shots to get the Masters started.",
+      "published": "2026-04-09T13:47:01Z",
+      "link": "https://www.espn.com/video/clip?id=48437376",
+      "player": "",
+      "image": "https://a.espncdn.com/media/motion/2026/0409/dm_260409_golf_ceremonial_tee_shots/dm_260409_golf_ceremonial_tee_shots.jpg"
+    },
     {
       "headline": "Aaron Rai 'wins,' Frankie Fleetwood steals show at Par 3",
       "description": "Eight-year-old Frankie Fleetwood stole the show at Wednesday's family-friendly Masters Par 3 Contest, which saw Aaron Rai win and four holes-in-one.",
@@ -9496,70 +9481,6 @@
       "link": "https://www.espn.com/golf/story/_/id/48430219/augusta-ridley-supports-efforts-reduce-driving-distance",
       "player": "",
       "image": "https://a.espncdn.com/photo/2024/1003/r1395622_600x400_3-2.jpg"
-    },
-    {
-      "headline": "Masters 2026: Best moments of the Masters Par 3 Contest",
-      "description": "From kids stealing the show to holes-in-one, the Par 3 Contest is always a highlight of Masters week. Here are some of the best moments.",
-      "published": "2026-04-08T19:40:34Z",
-      "link": "https://www.espn.com/golf/story/_/id/48429589/best-moments-2026-masters-par-3-contest",
-      "player": "",
-      "image": "https://a.espncdn.com/photo/2026/0408/r1640425_1296x729_16-9.jpg"
-    },
-    {
-      "headline": "Masters 2026: Latest news and analysis, how to watch and more coverage",
-      "description": "The Masters returns as Scottie Scheffler, Rory McIlroy and more compete for a green jacket. Here's all the coverage.",
-      "published": "2026-04-08T19:58:04Z",
-      "link": "https://www.espn.com/golf/story/_/page/MastersTournament2026/masters-2026-news-tee-schedule-television-complete-coverage-analysis",
-      "player": "Rory McIlroy",
-      "image": "https://a.espncdn.com/photo/2026/0403/r1638029_1296x729_16-9.jpg"
-    },
-    {
-      "headline": "Why Xander Schauffele has a good chance to win 2026 Masters",
-      "description": "Curtis Strange identifies Xander Schauffele as a player to watch at the 2026 Masters. ",
-      "published": "2026-04-08T14:32:53Z",
-      "link": "https://www.espn.com/video/clip?id=48428380",
-      "player": "Xander Schauffele",
-      "image": "https://a.espncdn.com/media/motion/2026/0408/55d01d7ad8e541d79b8794f49c61d8ea627/55d01d7ad8e541d79b8794f49c61d8ea627.jpg"
-    },
-    {
-      "headline": "McIlroy jokes he 'wouldn't care' if The Masters didn't happen",
-      "description": "Defending Masters champion Rory McIloy speaks about the difference he feels after winning the tournament in 2025.",
-      "published": "2026-04-08T09:37:26Z",
-      "link": "https://www.espn.com/video/clip?id=48427476",
-      "player": "Rory McIlroy",
-      "image": "https://a.espncdn.com/media/motion/2026/0408/dm_260408_COM_GOLF_Presser_McIlroy_jokes_he_wouldnt_care_if_The_Masters_didnt_happen_20260408_Global/dm_260408_COM_GOLF_Presser_McIlroy_jokes_he_wouldnt_care_if_The_Masters_didnt_happen_20260408_Global.jpg"
-    },
-    {
-      "headline": "Scottie Scheffler feeling 'ready to go' at The Masters",
-      "description": "Two-time Masters champion Scottie Scheffler speaks about what makes the tournament special.",
-      "published": "2026-04-08T09:21:55Z",
-      "link": "https://www.espn.com/video/clip?id=48427412",
-      "player": "Scottie Scheffler",
-      "image": "https://a.espncdn.com/media/motion/2026/0408/dm_260408_COM_GOLF_Presser_Scottie_Scheffler_feeling_ready_to_go_at_The_Masters__20260408_GLOBAL/dm_260408_COM_GOLF_Presser_Scottie_Scheffler_feeling_ready_to_go_at_The_Masters__20260408_GLOBAL.jpg"
-    },
-    {
-      "headline": "PGA Tour vs. LIV in a much different place than it was at 2023 Masters",
-      "description": "It's been three years, and while the LIV-PGA fight isn't necessarily 'won,' it certainly seems settled.",
-      "published": "2026-04-08T14:30:50Z",
-      "link": "https://www.espn.com/golf/story/_/id/48422504/pga-tour-vs-liv-much-different-place-was-2023-masters",
-      "player": "",
-      "image": "https://a.espncdn.com/photo/2026/0407/r1639930_1296x729_16-9.jpg"
-    },
-    {
-      "headline": "Rory McIlroy makes fun of Irish cuisine ahead of Masters defense",
-      "description": "Reigning champion Rory McIlroy takes a little jab at Irish food before the Masters' Champions Dinner at Augusta.",
-      "published": "2026-04-07T22:11:17Z",
-      "link": "https://www.espn.com/video/clip?id=48423191",
-      "player": "Rory McIlroy",
-      "image": "https://a.espncdn.com/media/motion/2026/0407/c4ec9a1de7964db4acc7f75228e931951088/c4ec9a1de7964db4acc7f75228e931951088.jpg"
-    },
-    {
-      "headline": "Gary Woodland opens up about battle with PTSD",
-      "description": "Gary Woodland goes into detail about dealing with PTSD and how golf has helped him through his challenges.",
-      "published": "2026-04-07T21:02:46Z",
-      "link": "https://www.espn.com/video/clip?id=48422968",
-      "player": "Gary Woodland",
-      "image": "https://a.espncdn.com/media/motion/wsc/2026/0407/8932c0b3-804c-4de4-8d5f-00fe4df088cc/8932c0b3-804c-4de4-8d5f-00fe4df088cc.jpg"
     }
   ],
   "propsByType": {
