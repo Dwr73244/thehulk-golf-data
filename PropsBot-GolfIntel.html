@@ -3119,42 +3119,56 @@
       var tr = document.createElement('tr');
       tr.className = 'hover:bg-white/[0.02] transition-colors' + (idx < 3 ? ' bg-white/[0.01]' : '') + moveClass;
 
-      // Tee time lookup (EST)
+      // Tee time lookup (EST) from static data
       var teeTimeEst = '';
+      var rawTeeTime = '';
       var ttArr = (window._liveData || {}).teeTimes || [];
       for (var ti = 0; ti < ttArr.length; ti++) {
         if (ttArr[ti].player === playerName) {
-          var raw = ttArr[ti].teeTime || '';
-          if (raw) {
-            try {
-              var d = new Date(raw);
-              // Convert to EST (UTC-4 during EDT / UTC-5 during EST)
-              var estOpts = { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/New_York' };
-              teeTimeEst = d.toLocaleTimeString('en-US', estOpts);
-            } catch(e) {}
-          }
+          rawTeeTime = ttArr[ti].teeTime || '';
           break;
         }
       }
-      var teeTimeHtml = teeTimeEst
-        ? '<span class="mono" style="font-size:10px;color:rgba(200,215,230,0.55);">' + teeTimeEst + '</span>'
+      if (rawTeeTime) {
+        try {
+          var d = new Date(rawTeeTime);
+          if (!isNaN(d.getTime())) {
+            var estOpts = { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/New_York' };
+            teeTimeEst = d.toLocaleTimeString('en-US', estOpts);
+          }
+        } catch(e) {}
+      }
+      var teeTimeDisplay = teeTimeEst ? teeTimeEst + ' ET' : '';
+      var teeTimeHtml = teeTimeDisplay
+        ? '<span class="mono" style="font-size:10px;color:rgba(200,215,230,0.55);">' + teeTimeDisplay + '</span>'
         : '<span style="color:rgba(200,215,230,0.2);">—</span>';
 
       // Determine if player has started their current round
       var hasStarted = row.thru && row.thru !== '' && row.thru !== 0 && row.thru !== '0';
       var isFinished = row.thru === 'F' || row.thru === 18 || row.thru === '18';
 
-      // Today column: tee time if not started, score to-par if playing/finished
+      // Use ESPN's notStartedActiveRound flag (set in parser when active round > player's completed round)
+      var notStartedToday = row.notStartedActiveRound || false;
+      // Fallback: if isFinished AND has a tee time, they haven't started today
+      if (!notStartedToday && isFinished && teeTimeEst) notStartedToday = true;
+      // Also cover case where player simply hasn't started and has tee time
+      if (!hasStarted && teeTimeEst) notStartedToday = true;
+
+      // Today column: tee time if not started today, score to-par if playing/finished today
       var todayCell;
-      if (!hasStarted && teeTimeEst) {
-        todayCell = '<span class="mono" style="font-size:10px;color:rgba(240,192,64,0.7);">' + teeTimeEst + '</span>';
+      if (notStartedToday && teeTimeDisplay) {
+        todayCell = '<span class="mono" style="font-size:10px;color:rgba(240,192,64,0.7);">' + teeTimeDisplay + '</span>';
+      } else if (notStartedToday) {
+        todayCell = '<span style="color:rgba(200,215,230,0.2);">—</span>';
       } else {
         todayCell = scoreDisplay(row.today);
       }
 
       // Thru column
       var thruText;
-      if (isFinished) {
+      if (notStartedToday) {
+        thruText = '<span style="color:rgba(200,215,230,0.2);">—</span>';
+      } else if (isFinished) {
         thruText = '<span class="text-slate-400">F</span>';
       } else if (hasStarted) {
         thruText = '<span class="mono">' + row.thru + '</span>';
@@ -3167,9 +3181,11 @@
         if (strokes != null && strokes > 50) {
           // Convert raw strokes to par (Augusta par 72)
           var toPar = strokes - 72;
-          if (toPar < 0) return '<span class="mono score-under">' + toPar + '</span>';
-          if (toPar === 0) return '<span class="mono score-even">E</span>';
-          return '<span class="mono score-over">+' + toPar + '</span>';
+          var toParStr;
+          if (toPar < 0) toParStr = '<span class="mono score-under">' + toPar + '</span>';
+          else if (toPar === 0) toParStr = '<span class="mono score-even">E</span>';
+          else toParStr = '<span class="mono score-over">+' + toPar + '</span>';
+          return toParStr + '<span style="font-size:9px;color:rgba(200,215,230,0.3);margin-left:2px;">(' + strokes + ')</span>';
         }
         // No score yet — show tee time if this is the current/next round
         if (!roundStarted && teeTimeEst) {
@@ -3237,6 +3253,22 @@
         var lb = [];
         var liveHoleData = {};  // {playerName: {round: [holeScores]}}
         var competitions = event.competitions || [];
+
+        // Determine active round from linescores: highest period that exists across all players
+        // ESPN creates linescore entries for upcoming rounds (value=0, no hole data)
+        var activeRound = 0;
+        for (var ci0 = 0; ci0 < competitions.length; ci0++) {
+          var comps0 = competitions[ci0].competitors || [];
+          for (var pi0 = 0; pi0 < comps0.length; pi0++) {
+            var ls0 = comps0[pi0].linescores || [];
+            for (var ri0 = 0; ri0 < ls0.length; ri0++) {
+              var p0 = ls0[ri0].period || (ri0 + 1);
+              if (p0 > activeRound) activeRound = p0;
+            }
+          }
+        }
+        console.log('[ESPN Live] Active round detected:', activeRound);
+
         for (var ci = 0; ci < competitions.length; ci++) {
           var comp = competitions[ci];
           var competitors = comp.competitors || [];
@@ -3290,20 +3322,31 @@
             // Position from order field (1-indexed)
             var pos = c.order || (pi + 1);
 
-            // Also check status object as fallback
+            // Check status object for position/thru fallback
             var statusObj = c.status || {};
             var posObj = statusObj.position || {};
             if (posObj.displayName) pos = posObj.displayName;
             if (statusObj.thru) thru = statusObj.thru;
 
+            // Detect player hasn't started today's round yet:
+            // If active round (from linescores) is ahead of player's last completed round
+            var notStartedActiveRound = activeRound > 0 && currentRoundNum < activeRound;
+            var todayScore = currentRoundScore || '';
+            var todayThru = thru;
+            if (notStartedActiveRound) {
+              todayScore = '';  // Don't show previous round score as "today"
+              todayThru = '';   // Not started, not finished
+            }
+
             lb.push({
               name: name,
               position: pos,
               totalScore: c.score || '',
-              today: currentRoundScore || '',
-              thru: thru,
+              today: todayScore,
+              thru: todayThru,
               r1: r1, r2: r2, r3: r3, r4: r4,
               currentRound: currentRoundNum,
+              notStartedActiveRound: notStartedActiveRound,
             });
           }
         }
