@@ -2882,12 +2882,34 @@
   }
 
   function renderHolePills() {
-    if (!MASTERS_INTEL) return;
     var container = el('ha_holePills');
     container.innerHTML = '';
-    MASTERS_INTEL.augusta_holes.forEach(function(h) {
-      var hist = h.historical || {};
-      var rank = hist.difficultyRank || 18;
+    var isAugusta = _activeCourse === 'augusta' && MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
+    var holes, getDiffRank;
+
+    if (isAugusta) {
+      holes = MASTERS_INTEL.augusta_holes;
+      getDiffRank = function(h) { return (h.historical || {}).difficultyRank || 18; };
+    } else {
+      var cd = COURSE_DATA[_activeCourse];
+      if (!cd || !cd.holes || !cd.holes.length) {
+        var cname = (cd && cd.name) ? cd.name : (_activeCourse || 'this course');
+        container.innerHTML = '<p class="text-xs text-slate-500 py-2">Hole data will load after the weekly scraper runs for <span class="text-pb-teal">' + cname + '</span>. Check back after Tuesday 1 AM ET.</p>';
+        return;
+      }
+      holes = cd.holes;
+      // Rank by scoring diff vs par (hardest first)
+      var rankSorted = holes.slice().sort(function(a, b) {
+        return ((b.r1||b.par||4) - (b.par||4)) - ((a.r1||a.par||4) - (a.par||4));
+      });
+      getDiffRank = function(h) {
+        var idx = rankSorted.findIndex(function(x) { return x.hole === h.hole; });
+        return idx >= 0 ? idx + 1 : 18;
+      };
+    }
+
+    holes.forEach(function(h) {
+      var rank = getDiffRank(h);
       var pillCol = rank <= 4 ? 'border-pb-red/40 text-pb-red' : (rank <= 9 ? 'border-pb-gold/30 text-pb-gold' : (rank >= 15 ? 'border-pb-teal/30 text-pb-teal' : 'border-white/10 text-slate-400'));
       var btn = document.createElement('button');
       btn.className = 'mono text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all hover:bg-white/[0.03] ' + pillCol;
@@ -2943,65 +2965,104 @@
   }
 
   function showHoleDetail(holeNum) {
-    if (!MASTERS_INTEL) return;
     _haSelectedHole = holeNum;
-    var h = MASTERS_INTEL.augusta_holes.find(function(x) { return x.hole === holeNum; });
-    if (!h) return;
+    var isAugusta = _activeCourse === 'augusta' && MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
+    var h, hist, sourceLabel, diffRank;
 
-    // Determine data source
-    var src = _haDataSource;
-    var hist;
-    var sourceLabel;
-    if (src === 'historic') {
-      hist = h.historical || {};
-      sourceLabel = 'Historic Avg (2019-2025)';
-    } else {
-      var roundNum = parseInt(src.replace('liveR', ''));
-      hist = _computeLiveHoleStats(holeNum, roundNum);
-      sourceLabel = 'Live Round ' + roundNum + ' (2026)';
-      if (!hist) {
-        // No live data for this round yet
-        el('ha_liveStatus').style.display = 'block';
-        el('ha_liveStatus').textContent = 'No live data for Round ' + roundNum + ' yet. Showing historic instead.';
+    if (isAugusta) {
+      // ---- Augusta: use mastersIntel + live ESPN data ----
+      h = MASTERS_INTEL.augusta_holes.find(function(x) { return x.hole === holeNum; });
+      if (!h) return;
+      var src = _haDataSource;
+      if (src === 'historic') {
         hist = h.historical || {};
-        sourceLabel = 'Historic (fallback)';
+        sourceLabel = 'Historic Avg (2019–2025)';
+        el('ha_liveStatus').style.display = 'none';
       } else {
-        el('ha_liveStatus').style.display = 'block';
-        el('ha_liveStatus').innerHTML = '🟢 Live data from <strong>' + hist.playerCount + ' players</strong> who have completed hole #' + holeNum + ' in R' + roundNum;
+        var roundNum = parseInt(src.replace('liveR', ''));
+        var liveH = _computeLiveHoleStats(holeNum, roundNum);
+        sourceLabel = 'Live Round ' + roundNum + ' (2026)';
+        if (!liveH) {
+          el('ha_liveStatus').style.display = 'block';
+          el('ha_liveStatus').textContent = 'No live data for Round ' + roundNum + ' yet. Showing historic instead.';
+          hist = h.historical || {};
+          sourceLabel = 'Historic (fallback)';
+        } else {
+          el('ha_liveStatus').style.display = 'block';
+          el('ha_liveStatus').innerHTML = '🟢 Live data from <strong>' + liveH.playerCount + ' players</strong> who have completed hole #' + holeNum + ' in R' + roundNum;
+          hist = liveH;
+        }
       }
-    }
-    if (src === 'historic') el('ha_liveStatus').style.display = 'none';
+      el('ha_holeName').textContent = '#' + h.hole + ' ' + h.name;
+      // Difficulty rank
+      diffRank = (h.historical || {}).difficultyRank || '?';
+      if (src !== 'historic' && hist.scoringDiff != null) {
+        var allDiffs = [];
+        for (var hi = 1; hi <= 18; hi++) {
+          var ls = _computeLiveHoleStats(hi, parseInt(src.replace('liveR', '')));
+          if (ls) allDiffs.push({ hole: hi, diff: ls.scoringDiff });
+        }
+        allDiffs.sort(function(a, b) { return b.diff - a.diff; });
+        var ri = allDiffs.findIndex(function(x) { return x.hole === holeNum; });
+        diffRank = ri >= 0 ? ri + 1 : '?';
+      }
 
+    } else {
+      // ---- Any other course: use COURSE_DATA from scraper ----
+      var cd = COURSE_DATA[_activeCourse];
+      if (!cd || !cd.holes) return;
+      h = cd.holes.find(function(x) { return x.hole === holeNum; });
+      if (!h) return;
+      el('ha_liveStatus').style.display = 'none';
+
+      var src2 = _haDataSource;
+      var rAvg;
+      if      (src2 === 'liveR1') rAvg = h.r1;
+      else if (src2 === 'liveR2') rAvg = h.r2;
+      else if (src2 === 'liveR3') rAvg = h.r3;
+      else if (src2 === 'liveR4') rAvg = h.r4;
+      else { var rSum = (h.r1||0)+(h.r2||0)+(h.r3||0)+(h.r4||0); rAvg = rSum ? rSum/4 : h.r1; }
+
+      sourceLabel = src2 === 'historic' ? 'Historical Avg' : ('Round ' + src2.replace('liveR','') + ' Avg');
+      hist = {
+        scoringAvg:   rAvg,
+        scoringDiff:  (rAvg && h.par) ? +(rAvg - h.par).toFixed(3) : null,
+        eaglePct:  h.eagle  || 0,
+        birdiePct: h.birdie || 0,
+        parPct:    h.parPct || 0,
+        bogeyPct:  h.bogey  || 0,
+        doublePct: h.dbl    || 0,
+        eagles: null, birdies: null, pars: null, bogeys: null, doublePlus: null,
+      };
+      el('ha_holeName').textContent = '#' + h.hole;
+
+      // Compute difficulty rank from round averages
+      var rankArr = cd.holes.slice().sort(function(a, b) {
+        return ((b.r1||b.par||4)-(b.par||4)) - ((a.r1||a.par||4)-(a.par||4));
+      });
+      var di = rankArr.findIndex(function(x) { return x.hole === holeNum; });
+      diffRank = di >= 0 ? di + 1 : '?';
+    }
+
+    el('ha_holeMeta').textContent = 'Par ' + h.par + ' · ' + (h.yards || '—') + ' yards · ' + sourceLabel;
+    el('ha_holeRank').textContent = '#' + diffRank;
+    el('ha_holeRank').style.color = diffRank <= 4 ? '#ff1552' : (diffRank <= 9 ? '#f0c040' : '#22a9ec');
     el('ha_holeDetail').classList.remove('hidden');
-    el('ha_holeName').textContent = '#' + h.hole + ' ' + h.name;
-    el('ha_holeMeta').textContent = 'Par ' + h.par + ' · ' + h.yards + ' yards · ' + sourceLabel;
 
-    // Difficulty rank — only meaningful for historic data
-    var rank = (h.historical || {}).difficultyRank || '?';
-    if (src !== 'historic' && hist.scoringDiff != null) {
-      // Compute live difficulty relative rank (approximate)
-      var allHoleDiffs = [];
-      for (var hi = 1; hi <= 18; hi++) {
-        var roundNum2 = parseInt(src.replace('liveR', ''));
-        var ls = _computeLiveHoleStats(hi, roundNum2);
-        if (ls) allHoleDiffs.push({ hole: hi, diff: ls.scoringDiff });
-      }
-      allHoleDiffs.sort(function(a, b) { return b.diff - a.diff; });
-      rank = allHoleDiffs.findIndex(function(x) { return x.hole === holeNum; }) + 1;
-      if (rank === 0) rank = '?';
+    // Distribution bar — prefer raw counts (Augusta), fall back to pct (other courses)
+    var ep, bp, pp, bogp, dp;
+    var totalShots = (hist.eagles||0)+(hist.birdies||0)+(hist.pars||0)+(hist.bogeys||0)+(hist.doublePlus||0);
+    if (totalShots > 0) {
+      ep   = +((hist.eagles||0)     / totalShots * 100).toFixed(1);
+      bp   = +((hist.birdies||0)    / totalShots * 100).toFixed(1);
+      pp   = +((hist.pars||0)       / totalShots * 100).toFixed(1);
+      bogp = +((hist.bogeys||0)     / totalShots * 100).toFixed(1);
+      dp   = +((hist.doublePlus||0) / totalShots * 100).toFixed(1);
+    } else {
+      ep = hist.eaglePct||0; bp = hist.birdiePct||0; pp = hist.parPct||0; bogp = hist.bogeyPct||0; dp = hist.doublePct||0;
     }
-    el('ha_holeRank').textContent = '#' + rank;
-    el('ha_holeRank').style.color = rank <= 4 ? '#ff1552' : (rank <= 9 ? '#f0c040' : '#22a9ec');
 
-    // Distribution bar
-    var totalShots = (hist.eagles||0) + (hist.birdies||0) + (hist.pars||0) + (hist.bogeys||0) + (hist.doublePlus||0);
-    var ep   = hist.eaglePct  || (totalShots ? +((hist.eagles||0)     / totalShots * 100).toFixed(1) : 0);
-    var bp   = hist.birdiePct || (totalShots ? +((hist.birdies||0)    / totalShots * 100).toFixed(1) : 0);
-    var pp   = hist.parPct    || (totalShots ? +((hist.pars||0)       / totalShots * 100).toFixed(1) : 0);
-    var bogp = hist.bogeyPct  || (totalShots ? +((hist.bogeys||0)     / totalShots * 100).toFixed(1) : 0);
-    var dp   = hist.doublePct || (totalShots ? +((hist.doublePlus||0) / totalShots * 100).toFixed(1) : 0);
-    var bar = el('ha_distBar');
-    bar.innerHTML =
+    el('ha_distBar').innerHTML =
       (ep > 0 ? '<div style="width:' + ep + '%;background:#AB8FFF" title="Eagle ' + ep + '%"></div>' : '') +
       '<div style="width:' + bp + '%;background:#15ffc2" title="Birdie ' + bp + '%"></div>' +
       '<div style="width:' + pp + '%;background:rgba(200,215,230,0.15)" title="Par ' + pp + '%"></div>' +
@@ -3018,24 +3079,20 @@
     // Stats grid
     el('ha_statsGrid').innerHTML = [
       { label: 'Avg Score', value: hist.scoringAvg ? hist.scoringAvg.toFixed(2) : '—', color: '' },
-      { label: 'vs Par', value: hist.scoringDiff ? (hist.scoringDiff >= 0 ? '+' : '') + hist.scoringDiff.toFixed(3) : '—', color: (hist.scoringDiff || 0) > 0 ? 'text-pb-red' : 'text-pb-teal' },
-      { label: 'Eagles', value: hist.eagles || 0, color: 'text-purple-400' },
-      { label: 'Birdies', value: hist.birdies || 0, color: 'text-pb-teal' },
-      { label: 'Bogeys+', value: (hist.bogeys || 0) + (hist.doublePlus || 0), color: 'text-pb-red' }
+      { label: 'vs Par', value: hist.scoringDiff != null ? (hist.scoringDiff >= 0 ? '+' : '') + hist.scoringDiff.toFixed(3) : '—', color: (hist.scoringDiff||0) > 0 ? 'text-pb-red' : 'text-pb-teal' },
+      { label: 'Eagles', value: hist.eagles != null ? hist.eagles : (ep > 0 ? ep + '%' : '—'), color: 'text-purple-400' },
+      { label: 'Birdies', value: hist.birdies != null ? hist.birdies : bp + '%', color: 'text-pb-teal' },
+      { label: 'Bogeys+', value: hist.bogeys != null ? (hist.bogeys||0)+(hist.doublePlus||0) : bogp + '%', color: 'text-pb-red' }
     ].map(function(s) {
       return '<div class="rounded-lg p-2 text-center" style="border:1px solid var(--card-border);background:var(--surface1)">' +
         '<p class="text-[8px] text-slate-500 uppercase font-semibold">' + s.label + '</p>' +
         '<p class="mono text-sm font-bold ' + s.color + ' mt-0.5">' + s.value + '</p></div>';
     }).join('');
 
-    // Betting angle
+    // Betting angle (Augusta-only)
     var angleDiv = el('ha_bettingAngle');
-    if (h.bettingAngle) {
-      angleDiv.classList.remove('hidden');
-      el('ha_angleText').textContent = h.bettingAngle;
-    } else {
-      angleDiv.classList.add('hidden');
-    }
+    if (h.bettingAngle) { angleDiv.classList.remove('hidden'); el('ha_angleText').textContent = h.bettingAngle; }
+    else { angleDiv.classList.add('hidden'); }
 
     // Player fit for this hole type
     var fitDiv = el('ha_playerFit');
@@ -3043,20 +3100,17 @@
     var par = h.par;
     var sgKey = par === 3 ? 'sgArg' : (par === 5 ? 'sgOtt' : 'sgApp');
     var sgLabel = par === 3 ? 'SG: Around Green' : (par === 5 ? 'SG: Off the Tee (Power)' : 'SG: Approach');
-    var sorted = PLAYERS.slice().sort(function(a, b) { return (b[sgKey] || 0) - (a[sgKey] || 0); });
-    var fieldOnly = sorted.filter(function(p) { return p.fieldInfo && p.fieldInfo.inField; });
-    var topFit = (fieldOnly.length > 0 ? fieldOnly : sorted).slice(0, 8);
-
+    var sortedP = PLAYERS.slice().sort(function(a, b) { return (b[sgKey]||0) - (a[sgKey]||0); });
+    var fieldOnly = sortedP.filter(function(p) { return p.fieldInfo && p.fieldInfo.inField; });
+    var topFit = (fieldOnly.length > 0 ? fieldOnly : sortedP).slice(0, 8);
     fitDiv.innerHTML = '<p class="text-[10px] text-slate-500 mb-2">Best ' + sgLabel + ' players in field (key for Par ' + par + 's)</p>';
     topFit.forEach(function(p) {
-      var val = (p[sgKey] || 0).toFixed(2);
+      var val = (p[sgKey]||0).toFixed(2);
       var col = p[sgKey] >= 0.4 ? 'text-pb-teal' : (p[sgKey] >= 0.15 ? 'text-pb-blue' : 'text-slate-400');
       var div = document.createElement('div');
       div.className = 'flex items-center justify-between py-1 border-b';
       div.style.borderColor = 'var(--divider)';
-      div.innerHTML =
-        '<span class="text-xs text-white">' + p.name + '</span>' +
-        '<span class="mono text-xs font-semibold ' + col + '">' + val + '</span>';
+      div.innerHTML = '<span class="text-xs text-white">' + p.name + '</span><span class="mono text-xs font-semibold ' + col + '">' + val + '</span>';
       fitDiv.appendChild(div);
     });
   }
@@ -4896,11 +4950,12 @@
     renderLiveLeaderboard();
     renderNewsGrid();
     updateDataStatus();
-    // Masters tabs
+    // Masters HQ (Augusta-specific)
     if (MASTERS_INTEL) {
       renderMastersHQ();
-      renderHolePills();
     }
+    // Hole Analysis — works for any course
+    renderHolePills();
     // Hole analysis data source selector
     var haSrc = el('ha_dataSource');
     if (haSrc) haSrc.addEventListener('change', function() {

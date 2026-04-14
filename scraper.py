@@ -1252,6 +1252,183 @@ AUGUSTA_HOLE_NAMES = {
     16: "Redbud", 17: "Nandina", 18: "Holly"
 }
 
+# Known BDL course_ids — Augusta confirmed; others discovered dynamically
+BDL_COURSE_ID_MAP = {
+    "augusta": 37,
+}
+
+
+def bdl_find_course_id(course_name):
+    """Search BDL courses endpoint for a matching course_id by name."""
+    if not course_name:
+        return None
+    courses = bdl_fetch_all("courses", {})
+    if not courses:
+        return None
+    cn = course_name.lower()
+    # Exact or strong partial match
+    for c in courses:
+        name = (c.get("name") or c.get("course_name") or "").lower()
+        if not name:
+            continue
+        if name == cn or name in cn or cn in name:
+            return c.get("id") or c.get("course_id")
+    # Fallback: word-overlap match (requires 2+ meaningful words)
+    cn_words = [w for w in cn.split() if len(w) > 3]
+    for c in courses:
+        name = (c.get("name") or c.get("course_name") or "").lower()
+        if sum(1 for w in cn_words if w in name) >= 2:
+            return c.get("id") or c.get("course_id")
+    return None
+
+
+def bdl_parse_hole_stats(stats_raw, course_id=None):
+    """
+    Parse raw BDL tournament_course_stats into a dict keyed by hole number.
+    Returns {hole_num: {avg, eagle, birdie, parPct, bogey, dbl, difficultyRank}}
+    """
+    by_hole = {}
+    for s in (stats_raw or []):
+        num = s.get("hole_number") or s.get("hole")
+        if not num:
+            continue
+        num = int(num)
+        total = (
+            (s.get("eagles") or 0) + (s.get("birdies") or 0) +
+            (s.get("pars") or 0) + (s.get("bogeys") or 0) +
+            (s.get("double_bogeys") or 0)
+        )
+        if total == 0:
+            continue
+        eagle_pct  = round((s.get("eagles") or 0) / total * 100, 1)
+        birdie_pct = round((s.get("birdies") or 0) / total * 100, 1)
+        par_pct    = round((s.get("pars") or 0) / total * 100, 1)
+        bogey_pct  = round(((s.get("bogeys") or 0) + (s.get("double_bogeys") or 0)) / total * 100, 1)
+        dbl_pct    = round((s.get("double_bogeys") or 0) / total * 100, 1)
+        by_hole[num] = {
+            "avg": s.get("scoring_average"),
+            "eagle": eagle_pct,
+            "birdie": birdie_pct,
+            "parPct": par_pct,
+            "bogey": bogey_pct,
+            "dbl": dbl_pct,
+            "difficultyRank": s.get("difficulty_rank"),
+            "scoringDiff": s.get("scoring_diff"),
+        }
+    return by_hole
+
+
+def bdl_build_course_intel(course_key, current_tid, course_name="", event_name="", par=72, yards=7000, course_id=None):
+    """
+    Build hole-by-hole intelligence for any PGA Tour venue.
+    Fetches par/yardage + historical/live scoring from BDL.
+    Returns a COURSE_DATA-compatible dict ready for output["courses"][course_key].
+    """
+    print(f"\n[COURSE INTEL] Building hole data for {course_key} (event={event_name})...")
+
+    # 1. Resolve course_id
+    if not course_id:
+        course_id = BDL_COURSE_ID_MAP.get(course_key)
+    if not course_id:
+        course_id = bdl_find_course_id(course_name)
+    if not course_id:
+        print(f"  Could not find BDL course_id for '{course_name}' — skipping hole data")
+        return None
+
+    # Cache for next time
+    if course_key not in BDL_COURSE_ID_MAP:
+        BDL_COURSE_ID_MAP[course_key] = course_id
+    print(f"  course_id={course_id}")
+
+    # 2. Hole par + yardage
+    holes_raw = bdl_fetch_all("course_holes", {"course_ids[]": str(course_id)})
+    holes_by_num = {}
+    for h in (holes_raw or []):
+        num = h.get("hole_number") or h.get("number")
+        if num:
+            holes_by_num[int(num)] = {
+                "par": h.get("par"),
+                "yards": h.get("yardage") or h.get("yards"),
+            }
+    print(f"  Hole par/yardage: {len(holes_by_num)} holes")
+
+    # 3. Try current-year (live) stats first
+    live_raw = bdl_fetch_all("tournament_course_stats", {
+        "tournament_ids[]": str(current_tid),
+        "course_id": str(course_id),
+    })
+    stat_by_hole = bdl_parse_hole_stats(live_raw)
+    is_live = bool(stat_by_hole)
+    if is_live:
+        print(f"  Live scoring data: {len(stat_by_hole)} holes")
+    else:
+        # 4. Fall back to most recent completed tournament at this course
+        print("  No live data — searching for previous tournament at same course...")
+        past = bdl_fetch_all("tournaments", {"course_ids[]": str(course_id), "status": "COMPLETED"})
+        if past:
+            past.sort(key=lambda t: t.get("start_date", ""), reverse=True)
+            prev_tid = past[0].get("id")
+            if prev_tid and prev_tid != current_tid:
+                print(f"  Using prev tournament id={prev_tid} ({past[0].get('name','')})")
+                hist_raw = bdl_fetch_all("tournament_course_stats", {
+                    "tournament_ids[]": str(prev_tid),
+                    "course_id": str(course_id),
+                })
+                stat_by_hole = bdl_parse_hole_stats(hist_raw)
+                if stat_by_hole:
+                    print(f"  Historical scoring: {len(stat_by_hole)} holes")
+
+    # 5. Per-round averages (try round_number filter; gracefully skip if BDL doesn't support it)
+    round_avgs = {1: {}, 2: {}, 3: {}, 4: {}}
+    for rnd in [1, 2, 3, 4]:
+        rnd_raw = bdl_fetch_all("tournament_course_stats", {
+            "tournament_ids[]": str(current_tid),
+            "course_id": str(course_id),
+            "round_number": str(rnd),
+        })
+        if rnd_raw:
+            for s in rnd_raw:
+                num = s.get("hole_number") or s.get("hole")
+                avg = s.get("scoring_average")
+                if num and avg:
+                    round_avgs[rnd][int(num)] = avg
+
+    # 6. Build holes list
+    holes_list = []
+    for n in range(1, 19):
+        info = holes_by_num.get(n, {})
+        stat = stat_by_hole.get(n, {})
+        avg  = stat.get("avg") or info.get("par", 4)
+        holes_list.append({
+            "hole":   n,
+            "par":    info.get("par"),
+            "yards":  info.get("yards"),
+            "r1":     round_avgs[1].get(n, avg),
+            "r2":     round_avgs[2].get(n, avg),
+            "r3":     round_avgs[3].get(n, avg),
+            "r4":     round_avgs[4].get(n, avg),
+            "eagle":  stat.get("eagle", 0),
+            "birdie": stat.get("birdie", 0),
+            "parPct": stat.get("parPct", 0),
+            "bogey":  stat.get("bogey", 0),
+            "dbl":    stat.get("dbl", 0),
+            "difficultyRank":  stat.get("difficultyRank"),
+            "scoringDiff":     stat.get("scoringDiff"),
+        })
+
+    holes_with_par = sum(1 for h in holes_list if h["par"])
+    print(f"  [COURSE INTEL] Done — {holes_with_par}/18 holes with par data, {len(stat_by_hole)}/18 with scoring")
+
+    return {
+        "name":    course_name or course_key.replace("_", " ").title(),
+        "event":   event_name,
+        "par":     par,
+        "yards":   yards,
+        "holes":   holes_list,
+        "isLive":  is_live,
+        "source":  "BallDontLie PGA API",
+    }
+
 
 def bdl_build_masters_intel(tournament_id=20, course_id=37):
     """
@@ -2682,6 +2859,27 @@ def run_pipeline():
                     "score": r.get("total_to_par", ""),
                     "totalStrokes": safe_float(r.get("total_strokes", 0)),
                 })
+
+            # ============================================================
+            # COURSE HOLE DATA — build for current tournament's venue
+            # ============================================================
+            cname = bdl_tournament.get("course_name", "")
+            ename = bdl_tournament.get("name", "")
+            course_key = match_venue_to_course(cname, ename)
+            if course_key:
+                course_intel = bdl_build_course_intel(
+                    course_key=course_key,
+                    current_tid=tid,
+                    course_name=cname,
+                    event_name=ename,
+                    par=bdl_tournament.get("par", 72),
+                    yards=bdl_tournament.get("yardage", 7000),
+                )
+                if course_intel:
+                    output["courses"][course_key] = course_intel
+                    print(f"[PIPELINE] Course hole data written → courses['{course_key}'] ({len(course_intel['holes'])} holes)")
+            else:
+                print(f"[PIPELINE] No course key matched for '{cname}' — hole data skipped")
 
     # ============================================================
     # FALLBACK: Free scrapers (DataGolf, ESPN, PGA Tour)
