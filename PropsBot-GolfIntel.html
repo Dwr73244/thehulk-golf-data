@@ -1202,7 +1202,7 @@
         <div id="ls_liveDot" class="hidden h-3 w-3 rounded-full bg-pb-teal animate-pulse"></div>
         <div>
           <h2 class="text-base font-bold text-white" id="ls_tourneyName">Current Tournament</h2>
-          <p class="text-xs text-slate-400" id="ls_statusText">Apr 9–12 · Augusta National</p>
+          <p class="text-xs text-slate-400" id="ls_statusText">Upcoming Tournament</p>
         </div>
       </div>
       <div id="ls_statusBadge" class="text-right"></div>
@@ -1211,7 +1211,7 @@
     <div id="ls_countdown" class="hidden glass rounded-2xl p-8 text-center">
       <p class="text-[11px] text-slate-500 uppercase font-semibold tracking-wide mb-2">Tournament Begins In</p>
       <div class="flex justify-center gap-5 mt-2" id="ls_countdownDisplay"></div>
-      <p class="text-xs text-slate-500 mt-4">First round tee-off: Thursday, April 9, 2026</p>
+      <p class="text-xs text-slate-500 mt-4" id="ls_countdownSub">First round tee-off: Thursday</p>
     </div>
     <!-- Leaderboard Table -->
     <div id="ls_leaderboardWrap" class="glass rounded-2xl p-5">
@@ -1297,7 +1297,7 @@
   <!-- ==================== TAB: NEWS ==================== -->
   <div id="tab-news" class="tab-content hidden fade-in space-y-5">
     <div class="glass rounded-2xl p-5 glow-teal">
-      <h2 class="text-base font-bold text-white mb-1">Masters News Feed</h2>
+      <h2 class="text-base font-bold text-white mb-1">Tournament News Feed</h2>
       <p class="text-xs text-slate-400">Latest news, injury updates, and course conditions from ESPN and major outlets</p>
     </div>
     <div id="newsGrid" class="grid gap-4 grid-cols-1 md:grid-cols-2">
@@ -3033,22 +3033,23 @@
     var statusText = el('ls_statusText');
     var liveDot = el('ls_liveDot');
 
+    var _curMajor = getNextMajor();
     if (status === 'IN_PROGRESS') {
       statusBadge.innerHTML = '<span class="stat-pill bg-pb-teal/15 text-pb-teal border border-pb-teal/30" style="font-size:10px">🟢 LIVE</span>';
-      statusText.textContent = 'Tournament in progress · Augusta National';
+      statusText.textContent = 'Tournament in progress · ' + _curMajor.venue;
       liveDot.classList.remove('hidden');
       el('ls_countdown').classList.add('hidden');
       el('ls_leaderboardWrap').classList.remove('hidden');
     } else if (status === 'COMPLETED') {
       statusBadge.innerHTML = '<span class="stat-pill bg-white/5 text-slate-400 border border-white/10" style="font-size:10px">FINAL</span>';
-      statusText.textContent = 'Tournament complete · Augusta National';
+      statusText.textContent = 'Tournament complete · ' + _curMajor.venue;
       liveDot.classList.add('hidden');
       el('ls_countdown').classList.add('hidden');
       el('ls_leaderboardWrap').classList.remove('hidden');
     } else {
       // NOT_STARTED — show countdown
       statusBadge.innerHTML = '<span class="stat-pill bg-pb-gold/10 text-pb-gold border border-pb-gold/20" style="font-size:10px">UPCOMING</span>';
-      statusText.textContent = 'Apr 9–12, 2026 · Augusta National';
+      statusText.textContent = _curMajor.dates + ' · ' + _curMajor.venue;
       liveDot.classList.add('hidden');
       el('ls_countdown').classList.remove('hidden');
       renderCountdown();
@@ -3374,18 +3375,19 @@
   // Auto-start when Live Scores tab is visible or tournament is active
   // Will be called from initApp and tab switches
   function checkAndStartLiveScoring() {
-    // Always start during tournament week (Apr 9-13)
     var now = new Date();
-    var month = now.getMonth(); // 0-indexed, April = 3
-    var day = now.getDate();
-    var isMastersWeek = month === 3 && day >= 7 && day <= 14; // Apr 7-14 buffer
-    if (isMastersWeek) {
+    var m = getNextMajor();
+    // Start 2 days before through 2 days after the tournament
+    var startBuf = new Date(new Date(m.start).getTime() - 2*86400000);
+    var endBuf   = new Date(new Date(m.end).getTime()   + 2*86400000);
+    if (now >= startBuf && now <= endBuf) {
       startLiveScoring();
     }
   }
 
   function renderCountdown() {
-    var target = new Date('2026-04-09T08:00:00-04:00').getTime();
+    var m = getNextMajor();
+    var target = new Date(m.start + 'T08:00:00').getTime();
     var container = el('ls_countdownDisplay');
     if (!container) return;
     function tick() {
@@ -3447,13 +3449,20 @@
 
     var defEl = el('mhq_defending');
     if (defEl) defEl.textContent = m.defending;
+
+    // Wire up Live Scores tab header
+    var lsTourney = el('ls_tourneyName');
+    if (lsTourney) lsTourney.textContent = m.name + ' ' + m.start.slice(0,4);
+    var lsSub = el('ls_countdownSub');
+    if (lsSub) lsSub.textContent = 'First round tee-off: ' + m.dates.split('–')[0] + ', ' + m.start.slice(0,4);
   })();
 
-  // Auto-default to Live Scores tab during tournament (Apr 9-12)
+  // Auto-default to Live Scores tab during active tournament
   (function checkTournamentDefault() {
     var now = new Date();
-    var start = new Date('2026-04-09T00:00:00');
-    var end = new Date('2026-04-12T23:59:59');
+    var m = getNextMajor();
+    var start = new Date(m.start + 'T00:00:00');
+    var end   = new Date(m.end   + 'T23:59:59');
     if (now >= start && now <= end) {
       // Switch active tab to livescores
       document.querySelectorAll('.tab-pill[data-tab]').forEach(function(t) { t.classList.remove('active'); });
@@ -4002,7 +4011,7 @@
   var _propCompetitiveOnly = true;
   var _propPlayerSearch = '';
   var _propSortKey    = 'confScore';
-  var _activeCourse   = 'augusta';  // current course key for course fit sort
+  var _activeCourse   = getNextMajor().course;  // current course key for course fit sort
 
   // Map prop UI categories to propScores keys from the scraper
   function _propCatToScoreKey(cat) {
@@ -4863,12 +4872,14 @@
   function _runEdgeSim() {
     var pool = _buildEdgePool();
     var sims = 5000;
-    var fieldSize = 88; // Augusta field size
+    var _simCourse = getNextMajor().course;
+    var fieldSize = pool.length || 88;
 
     return pool.map(function(p) {
       var confSkill = p.confScore ? (p.confScore - 50) / 28 : 0;
+      var courseFitVal = p.courseFit && p.courseFit[_simCourse] ? p.courseFit[_simCourse] : 0;
       var skill = confSkill * 0.70 + (p.sgTotal || 0) * 0.30
-        + (p.courseFit && p.courseFit.augusta ? (p.courseFit.augusta - 70) / 150 : 0);
+        + (courseFitVal ? (courseFitVal - 70) / 150 : 0);
 
       var wins=0, t5=0, t10=0, t20=0, mc=0;
       for (var i=0; i<sims; i++) {
