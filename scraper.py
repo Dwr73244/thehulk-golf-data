@@ -2881,6 +2881,55 @@ def run_pipeline():
             else:
                 print(f"[PIPELINE] No course key matched for '{cname}' — hole data skipped")
 
+            # ============================================================
+            # TOURNAMENT SG LEADERBOARD — live strokes-gained during event
+            # ============================================================
+            if bdl_tournament.get("status") in ("IN_PROGRESS", "COMPLETED"):
+                print("[PIPELINE] Fetching tournament SG leaderboard (player_round_stats)...")
+                sg_raw = bdl_get_player_round_stats(tid)
+                player_sg = {}
+                for ps in (sg_raw or []):
+                    player = ps.get("player", {})
+                    pid = player.get("id") or ps.get("player_id")
+                    if not pid:
+                        continue
+                    name = (
+                        f"{player.get('first_name', '')} {player.get('last_name', '')}".strip()
+                        if isinstance(player, dict) else str(player)
+                    ) or ps.get("player_name", "")
+                    if not name:
+                        continue
+                    rnd = ps.get("round_number") or ps.get("round") or 0
+                    if pid not in player_sg:
+                        player_sg[pid] = {"name": name, "rounds": 0,
+                                          "sg_total": 0, "sg_ott": 0,
+                                          "sg_app": 0, "sg_atg": 0, "sg_putt": 0}
+                    e = player_sg[pid]
+                    e["rounds"] += 1
+                    e["sg_total"] += ps.get("sg_total") or ps.get("strokes_gained_total") or 0
+                    e["sg_ott"]   += ps.get("sg_off_the_tee") or ps.get("sg_ott") or 0
+                    e["sg_app"]   += ps.get("sg_approach") or ps.get("sg_app") or 0
+                    e["sg_atg"]   += ps.get("sg_around_the_green") or ps.get("sg_atg") or 0
+                    e["sg_putt"]  += ps.get("sg_putting") or ps.get("sg_putt") or 0
+
+                sg_leaders = []
+                for pid, sg in player_sg.items():
+                    rd = sg["rounds"]
+                    if rd > 0:
+                        sg_leaders.append({
+                            "name":    sg["name"],
+                            "rounds":  rd,
+                            "sgTotal": round(sg["sg_total"] / rd, 2),
+                            "sgOTT":   round(sg["sg_ott"]   / rd, 2),
+                            "sgAPP":   round(sg["sg_app"]   / rd, 2),
+                            "sgATG":   round(sg["sg_atg"]   / rd, 2),
+                            "sgPutt":  round(sg["sg_putt"]  / rd, 2),
+                        })
+                sg_leaders.sort(key=lambda x: x["sgTotal"], reverse=True)
+                if sg_leaders:
+                    output["tournamentSG"] = sg_leaders[:40]
+                    print(f"[PIPELINE] Tournament SG written for {len(sg_leaders)} players")
+
     # ============================================================
     # FALLBACK: Free scrapers (DataGolf, ESPN, PGA Tour)
     # ============================================================

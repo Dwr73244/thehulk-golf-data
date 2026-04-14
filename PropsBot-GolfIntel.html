@@ -1284,6 +1284,39 @@
       </div>
       <p class="text-[9px] text-slate-600 mt-3">Model uses position, strokes back, and holes remaining. Not a guarantee — golf is unpredictable.</p>
     </div>
+
+    <!-- Live SG Leaderboard — any tournament, powered by BDL player_round_stats -->
+    <div id="ls_liveSG" class="hidden fade-in glass rounded-2xl p-5">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <h3 class="text-sm font-bold text-white">Live Strokes Gained — This Tournament</h3>
+          <p class="text-[10px] text-slate-500 mt-0.5">Per-round SG averages from BallDontLie · Updates with weekly scraper</p>
+        </div>
+        <div class="flex gap-2">
+          <button id="sg_sortTotal" class="tab-pill active rounded-md px-2.5 py-1 text-[10px] font-semibold">Total</button>
+          <button id="sg_sortOTT"   class="tab-pill rounded-md px-2.5 py-1 text-[10px] font-semibold">OTT</button>
+          <button id="sg_sortAPP"   class="tab-pill rounded-md px-2.5 py-1 text-[10px] font-semibold">APP</button>
+          <button id="sg_sortPutt"  class="tab-pill rounded-md px-2.5 py-1 text-[10px] font-semibold">Putt</button>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="text-slate-500 border-b border-white/5">
+              <th class="px-2 py-1.5 text-left font-semibold w-6">#</th>
+              <th class="px-2 py-1.5 text-left font-semibold">Player</th>
+              <th class="px-2 py-1.5 text-right font-semibold">Rds</th>
+              <th class="px-2 py-1.5 text-right font-semibold" style="color:var(--teal)">SG Tot</th>
+              <th class="px-2 py-1.5 text-right font-semibold mobile-hide">OTT</th>
+              <th class="px-2 py-1.5 text-right font-semibold mobile-hide">APP</th>
+              <th class="px-2 py-1.5 text-right font-semibold mobile-hide">ATG</th>
+              <th class="px-2 py-1.5 text-right font-semibold mobile-hide">Putt</th>
+            </tr>
+          </thead>
+          <tbody id="ls_liveSGBody" class="divide-y divide-white/5"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <!-- ==================== TAB: PARLAY BUILDER ==================== -->
@@ -2680,6 +2713,11 @@
       window._liveData = data;
       console.log('[PropsBot] Masters Intel loaded:', MASTERS_INTEL.augusta_holes.length, 'holes');
     }
+    // Tournament SG leaderboard (any event, from BDL player_round_stats)
+    if (data.tournamentSG && data.tournamentSG.length) {
+      window._tournamentSG = data.tournamentSG;
+      console.log('[PropsBot] Tournament SG loaded:', data.tournamentSG.length, 'players');
+    }
     // Feature 2: Tee Times
     if (data.teeTimes && data.teeTimes.length) {
       _teeTimes = data.teeTimes;
@@ -3315,10 +3353,12 @@
       // Determine which round is current (highest round with data or in progress)
       var currentRound = row.currentRound || (row.r4 != null ? 4 : row.r3 != null ? 3 : row.r2 != null ? 2 : 1);
 
-      // vs Expected cell (Augusta/Masters only)
+      // vs Expected cell — any course that has hole data + live ESPN scores
+      var _hasHoleData = (_activeCourse === 'augusta' && MASTERS_INTEL) ||
+                         (COURSE_DATA[_activeCourse] && COURSE_DATA[_activeCourse].holes && COURSE_DATA[_activeCourse].holes.length > 0);
+      var _hasLiveHoles = _hasHoleData && window._liveHoleData && Object.keys(window._liveHoleData).length > 0;
       var vsExpCell = '';
-      var _isAugustaMasters = _activeCourse === 'augusta' && MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
-      if (_isAugustaMasters) {
+      if (_hasLiveHoles) {
         var _ve = computeVsExpected(playerName, currentRound);
         if (_ve && _ve.holesPlayed > 0) {
           var _veVal = _ve.delta;
@@ -3338,7 +3378,7 @@
         '<td class="px-3 py-2 text-right">' + scoreDisplay(row.totalScore !== undefined ? row.totalScore : row.total) + '</td>' +
         '<td class="px-3 py-2 text-right">' + todayCell + '</td>' +
         '<td class="px-3 py-2 text-right">' + thruText + '</td>' +
-        (_isAugustaMasters ? '<td class="px-3 py-2 text-right mono mobile-hide">' + vsExpCell + '</td>' : '') +
+        (_hasLiveHoles ? '<td class="px-3 py-2 text-right mono mobile-hide">' + vsExpCell + '</td>' : '') +
         '<td class="px-3 py-2 text-right mobile-hide">' + roundCell(row.r1, true) + '</td>' +
         '<td class="px-3 py-2 text-right mobile-hide">' + roundCell(row.r2, currentRound >= 2) + '</td>' +
         '<td class="px-3 py-2 text-right mobile-hide">' + roundCell(row.r3, currentRound >= 3) + '</td>' +
@@ -3349,15 +3389,19 @@
     // Save positions for next render
     window._lbPrevPositions = newPositions;
 
-    // Show/hide vs Exp column header
+    // Show/hide vs Exp column header — any course with hole data + live ESPN scores
     var vsExpHdr = el('ls_vsExpHeader');
-    if (vsExpHdr) vsExpHdr.style.display = (_activeCourse === 'augusta' && MASTERS_INTEL) ? '' : 'none';
+    var _hdrHasHoles = (_activeCourse === 'augusta' && MASTERS_INTEL) ||
+                       (COURSE_DATA[_activeCourse] && COURSE_DATA[_activeCourse].holes && COURSE_DATA[_activeCourse].holes.length > 0);
+    if (vsExpHdr) vsExpHdr.style.display = (_hdrHasHoles && window._liveHoleData && Object.keys(window._liveHoleData).length > 0) ? '' : 'none';
 
     var upEl = el('ls_updatedAt');
     if (upEl) upEl.textContent = 'Updated: ' + new Date().toLocaleTimeString();
 
-    // Live predictions panel (Augusta only)
+    // Live predictions panel (any tournament)
     renderLivePredictions(lb);
+    // Live SG leaderboard (any tournament, BDL data)
+    renderLiveSG();
   }
 
   /* ----------------------------------------------------------
@@ -3366,14 +3410,32 @@
   ---------------------------------------------------------- */
 
   function computeVsExpected(playerName, roundNum) {
-    if (!MASTERS_INTEL || !MASTERS_INTEL.augusta_holes) return null;
     var rounds = (window._liveHoleData || {})[playerName];
     if (!rounds || !rounds[roundNum] || !rounds[roundNum].length) return null;
     var holesPlayed = rounds[roundNum];
     var totalActual = 0, totalExpected = 0, count = 0;
+
+    // Augusta: use mastersIntel hole averages (most accurate — named holes, official avg)
+    var useAugusta = _activeCourse === 'augusta' && MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
+    // All other courses: use COURSE_DATA hole averages from weekly scraper
+    var cd = useAugusta ? null : COURSE_DATA[_activeCourse];
+    if (!useAugusta && (!cd || !cd.holes || !cd.holes.length)) return null;
+
     holesPlayed.forEach(function(h) {
-      var hData = MASTERS_INTEL.augusta_holes.find(function(x) { return x.hole === h.hole; });
-      var exp = hData && hData.historical && hData.historical.scoringAvg;
+      var exp;
+      if (useAugusta) {
+        var hData = MASTERS_INTEL.augusta_holes.find(function(x) { return x.hole === h.hole; });
+        exp = hData && hData.historical && hData.historical.scoringAvg;
+      } else {
+        var hData = cd.holes.find(function(x) { return x.hole === h.hole; });
+        if (hData) {
+          // Use round-specific average, fall back to mean of all rounds, then par
+          var rVal = roundNum === 1 ? hData.r1 : roundNum === 2 ? hData.r2 :
+                     roundNum === 3 ? hData.r3 : hData.r4;
+          var mean = ((hData.r1||0)+(hData.r2||0)+(hData.r3||0)+(hData.r4||0)) / 4;
+          exp = rVal || (mean > 0 ? mean : hData.par);
+        }
+      }
       if (exp && h.strokes) {
         totalActual += h.strokes;
         totalExpected += exp;
@@ -3437,8 +3499,7 @@
     var tbody = el('ls_livePredBody');
     if (!panel || !tbody) return;
 
-    var isAugusta = _activeCourse === 'augusta' && MASTERS_INTEL && window._liveHoleData;
-    if (!isAugusta || !lb || !lb.length) {
+    if (!lb || !lb.length) {
       panel.classList.add('hidden');
       return;
     }
@@ -3500,6 +3561,57 @@
       '</tr>';
     }).join('');
   }
+
+  /* ----------------------------------------------------------
+     LIVE SG LEADERBOARD — BDL player_round_stats
+  ---------------------------------------------------------- */
+  var _sgSortKey = 'sgTotal';
+
+  function renderLiveSG() {
+    var panel  = el('ls_liveSG');
+    var tbody  = el('ls_liveSGBody');
+    if (!panel || !tbody) return;
+
+    var sg = window._tournamentSG;
+    if (!sg || !sg.length) { panel.classList.add('hidden'); return; }
+    panel.classList.remove('hidden');
+
+    var sorted = sg.slice().sort(function(a, b) { return (b[_sgSortKey]||0) - (a[_sgSortKey]||0); });
+
+    function sgCell(val) {
+      var n = parseFloat(val) || 0;
+      var col = n >= 0.5 ? '#15ffc2' : n >= 0.1 ? 'rgba(21,255,194,0.6)' : n >= 0 ? 'rgba(200,215,230,0.4)' : '#ff1552';
+      return '<span class="mono font-semibold" style="color:' + col + '">' + (n >= 0 ? '+' : '') + n.toFixed(2) + '</span>';
+    }
+
+    tbody.innerHTML = sorted.slice(0, 30).map(function(p, i) {
+      return '<tr>' +
+        '<td class="px-2 py-1.5 mono text-slate-600 text-[10px]">' + (i+1) + '</td>' +
+        '<td class="px-2 py-1.5 text-white font-medium">' + p.name + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono text-slate-500">' + p.rounds + '</td>' +
+        '<td class="px-2 py-1.5 text-right">' + sgCell(p.sgTotal) + '</td>' +
+        '<td class="px-2 py-1.5 text-right mobile-hide">' + sgCell(p.sgOTT)  + '</td>' +
+        '<td class="px-2 py-1.5 text-right mobile-hide">' + sgCell(p.sgAPP)  + '</td>' +
+        '<td class="px-2 py-1.5 text-right mobile-hide">' + sgCell(p.sgATG)  + '</td>' +
+        '<td class="px-2 py-1.5 text-right mobile-hide">' + sgCell(p.sgPutt) + '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  // Sort buttons for SG panel
+  (function() {
+    var btns = { sg_sortTotal:'sgTotal', sg_sortOTT:'sgOTT', sg_sortAPP:'sgAPP', sg_sortPutt:'sgPutt' };
+    Object.keys(btns).forEach(function(id) {
+      var btn = el(id);
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        _sgSortKey = btns[id];
+        Object.keys(btns).forEach(function(b) { var e = el(b); if (e) e.classList.remove('active'); });
+        btn.classList.add('active');
+        renderLiveSG();
+      });
+    });
+  })();
 
   // ============================================================
   // CLIENT-SIDE LIVE ESPN SCORING — 60-second refresh
