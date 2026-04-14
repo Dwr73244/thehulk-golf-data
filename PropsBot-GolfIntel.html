@@ -456,6 +456,16 @@
           <span id="playerCount" style="font-size:10px;color:rgba(200,215,230,0.3);white-space:nowrap;"></span>
         </div>
       </div>
+      <!-- Stat legend -->
+      <div id="playerStatLegend" class="flex flex-wrap gap-x-4 gap-y-1 mb-1" style="font-size:9px;color:rgba(200,215,230,0.3);padding:0 2px">
+        <span><span style="color:rgba(200,215,230,0.5);font-weight:600;">OTT</span> Off-the-Tee</span>
+        <span><span style="color:rgba(200,215,230,0.5);font-weight:600;">APP</span> Approach</span>
+        <span><span style="color:rgba(200,215,230,0.5);font-weight:600;">ARG</span> Around Green</span>
+        <span><span style="color:rgba(200,215,230,0.5);font-weight:600;">PUTT</span> Putting</span>
+        <span><span style="color:rgba(200,215,230,0.5);font-weight:600;">SG</span> Strokes Gained vs field avg</span>
+        <span><span style="color:rgba(200,215,230,0.5);font-weight:600;">L5</span> Avg finish, last 5 events</span>
+        <span><span style="color:rgba(200,215,230,0.5);font-weight:600;">DK/FD</span> DraftKings / FanDuel odds</span>
+      </div>
       <div id="playerGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
     </div>
 
@@ -463,9 +473,12 @@
     <div id="playerDetail" class="hidden fade-in">
       <div class="glass rounded-2xl p-5 space-y-4">
         <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-xl font-bold text-white" id="pdName">—</h3>
-            <p class="text-xs text-slate-400" id="pdMeta">—</p>
+          <div class="flex items-center gap-3">
+            <button onclick="closePlayerDetail()" style="display:flex;align-items:center;gap:4px;font-size:11px;color:rgba(200,215,230,0.5);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:4px 10px;cursor:pointer;" onmouseover="this.style.color='rgba(200,215,230,0.9)'" onmouseout="this.style.color='rgba(200,215,230,0.5)'">← Back</button>
+            <div>
+              <h3 class="text-xl font-bold text-white" id="pdName">—</h3>
+              <p class="text-xs text-slate-400" id="pdMeta">—</p>
+            </div>
           </div>
           <div class="text-right">
             <p class="text-[10px] text-slate-500 uppercase font-semibold">DG Rank</p>
@@ -498,14 +511,14 @@
       <div class="compare-panel grid gap-4 sm:grid-cols-[1fr_auto_1fr] items-end">
         <div class="space-y-1.5">
           <label class="text-[11px] font-semibold text-slate-300 uppercase">Player A</label>
-          <div class="search-select" data-ss="matchA"><input class="ss-input" placeholder="Search player…" autocomplete="off"><input type="hidden" id="matchA"><div class="ss-dropdown"></div></div>
+          <div class="search-select" data-ss="matchA" style="position:relative"><input class="ss-input" placeholder="Type name to search…" autocomplete="off" style="padding-right:28px"><input type="hidden" id="matchA"><div class="ss-dropdown"></div><span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(200,215,230,0.35);pointer-events:none;">▾</span></div>
         </div>
         <div class="text-center pb-2">
           <span class="matchup-vs">VS</span>
         </div>
         <div class="space-y-1.5">
           <label class="text-[11px] font-semibold text-slate-300 uppercase">Player B</label>
-          <div class="search-select" data-ss="matchB"><input class="ss-input" placeholder="Search player…" autocomplete="off"><input type="hidden" id="matchB"><div class="ss-dropdown"></div></div>
+          <div class="search-select" data-ss="matchB" style="position:relative"><input class="ss-input" placeholder="Type name to search…" autocomplete="off" style="padding-right:28px"><input type="hidden" id="matchB"><div class="ss-dropdown"></div><span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(200,215,230,0.35);pointer-events:none;">▾</span></div>
         </div>
       </div>
 
@@ -1139,7 +1152,7 @@
     <div class="glass rounded-2xl p-5 glow-teal">
       <div class="flex items-center justify-between mb-2">
         <div>
-          <h2 class="text-base font-bold text-white mb-0.5">Hole Deep Dive — Augusta National</h2>
+          <h2 class="text-base font-bold text-white mb-0.5" id="holeAnalysisHeading">Hole Deep Dive</h2>
           <p class="text-xs text-slate-400">Select a hole to see scoring breakdown, difficulty, and betting angles</p>
         </div>
         <div class="flex gap-2 items-center">
@@ -1252,14 +1265,20 @@
           <h2 class="text-base font-bold text-white">Parlay Builder</h2>
           <p class="text-xs text-slate-400 mt-0.5">Add legs from the Players tab · Max 6 legs</p>
         </div>
-        <button id="parlayClrBtn" class="text-[11px] text-slate-500 hover:text-pb-red underline underline-offset-2 transition-colors">Clear All</button>
+        <button id="parlayClrBtn" class="hidden text-[11px] text-slate-500 hover:text-pb-red underline underline-offset-2 transition-colors">Clear All</button>
       </div>
     </div>
     <!-- Parlay Slip -->
     <div class="glass rounded-2xl p-5">
       <p class="section-label mb-3">Parlay Slip</p>
       <div id="parlayLegs" class="space-y-2 min-h-[80px]">
-        <p class="text-xs text-slate-500 text-center py-6">No legs added yet. Click <span class="text-pb-teal font-semibold">+ Add</span> on any player card in the Players tab.</p>
+        <div class="text-center py-6 space-y-3">
+          <p class="text-xs text-slate-500">No legs added yet. Hit <span class="text-pb-teal font-semibold">+ Add Parlay</span> on any player card.</p>
+          <button onclick="document.querySelector('.tab-pill[data-tab=players]').click()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold transition-all" style="background:rgba(21,255,194,0.08);border:1px solid rgba(21,255,194,0.25);color:var(--teal)">
+            ← Browse Players
+          </button>
+          <div id="parlayQuickAdd" class="hidden mt-2"></div>
+        </div>
       </div>
     </div>
     <!-- Parlay Payout Calculator -->
@@ -1730,6 +1749,12 @@
      PLAYERS TAB
   ============================================================ */
   function renderPlayerGrid() {
+    // If detail is open, close it and restore grid
+    if (!el('playerDetail').classList.contains('hidden')) {
+      el('playerDetail').classList.add('hidden');
+      el('playerGrid').classList.remove('hidden');
+      el('playerStatLegend').classList.remove('hidden');
+    }
     var search = (el('playerSearch').value || '').toLowerCase();
     var sortKey = el('playerSort').value;
     var filtered = PLAYERS.filter(function(p) { return p.name.toLowerCase().indexOf(search) >= 0; });
@@ -1790,7 +1815,7 @@
         }
         propsStrip = '<div style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.4rem;padding-top:0.4rem;border-top:1px solid rgba(100,180,200,0.06);">' +
           '<span style="font-size:9px;color:rgba(200,215,230,0.35);font-weight:600;text-transform:uppercase;letter-spacing:.05em;align-self:center;" data-tip="Prop odds from win odds. Negative (-150) = favored, positive (+300) = underdog.">Props:</span>' +
-          '<span style="font-size:9px;font-family:var(--mono);background:rgba(240,192,64,0.08);color:var(--gold);border:1px solid rgba(240,192,64,0.2);padding:1px 6px;border-radius:12px;" data-tip="Win odds from sportsbooks. +500 = bet $100 to win $500. Shorter = more favored.">Win ' + (winOdds > 0 ? '+' : '') + winOdds + '</span>' +
+          '<span style="font-size:9px;font-family:var(--mono);background:rgba(240,192,64,0.08);color:var(--gold);border:1px solid rgba(240,192,64,0.2);padding:1px 6px;border-radius:12px;" data-tip="Win odds from sportsbooks. +500 = bet $100 to win $500. Shorter = more favored.">Win ' + (function(o){var n=parseInt(o,10);return n>0?'+'+n:''+n;})(winOdds) + '</span>' +
           '<span style="font-size:9px;font-family:var(--mono);background:rgba(21,255,194,0.06);color:var(--teal);border:1px solid rgba(21,255,194,0.15);padding:1px 6px;border-radius:12px;" data-tip="Top 5 finish odds. Derived from win odds. Great for parlays.">T5 ' + estOdds(winOdds, 4.2) + '</span>' +
           '<span style="font-size:9px;font-family:var(--mono);background:rgba(34,169,236,0.06);color:var(--blue);border:1px solid rgba(34,169,236,0.15);padding:1px 6px;border-radius:12px;" data-tip="Top 10 finish odds. Safer prop, lower payout. Good for conservative plays.">T10 ' + estOdds(winOdds, 7.5) + '</span>' +
           '<span style="font-size:9px;font-family:var(--mono);background:rgba(100,180,200,0.05);color:rgba(200,215,230,0.5);border:1px solid rgba(100,180,200,0.1);padding:1px 6px;border-radius:12px;" data-tip="Top 20 finish odds. High probability, low payout. Stack for consistent parlays.">T20 ' + estOdds(winOdds, 13) + '</span>' +
@@ -1837,8 +1862,17 @@
     });
   }
 
+  function closePlayerDetail() {
+    el('playerDetail').classList.add('hidden');
+    el('playerGrid').classList.remove('hidden');
+    el('playerStatLegend').classList.remove('hidden');
+  }
+
   function showPlayerDetail(p) {
+    el('playerGrid').classList.add('hidden');
+    el('playerStatLegend').classList.add('hidden');
     el('playerDetail').classList.remove('hidden');
+    el('playerDetail').scrollIntoView({ behavior: 'smooth', block: 'start' });
     el('pdName').textContent = p.name;
     el('pdMeta').textContent = 'PB #' + p.rank + (p.owgrRank && p.owgrRank < 900 ? ' · OWGR #' + p.owgrRank : '') + ' · Miss: ' + p.missDir + ' · Flight: ' + p.flight.replace('_', ' ');
     el('pdRank').textContent = '#' + p.rank;
@@ -2242,11 +2276,13 @@
     // Compute EV for each result and store on the object
     results.forEach(function(r) {
       r._ev = null;
-      if (r.bookOdds && r.win > 0) {
-        var bDec = parseInt(r.bookOdds) > 0 ? (parseInt(r.bookOdds)/100+1) : (100/Math.abs(parseInt(r.bookOdds))+1);
+      var bo = parseInt(r.bookOdds, 10);
+      // Skip stale/placeholder odds — real win odds rarely exceed +50000 for anyone in the field
+      if (r.bookOdds && r.win > 0 && bo <= 50000) {
+        var bDec = bo > 0 ? (bo/100+1) : (100/Math.abs(bo)+1);
         var bProb = 1 / bDec;
         var mProb = r.win / 100;
-        r._ev = +((mProb - bProb) / bProb * 100).toFixed(1);
+        r._ev = +Math.min(999, Math.max(-999, (mProb - bProb) / bProb * 100)).toFixed(1);
       }
     });
 
@@ -2563,7 +2599,11 @@
       // Replace PLAYERS array with fresh data
       PLAYERS.length = 0;
       data.players.forEach(function(p) { PLAYERS.push(p); });
-      DATA_LOADED_FROM = 'live (' + (data.generatedAt || 'unknown') + ')';
+      var _ts = data.generatedAt ? new Date(data.generatedAt) : null;
+      var _tsStr = _ts && !isNaN(_ts)
+        ? _ts.toLocaleDateString('en-US', {month:'short',day:'numeric'}) + ' · ' + _ts.toLocaleTimeString('en-US', {hour:'numeric',minute:'2-digit',timeZoneName:'short'})
+        : 'unknown';
+      DATA_LOADED_FROM = 'live · Updated ' + _tsStr;
       window._playerData = PLAYERS;
       // Resolve active course for course fit sorting
       if (data.currentEvent && data.currentEvent.course) {
@@ -2634,12 +2674,17 @@
   }
 
   function updateCurrentEventBanner(event) {
-    if (!event || !event.name) return;
+    if (!event && !getNextMajor) return;
+    var m = getNextMajor();
+    var today = new Date();
+    var isLive = today >= new Date(m.start) && today <= new Date(m.end);
+    var label = isLive ? (m.short + ' · LIVE') : ('Next: ' + m.short);
     var header = document.querySelector('header .flex.items-center.gap-3:last-child');
-    if (header) {
+    if (header && !document.getElementById('headerTourneyBadge')) {
       var badge = document.createElement('span');
+      badge.id = 'headerTourneyBadge';
       badge.className = 'hidden sm:inline-flex items-center gap-1 rounded-full bg-pb-blue/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-pb-blue ring-1 ring-pb-blue/30';
-      badge.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-pb-blue animate-pulse"></span>' + event.name;
+      badge.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-pb-blue' + (isLive ? ' animate-pulse' : '') + '"></span>' + label;
       header.insertBefore(badge, header.firstChild);
     }
   }
@@ -2661,6 +2706,13 @@
 
   function renderWeatherBar(weatherData) {
     if (!weatherData || !weatherData.forecast || !weatherData.forecast.length) return;
+    // Hide the weather bar if all forecast dates are in the past (stale tournament data)
+    var today = new Date(); today.setHours(0,0,0,0);
+    var allPast = weatherData.forecast.every(function(d) {
+      return d.date && new Date(d.date) < today;
+    });
+    if (allPast) return;
+
     var bar = el('weatherBar');
     var container = el('weatherDays');
     bar.classList.remove('hidden');
@@ -3090,7 +3142,7 @@
       if (bestOdds != null) window._lbPrevOdds[playerName] = bestOdds;
 
       var oddsStr = bestOdds != null
-        ? '<span class="mono font-semibold' + (oddsChanged ? ' lb-odds-shift' : '') + '" style="font-size:11px;color:var(--gold);">' + (bestOdds > 0 ? '+' : '') + bestOdds + '</span>'
+        ? '<span class="mono font-semibold' + (oddsChanged ? ' lb-odds-shift' : '') + '" style="font-size:11px;color:var(--gold);">' + _oddsStr(bestOdds) + '</span>'
         : '<span style="color:rgba(200,215,230,0.2);font-size:10px;">—</span>';
 
       // Movement indicator
@@ -3450,6 +3502,10 @@
     var defEl = el('mhq_defending');
     if (defEl) defEl.textContent = m.defending;
 
+    // Wire up Hole Analysis heading
+    var haHeading = el('holeAnalysisHeading');
+    if (haHeading) haHeading.textContent = 'Hole Deep Dive — ' + m.venue;
+
     // Wire up Live Scores tab header
     var lsTourney = el('ls_tourneyName');
     if (lsTourney) lsTourney.textContent = m.name + ' ' + m.start.slice(0,4);
@@ -3708,11 +3764,30 @@
     var payoutCard = el('parlayPayoutCard');
     if (!container) return;
 
+    var clrBtn = el('parlayClrBtn');
     if (!_parlayLegs.length) {
-      container.innerHTML = '<p class="text-xs text-slate-500 text-center py-6">No legs added yet. Click <span class="text-pb-teal font-semibold">+ Add</span> on any player card in the Players tab.</p>';
+      if (clrBtn) clrBtn.classList.add('hidden');
+      container.innerHTML =
+        '<div class="text-center py-6 space-y-3">' +
+          '<p class="text-xs text-slate-500">No legs added yet. Hit <span class="text-pb-teal font-semibold">+ Add Parlay</span> on any player card.</p>' +
+          '<button onclick="document.querySelector(\'.tab-pill[data-tab=players]\').click()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold transition-all" style="background:rgba(21,255,194,0.08);border:1px solid rgba(21,255,194,0.25);color:var(--teal)">← Browse Players</button>' +
+          (function() {
+            var top = (window._playerData || []).filter(_isCompetitive).slice(0,3);
+            if (!top.length) return '';
+            return '<div style="margin-top:0.75rem"><p class="text-[10px] text-slate-500 mb-2">Quick add a top ELITE pick:</p>' +
+              top.map(function(p) {
+                var odds = p.odds ? (p.odds.dk || p.odds.fd || p.odds.mgm) : null;
+                return '<button onclick="window.addPropToParlay(\'' + p.name.replace(/'/g,"\\'") + '\',\'winner\',' + (odds||2500) + ')" ' +
+                  'class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold mr-2 mb-1 transition-all" ' +
+                  'style="background:rgba(21,255,194,0.05);border:1px solid rgba(21,255,194,0.15);color:rgba(200,215,230,0.7);">' +
+                  p.name + (odds ? ' <span style="color:var(--teal)">' + _oddsStr(odds) + '</span>' : '') + '</button>';
+              }).join('') + '</div>';
+          })() +
+        '</div>';
       if (payoutCard) payoutCard.classList.add('hidden');
       return;
     }
+    if (clrBtn) clrBtn.classList.remove('hidden');
 
     container.innerHTML = _parlayLegs.map(function(leg, i) {
       return '<div class="parlay-leg">' +
@@ -4115,8 +4190,8 @@
       return '<td class="px-2 py-2 text-center"><span style="color:rgba(200,215,230,0.2)">&#8212;</span></td>';
     }
     var isEstimate = !odds;
-    var displayOdds = odds || modelOdds;
-    var oddsStr = displayOdds > 0 ? '+' + displayOdds : displayOdds;
+    var displayOdds = parseInt(odds || modelOdds, 10);
+    var oddsStr = displayOdds > 0 ? '+' + displayOdds : '' + displayOdds;
 
     var evColor = '';
     var evBadge = '';
@@ -4209,7 +4284,7 @@
       if (top3.length) {
         spotEl.innerHTML = top3.map(function(s) {
           var propLabel = { winner:'Win', top3:'Top 3', top5:'Top 5', top10:'Top 10', top20:'Top 20', makeCut:'Make Cut', r1Leader:'R1 Leader' }[s.prop] || s.prop;
-          var oddsStr = s.odds > 0 ? '+' + s.odds : s.odds;
+          var oddsStr = _oddsStr(s.odds);
           return '<div style="background:rgba(21,255,194,0.05);border:1px solid rgba(21,255,194,0.18);border-radius:10px;padding:0.7rem 1rem;display:flex;flex-direction:column;gap:0.25rem;">' +
             '<div style="display:flex;justify-content:space-between;align-items:center;">' +
               '<span class="mono text-xs font-bold" style="color:#eef2f7;">' + s.name + '</span>' +
@@ -4482,7 +4557,9 @@
 
   function _oddsStr(american) {
     if (!american && american !== 0) return '—';
-    return american > 0 ? '+' + american : '' + american;
+    var n = parseInt(american, 10);
+    if (isNaN(n)) return '—';
+    return n > 0 ? '+' + n : '' + n;
   }
 
   function renderPropsLineShopping() {
@@ -4542,14 +4619,16 @@
       return tierDefs[tierDefs.length - 1];
     }
 
-    // Build spotlight: top player per tier
+    // Build spotlight: top competitive player per tier (exclude LONGSHOT — not actionable)
     var spotlight = [];
     if (!isStatProp) {
-      tierDefs.forEach(function(tier) {
+      tierDefs.filter(function(t){ return t.key !== 'longshot'; }).forEach(function(tier) {
         var best = null;
         players.forEach(function(p) {
           var t = _getValueTier(p);
           if (t.key !== tier.key) return;
+          // Only show competitive players in the spotlight
+          if (!_isCompetitive(p)) return;
           if (!best || (p.confScore||0) > (best.confScore||0)) best = p;
         });
         if (best) spotlight.push({ p: best, tier: tier });
@@ -4947,10 +5026,14 @@
           : _estimateMarketOdds(winOdds, m.key);
         if (!bookOdds) return;
 
+        // Skip obviously stale / placeholder odds (real Make Cut / Top N lines don't go to +10000+)
+        var MAX_PLAUSIBLE = { winner: 80000, top5: 15000, top10: 8000, top20: 4000, makeCut: 2000 };
+        if (bookOdds > (MAX_PLAUSIBLE[m.key] || 5000)) return;
+
         var modelPct  = sr.probs[m.key];
         var bookDec   = bookOdds > 0 ? (bookOdds/100+1) : (100/Math.abs(bookOdds)+1);
         var bookPct   = +(1/bookDec*100).toFixed(2);
-        var edge      = +((modelPct - bookPct) / bookPct * 100).toFixed(1);
+        var edge      = +Math.min(999, (modelPct - bookPct) / bookPct * 100).toFixed(1);
         if (edge < minEdge) return;
 
         var fairOdds = pctToAmerican(modelPct);
