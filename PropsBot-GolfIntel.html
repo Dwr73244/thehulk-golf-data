@@ -1243,6 +1243,7 @@
               <th class="px-3 py-2 text-right font-semibold">Total</th>
               <th class="px-3 py-2 text-right font-semibold">Today</th>
               <th class="px-3 py-2 text-right font-semibold">Thru</th>
+              <th id="ls_vsExpHeader" class="px-3 py-2 text-right font-semibold mobile-hide" style="display:none;color:var(--teal)" data-tip="Strokes gained/lost vs Augusta field average for holes played this round. Negative = outperforming the field.">vs Exp</th>
               <th class="px-3 py-2 text-right font-semibold mobile-hide">R1</th>
               <th class="px-3 py-2 text-right font-semibold mobile-hide">R2</th>
               <th class="px-3 py-2 text-right font-semibold mobile-hide">R3</th>
@@ -1254,6 +1255,34 @@
           </tbody>
         </table>
       </div>
+    </div>
+
+    <!-- Live Predictions Panel — Augusta/Masters only, shown when IN_PROGRESS -->
+    <div id="ls_livePredictions" class="hidden fade-in glass rounded-2xl p-5">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <h3 class="text-sm font-bold text-white">Live Model — Updated Predictions</h3>
+          <p class="text-[10px] text-slate-500 mt-0.5">Win/Top-10 probabilities recalculated every 60s from current position &amp; holes remaining · Augusta only</p>
+        </div>
+        <span class="stat-pill bg-pb-teal/10 text-pb-teal border border-pb-teal/20" style="font-size:9px;">🟢 LIVE</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="text-slate-500 border-b border-white/5">
+              <th class="px-2 py-1.5 text-left font-semibold">Player</th>
+              <th class="px-2 py-1.5 text-center font-semibold">Pos</th>
+              <th class="px-2 py-1.5 text-right font-semibold" style="color:var(--teal)" data-tip="Strokes vs Augusta field average for holes played this round">vs Exp</th>
+              <th class="px-2 py-1.5 text-right font-semibold">Win %</th>
+              <th class="px-2 py-1.5 text-right font-semibold">Top 10 %</th>
+              <th class="px-2 py-1.5 text-right font-semibold mobile-hide" data-tip="Pre-tournament implied win probability from book odds">Pre-Tourn</th>
+              <th class="px-2 py-1.5 text-right font-semibold mobile-hide">Δ Odds</th>
+            </tr>
+          </thead>
+          <tbody id="ls_livePredBody" class="divide-y divide-white/5"></tbody>
+        </table>
+      </div>
+      <p class="text-[9px] text-slate-600 mt-3">Model uses position, strokes back, and holes remaining. Not a guarantee — golf is unpredictable.</p>
     </div>
   </div>
 
@@ -3286,6 +3315,21 @@
       // Determine which round is current (highest round with data or in progress)
       var currentRound = row.currentRound || (row.r4 != null ? 4 : row.r3 != null ? 3 : row.r2 != null ? 2 : 1);
 
+      // vs Expected cell (Augusta/Masters only)
+      var vsExpCell = '';
+      var _isAugustaMasters = _activeCourse === 'augusta' && MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
+      if (_isAugustaMasters) {
+        var _ve = computeVsExpected(playerName, currentRound);
+        if (_ve && _ve.holesPlayed > 0) {
+          var _veVal = _ve.delta;
+          var _veColor = _veVal < -0.5 ? 'color:#15ffc2' : (_veVal > 0.5 ? 'color:#ff1552' : 'color:rgba(200,215,230,0.5)');
+          var _veStr = (_veVal >= 0 ? '+' : '') + _veVal.toFixed(1);
+          vsExpCell = '<span class="mono font-semibold" style="' + _veColor + '" data-tip="' + _ve.holesPlayed + ' holes played · Actual: ' + _ve.actual.toFixed(1) + ' · Expected: ' + _ve.expected.toFixed(1) + '">' + _veStr + '</span>';
+        } else {
+          vsExpCell = '<span style="color:rgba(200,215,230,0.15)">—</span>';
+        }
+      }
+
       tr.innerHTML =
         '<td class="px-3 py-2 mono text-slate-400 font-semibold">' + newPos + '</td>' +
         '<td class="px-3 py-2 text-white font-medium">' + (playerName || '—') + movBadge + '</td>' +
@@ -3294,6 +3338,7 @@
         '<td class="px-3 py-2 text-right">' + scoreDisplay(row.totalScore !== undefined ? row.totalScore : row.total) + '</td>' +
         '<td class="px-3 py-2 text-right">' + todayCell + '</td>' +
         '<td class="px-3 py-2 text-right">' + thruText + '</td>' +
+        (_isAugustaMasters ? '<td class="px-3 py-2 text-right mono mobile-hide">' + vsExpCell + '</td>' : '') +
         '<td class="px-3 py-2 text-right mobile-hide">' + roundCell(row.r1, true) + '</td>' +
         '<td class="px-3 py-2 text-right mobile-hide">' + roundCell(row.r2, currentRound >= 2) + '</td>' +
         '<td class="px-3 py-2 text-right mobile-hide">' + roundCell(row.r3, currentRound >= 3) + '</td>' +
@@ -3304,10 +3349,156 @@
     // Save positions for next render
     window._lbPrevPositions = newPositions;
 
+    // Show/hide vs Exp column header
+    var vsExpHdr = el('ls_vsExpHeader');
+    if (vsExpHdr) vsExpHdr.style.display = (_activeCourse === 'augusta' && MASTERS_INTEL) ? '' : 'none';
+
     var upEl = el('ls_updatedAt');
-    if (upEl) {
-      upEl.textContent = 'Updated: ' + new Date().toLocaleTimeString();
+    if (upEl) upEl.textContent = 'Updated: ' + new Date().toLocaleTimeString();
+
+    // Live predictions panel (Augusta only)
+    renderLivePredictions(lb);
+  }
+
+  /* ----------------------------------------------------------
+     LIVE MODEL: vs Expected + Updated Win Probabilities
+     Augusta / Masters only — uses _liveHoleData + mastersIntel
+  ---------------------------------------------------------- */
+
+  function computeVsExpected(playerName, roundNum) {
+    if (!MASTERS_INTEL || !MASTERS_INTEL.augusta_holes) return null;
+    var rounds = (window._liveHoleData || {})[playerName];
+    if (!rounds || !rounds[roundNum] || !rounds[roundNum].length) return null;
+    var holesPlayed = rounds[roundNum];
+    var totalActual = 0, totalExpected = 0, count = 0;
+    holesPlayed.forEach(function(h) {
+      var hData = MASTERS_INTEL.augusta_holes.find(function(x) { return x.hole === h.hole; });
+      var exp = hData && hData.historical && hData.historical.scoringAvg;
+      if (exp && h.strokes) {
+        totalActual += h.strokes;
+        totalExpected += exp;
+        count++;
+      }
+    });
+    if (!count) return null;
+    return {
+      delta: +(totalActual - totalExpected).toFixed(2),
+      holesPlayed: count,
+      actual: totalActual,
+      expected: +totalExpected.toFixed(2)
+    };
+  }
+
+  function computeLiveWinProbs(lb) {
+    // Softmax-style model: score = exp(-alpha * strokesBack / sqrt(holesRemaining + 1))
+    // Returns array of {name, winProb, top10Prob} matching lb order
+    if (!lb || !lb.length) return [];
+    var TOTAL_HOLES = 72;
+    var alpha = 0.65;
+
+    // Find leader total score and compute holes played per player
+    var entries = lb.map(function(row) {
+      var total = typeof row.totalScore !== 'undefined' ? Number(row.totalScore) : Number(row.total || 0);
+      var rnd = row.currentRound || 1;
+      var thru = typeof row.thru === 'number' ? row.thru : (row.thru === 'F' ? 18 : parseInt(row.thru) || 0);
+      var finished = row.thru === 'F';
+      var holesPlayedTotal = (rnd - 1) * 18 + (finished ? 18 : thru);
+      return { name: row.name, total: isNaN(total) ? 0 : total, holesPlayed: holesPlayedTotal };
+    });
+
+    var leaderTotal = Math.min.apply(null, entries.map(function(e) { return e.total; }));
+    var avgHolesPlayed = entries.reduce(function(s, e) { return s + e.holesPlayed; }, 0) / entries.length;
+    var holesRemaining = Math.max(1, TOTAL_HOLES - avgHolesPlayed);
+
+    // Raw win scores
+    var winScores = entries.map(function(e) {
+      var strokesBack = Math.max(0, e.total - leaderTotal);
+      return Math.exp(-alpha * strokesBack / Math.sqrt(holesRemaining + 1));
+    });
+    var winTotal = winScores.reduce(function(s, v) { return s + v; }, 0) || 1;
+
+    // Top-10: who is within striking distance of 10th place
+    var sorted10 = entries.slice().sort(function(a, b) { return a.total - b.total; });
+    var tenthScore = sorted10.length >= 10 ? sorted10[9].total : (sorted10[sorted10.length - 1] || {total:0}).total;
+    var top10Alpha = 0.4;
+
+    return entries.map(function(e, i) {
+      var winProb = winScores[i] / winTotal;
+      var strokesTo10 = Math.max(0, e.total - tenthScore);
+      var top10Raw = Math.exp(-top10Alpha * strokesTo10 / Math.sqrt(holesRemaining + 1));
+      // Normalize top10 relative to field — cap at 97%
+      var top10Prob = Math.min(0.97, top10Raw / (top10Raw + 0.15));
+      return { name: e.name, winProb: winProb, top10Prob: top10Prob };
+    });
+  }
+
+  function renderLivePredictions(lb) {
+    var panel = el('ls_livePredictions');
+    var tbody = el('ls_livePredBody');
+    if (!panel || !tbody) return;
+
+    var isAugusta = _activeCourse === 'augusta' && MASTERS_INTEL && window._liveHoleData;
+    if (!isAugusta || !lb || !lb.length) {
+      panel.classList.add('hidden');
+      return;
     }
+    // Only show when tournament is actually in progress (at least some holes played)
+    var anyPlayed = lb.some(function(r) { return r.thru && r.thru !== 0; });
+    if (!anyPlayed) { panel.classList.add('hidden'); return; }
+
+    panel.classList.remove('hidden');
+    var probs = computeLiveWinProbs(lb);
+    var probMap = {};
+    probs.forEach(function(p) { probMap[p.name] = p; });
+
+    tbody.innerHTML = lb.slice(0, 15).map(function(row, idx) {
+      var p = probMap[row.name] || { winProb: 0, top10Prob: 0 };
+      var winPct  = (p.winProb  * 100).toFixed(1);
+      var top10Pct = (p.top10Prob * 100).toFixed(1);
+
+      // Pre-tournament implied win % from book odds
+      var playerData = (window._playerData || []).find(function(x) {
+        return x.name && row.name && x.name.toLowerCase() === row.name.toLowerCase();
+      });
+      var preWinPct = null;
+      if (playerData) {
+        var bo = parseInt((playerData.odds && (playerData.odds.dk || playerData.odds.fd || playerData.odds.mgm)) || 0, 10);
+        if (bo) {
+          var dec = bo > 0 ? bo / 100 + 1 : 100 / Math.abs(bo) + 1;
+          preWinPct = +(1 / dec * 100).toFixed(1);
+        }
+      }
+
+      // vs Expected for current round
+      var rnd = row.currentRound || 1;
+      var ve = computeVsExpected(row.name, rnd);
+      var veStr = '—';
+      var veColor = 'color:rgba(200,215,230,0.3)';
+      if (ve && ve.holesPlayed > 0) {
+        veStr = (ve.delta >= 0 ? '+' : '') + ve.delta.toFixed(1);
+        veColor = ve.delta < -0.5 ? 'color:#15ffc2' : (ve.delta > 0.5 ? 'color:#ff1552' : 'color:rgba(200,215,230,0.5)');
+      }
+
+      // Delta vs pre-tournament odds
+      var deltaStr = '—';
+      var deltaColor = 'color:rgba(200,215,230,0.3)';
+      if (preWinPct !== null) {
+        var delta = +(parseFloat(winPct) - preWinPct).toFixed(1);
+        deltaStr = (delta >= 0 ? '↑' : '↓') + Math.abs(delta) + '%';
+        deltaColor = delta > 0.5 ? 'color:#15ffc2' : (delta < -0.5 ? 'color:#ff1552' : 'color:rgba(200,215,230,0.5)');
+      }
+
+      var pos = row.position || (idx + 1);
+      return '<tr>' +
+        '<td class="px-2 py-1.5 text-white font-medium">' + (row.name || '—') + '</td>' +
+        '<td class="px-2 py-1.5 text-center mono text-slate-400">' + pos + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono font-semibold" style="' + veColor + '">' + veStr + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono font-bold text-pb-teal">' + winPct + '%</td>' +
+        '<td class="px-2 py-1.5 text-right mono text-slate-300">' + top10Pct + '%</td>' +
+        '<td class="px-2 py-1.5 text-right mono text-slate-500 mobile-hide">' + (preWinPct !== null ? preWinPct + '%' : '—') + '</td>' +
+        '<td class="px-2 py-1.5 text-right mono font-semibold mobile-hide" style="' + deltaColor + '">' + deltaStr + '</td>' +
+      '</tr>';
+    }).join('');
   }
 
   // ============================================================
