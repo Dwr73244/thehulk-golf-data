@@ -2955,7 +2955,7 @@ def run_pipeline():
     resolved_course = match_venue_to_course(
         output.get("currentEvent", {}).get("course", ""),
         output.get("currentEvent", {}).get("name", "")
-    ) or "augusta"
+    ) or "tpc_sawgrass"  # generic default — not tournament-specific
     for player in output["players"]:
         try:
             conf, edge = calculate_player_confidence_score(
@@ -3021,11 +3021,17 @@ def run_pipeline():
                 player["evScore"] = calculate_ev_score(dk_odds, model_win_pct)
 
     # ============================================================
-    # MASTERS INTELLIGENCE
+    # MASTERS INTELLIGENCE (only during Masters week — early April)
     # ============================================================
-    masters_intel = bdl_build_masters_intel()
-    if masters_intel:
-        output["mastersIntel"] = masters_intel
+    now = datetime.now()
+    is_masters_week = now.month == 4 and 1 <= now.day <= 14
+    if is_masters_week:
+        masters_intel = bdl_build_masters_intel()
+        if masters_intel:
+            output["mastersIntel"] = masters_intel
+        print(f"  Masters Intel: {'loaded' if masters_intel else 'skipped (no data)'}")
+    else:
+        print(f"  Masters Intel: skipped (not Masters week — {now.strftime('%b %d')})")
 
     # (Tee times already fetched above before confidence score loop)
 
@@ -3040,10 +3046,7 @@ def run_pipeline():
     # ============================================================
     output["cutPrediction"] = predict_cut_line(
         output["players"],
-        match_venue_to_course(
-            output.get("currentEvent", {}).get("course", ""),
-            output.get("currentEvent", {}).get("name", "")
-        ) or "augusta"
+        resolved_course
     )
 
     # ============================================================

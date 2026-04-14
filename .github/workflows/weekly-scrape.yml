@@ -3,7 +3,7 @@ name: Golf Data Update
 on:
   schedule:
     # --- OFF-WEEK (Mon-Wed): 1x/day early morning ---
-    - cron: '0 6 * * 1'    # Monday 6AM UTC (2AM ET) — early odds
+    - cron: '0 5 * * 1'    # Monday 5AM UTC (1AM ET) — weekly reset: detect next tournament, refresh field + early odds
     - cron: '0 6 * * 2'    # Tuesday 6AM UTC
     - cron: '0 6 * * 3'    # Wednesday 6AM UTC — firmed-up odds before R1
 

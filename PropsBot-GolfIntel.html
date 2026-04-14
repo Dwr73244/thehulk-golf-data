@@ -2,11 +2,11 @@
 <html lang="en" class="h-full">
 <head>
   <meta charset="UTF-8" />
-  <title>Free Golf Betting Tool | Masters 2026 Picks, Player Props & Course Analytics | PropsBot AI</title>
+  <title>Free Golf Betting Tool | PGA Tour Player Props, Course Analytics & Live Odds | PropsBot AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Primary SEO -->
-  <meta name="description" content="Free AI-powered golf betting tool with Masters 2026 picks, player prop recommendations, hole-by-hole Augusta National analytics, live odds from DraftKings, FanDuel & BetMGM, and course fit scores. No signup required." />
+  <meta name="description" content="Free AI-powered golf betting tool with PGA Tour player prop recommendations, hole-by-hole course analytics, live odds from DraftKings, FanDuel & BetMGM, course fit scores, and strokes gained matchup predictor. No signup required." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://golf.propsbot.ai/" />
   <meta name="author" content="PropsBot AI" />
@@ -14,16 +14,16 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://golf.propsbot.ai/" />
-  <meta property="og:title" content="Free Golf Betting Tool — Masters 2026 Picks & Player Props | PropsBot AI" />
-  <meta property="og:description" content="AI-powered hole-by-hole Augusta analytics, live Masters odds, player props, and course fit scores. Free tool by PropsBot.AI — no signup needed." />
+  <meta property="og:title" content="Free Golf Betting Tool — PGA Tour Player Props & Live Odds | PropsBot AI" />
+  <meta property="og:description" content="AI-powered course analytics, live PGA Tour odds, player props, strokes gained predictor, and course fit scores. Free tool by PropsBot.AI — no signup needed." />
   <meta property="og:image" content="https://propsbot.ai/wp-content/uploads/2024/01/propsbot-og.png" />
   <meta property="og:site_name" content="PropsBot AI" />
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@PropsBot_AI" />
-  <meta name="twitter:title" content="Free Golf Betting Tool — Masters 2026 Picks & Player Props" />
-  <meta name="twitter:description" content="Hole-by-hole Augusta analytics, live Masters odds, player props & course fit scores. Free by PropsBot.AI." />
+  <meta name="twitter:title" content="Free Golf Betting Tool — PGA Tour Player Props & Live Odds" />
+  <meta name="twitter:description" content="Course analytics, live PGA Tour odds, player props & course fit scores. Free by PropsBot.AI." />
   <meta name="twitter:image" content="https://propsbot.ai/wp-content/uploads/2024/01/propsbot-og.png" />
 
   <!-- Schema.org JSON-LD for AI/GEO -->
@@ -35,40 +35,23 @@
         "@type": "WebApplication",
         "@id": "https://golf.propsbot.ai/#app",
         "name": "PropsBot Golf Intelligence",
-        "description": "Free AI-powered golf betting analytics tool providing Masters 2026 picks, player prop recommendations, hole-by-hole Augusta National scoring data, live multi-book odds, and course fit scores for PGA Tour events.",
+        "description": "Free AI-powered golf betting analytics tool providing PGA Tour player prop recommendations, hole-by-hole course scoring data, live multi-book odds, strokes gained matchup predictor, and course fit scores. Updates weekly for every PGA Tour event.",
         "url": "https://golf.propsbot.ai/",
         "applicationCategory": "SportsApplication",
         "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "provider": { "@type": "Organization", "name": "PropsBot AI", "url": "https://propsbot.ai" },
         "featureList": [
-          "Masters 2026 winner odds and picks",
-          "PGA Tour player prop recommendations",
-          "Hole-by-hole Augusta National scoring analytics",
-          "Course fit scores for 45+ players",
+          "Weekly PGA Tour tournament odds and picks",
+          "Player prop recommendations with value tiers",
+          "Hole-by-hole course scoring analytics by round",
+          "Course fit scores for 80+ players across 15+ venues",
           "Live odds from DraftKings, FanDuel, BetMGM, Bovada",
-          "3-day Augusta weather forecast",
+          "Tournament weather forecast",
           "Strokes Gained matchup predictor",
-          "Historical tournament data archive"
+          "Historical tournament data archive",
+          "Hole prop helper with O/U hit rates"
         ]
-      },
-      {
-        "@type": "SportsEvent",
-        "@id": "https://golf.propsbot.ai/#masters2026",
-        "name": "2026 Masters Tournament",
-        "startDate": "2026-04-09",
-        "endDate": "2026-04-12",
-        "location": {
-          "@type": "Place",
-          "name": "Augusta National Golf Club",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Augusta",
-            "addressRegion": "GA",
-            "addressCountry": "US"
-          }
-        },
-        "sport": "Golf"
       },
       {
         "@type": "BreadcrumbList",
@@ -433,7 +416,6 @@
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="props">Props Builder</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="tourney">Tournament Sim</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="coursedata">Course Data</button>
-    <button id="tabBtn_mastershq" class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="mastershq" style="border:1.5px solid rgba(240,192,64,0.4);background:rgba(240,192,64,0.06);color:#f0c040">Next Major</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="holeanalysis">Hole Analysis</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="livescores">📺 Live Scores</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="parlay">🎰 Parlay</button>
@@ -1219,7 +1201,7 @@
       <div class="flex items-center gap-3">
         <div id="ls_liveDot" class="hidden h-3 w-3 rounded-full bg-pb-teal animate-pulse"></div>
         <div>
-          <h2 class="text-base font-bold text-white" id="ls_tourneyName">2026 Masters Tournament</h2>
+          <h2 class="text-base font-bold text-white" id="ls_tourneyName">Current Tournament</h2>
           <p class="text-xs text-slate-400" id="ls_statusText">Apr 9–12 · Augusta National</p>
         </div>
       </div>
