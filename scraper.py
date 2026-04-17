@@ -1054,6 +1054,303 @@ def scrape_betting_odds():
 
 
 # ============================================================
+# FEATURE: 3-BALL ODDS + PREDICTIVE MODEL
+# ============================================================
+# A 3-ball is a bet on which of the 3 players in a tee-time group shoots the
+# lowest round. US books settle ties via dead-heat rules (win / n_tied).
+# Market = `3_balls` on The Odds API (also seen as `h2h_3_way` on some keys).
+# ============================================================
+
+THREEBALL_BOOK_MAP = {
+    "draftkings": "dk", "fanduel": "fd", "betmgm": "mgm", "caesars": "czr",
+    "pointsbetus": "pb", "bet365": "365", "bovada": "bov", "betonlineag": "bol",
+    "betrivers": "riv", "unibet_us": "uni", "wynnbet": "wyn", "superbook": "sup",
+    "twinspires": "twn", "betus": "bus", "lowvig": "low", "mybookieag": "myb",
+    "williamhill_us": "czr", "espnbet": "espn", "fliff": "flf", "hardrockbet": "hrb",
+    "fanatics": "fan",
+}
+
+
+def scrape_threeball_odds():
+    """Fetch 3-ball matchup odds from The Odds API.
+
+    Returns a list of groups:
+      [{"eventId", "commence", "round", "players": [{"name", "odds": [...]}]}]
+    Returns empty list outside of R1/R2 hours or when the market is not posted.
+    """
+    if not ODDS_API_KEY:
+        print("[3BALL] Skipping — no ODDS_API_KEY")
+        return []
+
+    GOLF_SPORT_KEYS = [
+        "golf_masters_tournament_winner",
+        "golf_pga_championship_winner",
+        "golf_us_open_winner",
+        "golf_the_open_championship_winner",
+        "golf_pga_tour_winner",
+    ]
+    # The Odds API exposes 3-ball matchups under these market keys.
+    # Different operators/seasons use different names — try both.
+    MARKET_KEYS = "3_balls,h2h_3_way"
+
+    print("[3BALL] Fetching 3-ball matchups from The Odds API...")
+
+    data = None
+    sport_key_used = None
+    for sport_key in GOLF_SPORT_KEYS:
+        url = (
+            f"https://api.the-odds-api.com/v4/sports/{sport_key}/odds"
+            f"?apiKey={ODDS_API_KEY}&regions=us&markets={MARKET_KEYS}&oddsFormat=american"
+        )
+        result = fetch_json(url)
+        if result and isinstance(result, list) and len(result) > 0:
+            # Only keep if at least one event has a 3-ball market
+            has_3ball = any(
+                any(m.get("key") in ("3_balls", "h2h_3_way") for bk in ev.get("bookmakers", []) for m in bk.get("markets", []))
+                for ev in result
+            )
+            if has_3ball:
+                data = result
+                sport_key_used = sport_key
+                break
+
+    if not data:
+        print("  No 3-ball markets posted on any golf sport key (expected outside R1/R2 windows)")
+        return []
+    print(f"  3-ball market live on sport key: {sport_key_used} ({len(data)} events)")
+
+    groups = []
+    for event in data:
+        # Collect odds per player across all books
+        players_map = {}  # canonical_name -> {name, odds: [{book, american}]}
+        for bk in event.get("bookmakers", []):
+            book_short = THREEBALL_BOOK_MAP.get(bk.get("key", ""), bk.get("key", "")[:3])
+            for market in bk.get("markets", []):
+                if market.get("key") not in ("3_balls", "h2h_3_way"):
+                    continue
+                for outcome in market.get("outcomes", []):
+                    name = outcome.get("name", "").strip()
+                    price = outcome.get("price")
+                    if not name or price is None:
+                        continue
+                    # Skip "tie" selections from 3-way+tie books — we handle ties in the model
+                    if name.lower() in ("tie", "the field", "draw"):
+                        continue
+                    key = normalize_name(name)
+                    if key not in players_map:
+                        players_map[key] = {"name": name, "odds": []}
+                    players_map[key]["odds"].append({"book": book_short, "american": int(price)})
+
+        if len(players_map) < 3:
+            continue  # Not a valid 3-ball
+
+        # Round inference from commence_time (day of week + hour)
+        commence = event.get("commence_time", "")
+        round_num = _infer_round_from_commence(commence)
+
+        group = {
+            "eventId": event.get("id", ""),
+            "commence": commence,
+            "round": round_num,
+            "players": list(players_map.values())[:3],  # safety cap
+        }
+        groups.append(group)
+
+    print(f"  Parsed {len(groups)} 3-ball groups")
+    return groups
+
+
+def _infer_round_from_commence(commence_iso):
+    """Map an ISO commence time to a round number. Thu=1, Fri=2, Sat=3, Sun=4."""
+    if not commence_iso:
+        return None
+    try:
+        # strip trailing Z
+        ts = commence_iso.replace("Z", "+00:00")
+        dt = datetime.fromisoformat(ts)
+        # weekday: Mon=0 ... Sun=6
+        wd = dt.weekday()
+        return {3: 1, 4: 2, 5: 3, 6: 4}.get(wd)
+    except (ValueError, TypeError):
+        return None
+
+
+def _american_to_implied_prob(american):
+    """Convert American odds to implied probability (0..1)."""
+    if american is None:
+        return None
+    if american >= 0:
+        return 100.0 / (american + 100.0)
+    return -american / (-american + 100.0)
+
+
+def _prob_to_american(p):
+    """Convert probability to American odds. Returns None if p not in (0,1)."""
+    if p is None or p <= 0 or p >= 1:
+        return None
+    if p >= 0.5:
+        return int(round(-100 * p / (1 - p)))
+    return int(round(100 * (1 - p) / p))
+
+
+def predict_threeballs(threeballs, players, course_key=None, weather=None,
+                       tournament_sg=None, sims=10000):
+    """Monte Carlo model for 3-ball win probability under dead-heat rules.
+
+    Model assumptions:
+      mean_score_i = par - (0.7 * sgTotal + 0.3 * liveTourneySG) * strokes_per_sg
+                         - courseFit_boost - form_boost + weather_penalty
+      score_i = round(mean_score_i + round_shock + individual_noise)
+
+    round_shock is shared across all 3 players in the group (course played
+    hard/easy that morning). Integer rounding produces realistic tie rates.
+    """
+    import random
+    random.seed(42)
+
+    # Build lookup of season SG by name
+    by_name = {normalize_name(p.get("name", "")): p for p in players}
+
+    # Build lookup of live tournament SG by name
+    live_sg = {}
+    for row in (tournament_sg or []):
+        live_sg[normalize_name(row.get("name", ""))] = row.get("sgTotal", 0) or 0
+
+    # Weather penalty — use average wind over round windows as a stroke penalty
+    wx_penalty = 0.0
+    wx_std_bump = 0.0
+    if isinstance(weather, dict):
+        wind_values = []
+        for day in (weather.get("forecast") or []):
+            w = day.get("windMph") or day.get("wind_mph") or day.get("wind")
+            if isinstance(w, (int, float)):
+                wind_values.append(w)
+        if wind_values:
+            avg_wind = sum(wind_values) / len(wind_values)
+            # Linear above 12 mph: each extra mph ≈ +0.08 strokes, +0.05 std dev
+            wx_penalty = max(0.0, (avg_wind - 12) * 0.08)
+            wx_std_bump = max(0.0, (avg_wind - 12) * 0.05)
+
+    PAR = 71  # PGA field-average round baseline (tour avg ~71.0 for par-70/71/72 mix)
+    BASE_STD = 2.85
+    ROUND_SHOCK_STD = 1.0  # course difficulty shift shared across group
+
+    for group in threeballs:
+        # Build per-player params
+        pp_list = []
+        for p in group["players"]:
+            pdata = by_name.get(normalize_name(p["name"]), {}) or {}
+            sg_season = pdata.get("sgTotal") or 0.0
+            sg_live = live_sg.get(normalize_name(p["name"]), 0.0) or 0.0
+            sg_blended = 0.7 * sg_season + 0.3 * sg_live if sg_live else sg_season
+
+            fit_boost = 0.0
+            if course_key:
+                fit = (pdata.get("courseFit") or {}).get(course_key)
+                if isinstance(fit, (int, float)):
+                    # 75 = neutral, range 60-100 → ±1 stroke
+                    fit_boost = (fit - 75) / 25.0
+
+            form_boost = 0.0
+            form = pdata.get("recentForm") or {}
+            if form.get("trend") == "hot":
+                form_boost = 0.25
+            elif form.get("trend") == "cold":
+                form_boost = -0.25
+
+            mean_score = PAR - sg_blended - fit_boost - form_boost + wx_penalty
+
+            # Individual variance: volatile players (high |sgPutt| swings, cold trends) get wider tails
+            volatility = 0.0
+            if form.get("trend") in ("hot", "cold"):
+                volatility += 0.15
+            std_i = BASE_STD + wx_std_bump + volatility
+
+            pp_list.append({
+                "player": p,
+                "mean": mean_score,
+                "std": std_i,
+                "sgBlended": round(sg_blended, 2),
+                "fitBoost": round(fit_boost, 2),
+            })
+
+        # Monte Carlo
+        n = len(pp_list)
+        clear_wins = [0] * n
+        tie2_wins = [0] * n  # times i was in a 2-way tie for lowest
+        tie3 = 0
+
+        for _ in range(sims):
+            shock = random.gauss(0.0, ROUND_SHOCK_STD)
+            scores = []
+            for pp in pp_list:
+                raw = pp["mean"] + shock + random.gauss(0.0, pp["std"])
+                scores.append(round(raw))  # integer strokes — enables realistic ties
+            lo = min(scores)
+            winners = [i for i, s in enumerate(scores) if s == lo]
+            if len(winners) == 1:
+                clear_wins[winners[0]] += 1
+            elif len(winners) == 2:
+                for i in winners:
+                    tie2_wins[i] += 1
+            else:
+                tie3 += 1
+
+        # Attach results to each player
+        for i, pp in enumerate(pp_list):
+            p_clear = clear_wins[i] / sims
+            p_t2 = tie2_wins[i] / sims
+            p_t3 = tie3 / sims
+            # Dead-heat-weighted win value (used for fair-odds + EV)
+            dh_value = p_clear + 0.5 * p_t2 + (1.0 / 3.0) * p_t3
+
+            odds_list = pp["player"].get("odds", [])
+            best = max(odds_list, key=lambda o: o["american"]) if odds_list else None
+            implied_best = _american_to_implied_prob(best["american"]) if best else None
+
+            ev = None
+            if best and dh_value > 0:
+                # Dead-heat EV on a $1 stake vs the best American line
+                am = best["american"]
+                payout_profit = (am / 100.0) if am > 0 else (100.0 / -am)
+                # Expected profit: clear win pays full, 2-tie pays half, 3-tie pays third, else -$1
+                ep = (
+                    p_clear * payout_profit
+                    + p_t2 * (payout_profit * 0.5) - p_t2 * 0.5
+                    + p_t3 * (payout_profit / 3.0) - p_t3 * (2.0 / 3.0)
+                    - (1 - p_clear - p_t2 - p_t3)
+                )
+                ev = round(ep * 100, 2)  # %EV per $1 staked
+
+            pp["player"].update({
+                "modelMean": round(pp["mean"], 2),
+                "modelStd": round(pp["std"], 2),
+                "sgBlended": pp["sgBlended"],
+                "fitBoost": pp["fitBoost"],
+                "pClearWin": round(p_clear, 4),
+                "pTie2": round(p_t2, 4),
+                "pTie3": round(p_t3, 4),
+                "deadHeatWinValue": round(dh_value, 4),
+                "fairOdds": _prob_to_american(dh_value),
+                "bestBook": best,
+                "impliedProbBest": round(implied_best, 4) if implied_best else None,
+                "ev": ev,
+            })
+
+        # Group-level metadata
+        group["dhRulesApplied"] = True
+        group["bookSample"] = sorted({o["book"] for p in group["players"] for o in p.get("odds", [])})
+        group["simCount"] = sims
+
+    # Sort groups by best available edge (descending)
+    def group_edge(g):
+        evs = [p.get("ev") for p in g["players"] if isinstance(p.get("ev"), (int, float))]
+        return max(evs) if evs else -999
+    threeballs.sort(key=group_edge, reverse=True)
+    return threeballs
+
+
+# ============================================================
 # FEATURE: RECENT FORM (L5/L10 from ESPN)
 # ============================================================
 
@@ -2847,6 +3144,7 @@ def run_pipeline():
             "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
             "DataGolf.com (rankings, SG breakdowns)",
             "ESPN API (live leaderboard + tee times)",
+            "The Odds API (outrights + 3-ball matchups)",
             "Open-Meteo (weather forecasts)",
             "Manual curation (course fit, betting notes)"
         ],
@@ -3388,6 +3686,27 @@ def run_pipeline():
     else:
         output["propsByType"] = {"top5": {}, "top10": {}, "top20": {}, "r1Leader": {}, "makeCut": {}}
 
+    # ============================================================
+    # 3-BALL MATCHUPS + PREDICTIVE MODEL
+    # ============================================================
+    threeballs_raw = scrape_threeball_odds()
+    if threeballs_raw:
+        threeballs_scored = predict_threeballs(
+            threeballs_raw,
+            players=output["players"],
+            course_key=resolved_course,
+            weather=output.get("weather"),
+            tournament_sg=output.get("tournamentSG") or [],
+            sims=10000,
+        )
+        output["threeBalls"] = threeballs_scored
+        edges = sum(1 for g in threeballs_scored
+                    for p in g["players"]
+                    if isinstance(p.get("ev"), (int, float)) and p["ev"] > 5)
+        print(f"[3BALL] {len(threeballs_scored)} groups modeled, {edges} picks with >5% EV")
+    else:
+        output["threeBalls"] = []
+
     # ---- DATA QUALITY METADATA ----
     ce = output.get("currentEvent") or {}
     lb = ce.get("leaderboard") or []
@@ -3404,6 +3723,12 @@ def run_pipeline():
         "tournamentStatus": ce.get("status", ""),
         "teeTimesTotal": len(output.get("teeTimes") or []),
         "teeTimesWithValues": sum(1 for t in (output.get("teeTimes") or []) if t.get("teeTime")),
+        "threeBallGroups": len(output.get("threeBalls") or []),
+        "threeBallEdges5pct": sum(
+            1 for g in (output.get("threeBalls") or [])
+            for p in g.get("players", [])
+            if isinstance(p.get("ev"), (int, float)) and p["ev"] > 5
+        ),
     }
 
     # ---- WRITE OUTPUT ----
