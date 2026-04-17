@@ -293,27 +293,45 @@ def scrape_espn_leaderboard():
             event_info["city"] = venue.get("address", {}).get("city", "")
             event_info["state"] = venue.get("address", {}).get("state", "")
 
-        # Get leaderboard
+        # Get leaderboard — ESPN now returns score on the competitor directly,
+        # and per-round scores in linescores[].value (stroke total per round).
         leaderboard = []
         for comp in competitions:
             for competitor in comp.get("competitors", []):
-                athlete = competitor.get("athlete", {})
-                stats = {}
-                for s in competitor.get("statistics", []):
-                    stats[s.get("name", "")] = s.get("displayValue", s.get("value", ""))
+                athlete = competitor.get("athlete", {}) or {}
+                status = competitor.get("status") or {}
+                linescores = competitor.get("linescores") or []
+
+                rounds = [0.0, 0.0, 0.0, 0.0]
+                total_strokes = 0.0
+                for ls in linescores:
+                    period = ls.get("period")
+                    value = ls.get("value")
+                    if period and 1 <= period <= 4 and isinstance(value, (int, float)) and value > 0:
+                        rounds[period - 1] = float(value)
+                        total_strokes += float(value)
+
+                score = competitor.get("score", "")
+                position = (
+                    (status.get("position") or {}).get("displayName")
+                    if isinstance(status, dict) else None
+                ) or str(competitor.get("order", "") or "")
 
                 entry = {
                     "name": athlete.get("displayName", ""),
-                    "position": competitor.get("status", {}).get("position", {}).get("displayName", ""),
-                    "score": competitor.get("score", ""),
-                    "totalStrokes": safe_float(stats.get("totalStrokes", 0)),
-                    "round1": safe_float(stats.get("round1", 0)),
-                    "round2": safe_float(stats.get("round2", 0)),
-                    "round3": safe_float(stats.get("round3", 0)),
-                    "round4": safe_float(stats.get("round4", 0)),
-                    "thru": competitor.get("status", {}).get("thru", ""),
+                    "position": position,
+                    "score": score,
+                    "totalStrokes": total_strokes,
+                    "round1": rounds[0],
+                    "round2": rounds[1],
+                    "round3": rounds[2],
+                    "round4": rounds[3],
+                    "thru": (status.get("thru", "") if isinstance(status, dict) else ""),
                 }
                 leaderboard.append(entry)
+
+        # ESPN returns leaderboard in finish order already — preserve it
+        # (earliest rounds list the leader first via `order`).
 
         event_info["leaderboard"] = leaderboard
         print(f"  Found event: {event_info['name']} with {len(leaderboard)} players")
@@ -920,8 +938,8 @@ def archive_data(output, base_dir):
 
     date_str = datetime.now().strftime("%Y-%m-%d")
     archive_path = os.path.join(history_dir, f"{date_str}.json")
-    with open(archive_path, "w") as f:
-        json.dump(output, f, separators=(",", ":"))  # compact
+    with open(archive_path, "w", encoding="utf-8") as f:
+        json.dump(output, f, separators=(",", ":"), ensure_ascii=False)  # compact
 
     print(f"  Archived to {archive_path}")
 
@@ -1657,28 +1675,58 @@ def bdl_build_masters_intel(tournament_id=20, course_id=37):
 # TEE TIMES — ESPN FREE API
 # ============================================================
 
-def fetch_tee_times():
-    """Fetch tee times from ESPN's PGA Tour API for the current event."""
+def fetch_tee_times(bdl_field=None):
+    """Fetch tee times, preferring BallDontLie field data (paid, structured).
+    Falls back to ESPN scoreboard. BDL exposes tee_time on tournament_field rows."""
+    tee_times = []
+
+    # Preferred: BDL tournament_field (we pay for it — use it)
+    if bdl_field:
+        print(f"[TEE TIMES] Using BDL tournament field ({len(bdl_field)} entries)")
+        for row in bdl_field:
+            player = row.get("player") or {}
+            if isinstance(player, dict):
+                name = (player.get("display_name")
+                        or f"{player.get('first_name','')} {player.get('last_name','')}".strip())
+            else:
+                name = str(player)
+            tee_time = row.get("tee_time") or row.get("teeTime") or ""
+            start_hole = row.get("start_hole") or row.get("starting_hole") or 1
+            round_num = row.get("round") or row.get("round_number") or 1
+            if name:
+                tee_times.append({
+                    "player": name,
+                    "teeTime": tee_time,
+                    "round": round_num,
+                    "startHole": start_hole,
+                })
+        with_times = sum(1 for t in tee_times if t["teeTime"])
+        if with_times > 0:
+            print(f"  {with_times}/{len(tee_times)} entries have tee times")
+            return tee_times
+        print("  BDL field had no tee_time values — falling back to ESPN")
+        tee_times = []
+
+    # Fallback: ESPN scoreboard
     print("[TEE TIMES] Fetching tee times from ESPN...")
     url = "https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard"
     data = fetch_json(url)
     if not data:
-        return []
+        return tee_times
 
-    tee_times = []
     try:
         events = data.get("events", [])
         if not events:
-            return []
+            return tee_times
         event = events[0]
         for comp in event.get("competitions", []):
+            round_num = (comp.get("status") or {}).get("period", 1)
             for competitor in comp.get("competitors", []):
-                athlete = competitor.get("athlete", {})
+                athlete = competitor.get("athlete", {}) or {}
                 name = athlete.get("displayName", "")
-                tee_time = competitor.get("status", {}).get("teeTime", "")
-                round_num = comp.get("status", {}).get("period", 1)
-                hole = competitor.get("status", {}).get("hole", 1)
-                group = competitor.get("linescores", [{}])[0].get("value", "") if competitor.get("linescores") else ""
+                status = competitor.get("status") or {}
+                tee_time = status.get("teeTime", "") if isinstance(status, dict) else ""
+                hole = status.get("hole", 1) if isinstance(status, dict) else 1
                 if name:
                     tee_times.append({
                         "player": name,
@@ -1686,7 +1734,7 @@ def fetch_tee_times():
                         "round": round_num,
                         "startHole": hole,
                     })
-        print(f"  Got {len(tee_times)} tee time entries")
+        print(f"  Got {len(tee_times)} tee time entries from ESPN")
     except Exception as e:
         print(f"  Error parsing tee times: {e}")
     return tee_times
@@ -2798,7 +2846,7 @@ def run_pipeline():
         "sources": [
             "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
             "DataGolf.com (rankings, SG breakdowns)",
-            "ESPN API (leaderboard fallback)",
+            "ESPN API (live leaderboard + tee times)",
             "Open-Meteo (weather forecasts)",
             "Manual curation (course fit, betting notes)"
         ],
@@ -2950,6 +2998,29 @@ def run_pipeline():
     # Use ESPN event if BDL didn't provide one
     if not output["currentEvent"] and espn_event:
         output["currentEvent"] = espn_event
+
+    # Merge ESPN live scores into BDL event when BDL shell has empty leaderboard.
+    # BDL's tournament_results often lags live play, so we prefer live ESPN scores
+    # whenever the BDL leaderboard is missing totalStrokes for all entries.
+    ce = output.get("currentEvent") or {}
+    if espn_event and ce:
+        bdl_lb = ce.get("leaderboard") or []
+        bdl_has_scores = any((p.get("totalStrokes") or 0) > 0 for p in bdl_lb)
+        espn_lb = espn_event.get("leaderboard") or []
+        espn_has_scores = any((p.get("totalStrokes") or 0) > 0 for p in espn_lb)
+        status_live = str(ce.get("status", "")).upper() in ("IN_PROGRESS", "IN PROGRESS", "COMPLETED", "STATUS_IN_PROGRESS")
+        if espn_has_scores and (not bdl_has_scores or len(bdl_lb) == 0):
+            print(f"[PIPELINE] Replacing empty BDL leaderboard with live ESPN data ({len(espn_lb)} entries)")
+            ce["leaderboard"] = espn_lb[:80]
+            ce["leaderboardSource"] = "ESPN"
+        elif bdl_has_scores:
+            ce["leaderboardSource"] = "BallDontLie"
+        # Fill missing city/state/course from ESPN if BDL omitted them
+        for k in ("city", "state", "course"):
+            if not ce.get(k) and espn_event.get(k):
+                ce[k] = espn_event[k]
+        if status_live and not (ce.get("leaderboard") or []):
+            print("[PIPELINE] WARNING: tournament is live but leaderboard is empty from all sources")
 
     # ============================================================
     # MERGE PLAYER DATA
@@ -3182,7 +3253,7 @@ def run_pipeline():
     # ============================================================
     # TEE TIMES (fetched early so confidence score can use morning_adv)
     # ============================================================
-    tee_times = fetch_tee_times()
+    tee_times = fetch_tee_times(bdl_field=bdl_field)
     output["teeTimes"] = tee_times
     # Stash tee time on each player for confidence score morning_adv
     if tee_times:
@@ -3317,10 +3388,28 @@ def run_pipeline():
     else:
         output["propsByType"] = {"top5": {}, "top10": {}, "top20": {}, "r1Leader": {}, "makeCut": {}}
 
+    # ---- DATA QUALITY METADATA ----
+    ce = output.get("currentEvent") or {}
+    lb = ce.get("leaderboard") or []
+    players_with_odds = sum(1 for p in output["players"] if p.get("odds"))
+    players_with_form = sum(1 for p in output["players"] if p.get("recentForm"))
+    output["dataQuality"] = {
+        "leaderboardEntries": len(lb),
+        "leaderboardSource": ce.get("leaderboardSource", "none"),
+        "leaderboardHasScores": any((p.get("totalStrokes") or 0) > 0 for p in lb),
+        "playersTotal": len(output["players"]),
+        "playersWithOdds": players_with_odds,
+        "playersWithForm": players_with_form,
+        "oddsCoverage": round(players_with_odds / max(len(output["players"]), 1), 3),
+        "tournamentStatus": ce.get("status", ""),
+        "teeTimesTotal": len(output.get("teeTimes") or []),
+        "teeTimesWithValues": sum(1 for t in (output.get("teeTimes") or []) if t.get("teeTime")),
+    }
+
     # ---- WRITE OUTPUT ----
     output_path = os.path.join(base_dir, OUTPUT_FILE)
-    with open(output_path, "w") as f:
-        json.dump(output, f, indent=2)
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
     # ---- ARCHIVE ----
     archive_data(output, base_dir)
