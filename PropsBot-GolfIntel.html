@@ -418,6 +418,7 @@
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="coursedata">Course Data</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="holeanalysis">Hole Analysis</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="livescores">📺 Live Scores</button>
+    <button class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="monitor" style="border:1.5px solid rgba(21,255,194,0.35);background:linear-gradient(135deg,rgba(9,213,160,0.1),rgba(34,169,236,0.1));color:#15ffc2;">🏆 Monitor</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="parlay">🎰 Parlay</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="news">📰 News</button>
     <button class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="edgefinder" style="border:1.5px solid rgba(21,255,194,0.35);background:rgba(21,255,194,0.05);color:#15ffc2;">🔍 Edge Finder</button>
@@ -1319,6 +1320,199 @@
     </div>
   </div>
 
+  <!-- ==================== TAB: TOURNAMENT MONITOR ==================== -->
+  <div id="tab-monitor" class="tab-content hidden fade-in">
+    <style>
+      .mon-glass { background:rgba(18,28,45,0.92); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid rgba(100,200,220,0.07); box-shadow:0 8px 32px rgba(0,0,0,0.35); border-radius:14px; }
+      .mon-card { background:linear-gradient(165deg, rgba(30,45,65,0.55), rgba(18,30,50,0.5)); border:1px solid rgba(100,200,220,0.07); border-radius:12px; }
+      .mon-label { font-family:'Inter',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.8px; text-transform:uppercase; color:rgba(200,215,230,0.55); }
+      .mon-mono { font-family:'JetBrains Mono','Courier New',monospace; }
+      .mon-accent-bar { height:2px; background:linear-gradient(135deg,#09d5a0,#22a9ec); border-radius:2px; }
+      .mon-dot-r { width:10px; height:10px; border-radius:50%; display:inline-block; }
+      .mon-chevron { flex:1; height:8px; background:rgba(100,200,220,0.07); border-radius:2px; position:relative; overflow:hidden; }
+      .mon-chevron.active { background:linear-gradient(90deg,#09d5a0,#22a9ec); box-shadow:0 0 10px rgba(21,255,194,0.4); }
+      .mon-chevron.done { background:rgba(21,255,194,0.35); }
+      .mon-pulse { animation:monPulse 1.6s ease-in-out infinite; }
+      @keyframes monPulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+      .mon-ticker-wrap { overflow:hidden; position:relative; }
+      .mon-ticker-inner { display:inline-flex; gap:48px; padding-right:48px; white-space:nowrap; animation:monTicker 90s linear infinite; }
+      @keyframes monTicker { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+      .mon-radar-track { position:relative; height:46px; background:linear-gradient(90deg,rgba(21,255,194,0.06) 0%,rgba(21,255,194,0.06) var(--cut-pct,50%),rgba(255,21,82,0.08) var(--cut-pct,50%),rgba(255,21,82,0.08) 100%); border-radius:8px; border:1px solid rgba(100,200,220,0.08); }
+      .mon-radar-cut { position:absolute; top:-4px; bottom:-4px; width:2px; background:#f0c040; box-shadow:0 0 8px rgba(240,192,64,0.6); z-index:2; }
+      .mon-radar-dot { position:absolute; width:6px; height:6px; border-radius:50%; top:50%; transform:translate(-50%,-50%); z-index:1; }
+      .mon-lb-row { display:grid; grid-template-columns:28px 1fr 36px 46px 46px 38px; gap:6px; align-items:center; padding:6px 10px; border-bottom:1px solid rgba(100,200,220,0.05); font-size:12px; }
+      .mon-lb-row:hover { background:rgba(21,255,194,0.03); }
+      .mon-momentum-up { color:#15ffc2; }
+      .mon-momentum-down { color:#ff1552; }
+      .mon-momentum-flat { color:rgba(200,215,230,0.25); }
+      .mon-wind-arrow { display:inline-block; transform-origin:center; }
+      @media (max-width: 900px) {
+        .mon-hero-grid { grid-template-columns:1fr !important; }
+        .mon-main-grid { grid-template-columns:1fr !important; }
+      }
+    </style>
+
+    <!-- TOP STRIP -->
+    <div class="mon-glass p-4 mb-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-2 h-2 rounded-full mon-pulse" id="mon_statusDot" style="background:#15ffc2;"></div>
+          <div>
+            <div class="text-base font-bold text-white" id="mon_evtName">Tournament Monitor</div>
+            <div class="text-[11px] text-slate-400" id="mon_evtMeta">Loading…</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2" id="mon_roundDots" style="min-width:180px;max-width:320px;flex:1;">
+          <div class="mon-chevron"></div><div class="mon-chevron"></div><div class="mon-chevron"></div><div class="mon-chevron"></div>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="text-right">
+            <div class="mon-label">Augusta, GA</div>
+            <div class="mon-mono text-sm text-white" id="mon_wxQuick">—</div>
+          </div>
+          <div class="text-right">
+            <div class="mon-label">ET Now</div>
+            <div class="mon-mono text-sm font-bold" id="mon_clock" style="color:#f0c040">—:—</div>
+          </div>
+          <div id="mon_liveBadge" class="px-2 py-1 rounded text-[10px] font-bold tracking-wider" style="background:rgba(21,255,194,0.12);color:#15ffc2;border:1px solid rgba(21,255,194,0.35);">LIVE</div>
+        </div>
+      </div>
+      <div class="mon-accent-bar mt-3"></div>
+    </div>
+
+    <!-- HERO ROW: Leader Spotlight + Top Confidence Picks -->
+    <div class="grid gap-4 mb-4 mon-hero-grid" style="grid-template-columns:2fr 1fr;">
+      <!-- LEADER SPOTLIGHT -->
+      <div class="mon-glass p-5" id="mon_spotlight" style="min-height:200px;background:linear-gradient(135deg,rgba(21,255,194,0.06),rgba(34,169,236,0.04),rgba(18,28,45,0.92) 70%);">
+        <div class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase">Current Leader</div>
+        <div id="mon_spotlightBody" class="mt-2">
+          <div class="text-slate-500 text-sm">Waiting for live data…</div>
+        </div>
+      </div>
+      <!-- TOP CONFIDENCE PICKS -->
+      <div class="mon-glass p-4" id="mon_confPicks" style="min-height:200px;">
+        <div class="flex items-center justify-between mb-3">
+          <div class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase">PropsBot Top Picks</div>
+          <div class="text-[9px]" style="color:#15ffc2;">● MODEL</div>
+        </div>
+        <div id="mon_confPicksBody" class="space-y-2.5">
+          <div class="text-slate-500 text-xs">Loading…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- METRICS STRIP -->
+    <div id="mon_metrics" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
+      <div class="mon-card p-3"><div class="mon-label">Leader Score</div><div class="mon-mono text-xl font-bold mt-1" id="mon_mLeader" style="color:#15ffc2;">—</div></div>
+      <div class="mon-card p-3"><div class="mon-label">Field Size</div><div class="mon-mono text-xl font-bold mt-1 text-white" id="mon_mField">—</div></div>
+      <div class="mon-card p-3"><div class="mon-label">Cut Line</div><div class="mon-mono text-xl font-bold mt-1" id="mon_mCut" style="color:#f0c040">—</div></div>
+      <div class="mon-card p-3"><div class="mon-label">Scoring Avg</div><div class="mon-mono text-xl font-bold mt-1 text-white" id="mon_mAvg">—</div></div>
+      <div class="mon-card p-3"><div class="mon-label">Round</div><div class="mon-mono text-xl font-bold mt-1" id="mon_mRound" style="color:#22a9ec">—</div></div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="grid gap-4 mb-4 mon-main-grid" style="grid-template-columns:3fr 2fr;">
+      <!-- LEFT: LEADERBOARD + CUT RADAR -->
+      <div class="space-y-4">
+        <div class="mon-glass p-4">
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-xs font-bold text-white">Leaderboard · Top 20</div>
+            <div class="text-[10px] text-slate-500">Position · Momentum</div>
+          </div>
+          <div class="mon-lb-row" style="border-bottom:1px solid rgba(100,200,220,0.12);padding-top:0;padding-bottom:6px;">
+            <div class="mon-label">Pos</div>
+            <div class="mon-label">Player</div>
+            <div class="mon-label text-right">Mov</div>
+            <div class="mon-label text-right">Total</div>
+            <div class="mon-label text-right">Today</div>
+            <div class="mon-label text-right">Thru</div>
+          </div>
+          <div id="mon_lbBody">
+            <div class="text-slate-500 text-xs p-4 text-center">Loading leaderboard…</div>
+          </div>
+        </div>
+
+        <div class="mon-glass p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs font-bold text-white">Cut Line Radar</div>
+            <div class="text-[10px] text-slate-500" id="mon_cutMeta">—</div>
+          </div>
+          <div class="mon-radar-track" id="mon_radarTrack">
+            <div class="mon-radar-cut" id="mon_radarCutMarker" style="left:50%;"></div>
+          </div>
+          <div class="flex justify-between mt-2 text-[10px] mon-mono" style="color:rgba(200,215,230,0.5);">
+            <span id="mon_radarMin">—</span>
+            <span style="color:#f0c040" id="mon_radarCutLabel">CUT —</span>
+            <span id="mon_radarMax">—</span>
+          </div>
+          <div class="flex items-center gap-4 mt-3 text-[10px]">
+            <span><span class="mon-dot-r" style="background:#15ffc2;"></span> <span class="text-slate-400 ml-1">Safe</span></span>
+            <span><span class="mon-dot-r" style="background:#f0c040;"></span> <span class="text-slate-400 ml-1">Bubble (±2)</span></span>
+            <span><span class="mon-dot-r" style="background:#ff1552;"></span> <span class="text-slate-400 ml-1">Miss</span></span>
+          </div>
+          <div class="text-[10px] text-slate-500 mt-2" id="mon_cutNote"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT RAIL -->
+      <div class="space-y-4">
+        <!-- LIVE MARKET -->
+        <div class="mon-glass p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs font-bold text-white">Live Win Market</div>
+            <div class="text-[9px]" style="color:#f0c040">● ODDS</div>
+          </div>
+          <div id="mon_marketBody" class="space-y-2">
+            <div class="text-slate-500 text-xs">Loading…</div>
+          </div>
+        </div>
+        <!-- CONDITIONS -->
+        <div class="mon-glass p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs font-bold text-white">Course Conditions</div>
+            <div class="text-[9px] text-slate-500">AUGUSTA</div>
+          </div>
+          <div id="mon_condBody">
+            <div class="text-slate-500 text-xs">Loading…</div>
+          </div>
+        </div>
+        <!-- HOLE SPOTLIGHT -->
+        <div class="mon-glass p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs font-bold text-white">Hole Spotlight</div>
+            <div class="flex gap-1">
+              <button class="text-[10px] px-1.5 py-0.5 rounded" id="mon_holePrev" style="background:rgba(100,200,220,0.08);color:rgba(200,215,230,0.7);">◀</button>
+              <button class="text-[10px] px-1.5 py-0.5 rounded" id="mon_holeNext" style="background:rgba(100,200,220,0.08);color:rgba(200,215,230,0.7);">▶</button>
+            </div>
+          </div>
+          <div id="mon_holeBody">
+            <div class="text-slate-500 text-xs">Loading…</div>
+          </div>
+        </div>
+        <!-- NEWS -->
+        <div class="mon-glass p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs font-bold text-white">Latest</div>
+            <div class="text-[9px] text-slate-500">NEWS</div>
+          </div>
+          <div id="mon_newsBody" class="space-y-2.5 max-h-72 overflow-y-auto">
+            <div class="text-slate-500 text-xs">Loading…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TICKER -->
+    <div class="mon-glass px-4 py-2.5">
+      <div class="flex items-center gap-3">
+        <div class="text-[10px] font-bold tracking-widest" style="color:#f0c040;">● HEADLINES</div>
+        <div class="mon-ticker-wrap flex-1">
+          <div class="mon-ticker-inner mon-mono text-[11px] text-slate-300" id="mon_tickerInner">Loading…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== TAB: PARLAY BUILDER ==================== -->
   <div id="tab-parlay" class="tab-content hidden fade-in space-y-5">
     <div class="glass rounded-2xl p-5 glow-teal">
@@ -1793,6 +1987,567 @@
   }
 
   /* ============================================================
+     TOURNAMENT MONITOR
+  ============================================================ */
+  var _monPrevPos = {};
+  var _monHoleIdx = 0;
+  var _monHoleTimer = null;
+  var _monClockTimer = null;
+
+  function monEl(id) { return document.getElementById(id); }
+
+  function renderMonitor() {
+    renderMonTopStrip();
+    renderMonSpotlight();
+    renderMonConfPicks();
+    renderMonMetrics();
+    renderMonLeaderboard();
+    renderMonCutRadar();
+    renderMonMarket();
+    renderMonConditions();
+    renderMonHole();
+    renderMonNews();
+    renderMonTicker();
+    // Start clock + hole rotation
+    if (!_monClockTimer) {
+      _monClockTimer = setInterval(function() {
+        var c = monEl('mon_clock');
+        if (c) c.textContent = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/New_York' });
+      }, 15000);
+    }
+    var c0 = monEl('mon_clock');
+    if (c0) c0.textContent = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/New_York' });
+    if (!_monHoleTimer) {
+      _monHoleTimer = setInterval(function() {
+        var intel = MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
+        if (!intel || !intel.length) return;
+        _monHoleIdx = (_monHoleIdx + 1) % intel.length;
+        renderMonHole();
+      }, 15000);
+    }
+  }
+
+  function monGetLeaderboard() {
+    // Prefer ESPN live; fall back to currentEvent.leaderboard
+    if (window._liveLeaderboard && window._liveLeaderboard.length) return window._liveLeaderboard;
+    if (_liveLeaderboard && _liveLeaderboard.length) return _liveLeaderboard;
+    var le = (window._liveData && window._liveData.currentEvent && window._liveData.currentEvent.leaderboard) || [];
+    return le;
+  }
+
+  function monTournamentMeta() {
+    var ce = (window._liveData && window._liveData.currentEvent) || {};
+    return {
+      name: ce.name || 'Tournament',
+      city: ce.city || '',
+      state: ce.state || '',
+      status: ce.status || ''
+    };
+  }
+
+  function monCurrentRound() {
+    var lb = monGetLeaderboard();
+    var maxR = 0;
+    for (var i = 0; i < lb.length; i++) {
+      var r = lb[i].currentRound || 0;
+      if (r > maxR) maxR = r;
+    }
+    return maxR || 1;
+  }
+
+  function monToParFromTotal(totalStr) {
+    if (totalStr === '' || totalStr == null) return null;
+    if (typeof totalStr === 'number') return totalStr;
+    var s = String(totalStr).trim();
+    if (s === 'E' || s === 'e') return 0;
+    var n = parseInt(s, 10);
+    return isNaN(n) ? null : n;
+  }
+
+  function monFmtToPar(n) {
+    if (n == null || isNaN(n)) return '—';
+    if (n === 0) return 'E';
+    return (n > 0 ? '+' : '') + n;
+  }
+
+  function monToParColor(n) {
+    if (n == null) return 'rgba(200,215,230,0.4)';
+    if (n < 0) return '#15ffc2';
+    if (n === 0) return '#f0c040';
+    return '#ff1552';
+  }
+
+  function monFindPlayer(name) {
+    if (!name) return null;
+    var players = window.PLAYERS || window._playerData || [];
+    var lower = name.toLowerCase();
+    for (var i = 0; i < players.length; i++) {
+      if (players[i].name && players[i].name.toLowerCase() === lower) return players[i];
+    }
+    return null;
+  }
+
+  function renderMonTopStrip() {
+    var meta = monTournamentMeta();
+    var nameEl = monEl('mon_evtName');
+    var metaEl = monEl('mon_evtMeta');
+    if (nameEl) nameEl.textContent = meta.name;
+    if (metaEl) {
+      var parts = [];
+      if (meta.city) parts.push(meta.city + (meta.state ? ', ' + meta.state : ''));
+      var r = monCurrentRound();
+      if (r) parts.push('Round ' + r + ' of 4');
+      metaEl.textContent = parts.join(' · ') || 'Live';
+    }
+    // Weather quick
+    var wx = (window._liveData && window._liveData.weather) || (MASTERS_INTEL && MASTERS_INTEL.weather) || null;
+    var wxEl = monEl('mon_wxQuick');
+    if (wxEl) {
+      if (wx && wx.forecast && wx.forecast.length) {
+        var d0 = wx.forecast[0];
+        var temp = d0.tempHigh != null ? Math.round(d0.tempHigh) + '°F' : '';
+        var wind = d0.windAvg != null ? Math.round(d0.windAvg) + 'mph' : '';
+        wxEl.textContent = [temp, wind].filter(Boolean).join(' · ') || '—';
+      } else {
+        wxEl.textContent = '—';
+      }
+    }
+    // Round chevrons
+    var dotsWrap = monEl('mon_roundDots');
+    if (dotsWrap) {
+      var cur = monCurrentRound();
+      dotsWrap.innerHTML = '';
+      for (var i = 1; i <= 4; i++) {
+        var div = document.createElement('div');
+        div.className = 'mon-chevron' + (i < cur ? ' done' : (i === cur ? ' active' : ''));
+        dotsWrap.appendChild(div);
+      }
+    }
+    // Live badge
+    var tStatus = window._tournamentStatus || '';
+    var badge = monEl('mon_liveBadge');
+    var dot = monEl('mon_statusDot');
+    if (badge) {
+      if (tStatus === 'COMPLETED') {
+        badge.textContent = 'FINAL';
+        badge.style.background = 'rgba(240,192,64,0.12)';
+        badge.style.color = '#f0c040';
+        badge.style.border = '1px solid rgba(240,192,64,0.35)';
+        if (dot) { dot.style.background = '#f0c040'; dot.classList.remove('mon-pulse'); }
+      } else if (tStatus === 'IN_PROGRESS') {
+        badge.textContent = 'LIVE';
+        badge.style.background = 'rgba(21,255,194,0.12)';
+        badge.style.color = '#15ffc2';
+        badge.style.border = '1px solid rgba(21,255,194,0.35)';
+        if (dot) { dot.style.background = '#15ffc2'; dot.classList.add('mon-pulse'); }
+      } else {
+        badge.textContent = 'PRE-TOURNEY';
+        badge.style.background = 'rgba(100,200,220,0.08)';
+        badge.style.color = 'rgba(200,215,230,0.7)';
+        badge.style.border = '1px solid rgba(100,200,220,0.15)';
+        if (dot) { dot.style.background = 'rgba(200,215,230,0.4)'; dot.classList.remove('mon-pulse'); }
+      }
+    }
+  }
+
+  function renderMonSpotlight() {
+    var lb = monGetLeaderboard();
+    var body = monEl('mon_spotlightBody');
+    if (!body) return;
+    if (!lb.length) {
+      body.innerHTML = '<div class="text-slate-500 text-sm">Waiting for live data…</div>';
+      return;
+    }
+    var leader = lb[0];
+    var name = leader.name || '—';
+    var score = leader.totalScore != null ? leader.totalScore : (leader.score != null ? leader.score : '');
+    var toPar = monToParFromTotal(score);
+    var today = leader.today || '';
+    var todayN = monToParFromTotal(today);
+    var thru = leader.thru != null ? leader.thru : '';
+    var player = monFindPlayer(name);
+    var sgTotal = player && player.sgTotal != null ? player.sgTotal : null;
+    var confScore = player && player.confScore != null ? player.confScore : null;
+    var initials = name.split(/\s+/).map(function(w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+    var bestOdds = null;
+    if (player && player.odds) {
+      var books = ['dk', 'fd', 'mgm', 'bet', 'bov'];
+      for (var i = 0; i < books.length; i++) { if (player.odds[books[i]]) { bestOdds = player.odds[books[i]]; break; } }
+    }
+    body.innerHTML =
+      '<div class="flex items-center gap-4 flex-wrap">' +
+        '<div style="width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,#09d5a0,#22a9ec);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#0a1220;flex-shrink:0;">' + (initials || '?') + '</div>' +
+        '<div style="flex:1;min-width:160px;">' +
+          '<div class="text-2xl font-extrabold text-white" style="letter-spacing:-0.5px;">' + name + '</div>' +
+          '<div class="flex items-center gap-4 mt-1 flex-wrap">' +
+            '<div class="mon-mono text-3xl font-black" style="color:' + monToParColor(toPar) + ';">' + monFmtToPar(toPar) + '</div>' +
+            (todayN != null ? '<div><div class="mon-label">Today</div><div class="mon-mono font-bold" style="color:' + monToParColor(todayN) + ';">' + monFmtToPar(todayN) + '</div></div>' : '') +
+            (thru !== '' && thru != null ? '<div><div class="mon-label">Thru</div><div class="mon-mono font-bold text-white">' + thru + '</div></div>' : '') +
+            (sgTotal != null ? '<div><div class="mon-label">SG Total</div><div class="mon-mono font-bold" style="color:' + (sgTotal >= 0 ? '#15ffc2' : '#ff1552') + ';">' + (sgTotal >= 0 ? '+' : '') + sgTotal.toFixed(2) + '</div></div>' : '') +
+            (confScore != null ? '<div><div class="mon-label">Confidence</div><div class="mon-mono font-bold" style="color:' + (confScore >= 70 ? '#15ffc2' : confScore >= 40 ? '#22a9ec' : '#ff1552') + ';">' + Math.round(confScore) + '</div></div>' : '') +
+            (bestOdds ? '<div><div class="mon-label">Best Win</div><div class="mon-mono font-bold" style="color:#f0c040;">' + bestOdds + '</div></div>' : '') +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderMonConfPicks() {
+    var body = monEl('mon_confPicksBody');
+    if (!body) return;
+    var players = window.PLAYERS || window._playerData || [];
+    if (!players.length) {
+      body.innerHTML = '<div class="text-slate-500 text-xs">No player data.</div>';
+      return;
+    }
+    // Top 5 by edgeScore then confScore
+    var sorted = players.filter(function(p) { return (p.confScore != null) || (p.edgeScore != null); }).slice();
+    sorted.sort(function(a, b) {
+      var ea = a.edgeScore != null ? a.edgeScore : -999;
+      var eb = b.edgeScore != null ? b.edgeScore : -999;
+      if (eb !== ea) return eb - ea;
+      return (b.confScore || 0) - (a.confScore || 0);
+    });
+    var top = sorted.slice(0, 5);
+    if (!top.length) {
+      body.innerHTML = '<div class="text-slate-500 text-xs">No picks yet.</div>';
+      return;
+    }
+    // Live leaderboard lookup for current status
+    var lb = monGetLeaderboard();
+    var lbMap = {};
+    lb.forEach(function(r) { if (r.name) lbMap[r.name.toLowerCase()] = r; });
+    body.innerHTML = top.map(function(p) {
+      var conf = p.confScore != null ? Math.round(p.confScore) : null;
+      var edge = p.edgeScore != null ? p.edgeScore : null;
+      var confColor = conf == null ? '#6b7280' : conf >= 70 ? '#15ffc2' : conf >= 40 ? '#22a9ec' : '#ff1552';
+      var barPct = conf != null ? Math.max(5, Math.min(100, conf)) : 0;
+      var live = lbMap[(p.name || '').toLowerCase()];
+      var liveBadge = '';
+      if (live) {
+        var tot = monToParFromTotal(live.totalScore != null ? live.totalScore : live.score);
+        if (tot != null) {
+          liveBadge = '<span class="mon-mono text-[11px] font-bold ml-2" style="color:' + monToParColor(tot) + ';">' + monFmtToPar(tot) + '</span>';
+        }
+      }
+      var edgeChip = edge != null ? '<span class="mon-mono text-[10px] px-1.5 py-0.5 rounded" style="background:rgba(240,192,64,0.1);color:#f0c040;border:1px solid rgba(240,192,64,0.25);">EV ' + (edge > 0 ? '+' : '') + edge.toFixed(1) + '</span>' : '';
+      return '<div style="padding:7px 0;border-bottom:1px solid rgba(100,200,220,0.05);">' +
+        '<div class="flex items-center justify-between gap-2">' +
+          '<div class="flex items-center gap-1 min-w-0 flex-1"><div class="text-xs font-semibold text-white truncate">' + (p.name || '—') + '</div>' + liveBadge + '</div>' +
+          edgeChip +
+        '</div>' +
+        '<div class="flex items-center gap-2 mt-1">' +
+          '<div style="flex:1;height:4px;border-radius:2px;background:rgba(100,200,220,0.08);overflow:hidden;"><div style="width:' + barPct + '%;height:100%;background:' + confColor + ';"></div></div>' +
+          '<div class="mon-mono text-[11px] font-bold" style="color:' + confColor + ';min-width:24px;text-align:right;">' + (conf != null ? conf : '—') + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function renderMonMetrics() {
+    var lb = monGetLeaderboard();
+    var cp = (window._cutPrediction != null ? window._cutPrediction : _cutPrediction) || null;
+    // Leader
+    var leaderEl = monEl('mon_mLeader');
+    if (leaderEl) {
+      if (lb.length) {
+        var top = lb[0];
+        var n = monToParFromTotal(top.totalScore != null ? top.totalScore : top.score);
+        leaderEl.textContent = monFmtToPar(n);
+        leaderEl.style.color = monToParColor(n);
+      } else leaderEl.textContent = '—';
+    }
+    // Field size
+    var fieldEl = monEl('mon_mField');
+    if (fieldEl) fieldEl.textContent = lb.length ? String(lb.length) : '—';
+    // Cut line
+    var cutEl = monEl('mon_mCut');
+    if (cutEl) cutEl.textContent = cp && cp.predictedCut != null ? cp.predictedCut : '—';
+    // Scoring avg (from completed R1 scores across leaderboard)
+    var avgEl = monEl('mon_mAvg');
+    if (avgEl) {
+      var scores = [];
+      lb.forEach(function(r) {
+        [r.r1, r.r2, r.r3, r.r4].forEach(function(v) { if (v != null && v > 50 && v < 100) scores.push(v); });
+      });
+      if (scores.length) {
+        var avg = scores.reduce(function(a, b) { return a + b; }, 0) / scores.length;
+        avgEl.textContent = avg.toFixed(1);
+      } else {
+        avgEl.textContent = '—';
+      }
+    }
+    // Round
+    var rEl = monEl('mon_mRound');
+    if (rEl) {
+      var r = monCurrentRound();
+      rEl.textContent = r ? (r + ' / 4') : '—';
+    }
+  }
+
+  function renderMonLeaderboard() {
+    var lb = monGetLeaderboard();
+    var body = monEl('mon_lbBody');
+    if (!body) return;
+    if (!lb.length) {
+      body.innerHTML = '<div class="text-slate-500 text-xs p-4 text-center">No leaderboard data.</div>';
+      return;
+    }
+    var top = lb.slice(0, 20);
+    // Movement tracking
+    var newPos = {};
+    var html = top.map(function(row, idx) {
+      var name = row.name || '—';
+      newPos[name] = idx;
+      var prev = _monPrevPos[name];
+      var moved = (prev != null) ? (prev - idx) : 0;
+      var momHtml = '<span class="mon-momentum-flat">—</span>';
+      if (moved > 0) momHtml = '<span class="mon-momentum-up">▲' + moved + '</span>';
+      else if (moved < 0) momHtml = '<span class="mon-momentum-down">▼' + Math.abs(moved) + '</span>';
+      var pos = row.position || (idx + 1);
+      var tot = monToParFromTotal(row.totalScore != null ? row.totalScore : row.score);
+      var today = monToParFromTotal(row.today);
+      var thru = row.thru != null && row.thru !== '' ? row.thru : '—';
+      return '<div class="mon-lb-row">' +
+        '<div class="mon-mono text-xs text-slate-400">' + pos + '</div>' +
+        '<div class="text-xs text-white truncate">' + name + '</div>' +
+        '<div class="text-[10px] text-right mon-mono">' + momHtml + '</div>' +
+        '<div class="mon-mono text-xs text-right font-bold" style="color:' + monToParColor(tot) + ';">' + monFmtToPar(tot) + '</div>' +
+        '<div class="mon-mono text-xs text-right" style="color:' + monToParColor(today) + ';">' + (today != null ? monFmtToPar(today) : '—') + '</div>' +
+        '<div class="mon-mono text-xs text-right text-slate-400">' + thru + '</div>' +
+      '</div>';
+    }).join('');
+    body.innerHTML = html;
+    _monPrevPos = newPos;
+  }
+
+  function renderMonCutRadar() {
+    var lb = monGetLeaderboard();
+    var cp = (window._cutPrediction != null ? window._cutPrediction : _cutPrediction) || null;
+    var track = monEl('mon_radarTrack');
+    var cutLabel = monEl('mon_radarCutLabel');
+    var cutMarker = monEl('mon_radarCutMarker');
+    var minEl = monEl('mon_radarMin');
+    var maxEl = monEl('mon_radarMax');
+    var metaEl = monEl('mon_cutMeta');
+    var noteEl = monEl('mon_cutNote');
+    if (!track) return;
+    // Remove previous dots
+    Array.prototype.slice.call(track.querySelectorAll('.mon-radar-dot')).forEach(function(d) { d.remove(); });
+    if (!lb.length) return;
+    // Determine cut line (predictedCut can be "+4" string or numeric)
+    var cutNum = null;
+    if (cp && cp.predictedCut != null) {
+      var s = String(cp.predictedCut).replace(/[^-\d]/g, '');
+      var parsed = parseInt(cp.predictedCut, 10);
+      if (!isNaN(parsed)) cutNum = parsed;
+    }
+    // Collect player to-par values
+    var vals = [];
+    lb.forEach(function(row) {
+      var n = monToParFromTotal(row.totalScore != null ? row.totalScore : row.score);
+      if (n != null) vals.push({ name: row.name, v: n });
+    });
+    if (!vals.length) return;
+    var minV = Math.min.apply(null, vals.map(function(x) { return x.v; }));
+    var maxV = Math.max.apply(null, vals.map(function(x) { return x.v; }));
+    if (cutNum == null) cutNum = Math.round((minV + maxV) / 2);
+    // Pad range
+    var pad = 1;
+    minV = Math.min(minV, cutNum) - pad;
+    maxV = Math.max(maxV, cutNum) + pad;
+    var span = Math.max(1, maxV - minV);
+    if (minEl) minEl.textContent = monFmtToPar(minV);
+    if (maxEl) maxEl.textContent = monFmtToPar(maxV);
+    if (cutLabel) cutLabel.textContent = 'CUT ' + monFmtToPar(cutNum);
+    var cutPct = ((cutNum - minV) / span) * 100;
+    if (cutMarker) cutMarker.style.left = cutPct + '%';
+    track.style.setProperty('--cut-pct', cutPct + '%');
+    // Plot dots
+    vals.forEach(function(x) {
+      var pct = ((x.v - minV) / span) * 100;
+      var diff = x.v - cutNum;
+      var color = diff <= -3 ? '#15ffc2' : diff <= 2 ? '#f0c040' : '#ff1552';
+      var dot = document.createElement('div');
+      dot.className = 'mon-radar-dot';
+      dot.style.left = pct + '%';
+      dot.style.background = color;
+      dot.title = x.name + ' ' + monFmtToPar(x.v);
+      track.appendChild(dot);
+    });
+    if (metaEl) metaEl.textContent = vals.length + ' players · field strength ' + (cp && cp.fieldStrength != null ? cp.fieldStrength : '—');
+    if (noteEl) noteEl.textContent = (cp && cp.note) ? cp.note : '';
+  }
+
+  function renderMonMarket() {
+    var body = monEl('mon_marketBody');
+    if (!body) return;
+    var players = window.PLAYERS || window._playerData || [];
+    // Extract best odds per player (prefer dk, fd, mgm, bet, bov)
+    var books = ['dk', 'fd', 'mgm', 'bet', 'bov'];
+    var priced = [];
+    players.forEach(function(p) {
+      if (!p.odds) return;
+      var best = null;
+      for (var i = 0; i < books.length; i++) { if (p.odds[books[i]]) { best = p.odds[books[i]]; break; } }
+      if (best) {
+        // Convert to numeric American odds for sorting (lower = favorite)
+        var n = parseInt(String(best).replace(/[^-\d]/g, ''), 10);
+        if (!isNaN(n)) priced.push({ name: p.name, odds: best, num: n });
+      }
+    });
+    if (!priced.length) {
+      body.innerHTML = '<div class="text-slate-500 text-xs">No odds available.</div>';
+      return;
+    }
+    priced.sort(function(a, b) { return a.num - b.num; });
+    var top5 = priced.slice(0, 5);
+    // Live leaderboard for positions
+    var lb = monGetLeaderboard();
+    var lbMap = {};
+    lb.forEach(function(r) { if (r.name) lbMap[r.name.toLowerCase()] = r; });
+    body.innerHTML = top5.map(function(p, i) {
+      var live = lbMap[(p.name || '').toLowerCase()];
+      var posTxt = live ? (live.position || '—') : '—';
+      var tot = live ? monToParFromTotal(live.totalScore != null ? live.totalScore : live.score) : null;
+      return '<div class="flex items-center gap-2 py-1.5" style="border-bottom:1px solid rgba(100,200,220,0.05);">' +
+        '<div class="mon-mono text-[10px] text-slate-500" style="width:20px;">' + (i + 1) + '</div>' +
+        '<div class="mon-mono text-[10px] text-slate-400" style="width:26px;">' + posTxt + '</div>' +
+        '<div class="text-xs text-white truncate flex-1">' + p.name + '</div>' +
+        (tot != null ? '<div class="mon-mono text-[10px] font-bold" style="color:' + monToParColor(tot) + ';min-width:26px;text-align:right;">' + monFmtToPar(tot) + '</div>' : '<div style="min-width:26px;"></div>') +
+        '<div class="mon-mono text-xs font-bold" style="color:#f0c040;min-width:52px;text-align:right;">' + p.odds + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function renderMonConditions() {
+    var body = monEl('mon_condBody');
+    if (!body) return;
+    var wx = (window._liveData && window._liveData.weather) || (MASTERS_INTEL && MASTERS_INTEL.weather) || null;
+    if (!wx || !wx.forecast || !wx.forecast.length) {
+      body.innerHTML = '<div class="text-slate-500 text-xs">No weather data.</div>';
+      return;
+    }
+    var days = wx.forecast.slice(0, 3);
+    var dirToCardinal = function(deg) {
+      if (deg == null) return '';
+      var dirs = ['N','NE','E','SE','S','SW','W','NW'];
+      return dirs[Math.round(deg / 45) % 8];
+    };
+    body.innerHTML = days.map(function(d, idx) {
+      var label = idx === 0 ? 'TODAY' : (d.date ? new Date(d.date).toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase() : 'D' + (idx + 1));
+      var hi = d.tempHigh != null ? Math.round(d.tempHigh) : '—';
+      var lo = d.tempLow != null ? Math.round(d.tempLow) : '—';
+      var windAvg = d.windAvg != null ? Math.round(d.windAvg) : null;
+      var windMax = d.windMax != null ? Math.round(d.windMax) : null;
+      var windDir = d.windDir;
+      var rain = d.rainPct != null ? d.rainPct : null;
+      var arrow = windDir != null ? '<span class="mon-wind-arrow" style="transform:rotate(' + ((windDir + 180) % 360) + 'deg);color:#22a9ec;">↑</span>' : '';
+      return '<div class="mon-card p-2.5 mb-2">' +
+        '<div class="flex items-center justify-between">' +
+          '<div class="mon-label" style="color:' + (idx === 0 ? '#15ffc2' : 'rgba(200,215,230,0.55)') + ';">' + label + '</div>' +
+          '<div class="mon-mono text-xs"><span class="text-white font-bold">' + hi + '°</span><span class="text-slate-500"> / ' + lo + '°</span></div>' +
+        '</div>' +
+        '<div class="flex items-center gap-3 mt-1.5 text-[11px]">' +
+          (windAvg != null ? '<span>' + arrow + ' <span class="mon-mono text-slate-300">' + windAvg + (windMax ? '–' + windMax : '') + 'mph ' + dirToCardinal(windDir) + '</span></span>' : '') +
+          (rain != null ? '<span class="mon-mono" style="color:' + (rain > 40 ? '#22a9ec' : 'rgba(200,215,230,0.5)') + ';">☂ ' + rain + '%</span>' : '') +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function renderMonHole() {
+    var body = monEl('mon_holeBody');
+    if (!body) return;
+    var intel = MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
+    if (!intel || !intel.length) {
+      body.innerHTML = '<div class="text-slate-500 text-xs">No hole data.</div>';
+      return;
+    }
+    if (_monHoleIdx >= intel.length) _monHoleIdx = 0;
+    var h = intel[_monHoleIdx];
+    var hist = h.historical || {};
+    var live = h.live || {};
+    var parN = h.par || 0;
+    var histAvg = hist.scoringAvg != null ? hist.scoringAvg : (hist.avg != null ? hist.avg : null);
+    var histToPar = histAvg != null && parN ? (histAvg - parN) : null;
+    var liveAvg = live.scoringAvg != null ? live.scoringAvg : (live.avg != null ? live.avg : null);
+    var liveToPar = liveAvg != null && parN ? (liveAvg - parN) : null;
+    var birdiePct = hist.birdiePct != null ? hist.birdiePct : (live.birdiePct != null ? live.birdiePct : null);
+    var bogeyPct = hist.bogeyPct != null ? hist.bogeyPct : (live.bogeyPct != null ? live.bogeyPct : null);
+    body.innerHTML =
+      '<div class="flex items-start justify-between mb-3">' +
+        '<div>' +
+          '<div class="mon-mono text-3xl font-black" style="color:#15ffc2;">#' + (h.hole || (_monHoleIdx + 1)) + '</div>' +
+          '<div class="text-sm font-bold text-white mt-0.5">' + (h.name || '—') + '</div>' +
+        '</div>' +
+        '<div class="text-right">' +
+          '<div><span class="mon-label">Par</span> <span class="mon-mono font-bold text-white text-sm ml-1">' + (h.par || '—') + '</span></div>' +
+          '<div><span class="mon-label">Yards</span> <span class="mon-mono font-bold text-white text-sm ml-1">' + (h.yards || '—') + '</span></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="grid grid-cols-2 gap-2 mb-2">' +
+        (histAvg != null ? '<div class="mon-card p-2"><div class="mon-label">Historical Avg</div><div class="mon-mono font-bold mt-0.5" style="color:' + monToParColor(histToPar) + ';">' + histAvg.toFixed(2) + ' (' + (histToPar > 0 ? '+' : '') + histToPar.toFixed(2) + ')</div></div>' : '') +
+        (liveAvg != null ? '<div class="mon-card p-2"><div class="mon-label">Live Avg</div><div class="mon-mono font-bold mt-0.5" style="color:' + monToParColor(liveToPar) + ';">' + liveAvg.toFixed(2) + ' (' + (liveToPar > 0 ? '+' : '') + liveToPar.toFixed(2) + ')</div></div>' : '') +
+      '</div>' +
+      '<div class="flex gap-2 text-[10px]">' +
+        (birdiePct != null ? '<span style="color:#15ffc2;">Birdie ' + (birdiePct < 1 ? (birdiePct * 100).toFixed(1) : birdiePct.toFixed(1)) + '%</span>' : '') +
+        (bogeyPct != null ? '<span style="color:#ff1552;">Bogey+ ' + (bogeyPct < 1 ? (bogeyPct * 100).toFixed(1) : bogeyPct.toFixed(1)) + '%</span>' : '') +
+      '</div>' +
+      '<div class="mt-2 text-[10px] text-slate-500">' + (_monHoleIdx + 1) + ' / ' + intel.length + ' · auto-rotating</div>';
+  }
+
+  function renderMonNews() {
+    var body = monEl('mon_newsBody');
+    if (!body) return;
+    var news = window._newsData || _newsData || [];
+    if (!news.length) {
+      body.innerHTML = '<div class="text-slate-500 text-xs">No news.</div>';
+      return;
+    }
+    body.innerHTML = news.slice(0, 8).map(function(n) {
+      var pub = '';
+      if (n.published) {
+        try {
+          var d = new Date(n.published);
+          var hoursAgo = Math.round((Date.now() - d.getTime()) / (1000 * 60 * 60));
+          pub = hoursAgo < 1 ? 'now' : hoursAgo < 24 ? hoursAgo + 'h' : Math.round(hoursAgo / 24) + 'd';
+        } catch(e) {}
+      }
+      var headline = n.headline || '—';
+      var link = n.link || '#';
+      return '<a href="' + link + '" target="_blank" rel="noopener" class="block py-1.5" style="border-bottom:1px solid rgba(100,200,220,0.05);">' +
+        '<div class="text-[11px] leading-snug text-slate-200 hover:text-white transition">' + headline + '</div>' +
+        (pub ? '<div class="text-[9px] text-slate-500 mt-0.5 mon-mono">' + pub + ' ago</div>' : '') +
+      '</a>';
+    }).join('');
+  }
+
+  function renderMonTicker() {
+    var body = monEl('mon_tickerInner');
+    if (!body) return;
+    var news = window._newsData || _newsData || [];
+    if (!news.length) { body.textContent = 'No headlines available.'; return; }
+    var items = news.slice(0, 10).map(function(n) { return '● ' + (n.headline || ''); }).filter(function(s) { return s !== '● '; });
+    // Duplicate for seamless loop
+    body.innerHTML = items.join('&nbsp;&nbsp;&nbsp;') + '&nbsp;&nbsp;&nbsp;' + items.join('&nbsp;&nbsp;&nbsp;');
+  }
+
+  // Hole nav wiring
+  document.addEventListener('click', function(e) {
+    if (e.target && e.target.id === 'mon_holePrev') {
+      var intel = MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
+      if (intel && intel.length) { _monHoleIdx = (_monHoleIdx - 1 + intel.length) % intel.length; renderMonHole(); }
+    }
+    if (e.target && e.target.id === 'mon_holeNext') {
+      var intel2 = MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
+      if (intel2 && intel2.length) { _monHoleIdx = (_monHoleIdx + 1) % intel2.length; renderMonHole(); }
+    }
+  });
+
+  // Expose for external refresh calls
+  window.renderMonitor = renderMonitor;
+
+  /* ============================================================
      TAB SWITCHING
   ============================================================ */
   document.querySelectorAll('.tab-pill[data-tab]').forEach(function(btn) {
@@ -1804,6 +2559,7 @@
       if (target) target.classList.remove('hidden');
       // Lazy-render Edge Finder when its tab is opened
       if (btn.dataset.tab === 'edgefinder') renderEdgeFinder();
+      if (btn.dataset.tab === 'monitor') renderMonitor();
     });
   });
 
@@ -3765,6 +4521,11 @@
           });
 
           renderLiveLeaderboard();
+          // Also refresh Monitor panels if that tab is visible
+          var monTab = document.getElementById('tab-monitor');
+          if (monTab && !monTab.classList.contains('hidden') && typeof window.renderMonitor === 'function') {
+            try { window.renderMonitor(); } catch(e) { console.warn('[Monitor] refresh error:', e); }
+          }
           console.log('[ESPN Live] Updated: ' + lb.length + ' players, ' + Object.keys(liveHoleData).length + ' with hole data, status: ' + _tournamentStatus);
         }
       })
