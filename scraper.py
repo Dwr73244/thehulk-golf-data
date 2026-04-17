@@ -1071,51 +1071,79 @@ THREEBALL_BOOK_MAP = {
 }
 
 
+def _fetch_odds_api_once(url):
+    """Single-shot fetch for The Odds API — no retries on 4xx (422 = market
+    not supported for this sport; retrying just burns credits & log noise)."""
+    try:
+        req = Request(url, headers={"User-Agent": USER_AGENT})
+        with urlopen(req, timeout=15) as resp:
+            raw = resp.read().decode("utf-8", errors="replace")
+            return json.loads(raw), resp.status
+    except HTTPError as e:
+        return None, e.code
+    except (URLError, TimeoutError, json.JSONDecodeError, OSError):
+        return None, None
+
+
 def scrape_threeball_odds():
     """Fetch 3-ball matchup odds from The Odds API.
 
-    Returns a list of groups:
-      [{"eventId", "commence", "round", "players": [{"name", "odds": [...]}]}]
-    Returns empty list outside of R1/R2 hours or when the market is not posted.
+    Strategy:
+      1. GET /v4/sports to discover active golf sport keys (avoids hardcoding)
+      2. For each golf key, try the 3_balls market. 422 = not supported, skip.
+      3. Return parsed groups. Empty list is fine — 3-balls only post Wed–Fri.
     """
     if not ODDS_API_KEY:
         print("[3BALL] Skipping — no ODDS_API_KEY")
         return []
 
-    GOLF_SPORT_KEYS = [
-        "golf_masters_tournament_winner",
-        "golf_pga_championship_winner",
-        "golf_us_open_winner",
-        "golf_the_open_championship_winner",
-        "golf_pga_tour_winner",
-    ]
-    # The Odds API exposes 3-ball matchups under these market keys.
-    # Different operators/seasons use different names — try both.
-    MARKET_KEYS = "3_balls,h2h_3_way"
+    print("[3BALL] Discovering active golf sport keys from The Odds API...")
+    sports_url = f"https://api.the-odds-api.com/v4/sports?apiKey={ODDS_API_KEY}&all=false"
+    sports_data, _ = _fetch_odds_api_once(sports_url)
+    if not sports_data:
+        print("  Could not fetch sports list")
+        return []
 
-    print("[3BALL] Fetching 3-ball matchups from The Odds API...")
+    golf_keys = [s.get("key") for s in sports_data
+                 if isinstance(s, dict) and str(s.get("group", "")).lower() == "golf"
+                 and s.get("active")]
+    # Winner-only keys only support 'outrights' — exclude them for 3-ball lookup
+    golf_keys = [k for k in golf_keys if k and not k.endswith("_winner")]
+    if not golf_keys:
+        print("  No non-winner golf keys active (3-balls only post during event weeks)")
+        return []
+    print(f"  Candidate golf keys: {golf_keys}")
 
     data = None
     sport_key_used = None
-    for sport_key in GOLF_SPORT_KEYS:
+    for sport_key in golf_keys:
         url = (
             f"https://api.the-odds-api.com/v4/sports/{sport_key}/odds"
-            f"?apiKey={ODDS_API_KEY}&regions=us&markets={MARKET_KEYS}&oddsFormat=american"
+            f"?apiKey={ODDS_API_KEY}&regions=us&markets=3_balls&oddsFormat=american"
         )
-        result = fetch_json(url)
-        if result and isinstance(result, list) and len(result) > 0:
-            # Only keep if at least one event has a 3-ball market
+        result, status = _fetch_odds_api_once(url)
+        if status == 422:
+            # Market not supported for this sport — try the h2h_3_way alias once
+            alt_url = url.replace("markets=3_balls", "markets=h2h_3_way")
+            result, status = _fetch_odds_api_once(alt_url)
+            if status == 422:
+                print(f"  {sport_key}: no 3-ball market supported")
+                continue
+        if isinstance(result, list) and result:
             has_3ball = any(
-                any(m.get("key") in ("3_balls", "h2h_3_way") for bk in ev.get("bookmakers", []) for m in bk.get("markets", []))
+                any(m.get("key") in ("3_balls", "h2h_3_way")
+                    for bk in ev.get("bookmakers", []) for m in bk.get("markets", []))
                 for ev in result
             )
             if has_3ball:
                 data = result
                 sport_key_used = sport_key
                 break
+            else:
+                print(f"  {sport_key}: endpoint OK but no 3-ball markets posted yet")
 
     if not data:
-        print("  No 3-ball markets posted on any golf sport key (expected outside R1/R2 windows)")
+        print("  No 3-ball markets posted right now (books typically open lines Wed evening)")
         return []
     print(f"  3-ball market live on sport key: {sport_key_used} ({len(data)} events)")
 
