@@ -86,7 +86,7 @@ jobs:
         run: |
           echo "Checking golf-data.json..."
           ls -la golf-data.json
-          python -c "import json; d=json.load(open('golf-data.json')); print(f'Players: {len(d[\"players\"])}, Generated: {d[\"generatedAt\"]}')"
+          python scripts/validate_output.py
 
       - name: Copy HTML tool alongside data
         run: |
