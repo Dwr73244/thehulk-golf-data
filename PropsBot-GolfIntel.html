@@ -1537,10 +1537,11 @@
           </div>
         </div>
         <!-- HOLE SPOTLIGHT -->
-        <div class="mon-glass p-4">
+        <div class="mon-glass p-4" id="mon_holeSpotlightCard">
           <div class="flex items-center justify-between mb-3">
             <div class="text-xs font-bold text-white">Hole Spotlight</div>
-            <div class="flex gap-1">
+            <div class="flex gap-1 items-center">
+              <button class="text-[11px] leading-none text-slate-400 hover:text-pb-teal transition-colors" id="mon_holePause" aria-label="Pause spotlight rotation" title="Pause spotlight rotation">⏸</button>
               <button class="text-[10px] px-1.5 py-0.5 rounded" id="mon_holePrev" style="background:rgba(100,200,220,0.08);color:rgba(200,215,230,0.7);">◀</button>
               <button class="text-[10px] px-1.5 py-0.5 rounded" id="mon_holeNext" style="background:rgba(100,200,220,0.08);color:rgba(200,215,230,0.7);">▶</button>
             </div>
@@ -2090,6 +2091,37 @@
   var _monHoleIdx = 0;
   var _monHoleTimer = null;
   var _monClockTimer = null;
+  // Hole Spotlight pause state — persists across tab switches
+  var _monHolePaused = false;       // explicit user pause
+  var _monHoleHoverPaused = false;  // transient hover pause
+  var _monHoleRotateMs = 15000;
+
+  function _monStartHoleRotation() {
+    if (_monHoleTimer) return;
+    if (_monHolePaused || _monHoleHoverPaused) return;
+    _monHoleTimer = setInterval(function() {
+      var intel = MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
+      if (!intel || !intel.length) return;
+      _monHoleIdx = (_monHoleIdx + 1) % intel.length;
+      renderMonHole();
+    }, _monHoleRotateMs);
+  }
+  function _monStopHoleRotation() {
+    if (_monHoleTimer) { clearInterval(_monHoleTimer); _monHoleTimer = null; }
+  }
+  function _monUpdateHolePauseBtn() {
+    var btn = document.getElementById('mon_holePause');
+    if (!btn) return;
+    if (_monHolePaused) {
+      btn.textContent = '▶';
+      btn.setAttribute('aria-label', 'Resume spotlight rotation');
+      btn.setAttribute('title', 'Resume spotlight rotation');
+    } else {
+      btn.textContent = '⏸';
+      btn.setAttribute('aria-label', 'Pause spotlight rotation');
+      btn.setAttribute('title', 'Pause spotlight rotation');
+    }
+  }
 
   function monEl(id) { return document.getElementById(id); }
 
@@ -2114,14 +2146,8 @@
     }
     var c0 = monEl('mon_clock');
     if (c0) c0.textContent = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/New_York' });
-    if (!_monHoleTimer) {
-      _monHoleTimer = setInterval(function() {
-        var intel = MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
-        if (!intel || !intel.length) return;
-        _monHoleIdx = (_monHoleIdx + 1) % intel.length;
-        renderMonHole();
-      }, 15000);
-    }
+    _monStartHoleRotation();
+    _monUpdateHolePauseBtn();
   }
 
   function monGetLeaderboard() {
@@ -2638,6 +2664,33 @@
     if (e.target && e.target.id === 'mon_holeNext') {
       var intel2 = MASTERS_INTEL && MASTERS_INTEL.augusta_holes;
       if (intel2 && intel2.length) { _monHoleIdx = (_monHoleIdx + 1) % intel2.length; renderMonHole(); }
+    }
+    if (e.target && e.target.id === 'mon_holePause') {
+      _monHolePaused = !_monHolePaused;
+      if (_monHolePaused) { _monStopHoleRotation(); }
+      else { _monStartHoleRotation(); }
+      _monUpdateHolePauseBtn();
+    }
+  });
+  // Hover-pause on the spotlight card (explicit user pause takes precedence)
+  document.addEventListener('mouseover', function(e) {
+    var card = document.getElementById('mon_holeSpotlightCard');
+    if (!card || !e.target || typeof e.target.closest !== 'function') return;
+    if (e.target.closest('#mon_holeSpotlightCard') && !_monHoleHoverPaused) {
+      _monHoleHoverPaused = true;
+      if (!_monHolePaused) _monStopHoleRotation();
+    }
+  });
+  document.addEventListener('mouseout', function(e) {
+    var card = document.getElementById('mon_holeSpotlightCard');
+    if (!card || !e.target || typeof e.target.closest !== 'function') return;
+    // Only fire when leaving the card entirely (relatedTarget outside)
+    if (e.target.closest('#mon_holeSpotlightCard')) {
+      var to = e.relatedTarget;
+      if (!to || (typeof to.closest === 'function' && !to.closest('#mon_holeSpotlightCard'))) {
+        _monHoleHoverPaused = false;
+        if (!_monHolePaused) _monStartHoleRotation();
+      }
     }
   });
 
