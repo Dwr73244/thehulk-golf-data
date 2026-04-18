@@ -1136,9 +1136,6 @@ def synthesize_threeballs_from_tee_times(tee_times, current_round=None):
         name = t.get("player")
         if not name or not tt:
             continue
-        # only show current or upcoming round
-        if current_round and rnd and rnd < current_round:
-            continue
         buckets[(rnd, tt, hole)].append(name)
 
     groups = []
@@ -2116,7 +2113,9 @@ def fetch_tee_times(bdl_field=None):
         print("  BDL field had no tee_time values — falling back to ESPN")
         tee_times = []
 
-    # Fallback: ESPN scoreboard
+    # Fallback: ESPN scoreboard. ESPN buries per-round tee times inside
+    # competitor.linescores[round-1].statistics.categories[0].stats[-1].displayValue
+    # (a human-readable datetime like "Thu Apr 16 13:50:00 PDT 2026").
     print("[TEE TIMES] Fetching tee times from ESPN...")
     url = "https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard"
     data = fetch_json(url)
@@ -2129,21 +2128,36 @@ def fetch_tee_times(bdl_field=None):
             return tee_times
         event = events[0]
         for comp in event.get("competitions", []):
-            round_num = (comp.get("status") or {}).get("period", 1)
             for competitor in comp.get("competitors", []):
                 athlete = competitor.get("athlete", {}) or {}
                 name = athlete.get("displayName", "")
-                status = competitor.get("status") or {}
-                tee_time = status.get("teeTime", "") if isinstance(status, dict) else ""
-                hole = status.get("hole", 1) if isinstance(status, dict) else 1
-                if name:
+                if not name:
+                    continue
+                # Emit one entry per round from linescores
+                for ls in (competitor.get("linescores") or []):
+                    period = ls.get("period")
+                    if not period or not (1 <= period <= 4):
+                        continue
+                    tee_time = ""
+                    try:
+                        stats = ls.get("statistics", {}).get("categories", [{}])[0].get("stats", [])
+                        # The last stat entry carries displayValue = tee-time datetime
+                        for s in stats:
+                            dv = s.get("displayValue", "")
+                            if isinstance(dv, str) and any(day in dv for day in
+                                    ("Mon ", "Tue ", "Wed ", "Thu ", "Fri ", "Sat ", "Sun ")):
+                                tee_time = dv
+                                break
+                    except (IndexError, AttributeError, TypeError):
+                        pass
                     tee_times.append({
                         "player": name,
                         "teeTime": tee_time,
-                        "round": round_num,
-                        "startHole": hole,
+                        "round": period,
+                        "startHole": 1,  # ESPN scoreboard doesn't expose start hole
                     })
-        print(f"  Got {len(tee_times)} tee time entries from ESPN")
+        with_time = sum(1 for t in tee_times if t["teeTime"])
+        print(f"  Got {len(tee_times)} tee-time entries from ESPN ({with_time} with times)")
     except Exception as e:
         print(f"  Error parsing tee times: {e}")
     return tee_times
