@@ -2,10 +2,16 @@ name: Golf Data Update
 
 on:
   schedule:
-    # --- OFF-WEEK (Mon-Wed): 1x/day early morning ---
+    # --- OFF-WEEK (Mon-Tue): 1x/day early morning ---
     - cron: '0 5 * * 1'    # Monday 5AM UTC (1AM ET) — weekly reset: detect next tournament, refresh field + early odds
     - cron: '0 5 * * 2'    # Tuesday 5AM UTC (1AM ET) — BallDontLie catch-up: previous tournament data fully settled
-    - cron: '0 6 * * 3'    # Wednesday 6AM UTC — firmed-up odds before R1
+
+    # --- WEDNESDAY (big betting day): 5 runs to catch opening lines + sharp action ---
+    - cron: '0 9 * * 3'    # Wednesday  5AM ET — overnight lines, morning refresh
+    - cron: '0 15 * * 3'   # Wednesday 11AM ET — pro-am done, tee sheet out, first matchup lines
+    - cron: '0 18 * * 3'   # Wednesday  2PM ET — midday line firmness
+    - cron: '0 23 * * 3'   # Wednesday  7PM ET — evening sharp action, books finalize
+    - cron: '0 2 * * 4'    # Wednesday 10PM ET (Thu 2AM UTC) — overnight snapshot
 
     # --- TOURNAMENT WEEK (Thu-Sun): every hour during play ---
     # Leaderboard scores update client-side via ESPN every 60s.
