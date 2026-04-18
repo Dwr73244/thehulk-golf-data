@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-18T21:05:13.118183",
+  "generatedAt": "2026-04-18T21:57:05.410838",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -50,7 +50,7 @@
       },
       "notes": "Elite ball-striker. Best SG:Approach on Tour. Premium plays: strokes under, birdies over.",
       "odds": {
-        "dk": "+265"
+        "dk": "+270"
       },
       "fieldInfo": {
         "owgr": 1,
@@ -61,8 +61,8 @@
       "recentForm": {
         "lastResult": "#2 at RBC Heritage",
         "lastPosition": 2,
-        "l5AvgFinish": 27.0,
-        "l10AvgFinish": 27.0,
+        "l5AvgFinish": 26.8,
+        "l10AvgFinish": 26.8,
         "l5McPct": 80,
         "trend": "steady",
         "events": 5,
@@ -105,25 +105,26 @@
         "makeCut": 73
       },
       "confScore": 78.9,
-      "edgeScore": -15.56,
+      "edgeScore": -15.19,
       "owgrRank": 1,
       "anomalies": [
         {
           "type": "z_score",
-          "z": -4.09,
+          "z": -3.09,
           "direction": "OVERPRICED",
-          "edge_pct": -15.56,
+          "edge_pct": -15.19,
           "market": "outright"
         },
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -15.56,
-          "fence": 3.05,
+          "edge_pct": -15.19,
+          "fence": 3.07,
           "market": "outright"
         }
       ],
-      "evScore": -56.8
+      "evScore": -56.2,
+      "scoreStd": 1.64
     },
     {
       "id": 4,
@@ -164,7 +165,7 @@
       },
       "notes": "Second-best iron player. Low ball flight suits firm/windy. Premium bogey under play.",
       "odds": {
-        "dk": "+50000"
+        "dk": "+47500"
       },
       "fieldInfo": {
         "owgr": 16,
@@ -175,8 +176,8 @@
       "recentForm": {
         "lastResult": "#24 at RBC Heritage",
         "lastPosition": 24,
-        "l5AvgFinish": 30.8,
-        "l10AvgFinish": 30.8,
+        "l5AvgFinish": 30.0,
+        "l10AvgFinish": 30.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
@@ -188,10 +189,10 @@
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 74,
+        "score": 75,
         "prior": 85.0,
-        "likelihood": 57.1,
-        "posterior_sigma": 14.0,
+        "likelihood": 58.5,
+        "posterior_sigma": 14.1,
         "data_points": 5
       },
       "competitiveness": "active",
@@ -204,39 +205,39 @@
         "driving": 4.9,
         "birdie_bogey": 5.5,
         "cut": 3.0,
-        "market": 0.0,
+        "market": 0.1,
         "closing": 2.0,
         "field_strength": 2.0,
         "consistency": 1.6,
         "cross_signal": 3.0,
-        "ml_bayes": 0.9
+        "ml_bayes": 1.1
       },
       "propScores": {
         "win": 71,
         "top5": 70,
         "top10": 70,
-        "top20": 70,
+        "top20": 71,
         "makeCut": 69
       },
-      "confScore": 69.9,
-      "edgeScore": 10.29,
+      "confScore": 70.1,
+      "edgeScore": 10.3,
       "owgrRank": 4,
       "anomalies": [
         {
           "type": "iqr_outlier",
           "direction": "UNDERPRICED",
-          "edge_pct": 10.29,
-          "fence": 8.84,
+          "edge_pct": 10.3,
+          "fence": 8.83,
           "market": "outright"
         },
         {
           "type": "low_freq_value",
           "direction": "UNDERPRICED",
           "market": "top20_makecut",
-          "note": "confScore 69.9 but odds +50000 — likely value in placement markets"
+          "note": "confScore 70.1 but odds +47500 — likely value in placement markets"
         }
       ],
-      "evScore": 5153.0
+      "evScore": 4905.1
     },
     {
       "id": 2,
@@ -277,7 +278,7 @@
       },
       "notes": "Most well-rounded player on Tour. No weakness. Excels at Torrey Pines.",
       "odds": {
-        "dk": "+110000"
+        "dk": "+97500"
       },
       "fieldInfo": {
         "owgr": 4,
@@ -321,35 +322,34 @@
         "closing": 2.0,
         "field_strength": 2.0,
         "consistency": 1.6,
-        "cross_signal": 3.0,
-        "ml_bayes": 0.6
+        "cross_signal": 3.0
       },
       "propScores": {
-        "win": 72,
+        "win": 71,
         "top5": 70,
-        "top10": 70,
-        "top20": 70,
-        "makeCut": 69
+        "top10": 69,
+        "top20": 69,
+        "makeCut": 68
       },
-      "confScore": 69.6,
-      "edgeScore": 10.35,
+      "confScore": 70.0,
+      "edgeScore": 10.4,
       "owgrRank": 2,
       "anomalies": [
         {
           "type": "iqr_outlier",
           "direction": "UNDERPRICED",
-          "edge_pct": 10.35,
-          "fence": 8.84,
+          "edge_pct": 10.4,
+          "fence": 8.83,
           "market": "outright"
         },
         {
           "type": "low_freq_value",
           "direction": "UNDERPRICED",
           "market": "top20_makecut",
-          "note": "confScore 69.6 but odds +110000 — likely value in placement markets"
+          "note": "confScore 70.0 but odds +97500 — likely value in placement markets"
         }
       ],
-      "evScore": 11394.4
+      "evScore": 10148.0
     },
     {
       "id": 6,
@@ -390,7 +390,7 @@
       },
       "notes": "Elite putter. Lowest bogey rate. Best bogey under play on Tour. Riviera specialist.",
       "odds": {
-        "dk": "+560"
+        "dk": "+2900"
       },
       "fieldInfo": {
         "owgr": 24,
@@ -399,8 +399,8 @@
       },
       "owgr": 24,
       "recentForm": {
-        "lastResult": "#5 at RBC Heritage",
-        "lastPosition": 5,
+        "lastResult": "#9 at RBC Heritage",
+        "lastPosition": 9,
         "l5AvgFinish": 20.2,
         "l10AvgFinish": 20.2,
         "l5McPct": 100,
@@ -430,40 +430,24 @@
         "driving": 4.5,
         "birdie_bogey": 5.4,
         "cut": 3.0,
-        "market": 3.0,
+        "market": 0.8,
         "closing": 2.0,
         "field_strength": 2.0,
         "consistency": 1.6,
         "cross_signal": 1.5,
-        "ml_bayes": 2.0
+        "ml_bayes": 2.3
       },
       "propScores": {
-        "win": 69,
-        "top5": 68,
-        "top10": 69,
-        "top20": 69,
-        "makeCut": 69
+        "win": 67,
+        "top5": 66,
+        "top10": 67,
+        "top20": 68,
+        "makeCut": 68
       },
-      "confScore": 67.5,
-      "edgeScore": -5.03,
+      "confScore": 65.8,
+      "edgeScore": 6.54,
       "owgrRank": 6,
-      "anomalies": [
-        {
-          "type": "z_score",
-          "z": -2.0,
-          "direction": "OVERPRICED",
-          "edge_pct": -5.03,
-          "market": "outright"
-        },
-        {
-          "type": "iqr_outlier",
-          "direction": "OVERPRICED",
-          "edge_pct": -5.03,
-          "fence": 3.05,
-          "market": "outright"
-        }
-      ],
-      "evScore": -33.2
+      "evScore": 196.1
     },
     {
       "id": 5,
@@ -504,7 +488,7 @@
       },
       "notes": "Young star with elite power. Short game still developing. High upside.",
       "odds": {
-        "dk": "+1175"
+        "dk": "+2600"
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
@@ -518,31 +502,22 @@
         "driving": 3.1,
         "birdie_bogey": 5.5,
         "cut": 3.0,
-        "market": 1.9,
+        "market": 0.9,
         "closing": 2.0,
         "field_strength": 2.0,
         "consistency": 1.4
       },
       "propScores": {
-        "win": 62,
-        "top5": 61,
-        "top10": 61,
-        "top20": 61,
-        "makeCut": 61
+        "win": 61,
+        "top5": 60,
+        "top10": 60,
+        "top20": 60,
+        "makeCut": 60
       },
-      "confScore": 61,
-      "edgeScore": 1.31,
+      "confScore": 60,
+      "edgeScore": 5.3,
       "owgrRank": 5,
-      "anomalies": [
-        {
-          "type": "iqr_outlier",
-          "direction": "OVERPRICED",
-          "edge_pct": 1.31,
-          "fence": 8.84,
-          "market": "outright"
-        }
-      ],
-      "evScore": 16.7
+      "evScore": 143.0
     },
     {
       "id": 8,
@@ -583,7 +558,7 @@
       },
       "notes": "Great ball-striker but short game liability. Negative SG:ARG. Risky bogey unders.",
       "odds": {
-        "dk": "+6500"
+        "dk": "+6700"
       },
       "fieldInfo": {
         "owgr": 14,
@@ -592,10 +567,10 @@
       },
       "owgr": 14,
       "recentForm": {
-        "lastResult": "#18 at RBC Heritage",
-        "lastPosition": 18,
-        "l5AvgFinish": 32.0,
-        "l10AvgFinish": 32.0,
+        "lastResult": "#15 at RBC Heritage",
+        "lastPosition": 15,
+        "l5AvgFinish": 31.8,
+        "l10AvgFinish": 31.8,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
@@ -609,7 +584,7 @@
       "bayesianScore": {
         "score": 69,
         "prior": 77.0,
-        "likelihood": 54.3,
+        "likelihood": 54.6,
         "posterior_sigma": 14.6,
         "data_points": 5
       },
@@ -637,9 +612,10 @@
         "makeCut": 61
       },
       "confScore": 59.2,
-      "edgeScore": 7.36,
+      "edgeScore": 7.41,
       "owgrRank": 8,
-      "evScore": 486.1
+      "evScore": 503.8,
+      "scoreStd": 2.95
     },
     {
       "id": 9,
@@ -741,7 +717,7 @@
           "type": "iqr_outlier",
           "direction": "UNDERPRICED",
           "edge_pct": 8.86,
-          "fence": 8.84,
+          "fence": 8.83,
           "market": "outright"
         }
       ],
@@ -902,8 +878,8 @@
       "recentForm": {
         "lastResult": "#35 at RBC Heritage",
         "lastPosition": 35,
-        "l5AvgFinish": 30.6,
-        "l10AvgFinish": 30.6,
+        "l5AvgFinish": 29.8,
+        "l10AvgFinish": 29.8,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
@@ -917,8 +893,8 @@
       "bayesianScore": {
         "score": 67,
         "prior": 78.4,
-        "likelihood": 60.6,
-        "posterior_sigma": 10.7,
+        "likelihood": 62.0,
+        "posterior_sigma": 10.4,
         "data_points": 5
       },
       "competitiveness": "active",
@@ -947,8 +923,7 @@
       "confScore": 57.2,
       "edgeScore": 8.56,
       "owgrRank": 7,
-      "evScore": 42808.6,
-      "scoreStd": 3.58
+      "evScore": 42808.6
     },
     {
       "id": 15,
@@ -996,7 +971,7 @@
       },
       "notes": "Talented ball-striker with streaky putting. When putter is hot, can contend anywhere.",
       "odds": {
-        "dk": "+55000"
+        "dk": "+52500"
       },
       "fieldInfo": {
         "owgr": 25,
@@ -1007,8 +982,8 @@
       "recentForm": {
         "lastResult": "#19 at RBC Heritage",
         "lastPosition": 19,
-        "l5AvgFinish": 18.4,
-        "l10AvgFinish": 18.4,
+        "l5AvgFinish": 18.2,
+        "l10AvgFinish": 18.2,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
@@ -1022,7 +997,7 @@
       "bayesianScore": {
         "score": 72,
         "prior": 68.4,
-        "likelihood": 75.8,
+        "likelihood": 76.1,
         "posterior_sigma": 12.7,
         "data_points": 5
       },
@@ -1050,9 +1025,9 @@
         "makeCut": 62
       },
       "confScore": 54.9,
-      "edgeScore": 8.05,
+      "edgeScore": 8.04,
       "owgrRank": 15,
-      "evScore": 4437.5,
+      "evScore": 4231.6,
       "scoreStd": 2.07
     },
     {
@@ -1198,7 +1173,7 @@
       },
       "notes": "Open champion. Lefty with great short game. Not a power player. Thrives on accuracy courses and links.",
       "odds": {
-        "dk": "+2100"
+        "dk": "+2300"
       },
       "fieldInfo": {
         "owgr": 35,
@@ -1209,8 +1184,8 @@
       "recentForm": {
         "lastResult": "#3 at RBC Heritage",
         "lastPosition": 3,
-        "l5AvgFinish": 35.0,
-        "l10AvgFinish": 35.0,
+        "l5AvgFinish": 35.4,
+        "l10AvgFinish": 35.4,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
@@ -1238,7 +1213,7 @@
         "driving": 4.8,
         "birdie_bogey": 4.7,
         "cut": 3.0,
-        "market": 1.1,
+        "market": 1.0,
         "closing": 2.0,
         "field_strength": 1.5,
         "consistency": 1.6,
@@ -1252,9 +1227,9 @@
         "makeCut": 62
       },
       "confScore": 54.5,
-      "edgeScore": 3.63,
+      "edgeScore": 4.01,
       "owgrRank": 21,
-      "evScore": 79.8,
+      "evScore": 96.2,
       "scoreStd": 3.51
     },
     {
@@ -1467,113 +1442,9 @@
       "evScore": 40033.0
     },
     {
-      "id": 17,
-      "name": "Keegan Bradley",
-      "rank": 15,
-      "sgTotal": 0.88,
-      "sgOtt": 0.35,
-      "sgApp": 0.32,
-      "sgArg": 0.12,
-      "sgPutt": 0.09,
-      "birdieAvg": 4.1,
-      "bogeyAvg": 2.2,
-      "scoringAvg": 70.4,
-      "gir": 67.5,
-      "fairways": 65.0,
-      "scramble": 60.5,
-      "proxAvg": 34.2,
-      "missDir": "left",
-      "flight": "high_draw",
-      "courseFit": {
-        "augusta": 66,
-        "tpc_sawgrass": 66,
-        "pebble": 65,
-        "torrey_south": 66,
-        "riviera": 67,
-        "valhalla": 67,
-        "pinehurst_2": 67,
-        "royal_troon": 66,
-        "royal_portrush": 65,
-        "oakmont": 65,
-        "quail_hollow": 67,
-        "east_lake": 66,
-        "bay_hill": 66,
-        "harbour_town": 67,
-        "colonial": 68,
-        "memorial": 68,
-        "tpc_scottsdale": 66
-      },
-      "augustaHistory": {
-        "appearances": 10,
-        "bestFinish": 14,
-        "cuts": 7,
-        "top10": 0,
-        "avgScore": 72.5
-      },
-      "notes": "Steady veteran. Consistent without being flashy. Good MC and top-20 candidate.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 15,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 15,
-      "recentForm": {
-        "lastResult": "#36 at RBC Heritage",
-        "lastPosition": 36,
-        "l5AvgFinish": 22.8,
-        "l10AvgFinish": 22.8,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 5,
-        "roundAvgs": {
-          "r1Avg": 67.0,
-          "r2Avg": 67.0
-        }
-      },
-      "makeCutPct": 70.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 67,
-        "prior": 67.6,
-        "likelihood": 67.2,
-        "posterior_sigma": 12.5,
-        "data_points": 5
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 7.1,
-        "fit": 10.7,
-        "history": 3.0,
-        "form": 7.0,
-        "gir": 6.0,
-        "driving": 3.8,
-        "birdie_bogey": 4.7,
-        "cut": 3.2,
-        "market": 0.0,
-        "closing": 2.0,
-        "field_strength": 1.5,
-        "consistency": 1.5,
-        "ml_bayes": 3.2
-      },
-      "propScores": {
-        "win": 53,
-        "top5": 54,
-        "top10": 56,
-        "top20": 59,
-        "makeCut": 62
-      },
-      "confScore": 53.2,
-      "edgeScore": 7.96,
-      "owgrRank": 17,
-      "evScore": 39808.0
-    },
-    {
       "id": 33,
       "name": "Matt Fitzpatrick",
-      "rank": 16,
+      "rank": 15,
       "sgTotal": 0.48,
       "sgOtt": 0.1,
       "sgApp": 0.3,
@@ -1609,7 +1480,7 @@
       },
       "notes": "US Open champion. Precision player. Not long but very accurate. Thrives on tight, demanding courses.",
       "odds": {
-        "dk": "+156"
+        "dk": "-132"
       },
       "fieldInfo": {
         "owgr": 22,
@@ -1620,8 +1491,8 @@
       "recentForm": {
         "lastResult": "#1 at RBC Heritage",
         "lastPosition": 1,
-        "l5AvgFinish": 22.2,
-        "l10AvgFinish": 22.2,
+        "l5AvgFinish": 21.0,
+        "l10AvgFinish": 21.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
@@ -1635,7 +1506,7 @@
       "bayesianScore": {
         "score": 63,
         "prior": 59.6,
-        "likelihood": 68.9,
+        "likelihood": 69.6,
         "posterior_sigma": 14.6,
         "data_points": 5
       },
@@ -1663,30 +1534,30 @@
         "makeCut": 63
       },
       "confScore": 53.2,
-      "edgeScore": -31.08,
+      "edgeScore": -48.92,
       "owgrRank": 33,
       "anomalies": [
         {
           "type": "z_score",
-          "z": -7.17,
+          "z": -8.24,
           "direction": "OVERPRICED",
-          "edge_pct": -31.08,
+          "edge_pct": -48.92,
           "market": "outright"
         },
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -31.08,
-          "fence": 3.05,
+          "edge_pct": -48.92,
+          "fence": 3.07,
           "market": "outright"
         }
       ],
-      "evScore": -79.6
+      "evScore": -86.0
     },
     {
       "id": 14,
       "name": "Sungjae Im",
-      "rank": 17,
+      "rank": 16,
       "sgTotal": 0.95,
       "sgOtt": 0.28,
       "sgApp": 0.4,
@@ -1781,6 +1652,110 @@
       "scoreStd": 3.03
     },
     {
+      "id": 17,
+      "name": "Keegan Bradley",
+      "rank": 17,
+      "sgTotal": 0.88,
+      "sgOtt": 0.35,
+      "sgApp": 0.32,
+      "sgArg": 0.12,
+      "sgPutt": 0.09,
+      "birdieAvg": 4.1,
+      "bogeyAvg": 2.2,
+      "scoringAvg": 70.4,
+      "gir": 67.5,
+      "fairways": 65.0,
+      "scramble": 60.5,
+      "proxAvg": 34.2,
+      "missDir": "left",
+      "flight": "high_draw",
+      "courseFit": {
+        "augusta": 66,
+        "tpc_sawgrass": 66,
+        "pebble": 65,
+        "torrey_south": 66,
+        "riviera": 67,
+        "valhalla": 67,
+        "pinehurst_2": 67,
+        "royal_troon": 66,
+        "royal_portrush": 65,
+        "oakmont": 65,
+        "quail_hollow": 67,
+        "east_lake": 66,
+        "bay_hill": 66,
+        "harbour_town": 67,
+        "colonial": 68,
+        "memorial": 68,
+        "tpc_scottsdale": 66
+      },
+      "augustaHistory": {
+        "appearances": 10,
+        "bestFinish": 14,
+        "cuts": 7,
+        "top10": 0,
+        "avgScore": 72.5
+      },
+      "notes": "Steady veteran. Consistent without being flashy. Good MC and top-20 candidate.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 15,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 15,
+      "recentForm": {
+        "lastResult": "#36 at RBC Heritage",
+        "lastPosition": 36,
+        "l5AvgFinish": 25.2,
+        "l10AvgFinish": 25.2,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 5,
+        "roundAvgs": {
+          "r1Avg": 67.0,
+          "r2Avg": 67.0
+        }
+      },
+      "makeCutPct": 70.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 65,
+        "prior": 67.6,
+        "likelihood": 63.0,
+        "posterior_sigma": 12.6,
+        "data_points": 5
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 7.1,
+        "fit": 10.7,
+        "history": 3.0,
+        "form": 7.0,
+        "gir": 6.0,
+        "driving": 3.8,
+        "birdie_bogey": 4.7,
+        "cut": 3.2,
+        "market": 0.0,
+        "closing": 2.0,
+        "field_strength": 1.5,
+        "consistency": 1.5,
+        "ml_bayes": 2.8
+      },
+      "propScores": {
+        "win": 52,
+        "top5": 54,
+        "top10": 55,
+        "top20": 59,
+        "makeCut": 61
+      },
+      "confScore": 52.8,
+      "edgeScore": 7.9,
+      "owgrRank": 17,
+      "evScore": 39507.9
+    },
+    {
       "id": 29,
       "name": "Corey Conners",
       "rank": 18,
@@ -1837,8 +1812,8 @@
       "recentForm": {
         "lastResult": "#53 at RBC Heritage",
         "lastPosition": 53,
-        "l5AvgFinish": 47.8,
-        "l10AvgFinish": 47.8,
+        "l5AvgFinish": 48.8,
+        "l10AvgFinish": 48.8,
         "l5McPct": 80,
         "trend": "steady",
         "events": 5,
@@ -1850,10 +1825,10 @@
       "makeCutPct": 100.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 51,
+        "score": 50,
         "prior": 61.6,
-        "likelihood": 33.2,
-        "posterior_sigma": 14.3,
+        "likelihood": 31.5,
+        "posterior_sigma": 14.2,
         "data_points": 5
       },
       "competitiveness": "active",
@@ -1869,20 +1844,21 @@
         "market": 0.0,
         "closing": 2.0,
         "field_strength": 1.0,
-        "consistency": 1.5
+        "consistency": 1.5,
+        "ml_bayes": -0.6
       },
       "propScores": {
         "win": 50,
-        "top5": 53,
+        "top5": 52,
         "top10": 55,
         "top20": 60,
         "makeCut": 64
       },
-      "confScore": 53,
-      "edgeScore": 7.93,
+      "confScore": 52.4,
+      "edgeScore": 7.84,
       "owgrRank": 29,
-      "evScore": 39657.9,
-      "scoreStd": 3.29
+      "evScore": 39207.9,
+      "scoreStd": 2.45
     },
     {
       "id": 30,
@@ -1939,10 +1915,10 @@
       },
       "owgr": 12,
       "recentForm": {
-        "lastResult": "#9 at RBC Heritage",
-        "lastPosition": 9,
-        "l5AvgFinish": 35.2,
-        "l10AvgFinish": 35.2,
+        "lastResult": "#5 at RBC Heritage",
+        "lastPosition": 5,
+        "l5AvgFinish": 33.4,
+        "l10AvgFinish": 33.4,
         "l5McPct": 80,
         "trend": "steady",
         "events": 5,
@@ -1954,9 +1930,9 @@
       "makeCutPct": 100.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 60,
+        "score": 61,
         "prior": 61.0,
-        "likelihood": 56.9,
+        "likelihood": 60.0,
         "posterior_sigma": 14.6,
         "data_points": 5
       },
@@ -1974,7 +1950,7 @@
         "closing": 2.0,
         "field_strength": 1.0,
         "consistency": 1.5,
-        "ml_bayes": 2.1
+        "ml_bayes": 2.2
       },
       "propScores": {
         "win": 49,
@@ -1983,19 +1959,20 @@
         "top20": 60,
         "makeCut": 65
       },
-      "confScore": 51.1,
-      "edgeScore": 2.4,
+      "confScore": 51.2,
+      "edgeScore": 2.42,
       "owgrRank": 30,
       "anomalies": [
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": 2.4,
-          "fence": 8.84,
+          "edge_pct": 2.42,
+          "fence": 8.83,
           "market": "outright"
         }
       ],
-      "evScore": 45.6
+      "evScore": 45.9,
+      "scoreStd": 4.28
     },
     {
       "id": 10,
@@ -2223,7 +2200,7 @@
       },
       "notes": "Versatile Korean player with multiple wins. Solid all-around game. Steady at Augusta but ceiling is top-10. Reliable MC prop.",
       "odds": {
-        "dk": "+1150"
+        "dk": "+1550"
       },
       "fieldInfo": {
         "owgr": 47,
@@ -2234,8 +2211,8 @@
       "recentForm": {
         "lastResult": "#4 at RBC Heritage",
         "lastPosition": 4,
-        "l5AvgFinish": 33.6,
-        "l10AvgFinish": 33.6,
+        "l5AvgFinish": 32.0,
+        "l10AvgFinish": 32.0,
         "l5McPct": 80,
         "trend": "steady",
         "events": 5,
@@ -2247,9 +2224,9 @@
       "makeCutPct": 71.4,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 59,
+        "score": 60,
         "prior": 59.0,
-        "likelihood": 58.2,
+        "likelihood": 60.6,
         "posterior_sigma": 14.6,
         "data_points": 5
       },
@@ -2263,11 +2240,11 @@
         "driving": 3.3,
         "birdie_bogey": 4.5,
         "cut": 3.3,
-        "market": 1.9,
+        "market": 1.5,
         "closing": 2.0,
         "field_strength": 1.0,
         "consistency": 1.5,
-        "ml_bayes": 2.1
+        "ml_bayes": 2.4
       },
       "propScores": {
         "win": 48,
@@ -2276,19 +2253,20 @@
         "top20": 58,
         "makeCut": 61
       },
-      "confScore": 50.1,
-      "edgeScore": -0.49,
+      "confScore": 49.4,
+      "edgeScore": 1.35,
       "owgrRank": 38,
       "anomalies": [
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -0.49,
-          "fence": 3.05,
+          "edge_pct": 1.35,
+          "fence": 8.83,
           "market": "outright"
         }
       ],
-      "evScore": -6.1
+      "evScore": 22.3,
+      "scoreStd": 2.45
     },
     {
       "id": 16,
@@ -2409,7 +2387,7 @@
       },
       "notes": "Huge power but accuracy issues. Multiple runner-up finishes. Volatile scorer — birdie overs at long courses.",
       "odds": {
-        "dk": "+130000"
+        "dk": "+115000"
       },
       "fieldInfo": {
         "owgr": 19,
@@ -2463,9 +2441,9 @@
         "makeCut": 57
       },
       "confScore": 48.4,
-      "edgeScore": 7.18,
+      "edgeScore": 7.17,
       "owgrRank": 22,
-      "evScore": 9345.3,
+      "evScore": 8256.3,
       "scoreStd": 2.19
     },
     {
@@ -2608,7 +2586,7 @@
       },
       "notes": "Young lefty talent. Aggressive. Putting holds him back. High birdie ceiling with high floor.",
       "odds": {
-        "dk": "+275000"
+        "dk": "+250000"
       },
       "fieldInfo": {
         "owgr": 45,
@@ -2664,7 +2642,7 @@
       "confScore": 47.4,
       "edgeScore": 7.07,
       "owgrRank": 35,
-      "evScore": 19459.6
+      "evScore": 17682.1
     },
     {
       "id": 34,
@@ -2705,7 +2683,7 @@
       },
       "notes": "Scottish lefty with links pedigree. Gritty competitor. Good in wind. Putter can go cold.",
       "odds": {
-        "dk": "+200000"
+        "dk": "+190000"
       },
       "fieldInfo": {
         "owgr": 7,
@@ -2716,8 +2694,8 @@
       "recentForm": {
         "lastResult": "#28 at RBC Heritage",
         "lastPosition": 28,
-        "l5AvgFinish": 31.2,
-        "l10AvgFinish": 31.2,
+        "l5AvgFinish": 32.8,
+        "l10AvgFinish": 32.8,
         "l5McPct": 75,
         "trend": "steady",
         "events": 4,
@@ -2731,7 +2709,7 @@
       "bayesianScore": {
         "score": 61,
         "prior": 59.0,
-        "likelihood": 65.8,
+        "likelihood": 63.4,
         "posterior_sigma": 14.6,
         "data_points": 4
       },
@@ -2759,9 +2737,10 @@
         "makeCut": 58
       },
       "confScore": 46.5,
-      "edgeScore": 6.93,
+      "edgeScore": 6.92,
       "owgrRank": 34,
-      "evScore": 13857.0
+      "evScore": 13159.5,
+      "scoreStd": 2.05
     },
     {
       "id": 40,
@@ -2802,7 +2781,7 @@
       },
       "notes": "Steady veteran. Good all-around game without elite skill. East Lake familiarity. Reliable for MC at full fields.",
       "odds": {
-        "dk": "+5200"
+        "dk": "+11000"
       },
       "fieldInfo": {
         "owgr": 13,
@@ -2811,10 +2790,10 @@
       },
       "owgr": 13,
       "recentForm": {
-        "lastResult": "#15 at RBC Heritage",
-        "lastPosition": 15,
-        "l5AvgFinish": 33.8,
-        "l10AvgFinish": 33.8,
+        "lastResult": "#14 at RBC Heritage",
+        "lastPosition": 14,
+        "l5AvgFinish": 35.6,
+        "l10AvgFinish": 35.6,
         "l5McPct": 80,
         "trend": "steady",
         "events": 5,
@@ -2826,9 +2805,9 @@
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 57,
+        "score": 56,
         "prior": 56.0,
-        "likelihood": 59.8,
+        "likelihood": 56.7,
         "posterior_sigma": 14.6,
         "data_points": 5
       },
@@ -2842,23 +2821,23 @@
         "driving": 3.7,
         "birdie_bogey": 4.2,
         "cut": 3.0,
-        "market": 0.5,
+        "market": 0.2,
         "closing": 2.0,
         "field_strength": 1.0,
         "consistency": 1.6,
-        "ml_bayes": 2.4
+        "ml_bayes": 2.2
       },
       "propScores": {
         "win": 44,
-        "top5": 47,
+        "top5": 46,
         "top10": 50,
-        "top20": 56,
+        "top20": 55,
         "makeCut": 59
       },
-      "confScore": 46.4,
-      "edgeScore": 5.07,
+      "confScore": 46.2,
+      "edgeScore": 6.03,
       "owgrRank": 40,
-      "evScore": 268.9
+      "evScore": 669.2
     },
     {
       "id": 27,
@@ -3004,7 +2983,7 @@
       },
       "notes": "US Open champion (2009). Augusta veteran who plays with grinder mentality. Consistent MC maker. T8 here proves he can compete.",
       "odds": {
-        "dk": "+300000"
+        "dk": "+275000"
       },
       "fieldInfo": {
         "owgr": 64,
@@ -3015,8 +2994,8 @@
       "recentForm": {
         "lastResult": "#21 at RBC Heritage",
         "lastPosition": 21,
-        "l5AvgFinish": 15.5,
-        "l10AvgFinish": 15.5,
+        "l5AvgFinish": 21.0,
+        "l10AvgFinish": 21.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -3050,10 +3029,9 @@
         "makeCut": 60
       },
       "confScore": 43,
-      "edgeScore": 6.42,
+      "edgeScore": 6.41,
       "owgrRank": 72,
-      "evScore": 19256.4,
-      "scoreStd": 2.86
+      "evScore": 17644.0
     },
     {
       "id": 36,
@@ -3110,10 +3088,10 @@
       },
       "owgr": 43,
       "recentForm": {
-        "lastResult": "#37 at RBC Heritage",
-        "lastPosition": 37,
-        "l5AvgFinish": 50.3,
-        "l10AvgFinish": 50.3,
+        "lastResult": "#38 at RBC Heritage",
+        "lastPosition": 38,
+        "l5AvgFinish": 50.7,
+        "l10AvgFinish": 50.7,
         "l5McPct": 67,
         "trend": "steady",
         "events": 3,
@@ -3127,8 +3105,8 @@
       "bayesianScore": {
         "score": 47,
         "prior": 58.0,
-        "likelihood": 43.2,
-        "posterior_sigma": 9.6,
+        "likelihood": 42.7,
+        "posterior_sigma": 9.3,
         "data_points": 3
       },
       "competitiveness": "active",
@@ -3350,106 +3328,9 @@
       "scoreStd": 2.05
     },
     {
-      "id": 9005,
-      "name": "Kurt Kitayama",
-      "rank": 34,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+8600"
-      },
-      "fieldInfo": {
-        "owgr": 37,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 37,
-      "recentForm": {
-        "lastResult": "#13 at RBC Heritage",
-        "lastPosition": 13,
-        "l5AvgFinish": 10.2,
-        "l10AvgFinish": 10.2,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 4,
-        "roundAvgs": {
-          "r1Avg": 69.0,
-          "r2Avg": 65.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 86,
-        "prior": 50.0,
-        "likelihood": 88.6,
-        "posterior_sigma": 5.0,
-        "data_points": 4
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.3,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.7,
-        "ml_bayes": 5.0
-      },
-      "propScores": {
-        "win": 39,
-        "top5": 43,
-        "top10": 47,
-        "top20": 55,
-        "makeCut": 60
-      },
-      "confScore": 42.0,
-      "edgeScore": 5.15,
-      "owgrRank": 37,
-      "evScore": 448.1
-    },
-    {
       "id": 46,
       "name": "Jordan Spieth",
-      "rank": 35,
+      "rank": 34,
       "sgTotal": 0.15,
       "sgOtt": 0.1,
       "sgApp": 0.08,
@@ -3545,8 +3426,106 @@
       "scoreStd": 2.17
     },
     {
-      "id": 9026,
-      "name": "Aldrich Potgieter",
+      "id": 9005,
+      "name": "Kurt Kitayama",
+      "rank": 35,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+13000"
+      },
+      "fieldInfo": {
+        "owgr": 37,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 37,
+      "recentForm": {
+        "lastResult": "#13 at RBC Heritage",
+        "lastPosition": 13,
+        "l5AvgFinish": 10.2,
+        "l10AvgFinish": 10.2,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 4,
+        "roundAvgs": {
+          "r1Avg": 69.0,
+          "r2Avg": 65.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 86,
+        "prior": 50.0,
+        "likelihood": 88.6,
+        "posterior_sigma": 5.0,
+        "data_points": 4
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.2,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.7,
+        "ml_bayes": 5.0
+      },
+      "propScores": {
+        "win": 39,
+        "top5": 43,
+        "top10": 47,
+        "top20": 55,
+        "makeCut": 60
+      },
+      "confScore": 41.0,
+      "edgeScore": 5.39,
+      "owgrRank": 37,
+      "evScore": 705.6,
+      "scoreStd": 3.35
+    },
+    {
+      "id": 9014,
+      "name": "Andrew Novak",
       "rank": 36,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -3583,104 +3562,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+7600"
-      },
-      "fieldInfo": {
-        "owgr": 83,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 83,
-      "recentForm": {
-        "lastResult": "#8 at RBC Heritage",
-        "lastPosition": 8,
-        "l5AvgFinish": 10.0,
-        "l10AvgFinish": 10.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 3,
-        "roundAvgs": {
-          "r1Avg": 67.0,
-          "r2Avg": 67.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 86,
-        "prior": 50.0,
-        "likelihood": 88.6,
-        "posterior_sigma": 4.8,
-        "data_points": 3
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.3,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "ml_bayes": 5.0
-      },
-      "propScores": {
-        "win": 37,
-        "top5": 41,
-        "top10": 46,
-        "top20": 54,
-        "makeCut": 60
-      },
-      "confScore": 41.0,
-      "edgeScore": 4.85,
-      "owgrRank": 83,
-      "evScore": 373.5
-    },
-    {
-      "id": 9014,
-      "name": "Andrew Novak",
-      "rank": 37,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+6000"
+        "dk": "+6500"
       },
       "fieldInfo": {
         "owgr": 33,
@@ -3691,8 +3573,8 @@
       "recentForm": {
         "lastResult": "#6 at RBC Heritage",
         "lastPosition": 6,
-        "l5AvgFinish": 23.5,
-        "l10AvgFinish": 23.5,
+        "l5AvgFinish": 24.5,
+        "l10AvgFinish": 24.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 4,
@@ -3706,8 +3588,8 @@
       "bayesianScore": {
         "score": 61,
         "prior": 50.0,
-        "likelihood": 72.4,
-        "posterior_sigma": 12.9,
+        "likelihood": 72.0,
+        "posterior_sigma": 12.7,
         "data_points": 4
       },
       "competitiveness": "active",
@@ -3734,14 +3616,15 @@
         "makeCut": 59
       },
       "confScore": 40.6,
-      "edgeScore": 4.45,
+      "edgeScore": 4.57,
       "owgrRank": 33,
-      "evScore": 271.5
+      "evScore": 301.9,
+      "scoreStd": 3.29
     },
     {
       "id": 87,
       "name": "Ryan Fox",
-      "rank": 38,
+      "rank": 37,
       "sgTotal": 0.18,
       "sgOtt": 0.28,
       "sgApp": 0.08,
@@ -3784,7 +3667,7 @@
       },
       "notes": "New Zealand bomber. Son of Grant Fox. Huge off the tee but Augusta short game demands more. Better on longer bombers tracks.",
       "odds": {
-        "dk": "+160000"
+        "dk": "+150000"
       },
       "fieldInfo": {
         "owgr": 39,
@@ -3795,8 +3678,8 @@
       "recentForm": {
         "lastResult": "#20 at RBC Heritage",
         "lastPosition": 20,
-        "l5AvgFinish": 22.7,
-        "l10AvgFinish": 22.7,
+        "l5AvgFinish": 22.3,
+        "l10AvgFinish": 22.3,
         "l5McPct": 100,
         "trend": "steady",
         "events": 3,
@@ -3810,8 +3693,8 @@
       "bayesianScore": {
         "score": 68,
         "prior": 53.6,
-        "likelihood": 72.9,
-        "posterior_sigma": 9.4,
+        "likelihood": 73.4,
+        "posterior_sigma": 9.5,
         "data_points": 3
       },
       "competitiveness": "active",
@@ -3840,13 +3723,13 @@
       "confScore": 40.5,
       "edgeScore": 6.01,
       "owgrRank": 84,
-      "evScore": 9626.1,
+      "evScore": 9018.6,
       "scoreStd": 3.56
     },
     {
       "id": 49,
       "name": "Ben Griffin",
-      "rank": 39,
+      "rank": 38,
       "sgTotal": 0.08,
       "sgOtt": 0.18,
       "sgApp": 0.0,
@@ -3944,7 +3827,7 @@
     {
       "id": 9000,
       "name": "Justin Rose",
-      "rank": 40,
+      "rank": 39,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4034,6 +3917,104 @@
       "evScore": 200.0
     },
     {
+      "id": 9026,
+      "name": "Aldrich Potgieter",
+      "rank": 40,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+11000"
+      },
+      "fieldInfo": {
+        "owgr": 83,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 83,
+      "recentForm": {
+        "lastResult": "#8 at RBC Heritage",
+        "lastPosition": 8,
+        "l5AvgFinish": 8.0,
+        "l10AvgFinish": 8.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 3,
+        "roundAvgs": {
+          "r1Avg": 67.0,
+          "r2Avg": 67.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 89,
+        "prior": 50.0,
+        "likelihood": 91.5,
+        "posterior_sigma": 4.8,
+        "data_points": 3
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.2,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "ml_bayes": 5.0
+      },
+      "propScores": {
+        "win": 37,
+        "top5": 41,
+        "top10": 46,
+        "top20": 54,
+        "makeCut": 60
+      },
+      "confScore": 40.0,
+      "edgeScore": 5.1,
+      "owgrRank": 83,
+      "evScore": 566.0,
+      "scoreStd": 1.79
+    },
+    {
       "id": 9020,
       "name": "Nick Taylor",
       "rank": 41,
@@ -4083,8 +4064,8 @@
       "recentForm": {
         "lastResult": "#52 at RBC Heritage",
         "lastPosition": 52,
-        "l5AvgFinish": 31.6,
-        "l10AvgFinish": 31.0,
+        "l5AvgFinish": 31.4,
+        "l10AvgFinish": 30.8,
         "l5McPct": 100,
         "trend": "steady",
         "events": 6,
@@ -4098,8 +4079,8 @@
       "bayesianScore": {
         "score": 52,
         "prior": 50.0,
-        "likelihood": 53.2,
-        "posterior_sigma": 11.6,
+        "likelihood": 53.6,
+        "posterior_sigma": 11.5,
         "data_points": 6
       },
       "competitiveness": "active",
@@ -4373,8 +4354,8 @@
       },
       "owgr": 34,
       "recentForm": {
-        "lastResult": "#40 at RBC Heritage",
-        "lastPosition": 40,
+        "lastResult": "#37 at RBC Heritage",
+        "lastPosition": 37,
         "l5AvgFinish": 34.0,
         "l10AvgFinish": 34.0,
         "l5McPct": 80,
@@ -4420,7 +4401,8 @@
       "confScore": 39.2,
       "edgeScore": 5.86,
       "owgrRank": 34,
-      "evScore": 29305.9
+      "evScore": 29305.9,
+      "scoreStd": 2.19
     },
     {
       "id": 9013,
@@ -4461,7 +4443,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+6000"
+        "dk": "+6500"
       },
       "fieldInfo": {
         "owgr": 125,
@@ -4472,8 +4454,8 @@
       "recentForm": {
         "lastResult": "#7 at RBC Heritage",
         "lastPosition": 7,
-        "l5AvgFinish": 34.6,
-        "l10AvgFinish": 34.6,
+        "l5AvgFinish": 33.8,
+        "l10AvgFinish": 33.8,
         "l5McPct": 80,
         "trend": "steady",
         "events": 5,
@@ -4487,7 +4469,7 @@
       "bayesianScore": {
         "score": 53,
         "prior": 50.0,
-        "likelihood": 57.7,
+        "likelihood": 59.0,
         "posterior_sigma": 14.6,
         "data_points": 5
       },
@@ -4515,9 +4497,10 @@
         "makeCut": 58
       },
       "confScore": 39.2,
-      "edgeScore": 4.24,
+      "edgeScore": 4.36,
       "owgrRank": 125,
-      "evScore": 258.7
+      "evScore": 288.1,
+      "scoreStd": 2.59
     },
     {
       "id": 97,
@@ -4655,7 +4638,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+16500"
+        "dk": "+17500"
       },
       "fieldInfo": {
         "owgr": 70,
@@ -4666,8 +4649,8 @@
       "recentForm": {
         "lastResult": "#12 at RBC Heritage",
         "lastPosition": 12,
-        "l5AvgFinish": 22.3,
-        "l10AvgFinish": 22.3,
+        "l5AvgFinish": 23.3,
+        "l10AvgFinish": 23.3,
         "l5McPct": 100,
         "trend": "steady",
         "events": 3,
@@ -4679,10 +4662,10 @@
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 60,
+        "score": 61,
         "prior": 50.0,
-        "likelihood": 69.6,
-        "posterior_sigma": 12.3,
+        "likelihood": 68.1,
+        "posterior_sigma": 11.5,
         "data_points": 3
       },
       "competitiveness": "active",
@@ -4699,7 +4682,7 @@
         "closing": 2.0,
         "field_strength": 0.5,
         "consistency": 1.7,
-        "ml_bayes": 2.7
+        "ml_bayes": 2.8
       },
       "propScores": {
         "win": 36,
@@ -4708,10 +4691,10 @@
         "top20": 52,
         "makeCut": 58
       },
-      "confScore": 38.7,
-      "edgeScore": 5.2,
+      "confScore": 38.8,
+      "edgeScore": 5.25,
       "owgrRank": 70,
-      "evScore": 863.6,
+      "evScore": 924.3,
       "scoreStd": 1.64
     },
     {
@@ -4958,10 +4941,10 @@
       },
       "owgr": 50,
       "recentForm": {
-        "lastResult": "#38 at RBC Heritage",
-        "lastPosition": 38,
-        "l5AvgFinish": 38.6,
-        "l10AvgFinish": 38.6,
+        "lastResult": "#39 at RBC Heritage",
+        "lastPosition": 39,
+        "l5AvgFinish": 38.8,
+        "l10AvgFinish": 38.8,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
@@ -4975,8 +4958,8 @@
       "bayesianScore": {
         "score": 47,
         "prior": 50.0,
-        "likelihood": 45.3,
-        "posterior_sigma": 11.3,
+        "likelihood": 45.0,
+        "posterior_sigma": 11.2,
         "data_points": 5
       },
       "competitiveness": "active",
@@ -5147,8 +5130,8 @@
       "recentForm": {
         "lastResult": "#51 at RBC Heritage",
         "lastPosition": 51,
-        "l5AvgFinish": 33.0,
-        "l10AvgFinish": 33.0,
+        "l5AvgFinish": 32.7,
+        "l10AvgFinish": 32.7,
         "l5McPct": 100,
         "trend": "steady",
         "events": 3,
@@ -5162,8 +5145,8 @@
       "bayesianScore": {
         "score": 52,
         "prior": 50.0,
-        "likelihood": 55.4,
-        "posterior_sigma": 14.6,
+        "likelihood": 55.9,
+        "posterior_sigma": 14.5,
         "data_points": 3
       },
       "competitiveness": "active",
@@ -5244,8 +5227,8 @@
       "recentForm": {
         "lastResult": "#49 at RBC Heritage",
         "lastPosition": 49,
-        "l5AvgFinish": 36.3,
-        "l10AvgFinish": 36.3,
+        "l5AvgFinish": 36.0,
+        "l10AvgFinish": 36.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 3,
@@ -5259,7 +5242,7 @@
       "bayesianScore": {
         "score": 51,
         "prior": 50.0,
-        "likelihood": 51.5,
+        "likelihood": 52.0,
         "posterior_sigma": 14.6,
         "data_points": 3
       },
@@ -6246,98 +6229,9 @@
       "evScore": 26905.4
     },
     {
-      "id": 9019,
-      "name": "Rickie Fowler",
-      "rank": 64,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+7200"
-      },
-      "fieldInfo": {
-        "owgr": 86,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 86,
-      "recentForm": {
-        "lastResult": "#14 at RBC Heritage",
-        "lastPosition": 14,
-        "l5AvgFinish": 13.5,
-        "l10AvgFinish": 13.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 65.0,
-          "r2Avg": 69.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.3,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7
-      },
-      "propScores": {
-        "win": 32,
-        "top5": 36,
-        "top10": 41,
-        "top20": 49,
-        "makeCut": 55
-      },
-      "confScore": 36,
-      "edgeScore": 4.03,
-      "owgrRank": 86,
-      "evScore": 294.2
-    },
-    {
       "id": 9027,
       "name": "Garrick Higgo",
-      "rank": 65,
+      "rank": 64,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6427,7 +6321,7 @@
     {
       "id": 96,
       "name": "Marco Penge",
-      "rank": 66,
+      "rank": 65,
       "sgTotal": 0.05,
       "sgOtt": 0.12,
       "sgApp": 0.02,
@@ -6525,6 +6419,96 @@
     {
       "id": 9015,
       "name": "Pierceson Coody",
+      "rank": 66,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+16000"
+      },
+      "fieldInfo": {
+        "owgr": 96,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 96,
+      "recentForm": {
+        "lastResult": "#11 at RBC Heritage",
+        "lastPosition": 11,
+        "l5AvgFinish": 20.5,
+        "l10AvgFinish": 20.5,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 69.0,
+          "r2Avg": 68.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.1,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7
+      },
+      "propScores": {
+        "win": 32,
+        "top5": 36,
+        "top10": 41,
+        "top20": 49,
+        "makeCut": 55
+      },
+      "confScore": 35,
+      "edgeScore": 4.63,
+      "owgrRank": 96,
+      "evScore": 745.2,
+      "scoreStd": 1.64
+    },
+    {
+      "id": 9019,
+      "name": "Rickie Fowler",
       "rank": 67,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -6561,25 +6545,25 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+15000"
+        "dk": "+30000"
       },
       "fieldInfo": {
-        "owgr": 96,
+        "owgr": 86,
         "entryStatus": "IN",
         "inField": true
       },
-      "owgr": 96,
+      "owgr": 86,
       "recentForm": {
-        "lastResult": "#11 at RBC Heritage",
-        "lastPosition": 11,
-        "l5AvgFinish": 19.0,
-        "l10AvgFinish": 19.0,
+        "lastResult": "#18 at RBC Heritage",
+        "lastPosition": 18,
+        "l5AvgFinish": 13.0,
+        "l10AvgFinish": 13.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 69.0,
-          "r2Avg": 68.0
+          "r1Avg": 65.0,
+          "r2Avg": 69.0
         }
       },
       "makeCutPct": 60.0,
@@ -6594,7 +6578,7 @@
         "driving": 2.6,
         "birdie_bogey": 3.4,
         "cut": 3.0,
-        "market": 0.2,
+        "market": 0.1,
         "closing": 2.0,
         "field_strength": 0.0,
         "consistency": 1.7
@@ -6607,10 +6591,10 @@
         "makeCut": 55
       },
       "confScore": 35,
-      "edgeScore": 4.59,
-      "owgrRank": 96,
-      "evScore": 692.8,
-      "scoreStd": 1.64
+      "edgeScore": 4.92,
+      "owgrRank": 86,
+      "evScore": 1480.2,
+      "scoreStd": 3.35
     },
     {
       "id": 9023,
@@ -6662,8 +6646,8 @@
       "recentForm": {
         "lastResult": "#50 at RBC Heritage",
         "lastPosition": 50,
-        "l5AvgFinish": 54.5,
-        "l10AvgFinish": 54.5,
+        "l5AvgFinish": 54.0,
+        "l10AvgFinish": 54.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -7564,7 +7548,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+80000"
+        "dk": "+82500"
       },
       "fieldInfo": {
         "owgr": 104,
@@ -7612,8 +7596,7 @@
       "confScore": 35,
       "edgeScore": 5.13,
       "owgrRank": 104,
-      "evScore": 4105.2,
-      "scoreStd": 2.45
+      "evScore": 4236.5
     },
     {
       "id": 9039,
@@ -7665,8 +7648,8 @@
       "recentForm": {
         "lastResult": "#23 at RBC Heritage",
         "lastPosition": 23,
-        "l5AvgFinish": 26.0,
-        "l10AvgFinish": 26.0,
+        "l5AvgFinish": 20.0,
+        "l10AvgFinish": 20.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -7754,8 +7737,8 @@
       "recentForm": {
         "lastResult": "#48 at RBC Heritage",
         "lastPosition": 48,
-        "l5AvgFinish": 52.3,
-        "l10AvgFinish": 52.3,
+        "l5AvgFinish": 52.0,
+        "l10AvgFinish": 52.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 3,
@@ -7767,10 +7750,10 @@
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 34,
+        "score": 35,
         "prior": 50.0,
-        "likelihood": 26.2,
-        "posterior_sigma": 10.5,
+        "likelihood": 26.7,
+        "posterior_sigma": 10.8,
         "data_points": 3
       },
       "competitiveness": "active",
@@ -7849,10 +7832,10 @@
       },
       "owgr": 145,
       "recentForm": {
-        "lastResult": "#39 at RBC Heritage",
-        "lastPosition": 39,
-        "l5AvgFinish": 33.5,
-        "l10AvgFinish": 33.5,
+        "lastResult": "#40 at RBC Heritage",
+        "lastPosition": 40,
+        "l5AvgFinish": 34.0,
+        "l10AvgFinish": 34.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -8107,11 +8090,11 @@
       {
         "name": "Matt Fitzpatrick",
         "position": "1",
-        "score": "-15",
-        "totalStrokes": 182.0,
+        "score": "-17",
+        "totalStrokes": 192.0,
         "round1": 65.0,
         "round2": 63.0,
-        "round3": 54.0,
+        "round3": 64.0,
         "round4": 0.0,
         "thru": ""
       },
@@ -8141,21 +8124,21 @@
         "name": "Si Woo Kim",
         "position": "T3",
         "score": "-13",
-        "totalStrokes": 196.0,
+        "totalStrokes": 200.0,
         "round1": 66.0,
         "round2": 68.0,
-        "round3": 62.0,
+        "round3": 66.0,
         "round4": 0.0,
         "thru": ""
       },
       {
-        "name": "Patrick Cantlay",
+        "name": "Sepp Straka",
         "position": "T3",
         "score": "-13",
-        "totalStrokes": 184.0,
-        "round1": 69.0,
-        "round2": 64.0,
-        "round3": 51.0,
+        "totalStrokes": 200.0,
+        "round1": 66.0,
+        "round2": 67.0,
+        "round3": 67.0,
         "round4": 0.0,
         "thru": ""
       },
@@ -8185,21 +8168,21 @@
         "name": "Aldrich Potgieter",
         "position": "T6",
         "score": "-12",
-        "totalStrokes": 197.0,
+        "totalStrokes": 201.0,
         "round1": 67.0,
         "round2": 67.0,
-        "round3": 63.0,
+        "round3": 67.0,
         "round4": 0.0,
         "thru": ""
       },
       {
-        "name": "Sepp Straka",
+        "name": "Patrick Cantlay",
         "position": "T6",
         "score": "-12",
-        "totalStrokes": 190.0,
-        "round1": 66.0,
-        "round2": 67.0,
-        "round3": 57.0,
+        "totalStrokes": 201.0,
+        "round1": 69.0,
+        "round2": 64.0,
+        "round3": 68.0,
         "round4": 0.0,
         "thru": ""
       },
@@ -8207,10 +8190,10 @@
         "name": "Ludvig Åberg",
         "position": "T6",
         "score": "-12",
-        "totalStrokes": 190.0,
+        "totalStrokes": 201.0,
         "round1": 63.0,
         "round2": 70.0,
-        "round3": 57.0,
+        "round3": 68.0,
         "round4": 0.0,
         "thru": ""
       },
@@ -8240,21 +8223,10 @@
         "name": "Kurt Kitayama",
         "position": "T11",
         "score": "-11",
-        "totalStrokes": 195.0,
+        "totalStrokes": 202.0,
         "round1": 69.0,
         "round2": 65.0,
-        "round3": 61.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Rickie Fowler",
-        "position": "T11",
-        "score": "-11",
-        "totalStrokes": 195.0,
-        "round1": 65.0,
-        "round2": 69.0,
-        "round3": 61.0,
+        "round3": 68.0,
         "round4": 0.0,
         "thru": ""
       },
@@ -8262,10 +8234,21 @@
         "name": "Harris English",
         "position": "T11",
         "score": "-11",
-        "totalStrokes": 186.0,
+        "totalStrokes": 202.0,
         "round1": 64.0,
         "round2": 68.0,
-        "round3": 54.0,
+        "round3": 70.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "Viktor Hovland",
+        "position": "T11",
+        "score": "-11",
+        "totalStrokes": 198.0,
+        "round1": 64.0,
+        "round2": 65.0,
+        "round3": 69.0,
         "round4": 0.0,
         "thru": ""
       },
@@ -8292,13 +8275,13 @@
         "thru": ""
       },
       {
-        "name": "Viktor Hovland",
+        "name": "Rickie Fowler",
         "position": "T16",
         "score": "-10",
-        "totalStrokes": 187.0,
-        "round1": 64.0,
-        "round2": 65.0,
-        "round3": 58.0,
+        "totalStrokes": 203.0,
+        "round1": 65.0,
+        "round2": 69.0,
+        "round3": 69.0,
         "round4": 0.0,
         "thru": ""
       },
@@ -8493,16 +8476,27 @@
         "name": "Keegan Bradley",
         "position": "T29",
         "score": "-7",
-        "totalStrokes": 202.0,
+        "totalStrokes": 206.0,
         "round1": 67.0,
         "round2": 67.0,
-        "round3": 68.0,
+        "round3": 72.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "Michael Brennan",
+        "position": "T29",
+        "score": "-7",
+        "totalStrokes": 206.0,
+        "round1": 65.0,
+        "round2": 69.0,
+        "round3": 72.0,
         "round4": 0.0,
         "thru": ""
       },
       {
         "name": "Min Woo Lee",
-        "position": "T37",
+        "position": "T38",
         "score": "-6",
         "totalStrokes": 207.0,
         "round1": 70.0,
@@ -8513,7 +8507,7 @@
       },
       {
         "name": "Sam Stevens",
-        "position": "T37",
+        "position": "T38",
         "score": "-6",
         "totalStrokes": 207.0,
         "round1": 70.0,
@@ -8524,23 +8518,12 @@
       },
       {
         "name": "Karl Vilips",
-        "position": "T37",
+        "position": "T38",
         "score": "-6",
         "totalStrokes": 207.0,
         "round1": 70.0,
         "round2": 67.0,
         "round3": 70.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "Michael Brennan",
-        "position": "T37",
-        "score": "-6",
-        "totalStrokes": 203.0,
-        "round1": 65.0,
-        "round2": 69.0,
-        "round3": 69.0,
         "round4": 0.0,
         "thru": ""
       },
@@ -8989,20 +8972,20 @@
     "weather": [
       {
         "date": "2026-04-18",
-        "tempHigh": 80.0,
+        "tempHigh": 80.9,
         "tempLow": 63.9,
-        "windAvg": 9.1,
-        "windMax": 15.3,
-        "windDir": 169,
+        "windAvg": 9.2,
+        "windMax": 14.6,
+        "windDir": 168,
         "rainPct": 0
       },
       {
         "date": "2026-04-19",
         "tempHigh": 83.9,
-        "tempLow": 66.4,
-        "windAvg": 10.5,
+        "tempLow": 66.3,
+        "windAvg": 10.4,
         "windMax": 15.3,
-        "windDir": 295,
+        "windDir": 296,
         "rainPct": 16
       },
       {
@@ -9012,7 +8995,7 @@
         "windAvg": 7.8,
         "windMax": 10.6,
         "windDir": 88,
-        "rainPct": 1
+        "rainPct": 2
       }
     ]
   },
@@ -9143,20 +9126,20 @@
     "forecast": [
       {
         "date": "2026-04-18",
-        "tempHigh": 80.0,
+        "tempHigh": 80.9,
         "tempLow": 63.9,
-        "windAvg": 9.1,
-        "windMax": 15.3,
-        "windDir": 169,
+        "windAvg": 9.2,
+        "windMax": 14.6,
+        "windDir": 168,
         "rainPct": 0
       },
       {
         "date": "2026-04-19",
         "tempHigh": 83.9,
-        "tempLow": 66.4,
-        "windAvg": 10.5,
+        "tempLow": 66.3,
+        "windAvg": 10.4,
         "windMax": 15.3,
-        "windDir": 295,
+        "windDir": 296,
         "rainPct": 16
       },
       {
@@ -9166,7 +9149,7 @@
         "windAvg": 7.8,
         "windMax": 10.6,
         "windDir": 88,
-        "rainPct": 1
+        "rainPct": 2
       }
     ]
   },
@@ -9174,360 +9157,360 @@
     {
       "name": "Matt Fitzpatrick",
       "rounds": 4,
-      "sgTotal": 4.97,
+      "sgTotal": 5.96,
       "sgOTT": 0.0,
-      "sgAPP": 1.04,
+      "sgAPP": 1.27,
       "sgATG": 0.0,
-      "sgPutt": 2.02
+      "sgPutt": 1.91
     },
     {
       "name": "Scottie Scheffler",
       "rounds": 4,
-      "sgTotal": 4.48,
+      "sgTotal": 4.47,
       "sgOTT": 0.0,
-      "sgAPP": 1.24,
+      "sgAPP": 1.22,
       "sgATG": 0.0,
       "sgPutt": 1.92
-    },
-    {
-      "name": "Patrick Cantlay",
-      "rounds": 4,
-      "sgTotal": 4.21,
-      "sgOTT": 0.0,
-      "sgAPP": 1.51,
-      "sgATG": 0.0,
-      "sgPutt": -0.18
     },
     {
       "name": "Brian Harman",
       "rounds": 4,
       "sgTotal": 3.98,
       "sgOTT": 0.0,
-      "sgAPP": 0.95,
+      "sgAPP": 0.94,
       "sgATG": 0.0,
-      "sgPutt": 1.54
-    },
-    {
-      "name": "Si Woo Kim",
-      "rounds": 4,
-      "sgTotal": 3.98,
-      "sgOTT": 0.0,
-      "sgAPP": 0.49,
-      "sgATG": 0.0,
-      "sgPutt": 1.53
+      "sgPutt": 1.55
     },
     {
       "name": "Sepp Straka",
       "rounds": 4,
-      "sgTotal": 3.49,
+      "sgTotal": 3.97,
       "sgOTT": 0.0,
-      "sgAPP": 0.62,
-      "sgATG": 0.0,
-      "sgPutt": 1.21
-    },
-    {
-      "name": "Ludvig Åberg",
-      "rounds": 4,
-      "sgTotal": 3.49,
-      "sgOTT": 0.0,
-      "sgAPP": 2.04,
-      "sgATG": 0.0,
-      "sgPutt": 1.32
-    },
-    {
-      "name": "Gary Woodland",
-      "rounds": 4,
-      "sgTotal": 3.48,
-      "sgOTT": 0.0,
-      "sgAPP": 1.92,
-      "sgATG": 0.0,
-      "sgPutt": 1.09
-    },
-    {
-      "name": "Aldrich Potgieter",
-      "rounds": 4,
-      "sgTotal": 3.48,
-      "sgOTT": 0.0,
-      "sgAPP": 0.81,
-      "sgATG": 0.0,
-      "sgPutt": 1.09
-    },
-    {
-      "name": "Andrew Novak",
-      "rounds": 4,
-      "sgTotal": 3.48,
-      "sgOTT": 0.0,
-      "sgAPP": 2.79,
-      "sgATG": 0.0,
-      "sgPutt": 0.64
-    },
-    {
-      "name": "Harris English",
-      "rounds": 4,
-      "sgTotal": 3.24,
-      "sgOTT": 0.0,
-      "sgAPP": -0.8,
-      "sgATG": 0.0,
-      "sgPutt": 3.74
-    },
-    {
-      "name": "Kurt Kitayama",
-      "rounds": 4,
-      "sgTotal": 2.99,
-      "sgOTT": 0.0,
-      "sgAPP": 1.39,
-      "sgATG": 0.0,
-      "sgPutt": -0.01
-    },
-    {
-      "name": "Pierceson Coody",
-      "rounds": 4,
-      "sgTotal": 2.98,
-      "sgOTT": 0.0,
-      "sgAPP": 2.41,
+      "sgAPP": 0.85,
       "sgATG": 0.0,
       "sgPutt": 1.24
     },
     {
-      "name": "Rickie Fowler",
+      "name": "Si Woo Kim",
+      "rounds": 4,
+      "sgTotal": 3.97,
+      "sgOTT": 0.0,
+      "sgAPP": 0.65,
+      "sgATG": 0.0,
+      "sgPutt": 1.45
+    },
+    {
+      "name": "Patrick Cantlay",
+      "rounds": 4,
+      "sgTotal": 3.48,
+      "sgOTT": 0.0,
+      "sgAPP": 1.33,
+      "sgATG": 0.0,
+      "sgPutt": -0.63
+    },
+    {
+      "name": "Gary Woodland",
+      "rounds": 4,
+      "sgTotal": 3.47,
+      "sgOTT": 0.0,
+      "sgAPP": 1.91,
+      "sgATG": 0.0,
+      "sgPutt": 1.1
+    },
+    {
+      "name": "Ludvig Åberg",
+      "rounds": 4,
+      "sgTotal": 3.47,
+      "sgOTT": 0.0,
+      "sgAPP": 1.85,
+      "sgATG": 0.0,
+      "sgPutt": 1.58
+    },
+    {
+      "name": "Aldrich Potgieter",
+      "rounds": 4,
+      "sgTotal": 3.47,
+      "sgOTT": 0.0,
+      "sgAPP": 0.91,
+      "sgATG": 0.0,
+      "sgPutt": 0.99
+    },
+    {
+      "name": "Andrew Novak",
+      "rounds": 4,
+      "sgTotal": 3.47,
+      "sgOTT": 0.0,
+      "sgAPP": 2.78,
+      "sgATG": 0.0,
+      "sgPutt": 0.65
+    },
+    {
+      "name": "Harris English",
       "rounds": 4,
       "sgTotal": 2.98,
       "sgOTT": 0.0,
-      "sgAPP": 2.02,
+      "sgAPP": -0.65,
       "sgATG": 0.0,
-      "sgPutt": 0.19
+      "sgPutt": 3.88
+    },
+    {
+      "name": "Pierceson Coody",
+      "rounds": 4,
+      "sgTotal": 2.97,
+      "sgOTT": 0.0,
+      "sgAPP": 2.39,
+      "sgATG": 0.0,
+      "sgPutt": 1.25
+    },
+    {
+      "name": "Kurt Kitayama",
+      "rounds": 4,
+      "sgTotal": 2.97,
+      "sgOTT": 0.0,
+      "sgAPP": 1.26,
+      "sgATG": 0.0,
+      "sgPutt": -0.0
     },
     {
       "name": "Bud Cauley",
       "rounds": 4,
-      "sgTotal": 2.98,
+      "sgTotal": 2.97,
       "sgOTT": 0.0,
-      "sgAPP": 1.21,
+      "sgAPP": 1.2,
       "sgATG": 0.0,
       "sgPutt": 0.58
     },
     {
       "name": "Viktor Hovland",
       "rounds": 4,
-      "sgTotal": 2.74,
+      "sgTotal": 2.96,
       "sgOTT": 0.0,
-      "sgAPP": -0.28,
+      "sgAPP": -0.23,
       "sgATG": 0.0,
-      "sgPutt": 1.32
+      "sgPutt": 1.4
     },
     {
       "name": "Steven Fisk",
       "rounds": 4,
-      "sgTotal": 2.48,
+      "sgTotal": 2.47,
       "sgOTT": 0.0,
-      "sgAPP": 0.39,
+      "sgAPP": 0.38,
       "sgATG": 0.0,
-      "sgPutt": 1.22
+      "sgPutt": 1.23
     },
     {
       "name": "Patrick Rodgers",
       "rounds": 4,
-      "sgTotal": 2.48,
+      "sgTotal": 2.47,
       "sgOTT": 0.0,
-      "sgAPP": -0.58,
+      "sgAPP": -0.59,
       "sgATG": 0.0,
-      "sgPutt": 2.21
+      "sgPutt": 2.22
     },
     {
-      "name": "Joe Highsmith",
+      "name": "Rickie Fowler",
       "rounds": 4,
-      "sgTotal": 1.98,
+      "sgTotal": 2.47,
       "sgOTT": 0.0,
-      "sgAPP": 1.0,
+      "sgAPP": 1.79,
       "sgATG": 0.0,
-      "sgPutt": 1.27
-    },
-    {
-      "name": "Lucas Glover",
-      "rounds": 4,
-      "sgTotal": 1.98,
-      "sgOTT": 0.0,
-      "sgAPP": 0.44,
-      "sgATG": 0.0,
-      "sgPutt": 1.13
-    },
-    {
-      "name": "Ryan Fox",
-      "rounds": 4,
-      "sgTotal": 1.98,
-      "sgOTT": 0.0,
-      "sgAPP": 0.63,
-      "sgATG": 0.0,
-      "sgPutt": 0.16
-    },
-    {
-      "name": "Sami Valimaki",
-      "rounds": 4,
-      "sgTotal": 1.98,
-      "sgOTT": 0.0,
-      "sgAPP": 2.54,
-      "sgATG": 0.0,
-      "sgPutt": -0.24
+      "sgPutt": -0.12
     },
     {
       "name": "Collin Morikawa",
       "rounds": 4,
       "sgTotal": 1.98,
       "sgOTT": 0.0,
-      "sgAPP": 1.34,
+      "sgAPP": 1.33,
       "sgATG": 0.0,
-      "sgPutt": -0.69
+      "sgPutt": -0.68
+    },
+    {
+      "name": "Joe Highsmith",
+      "rounds": 4,
+      "sgTotal": 1.97,
+      "sgOTT": 0.0,
+      "sgAPP": 0.99,
+      "sgATG": 0.0,
+      "sgPutt": 1.28
+    },
+    {
+      "name": "Lucas Glover",
+      "rounds": 4,
+      "sgTotal": 1.97,
+      "sgOTT": 0.0,
+      "sgAPP": 0.43,
+      "sgATG": 0.0,
+      "sgPutt": 1.14
+    },
+    {
+      "name": "Ryan Fox",
+      "rounds": 4,
+      "sgTotal": 1.97,
+      "sgOTT": 0.0,
+      "sgAPP": 0.62,
+      "sgATG": 0.0,
+      "sgPutt": 0.16
+    },
+    {
+      "name": "Sami Valimaki",
+      "rounds": 4,
+      "sgTotal": 1.97,
+      "sgOTT": 0.0,
+      "sgAPP": 2.53,
+      "sgATG": 0.0,
+      "sgPutt": -0.24
     },
     {
       "name": "Sam Burns",
       "rounds": 4,
-      "sgTotal": 1.98,
+      "sgTotal": 1.97,
       "sgOTT": 0.0,
-      "sgAPP": 0.61,
+      "sgAPP": 0.6,
       "sgATG": 0.0,
       "sgPutt": 2.58
     },
     {
       "name": "Robert MacIntyre",
       "rounds": 4,
-      "sgTotal": 1.48,
+      "sgTotal": 1.47,
       "sgOTT": 0.0,
-      "sgAPP": -2.62,
+      "sgAPP": -2.63,
       "sgATG": 0.0,
       "sgPutt": 1.59
     },
     {
       "name": "Cameron Young",
       "rounds": 4,
-      "sgTotal": 1.48,
+      "sgTotal": 1.47,
       "sgOTT": 0.0,
-      "sgAPP": 1.44,
+      "sgAPP": 1.43,
       "sgATG": 0.0,
       "sgPutt": -2.39
     },
     {
       "name": "Akshay Bhatia",
       "rounds": 4,
-      "sgTotal": 1.48,
+      "sgTotal": 1.47,
       "sgOTT": 0.0,
-      "sgAPP": 1.47,
+      "sgAPP": 1.46,
       "sgATG": 0.0,
-      "sgPutt": 0.95
+      "sgPutt": 0.96
     },
     {
       "name": "Xander Schauffele",
       "rounds": 4,
-      "sgTotal": 1.48,
+      "sgTotal": 1.47,
       "sgOTT": 0.0,
-      "sgAPP": 0.14,
+      "sgAPP": 0.13,
       "sgATG": 0.0,
       "sgPutt": 0.29
     },
     {
       "name": "Chandler Blanchet",
       "rounds": 4,
-      "sgTotal": 0.98,
+      "sgTotal": 0.97,
       "sgOTT": 0.0,
-      "sgAPP": 0.82,
+      "sgAPP": 0.81,
       "sgATG": 0.0,
       "sgPutt": 1.26
     },
     {
+      "name": "Michael Brennan",
+      "rounds": 4,
+      "sgTotal": 0.97,
+      "sgOTT": 0.0,
+      "sgAPP": 0.54,
+      "sgATG": 0.0,
+      "sgPutt": 1.17
+    },
+    {
       "name": "Matt McCarty",
       "rounds": 4,
-      "sgTotal": 0.98,
+      "sgTotal": 0.97,
       "sgOTT": 0.0,
-      "sgAPP": 0.42,
+      "sgAPP": 0.4,
       "sgATG": 0.0,
       "sgPutt": 0.09
     },
     {
       "name": "J.J. Spaun",
       "rounds": 4,
-      "sgTotal": 0.98,
+      "sgTotal": 0.97,
       "sgOTT": 0.0,
-      "sgAPP": 1.0,
+      "sgAPP": 0.99,
       "sgATG": 0.0,
       "sgPutt": -1.27
     },
     {
       "name": "Jacob Bridgeman",
       "rounds": 4,
-      "sgTotal": 0.98,
+      "sgTotal": 0.97,
       "sgOTT": 0.0,
-      "sgAPP": 0.45,
+      "sgAPP": 0.44,
       "sgATG": 0.0,
-      "sgPutt": -0.04
+      "sgPutt": -0.03
     },
     {
       "name": "Wyndham Clark",
       "rounds": 4,
-      "sgTotal": 0.98,
+      "sgTotal": 0.97,
       "sgOTT": 0.0,
-      "sgAPP": -1.64,
+      "sgAPP": -1.65,
       "sgATG": 0.0,
-      "sgPutt": 1.94
+      "sgPutt": 1.95
     },
     {
       "name": "Keegan Bradley",
       "rounds": 4,
-      "sgTotal": 0.98,
+      "sgTotal": 0.97,
       "sgOTT": 0.0,
-      "sgAPP": 0.11,
+      "sgAPP": 0.29,
       "sgATG": 0.0,
-      "sgPutt": 0.53
+      "sgPutt": 0.39
     },
     {
       "name": "Shane Lowry",
       "rounds": 4,
-      "sgTotal": 0.98,
+      "sgTotal": 0.97,
       "sgOTT": 0.0,
-      "sgAPP": 0.35,
+      "sgAPP": 0.34,
       "sgATG": 0.0,
-      "sgPutt": 0.91
+      "sgPutt": 0.92
     },
     {
       "name": "Russell Henley",
       "rounds": 4,
-      "sgTotal": 0.98,
+      "sgTotal": 0.97,
       "sgOTT": 0.0,
-      "sgAPP": -1.26,
+      "sgAPP": -1.27,
       "sgATG": 0.0,
       "sgPutt": 0.82
     },
     {
-      "name": "Michael Brennan",
-      "rounds": 4,
-      "sgTotal": 0.48,
-      "sgOTT": 0.0,
-      "sgAPP": 0.24,
-      "sgATG": 0.0,
-      "sgPutt": 0.75
-    },
-    {
       "name": "Karl Vilips",
       "rounds": 4,
-      "sgTotal": 0.48,
+      "sgTotal": 0.47,
       "sgOTT": 0.0,
-      "sgAPP": -0.01,
+      "sgAPP": -0.02,
       "sgATG": 0.0,
       "sgPutt": 1.94
     },
     {
       "name": "Min Woo Lee",
       "rounds": 4,
-      "sgTotal": 0.48,
+      "sgTotal": 0.47,
       "sgOTT": 0.0,
-      "sgAPP": 0.28,
+      "sgAPP": 0.27,
       "sgATG": 0.0,
-      "sgPutt": -1.91
+      "sgPutt": -1.9
     },
     {
       "name": "Sam Stevens",
       "rounds": 4,
-      "sgTotal": 0.48,
+      "sgTotal": 0.47,
       "sgOTT": 0.0,
-      "sgAPP": 0.98,
+      "sgAPP": 0.97,
       "sgATG": 0.0,
       "sgPutt": -0.72
     }
@@ -9630,25 +9613,25 @@
       "startHole": 1
     },
     {
-      "player": "Patrick Cantlay",
-      "teeTime": "Thu Apr 16 13:05:00 PDT 2026",
+      "player": "Sepp Straka",
+      "teeTime": "Thu Apr 16 09:45:00 PDT 2026",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Patrick Cantlay",
-      "teeTime": "Fri Apr 17 09:20:00 PDT 2026",
+      "player": "Sepp Straka",
+      "teeTime": "Fri Apr 17 13:20:00 PDT 2026",
       "round": 2,
       "startHole": 1
     },
     {
-      "player": "Patrick Cantlay",
-      "teeTime": "Sat Apr 18 13:50:00 PDT 2026",
+      "player": "Sepp Straka",
+      "teeTime": "Sat Apr 18 13:40:00 PDT 2026",
       "round": 3,
       "startHole": 1
     },
     {
-      "player": "Patrick Cantlay",
+      "player": "Sepp Straka",
       "teeTime": "",
       "round": 4,
       "startHole": 1
@@ -9726,25 +9709,25 @@
       "startHole": 1
     },
     {
-      "player": "Sepp Straka",
-      "teeTime": "Thu Apr 16 09:45:00 PDT 2026",
+      "player": "Patrick Cantlay",
+      "teeTime": "Thu Apr 16 13:05:00 PDT 2026",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Sepp Straka",
-      "teeTime": "Fri Apr 17 13:20:00 PDT 2026",
+      "player": "Patrick Cantlay",
+      "teeTime": "Fri Apr 17 09:20:00 PDT 2026",
       "round": 2,
       "startHole": 1
     },
     {
-      "player": "Sepp Straka",
-      "teeTime": "Sat Apr 18 13:40:00 PDT 2026",
+      "player": "Patrick Cantlay",
+      "teeTime": "Sat Apr 18 13:50:00 PDT 2026",
       "round": 3,
       "startHole": 1
     },
     {
-      "player": "Sepp Straka",
+      "player": "Patrick Cantlay",
       "teeTime": "",
       "round": 4,
       "startHole": 1
@@ -9846,30 +9829,6 @@
       "startHole": 1
     },
     {
-      "player": "Rickie Fowler",
-      "teeTime": "Thu Apr 16 11:40:00 PDT 2026",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Rickie Fowler",
-      "teeTime": "Fri Apr 17 07:55:00 PDT 2026",
-      "round": 2,
-      "startHole": 1
-    },
-    {
-      "player": "Rickie Fowler",
-      "teeTime": "Sat Apr 18 13:30:00 PDT 2026",
-      "round": 3,
-      "startHole": 1
-    },
-    {
-      "player": "Rickie Fowler",
-      "teeTime": "",
-      "round": 4,
-      "startHole": 1
-    },
-    {
       "player": "Harris English",
       "teeTime": "Thu Apr 16 09:00:00 PDT 2026",
       "round": 1,
@@ -9889,6 +9848,30 @@
     },
     {
       "player": "Harris English",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Viktor Hovland",
+      "teeTime": "Thu Apr 16 09:55:00 PDT 2026",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Viktor Hovland",
+      "teeTime": "Fri Apr 17 13:30:00 PDT 2026",
+      "round": 2,
+      "startHole": 1
+    },
+    {
+      "player": "Viktor Hovland",
+      "teeTime": "Sat Apr 18 14:00:00 PDT 2026",
+      "round": 3,
+      "startHole": 1
+    },
+    {
+      "player": "Viktor Hovland",
       "teeTime": "",
       "round": 4,
       "startHole": 1
@@ -9942,25 +9925,25 @@
       "startHole": 1
     },
     {
-      "player": "Viktor Hovland",
-      "teeTime": "Thu Apr 16 09:55:00 PDT 2026",
+      "player": "Rickie Fowler",
+      "teeTime": "Thu Apr 16 11:40:00 PDT 2026",
       "round": 1,
       "startHole": 1
     },
     {
-      "player": "Viktor Hovland",
-      "teeTime": "Fri Apr 17 13:30:00 PDT 2026",
+      "player": "Rickie Fowler",
+      "teeTime": "Fri Apr 17 07:55:00 PDT 2026",
       "round": 2,
       "startHole": 1
     },
     {
-      "player": "Viktor Hovland",
-      "teeTime": "Sat Apr 18 14:00:00 PDT 2026",
+      "player": "Rickie Fowler",
+      "teeTime": "Sat Apr 18 13:30:00 PDT 2026",
       "round": 3,
       "startHole": 1
     },
     {
-      "player": "Viktor Hovland",
+      "player": "Rickie Fowler",
       "teeTime": "",
       "round": 4,
       "startHole": 1
@@ -10398,6 +10381,30 @@
       "startHole": 1
     },
     {
+      "player": "Michael Brennan",
+      "teeTime": "Thu Apr 16 08:05:00 PDT 2026",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Michael Brennan",
+      "teeTime": "Fri Apr 17 11:40:00 PDT 2026",
+      "round": 2,
+      "startHole": 1
+    },
+    {
+      "player": "Michael Brennan",
+      "teeTime": "Sat Apr 18 13:10:00 PDT 2026",
+      "round": 3,
+      "startHole": 1
+    },
+    {
+      "player": "Michael Brennan",
+      "teeTime": "",
+      "round": 4,
+      "startHole": 1
+    },
+    {
       "player": "Min Woo Lee",
       "teeTime": "Thu Apr 16 08:30:00 PDT 2026",
       "round": 1,
@@ -10465,30 +10472,6 @@
     },
     {
       "player": "Karl Vilips",
-      "teeTime": "",
-      "round": 4,
-      "startHole": 1
-    },
-    {
-      "player": "Michael Brennan",
-      "teeTime": "Thu Apr 16 08:05:00 PDT 2026",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Michael Brennan",
-      "teeTime": "Fri Apr 17 11:40:00 PDT 2026",
-      "round": 2,
-      "startHole": 1
-    },
-    {
-      "player": "Michael Brennan",
-      "teeTime": "Sat Apr 18 13:10:00 PDT 2026",
-      "round": 3,
-      "startHole": 1
-    },
-    {
-      "player": "Michael Brennan",
       "teeTime": "",
       "round": 4,
       "startHole": 1
@@ -11506,16 +11489,16 @@
     "Scottie Scheffler": [
       {
         "type": "z_score",
-        "z": -4.09,
+        "z": -3.09,
         "direction": "OVERPRICED",
-        "edge_pct": -15.56,
+        "edge_pct": -15.19,
         "market": "outright"
       },
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -15.56,
-        "fence": 3.05,
+        "edge_pct": -15.19,
+        "fence": 3.07,
         "market": "outright"
       }
     ],
@@ -11523,55 +11506,30 @@
       {
         "type": "iqr_outlier",
         "direction": "UNDERPRICED",
-        "edge_pct": 10.29,
-        "fence": 8.84,
+        "edge_pct": 10.3,
+        "fence": 8.83,
         "market": "outright"
       },
       {
         "type": "low_freq_value",
         "direction": "UNDERPRICED",
         "market": "top20_makecut",
-        "note": "confScore 69.9 but odds +50000 — likely value in placement markets"
+        "note": "confScore 70.1 but odds +47500 — likely value in placement markets"
       }
     ],
     "Xander Schauffele": [
       {
         "type": "iqr_outlier",
         "direction": "UNDERPRICED",
-        "edge_pct": 10.35,
-        "fence": 8.84,
+        "edge_pct": 10.4,
+        "fence": 8.83,
         "market": "outright"
       },
       {
         "type": "low_freq_value",
         "direction": "UNDERPRICED",
         "market": "top20_makecut",
-        "note": "confScore 69.6 but odds +110000 — likely value in placement markets"
-      }
-    ],
-    "Patrick Cantlay": [
-      {
-        "type": "z_score",
-        "z": -2.0,
-        "direction": "OVERPRICED",
-        "edge_pct": -5.03,
-        "market": "outright"
-      },
-      {
-        "type": "iqr_outlier",
-        "direction": "OVERPRICED",
-        "edge_pct": -5.03,
-        "fence": 3.05,
-        "market": "outright"
-      }
-    ],
-    "Ludvig Aberg": [
-      {
-        "type": "iqr_outlier",
-        "direction": "OVERPRICED",
-        "edge_pct": 1.31,
-        "fence": 8.84,
-        "market": "outright"
+        "note": "confScore 70.0 but odds +97500 — likely value in placement markets"
       }
     ],
     "Tommy Fleetwood": [
@@ -11579,23 +11537,23 @@
         "type": "iqr_outlier",
         "direction": "UNDERPRICED",
         "edge_pct": 8.86,
-        "fence": 8.84,
+        "fence": 8.83,
         "market": "outright"
       }
     ],
     "Matt Fitzpatrick": [
       {
         "type": "z_score",
-        "z": -7.17,
+        "z": -8.24,
         "direction": "OVERPRICED",
-        "edge_pct": -31.08,
+        "edge_pct": -48.92,
         "market": "outright"
       },
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -31.08,
-        "fence": 3.05,
+        "edge_pct": -48.92,
+        "fence": 3.07,
         "market": "outright"
       }
     ],
@@ -11603,8 +11561,8 @@
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": 2.4,
-        "fence": 8.84,
+        "edge_pct": 2.42,
+        "fence": 8.83,
         "market": "outright"
       }
     ],
@@ -11612,52 +11570,52 @@
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -0.49,
-        "fence": 3.05,
+        "edge_pct": 1.35,
+        "fence": 8.83,
         "market": "outright"
       }
     ]
   },
   "oddsMovement": {
     "Scottie Scheffler": {
-      "current": "+265",
+      "current": "+270",
       "previous": "+1325",
-      "change": -1060,
+      "change": -1055,
       "direction": "shorter",
       "significant": true
     },
     "Collin Morikawa": {
-      "current": "+50000",
+      "current": "+47500",
       "previous": "+5300",
-      "change": 44700,
+      "change": 42200,
       "direction": "longer",
       "significant": true
     },
     "Xander Schauffele": {
-      "current": "+110000",
+      "current": "+97500",
       "previous": "+12000",
-      "change": 98000,
+      "change": 85500,
       "direction": "longer",
       "significant": true
     },
     "Patrick Cantlay": {
-      "current": "+560",
+      "current": "+2900",
       "previous": "+1750",
-      "change": -1190,
-      "direction": "shorter",
+      "change": 1150,
+      "direction": "longer",
       "significant": true
     },
     "Ludvig Aberg": {
-      "current": "+1175",
+      "current": "+2600",
       "previous": "+1550",
-      "change": -375,
-      "direction": "shorter",
-      "significant": false
+      "change": 1050,
+      "direction": "longer",
+      "significant": true
     },
     "Viktor Hovland": {
-      "current": "+6500",
+      "current": "+6700",
       "previous": "+305",
-      "change": 6195,
+      "change": 6395,
       "direction": "longer",
       "significant": true
     },
@@ -11676,9 +11634,9 @@
       "significant": true
     },
     "Sam Burns": {
-      "current": "+55000",
+      "current": "+52500",
       "previous": "+115000",
-      "change": -60000,
+      "change": -62500,
       "direction": "shorter",
       "significant": true
     },
@@ -11690,30 +11648,30 @@
       "significant": true
     },
     "Brian Harman": {
-      "current": "+2100",
+      "current": "+2300",
       "previous": "+55000",
-      "change": -52900,
+      "change": -52700,
       "direction": "shorter",
       "significant": true
     },
-    "Keegan Bradley": {
-      "current": "+500000",
-      "previous": "+7200",
-      "change": 492800,
-      "direction": "longer",
-      "significant": true
-    },
     "Matt Fitzpatrick": {
-      "current": "+156",
+      "current": "-132",
       "previous": "+112",
-      "change": 44,
-      "direction": "longer",
+      "change": -244,
+      "direction": "shorter",
       "significant": false
     },
     "Sungjae Im": {
       "current": "+500000",
       "previous": "+145000",
       "change": 355000,
+      "direction": "longer",
+      "significant": true
+    },
+    "Keegan Bradley": {
+      "current": "+500000",
+      "previous": "+7200",
+      "change": 492800,
       "direction": "longer",
       "significant": true
     },
@@ -11739,44 +11697,44 @@
       "significant": true
     },
     "Si Woo Kim": {
-      "current": "+1150",
+      "current": "+1550",
       "previous": "+3600",
-      "change": -2450,
+      "change": -2050,
       "direction": "shorter",
       "significant": true
     },
     "Cameron Young": {
-      "current": "+130000",
+      "current": "+115000",
       "previous": "+31000",
-      "change": 99000,
+      "change": 84000,
       "direction": "longer",
       "significant": true
     },
     "Akshay Bhatia": {
-      "current": "+275000",
+      "current": "+250000",
       "previous": "+19500",
-      "change": 255500,
+      "change": 230500,
       "direction": "longer",
       "significant": true
     },
     "Robert MacIntyre": {
-      "current": "+200000",
+      "current": "+190000",
       "previous": "+3700",
-      "change": 196300,
+      "change": 186300,
       "direction": "longer",
       "significant": true
     },
     "Harris English": {
-      "current": "+5200",
+      "current": "+11000",
       "previous": "+1850",
-      "change": 3350,
+      "change": 9150,
       "direction": "longer",
       "significant": true
     },
     "Lucas Glover": {
-      "current": "+300000",
+      "current": "+275000",
       "previous": "+105000",
-      "change": 195000,
+      "change": 170000,
       "direction": "longer",
       "significant": true
     },
@@ -11788,30 +11746,23 @@
       "significant": true
     },
     "Kurt Kitayama": {
-      "current": "+8600",
+      "current": "+13000",
       "previous": "+7600",
-      "change": 1000,
+      "change": 5400,
       "direction": "longer",
       "significant": true
     },
-    "Aldrich Potgieter": {
-      "current": "+7600",
-      "previous": "+28000",
-      "change": -20400,
-      "direction": "shorter",
-      "significant": true
-    },
     "Andrew Novak": {
-      "current": "+6000",
+      "current": "+6500",
       "previous": "+40000",
-      "change": -34000,
+      "change": -33500,
       "direction": "shorter",
       "significant": true
     },
     "Ryan Fox": {
-      "current": "+160000",
+      "current": "+150000",
       "previous": "+110000",
-      "change": 50000,
+      "change": 40000,
       "direction": "longer",
       "significant": true
     },
@@ -11820,6 +11771,13 @@
       "previous": "+20000",
       "change": 480000,
       "direction": "longer",
+      "significant": true
+    },
+    "Aldrich Potgieter": {
+      "current": "+11000",
+      "previous": "+28000",
+      "change": -17000,
+      "direction": "shorter",
       "significant": true
     },
     "Nick Taylor": {
@@ -11844,9 +11802,9 @@
       "significant": true
     },
     "Gary Woodland": {
-      "current": "+6000",
+      "current": "+6500",
       "previous": "+19500",
-      "change": -13500,
+      "change": -13000,
       "direction": "shorter",
       "significant": true
     },
@@ -11858,9 +11816,9 @@
       "significant": true
     },
     "Bud Cauley": {
-      "current": "+16500",
+      "current": "+17500",
       "previous": "+97500",
-      "change": -81000,
+      "change": -80000,
       "direction": "shorter",
       "significant": true
     },
@@ -11892,18 +11850,18 @@
       "direction": "longer",
       "significant": true
     },
-    "Rickie Fowler": {
-      "current": "+7200",
-      "previous": "+5800",
-      "change": 1400,
-      "direction": "longer",
+    "Pierceson Coody": {
+      "current": "+16000",
+      "previous": "+87500",
+      "change": -71500,
+      "direction": "shorter",
       "significant": true
     },
-    "Pierceson Coody": {
-      "current": "+15000",
-      "previous": "+87500",
-      "change": -72500,
-      "direction": "shorter",
+    "Rickie Fowler": {
+      "current": "+30000",
+      "previous": "+5800",
+      "change": 24200,
+      "direction": "longer",
       "significant": true
     },
     "Patrick Rodgers": {
@@ -11914,9 +11872,9 @@
       "significant": true
     },
     "Steven Fisk": {
-      "current": "+80000",
+      "current": "+82500",
       "previous": "+100000",
-      "change": -20000,
+      "change": -17500,
       "direction": "shorter",
       "significant": true
     },
@@ -12101,17 +12059,17 @@
         {
           "name": "Matt Fitzpatrick",
           "odds": [],
-          "modelMean": 69.57,
+          "modelMean": 69.28,
           "modelStd": 2.85,
-          "sgBlended": 1.83,
+          "sgBlended": 2.12,
           "fitBoost": -0.4,
-          "pClearWin": 0.2661,
-          "deadHeatWinValue": 0.2661,
-          "fairOdds": 276,
+          "pClearWin": 0.2911,
+          "deadHeatWinValue": 0.2911,
+          "fairOdds": 244,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0879
+          "pPush": 0.0925
         },
         {
           "name": "Scottie Scheffler",
@@ -12120,13 +12078,13 @@
           "modelStd": 2.85,
           "sgBlended": 3.06,
           "fitBoost": 0.4,
-          "pClearWin": 0.646,
-          "deadHeatWinValue": 0.646,
-          "fairOdds": -182,
+          "pClearWin": 0.6164,
+          "deadHeatWinValue": 0.6164,
+          "fairOdds": -161,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0879
+          "pPush": 0.0925
         }
       ],
       "synthetic": true,
@@ -12143,17 +12101,17 @@
         {
           "name": "Matt Fitzpatrick",
           "odds": [],
-          "modelMean": 69.57,
+          "modelMean": 69.28,
           "modelStd": 2.85,
-          "sgBlended": 1.83,
+          "sgBlended": 2.12,
           "fitBoost": -0.4,
-          "pClearWin": 0.2764,
-          "deadHeatWinValue": 0.2764,
-          "fairOdds": 262,
+          "pClearWin": 0.3019,
+          "deadHeatWinValue": 0.3019,
+          "fairOdds": 231,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0884
+          "pPush": 0.0877
         },
         {
           "name": "Scottie Scheffler",
@@ -12162,13 +12120,13 @@
           "modelStd": 2.85,
           "sgBlended": 3.06,
           "fitBoost": 0.4,
-          "pClearWin": 0.6352,
-          "deadHeatWinValue": 0.6352,
-          "fairOdds": -174,
+          "pClearWin": 0.6104,
+          "deadHeatWinValue": 0.6104,
+          "fairOdds": -157,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0884
+          "pPush": 0.0877
         }
       ],
       "synthetic": true,
@@ -12185,32 +12143,32 @@
         {
           "name": "Matt Fitzpatrick",
           "odds": [],
-          "modelMean": 69.57,
+          "modelMean": 69.28,
           "modelStd": 2.85,
-          "sgBlended": 1.83,
+          "sgBlended": 2.12,
           "fitBoost": -0.4,
-          "pClearWin": 0.4345,
-          "deadHeatWinValue": 0.4345,
-          "fairOdds": 130,
+          "pClearWin": 0.4557,
+          "deadHeatWinValue": 0.4557,
+          "fairOdds": 119,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0958
+          "pPush": 0.0959
         },
         {
           "name": "Viktor Hovland",
           "odds": [],
-          "modelMean": 69.43,
+          "modelMean": 69.37,
           "modelStd": 2.85,
-          "sgBlended": 1.77,
+          "sgBlended": 1.83,
           "fitBoost": -0.2,
-          "pClearWin": 0.4697,
-          "deadHeatWinValue": 0.4697,
-          "fairOdds": 113,
+          "pClearWin": 0.4484,
+          "deadHeatWinValue": 0.4484,
+          "fairOdds": 123,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0958
+          "pPush": 0.0959
         }
       ],
       "synthetic": true,
@@ -12231,13 +12189,13 @@
           "modelStd": 2.85,
           "sgBlended": 3.06,
           "fitBoost": 0.4,
-          "pClearWin": 0.5851,
-          "deadHeatWinValue": 0.5851,
+          "pClearWin": 0.5849,
+          "deadHeatWinValue": 0.5849,
           "fairOdds": -141,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0928
+          "pPush": 0.0926
         },
         {
           "name": "Collin Morikawa",
@@ -12246,13 +12204,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.82,
           "fitBoost": 0.32,
-          "pClearWin": 0.3221,
-          "deadHeatWinValue": 0.3221,
+          "pClearWin": 0.3225,
+          "deadHeatWinValue": 0.3225,
           "fairOdds": 210,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0928
+          "pPush": 0.0926
         }
       ],
       "synthetic": true,
@@ -12357,13 +12315,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.74,
           "fitBoost": -0.2,
-          "pClearWin": 0.6816,
-          "deadHeatWinValue": 0.6816,
+          "pClearWin": 0.6818,
+          "deadHeatWinValue": 0.6818,
           "fairOdds": -214,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0821
+          "pPush": 0.0822
         },
         {
           "name": "Karl Vilips",
@@ -12372,13 +12330,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.14,
           "fitBoost": -1.0,
-          "pClearWin": 0.2363,
-          "deadHeatWinValue": 0.2363,
-          "fairOdds": 323,
+          "pClearWin": 0.236,
+          "deadHeatWinValue": 0.236,
+          "fairOdds": 324,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0821
+          "pPush": 0.0822
         }
       ],
       "synthetic": true,
@@ -12399,13 +12357,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.51,
           "fitBoost": -0.6,
-          "pClearWin": 0.4873,
-          "deadHeatWinValue": 0.4873,
+          "pClearWin": 0.4874,
+          "deadHeatWinValue": 0.4874,
           "fairOdds": 105,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0924
+          "pPush": 0.0921
         },
         {
           "name": "Keegan Bradley",
@@ -12414,13 +12372,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.91,
           "fitBoost": -0.32,
-          "pClearWin": 0.4203,
-          "deadHeatWinValue": 0.4203,
+          "pClearWin": 0.4205,
+          "deadHeatWinValue": 0.4205,
           "fairOdds": 138,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0924
+          "pPush": 0.0921
         }
       ],
       "synthetic": true,
@@ -12447,7 +12405,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0957
+          "pPush": 0.0962
         },
         {
           "name": "Keegan Bradley",
@@ -12456,13 +12414,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.91,
           "fitBoost": -0.32,
-          "pClearWin": 0.4182,
-          "deadHeatWinValue": 0.4182,
+          "pClearWin": 0.4177,
+          "deadHeatWinValue": 0.4177,
           "fairOdds": 139,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0957
+          "pPush": 0.0962
         }
       ],
       "synthetic": true,
@@ -12483,28 +12441,28 @@
           "modelStd": 2.85,
           "sgBlended": 1.51,
           "fitBoost": -0.6,
-          "pClearWin": 0.6308,
-          "deadHeatWinValue": 0.6308,
-          "fairOdds": -171,
+          "pClearWin": 0.615,
+          "deadHeatWinValue": 0.615,
+          "fairOdds": -160,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0875
+          "pPush": 0.0898
         },
         {
           "name": "Michael Brennan",
           "odds": [],
-          "modelMean": 71.86,
+          "modelMean": 71.71,
           "modelStd": 2.85,
-          "sgBlended": 0.14,
+          "sgBlended": 0.29,
           "fitBoost": -1.0,
-          "pClearWin": 0.2817,
-          "deadHeatWinValue": 0.2817,
-          "fairOdds": 255,
+          "pClearWin": 0.2952,
+          "deadHeatWinValue": 0.2952,
+          "fairOdds": 239,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0875
+          "pPush": 0.0898
         }
       ],
       "synthetic": true,
@@ -12513,40 +12471,40 @@
       "simCount": 10000
     },
     {
-      "eventId": "synth-r1-Thu Apr 16 13:05:00 PDT 2026-1",
-      "commence": "Thu Apr 16 13:05:00 PDT 2026",
+      "eventId": "synth-r1-Thu Apr 16 09:45:00 PDT 2026-1",
+      "commence": "Thu Apr 16 09:45:00 PDT 2026",
       "round": 1,
       "type": "2ball",
       "players": [
         {
-          "name": "Patrick Cantlay",
+          "name": "Sepp Straka",
           "odds": [],
-          "modelMean": 68.53,
+          "modelMean": 69.94,
           "modelStd": 2.85,
-          "sgBlended": 2.35,
-          "fitBoost": 0.12,
-          "pClearWin": 0.6641,
-          "deadHeatWinValue": 0.6641,
-          "fairOdds": -198,
+          "sgBlended": 1.58,
+          "fitBoost": -0.52,
+          "pClearWin": 0.5481,
+          "deadHeatWinValue": 0.5481,
+          "fairOdds": -121,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0876
+          "pPush": 0.0932
         },
         {
-          "name": "Corey Conners",
+          "name": "Gary Woodland",
           "odds": [],
-          "modelMean": 70.78,
+          "modelMean": 70.96,
           "modelStd": 2.85,
-          "sgBlended": 0.58,
-          "fitBoost": -0.36,
-          "pClearWin": 0.2483,
-          "deadHeatWinValue": 0.2483,
-          "fairOdds": 303,
+          "sgBlended": 1.04,
+          "fitBoost": -1.0,
+          "pClearWin": 0.3587,
+          "deadHeatWinValue": 0.3587,
+          "fairOdds": 179,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0876
+          "pPush": 0.0932
         }
       ],
       "synthetic": true,
@@ -12555,40 +12513,40 @@
       "simCount": 10000
     },
     {
-      "eventId": "synth-r2-Fri Apr 17 09:20:00 PDT 2026-1",
-      "commence": "Fri Apr 17 09:20:00 PDT 2026",
+      "eventId": "synth-r2-Fri Apr 17 13:20:00 PDT 2026-1",
+      "commence": "Fri Apr 17 13:20:00 PDT 2026",
       "round": 2,
       "type": "2ball",
       "players": [
         {
-          "name": "Patrick Cantlay",
+          "name": "Sepp Straka",
           "odds": [],
-          "modelMean": 68.53,
+          "modelMean": 69.94,
           "modelStd": 2.85,
-          "sgBlended": 2.35,
-          "fitBoost": 0.12,
-          "pClearWin": 0.6683,
-          "deadHeatWinValue": 0.6683,
-          "fairOdds": -201,
+          "sgBlended": 1.58,
+          "fitBoost": -0.52,
+          "pClearWin": 0.5497,
+          "deadHeatWinValue": 0.5497,
+          "fairOdds": -122,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0866
+          "pPush": 0.1002
         },
         {
-          "name": "Corey Conners",
+          "name": "Gary Woodland",
           "odds": [],
-          "modelMean": 70.78,
+          "modelMean": 70.96,
           "modelStd": 2.85,
-          "sgBlended": 0.58,
-          "fitBoost": -0.36,
-          "pClearWin": 0.2451,
-          "deadHeatWinValue": 0.2451,
-          "fairOdds": 308,
+          "sgBlended": 1.04,
+          "fitBoost": -1.0,
+          "pClearWin": 0.3501,
+          "deadHeatWinValue": 0.3501,
+          "fairOdds": 186,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0866
+          "pPush": 0.1002
         }
       ],
       "synthetic": true,
@@ -12597,40 +12555,40 @@
       "simCount": 10000
     },
     {
-      "eventId": "synth-r3-Sat Apr 18 13:50:00 PDT 2026-1",
-      "commence": "Sat Apr 18 13:50:00 PDT 2026",
+      "eventId": "synth-r3-Sat Apr 18 13:40:00 PDT 2026-1",
+      "commence": "Sat Apr 18 13:40:00 PDT 2026",
       "round": 3,
       "type": "2ball",
       "players": [
         {
-          "name": "Patrick Cantlay",
+          "name": "Sepp Straka",
           "odds": [],
-          "modelMean": 68.53,
+          "modelMean": 69.94,
           "modelStd": 2.85,
-          "sgBlended": 2.35,
-          "fitBoost": 0.12,
-          "pClearWin": 0.641,
-          "deadHeatWinValue": 0.641,
-          "fairOdds": -179,
+          "sgBlended": 1.58,
+          "fitBoost": -0.52,
+          "pClearWin": 0.3529,
+          "deadHeatWinValue": 0.3529,
+          "fairOdds": 183,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0875
+          "pPush": 0.096
         },
         {
-          "name": "Harris English",
+          "name": "Ludvig Åberg",
           "odds": [],
-          "modelMean": 70.42,
+          "modelMean": 68.84,
           "modelStd": 2.85,
-          "sgBlended": 1.18,
-          "fitBoost": -0.6,
-          "pClearWin": 0.2715,
-          "deadHeatWinValue": 0.2715,
-          "fairOdds": 268,
+          "sgBlended": 2.2,
+          "fitBoost": -0.04,
+          "pClearWin": 0.5511,
+          "deadHeatWinValue": 0.5511,
+          "fairOdds": -123,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0875
+          "pPush": 0.096
         }
       ],
       "synthetic": true,
@@ -12651,13 +12609,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.04,
           "fitBoost": -1.0,
-          "pClearWin": 0.535,
-          "deadHeatWinValue": 0.535,
+          "pClearWin": 0.5347,
+          "deadHeatWinValue": 0.5347,
           "fairOdds": -115,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0992
+          "pPush": 0.0991
         },
         {
           "name": "Maverick McNealy",
@@ -12666,13 +12624,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.05,
           "fitBoost": -0.84,
-          "pClearWin": 0.3658,
-          "deadHeatWinValue": 0.3658,
+          "pClearWin": 0.3662,
+          "deadHeatWinValue": 0.3662,
           "fairOdds": 173,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0992
+          "pPush": 0.0991
         }
       ],
       "synthetic": true,
@@ -12699,7 +12657,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0939
+          "pPush": 0.0936
         },
         {
           "name": "Maverick McNealy",
@@ -12708,13 +12666,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.05,
           "fitBoost": -0.84,
-          "pClearWin": 0.3722,
-          "deadHeatWinValue": 0.3722,
-          "fairOdds": 169,
+          "pClearWin": 0.3725,
+          "deadHeatWinValue": 0.3725,
+          "fairOdds": 168,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0939
+          "pPush": 0.0936
         }
       ],
       "synthetic": true,
@@ -12735,20 +12693,20 @@
           "modelStd": 2.85,
           "sgBlended": 1.04,
           "fitBoost": -1.0,
-          "pClearWin": 0.3495,
-          "deadHeatWinValue": 0.3495,
+          "pClearWin": 0.3493,
+          "deadHeatWinValue": 0.3493,
           "fairOdds": 186,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0954
+          "pPush": 0.0956
         },
         {
           "name": "Wyndham Clark",
           "odds": [],
-          "modelMean": 69.91,
+          "modelMean": 69.92,
           "modelStd": 2.85,
-          "sgBlended": 1.29,
+          "sgBlended": 1.28,
           "fitBoost": -0.2,
           "pClearWin": 0.5551,
           "deadHeatWinValue": 0.5551,
@@ -12756,91 +12714,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0954
-        }
-      ],
-      "synthetic": true,
-      "dhRulesApplied": false,
-      "bookSample": [],
-      "simCount": 10000
-    },
-    {
-      "eventId": "synth-r1-Thu Apr 16 09:45:00 PDT 2026-1",
-      "commence": "Thu Apr 16 09:45:00 PDT 2026",
-      "round": 1,
-      "type": "2ball",
-      "players": [
-        {
-          "name": "Gary Woodland",
-          "odds": [],
-          "modelMean": 70.96,
-          "modelStd": 2.85,
-          "sgBlended": 1.04,
-          "fitBoost": -1.0,
-          "pClearWin": 0.3681,
-          "deadHeatWinValue": 0.3681,
-          "fairOdds": 172,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0941
-        },
-        {
-          "name": "Sepp Straka",
-          "odds": [],
-          "modelMean": 70.09,
-          "modelStd": 2.85,
-          "sgBlended": 1.43,
-          "fitBoost": -0.52,
-          "pClearWin": 0.5378,
-          "deadHeatWinValue": 0.5378,
-          "fairOdds": -116,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0941
-        }
-      ],
-      "synthetic": true,
-      "dhRulesApplied": false,
-      "bookSample": [],
-      "simCount": 10000
-    },
-    {
-      "eventId": "synth-r2-Fri Apr 17 13:20:00 PDT 2026-1",
-      "commence": "Fri Apr 17 13:20:00 PDT 2026",
-      "round": 2,
-      "type": "2ball",
-      "players": [
-        {
-          "name": "Gary Woodland",
-          "odds": [],
-          "modelMean": 70.96,
-          "modelStd": 2.85,
-          "sgBlended": 1.04,
-          "fitBoost": -1.0,
-          "pClearWin": 0.3576,
-          "deadHeatWinValue": 0.3576,
-          "fairOdds": 180,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.102
-        },
-        {
-          "name": "Sepp Straka",
-          "odds": [],
-          "modelMean": 70.09,
-          "modelStd": 2.85,
-          "sgBlended": 1.43,
-          "fitBoost": -0.52,
-          "pClearWin": 0.5404,
-          "deadHeatWinValue": 0.5404,
-          "fairOdds": -118,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.102
+          "pPush": 0.0956
         }
       ],
       "synthetic": true,
@@ -12861,13 +12735,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.04,
           "fitBoost": -1.0,
-          "pClearWin": 0.4916,
-          "deadHeatWinValue": 0.4916,
+          "pClearWin": 0.4931,
+          "deadHeatWinValue": 0.4931,
           "fairOdds": 103,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0998
+          "pPush": 0.0915
         },
         {
           "name": "Joe Highsmith",
@@ -12876,13 +12750,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.59,
           "fitBoost": -1.0,
-          "pClearWin": 0.4086,
-          "deadHeatWinValue": 0.4086,
-          "fairOdds": 145,
+          "pClearWin": 0.4154,
+          "deadHeatWinValue": 0.4154,
+          "fairOdds": 141,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0998
+          "pPush": 0.0915
         }
       ],
       "synthetic": true,
@@ -12903,28 +12777,28 @@
           "modelStd": 2.85,
           "sgBlended": 1.04,
           "fitBoost": -1.0,
-          "pClearWin": 0.347,
-          "deadHeatWinValue": 0.347,
-          "fairOdds": 188,
+          "pClearWin": 0.3451,
+          "deadHeatWinValue": 0.3451,
+          "fairOdds": 190,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0927
+          "pPush": 0.0969
         },
         {
           "name": "Wyndham Clark",
           "odds": [],
-          "modelMean": 69.91,
+          "modelMean": 69.92,
           "modelStd": 2.85,
-          "sgBlended": 1.29,
+          "sgBlended": 1.28,
           "fitBoost": -0.2,
-          "pClearWin": 0.5603,
-          "deadHeatWinValue": 0.5603,
-          "fairOdds": -127,
+          "pClearWin": 0.558,
+          "deadHeatWinValue": 0.558,
+          "fairOdds": -126,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0927
+          "pPush": 0.0969
         }
       ],
       "synthetic": true,
@@ -12945,28 +12819,28 @@
           "modelStd": 2.85,
           "sgBlended": 1.04,
           "fitBoost": -1.0,
-          "pClearWin": 0.3461,
-          "deadHeatWinValue": 0.3461,
-          "fairOdds": 189,
+          "pClearWin": 0.3511,
+          "deadHeatWinValue": 0.3511,
+          "fairOdds": 185,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0949
+          "pPush": 0.0923
         },
         {
           "name": "Wyndham Clark",
           "odds": [],
-          "modelMean": 69.91,
+          "modelMean": 69.92,
           "modelStd": 2.85,
-          "sgBlended": 1.29,
+          "sgBlended": 1.28,
           "fitBoost": -0.2,
-          "pClearWin": 0.559,
-          "deadHeatWinValue": 0.559,
-          "fairOdds": -127,
+          "pClearWin": 0.5566,
+          "deadHeatWinValue": 0.5566,
+          "fairOdds": -126,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0949
+          "pPush": 0.0923
         }
       ],
       "synthetic": true,
@@ -12987,13 +12861,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.04,
           "fitBoost": -1.0,
-          "pClearWin": 0.393,
-          "deadHeatWinValue": 0.393,
-          "fairOdds": 154,
+          "pClearWin": 0.3929,
+          "deadHeatWinValue": 0.3929,
+          "fairOdds": 155,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0953
+          "pPush": 0.0996
         },
         {
           "name": "Keegan Bradley",
@@ -13002,13 +12876,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.91,
           "fitBoost": -0.32,
-          "pClearWin": 0.5117,
-          "deadHeatWinValue": 0.5117,
-          "fairOdds": -105,
+          "pClearWin": 0.5075,
+          "deadHeatWinValue": 0.5075,
+          "fairOdds": -103,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0953
+          "pPush": 0.0996
         }
       ],
       "synthetic": true,
@@ -13017,40 +12891,124 @@
       "simCount": 10000
     },
     {
-      "eventId": "synth-r3-Sat Apr 18 13:40:00 PDT 2026-1",
-      "commence": "Sat Apr 18 13:40:00 PDT 2026",
+      "eventId": "synth-r1-Thu Apr 16 13:05:00 PDT 2026-1",
+      "commence": "Thu Apr 16 13:05:00 PDT 2026",
+      "round": 1,
+      "type": "2ball",
+      "players": [
+        {
+          "name": "Patrick Cantlay",
+          "odds": [],
+          "modelMean": 68.75,
+          "modelStd": 2.85,
+          "sgBlended": 2.13,
+          "fitBoost": 0.12,
+          "pClearWin": 0.6493,
+          "deadHeatWinValue": 0.6493,
+          "fairOdds": -185,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0879
+        },
+        {
+          "name": "Corey Conners",
+          "odds": [],
+          "modelMean": 70.78,
+          "modelStd": 2.85,
+          "sgBlended": 0.58,
+          "fitBoost": -0.36,
+          "pClearWin": 0.2628,
+          "deadHeatWinValue": 0.2628,
+          "fairOdds": 281,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0879
+        }
+      ],
+      "synthetic": true,
+      "dhRulesApplied": false,
+      "bookSample": [],
+      "simCount": 10000
+    },
+    {
+      "eventId": "synth-r2-Fri Apr 17 09:20:00 PDT 2026-1",
+      "commence": "Fri Apr 17 09:20:00 PDT 2026",
+      "round": 2,
+      "type": "2ball",
+      "players": [
+        {
+          "name": "Patrick Cantlay",
+          "odds": [],
+          "modelMean": 68.75,
+          "modelStd": 2.85,
+          "sgBlended": 2.13,
+          "fitBoost": 0.12,
+          "pClearWin": 0.6381,
+          "deadHeatWinValue": 0.6381,
+          "fairOdds": -176,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0871
+        },
+        {
+          "name": "Corey Conners",
+          "odds": [],
+          "modelMean": 70.78,
+          "modelStd": 2.85,
+          "sgBlended": 0.58,
+          "fitBoost": -0.36,
+          "pClearWin": 0.2748,
+          "deadHeatWinValue": 0.2748,
+          "fairOdds": 264,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0871
+        }
+      ],
+      "synthetic": true,
+      "dhRulesApplied": false,
+      "bookSample": [],
+      "simCount": 10000
+    },
+    {
+      "eventId": "synth-r3-Sat Apr 18 13:50:00 PDT 2026-1",
+      "commence": "Sat Apr 18 13:50:00 PDT 2026",
       "round": 3,
       "type": "2ball",
       "players": [
         {
-          "name": "Sepp Straka",
+          "name": "Patrick Cantlay",
           "odds": [],
-          "modelMean": 70.09,
+          "modelMean": 68.75,
           "modelStd": 2.85,
-          "sgBlended": 1.43,
-          "fitBoost": -0.52,
-          "pClearWin": 0.3347,
-          "deadHeatWinValue": 0.3347,
-          "fairOdds": 199,
+          "sgBlended": 2.13,
+          "fitBoost": 0.12,
+          "pClearWin": 0.6274,
+          "deadHeatWinValue": 0.6274,
+          "fairOdds": -168,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0966
+          "pPush": 0.0879
         },
         {
-          "name": "Ludvig Åberg",
+          "name": "Harris English",
           "odds": [],
-          "modelMean": 68.84,
+          "modelMean": 70.5,
           "modelStd": 2.85,
-          "sgBlended": 2.2,
-          "fitBoost": -0.04,
-          "pClearWin": 0.5687,
-          "deadHeatWinValue": 0.5687,
-          "fairOdds": -132,
+          "sgBlended": 1.1,
+          "fitBoost": -0.6,
+          "pClearWin": 0.2847,
+          "deadHeatWinValue": 0.2847,
+          "fairOdds": 251,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0966
+          "pPush": 0.0879
         }
       ],
       "synthetic": true,
@@ -13071,9 +13029,9 @@
           "modelStd": 2.85,
           "sgBlended": 2.2,
           "fitBoost": -0.04,
-          "pClearWin": 0.6249,
-          "deadHeatWinValue": 0.6249,
-          "fairOdds": -167,
+          "pClearWin": 0.6242,
+          "deadHeatWinValue": 0.6242,
+          "fairOdds": -166,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
@@ -13086,9 +13044,9 @@
           "modelStd": 2.85,
           "sgBlended": 0.85,
           "fitBoost": -0.44,
-          "pClearWin": 0.2891,
-          "deadHeatWinValue": 0.2891,
-          "fairOdds": 246,
+          "pClearWin": 0.2898,
+          "deadHeatWinValue": 0.2898,
+          "fairOdds": 245,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
@@ -13113,13 +13071,13 @@
           "modelStd": 2.85,
           "sgBlended": 2.2,
           "fitBoost": -0.04,
-          "pClearWin": 0.6171,
-          "deadHeatWinValue": 0.6171,
+          "pClearWin": 0.6165,
+          "deadHeatWinValue": 0.6165,
           "fairOdds": -161,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0875
+          "pPush": 0.0874
         },
         {
           "name": "Justin Thomas",
@@ -13128,13 +13086,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.85,
           "fitBoost": -0.44,
-          "pClearWin": 0.2954,
-          "deadHeatWinValue": 0.2954,
-          "fairOdds": 239,
+          "pClearWin": 0.2961,
+          "deadHeatWinValue": 0.2961,
+          "fairOdds": 238,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0875
+          "pPush": 0.0874
         }
       ],
       "synthetic": true,
@@ -13155,8 +13113,8 @@
           "modelStd": 2.85,
           "sgBlended": 0.89,
           "fitBoost": -1.0,
-          "pClearWin": 0.5346,
-          "deadHeatWinValue": 0.5346,
+          "pClearWin": 0.5345,
+          "deadHeatWinValue": 0.5345,
           "fairOdds": -115,
           "bestBook": null,
           "impliedProbBest": null,
@@ -13170,8 +13128,8 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.3677,
-          "deadHeatWinValue": 0.3677,
+          "pClearWin": 0.3678,
+          "deadHeatWinValue": 0.3678,
           "fairOdds": 172,
           "bestBook": null,
           "impliedProbBest": null,
@@ -13197,13 +13155,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.89,
           "fitBoost": -1.0,
-          "pClearWin": 0.5397,
-          "deadHeatWinValue": 0.5397,
+          "pClearWin": 0.5394,
+          "deadHeatWinValue": 0.5394,
           "fairOdds": -117,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.102
+          "pPush": 0.1019
         },
         {
           "name": "Jhonattan Vegas",
@@ -13212,13 +13170,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.3583,
-          "deadHeatWinValue": 0.3583,
+          "pClearWin": 0.3587,
+          "deadHeatWinValue": 0.3587,
           "fairOdds": 179,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.102
+          "pPush": 0.1019
         }
       ],
       "synthetic": true,
@@ -13239,13 +13197,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.89,
           "fitBoost": -1.0,
-          "pClearWin": 0.3585,
-          "deadHeatWinValue": 0.3585,
+          "pClearWin": 0.3582,
+          "deadHeatWinValue": 0.3582,
           "fairOdds": 179,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0945
+          "pPush": 0.0946
         },
         {
           "name": "Sahith Theegala",
@@ -13254,13 +13212,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.18,
           "fitBoost": -0.36,
-          "pClearWin": 0.547,
-          "deadHeatWinValue": 0.547,
+          "pClearWin": 0.5472,
+          "deadHeatWinValue": 0.5472,
           "fairOdds": -121,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0945
+          "pPush": 0.0946
         }
       ],
       "synthetic": true,
@@ -13281,8 +13239,8 @@
           "modelStd": 2.85,
           "sgBlended": 0.89,
           "fitBoost": -1.0,
-          "pClearWin": 0.5336,
-          "deadHeatWinValue": 0.5336,
+          "pClearWin": 0.5335,
+          "deadHeatWinValue": 0.5335,
           "fairOdds": -114,
           "bestBook": null,
           "impliedProbBest": null,
@@ -13296,8 +13254,8 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.3692,
-          "deadHeatWinValue": 0.3692,
+          "pClearWin": 0.3693,
+          "deadHeatWinValue": 0.3693,
           "fairOdds": 171,
           "bestBook": null,
           "impliedProbBest": null,
@@ -13323,13 +13281,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.89,
           "fitBoost": -1.0,
-          "pClearWin": 0.5462,
-          "deadHeatWinValue": 0.5462,
+          "pClearWin": 0.5457,
+          "deadHeatWinValue": 0.5457,
           "fairOdds": -120,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0927
+          "pPush": 0.0929
         },
         {
           "name": "Austin Smotherman",
@@ -13338,13 +13296,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.3611,
-          "deadHeatWinValue": 0.3611,
+          "pClearWin": 0.3614,
+          "deadHeatWinValue": 0.3614,
           "fairOdds": 177,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0927
+          "pPush": 0.0929
         }
       ],
       "synthetic": true,
@@ -13365,13 +13323,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.89,
           "fitBoost": -1.0,
-          "pClearWin": 0.4431,
-          "deadHeatWinValue": 0.4431,
+          "pClearWin": 0.443,
+          "deadHeatWinValue": 0.443,
           "fairOdds": 126,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0996
+          "pPush": 0.0997
         },
         {
           "name": "Ryan Fox",
@@ -13386,7 +13344,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0996
+          "pPush": 0.0997
         }
       ],
       "synthetic": true,
@@ -13403,32 +13361,32 @@
         {
           "name": "Kurt Kitayama",
           "odds": [],
-          "modelMean": 71.1,
-          "modelStd": 2.85,
-          "sgBlended": 0.9,
-          "fitBoost": -1.0,
-          "pClearWin": 0.4519,
-          "deadHeatWinValue": 0.4519,
-          "fairOdds": 121,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0965
-        },
-        {
-          "name": "Rickie Fowler",
-          "odds": [],
           "modelMean": 71.11,
           "modelStd": 2.85,
           "sgBlended": 0.89,
           "fitBoost": -1.0,
-          "pClearWin": 0.4516,
-          "deadHeatWinValue": 0.4516,
-          "fairOdds": 121,
+          "pClearWin": 0.4652,
+          "deadHeatWinValue": 0.4652,
+          "fairOdds": 115,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0965
+          "pPush": 0.0988
+        },
+        {
+          "name": "Rickie Fowler",
+          "odds": [],
+          "modelMean": 71.26,
+          "modelStd": 2.85,
+          "sgBlended": 0.74,
+          "fitBoost": -1.0,
+          "pClearWin": 0.436,
+          "deadHeatWinValue": 0.436,
+          "fairOdds": 129,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0988
         }
       ],
       "synthetic": true,
@@ -13445,32 +13403,32 @@
         {
           "name": "Kurt Kitayama",
           "odds": [],
-          "modelMean": 71.1,
-          "modelStd": 2.85,
-          "sgBlended": 0.9,
-          "fitBoost": -1.0,
-          "pClearWin": 0.4525,
-          "deadHeatWinValue": 0.4525,
-          "fairOdds": 121,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0985
-        },
-        {
-          "name": "Rickie Fowler",
-          "odds": [],
           "modelMean": 71.11,
           "modelStd": 2.85,
           "sgBlended": 0.89,
           "fitBoost": -1.0,
-          "pClearWin": 0.449,
-          "deadHeatWinValue": 0.449,
-          "fairOdds": 123,
+          "pClearWin": 0.4666,
+          "deadHeatWinValue": 0.4666,
+          "fairOdds": 114,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0985
+          "pPush": 0.0987
+        },
+        {
+          "name": "Rickie Fowler",
+          "odds": [],
+          "modelMean": 71.26,
+          "modelStd": 2.85,
+          "sgBlended": 0.74,
+          "fitBoost": -1.0,
+          "pClearWin": 0.4347,
+          "deadHeatWinValue": 0.4347,
+          "fairOdds": 130,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0987
         }
       ],
       "synthetic": true,
@@ -13487,32 +13445,32 @@
         {
           "name": "Kurt Kitayama",
           "odds": [],
-          "modelMean": 71.1,
-          "modelStd": 2.85,
-          "sgBlended": 0.9,
-          "fitBoost": -1.0,
-          "pClearWin": 0.449,
-          "deadHeatWinValue": 0.449,
-          "fairOdds": 123,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.1003
-        },
-        {
-          "name": "Rickie Fowler",
-          "odds": [],
           "modelMean": 71.11,
           "modelStd": 2.85,
           "sgBlended": 0.89,
           "fitBoost": -1.0,
-          "pClearWin": 0.4507,
-          "deadHeatWinValue": 0.4507,
-          "fairOdds": 122,
+          "pClearWin": 0.463,
+          "deadHeatWinValue": 0.463,
+          "fairOdds": 116,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1003
+          "pPush": 0.1001
+        },
+        {
+          "name": "Rickie Fowler",
+          "odds": [],
+          "modelMean": 71.26,
+          "modelStd": 2.85,
+          "sgBlended": 0.74,
+          "fitBoost": -1.0,
+          "pClearWin": 0.4369,
+          "deadHeatWinValue": 0.4369,
+          "fairOdds": 129,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.1001
         }
       ],
       "synthetic": true,
@@ -13529,17 +13487,17 @@
         {
           "name": "Harris English",
           "odds": [],
-          "modelMean": 70.42,
+          "modelMean": 70.5,
           "modelStd": 2.85,
-          "sgBlended": 1.18,
+          "sgBlended": 1.1,
           "fitBoost": -0.6,
-          "pClearWin": 0.6091,
-          "deadHeatWinValue": 0.6091,
-          "fairOdds": -156,
+          "pClearWin": 0.6011,
+          "deadHeatWinValue": 0.6011,
+          "fairOdds": -151,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.087
+          "pPush": 0.0881
         },
         {
           "name": "Nick Taylor",
@@ -13548,13 +13506,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.3039,
-          "deadHeatWinValue": 0.3039,
-          "fairOdds": 229,
+          "pClearWin": 0.3108,
+          "deadHeatWinValue": 0.3108,
+          "fairOdds": 222,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.087
+          "pPush": 0.0881
         }
       ],
       "synthetic": true,
@@ -13571,17 +13529,17 @@
         {
           "name": "Harris English",
           "odds": [],
-          "modelMean": 70.42,
+          "modelMean": 70.5,
           "modelStd": 2.85,
-          "sgBlended": 1.18,
+          "sgBlended": 1.1,
           "fitBoost": -0.6,
-          "pClearWin": 0.5994,
-          "deadHeatWinValue": 0.5994,
-          "fairOdds": -150,
+          "pClearWin": 0.5918,
+          "deadHeatWinValue": 0.5918,
+          "fairOdds": -145,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0964
+          "pPush": 0.0962
         },
         {
           "name": "Nick Taylor",
@@ -13590,13 +13548,97 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.3042,
-          "deadHeatWinValue": 0.3042,
-          "fairOdds": 229,
+          "pClearWin": 0.312,
+          "deadHeatWinValue": 0.312,
+          "fairOdds": 221,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0964
+          "pPush": 0.0962
+        }
+      ],
+      "synthetic": true,
+      "dhRulesApplied": false,
+      "bookSample": [],
+      "simCount": 10000
+    },
+    {
+      "eventId": "synth-r1-Thu Apr 16 09:55:00 PDT 2026-1",
+      "commence": "Thu Apr 16 09:55:00 PDT 2026",
+      "round": 1,
+      "type": "2ball",
+      "players": [
+        {
+          "name": "Viktor Hovland",
+          "odds": [],
+          "modelMean": 69.37,
+          "modelStd": 2.85,
+          "sgBlended": 1.83,
+          "fitBoost": -0.2,
+          "pClearWin": 0.6993,
+          "deadHeatWinValue": 0.6993,
+          "fairOdds": -233,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0806
+        },
+        {
+          "name": "Chris Gotterup",
+          "odds": [],
+          "modelMean": 72.0,
+          "modelStd": 2.85,
+          "sgBlended": 0.0,
+          "fitBoost": -1.0,
+          "pClearWin": 0.2201,
+          "deadHeatWinValue": 0.2201,
+          "fairOdds": 354,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0806
+        }
+      ],
+      "synthetic": true,
+      "dhRulesApplied": false,
+      "bookSample": [],
+      "simCount": 10000
+    },
+    {
+      "eventId": "synth-r2-Fri Apr 17 13:30:00 PDT 2026-1",
+      "commence": "Fri Apr 17 13:30:00 PDT 2026",
+      "round": 2,
+      "type": "2ball",
+      "players": [
+        {
+          "name": "Viktor Hovland",
+          "odds": [],
+          "modelMean": 69.37,
+          "modelStd": 2.85,
+          "sgBlended": 1.83,
+          "fitBoost": -0.2,
+          "pClearWin": 0.7024,
+          "deadHeatWinValue": 0.7024,
+          "fairOdds": -236,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0794
+        },
+        {
+          "name": "Chris Gotterup",
+          "odds": [],
+          "modelMean": 72.0,
+          "modelStd": 2.85,
+          "sgBlended": 0.0,
+          "fitBoost": -1.0,
+          "pClearWin": 0.2182,
+          "deadHeatWinValue": 0.2182,
+          "fairOdds": 358,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0794
         }
       ],
       "synthetic": true,
@@ -13617,13 +13659,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.74,
           "fitBoost": -1.0,
-          "pClearWin": 0.4182,
-          "deadHeatWinValue": 0.4182,
-          "fairOdds": 139,
+          "pClearWin": 0.416,
+          "deadHeatWinValue": 0.416,
+          "fairOdds": 140,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1009
+          "pPush": 0.0982
         },
         {
           "name": "Lucas Glover",
@@ -13632,13 +13674,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.72,
           "fitBoost": -0.68,
-          "pClearWin": 0.4809,
-          "deadHeatWinValue": 0.4809,
-          "fairOdds": 108,
+          "pClearWin": 0.4858,
+          "deadHeatWinValue": 0.4858,
+          "fairOdds": 106,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1009
+          "pPush": 0.0982
         }
       ],
       "synthetic": true,
@@ -13659,13 +13701,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.74,
           "fitBoost": -1.0,
-          "pClearWin": 0.4183,
-          "deadHeatWinValue": 0.4183,
-          "fairOdds": 139,
+          "pClearWin": 0.4297,
+          "deadHeatWinValue": 0.4297,
+          "fairOdds": 133,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1
+          "pPush": 0.0967
         },
         {
           "name": "Lucas Glover",
@@ -13674,13 +13716,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.72,
           "fitBoost": -0.68,
-          "pClearWin": 0.4817,
-          "deadHeatWinValue": 0.4817,
-          "fairOdds": 108,
+          "pClearWin": 0.4736,
+          "deadHeatWinValue": 0.4736,
+          "fairOdds": 111,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1
+          "pPush": 0.0967
         }
       ],
       "synthetic": true,
@@ -13701,13 +13743,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.74,
           "fitBoost": -1.0,
-          "pClearWin": 0.2356,
-          "deadHeatWinValue": 0.2356,
-          "fairOdds": 324,
+          "pClearWin": 0.2407,
+          "deadHeatWinValue": 0.2407,
+          "fairOdds": 315,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0768
+          "pPush": 0.0787
         },
         {
           "name": "Xander Schauffele",
@@ -13716,13 +13758,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.91,
           "fitBoost": 0.32,
-          "pClearWin": 0.6876,
-          "deadHeatWinValue": 0.6876,
-          "fairOdds": -220,
+          "pClearWin": 0.6806,
+          "deadHeatWinValue": 0.6806,
+          "fairOdds": -213,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0768
+          "pPush": 0.0787
         }
       ],
       "synthetic": true,
@@ -13743,13 +13785,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.74,
           "fitBoost": -1.0,
-          "pClearWin": 0.4777,
-          "deadHeatWinValue": 0.4777,
-          "fairOdds": 109,
+          "pClearWin": 0.4725,
+          "deadHeatWinValue": 0.4725,
+          "fairOdds": 112,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0988
+          "pPush": 0.097
         },
         {
           "name": "J.T. Poston",
@@ -13758,13 +13800,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.2,
           "fitBoost": -0.68,
-          "pClearWin": 0.4235,
-          "deadHeatWinValue": 0.4235,
-          "fairOdds": 136,
+          "pClearWin": 0.4305,
+          "deadHeatWinValue": 0.4305,
+          "fairOdds": 132,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0988
+          "pPush": 0.097
         }
       ],
       "synthetic": true,
@@ -13785,13 +13827,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.74,
           "fitBoost": -1.0,
-          "pClearWin": 0.4732,
-          "deadHeatWinValue": 0.4732,
-          "fairOdds": 111,
+          "pClearWin": 0.4637,
+          "deadHeatWinValue": 0.4637,
+          "fairOdds": 116,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0993
+          "pPush": 0.1027
         },
         {
           "name": "J.T. Poston",
@@ -13800,13 +13842,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.2,
           "fitBoost": -0.68,
-          "pClearWin": 0.4275,
-          "deadHeatWinValue": 0.4275,
-          "fairOdds": 134,
+          "pClearWin": 0.4336,
+          "deadHeatWinValue": 0.4336,
+          "fairOdds": 131,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0993
+          "pPush": 0.1027
         }
       ],
       "synthetic": true,
@@ -13827,13 +13869,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.74,
           "fitBoost": -1.0,
-          "pClearWin": 0.3684,
-          "deadHeatWinValue": 0.3684,
-          "fairOdds": 171,
+          "pClearWin": 0.359,
+          "deadHeatWinValue": 0.359,
+          "fairOdds": 179,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0953
+          "pPush": 0.0991
         },
         {
           "name": "Russell Henley",
@@ -13842,97 +13884,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.85,
           "fitBoost": -0.24,
-          "pClearWin": 0.5363,
-          "deadHeatWinValue": 0.5363,
-          "fairOdds": -116,
+          "pClearWin": 0.5419,
+          "deadHeatWinValue": 0.5419,
+          "fairOdds": -118,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0953
-        }
-      ],
-      "synthetic": true,
-      "dhRulesApplied": false,
-      "bookSample": [],
-      "simCount": 10000
-    },
-    {
-      "eventId": "synth-r1-Thu Apr 16 09:55:00 PDT 2026-1",
-      "commence": "Thu Apr 16 09:55:00 PDT 2026",
-      "round": 1,
-      "type": "2ball",
-      "players": [
-        {
-          "name": "Viktor Hovland",
-          "odds": [],
-          "modelMean": 69.43,
-          "modelStd": 2.85,
-          "sgBlended": 1.77,
-          "fitBoost": -0.2,
-          "pClearWin": 0.6972,
-          "deadHeatWinValue": 0.6972,
-          "fairOdds": -230,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0852
-        },
-        {
-          "name": "Chris Gotterup",
-          "odds": [],
-          "modelMean": 72.0,
-          "modelStd": 2.85,
-          "sgBlended": 0.0,
-          "fitBoost": -1.0,
-          "pClearWin": 0.2176,
-          "deadHeatWinValue": 0.2176,
-          "fairOdds": 360,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0852
-        }
-      ],
-      "synthetic": true,
-      "dhRulesApplied": false,
-      "bookSample": [],
-      "simCount": 10000
-    },
-    {
-      "eventId": "synth-r2-Fri Apr 17 13:30:00 PDT 2026-1",
-      "commence": "Fri Apr 17 13:30:00 PDT 2026",
-      "round": 2,
-      "type": "2ball",
-      "players": [
-        {
-          "name": "Viktor Hovland",
-          "odds": [],
-          "modelMean": 69.43,
-          "modelStd": 2.85,
-          "sgBlended": 1.77,
-          "fitBoost": -0.2,
-          "pClearWin": 0.6937,
-          "deadHeatWinValue": 0.6937,
-          "fairOdds": -226,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0814
-        },
-        {
-          "name": "Chris Gotterup",
-          "odds": [],
-          "modelMean": 72.0,
-          "modelStd": 2.85,
-          "sgBlended": 0.0,
-          "fitBoost": -1.0,
-          "pClearWin": 0.2249,
-          "deadHeatWinValue": 0.2249,
-          "fairOdds": 345,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0814
+          "pPush": 0.0991
         }
       ],
       "synthetic": true,
@@ -13951,15 +13909,15 @@
           "odds": [],
           "modelMean": 70.12,
           "modelStd": 2.85,
-          "sgBlended": 1.24,
+          "sgBlended": 1.23,
           "fitBoost": -0.36,
-          "pClearWin": 0.4189,
-          "deadHeatWinValue": 0.4189,
+          "pClearWin": 0.4186,
+          "deadHeatWinValue": 0.4186,
           "fairOdds": 139,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1
+          "pPush": 0.1001
         },
         {
           "name": "Tommy Fleetwood",
@@ -13968,13 +13926,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.25,
           "fitBoost": 0.0,
-          "pClearWin": 0.4811,
-          "deadHeatWinValue": 0.4811,
+          "pClearWin": 0.4813,
+          "deadHeatWinValue": 0.4813,
           "fairOdds": 108,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1
+          "pPush": 0.1001
         }
       ],
       "synthetic": true,
@@ -13993,10 +13951,10 @@
           "odds": [],
           "modelMean": 70.12,
           "modelStd": 2.85,
-          "sgBlended": 1.24,
+          "sgBlended": 1.23,
           "fitBoost": -0.36,
-          "pClearWin": 0.4114,
-          "deadHeatWinValue": 0.4114,
+          "pClearWin": 0.4112,
+          "deadHeatWinValue": 0.4112,
           "fairOdds": 143,
           "bestBook": null,
           "impliedProbBest": null,
@@ -14010,8 +13968,8 @@
           "modelStd": 2.85,
           "sgBlended": 1.25,
           "fitBoost": 0.0,
-          "pClearWin": 0.4848,
-          "deadHeatWinValue": 0.4848,
+          "pClearWin": 0.485,
+          "deadHeatWinValue": 0.485,
           "fairOdds": 106,
           "bestBook": null,
           "impliedProbBest": null,
@@ -14035,15 +13993,15 @@
           "odds": [],
           "modelMean": 70.12,
           "modelStd": 2.85,
-          "sgBlended": 1.24,
+          "sgBlended": 1.23,
           "fitBoost": -0.36,
-          "pClearWin": 0.6324,
-          "deadHeatWinValue": 0.6324,
+          "pClearWin": 0.6322,
+          "deadHeatWinValue": 0.6322,
           "fairOdds": -172,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0902
+          "pPush": 0.0903
         },
         {
           "name": "Nick Taylor",
@@ -14052,13 +14010,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.2774,
-          "deadHeatWinValue": 0.2774,
+          "pClearWin": 0.2775,
+          "deadHeatWinValue": 0.2775,
           "fairOdds": 260,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0902
+          "pPush": 0.0903
         }
       ],
       "synthetic": true,
@@ -14079,13 +14037,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.72,
           "fitBoost": -0.76,
-          "pClearWin": 0.5508,
-          "deadHeatWinValue": 0.5508,
+          "pClearWin": 0.5507,
+          "deadHeatWinValue": 0.5507,
           "fairOdds": -123,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0962
+          "pPush": 0.096
         },
         {
           "name": "Michael Kim",
@@ -14094,13 +14052,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.353,
-          "deadHeatWinValue": 0.353,
+          "pClearWin": 0.3533,
+          "deadHeatWinValue": 0.3533,
           "fairOdds": 183,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0962
+          "pPush": 0.096
         }
       ],
       "synthetic": true,
@@ -14121,13 +14079,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.72,
           "fitBoost": -0.76,
-          "pClearWin": 0.5512,
-          "deadHeatWinValue": 0.5512,
+          "pClearWin": 0.5508,
+          "deadHeatWinValue": 0.5508,
           "fairOdds": -123,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0919
+          "pPush": 0.0922
         },
         {
           "name": "Michael Kim",
@@ -14136,13 +14094,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.3569,
-          "deadHeatWinValue": 0.3569,
+          "pClearWin": 0.357,
+          "deadHeatWinValue": 0.357,
           "fairOdds": 180,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0919
+          "pPush": 0.0922
         }
       ],
       "synthetic": true,
@@ -14163,13 +14121,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.72,
           "fitBoost": -0.68,
-          "pClearWin": 0.53,
-          "deadHeatWinValue": 0.53,
-          "fairOdds": -113,
+          "pClearWin": 0.5294,
+          "deadHeatWinValue": 0.5294,
+          "fairOdds": -112,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0926
+          "pPush": 0.0928
         },
         {
           "name": "Ben Griffin",
@@ -14178,13 +14136,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.08,
           "fitBoost": -0.84,
-          "pClearWin": 0.3774,
-          "deadHeatWinValue": 0.3774,
+          "pClearWin": 0.3778,
+          "deadHeatWinValue": 0.3778,
           "fairOdds": 165,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0926
+          "pPush": 0.0928
         }
       ],
       "synthetic": true,
@@ -14205,13 +14163,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.59,
           "fitBoost": -1.0,
-          "pClearWin": 0.4852,
-          "deadHeatWinValue": 0.4852,
+          "pClearWin": 0.4851,
+          "deadHeatWinValue": 0.4851,
           "fairOdds": 106,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0981
+          "pPush": 0.0983
         },
         {
           "name": "Sam Stevens",
@@ -14220,13 +14178,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.14,
           "fitBoost": -1.0,
-          "pClearWin": 0.4167,
-          "deadHeatWinValue": 0.4167,
+          "pClearWin": 0.4166,
+          "deadHeatWinValue": 0.4166,
           "fairOdds": 140,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0981
+          "pPush": 0.0983
         }
       ],
       "synthetic": true,
@@ -14247,13 +14205,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.59,
           "fitBoost": -1.0,
-          "pClearWin": 0.4942,
-          "deadHeatWinValue": 0.4942,
+          "pClearWin": 0.4944,
+          "deadHeatWinValue": 0.4944,
           "fairOdds": 102,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0971
+          "pPush": 0.0972
         },
         {
           "name": "Sam Stevens",
@@ -14262,13 +14220,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.14,
           "fitBoost": -1.0,
-          "pClearWin": 0.4087,
-          "deadHeatWinValue": 0.4087,
+          "pClearWin": 0.4084,
+          "deadHeatWinValue": 0.4084,
           "fairOdds": 145,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0971
+          "pPush": 0.0972
         }
       ],
       "synthetic": true,
@@ -14295,7 +14253,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0987
+          "pPush": 0.0988
         },
         {
           "name": "Robert MacIntyre",
@@ -14304,13 +14262,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.76,
           "fitBoost": -0.52,
-          "pClearWin": 0.5119,
-          "deadHeatWinValue": 0.5119,
+          "pClearWin": 0.5118,
+          "deadHeatWinValue": 0.5118,
           "fairOdds": -105,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0987
+          "pPush": 0.0988
         }
       ],
       "synthetic": true,
@@ -14331,13 +14289,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.59,
           "fitBoost": -1.0,
-          "pClearWin": 0.5095,
-          "deadHeatWinValue": 0.5095,
+          "pClearWin": 0.5094,
+          "deadHeatWinValue": 0.5094,
           "fairOdds": -104,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0952
+          "pPush": 0.0953
         },
         {
           "name": "Brian Campbell",
@@ -14352,7 +14310,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0952
+          "pPush": 0.0953
         }
       ],
       "synthetic": true,
@@ -14373,13 +14331,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.59,
           "fitBoost": -1.0,
-          "pClearWin": 0.5024,
-          "deadHeatWinValue": 0.5024,
+          "pClearWin": 0.5022,
+          "deadHeatWinValue": 0.5022,
           "fairOdds": -101,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0971
+          "pPush": 0.0969
         },
         {
           "name": "Brian Campbell",
@@ -14388,13 +14346,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.4005,
-          "deadHeatWinValue": 0.4005,
-          "fairOdds": 150,
+          "pClearWin": 0.4009,
+          "deadHeatWinValue": 0.4009,
+          "fairOdds": 149,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0971
+          "pPush": 0.0969
         }
       ],
       "synthetic": true,
@@ -14415,28 +14373,28 @@
           "modelStd": 2.85,
           "sgBlended": 1.82,
           "fitBoost": 0.32,
-          "pClearWin": 0.5676,
-          "deadHeatWinValue": 0.5676,
+          "pClearWin": 0.5677,
+          "deadHeatWinValue": 0.5677,
           "fairOdds": -131,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0977
+          "pPush": 0.098
         },
         {
           "name": "Shane Lowry",
           "odds": [],
-          "modelMean": 70.11,
+          "modelMean": 70.12,
           "modelStd": 2.85,
-          "sgBlended": 1.01,
+          "sgBlended": 1.0,
           "fitBoost": -0.12,
-          "pClearWin": 0.3347,
-          "deadHeatWinValue": 0.3347,
+          "pClearWin": 0.3343,
+          "deadHeatWinValue": 0.3343,
           "fairOdds": 199,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0977
+          "pPush": 0.098
         }
       ],
       "synthetic": true,
@@ -14457,28 +14415,28 @@
           "modelStd": 2.85,
           "sgBlended": 1.82,
           "fitBoost": 0.32,
-          "pClearWin": 0.5694,
-          "deadHeatWinValue": 0.5694,
-          "fairOdds": -132,
+          "pClearWin": 0.5699,
+          "deadHeatWinValue": 0.5699,
+          "fairOdds": -133,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0918
+          "pPush": 0.0917
         },
         {
           "name": "Shane Lowry",
           "odds": [],
-          "modelMean": 70.11,
+          "modelMean": 70.12,
           "modelStd": 2.85,
-          "sgBlended": 1.01,
+          "sgBlended": 1.0,
           "fitBoost": -0.12,
-          "pClearWin": 0.3388,
-          "deadHeatWinValue": 0.3388,
-          "fairOdds": 195,
+          "pClearWin": 0.3384,
+          "deadHeatWinValue": 0.3384,
+          "fairOdds": 196,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0918
+          "pPush": 0.0917
         }
       ],
       "synthetic": true,
@@ -14499,13 +14457,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.97,
           "fitBoost": -0.64,
-          "pClearWin": 0.5418,
-          "deadHeatWinValue": 0.5418,
+          "pClearWin": 0.5417,
+          "deadHeatWinValue": 0.5417,
           "fairOdds": -118,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0945
+          "pPush": 0.0943
         },
         {
           "name": "Jordan Spieth",
@@ -14514,13 +14472,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.15,
           "fitBoost": -0.68,
-          "pClearWin": 0.3637,
-          "deadHeatWinValue": 0.3637,
+          "pClearWin": 0.364,
+          "deadHeatWinValue": 0.364,
           "fairOdds": 175,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0945
+          "pPush": 0.0943
         }
       ],
       "synthetic": true,
@@ -14541,13 +14499,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.97,
           "fitBoost": -0.64,
-          "pClearWin": 0.5383,
-          "deadHeatWinValue": 0.5383,
+          "pClearWin": 0.5382,
+          "deadHeatWinValue": 0.5382,
           "fairOdds": -117,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0938
+          "pPush": 0.0937
         },
         {
           "name": "Jordan Spieth",
@@ -14556,13 +14514,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.15,
           "fitBoost": -0.68,
-          "pClearWin": 0.3679,
-          "deadHeatWinValue": 0.3679,
+          "pClearWin": 0.3681,
+          "deadHeatWinValue": 0.3681,
           "fairOdds": 172,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0938
+          "pPush": 0.0937
         }
       ],
       "synthetic": true,
@@ -14583,13 +14541,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.97,
           "fitBoost": -0.64,
-          "pClearWin": 0.5432,
-          "deadHeatWinValue": 0.5432,
+          "pClearWin": 0.5431,
+          "deadHeatWinValue": 0.5431,
           "fairOdds": -119,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0969
+          "pPush": 0.0975
         },
         {
           "name": "J.J. Spaun",
@@ -14598,13 +14556,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.29,
           "fitBoost": -1.0,
-          "pClearWin": 0.3599,
-          "deadHeatWinValue": 0.3599,
+          "pClearWin": 0.3594,
+          "deadHeatWinValue": 0.3594,
           "fairOdds": 178,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0969
+          "pPush": 0.0975
         }
       ],
       "synthetic": true,
@@ -14625,13 +14583,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.91,
           "fitBoost": 0.32,
-          "pClearWin": 0.6111,
-          "deadHeatWinValue": 0.6111,
+          "pClearWin": 0.6108,
+          "deadHeatWinValue": 0.6108,
           "fairOdds": -157,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0858
+          "pPush": 0.0862
         },
         {
           "name": "Russell Henley",
@@ -14640,13 +14598,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.85,
           "fitBoost": -0.24,
-          "pClearWin": 0.3031,
-          "deadHeatWinValue": 0.3031,
+          "pClearWin": 0.303,
+          "deadHeatWinValue": 0.303,
           "fairOdds": 230,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0858
+          "pPush": 0.0862
         }
       ],
       "synthetic": true,
@@ -14667,13 +14625,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.91,
           "fitBoost": 0.32,
-          "pClearWin": 0.6054,
-          "deadHeatWinValue": 0.6054,
+          "pClearWin": 0.6051,
+          "deadHeatWinValue": 0.6051,
           "fairOdds": -153,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0906
+          "pPush": 0.0911
         },
         {
           "name": "Russell Henley",
@@ -14682,13 +14640,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.85,
           "fitBoost": -0.24,
-          "pClearWin": 0.304,
-          "deadHeatWinValue": 0.304,
+          "pClearWin": 0.3038,
+          "deadHeatWinValue": 0.3038,
           "fairOdds": 229,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0906
+          "pPush": 0.0911
         }
       ],
       "synthetic": true,
@@ -14705,17 +14663,17 @@
         {
           "name": "Akshay Bhatia",
           "odds": [],
-          "modelMean": 71.02,
+          "modelMean": 71.03,
           "modelStd": 2.85,
-          "sgBlended": 0.74,
+          "sgBlended": 0.73,
           "fitBoost": -0.76,
-          "pClearWin": 0.5468,
-          "deadHeatWinValue": 0.5468,
+          "pClearWin": 0.5465,
+          "deadHeatWinValue": 0.5465,
           "fairOdds": -121,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0972
+          "pPush": 0.0973
         },
         {
           "name": "Nico Echavarria",
@@ -14724,13 +14682,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.356,
-          "deadHeatWinValue": 0.356,
+          "pClearWin": 0.3562,
+          "deadHeatWinValue": 0.3562,
           "fairOdds": 181,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0972
+          "pPush": 0.0973
         }
       ],
       "synthetic": true,
@@ -14747,17 +14705,17 @@
         {
           "name": "Akshay Bhatia",
           "odds": [],
-          "modelMean": 71.02,
+          "modelMean": 71.03,
           "modelStd": 2.85,
-          "sgBlended": 0.74,
+          "sgBlended": 0.73,
           "fitBoost": -0.76,
-          "pClearWin": 0.5497,
-          "deadHeatWinValue": 0.5497,
+          "pClearWin": 0.5494,
+          "deadHeatWinValue": 0.5494,
           "fairOdds": -122,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0962
+          "pPush": 0.0965
         },
         {
           "name": "Nico Echavarria",
@@ -14772,7 +14730,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0962
+          "pPush": 0.0965
         }
       ],
       "synthetic": true,
@@ -14789,17 +14747,17 @@
         {
           "name": "Akshay Bhatia",
           "odds": [],
-          "modelMean": 71.02,
+          "modelMean": 71.03,
           "modelStd": 2.85,
-          "sgBlended": 0.74,
+          "sgBlended": 0.73,
           "fitBoost": -0.76,
-          "pClearWin": 0.4295,
-          "deadHeatWinValue": 0.4295,
+          "pClearWin": 0.4291,
+          "deadHeatWinValue": 0.4291,
           "fairOdds": 133,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0958
+          "pPush": 0.0955
         },
         {
           "name": "Corey Conners",
@@ -14808,13 +14766,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.58,
           "fitBoost": -0.36,
-          "pClearWin": 0.4747,
-          "deadHeatWinValue": 0.4747,
-          "fairOdds": 111,
+          "pClearWin": 0.4754,
+          "deadHeatWinValue": 0.4754,
+          "fairOdds": 110,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0958
+          "pPush": 0.0955
         }
       ],
       "synthetic": true,
@@ -14835,13 +14793,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.76,
           "fitBoost": -0.52,
-          "pClearWin": 0.5478,
-          "deadHeatWinValue": 0.5478,
+          "pClearWin": 0.5474,
+          "deadHeatWinValue": 0.5474,
           "fairOdds": -121,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0915
+          "pPush": 0.0914
         },
         {
           "name": "Ben Griffin",
@@ -14850,13 +14808,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.08,
           "fitBoost": -0.84,
-          "pClearWin": 0.3607,
-          "deadHeatWinValue": 0.3607,
+          "pClearWin": 0.3612,
+          "deadHeatWinValue": 0.3612,
           "fairOdds": 177,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0915
+          "pPush": 0.0914
         }
       ],
       "synthetic": true,
@@ -14883,7 +14841,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0976
+          "pPush": 0.0972
         },
         {
           "name": "Ben Griffin",
@@ -14892,13 +14850,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.08,
           "fitBoost": -0.84,
-          "pClearWin": 0.3632,
-          "deadHeatWinValue": 0.3632,
+          "pClearWin": 0.3636,
+          "deadHeatWinValue": 0.3636,
           "fairOdds": 175,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0976
+          "pPush": 0.0972
         }
       ],
       "synthetic": true,
@@ -14919,13 +14877,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.29,
           "fitBoost": -1.0,
-          "pClearWin": 0.4794,
-          "deadHeatWinValue": 0.4794,
+          "pClearWin": 0.4792,
+          "deadHeatWinValue": 0.4792,
           "fairOdds": 109,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0985
+          "pPush": 0.0983
         },
         {
           "name": "David Lipsky",
@@ -14934,13 +14892,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.4221,
-          "deadHeatWinValue": 0.4221,
+          "pClearWin": 0.4225,
+          "deadHeatWinValue": 0.4225,
           "fairOdds": 137,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0985
+          "pPush": 0.0983
         }
       ],
       "synthetic": true,
@@ -14961,13 +14919,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.29,
           "fitBoost": -1.0,
-          "pClearWin": 0.481,
-          "deadHeatWinValue": 0.481,
+          "pClearWin": 0.4808,
+          "deadHeatWinValue": 0.4808,
           "fairOdds": 108,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1005
+          "pPush": 0.1002
         },
         {
           "name": "David Lipsky",
@@ -14976,13 +14934,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.4185,
-          "deadHeatWinValue": 0.4185,
+          "pClearWin": 0.419,
+          "deadHeatWinValue": 0.419,
           "fairOdds": 139,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1005
+          "pPush": 0.1002
         }
       ],
       "synthetic": true,
@@ -15003,13 +14961,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.29,
           "fitBoost": -1.0,
-          "pClearWin": 0.3444,
-          "deadHeatWinValue": 0.3444,
-          "fairOdds": 190,
+          "pClearWin": 0.344,
+          "deadHeatWinValue": 0.344,
+          "fairOdds": 191,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0908
+          "pPush": 0.0911
         },
         {
           "name": "Jason Day",
@@ -15018,13 +14976,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.82,
           "fitBoost": -0.36,
-          "pClearWin": 0.5648,
-          "deadHeatWinValue": 0.5648,
+          "pClearWin": 0.5649,
+          "deadHeatWinValue": 0.5649,
           "fairOdds": -130,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0908
+          "pPush": 0.0911
         }
       ],
       "synthetic": true,
@@ -15045,13 +15003,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.35,
           "fitBoost": -0.84,
-          "pClearWin": 0.4635,
-          "deadHeatWinValue": 0.4635,
+          "pClearWin": 0.4634,
+          "deadHeatWinValue": 0.4634,
           "fairOdds": 116,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1022
+          "pPush": 0.1021
         },
         {
           "name": "J.J. Spaun",
@@ -15060,13 +15018,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.29,
           "fitBoost": -1.0,
-          "pClearWin": 0.4343,
-          "deadHeatWinValue": 0.4343,
+          "pClearWin": 0.4345,
+          "deadHeatWinValue": 0.4345,
           "fairOdds": 130,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1022
+          "pPush": 0.1021
         }
       ],
       "synthetic": true,
@@ -15087,13 +15045,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.35,
           "fitBoost": -0.84,
-          "pClearWin": 0.4771,
-          "deadHeatWinValue": 0.4771,
-          "fairOdds": 110,
+          "pClearWin": 0.4776,
+          "deadHeatWinValue": 0.4776,
+          "fairOdds": 109,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0951
+          "pPush": 0.0948
         },
         {
           "name": "J.J. Spaun",
@@ -15102,13 +15060,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.29,
           "fitBoost": -1.0,
-          "pClearWin": 0.4278,
-          "deadHeatWinValue": 0.4278,
+          "pClearWin": 0.4276,
+          "deadHeatWinValue": 0.4276,
           "fairOdds": 134,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0951
+          "pPush": 0.0948
         }
       ],
       "synthetic": true,
@@ -15129,8 +15087,8 @@
           "modelStd": 2.85,
           "sgBlended": 0.35,
           "fitBoost": -0.84,
-          "pClearWin": 0.4805,
-          "deadHeatWinValue": 0.4805,
+          "pClearWin": 0.4803,
+          "deadHeatWinValue": 0.4803,
           "fairOdds": 108,
           "bestBook": null,
           "impliedProbBest": null,
@@ -15144,8 +15102,8 @@
           "modelStd": 2.85,
           "sgBlended": 0.29,
           "fitBoost": -1.0,
-          "pClearWin": 0.4179,
-          "deadHeatWinValue": 0.4179,
+          "pClearWin": 0.4181,
+          "deadHeatWinValue": 0.4181,
           "fairOdds": 139,
           "bestBook": null,
           "impliedProbBest": null,
@@ -15171,13 +15129,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.29,
           "fitBoost": -1.0,
-          "pClearWin": 0.4529,
-          "deadHeatWinValue": 0.4529,
+          "pClearWin": 0.4527,
+          "deadHeatWinValue": 0.4527,
           "fairOdds": 121,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.099
+          "pPush": 0.0988
         },
         {
           "name": "Michael Thorbjornsen",
@@ -15186,13 +15144,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.12,
           "fitBoost": -0.88,
-          "pClearWin": 0.4481,
-          "deadHeatWinValue": 0.4481,
+          "pClearWin": 0.4485,
+          "deadHeatWinValue": 0.4485,
           "fairOdds": 123,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.099
+          "pPush": 0.0988
         }
       ],
       "synthetic": true,
@@ -15213,13 +15171,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.29,
           "fitBoost": -1.0,
-          "pClearWin": 0.4496,
-          "deadHeatWinValue": 0.4496,
-          "fairOdds": 122,
+          "pClearWin": 0.4492,
+          "deadHeatWinValue": 0.4492,
+          "fairOdds": 123,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.104
+          "pPush": 0.1042
         },
         {
           "name": "Michael Thorbjornsen",
@@ -15228,13 +15186,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.12,
           "fitBoost": -0.88,
-          "pClearWin": 0.4464,
-          "deadHeatWinValue": 0.4464,
+          "pClearWin": 0.4466,
+          "deadHeatWinValue": 0.4466,
           "fairOdds": 124,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.104
+          "pPush": 0.1042
         }
       ],
       "synthetic": true,
@@ -15251,17 +15209,17 @@
         {
           "name": "Shane Lowry",
           "odds": [],
-          "modelMean": 70.11,
+          "modelMean": 70.12,
           "modelStd": 2.85,
-          "sgBlended": 1.01,
+          "sgBlended": 1.0,
           "fitBoost": -0.12,
-          "pClearWin": 0.6314,
-          "deadHeatWinValue": 0.6314,
+          "pClearWin": 0.6311,
+          "deadHeatWinValue": 0.6311,
           "fairOdds": -171,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0869
+          "pPush": 0.0871
         },
         {
           "name": "Harry Hall",
@@ -15270,13 +15228,97 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.2817,
-          "deadHeatWinValue": 0.2817,
+          "pClearWin": 0.2818,
+          "deadHeatWinValue": 0.2818,
           "fairOdds": 255,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0869
+          "pPush": 0.0871
+        }
+      ],
+      "synthetic": true,
+      "dhRulesApplied": false,
+      "bookSample": [],
+      "simCount": 10000
+    },
+    {
+      "eventId": "synth-r1-Thu Apr 16 08:05:00 PDT 2026-1",
+      "commence": "Thu Apr 16 08:05:00 PDT 2026",
+      "round": 1,
+      "type": "2ball",
+      "players": [
+        {
+          "name": "Michael Brennan",
+          "odds": [],
+          "modelMean": 71.71,
+          "modelStd": 2.85,
+          "sgBlended": 0.29,
+          "fitBoost": -1.0,
+          "pClearWin": 0.4805,
+          "deadHeatWinValue": 0.4805,
+          "fairOdds": 108,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.104
+        },
+        {
+          "name": "Ryo Hisatsune",
+          "odds": [],
+          "modelMean": 72.0,
+          "modelStd": 2.85,
+          "sgBlended": 0.0,
+          "fitBoost": -1.0,
+          "pClearWin": 0.4155,
+          "deadHeatWinValue": 0.4155,
+          "fairOdds": 141,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.104
+        }
+      ],
+      "synthetic": true,
+      "dhRulesApplied": false,
+      "bookSample": [],
+      "simCount": 10000
+    },
+    {
+      "eventId": "synth-r2-Fri Apr 17 11:40:00 PDT 2026-1",
+      "commence": "Fri Apr 17 11:40:00 PDT 2026",
+      "round": 2,
+      "type": "2ball",
+      "players": [
+        {
+          "name": "Michael Brennan",
+          "odds": [],
+          "modelMean": 71.71,
+          "modelStd": 2.85,
+          "sgBlended": 0.29,
+          "fitBoost": -1.0,
+          "pClearWin": 0.4821,
+          "deadHeatWinValue": 0.4821,
+          "fairOdds": 107,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.1004
+        },
+        {
+          "name": "Ryo Hisatsune",
+          "odds": [],
+          "modelMean": 72.0,
+          "modelStd": 2.85,
+          "sgBlended": 0.0,
+          "fitBoost": -1.0,
+          "pClearWin": 0.4175,
+          "deadHeatWinValue": 0.4175,
+          "fairOdds": 140,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.1004
         }
       ],
       "synthetic": true,
@@ -15297,13 +15339,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.42,
           "fitBoost": -0.68,
-          "pClearWin": 0.4473,
-          "deadHeatWinValue": 0.4473,
-          "fairOdds": 124,
+          "pClearWin": 0.45,
+          "deadHeatWinValue": 0.45,
+          "fairOdds": 122,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1016
+          "pPush": 0.1039
         },
         {
           "name": "Taylor Pendrith",
@@ -15312,13 +15354,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.5,
           "fitBoost": -0.72,
-          "pClearWin": 0.4511,
-          "deadHeatWinValue": 0.4511,
-          "fairOdds": 122,
+          "pClearWin": 0.4461,
+          "deadHeatWinValue": 0.4461,
+          "fairOdds": 124,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1016
+          "pPush": 0.1039
         }
       ],
       "synthetic": true,
@@ -15339,13 +15381,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.42,
           "fitBoost": -0.68,
-          "pClearWin": 0.4498,
-          "deadHeatWinValue": 0.4498,
-          "fairOdds": 122,
+          "pClearWin": 0.449,
+          "deadHeatWinValue": 0.449,
+          "fairOdds": 123,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0997
+          "pPush": 0.0936
         },
         {
           "name": "Taylor Pendrith",
@@ -15354,13 +15396,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.5,
           "fitBoost": -0.72,
-          "pClearWin": 0.4505,
-          "deadHeatWinValue": 0.4505,
-          "fairOdds": 122,
+          "pClearWin": 0.4574,
+          "deadHeatWinValue": 0.4574,
+          "fairOdds": 119,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0997
+          "pPush": 0.0936
         }
       ],
       "synthetic": true,
@@ -15381,13 +15423,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.42,
           "fitBoost": -0.68,
-          "pClearWin": 0.5292,
-          "deadHeatWinValue": 0.5292,
-          "fairOdds": -112,
+          "pClearWin": 0.523,
+          "deadHeatWinValue": 0.523,
+          "fairOdds": -110,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0986
+          "pPush": 0.0952
         },
         {
           "name": "Brian Campbell",
@@ -15396,13 +15438,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.3722,
-          "deadHeatWinValue": 0.3722,
-          "fairOdds": 169,
+          "pClearWin": 0.3818,
+          "deadHeatWinValue": 0.3818,
+          "fairOdds": 162,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0986
+          "pPush": 0.0952
         }
       ],
       "synthetic": true,
@@ -15423,13 +15465,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.14,
           "fitBoost": -1.0,
-          "pClearWin": 0.4672,
-          "deadHeatWinValue": 0.4672,
-          "fairOdds": 114,
+          "pClearWin": 0.465,
+          "deadHeatWinValue": 0.465,
+          "fairOdds": 115,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0944
+          "pPush": 0.0954
         },
         {
           "name": "Andrew Putnam",
@@ -15438,13 +15480,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.4384,
-          "deadHeatWinValue": 0.4384,
-          "fairOdds": 128,
+          "pClearWin": 0.4396,
+          "deadHeatWinValue": 0.4396,
+          "fairOdds": 127,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0944
+          "pPush": 0.0954
         }
       ],
       "synthetic": true,
@@ -15465,13 +15507,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.14,
           "fitBoost": -1.0,
-          "pClearWin": 0.4645,
-          "deadHeatWinValue": 0.4645,
-          "fairOdds": 115,
+          "pClearWin": 0.4679,
+          "deadHeatWinValue": 0.4679,
+          "fairOdds": 114,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0996
+          "pPush": 0.0905
         },
         {
           "name": "Tom Hoge",
@@ -15480,13 +15522,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.4359,
-          "deadHeatWinValue": 0.4359,
-          "fairOdds": 129,
+          "pClearWin": 0.4416,
+          "deadHeatWinValue": 0.4416,
+          "fairOdds": 126,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0996
+          "pPush": 0.0905
         }
       ],
       "synthetic": true,
@@ -15507,13 +15549,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.14,
           "fitBoost": -1.0,
-          "pClearWin": 0.4655,
-          "deadHeatWinValue": 0.4655,
-          "fairOdds": 115,
+          "pClearWin": 0.4704,
+          "deadHeatWinValue": 0.4704,
+          "fairOdds": 113,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.095
+          "pPush": 0.0977
         },
         {
           "name": "Tom Hoge",
@@ -15522,97 +15564,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.4395,
-          "deadHeatWinValue": 0.4395,
-          "fairOdds": 128,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.095
-        }
-      ],
-      "synthetic": true,
-      "dhRulesApplied": false,
-      "bookSample": [],
-      "simCount": 10000
-    },
-    {
-      "eventId": "synth-r1-Thu Apr 16 08:05:00 PDT 2026-1",
-      "commence": "Thu Apr 16 08:05:00 PDT 2026",
-      "round": 1,
-      "type": "2ball",
-      "players": [
-        {
-          "name": "Michael Brennan",
-          "odds": [],
-          "modelMean": 71.86,
-          "modelStd": 2.85,
-          "sgBlended": 0.14,
-          "fitBoost": -1.0,
-          "pClearWin": 0.4687,
-          "deadHeatWinValue": 0.4687,
-          "fairOdds": 113,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0898
-        },
-        {
-          "name": "Ryo Hisatsune",
-          "odds": [],
-          "modelMean": 72.0,
-          "modelStd": 2.85,
-          "sgBlended": 0.0,
-          "fitBoost": -1.0,
-          "pClearWin": 0.4415,
-          "deadHeatWinValue": 0.4415,
-          "fairOdds": 127,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0898
-        }
-      ],
-      "synthetic": true,
-      "dhRulesApplied": false,
-      "bookSample": [],
-      "simCount": 10000
-    },
-    {
-      "eventId": "synth-r2-Fri Apr 17 11:40:00 PDT 2026-1",
-      "commence": "Fri Apr 17 11:40:00 PDT 2026",
-      "round": 2,
-      "type": "2ball",
-      "players": [
-        {
-          "name": "Michael Brennan",
-          "odds": [],
-          "modelMean": 71.86,
-          "modelStd": 2.85,
-          "sgBlended": 0.14,
-          "fitBoost": -1.0,
-          "pClearWin": 0.4707,
-          "deadHeatWinValue": 0.4707,
-          "fairOdds": 112,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0976
-        },
-        {
-          "name": "Ryo Hisatsune",
-          "odds": [],
-          "modelMean": 72.0,
-          "modelStd": 2.85,
-          "sgBlended": 0.0,
-          "fitBoost": -1.0,
-          "pClearWin": 0.4317,
-          "deadHeatWinValue": 0.4317,
+          "pClearWin": 0.4319,
+          "deadHeatWinValue": 0.4319,
           "fairOdds": 132,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0976
+          "pPush": 0.0977
         }
       ],
       "synthetic": true,
