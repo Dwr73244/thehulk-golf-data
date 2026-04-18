@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-18T01:15:21.635822",
+  "generatedAt": "2026-04-18T01:18:44.842288",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -8958,11 +8958,11 @@
       },
       {
         "date": "2026-04-18",
-        "tempHigh": 84.0,
-        "tempLow": 66.7,
-        "windAvg": 9.9,
-        "windMax": 14.9,
-        "windDir": 186,
+        "tempHigh": 84.6,
+        "tempLow": 66.0,
+        "windAvg": 8.9,
+        "windMax": 14.5,
+        "windDir": 194,
         "rainPct": 0
       },
       {
@@ -9112,11 +9112,11 @@
       },
       {
         "date": "2026-04-18",
-        "tempHigh": 84.0,
-        "tempLow": 66.7,
-        "windAvg": 9.9,
-        "windMax": 14.9,
-        "windDir": 186,
+        "tempHigh": 84.6,
+        "tempLow": 66.0,
+        "windAvg": 8.9,
+        "windMax": 14.5,
+        "windDir": 194,
         "rainPct": 0
       },
       {
@@ -14692,6 +14692,77 @@
     }
   ],
   "threeBallsSource": "SyntheticTeeTimes",
+  "majorsSchedule": [
+    {
+      "name": "Masters Tournament",
+      "short": "Masters",
+      "venue": "Augusta National Golf Club",
+      "city": "Augusta",
+      "state": "Georgia",
+      "startDate": "2026-04-09T00:00:00.000Z",
+      "endDate": "Apr 9 - 12",
+      "status": "COMPLETED",
+      "par": 72,
+      "yards": null,
+      "course_key": "augusta"
+    },
+    {
+      "name": "PGA Championship",
+      "short": "PGA Champ.",
+      "venue": "Aronimink Golf Club",
+      "city": "Newtown Square",
+      "state": "Pennsylvania",
+      "startDate": "2026-05-14T00:00:00.000Z",
+      "endDate": "May 14 - 17",
+      "status": "NOT_STARTED",
+      "par": 72,
+      "yards": null,
+      "course_key": null
+    },
+    {
+      "name": "U.S. Open",
+      "short": "US Open",
+      "venue": "Shinnecock Hills Golf Club",
+      "city": "Southampton",
+      "state": "New York",
+      "startDate": "2026-06-18T00:00:00.000Z",
+      "endDate": "Jun 18 - 21",
+      "status": "NOT_STARTED",
+      "par": 72,
+      "yards": null,
+      "course_key": null
+    },
+    {
+      "name": "The Open Championship",
+      "short": "The Open",
+      "venue": "Royal Birkdale Golf Club",
+      "city": "Southport",
+      "state": "",
+      "startDate": "2026-07-16T00:00:00.000Z",
+      "endDate": "Jul 16 - 19",
+      "status": "NOT_STARTED",
+      "par": 72,
+      "yards": null,
+      "course_key": null
+    }
+  ],
+  "modelParams": {
+    "baseStd": 2.85,
+    "roundShockStd": 1.0,
+    "sgBlendSeason": 0.7,
+    "sgBlendLive": 0.3,
+    "fitBoostScale": 25.0,
+    "parBaseline": 71.0,
+    "hotFormBoost": 0.25,
+    "coldFormPenalty": -0.25,
+    "windPenaltySlope": 0.08,
+    "windStdSlope": 0.05,
+    "windThresholdMph": 12.0,
+    "lastTrainedAt": null,
+    "lastTrainedBrier": null,
+    "lastTrainedWeeks": 0,
+    "_note": "Overwritten weekly by scripts/backtest.py when calibration drifts. Delete this file to reset to defaults."
+  },
   "dataQuality": {
     "leaderboardEntries": 80,
     "leaderboardSource": "ESPN",
