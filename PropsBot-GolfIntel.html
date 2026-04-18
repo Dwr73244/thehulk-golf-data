@@ -5445,8 +5445,29 @@
     return p.propScores ? (p.propScores[key] || p.confScore || 0) : (p.confScore || 0);
   }
 
-  // Multipliers: how much more likely is Top X vs outright win
-  var PROP_MULT = { winner:1, top3:2.8, top5:4.2, top10:7.5, top20:13, makeCut:28, r1Leader:0.85, r2Leader:0.80 };
+  // ------------------------------------------------------------------
+  // Canonical prop-tier multipliers (single source of truth).
+  // These convert an outright-win probability/odds into Top-N placement
+  // probability/odds. They represent "how many times more likely Top-X
+  // is vs an outright win" for the ELITE / STRONG / VALUE tier payouts
+  // shown in the Props / Line Shopping tab.
+  //
+  // Previously three divergent sets (4.2/7.5/13, 3.8/6.5/11.5,
+  // 3.5/6.0/11.0) were used across different code paths, causing the
+  // same underlying pick to show different implied payouts in
+  // different tabs. Unified to the middle-ground 3.8 / 6.5 / 11.5.
+  // Do not fork this — reference _getValueTierMultipliers() instead.
+  // ------------------------------------------------------------------
+  function _getValueTierMultipliers() {
+    return { winner:1, top5:3.8, top10:6.5, top20:11.5 };
+  }
+
+  // Full prop-multiplier table (includes tiers + extra markets that
+  // aren't part of the canonical tier set: top3, makeCut, r1/r2 leader).
+  var PROP_MULT = (function() {
+    var t = _getValueTierMultipliers();
+    return { winner:t.winner, top3:2.8, top5:t.top5, top10:t.top10, top20:t.top20, makeCut:26, r1Leader:0.85, r2Leader:0.80 };
+  })();
 
   function americanToDecimal(american) {
     var a = parseFloat(american);
@@ -5815,8 +5836,15 @@
     return BOOKS_CORE.concat(extras);
   })();
 
-  // How many times more likely Top-X is vs outright win (for estimation)
-  var PLACEMENT_MULT = { winner:1, top5:3.8, top10:6.5, top20:11.5, makeCut:26, r1Leader:0.9 };
+  // How many times more likely Top-X is vs outright win (for estimation).
+  // Sourced from the canonical _getValueTierMultipliers() helper so the
+  // Props / Line Shopping tab, EV calc, and placement-odds estimator all
+  // agree on the same tier payouts. Extra non-tier markets (makeCut,
+  // r1Leader) kept inline.
+  var PLACEMENT_MULT = (function() {
+    var t = _getValueTierMultipliers();
+    return { winner:t.winner, top5:t.top5, top10:t.top10, top20:t.top20, makeCut:26, r1Leader:0.9 };
+  })();
 
   function _winOddsForPlayer(p) {
     var o = p.odds || {};
