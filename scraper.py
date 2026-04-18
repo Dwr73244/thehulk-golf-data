@@ -3796,6 +3796,11 @@ def run_pipeline():
     # When BDL provides a tournament field, drop any non-field player (unless
     # they still show on ESPN leaderboard). This is the strongest defense
     # against stale fallback data leaking players who aren't playing.
+    #
+    # DURING MAJORS: also whitelist our fallback LIV list, because BDL can be
+    # slow to list LIV players in the tournament_field endpoint even after
+    # invitations are public. Without this whitelist, LIV players visibly
+    # vanish on Masters/PGA/US Open/Open Championship weeks.
     # ============================================================
     if bdl_field:
         field_names = set()
@@ -3810,13 +3815,26 @@ def run_pipeline():
             n = normalize_name(lbe.get("name", "") or "")
             if n:
                 field_names.add(n)
+        # Major-week safeguard: keep LIV roster regardless of BDL field lag
+        is_major_check = _is_major_event(output.get("currentEvent") or {})
+        liv_whitelist = set()
+        if is_major_check:
+            for fb in fallback:
+                if fb.get("liv"):
+                    liv_whitelist.add(normalize_name(fb["name"]))
         if field_names:
             before = len(output["players"])
-            output["players"] = [p for p in output["players"]
-                                 if normalize_name(p["name"]) in field_names]
+            output["players"] = [
+                p for p in output["players"]
+                if normalize_name(p["name"]) in field_names
+                or normalize_name(p["name"]) in liv_whitelist
+            ]
             dropped = before - len(output["players"])
+            liv_kept = sum(1 for p in output["players"]
+                           if normalize_name(p["name"]) in liv_whitelist)
             if dropped > 0:
-                print(f"  Filtered to actual field: kept {len(output['players'])}, dropped {dropped} (not in BDL field/leaderboard)")
+                suffix = f", {liv_kept} LIV kept via major-week whitelist" if liv_kept else ""
+                print(f"  Filtered to actual field: kept {len(output['players'])}, dropped {dropped} (not in BDL field/leaderboard){suffix}")
 
     # ============================================================
     # ADD MISSING FIELD PLAYERS FROM BDL FIELD + ESPN LEADERBOARD
