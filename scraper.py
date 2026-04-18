@@ -264,6 +264,60 @@ def parse_pgatour_stat_table(html, stat_key):
 # ESPN — CURRENT TOURNAMENT / RECENT RESULTS
 # ============================================================
 
+def _annotate_tie_positions(leaderboard):
+    """Group leaderboard entries by score and apply "T<n>" labels on ties.
+
+    Assumes leaderboard is already in finish order. Non-numeric statuses
+    (CUT, WD, DQ) are preserved as-is and not re-labeled.
+    """
+    if not leaderboard:
+        return leaderboard
+
+    # Parse each entry's numeric "score to par" for tie detection. Score is
+    # already a string like "-14", "-7", "E", or "+3".
+    def score_key(entry):
+        s = str(entry.get("score", "")).strip().upper()
+        if s in ("E", ""):
+            return 0
+        try:
+            return int(s)
+        except ValueError:
+            return None  # can't group non-numeric
+
+    # Walk the sorted list, group runs of identical scores, relabel with T
+    i = 0
+    n = len(leaderboard)
+    place = 0
+    while i < n:
+        entry = leaderboard[i]
+        pos_raw = str(entry.get("position", "")).upper()
+        if pos_raw in ("CUT", "WD", "DQ", "MDF"):
+            place += 1
+            i += 1
+            continue
+        k = score_key(entry)
+        if k is None:
+            place += 1
+            entry["position"] = str(place)
+            i += 1
+            continue
+        # Find how many subsequent entries share this score
+        j = i
+        while j < n and score_key(leaderboard[j]) == k:
+            j += 1
+        tied_count = j - i
+        place += 1  # tie group starts at this place
+        start_place = place
+        if tied_count == 1:
+            entry["position"] = str(start_place)
+        else:
+            for m in range(i, j):
+                leaderboard[m]["position"] = f"T{start_place}"
+            place += tied_count - 1  # advance place over the tie group
+        i = j
+    return leaderboard
+
+
 def scrape_espn_leaderboard():
     """
     Fetch current/recent PGA Tour leaderboard from ESPN's public API.
@@ -337,6 +391,11 @@ def scrape_espn_leaderboard():
 
         # ESPN returns leaderboard in finish order already — preserve it
         # (earliest rounds list the leader first via `order`).
+
+        # Apply T-tie labels: players sharing the same numeric score get "T<pos>"
+        # where <pos> is the position of the first player in the tie group.
+        # Example: 13 players at -7 labeled T25 instead of 25..37 sequentially.
+        leaderboard = _annotate_tie_positions(leaderboard)
 
         event_info["leaderboard"] = leaderboard
         print(f"  Found event: {event_info['name']} with {len(leaderboard)} players")
@@ -857,14 +916,30 @@ def build_dynamic_majors_schedule(bdl_tournaments_data):
         matched_short = next((s for kw, s in SHORT.items() if kw in name_lc), None)
         if not matched_short:
             continue
+
+        # BDL returns end_date as a DISPLAY STRING like "Apr 9 - 12" — not parseable
+        # as an ISO date in the browser. That was breaking getNextMajor() in the HTML
+        # (new Date("Apr 9 - 12") === NaN → loop never matches → falls through to
+        # schedule[0] = Masters → banner stuck on "next: Masters" after Masters ends).
+        # Derive a clean ISO end date = start + 4 days (standard tournament length).
+        start_raw = t.get("start_date") or ""
+        start_iso = start_raw[:10] if start_raw else ""
+        end_iso = ""
+        try:
+            start_dt = datetime.fromisoformat(start_iso)
+            end_iso = (start_dt + timedelta(days=4)).strftime("%Y-%m-%d")
+        except (ValueError, TypeError):
+            # Fall back to whatever BDL gave if we can't parse the start
+            end_iso = t.get("end_date") or ""
+
         out.append({
             "name": name,
             "short": matched_short,
             "venue": t.get("course_name") or "",
             "city": t.get("city") or "",
             "state": t.get("state") or "",
-            "startDate": t.get("start_date") or "",
-            "endDate": t.get("end_date") or "",
+            "startDate": start_iso,
+            "endDate": end_iso,
             "status": t.get("status") or "",
             "par": t.get("par") or 72,
             "yards": t.get("yardage") or None,
@@ -4333,6 +4408,40 @@ def run_pipeline():
         print(f"[MAJORS] Emitted {len(schedule)} majors from BDL tournaments")
     else:
         output["majorsSchedule"] = []
+
+    # ---- CANONICALIZE PLAYER NAMES ----
+    # Unicode display forms come from BDL/ESPN (e.g. "Ludvig Åberg", "Sami Välimäki")
+    # but our fallback dict uses ASCII ("Ludvig Aberg"). HTML joins between
+    # players[] and leaderboard[] compare literally — mismatched forms caused
+    # ~2 players to show blank recent-form cards. Canonicalize to the live
+    # event's display form (usually BDL/ESPN unicode).
+    lb = ((output.get("currentEvent") or {}).get("leaderboard")) or []
+    lb_name_map = {normalize_name(e.get("name", "")): e.get("name", "")
+                   for e in lb if e.get("name")}
+    if lb_name_map:
+        renamed = 0
+        for p in output["players"]:
+            canonical = lb_name_map.get(normalize_name(p.get("name", "")))
+            if canonical and canonical != p.get("name"):
+                p["name"] = canonical
+                renamed += 1
+        if renamed:
+            print(f"  Canonicalized {renamed} player names to leaderboard display form")
+
+    # ---- FIX cutPrediction COURSE CONTEXT ----
+    # predict_cut_line() defaults its historical-avg note to Augusta even
+    # when we're playing Harbour Town. Patch the note to reference the
+    # actual current course if we have one.
+    cp = output.get("cutPrediction") or {}
+    cur_course_name = ((output.get("currentEvent") or {}).get("course") or "").strip()
+    if cp and cur_course_name:
+        note = cp.get("note", "")
+        # If the note hardcodes "Augusta" but we're not at Augusta, rewrite it
+        if "augusta" in note.lower() and "augusta" not in cur_course_name.lower():
+            cp["note"] = note.lower().replace("augusta", cur_course_name).replace("Augusta", cur_course_name).capitalize()
+            # Simple replace often mangles casing; just prefix a clarifier instead
+            cp["note"] = f"{cur_course_name}: {cp.get('courseAvg', '—')} strokes historical cut avg"
+            output["cutPrediction"] = cp
 
     # ---- MODEL PARAMS (tuned by backtest, if available) ----
     output["modelParams"] = load_model_params(base_dir)
