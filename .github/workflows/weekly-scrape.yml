@@ -99,6 +99,8 @@ jobs:
           mkdir -p docs
           cp golf-data.json docs/
           cp PropsBot-GolfIntel.html docs/index.html
+          cp robots.txt docs/
+          cp sitemap.xml docs/
           echo '{ "headers": [{ "source": "**/*.json", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }] }' > docs/_headers
           echo 'golf.propsbot.ai' > docs/CNAME
 
