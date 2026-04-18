@@ -618,6 +618,7 @@
             Live 3-ball odds vs our Monte Carlo model (10k sims, integer-rounded scores, correlated round shock, dead-heat rules).
             Groups sorted by best available edge. <span class="text-pb-teal">Teal %</span> = our model's dead-heat win value. <span style="color:#f0c040">Gold EV</span> = overlay vs best book.
           </p>
+          <p id="tbSourceLine" class="text-[10px] text-slate-500 mt-1"></p>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
           <select id="tbRoundFilter" class="text-xs" style="background:rgba(255,255,255,0.04);border:1px solid rgba(100,180,200,0.15);border-radius:8px;color:#eef2f7;padding:6px 8px;">
@@ -2629,6 +2630,17 @@
     if (!grid) return;
 
     var all = (window.DATA && window.DATA.threeBalls) || [];
+    var source = (window.DATA && window.DATA.threeBallsSource) || null;
+    var srcLine = el('tbSourceLine');
+    if (srcLine) {
+      if (source === 'SyntheticTeeTimes') {
+        srcLine.innerHTML = '<span style="color:#f0c040">⚠ Book lines not posted yet — showing model predictions for real tee-time groups. EV appears once books post odds.</span>';
+      } else if (source) {
+        srcLine.textContent = 'Odds source: ' + source;
+      } else {
+        srcLine.textContent = '';
+      }
+    }
     var roundFilter = el('tbRoundFilter') ? el('tbRoundFilter').value : 'all';
     var edgeFilter = parseFloat((el('tbEdgeFilter') ? el('tbEdgeFilter').value : '0')) || 0;
 

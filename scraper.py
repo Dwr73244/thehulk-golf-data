@@ -1071,6 +1071,90 @@ THREEBALL_BOOK_MAP = {
 }
 
 
+def bdl_get_matchup_odds(tournament_id):
+    """Try BDL's matchup-odds endpoint. BDL's public docs list
+    `odds/matchups`; if that 404s we try a couple of alternate spellings.
+    Returns list of {eventId, commence, round, players:[{name, odds:[...]}]}.
+    """
+    for endpoint in ("odds/matchups", "odds/3_balls", "matchup_odds"):
+        raw = bdl_fetch(endpoint, {"tournament_id": str(tournament_id)})
+        if not raw:
+            continue
+        rows = raw.get("data") if isinstance(raw, dict) else raw
+        if not rows:
+            continue
+        print(f"[3BALL] BDL endpoint '{endpoint}' returned {len(rows)} rows")
+        groups = {}
+        for r in rows:
+            gid = r.get("matchup_id") or r.get("group_id") or r.get("id")
+            if not gid:
+                continue
+            player = r.get("player") or {}
+            pname = (
+                player.get("display_name")
+                or f"{player.get('first_name','')} {player.get('last_name','')}".strip()
+                if isinstance(player, dict) else str(player)
+            )
+            if not pname:
+                continue
+            price = r.get("odds") or r.get("american") or r.get("price")
+            if price is None:
+                continue
+            book = r.get("book") or r.get("sportsbook") or "bdl"
+            g = groups.setdefault(gid, {
+                "eventId": str(gid),
+                "commence": r.get("tee_time") or r.get("commence_time") or "",
+                "round": r.get("round") or r.get("round_number"),
+                "players": {},
+            })
+            g["players"].setdefault(pname, {"name": pname, "odds": []})
+            g["players"][pname]["odds"].append({"book": str(book)[:5].lower(),
+                                                "american": int(price)})
+        out = []
+        for g in groups.values():
+            players_list = list(g["players"].values())
+            if len(players_list) >= 3:
+                g["players"] = players_list[:3]
+                out.append(g)
+        if out:
+            return out
+    return []
+
+
+def synthesize_threeballs_from_tee_times(tee_times, current_round=None):
+    """When books haven't posted 3-ball lines yet, build synthetic groups
+    from BDL tee-time data so the model still runs. Players sharing the
+    same tee_time + round + starting_hole form a group."""
+    if not tee_times:
+        return []
+    from collections import defaultdict
+    buckets = defaultdict(list)
+    for t in tee_times:
+        tt = t.get("teeTime")
+        rnd = t.get("round")
+        hole = t.get("startHole", 1)
+        name = t.get("player")
+        if not name or not tt:
+            continue
+        # only show current or upcoming round
+        if current_round and rnd and rnd < current_round:
+            continue
+        buckets[(rnd, tt, hole)].append(name)
+
+    groups = []
+    for (rnd, tt, hole), names in buckets.items():
+        if len(names) != 3:
+            continue  # ignore 2-balls and anomalies
+        groups.append({
+            "eventId": f"synth-r{rnd}-{tt}-{hole}",
+            "commence": tt,
+            "round": rnd,
+            "players": [{"name": n, "odds": []} for n in names],
+            "synthetic": True,  # flag — no book odds, model-only
+        })
+    return groups
+
+
 def _fetch_odds_api_once(url):
     """Single-shot fetch for The Odds API — no retries on 4xx (422 = market
     not supported for this sport; retrying just burns credits & log noise)."""
@@ -3716,8 +3800,31 @@ def run_pipeline():
 
     # ============================================================
     # 3-BALL MATCHUPS + PREDICTIVE MODEL
+    # Priority: BDL matchup odds → Odds API 3_balls → synthesize from tee times
     # ============================================================
-    threeballs_raw = scrape_threeball_odds()
+    threeballs_raw = []
+    source = None
+    if bdl_tournament:
+        threeballs_raw = bdl_get_matchup_odds(bdl_tournament["id"])
+        if threeballs_raw:
+            source = "BallDontLie"
+    if not threeballs_raw:
+        threeballs_raw = scrape_threeball_odds()
+        if threeballs_raw:
+            source = "TheOddsAPI"
+    if not threeballs_raw and tee_times:
+        # Synthesize from real tee-time groups — model-only, no book odds
+        cur_round = None
+        try:
+            # Prefer BDL's round number when available
+            cur_round = int(bdl_tournament.get("current_round") or 0) or None
+        except (ValueError, TypeError, AttributeError):
+            pass
+        threeballs_raw = synthesize_threeballs_from_tee_times(tee_times, current_round=cur_round)
+        if threeballs_raw:
+            source = "SyntheticTeeTimes"
+            print(f"[3BALL] Synthesized {len(threeballs_raw)} groups from tee times (no book odds yet)")
+
     if threeballs_raw:
         threeballs_scored = predict_threeballs(
             threeballs_raw,
@@ -3728,12 +3835,14 @@ def run_pipeline():
             sims=10000,
         )
         output["threeBalls"] = threeballs_scored
+        output["threeBallsSource"] = source
         edges = sum(1 for g in threeballs_scored
                     for p in g["players"]
                     if isinstance(p.get("ev"), (int, float)) and p["ev"] > 5)
-        print(f"[3BALL] {len(threeballs_scored)} groups modeled, {edges} picks with >5% EV")
+        print(f"[3BALL] {len(threeballs_scored)} groups modeled from {source}, {edges} picks with >5% EV")
     else:
         output["threeBalls"] = []
+        output["threeBallsSource"] = None
 
     # ---- DATA QUALITY METADATA ----
     ce = output.get("currentEvent") or {}
