@@ -1618,6 +1618,7 @@
         <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
           <p class="text-[9px] text-slate-500 uppercase font-semibold">Combined Odds</p>
           <p class="mono text-xl font-bold text-pb-gold mt-1" id="parlayCombinedOdds">—</p>
+          <p class="mono text-[10px] font-semibold mt-1 hidden" id="parlayModelEV"></p>
         </div>
         <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
           <p class="text-[9px] text-slate-500 uppercase font-semibold">$25 Pays</p>
@@ -1631,6 +1632,16 @@
       <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 flex items-center justify-between">
         <span class="text-[11px] text-slate-400">$10 bet pays</span>
         <span class="mono text-lg font-bold text-pb-teal" id="parlay10Pays">—</span>
+      </div>
+      <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 mt-2 flex items-center justify-between gap-3">
+        <label for="parlayCustomStake" class="text-[11px] text-slate-400">Custom stake pays</label>
+        <div class="flex items-center gap-2">
+          <input type="text" inputmode="decimal" id="parlayCustomStake" placeholder="Custom $" style="width:80px;background:rgba(0,0,0,0.3);border:1px solid rgba(100,180,200,0.2);border-radius:6px;padding:4px 8px;color:var(--teal);font-family:var(--mono);font-size:12px;text-align:right;">
+          <span class="mono text-lg font-bold text-pb-teal" id="parlayCustomPays">—</span>
+        </div>
+      </div>
+      <div id="parlayCorrelationWarn" class="hidden rounded-xl p-3 mt-2 text-[11px] font-semibold" style="background:rgba(255,180,21,0.08);border:1px solid rgba(255,180,21,0.3);color:#ffb415;">
+        &#9888; Correlated: same-player legs may not combine at some books
       </div>
       <button id="parlayShareBtn" style="width:100%;margin-top:0.75rem;padding:0.6rem;border-radius:10px;background:linear-gradient(135deg,rgba(21,255,194,0.08),rgba(34,169,236,0.06));border:1px solid rgba(21,255,194,0.2);color:var(--teal);font-family:var(--mono);font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(21,255,194,0.12)'" onmouseout="this.style.background='linear-gradient(135deg,rgba(21,255,194,0.08),rgba(34,169,236,0.06))'">
         📋 Copy Parlay to Clipboard
@@ -4915,16 +4926,17 @@
     if (clrBtn) clrBtn.classList.remove('hidden');
 
     container.innerHTML = _parlayLegs.map(function(leg, i) {
+      var marketLabel = leg.market || leg.label || leg.betType || 'Outright Win';
       return '<div class="parlay-leg">' +
         '<div class="flex items-center gap-3">' +
           '<span class="mono text-xs text-slate-500 font-semibold w-5">' + (i + 1) + '</span>' +
           '<div>' +
             '<p class="text-sm font-semibold text-white">' + leg.player + '</p>' +
-            '<p class="text-[10px] text-slate-500">' + leg.betType + '</p>' +
+            '<p class="text-[10px] text-slate-500">' + marketLabel + '</p>' +
           '</div>' +
         '</div>' +
         '<div class="flex items-center gap-3">' +
-          '<span class="mono text-sm font-bold text-pb-gold">' + (leg.odds || '—') + '</span>' +
+          '<span class="mono text-sm font-bold text-pb-gold">' + (leg.odds != null ? ((Number(leg.odds) > 0 ? '+' : '') + leg.odds) : '—') + '</span>' +
           '<button data-parlay-remove="' + i + '" class="text-slate-600 hover:text-pb-red text-xs transition-colors" title="Remove">✕</button>' +
         '</div>' +
       '</div>';
@@ -4945,12 +4957,63 @@
       return acc * americanToDecimal(leg.odds || 100);
     }, 1);
     var combinedAmerican = decimalToAmerican(combinedDecimal);
+    // Ensure positive American odds always show the leading "+"
+    if (combinedAmerican && String(combinedAmerican).charAt(0) !== '+' && String(combinedAmerican).charAt(0) !== '-') {
+      combinedAmerican = '+' + combinedAmerican;
+    }
 
     el('parlayLegCount').textContent = _parlayLegs.length;
     el('parlayCombinedOdds').textContent = combinedAmerican;
     el('parlay10Pays').textContent = '$' + ((10 * combinedDecimal)).toFixed(2);
     el('parlay25Pays').textContent = '$' + ((25 * combinedDecimal)).toFixed(2);
     el('parlay100Pays').textContent = '$' + ((100 * combinedDecimal)).toFixed(2);
+
+    // Custom stake recompute
+    var stakeInput = el('parlayCustomStake');
+    var customOut  = el('parlayCustomPays');
+    if (customOut) {
+      var stakeVal = stakeInput ? parseFloat(stakeInput.value) : NaN;
+      if (!isNaN(stakeVal) && stakeVal > 0) {
+        customOut.textContent = '$' + (stakeVal * combinedDecimal).toFixed(2);
+      } else {
+        customOut.textContent = '—';
+      }
+    }
+
+    // Same-player correlation warning
+    var corrEl = el('parlayCorrelationWarn');
+    if (corrEl) {
+      var playerCounts = {};
+      _parlayLegs.forEach(function(l) {
+        var k = (l.player || '').toLowerCase();
+        playerCounts[k] = (playerCounts[k] || 0) + 1;
+      });
+      var hasCorrelation = Object.keys(playerCounts).some(function(k) { return playerCounts[k] >= 2; });
+      if (hasCorrelation) corrEl.classList.remove('hidden'); else corrEl.classList.add('hidden');
+    }
+
+    // Model EV (only when every leg has a fairOdds value)
+    var evEl = el('parlayModelEV');
+    if (evEl) {
+      var hasAnyFair = _parlayLegs.some(function(l) { return l.fairOdds != null && !isNaN(Number(l.fairOdds)); });
+      if (hasAnyFair) {
+        var fairDecProd = 1, bookDecProd = 1;
+        _parlayLegs.forEach(function(l) {
+          var fo = (l.fairOdds != null && !isNaN(Number(l.fairOdds))) ? l.fairOdds : (l.odds || 100);
+          fairDecProd *= americanToDecimal(fo);
+          bookDecProd *= americanToDecimal(l.odds || 100);
+        });
+        var fairProb = 1 / fairDecProd;
+        var bookProb = 1 / bookDecProd;
+        var edgePct  = (fairProb - bookProb) * 100;
+        var sign     = edgePct >= 0 ? '+' : '';
+        evEl.textContent = 'Model EV: ' + sign + edgePct.toFixed(1) + '%';
+        evEl.style.color = edgePct >= 0 ? 'var(--teal)' : 'var(--red)';
+        evEl.classList.remove('hidden');
+      } else {
+        evEl.classList.add('hidden');
+      }
+    }
 
     if (payoutCard) payoutCard.classList.remove('hidden');
   }
@@ -4976,6 +5039,18 @@
     renderParlay();
     renderPlayerGrid();
   });
+
+  // Custom stake input — recompute payout on every keystroke
+  (function() {
+    var stakeInput = el('parlayCustomStake');
+    if (!stakeInput) return;
+    stakeInput.addEventListener('input', function() {
+      // Strip non-numeric except decimal point
+      var v = this.value.replace(/[^0-9.]/g, '');
+      if (v !== this.value) this.value = v;
+      renderParlay();
+    });
+  })();
 
   // Parlay share — copy formatted text to clipboard
   el('parlayShareBtn').addEventListener('click', function() {
