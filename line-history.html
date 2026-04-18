@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Line History — PropsBot Golf</title>
+<meta name="description" content="PGA Tour outright odds history — track line movement per player across every book we monitor." />
+<link rel="canonical" href="https://golf.propsbot.ai/line-history.html" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23070e1a'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' font-family='Apple Color Emoji,Segoe UI Emoji'%3E⛳%3C/text%3E%3C/svg%3E" />
+<style>
+  :root { --bg:#070e1a; --panel:rgba(15,28,46,0.6); --border:rgba(255,255,255,0.08); --teal:#15ffc2; --gold:#f0c040; --red:#ef5350; --text:#eef2f7; --muted:rgba(200,215,230,0.6); --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; }
+  *{box-sizing:border-box;}
+  body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.5;}
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+  a{color:var(--teal);}
+  header{padding:24px 16px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(21,255,194,0.04),transparent);}
+  .wrap{max-width:900px;margin:0 auto;padding:0 16px;}
+  h1{font-size:20px;margin:0 0 4px 0;background:linear-gradient(90deg,var(--teal),#22a9ec);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;}
+  .sub{color:var(--muted);font-size:13px;margin:0;}
+  main{padding:24px 16px;}
+  .glass{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px;backdrop-filter:blur(6px);}
+  label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);margin-bottom:4px;}
+  .row{display:grid;grid-template-columns:1fr 140px 120px;gap:12px;margin-bottom:12px;}
+  @media (max-width:640px){ .row{grid-template-columns:1fr;} }
+  input,select{width:100%;background:rgba(255,255,255,0.04);border:1.5px solid rgba(120,160,200,0.15);border-radius:8px;color:var(--text);padding:10px 12px;font-family:var(--mono);font-size:14px;}
+  input:focus,select:focus{outline:2px solid rgba(21,255,194,0.4);outline-offset:1px;border-color:rgba(21,255,194,0.5);}
+  @media (max-width:640px){ input,select{font-size:16px;} }
+  .chip{display:inline-block;padding:2px 8px;border-radius:6px;background:rgba(21,255,194,0.08);border:1px solid rgba(21,255,194,0.2);color:var(--teal);font-size:11px;font-family:var(--mono);margin-right:6px;}
+  svg.spark{display:block;width:100%;height:180px;background:rgba(255,255,255,0.02);border-radius:8px;}
+  table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;}
+  th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);}
+  th{color:var(--muted);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:0.04em;}
+  .empty{text-align:center;color:var(--muted);padding:40px 16px;font-size:13px;}
+  footer{border-top:1px solid var(--border);padding:16px;color:var(--muted);font-size:11px;text-align:center;margin-top:32px;}
+  footer a{margin:0 8px;}
+  datalist{display:none;}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>⛳ Line History</h1>
+    <p class="sub">Outright odds movement — pick a player and watch how the price has drifted over our scrape windows.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="glass">
+    <div class="row">
+      <div>
+        <label for="lhPlayer">Player</label>
+        <input id="lhPlayer" list="lhPlayerList" placeholder="Start typing…" autocomplete="off" />
+        <datalist id="lhPlayerList"></datalist>
+      </div>
+      <div>
+        <label for="lhMarket">Market</label>
+        <select id="lhMarket">
+          <option value="win">Outright Winner</option>
+        </select>
+      </div>
+      <div>
+        <label for="lhBook">Book</label>
+        <select id="lhBook">
+          <option value="best">Best available</option>
+        </select>
+      </div>
+    </div>
+    <div id="lhStatus" class="sub"></div>
+  </div>
+
+  <div class="glass">
+    <svg class="spark" id="lhChart" viewBox="0 0 800 180" preserveAspectRatio="none" aria-label="Line history chart"></svg>
+    <div id="lhSummary" style="margin-top:12px;font-size:12px;color:var(--muted);font-family:var(--mono);"></div>
+  </div>
+
+  <div class="glass">
+    <table id="lhTable">
+      <thead><tr><th>Time</th><th>DK</th><th>FD</th><th>MGM</th><th>CZR</th><th>365</th></tr></thead>
+      <tbody id="lhTbody"><tr><td colspan="6" class="empty">Pick a player to load odds history.</td></tr></tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <a href="/">Home</a>
+  <a href="/methodology.html">Methodology</a>
+  <a href="/calculator.html">Calculator</a>
+  <a href="/api.html">API</a>
+  <a href="/previews/">Previews</a>
+  <a href="/player/">Players</a>
+  <div style="margin-top:8px;">Not betting advice. 21+. <a href="tel:1-800-426-2537">1-800-GAMBLER</a>.</div>
+</footer>
+
+<script>
+(function(){
+  var STATE = { history: null, players: [] };
+  var $ = function(id){ return document.getElementById(id); };
+
+  function fmtOdds(v){ if (v==null) return '—'; return (v>0?'+':'')+v; }
+
+  function renderList(){
+    var dl = $('lhPlayerList');
+    dl.innerHTML = STATE.players.map(function(n){ return '<option value="'+n.replace(/"/g,'&quot;')+'">'; }).join('');
+  }
+
+  function getSeries(name){
+    if (!STATE.history) return [];
+    var p = STATE.history[(name||'').toLowerCase()];
+    if (!p) return [];
+    return p.win || [];
+  }
+
+  function render(){
+    var name = $('lhPlayer').value.trim();
+    var book = $('lhBook').value;
+    var series = getSeries(name);
+    var status = $('lhStatus');
+    if (!name){ status.textContent = ''; return; }
+    if (!series.length){ status.textContent = 'No history yet for ' + name + '. Snapshots begin accumulating after each scrape.'; drawSpark([]); fillTable([]); return; }
+    status.innerHTML = '<span class="chip">' + series.length + ' snapshots</span><span class="chip">' + name + '</span>';
+    drawSpark(series, book);
+    fillTable(series);
+    var first = series[0], last = series[series.length-1];
+    var firstV = book === 'best' ? bestOf(first) : first[book];
+    var lastV = book === 'best' ? bestOf(last) : last[book];
+    $('lhSummary').textContent = 'Open: ' + fmtOdds(firstV) + ' → Current: ' + fmtOdds(lastV) + '  (Δ ' + (lastV!=null && firstV!=null ? fmtOdds(lastV-firstV) : '—') + ')';
+  }
+
+  function bestOf(row){
+    var best = null;
+    Object.keys(row).forEach(function(k){
+      if (k === 't') return;
+      if (typeof row[k] !== 'number') return;
+      if (best == null || row[k] > best) best = row[k];
+    });
+    return best;
+  }
+
+  function drawSpark(series, book){
+    var svg = $('lhChart');
+    svg.innerHTML = '';
+    if (!series.length) return;
+    var W = 800, H = 180, pad = 20;
+    var vals = series.map(function(r){ return book === 'best' ? bestOf(r) : r[book]; }).filter(function(v){ return typeof v === 'number'; });
+    if (!vals.length) return;
+    var minV = Math.min.apply(null, vals), maxV = Math.max.apply(null, vals);
+    var spanV = maxV - minV || 1;
+    var pts = vals.map(function(v, i){
+      var x = pad + (i/(vals.length-1||1)) * (W - 2*pad);
+      var y = H - pad - ((v - minV)/spanV) * (H - 2*pad);
+      return x.toFixed(1) + ',' + y.toFixed(1);
+    });
+    var path = '<polyline fill="none" stroke="#15ffc2" stroke-width="2" points="' + pts.join(' ') + '" />';
+    var dots = pts.map(function(p,i){ var c=p.split(','); return '<circle cx="'+c[0]+'" cy="'+c[1]+'" r="2.5" fill="#15ffc2"/>'; }).join('');
+    var ymin = '<text x="'+pad+'" y="'+(H-4)+'" fill="rgba(200,215,230,0.5)" font-family="JetBrains Mono" font-size="10">' + fmtOdds(minV) + '</text>';
+    var ymax = '<text x="'+pad+'" y="12" fill="rgba(200,215,230,0.5)" font-family="JetBrains Mono" font-size="10">' + fmtOdds(maxV) + '</text>';
+    svg.innerHTML = path + dots + ymin + ymax;
+  }
+
+  function fillTable(series){
+    var rows = series.slice().reverse().slice(0, 30).map(function(r){
+      var t = (r.t||'').replace('T',' ').slice(0,16);
+      return '<tr><td>'+t+'</td><td>'+fmtOdds(r.dk)+'</td><td>'+fmtOdds(r.fd)+'</td><td>'+fmtOdds(r.mgm)+'</td><td>'+fmtOdds(r.czr)+'</td><td>'+fmtOdds(r['365'])+'</td></tr>';
+    });
+    $('lhTbody').innerHTML = rows.length ? rows.join('') : '<tr><td colspan="6" class="empty">No snapshots yet.</td></tr>';
+  }
+
+  function populateBooks(){
+    var seen = {};
+    if (!STATE.history) return;
+    Object.keys(STATE.history).forEach(function(name){
+      (STATE.history[name].win||[]).forEach(function(row){
+        Object.keys(row).forEach(function(k){ if (k!=='t') seen[k]=true; });
+      });
+    });
+    var opts = ['<option value="best">Best available</option>'];
+    Object.keys(seen).sort().forEach(function(b){ opts.push('<option value="'+b+'">'+b.toUpperCase()+'</option>'); });
+    $('lhBook').innerHTML = opts.join('');
+  }
+
+  // Load data
+  Promise.all([
+    fetch('/odds_history.json', { cache: 'no-store' }).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
+    fetch('/golf-data.json', { cache: 'no-store' }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+  ]).then(function(results){
+    STATE.history = results[0] || {};
+    var data = results[1];
+    if (data && data.players){
+      STATE.players = data.players.map(function(p){ return p.name; }).sort();
+    } else {
+      STATE.players = Object.keys(STATE.history);
+    }
+    renderList();
+    populateBooks();
+    if (Object.keys(STATE.history).length === 0) {
+      $('lhStatus').textContent = 'Odds history file is empty. Come back after a few scrape runs have accumulated.';
+    }
+  });
+
+  $('lhPlayer').addEventListener('input', render);
+  $('lhBook').addEventListener('change', render);
+})();
+</script>
+</body>
+</html>

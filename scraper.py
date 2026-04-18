@@ -1201,6 +1201,70 @@ def compute_all_course_fits(players, weather=None):
 SNAPSHOT_VERSION = 1  # bump when the archived schema changes in a breaking way
 
 
+def persist_odds_history(output, base_dir):
+    """Append current outright odds to odds_history.json for line-movement charts.
+
+    Dedup: only append a row when (player, market, book) odds have changed
+    since the last snapshot. Keeps file size bounded.
+    Rotation: cap each (player, market) series to the last 100 entries.
+
+    File lives at repo root; workflow copies it to docs/ for public fetch.
+    """
+    players = output.get("players") or []
+    if not players:
+        return 0
+
+    path = os.path.join(base_dir, "odds_history.json")
+    history = {}
+    if os.path.isfile(path):
+        try:
+            with open(path, encoding="utf-8") as f:
+                history = json.load(f) or {}
+        except (OSError, json.JSONDecodeError):
+            history = {}
+
+    ts = output.get("generatedAt") or datetime.now().isoformat()
+    appended = 0
+    for p in players:
+        name = (p.get("name") or "").strip().lower()
+        if not name:
+            continue
+        odds = p.get("odds") or {}
+        if not isinstance(odds, dict) or not odds:
+            continue
+        player_hist = history.setdefault(name, {})
+        market_series = player_hist.setdefault("win", [])
+        # Build current row — strip the "+" prefix, store as int
+        current = {}
+        for book, val in odds.items():
+            try:
+                v = int(str(val).replace("+", ""))
+                current[book] = v
+            except (ValueError, TypeError):
+                continue
+        if not current:
+            continue
+        # Dedup against last entry: only append if any book's odds differ
+        last = market_series[-1] if market_series else None
+        if last and all(last.get(b) == v for b, v in current.items()):
+            continue
+        row = {"t": ts, **current}
+        market_series.append(row)
+        # Rotate to last 100
+        if len(market_series) > 100:
+            del market_series[:-100]
+        appended += 1
+
+    if appended > 0:
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(history, f, separators=(",", ":"), ensure_ascii=False)
+            print(f"  Odds history: appended {appended} new rows (file: {os.path.getsize(path) // 1024} KB)")
+        except OSError as e:
+            print(f"  [WARN] Could not write odds_history.json: {e}")
+    return appended
+
+
 def archive_data(output, base_dir):
     """Save a timestamped copy to history/ for trend analysis.
 
@@ -4688,6 +4752,14 @@ def run_pipeline():
     # ---- MODEL PARAMS (tuned by backtest, if available) ----
     output["modelParams"] = load_model_params(base_dir)
 
+    # ---- UPDATE CADENCE (exposed to UI for freshness badges) ----
+    output["updateCadence"] = {
+        "offWeek": "Mon + Tue 1AM ET",
+        "wednesday": "5x (5AM / 11AM / 2PM / 7PM / 10PM ET)",
+        "tournament": "every 30 min, 7AM-7PM ET Thu-Sun (~100 runs/week)",
+        "backtest": "Mon 2AM ET — weekly model retune if calibration drifts",
+    }
+
     # ---- SELF-HEAL FALLBACK ----
     # Write current dynamic stats back to fallback_dynamic.json so future
     # runs have fresh values even if DataGolf + PGA Tour are both down.
@@ -4794,6 +4866,9 @@ def run_pipeline():
 
     # ---- ARCHIVE ----
     archive_data(output, base_dir)
+
+    # ---- ODDS HISTORY (line-movement snapshots) ----
+    persist_odds_history(output, base_dir)
 
     # ---- DISCORD ALERTS ----
     send_discord_alerts(output)
