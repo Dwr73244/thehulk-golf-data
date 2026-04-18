@@ -52,6 +52,11 @@ DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", "")
 BDL_API_KEY = os.getenv("BDL_API_KEY", "")
 BDL_BASE = "https://api.balldontlie.io/pga/v1"
 
+# Module-level cache of the last BDL tournaments response (populated by
+# bdl_get_current_tournament), consumed by run_pipeline to emit a dynamic
+# majors schedule without a second API call.
+_LAST_TOURNAMENTS_RAW = None
+
 # Request timeout in seconds
 TIMEOUT = 15
 
@@ -388,7 +393,15 @@ def bdl_fetch_all(endpoint, params=None, max_pages=10):
 def bdl_get_current_tournament():
     """Find the current/next tournament from BDL."""
     print("\n[BDL] Finding current tournament...")
-    data = bdl_fetch("tournaments", {"season": "2026", "per_page": "50"})
+    season = datetime.utcnow().year
+    data = bdl_fetch("tournaments", {"season": str(season), "per_page": "50"})
+    if not data:
+        # Retry with previous season for early-January weeks
+        data = bdl_fetch("tournaments", {"season": str(season - 1), "per_page": "50"})
+    # Cache the raw tournaments response on the module so run_pipeline can use it
+    # to emit a dynamic majors schedule without a second API call.
+    global _LAST_TOURNAMENTS_RAW
+    _LAST_TOURNAMENTS_RAW = data
     if not data:
         return None
 
@@ -716,6 +729,81 @@ _MAJOR_NAME_KEYWORDS = (
     "u.s. open", "us open",
     "the open championship", "british open", "open championship",
 )
+
+
+def load_model_params(base_dir=None):
+    """Load tuned model parameters from model_params.json (written by backtest).
+    Falls back to defaults if the file is missing — keeps scraper working on
+    fresh clones or before the first backtest run."""
+    base_dir = base_dir or os.path.dirname(os.path.abspath(__file__))
+    defaults = {
+        "baseStd": 2.85,
+        "roundShockStd": 1.0,
+        "sgBlendSeason": 0.7,
+        "sgBlendLive": 0.3,
+        "fitBoostScale": 25.0,
+        "parBaseline": 71.0,
+        "hotFormBoost": 0.25,
+        "coldFormPenalty": -0.25,
+        "windPenaltySlope": 0.08,
+        "windStdSlope": 0.05,
+        "windThresholdMph": 12.0,
+        "lastTrainedAt": None,
+        "lastTrainedBrier": None,
+    }
+    path = os.path.join(base_dir, "model_params.json")
+    if not os.path.isfile(path):
+        return defaults
+    try:
+        with open(path, encoding="utf-8") as f:
+            params = json.load(f)
+        for k, v in defaults.items():
+            params.setdefault(k, v)
+        return params
+    except (OSError, json.JSONDecodeError):
+        return defaults
+
+
+def build_dynamic_majors_schedule(bdl_tournaments_data):
+    """Build the next-major tab schedule from BDL's tournaments endpoint —
+    eliminates the hardcoded MAJORS_SCHEDULE array in the HTML."""
+    if not bdl_tournaments_data:
+        return []
+    tournaments = (bdl_tournaments_data.get("data")
+                   if isinstance(bdl_tournaments_data, dict)
+                   else bdl_tournaments_data)
+    if not isinstance(tournaments, list):
+        return []
+
+    SHORT = {
+        "masters": "Masters",
+        "pga championship": "PGA Champ.",
+        "u.s. open": "US Open", "us open": "US Open",
+        "the open championship": "The Open", "open championship": "The Open",
+        "british open": "The Open",
+    }
+    out = []
+    for t in tournaments:
+        name = (t.get("name") or "").strip()
+        name_lc = name.lower()
+        matched_short = next((s for kw, s in SHORT.items() if kw in name_lc), None)
+        if not matched_short:
+            continue
+        out.append({
+            "name": name,
+            "short": matched_short,
+            "venue": t.get("course_name") or "",
+            "city": t.get("city") or "",
+            "state": t.get("state") or "",
+            "startDate": t.get("start_date") or "",
+            "endDate": t.get("end_date") or "",
+            "status": t.get("status") or "",
+            "par": t.get("par") or 72,
+            "yards": t.get("yardage") or None,
+            "course_key": match_venue_to_course(t.get("course_name", ""), name) or None,
+        })
+    out.sort(key=lambda m: m["startDate"] or "")
+    return out
 
 
 def _is_major_event(current_event):
@@ -4097,6 +4185,19 @@ def run_pipeline():
     else:
         output["threeBalls"] = []
         output["threeBallsSource"] = None
+
+    # ---- DYNAMIC MAJORS SCHEDULE ----
+    # Emit from BDL tournaments instead of hardcoding in HTML — keeps the
+    # "next major" tab accurate every year without touching code.
+    schedule = build_dynamic_majors_schedule(_LAST_TOURNAMENTS_RAW)
+    if schedule:
+        output["majorsSchedule"] = schedule
+        print(f"[MAJORS] Emitted {len(schedule)} majors from BDL tournaments")
+    else:
+        output["majorsSchedule"] = []
+
+    # ---- MODEL PARAMS (tuned by backtest, if available) ----
+    output["modelParams"] = load_model_params(base_dir)
 
     # ---- DATA QUALITY METADATA ----
     ce = output.get("currentEvent") or {}

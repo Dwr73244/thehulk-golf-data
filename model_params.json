@@ -1,0 +1,17 @@
+{
+  "baseStd": 2.85,
+  "roundShockStd": 1.0,
+  "sgBlendSeason": 0.7,
+  "sgBlendLive": 0.3,
+  "fitBoostScale": 25.0,
+  "parBaseline": 71.0,
+  "hotFormBoost": 0.25,
+  "coldFormPenalty": -0.25,
+  "windPenaltySlope": 0.08,
+  "windStdSlope": 0.05,
+  "windThresholdMph": 12.0,
+  "lastTrainedAt": null,
+  "lastTrainedBrier": null,
+  "lastTrainedWeeks": 0,
+  "_note": "Overwritten weekly by scripts/backtest.py when calibration drifts. Delete this file to reset to defaults."
+}

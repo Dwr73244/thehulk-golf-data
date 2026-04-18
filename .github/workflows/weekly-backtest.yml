@@ -1,0 +1,68 @@
+name: Weekly Model Backtest
+
+on:
+  schedule:
+    # Monday 2AM ET (6AM UTC) — after the previous tournament has fully settled
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # need full history for older snapshots
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run backtest
+        run: python scripts/backtest.py --weeks 12 --tune
+
+      - name: Commit report (+ any tuned params)
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add backtest-report.json model_params.json 2>/dev/null || true
+          if git diff --quiet --cached; then
+            echo "No backtest changes to commit"
+          else
+            git commit -m "Weekly backtest report $(date +'%Y-%m-%d')"
+            git push
+          fi
+
+      - name: Alert on Discord if calibration drifted
+        if: always()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then exit 0; fi
+          python -c "
+          import json, os, urllib.request
+          try:
+              r = json.load(open('backtest-report.json'))
+          except (IOError, ValueError):
+              exit(0)
+          drift = r.get('calibrationDrift', 0) or 0
+          pairs = r.get('pairs', 0)
+          brier = r.get('brierScore')
+          emoji = '⚠️' if drift > 0.05 else '✅'
+          msg = f'{emoji} Golf backtest — pairs={pairs}, Brier={brier}, drift={drift:.3f}'
+          try:
+              req = urllib.request.Request(
+                  os.environ['DISCORD_WEBHOOK_URL'],
+                  data=json.dumps({'content': msg}).encode(),
+                  headers={'Content-Type': 'application/json'},
+              )
+              urllib.request.urlopen(req, timeout=10).read()
+          except Exception as e:
+              print(f'Discord send failed: {e}')
+          "

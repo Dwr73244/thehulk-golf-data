@@ -4891,13 +4891,41 @@
     { name: 'The Masters',           short: 'Masters',       venue: 'Augusta National GC',   location: 'Augusta, GA',         dates: 'Apr 2027 (TBD)',   start: '2027-04-08', end: '2027-04-14', par: 72, yards: '7,555', defending: 'TBD',              course: 'augusta' },
   ];
 
-  function getNextMajor() {
-    var today = new Date();
-    for (var i = 0; i < MAJORS_SCHEDULE.length; i++) {
-      var m = MAJORS_SCHEDULE[i];
-      if (new Date(m.end) >= today) return m;
+  // Prefer the dynamic majors schedule emitted by the scraper (built from
+  // BDL's live tournaments endpoint) — falls back to the hardcoded array
+  // above only when golf-data.json is unavailable or empty.
+  function _getMajorsSchedule() {
+    var dyn = window.DATA && window.DATA.majorsSchedule;
+    if (Array.isArray(dyn) && dyn.length) {
+      return dyn.map(function(m) {
+        return {
+          name: m.name,
+          short: m.short,
+          venue: m.venue,
+          location: [m.city, m.state].filter(Boolean).join(', '),
+          dates: (m.startDate ? m.startDate.slice(0, 10) : '') +
+                 (m.endDate ? ' – ' + m.endDate.slice(0, 10) : ''),
+          start: (m.startDate || '').slice(0, 10),
+          end:   (m.endDate   || '').slice(0, 10),
+          par: m.par,
+          yards: m.yards,
+          defending: m.defending || 'TBD',
+          course: m.course_key || null,
+        };
+      });
     }
-    return MAJORS_SCHEDULE[0];
+    return MAJORS_SCHEDULE;
+  }
+
+  function getNextMajor() {
+    var schedule = _getMajorsSchedule();
+    var today = new Date();
+    for (var i = 0; i < schedule.length; i++) {
+      var m = schedule[i];
+      var endDate = m.end ? new Date(m.end) : null;
+      if (endDate && !isNaN(endDate) && endDate >= today) return m;
+    }
+    return schedule[0];
   }
 
   // Prefer whatever tournament is LIVE in the feed; only fall back to the
