@@ -515,10 +515,78 @@ def bdl_get_course_holes(course_id):
 # If scraping fails, we use this curated dataset based on real stats.
 # Updated manually as a safety net.
 
-def get_fallback_players():
-    """Return hardcoded player data based on real 2024-2025 Tour stats.
-    50 players with full curated data including course fit, tendencies, and betting notes.
+def _load_fallback_overrides():
+    """Load self-healed fallback stats from fallback_dynamic.json.
+
+    The scraper writes fresh DataGolf/PGA-Tour/BDL values back to this file
+    every run, keyed by normalized player name. Next run picks them up —
+    so the fallback tier automatically reflects whatever live data we
+    last successfully fetched, even if both DataGolf and PGA Tour sites
+    are down today.
     """
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fallback_dynamic.json")
+    if not os.path.isfile(path):
+        return {}
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f) or {}
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def _save_fallback_overrides(overrides):
+    """Persist self-healed fallback stats. No-op if overrides dict is empty."""
+    if not overrides:
+        return
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fallback_dynamic.json")
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(overrides, f, indent=2, sort_keys=True, ensure_ascii=False)
+    except OSError as e:
+        print(f"  [WARN] Could not write fallback_dynamic.json: {e}")
+
+
+# Dynamic fields that self-heal — refreshed from live sources every run,
+# written back to fallback_dynamic.json so stale hardcoded values don't
+# persist when primary sources are healthy.
+_FALLBACK_DYNAMIC_FIELDS = (
+    "sgTotal", "sgOtt", "sgApp", "sgArg", "sgPutt",
+    "birdieAvg", "bogeyAvg", "scoringAvg", "gir", "fairways", "scramble",
+    "proxAvg", "rank",
+)
+
+
+def get_fallback_players():
+    """Return player data based on real Tour stats.
+    Static metadata (courseFit, notes, missDir, flight, augustaHistory, liv
+    flag) stays hardcoded here. Dynamic stats (SG splits, birdie/bogey
+    averages, rank) self-heal via fallback_dynamic.json — the scraper writes
+    every run's fresh values back, so next run's fallback is as recent as
+    our last successful scrape.
+    """
+    static_players = _fallback_static()
+    overrides = _load_fallback_overrides()
+    if not overrides:
+        return static_players
+    # Merge: override dynamic fields when we have fresher values
+    merged = []
+    for p in static_players:
+        key = p["name"].lower()
+        fresh = overrides.get(key) or {}
+        if fresh:
+            merged_player = dict(p)
+            for field in _FALLBACK_DYNAMIC_FIELDS:
+                if field in fresh:
+                    merged_player[field] = fresh[field]
+            merged.append(merged_player)
+        else:
+            merged.append(p)
+    return merged
+
+
+def _fallback_static():
+    """Hardcoded static seed. Treated as the baseline — dynamic fields get
+    overridden by fallback_dynamic.json when available."""
     return [
         {"id":1,"name":"Scottie Scheffler","rank":1,"sgTotal":2.45,"sgOtt":0.62,"sgApp":1.18,"sgArg":0.35,"sgPutt":0.30,"birdieAvg":5.1,"bogeyAvg":2.2,"scoringAvg":68.8,"gir":72.5,"fairways":63.2,"scramble":65.0,"proxAvg":29.5,"missDir":"right","flight":"high_fade","courseFit":{"augusta":95,"tpc_sawgrass":82,"pebble":80,"torrey_south":85,"riviera":88,"valhalla":92,"pinehurst_2":88,"royal_troon":75,"quail_hollow":85,"east_lake":90,"bay_hill":82,"harbour_town":72,"colonial":78,"memorial":88,"tpc_scottsdale":80},"notes":"Elite ball-striker. Best SG:Approach on Tour. Premium plays: strokes under, birdies over."},
         {"id":2,"name":"Xander Schauffele","rank":2,"sgTotal":2.10,"sgOtt":0.55,"sgApp":0.80,"sgArg":0.40,"sgPutt":0.35,"birdieAvg":4.8,"bogeyAvg":2.1,"scoringAvg":69.1,"gir":70.8,"fairways":66.1,"scramble":63.5,"proxAvg":31.2,"missDir":"neutral","flight":"neutral","courseFit":{"augusta":88,"tpc_sawgrass":85,"pebble":82,"torrey_south":90,"riviera":84,"valhalla":85,"pinehurst_2":82,"royal_troon":80,"quail_hollow":82,"east_lake":88,"bay_hill":80,"harbour_town":78,"colonial":80,"memorial":82,"tpc_scottsdale":82},"notes":"Most well-rounded player on Tour. No weakness. Excels at Torrey Pines."},
@@ -1553,11 +1621,19 @@ def predict_matchups(matchups, players, course_key=None, weather=None,
 
             mean_score = PAR - sg_blended - fit_boost - form_boost + wx_penalty
 
-            # Individual variance: volatile players (high |sgPutt| swings, cold trends) get wider tails
+            # Per-player variance: prefer empirical stddev from history
+            # (attached to player as scoreStd) over the global BASE_STD.
+            # Falls back to BASE_STD for players without sufficient history.
+            empirical_std = pdata.get("scoreStd")
+            if isinstance(empirical_std, (int, float)) and 1.5 <= empirical_std <= 5.0:
+                base = float(empirical_std)
+            else:
+                base = BASE_STD
+            # Volatility adjustment: hot/cold trends add tail weight
             volatility = 0.0
             if form.get("trend") in ("hot", "cold"):
                 volatility += 0.15
-            std_i = BASE_STD + wx_std_bump + volatility
+            std_i = base + wx_std_bump + volatility
 
             pp_list.append({
                 "player": p,
@@ -2651,6 +2727,50 @@ def extract_stat_prop_lines(bdl_props_raw):
 # 2. Anomaly Detection: Z-score + IQR on odds vs model to find
 #    mispriced props in low-frequency markets.
 # ============================================================
+
+def _compute_player_variance(history_dir, max_weeks=20, min_rounds=5):
+    """Compute per-player round-score stddev from history.
+
+    Walks the last N snapshots, collects each player's round1/2/3/4 scores
+    across all events, returns {normalized_name: stddev}. Players with
+    <min_rounds data points fall back to the global BASE_STD at model time.
+    """
+    if not os.path.isdir(history_dir):
+        return {}
+    files = sorted(
+        [f for f in os.listdir(history_dir) if f.endswith(".json")],
+        reverse=True,
+    )[:max_weeks]
+    rounds_by_player = {}
+    for fname in files:
+        try:
+            with open(os.path.join(history_dir, fname), encoding="utf-8") as f:
+                snap = json.load(f)
+        except (OSError, json.JSONDecodeError):
+            continue
+        lb = ((snap.get("currentEvent") or {}).get("leaderboard")) or []
+        for entry in lb:
+            name = (entry.get("name") or "").lower()
+            if not name:
+                continue
+            for rnd in (1, 2, 3, 4):
+                v = entry.get(f"round{rnd}")
+                if isinstance(v, (int, float)) and 55 < v < 95:
+                    rounds_by_player.setdefault(name, []).append(float(v))
+
+    out = {}
+    for name, scores in rounds_by_player.items():
+        if len(scores) < min_rounds:
+            continue
+        mean = sum(scores) / len(scores)
+        var = sum((s - mean) ** 2 for s in scores) / (len(scores) - 1)
+        std = var ** 0.5
+        # Clamp to a reasonable range — anyone below 1.5 or above 5.0 is
+        # almost certainly a data artifact (tiny sample or scraped garbage)
+        if 1.5 <= std <= 5.0:
+            out[name] = round(std, 2)
+    return out
+
 
 def _load_historical_performances(history_dir, max_weeks=20):
     """Load player performance data from history archives for ML training."""
@@ -4216,6 +4336,46 @@ def run_pipeline():
 
     # ---- MODEL PARAMS (tuned by backtest, if available) ----
     output["modelParams"] = load_model_params(base_dir)
+
+    # ---- SELF-HEAL FALLBACK ----
+    # Write current dynamic stats back to fallback_dynamic.json so future
+    # runs have fresh values even if DataGolf + PGA Tour are both down.
+    # Only save when we have >=50 real players (don't overwrite with
+    # degraded runs).
+    if len(output["players"]) >= 50:
+        overrides = _load_fallback_overrides()
+        saved = 0
+        for p in output["players"]:
+            name_key = p.get("name", "").lower()
+            if not name_key:
+                continue
+            # Require at least one real SG value — skip auto-added shells
+            has_real_sg = any(p.get(f) for f in ("sgTotal", "sgOtt", "sgApp"))
+            if not has_real_sg:
+                continue
+            entry = overrides.get(name_key, {})
+            for field in _FALLBACK_DYNAMIC_FIELDS:
+                if p.get(field) is not None:
+                    entry[field] = p[field]
+            entry["_updatedAt"] = datetime.now().strftime("%Y-%m-%d")
+            overrides[name_key] = entry
+            saved += 1
+        _save_fallback_overrides(overrides)
+        print(f"  Self-heal: refreshed fallback_dynamic.json with {saved} player updates")
+
+    # ---- PER-PLAYER ROUND VARIANCE (from history) ----
+    # Compute each player's empirical round-score stddev from history, use
+    # in the matchup MC instead of a global BASE_STD constant.
+    variance_map = _compute_player_variance(history_dir)
+    if variance_map:
+        attached = 0
+        for p in output["players"]:
+            std = variance_map.get(p["name"].lower())
+            if std is not None:
+                p["scoreStd"] = std
+                attached += 1
+        if attached:
+            print(f"  Per-player variance: attached stddev to {attached} players (from history)")
 
     # ---- DATA QUALITY METADATA ----
     ce = output.get("currentEvent") or {}

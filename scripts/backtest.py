@@ -124,6 +124,144 @@ def calibration_bins(pairs, bins=10):
     return out
 
 
+def _resim_matchup(group_players, params, actual_scores, sims=3000, seed=1):
+    """Rerun Monte Carlo on a single historical matchup with a new param set.
+
+    Each player's stored modelMean was computed with the old baseStd; we
+    adjust their std by the delta (newBase - oldBase) which is a reasonable
+    first-order approximation since the inputs (sg, fit, weather) don't
+    change. Returns (predicted_win_value per player, mc_outcome per player).
+    """
+    import random
+    rnd = random.Random(seed)
+    # Recover old baseStd implicitly from the stored modelStd; take minimum
+    # across players as the proxy (all players share baseStd).
+    old_base = min((p.get("modelStd") or 2.85) for p in group_players)
+    delta = params["baseStd"] - old_base
+    shock_std = params["roundShockStd"]
+    n = len(group_players)
+    clear = [0] * n
+    tie2 = [0] * n
+    tie3 = 0
+    push = [0] * n  # 2-ball
+    for _ in range(sims):
+        shock = rnd.gauss(0.0, shock_std)
+        scores = []
+        for p in group_players:
+            mean = p.get("modelMean") or 71.0
+            std = max(1.5, (p.get("modelStd") or 2.85) + delta)
+            scores.append(round(mean + shock + rnd.gauss(0.0, std)))
+        lo = min(scores)
+        winners = [i for i, s in enumerate(scores) if s == lo]
+        if n == 2:
+            if len(winners) == 1:
+                clear[winners[0]] += 1
+            else:
+                for i in winners:
+                    push[i] += 1
+        else:
+            if len(winners) == 1:
+                clear[winners[0]] += 1
+            elif len(winners) == 2:
+                for i in winners:
+                    tie2[i] += 1
+            else:
+                tie3 += 1
+    probs = []
+    for i in range(n):
+        p_clear = clear[i] / sims
+        if n == 2:
+            probs.append(p_clear)
+        else:
+            p_t2 = tie2[i] / sims
+            p_t3 = tie3 / sims
+            probs.append(p_clear + 0.5 * p_t2 + (1.0 / 3.0) * p_t3)
+    return probs
+
+
+def _grid_search_params(snapshots, baseline_pairs):
+    """Grid search over (baseStd, roundShockStd) to minimize Brier on history.
+
+    For each param combo: re-simulate every historical matchup using the
+    stored (modelMean, modelStd) per player, pair with actual outcomes
+    from next snapshot's leaderboard, compute Brier. Return best combo.
+    """
+    # Build actuals map per historical matchup
+    matchup_actuals = []  # list of (group_players, winner_indices, matchup_type)
+    for i in range(len(snapshots) - 1):
+        older = snapshots[i + 1]["data"]
+        newer = snapshots[i]["data"]
+        tbs = older.get("threeBalls") or []
+        lb = ((newer.get("currentEvent") or {}).get("leaderboard")) or []
+        if not tbs or not lb:
+            continue
+        round_scores = {}
+        for entry in lb:
+            name = (entry.get("name") or "").lower()
+            for rnd in (1, 2, 3, 4):
+                v = entry.get(f"round{rnd}")
+                if isinstance(v, (int, float)) and v > 0:
+                    round_scores.setdefault(name, {})[rnd] = v
+        for g in tbs:
+            rnd = g.get("round")
+            if rnd not in (1, 2, 3, 4):
+                continue
+            players = g.get("players") or []
+            actual = []
+            ok = True
+            for p in players:
+                name = (p.get("name") or "").lower()
+                score = (round_scores.get(name) or {}).get(rnd)
+                if score is None:
+                    ok = False
+                    break
+                actual.append(score)
+            if not ok:
+                continue
+            matchup_actuals.append((players, actual, g.get("type", "3ball")))
+
+    if len(matchup_actuals) < 50:
+        return None, None
+
+    grid = [
+        {"baseStd": bs, "roundShockStd": rs, "sgBlendSeason": b, "sgBlendLive": 1 - b}
+        for bs in (2.5, 2.7, 2.85, 3.0, 3.15, 3.3)
+        for rs in (0.5, 0.75, 1.0, 1.25, 1.5)
+        for b in (0.6, 0.7, 0.8)
+    ]
+    # Keep rest of defaults
+    defaults = {
+        "fitBoostScale": 25.0, "parBaseline": 71.0,
+        "hotFormBoost": 0.25, "coldFormPenalty": -0.25,
+        "windPenaltySlope": 0.08, "windStdSlope": 0.05,
+        "windThresholdMph": 12.0,
+    }
+
+    best = None
+    best_brier = None
+    for params in grid:
+        total = 0.0
+        n_pairs = 0
+        for players, actual, _type in matchup_actuals:
+            probs = _resim_matchup(players, params, actual)
+            lowest = min(actual)
+            winners = [i for i, s in enumerate(actual) if s == lowest]
+            for i, prob in enumerate(probs):
+                outcome = 1.0 if i in winners and len(winners) == 1 else (
+                    0.5 if i in winners else 0.0
+                )
+                total += (prob - outcome) ** 2
+                n_pairs += 1
+        if n_pairs == 0:
+            continue
+        brier = total / n_pairs
+        if best_brier is None or brier < best_brier:
+            best_brier = brier
+            best = {**defaults, **params}
+
+    return best, round(best_brier, 4) if best_brier else None
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--weeks", type=int, default=12)
@@ -178,13 +316,43 @@ def main():
     print(f"[BACKTEST] Pairs: {len(pairs)}, Brier: {brier}, "
           f"Drift: {drift:.3f} (predicted {mean_pred:.3f} vs actual {mean_actual:.3f})")
 
-    if args.tune and drift > 0.05:
-        print("[BACKTEST] Drift exceeds 5% — would re-tune params here (stub).")
-        # Actual grid search goes here once we have >8 weeks of data.
-        # For now, just record that tuning was attempted.
-        report["tuningAttempted"] = True
+    if args.tune and len(pairs) >= 200 and drift > 0.05:
+        print(f"[BACKTEST] Drift {drift:.3f} > 5% with {len(pairs)} pairs — running grid search.")
+        tuned, best_brier = _grid_search_params(snapshots, pairs)
+        if tuned:
+            # Preserve bookkeeping fields from the previous params
+            prev = {}
+            if os.path.isfile(PARAMS_PATH):
+                try:
+                    with open(PARAMS_PATH, encoding="utf-8") as f:
+                        prev = json.load(f)
+                except (OSError, json.JSONDecodeError):
+                    prev = {}
+            tuned["lastTrainedAt"] = datetime.utcnow().isoformat() + "Z"
+            tuned["lastTrainedBrier"] = best_brier
+            tuned["lastTrainedWeeks"] = len(snapshots)
+            tuned["_note"] = prev.get(
+                "_note",
+                "Overwritten weekly by scripts/backtest.py when calibration drifts. Delete this file to reset to defaults.",
+            )
+            if not args.dry_run:
+                with open(PARAMS_PATH, "w", encoding="utf-8") as f:
+                    json.dump(tuned, f, indent=2, sort_keys=True)
+                print(f"[BACKTEST] Tuned params written to {PARAMS_PATH} — new Brier {best_brier:.4f} vs baseline {brier}")
+            report["tuning"] = {
+                "applied": True,
+                "baselineBrier": brier,
+                "tunedBrier": best_brier,
+                "tunedParams": {k: tuned[k] for k in tuned if not k.startswith("_") and k != "lastTrainedAt"},
+            }
+        else:
+            report["tuning"] = {"applied": False, "reason": "no-improvement"}
+    elif args.tune and drift > 0.05:
+        print(f"[BACKTEST] Drift {drift:.3f} > 5% but only {len(pairs)} pairs (<200). Skipping grid search.")
+        report["tuning"] = {"applied": False, "reason": "insufficient-pairs"}
     elif args.tune:
         print(f"[BACKTEST] Drift {drift:.3f} within 5% tolerance — no retune.")
+        report["tuning"] = {"applied": False, "reason": "in-tolerance"}
 
     if not args.dry_run:
         with open(REPORT_PATH, "w", encoding="utf-8") as f:
