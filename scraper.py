@@ -2489,6 +2489,69 @@ def parse_props_by_type(bdl_props):
     }
 
 
+def extract_stat_prop_lines(bdl_props_raw):
+    """Extract actual book lines for birdie/bogey/scoring stat props.
+
+    Returns dict: {player_name: {market: {line, overOdds, underOdds, book}}}
+    where market ∈ {birdies, bogeys, scoring, eagles}.
+
+    bdl_props_raw is the list returned by bdl_get_player_props — each row has
+    {type, line, over_odds, under_odds, vendor, player}. We aggregate across
+    vendors and pick the book with the best over-odds for display.
+    """
+    if not bdl_props_raw:
+        return {}
+
+    market_map = [
+        (("birdie",), "birdies"),
+        (("bogey",), "bogeys"),
+        (("scoring", "score"), "scoring"),
+        (("eagle",), "eagles"),
+    ]
+
+    out = {}
+    for player_name, props in bdl_props_raw.items():
+        if not isinstance(props, list):
+            continue
+        player_out = {}
+        for p in props:
+            ptype = str(p.get("type", "")).lower()
+            line = p.get("line")
+            if line is None:
+                continue
+            matched = None
+            for keywords, market in market_map:
+                if any(k in ptype for k in keywords):
+                    matched = market
+                    break
+            if not matched:
+                continue
+            vendor = p.get("vendor", "")
+            over = p.get("over_odds")
+            under = p.get("under_odds")
+            current = player_out.get(matched)
+            # Prefer the book with the highest over-odds (best price for over)
+            is_better = (
+                current is None or
+                (isinstance(over, (int, float)) and
+                 (not isinstance(current.get("overOdds"), (int, float)) or over > current["overOdds"]))
+            )
+            if is_better:
+                try:
+                    line_f = float(line)
+                except (TypeError, ValueError):
+                    continue
+                player_out[matched] = {
+                    "line": line_f,
+                    "overOdds": over,
+                    "underOdds": under,
+                    "book": vendor,
+                }
+        if player_out:
+            out[player_name] = player_out
+    return out
+
+
 # ============================================================
 # ML ENGINE: BAYESIAN ENSEMBLE + ANOMALY DETECTION
 # ============================================================
@@ -3576,9 +3639,18 @@ def run_pipeline():
 
     if dg_players and len(dg_players) > 5:
         merged = []
+        # Pre-compute is_major once — used to filter LIV players out of non-majors
+        # even when DataGolf's world rankings include them
+        is_major = _is_major_event(output.get("currentEvent") or {})
+        liv_filtered = 0
         for dg in dg_players:
             fb = next((f for f in fallback if f["name"].lower() == dg["name"].lower()), None)
             if fb:
+                # Skip LIV players during non-major weeks — they don't tee it up at
+                # regular PGA Tour events regardless of OWGR ranking
+                if fb.get("liv") and not is_major:
+                    liv_filtered += 1
+                    continue
                 player = dict(fb)
                 player["sgTotal"] = dg["sgTotal"] if dg["sgTotal"] else fb["sgTotal"]
                 player["sgOtt"] = dg["sgOtt"] if dg["sgOtt"] else fb["sgOtt"]
@@ -3588,9 +3660,11 @@ def run_pipeline():
                 player["rank"] = dg["rank"]
                 merged.append(player)
             else:
-                dg["birdieAvg"] = 4.0
-                dg["bogeyAvg"] = 2.3
-                dg["scoringAvg"] = 70.5
+                # Realistic PGA Tour defaults (2026 season averages, per Tour stats)
+                # Tour-average birdie: ~3.55/round, bogey: ~2.85/round, score: ~71.3
+                dg["birdieAvg"] = 3.5
+                dg["bogeyAvg"] = 2.9
+                dg["scoringAvg"] = 71.3
                 dg["gir"] = 66.0
                 dg["fairways"] = 62.0
                 dg["scramble"] = 58.0
@@ -3603,7 +3677,6 @@ def run_pipeline():
         # LIV players only play majors (Masters, PGA, US Open, Open Championship).
         # Force-include them ONLY during a major week — otherwise they shouldn't
         # appear in a regular PGA Tour event's field at all.
-        is_major = _is_major_event(output.get("currentEvent") or {})
         merged_names = {p["name"].lower() for p in merged}
         liv_added = 0
         if is_major:
@@ -3612,7 +3685,10 @@ def run_pipeline():
                     merged.append(dict(fb))
                     liv_added += 1
         output["players"] = merged
-        suffix = f", incl. {liv_added} LIV (major week)" if is_major else ", LIV filtered out (non-major)"
+        if is_major:
+            suffix = f", incl. {liv_added} LIV (major week)"
+        else:
+            suffix = f", {liv_filtered} LIV filtered out (non-major)"
         print(f"\n  Merged {len(merged)} players (scraped + curated{suffix})")
     else:
         output["players"] = fallback
@@ -3937,8 +4013,12 @@ def run_pipeline():
     # ============================================================
     if bdl_props:
         output["propsByType"] = parse_props_by_type(bdl_props)
+        # Real book lines for stat props (birdies/bogeys/scoring/eagles)
+        output["propLines"] = extract_stat_prop_lines(bdl_props)
+        print(f"  Extracted book lines for {len(output['propLines'])} players")
     else:
         output["propsByType"] = {"top5": {}, "top10": {}, "top20": {}, "r1Leader": {}, "makeCut": {}}
+        output["propLines"] = {}
 
     # ============================================================
     # 3-BALL MATCHUPS + PREDICTIVE MODEL

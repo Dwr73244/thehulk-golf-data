@@ -5892,23 +5892,40 @@
     return bookWin ? _estimatePlacementOdds(bookWin, market) : null;
   }
 
-  // For stat props (birdies/bogeys/scoring), compute the model line and estimate O/U
+  // For stat props (birdies/bogeys/scoring), prefer the REAL book line from
+  // window.DATA.propLines when available — fall back to a model-derived line
+  // labeled as "est" when the book hasn't posted a line yet.
   function _statLine(p, cat) {
     var rds = 4;
+    var propLines = (window.DATA && window.DATA.propLines) || {};
+    var bookPack = propLines[p.name] && propLines[p.name][cat];
+
     if (cat === 'birdies') {
-      var raw  = (p.birdieAvg || 3.5) * rds;
-      var line = Math.round(raw * 2) / 2;    // nearest 0.5
-      return { line: line, modelProj: +raw.toFixed(1) };
+      var modelRaw = (p.birdieAvg || 3.5) * rds;
+      if (bookPack && typeof bookPack.line === 'number') {
+        return { line: bookPack.line, modelProj: +modelRaw.toFixed(1),
+                 overOdds: bookPack.overOdds, underOdds: bookPack.underOdds,
+                 book: bookPack.book, source: 'book' };
+      }
+      return { line: Math.round(modelRaw * 2) / 2, modelProj: +modelRaw.toFixed(1), source: 'est' };
     }
     if (cat === 'bogeys') {
-      var raw  = (p.bogeyAvg || 2.5) * rds;
-      var line = Math.round(raw * 2) / 2;
-      return { line: line, modelProj: +raw.toFixed(1) };
+      var modelRaw = (p.bogeyAvg || 2.85) * rds;
+      if (bookPack && typeof bookPack.line === 'number') {
+        return { line: bookPack.line, modelProj: +modelRaw.toFixed(1),
+                 overOdds: bookPack.overOdds, underOdds: bookPack.underOdds,
+                 book: bookPack.book, source: 'book' };
+      }
+      return { line: Math.round(modelRaw * 2) / 2, modelProj: +modelRaw.toFixed(1), source: 'est' };
     }
     if (cat === 'scoring') {
-      var raw  = (p.scoringAvg || 71.5) * rds;
-      var line = Math.round(raw * 2) / 2;
-      return { line: line, modelProj: +raw.toFixed(1) };
+      var modelRaw = (p.scoringAvg || 71.3) * rds;
+      if (bookPack && typeof bookPack.line === 'number') {
+        return { line: bookPack.line, modelProj: +modelRaw.toFixed(1),
+                 overOdds: bookPack.overOdds, underOdds: bookPack.underOdds,
+                 book: bookPack.book, source: 'book' };
+      }
+      return { line: Math.round(modelRaw * 2) / 2, modelProj: +modelRaw.toFixed(1), source: 'est' };
     }
     return null;
   }
