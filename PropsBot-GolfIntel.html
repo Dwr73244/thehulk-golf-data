@@ -5,6 +5,10 @@
   <title>Free Golf Betting Tool | PGA Tour Player Props, Course Analytics & Live Odds | PropsBot AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23070e1a'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' font-family='Apple Color Emoji,Segoe UI Emoji'%3E⛳%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='36' fill='%23070e1a'/%3E%3Ctext x='90' y='128' font-size='110' text-anchor='middle' font-family='Apple Color Emoji,Segoe UI Emoji'%3E⛳%3C/text%3E%3C/svg%3E" />
+
   <!-- Primary SEO -->
   <meta name="description" content="Free AI-powered golf betting tool with PGA Tour player prop recommendations, hole-by-hole course analytics, live odds from DraftKings, FanDuel & BetMGM, course fit scores, and strokes gained matchup predictor. No signup required." />
   <meta name="robots" content="index, follow" />
@@ -111,10 +115,12 @@
     .glass { background: var(--surface1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--card-border); }
     .glass-strong { background: var(--glass); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(120,160,200,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
 
-    .tab-pill { transition: all 0.25s ease; border-radius: 6px; min-height: 36px; display: inline-flex; align-items: center; }
-    .tab-pill.active { background: rgba(21,255,194,0.05); border: 1.5px solid rgba(21,255,194,0.6); color: var(--teal); font-weight: 600; }
+    .tab-pill { transition: all 0.25s ease; border-radius: 6px; min-height: 44px; display: inline-flex; align-items: center; }
+    .tab-pill.active { background: rgba(21,255,194,0.05) !important; border: 1.5px solid rgba(21,255,194,0.9) !important; color: var(--teal) !important; font-weight: 600; }
     .tab-pill:not(.active) { border: 1.5px solid rgba(120,160,200,0.1); color: rgba(210,220,235,0.75); }
     .tab-pill:hover:not(.active) { background: rgba(21,255,194,0.03); }
+    /* Accent pills (Matchups, Monitor, Edge Finder) — subtle tint when NOT active */
+    .tab-pill-accent:not(.active) { border-color: rgba(21,255,194,0.25); color: rgba(21,255,194,0.85); background: rgba(21,255,194,0.03); }
 
     .glow-teal { box-shadow: 0 0 20px rgba(21,255,194,0.12), inset 0 1px 0 rgba(21,255,194,0.08); }
     .glow-gold { box-shadow: 0 0 20px rgba(240,192,64,0.12), inset 0 1px 0 rgba(240,192,64,0.08); }
@@ -342,7 +348,7 @@
         <p style="margin-bottom:0.65rem;">This tool is <strong style="color:var(--teal);">completely free</strong> — part of our early beta program. It's designed to help you research smarter, not to replace your own judgment.</p>
         <p style="margin-bottom:0.65rem;">Data is pulled from multiple sources and updated automatically, but <strong style="color:rgba(240,192,64,0.9);">odds and projections may lag real-time lines</strong> or contain errors. Always verify before placing a wager.</p>
         <div style="padding:0.7rem 0.9rem;background:rgba(255,21,82,0.07);border:1px solid rgba(255,21,82,0.18);border-radius:8px;color:rgba(255,160,170,0.9);font-size:0.77rem;">
-          🚨 <strong>Gambling involves risk.</strong> This is not betting advice. Only wager what you can afford to lose. Must be 21+ in a legal jurisdiction.
+          🚨 <strong>Gambling involves risk.</strong> This is not betting advice. Only wager what you can afford to lose. Must be 21+ in a legal jurisdiction. If you or someone you know has a gambling problem, call <a href="tel:1-800-426-2537" style="color:#15ffc2;text-decoration:underline">1-800-GAMBLER</a>.
         </div>
       </div>
 
@@ -413,16 +419,16 @@
   <div class="tab-scroll max-w-7xl mx-auto px-4 flex gap-1.5 py-2">
     <button class="tab-pill active rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="players">Players</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="matchups">Matchup Predictor</button>
-    <button class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="threeballs" style="border:1.5px solid rgba(21,255,194,0.35);background:linear-gradient(135deg,rgba(9,213,160,0.08),rgba(34,169,236,0.08));color:#15ffc2;">⛳ Matchups</button>
+    <button class="tab-pill tab-pill-accent rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="threeballs">⛳ Matchups</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="props">Props Builder</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="tourney">Tournament Sim</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="coursedata">Course Data</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="holeanalysis">Hole Analysis</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="livescores">📺 Live Scores</button>
-    <button class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="monitor" style="border:1.5px solid rgba(21,255,194,0.35);background:linear-gradient(135deg,rgba(9,213,160,0.1),rgba(34,169,236,0.1));color:#15ffc2;">🏆 Monitor</button>
+    <button class="tab-pill tab-pill-accent rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="monitor">🏆 Monitor</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="parlay">🎰 Parlay</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="news">📰 News</button>
-    <button class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="edgefinder" style="border:1.5px solid rgba(21,255,194,0.35);background:rgba(21,255,194,0.05);color:#15ffc2;">🔍 Edge Finder</button>
+    <button class="tab-pill tab-pill-accent rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="edgefinder">🔍 Edge Finder</button>
   </div>
 </nav>
 
@@ -616,7 +622,7 @@
           <h2 class="text-base font-bold text-white">⛳ Matchups — 2-Ball & 3-Ball</h2>
           <p class="text-[11px] text-slate-400">
             Tee-time groupings vs our Monte Carlo model (10k sims, integer-rounded scores, shared round-shock for same-group correlation).
-            <span class="text-pb-teal">Teal %</span> = model win value. <span style="color:#f0c040">Gold EV</span> = overlay vs best book.
+            <span class="text-pb-teal">Teal %</span> = model win probability (dead-heat weighted). <span style="color:#f0c040">Gold EV</span> = edge vs best book price.
             Signature events play 2-balls (tie = push); regular events play 3-balls Thu/Fri (tie = dead-heat) then 2-balls after cut.
           </p>
           <p id="tbSourceLine" class="text-[10px] text-slate-500 mt-1"></p>
@@ -2637,19 +2643,44 @@
 
     var all = (window.DATA && window.DATA.threeBalls) || [];
     var source = (window.DATA && window.DATA.threeBallsSource) || null;
+    var isSynthetic = source === 'SyntheticTeeTimes';
     var srcLine = el('tbSourceLine');
     if (srcLine) {
-      if (source === 'SyntheticTeeTimes') {
-        srcLine.innerHTML = '<span style="color:#f0c040">⚠ Book lines not posted yet — showing model predictions for real tee-time groups. EV appears once books post odds.</span>';
+      if (isSynthetic) {
+        srcLine.innerHTML = '<span style="color:#f0c040">⚠ Book lines not posted yet — showing model win probabilities for real tee-time groups. EV + edge filter activate once books post matchup odds.</span>';
       } else if (source) {
         srcLine.textContent = 'Odds source: ' + source;
       } else {
         srcLine.textContent = '';
       }
     }
+
+    // Count types so we can gray out filter options that have no data
+    var typeCounts = { '2ball': 0, '3ball': 0 };
+    all.forEach(function(g) { if (typeCounts[g.type] !== undefined) typeCounts[g.type]++; });
+    var tfEl = el('tbTypeFilter');
+    if (tfEl) {
+      Array.prototype.forEach.call(tfEl.options, function(opt) {
+        if (opt.value === '2ball' || opt.value === '3ball') {
+          var n = typeCounts[opt.value];
+          opt.disabled = n === 0;
+          opt.textContent = (opt.value === '2ball' ? '2-Ball (H2H)' : '3-Ball') + (n === 0 ? ' — none' : ' (' + n + ')');
+        }
+      });
+    }
+
+    // Edge filter is meaningless without book odds — disable when synthetic
+    var efEl = el('tbEdgeFilter');
+    if (efEl) {
+      efEl.disabled = isSynthetic;
+      efEl.style.opacity = isSynthetic ? '0.45' : '1';
+      efEl.title = isSynthetic ? 'EV filter available once book lines are posted' : '';
+      if (isSynthetic) efEl.value = '0';
+    }
+
     var roundFilter = el('tbRoundFilter') ? el('tbRoundFilter').value : 'all';
-    var typeFilter = el('tbTypeFilter') ? el('tbTypeFilter').value : 'all';
-    var edgeFilter = parseFloat((el('tbEdgeFilter') ? el('tbEdgeFilter').value : '0')) || 0;
+    var typeFilter = tfEl ? tfEl.value : 'all';
+    var edgeFilter = parseFloat((efEl ? efEl.value : '0')) || 0;
 
     var groups = all.filter(function(g) {
       if (typeFilter !== 'all' && g.type !== typeFilter) return false;
@@ -3622,6 +3653,15 @@
   function applyExternalData(data) {
     // Expose the full JSON globally so new tabs (3-Balls, etc.) can read it directly
     window.DATA = data;
+    // Refresh tournament labels — live event now takes priority over hardcoded next major
+    if (typeof window.initTournamentLabels === 'function') {
+      try { window.initTournamentLabels(); } catch(_) {}
+    }
+    // Refresh Matchups tab if it's the currently visible one (handles race + refresh)
+    var mTab = document.getElementById('tab-threeballs');
+    if (mTab && !mTab.classList.contains('hidden') && typeof window.renderThreeBalls === 'function') {
+      try { window.renderThreeBalls(); } catch(_) {}
+    }
     if (data.players && data.players.length > 0) {
       // Replace PLAYERS array with fresh data
       PLAYERS.length = 0;
@@ -4806,39 +4846,65 @@
     return MAJORS_SCHEDULE[0];
   }
 
-  (function initNextMajorTab() {
-    var m = getNextMajor();
-    var today = new Date();
-    var isLive = today >= new Date(m.start) && today <= new Date(m.end);
-    var label  = isLive ? ('🏆 ' + m.short + ' LIVE') : ('🏆 ' + m.short);
+  // Prefer whatever tournament is LIVE in the feed; only fall back to the
+  // next major when no event is currently in progress.
+  function getActiveOrNextEvent() {
+    var live = window.DATA && window.DATA.currentEvent;
+    var status = live && String(live.status || '').toUpperCase();
+    if (live && status === 'IN_PROGRESS') {
+      return {
+        source: 'live',
+        name: live.name || 'Current Event',
+        short: (live.name || '').split(' ').slice(0, 2).join(' ') || 'Live',
+        venue: live.course || '',
+        location: [live.city, live.state].filter(Boolean).join(', '),
+        dates: '',
+        start: live.startDate ? String(live.startDate).slice(0, 10) : '',
+        end: '',
+        isLive: true,
+      };
+    }
+    return { source: 'major', ...getNextMajor(), isLive: false };
+  }
 
-    // Update tab button
+  function initTournamentLabels() {
+    var evt = getActiveOrNextEvent();
+    var m = evt.source === 'major' ? evt : null;  // only majors-tab metadata when no live event
+    var label = evt.isLive ? ('🏆 ' + evt.short + ' LIVE') : ('🏆 ' + (evt.short || 'Next Major'));
+
     var tabBtn = el('tabBtn_mastershq');
     if (tabBtn) {
       tabBtn.textContent = label;
-      if (isLive) tabBtn.style.cssText += ';animation:pulse-ring 2s ease-out infinite;';
+      if (evt.isLive) tabBtn.style.cssText += ';animation:pulse-ring 2s ease-out infinite;';
     }
 
-    // Update header inside the tab
-    var nameEl = el('mhq_majorName');
-    if (nameEl) nameEl.textContent = m.name + ' ' + m.start.slice(0,4) + ' — ' + m.venue;
+    // Majors HQ tab only shows the next major — leave as-is when a non-major is live
+    if (m) {
+      var nameEl = el('mhq_majorName');
+      if (nameEl) nameEl.textContent = m.name + ' ' + m.start.slice(0, 4) + ' — ' + m.venue;
+      var metaEl = el('mhq_majorMeta');
+      if (metaEl) metaEl.textContent = m.dates + ' · Par ' + m.par + ' · ' + m.yards + ' yds · ' + m.location;
+      var defEl = el('mhq_defending');
+      if (defEl) defEl.textContent = m.defending;
+    }
 
-    var metaEl = el('mhq_majorMeta');
-    if (metaEl) metaEl.textContent = m.dates + ' · Par ' + m.par + ' · ' + m.yards + ' yds · ' + m.location;
-
-    var defEl = el('mhq_defending');
-    if (defEl) defEl.textContent = m.defending;
-
-    // Wire up Hole Analysis heading
+    // Hole Analysis + Live Scores headers track the ACTIVE event (live tournament
+    // takes priority over next major so they don't say "Quail Hollow" during RBC Heritage).
     var haHeading = el('holeAnalysisHeading');
-    if (haHeading) haHeading.textContent = 'Hole Deep Dive — ' + m.venue;
-
-    // Wire up Live Scores tab header
+    if (haHeading && evt.venue) haHeading.textContent = 'Hole Deep Dive — ' + evt.venue;
     var lsTourney = el('ls_tourneyName');
-    if (lsTourney) lsTourney.textContent = m.name + ' ' + m.start.slice(0,4);
+    if (lsTourney) lsTourney.textContent = evt.name + (evt.start ? ' ' + evt.start.slice(0, 4) : '');
     var lsSub = el('ls_countdownSub');
-    if (lsSub) lsSub.textContent = 'First round tee-off: ' + m.dates.split('–')[0] + ', ' + m.start.slice(0,4);
-  })();
+    if (lsSub) {
+      lsSub.textContent = evt.isLive
+        ? 'Round in progress' + (evt.location ? ' · ' + evt.location : '')
+        : 'First round tee-off: ' + (m && m.dates ? m.dates.split('–')[0] + ', ' + m.start.slice(0, 4) : 'TBD');
+    }
+  }
+
+  // Run once on load (with whatever DATA is available), then again after JSON loads
+  initTournamentLabels();
+  window.initTournamentLabels = initTournamentLabels;
 
   // Auto-default to Live Scores tab during active tournament
   (function checkTournamentDefault() {

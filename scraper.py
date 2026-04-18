@@ -702,6 +702,42 @@ def match_venue_to_course(venue_name, event_name=""):
     return None
 
 
+# Major-tournament venues across recent + upcoming cycles
+_MAJOR_VENUES = {
+    "augusta", "augusta national",                          # Masters
+    "valhalla", "quail hollow", "oak hill", "southern hills",  # PGA Championship
+    "pinehurst", "pinehurst no. 2", "oakmont", "los angeles country club",  # US Open
+    "royal troon", "royal portrush", "royal liverpool", "hoylake", "st andrews", "st. andrews", "royal st georges",  # Open Championship
+}
+
+_MAJOR_NAME_KEYWORDS = (
+    "masters",
+    "pga championship",
+    "u.s. open", "us open",
+    "the open championship", "british open", "open championship",
+)
+
+
+def _is_major_event(current_event):
+    """Return True if the current tournament is one of the 4 majors.
+
+    Checks both event name and venue — some feeds use official names
+    ("The Masters Tournament"), others short ("Masters"), and venues like
+    "Augusta National" are unambiguous signals on their own.
+    """
+    if not isinstance(current_event, dict):
+        return False
+    name = (current_event.get("name") or "").lower()
+    course = (current_event.get("course") or "").lower()
+    for kw in _MAJOR_NAME_KEYWORDS:
+        if kw in name:
+            return True
+    for venue in _MAJOR_VENUES:
+        if venue in course:
+            return True
+    return False
+
+
 def scrape_course_weather(course_key):
     """Fetch 3-day weather forecast for a course from Open-Meteo (free, no key)."""
     coords = COURSE_COORDS.get(course_key)
@@ -3564,15 +3600,20 @@ def run_pipeline():
                 dg["courseFit"] = {}
                 dg["notes"] = "Auto-scraped player."
                 merged.append(dg)
-        # Ensure LIV/non-DataGolf players from fallback are always included.
-        # LIV players only play majors so DataGolf often excludes them in off-weeks.
-        # Any fallback entry with liv=True is force-included.
+        # LIV players only play majors (Masters, PGA, US Open, Open Championship).
+        # Force-include them ONLY during a major week — otherwise they shouldn't
+        # appear in a regular PGA Tour event's field at all.
+        is_major = _is_major_event(output.get("currentEvent") or {})
         merged_names = {p["name"].lower() for p in merged}
-        for fb in fallback:
-            if fb.get("liv") and fb["name"].lower() not in merged_names:
-                merged.append(dict(fb))
+        liv_added = 0
+        if is_major:
+            for fb in fallback:
+                if fb.get("liv") and fb["name"].lower() not in merged_names:
+                    merged.append(dict(fb))
+                    liv_added += 1
         output["players"] = merged
-        print(f"\n  Merged {len(merged)} players (scraped + curated, incl. LIV)")
+        suffix = f", incl. {liv_added} LIV (major week)" if is_major else ", LIV filtered out (non-major)"
+        print(f"\n  Merged {len(merged)} players (scraped + curated{suffix})")
     else:
         output["players"] = fallback
         print(f"\n  Using fallback data for {len(fallback)} players")
