@@ -1565,7 +1565,7 @@
     <!-- TICKER -->
     <div class="mon-glass px-4 py-2.5">
       <div class="flex items-center gap-3">
-        <div class="text-[10px] font-bold tracking-widest" style="color:#f0c040;">● HEADLINES</div>
+        <div class="text-[10px] font-bold tracking-widest" style="color:#f0c040;">● LIVE MARKET</div>
         <div class="mon-ticker-wrap flex-1">
           <div class="mon-ticker-inner mon-mono text-[11px] text-slate-300" id="mon_tickerInner">Loading…</div>
         </div>
@@ -2622,9 +2622,39 @@
   function renderMonTicker() {
     var body = monEl('mon_tickerInner');
     if (!body) return;
-    var news = window._newsData || _newsData || [];
-    if (!news.length) { body.textContent = 'No headlines available.'; return; }
-    var items = news.slice(0, 10).map(function(n) { return '● ' + (n.headline || ''); }).filter(function(s) { return s !== '● '; });
+    // Rebranded as Live Market feed — ticker shows real-time odds movement (shorter/longer)
+    // so it no longer duplicates the News tab (which is the canonical headline view).
+    var mv = _oddsMovement || {};
+    var rows = [];
+    Object.keys(mv).forEach(function(name) {
+      var m = mv[name];
+      if (!m || m.change === 0 || m.change === undefined) return;
+      rows.push({ name: name, prev: m.previous, curr: m.current, change: m.change, dir: m.direction, sig: !!m.significant });
+    });
+    // Biggest absolute moves first; prioritize significant
+    rows.sort(function(a, b) {
+      if (a.sig !== b.sig) return a.sig ? -1 : 1;
+      return Math.abs(b.change) - Math.abs(a.change);
+    });
+    rows = rows.slice(0, 12);
+    if (!rows.length) {
+      // Fallback: if no movement data, reuse news headlines so ticker never sits empty
+      var news = window._newsData || _newsData || [];
+      if (!news.length) { body.textContent = 'Awaiting live market moves…'; return; }
+      var hItems = news.slice(0, 8).map(function(n) { return '● ' + (n.headline || ''); }).filter(function(s) { return s !== '● '; });
+      body.innerHTML = hItems.join('&nbsp;&nbsp;&nbsp;') + '&nbsp;&nbsp;&nbsp;' + hItems.join('&nbsp;&nbsp;&nbsp;');
+      return;
+    }
+    var items = rows.map(function(r) {
+      var arrow = r.dir === 'shorter' ? '▲' : '▼';
+      var color = r.dir === 'shorter' ? '#15ffc2' : '#ef5350';
+      var sign = r.change > 0 ? '+' : '';
+      var star = r.sig ? ' <span style="color:#f0c040">★</span>' : '';
+      return '<span style="color:' + color + '">' + arrow + '</span> ' +
+        '<span style="color:#e6eef7">' + r.name + '</span> ' +
+        '<span style="color:#94a3b8">' + (r.prev || '?') + '→' + (r.curr || '?') + '</span> ' +
+        '<span style="color:' + color + '">(' + sign + r.change + ')</span>' + star;
+    });
     // Duplicate for seamless loop
     body.innerHTML = items.join('&nbsp;&nbsp;&nbsp;') + '&nbsp;&nbsp;&nbsp;' + items.join('&nbsp;&nbsp;&nbsp;');
   }
