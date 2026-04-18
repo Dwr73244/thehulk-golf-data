@@ -971,11 +971,21 @@ def scrape_betting_odds():
         print("[5/7] Skipping Odds API — no ODDS_API_KEY set")
         return None
 
-    # Throttle: only run at UTC hour 6 (off-week morning) or 11 (7AM ET, first tournament run).
-    # BDL fires every 3h during tournament week; Odds API fires once per day to conserve credits.
-    now_utc_hour = datetime.utcnow().hour
-    if now_utc_hour not in (6, 11):
-        print(f"[5/7] Skipping Odds API — throttled to once/day (current UTC hour: {now_utc_hour}, allowed: 6, 11)")
+    # Throttle: refresh outright odds at key betting windows.
+    #   Mon/Tue 1AM ET (UTC 5)  — off-week morning
+    #   Wed 11AM ET (UTC 15)    — opening lines + tee sheet
+    #   Wed 7PM ET (UTC 23)     — evening sharp action
+    #   Thu 7AM ET (UTC 11)     — first tournament run
+    # BDL still fires every hour during tournament week; Odds API is throttled to conserve credits.
+    now = datetime.utcnow()
+    now_utc_hour = now.hour
+    weekday = now.weekday()  # Mon=0 ... Sun=6
+    allowed = {5, 11}  # off-week morning + Thu 7AM ET
+    if weekday == 2:  # Wednesday
+        allowed.update({15, 23})
+    if now_utc_hour not in allowed:
+        print(f"[5/7] Skipping Odds API — throttled to save credits "
+              f"(UTC hour {now_utc_hour}, weekday {weekday}, allowed: {sorted(allowed)})")
         return None
 
     print("[5/7] Fetching ALL sportsbook odds from The Odds API...")
