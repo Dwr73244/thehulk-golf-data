@@ -1198,17 +1198,62 @@ def compute_all_course_fits(players, weather=None):
 # FEATURE: HISTORICAL DATA ARCHIVING
 # ============================================================
 
+SNAPSHOT_VERSION = 1  # bump when the archived schema changes in a breaking way
+
+
 def archive_data(output, base_dir):
-    """Save a timestamped copy to history/ for trend analysis."""
+    """Save a timestamped copy to history/ for trend analysis.
+
+    The archive is a byte-for-byte snapshot of the same dict that gets
+    written to golf-data.json, plus a top-level `snapshotVersion` key so
+    downstream consumers (backtest, trend UI) can detect schema drift.
+
+    Guards:
+      - If today's run produced a suspiciously thin payload (no players
+        AND no currentEvent), we keep the prior day's archive instead of
+        overwriting with garbage — prevents backtest joins from breaking
+        on a single bad scraper run.
+      - Compact JSON (separators=(",",":"), no indent). Do not add indent
+        here — it balloons history/ size by ~5x and hurts git blame.
+    """
     history_dir = os.path.join(base_dir, "history")
     os.makedirs(history_dir, exist_ok=True)
 
     date_str = datetime.now().strftime("%Y-%m-%d")
     archive_path = os.path.join(history_dir, f"{date_str}.json")
-    with open(archive_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, separators=(",", ":"), ensure_ascii=False)  # compact
 
-    print(f"  Archived to {archive_path}")
+    # Tag every archive with a schema version so old snapshots can be
+    # detected and gracefully skipped forever.
+    payload = dict(output)
+    payload["snapshotVersion"] = SNAPSHOT_VERSION
+
+    # Backfill-from-prior-day safeguard: if today's payload looks empty
+    # or partial, copy forward the most recent good archive instead of
+    # overwriting with a bad one. Guards weekday cron hiccups.
+    looks_partial = (
+        not payload.get("players")
+        or not payload.get("currentEvent")
+    )
+    if looks_partial:
+        prior = _most_recent_archive(history_dir, before=date_str)
+        if prior is not None:
+            prior_path, prior_data = prior
+            prior_data["snapshotVersion"] = SNAPSHOT_VERSION
+            prior_data["backfilledFrom"] = os.path.basename(prior_path)
+            with open(archive_path, "w", encoding="utf-8") as f:
+                json.dump(prior_data, f, separators=(",", ":"), ensure_ascii=False)
+            print(f"  Archived (BACKFILLED from {os.path.basename(prior_path)}) "
+                  f"to {archive_path} — today's payload was partial")
+        else:
+            # No prior archive to lean on — write what we have but flag it.
+            payload["partial"] = True
+            with open(archive_path, "w", encoding="utf-8") as f:
+                json.dump(payload, f, separators=(",", ":"), ensure_ascii=False)
+            print(f"  Archived (FLAGGED partial, no prior to backfill) to {archive_path}")
+    else:
+        with open(archive_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, separators=(",", ":"), ensure_ascii=False)  # compact
+        print(f"  Archived to {archive_path}")
 
     # Cleanup: remove files older than 365 days
     cutoff = datetime.now() - timedelta(days=365)
@@ -1222,6 +1267,28 @@ def archive_data(output, base_dir):
                 print(f"  Cleaned up old archive: {fname}")
         except ValueError:
             pass
+
+
+def _most_recent_archive(history_dir, before):
+    """Return (path, loaded_dict) for the newest YYYY-MM-DD.json strictly
+    older than `before`, or None. Skips unparseable files."""
+    try:
+        candidates = sorted(
+            f for f in os.listdir(history_dir)
+            if f.endswith(".json") and f[:10] < before
+        )
+    except OSError:
+        return None
+    for fname in reversed(candidates):
+        path = os.path.join(history_dir, fname)
+        try:
+            with open(path, encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data, dict) and data.get("players"):
+                return path, data
+        except (OSError, json.JSONDecodeError):
+            continue
+    return None
 
 
 # ============================================================
