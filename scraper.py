@@ -3691,8 +3691,44 @@ def run_pipeline():
             suffix = f", {liv_filtered} LIV filtered out (non-major)"
         print(f"\n  Merged {len(merged)} players (scraped + curated{suffix})")
     else:
-        output["players"] = fallback
-        print(f"\n  Using fallback data for {len(fallback)} players")
+        # Fallback-only path (DataGolf 404 or other). Still filter LIV players
+        # out unless the current event is a major.
+        is_major = _is_major_event(output.get("currentEvent") or {})
+        if is_major:
+            output["players"] = list(fallback)
+            liv_note = ", LIV included (major week)"
+        else:
+            filtered = [p for p in fallback if not p.get("liv")]
+            liv_note = f", {len(fallback) - len(filtered)} LIV filtered (non-major)"
+            output["players"] = filtered
+        print(f"\n  Using fallback data for {len(output['players'])} players{liv_note}")
+
+    # ============================================================
+    # BDL FIELD IS THE SOURCE OF TRUTH — filter players to who's actually teeing off
+    # When BDL provides a tournament field, drop any non-field player (unless
+    # they still show on ESPN leaderboard). This is the strongest defense
+    # against stale fallback data leaking players who aren't playing.
+    # ============================================================
+    if bdl_field:
+        field_names = set()
+        for entry in bdl_field:
+            p = entry.get("player", {}) or {}
+            name = p.get("display_name", "") or f"{p.get('first_name','')} {p.get('last_name','')}".strip()
+            if name:
+                field_names.add(normalize_name(name))
+        # Also include anyone currently on the live leaderboard (covers mid-event)
+        lb = (output.get("currentEvent") or {}).get("leaderboard") or []
+        for lbe in lb:
+            n = normalize_name(lbe.get("name", "") or "")
+            if n:
+                field_names.add(n)
+        if field_names:
+            before = len(output["players"])
+            output["players"] = [p for p in output["players"]
+                                 if normalize_name(p["name"]) in field_names]
+            dropped = before - len(output["players"])
+            if dropped > 0:
+                print(f"  Filtered to actual field: kept {len(output['players'])}, dropped {dropped} (not in BDL field/leaderboard)")
 
     # ============================================================
     # ADD MISSING FIELD PLAYERS FROM BDL FIELD + ESPN LEADERBOARD

@@ -119,8 +119,12 @@
     .tab-pill.active { background: rgba(21,255,194,0.05) !important; border: 1.5px solid rgba(21,255,194,0.9) !important; color: var(--teal) !important; font-weight: 600; }
     .tab-pill:not(.active) { border: 1.5px solid rgba(120,160,200,0.1); color: rgba(210,220,235,0.75); }
     .tab-pill:hover:not(.active) { background: rgba(21,255,194,0.03); }
-    /* Accent pills (Matchups, Monitor, Edge Finder) — subtle tint when NOT active */
-    .tab-pill-accent:not(.active) { border-color: rgba(21,255,194,0.25); color: rgba(21,255,194,0.85); background: rgba(21,255,194,0.03); }
+    /* Accent pills (Matchups, Monitor, Edge Finder) — only the teal label tint;
+       no border/background so the .active class is unambiguous. */
+    .tab-pill-accent:not(.active) { color: rgba(21,255,194,0.85); }
+    /* Matchups group cards — skip off-screen layout/paint cost. Big INP win
+       when rendering 80+ cards on a mid-tier Android. Each card estimated ~140px. */
+    .tb-card { content-visibility: auto; contain-intrinsic-size: 0 140px; }
 
     .glow-teal { box-shadow: 0 0 20px rgba(21,255,194,0.12), inset 0 1px 0 rgba(21,255,194,0.08); }
     .glow-gold { box-shadow: 0 0 20px rgba(240,192,64,0.12), inset 0 1px 0 rgba(240,192,64,0.08); }
@@ -173,6 +177,10 @@
     .stat-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 5px; font-size: 11px; font-weight: 600; }
 
     input, select { font-family: var(--mono); font-size: 12px; }
+    /* Mobile: bump inputs/selects to 16px to prevent iOS Safari auto-zoom on focus */
+    @media (max-width: 640px) {
+      input, select, textarea { font-size: 16px !important; }
+    }
     input[type="number"], input[type="text"] {
       background: rgba(7,14,26,0.8); border: 1px solid rgba(120,160,200,0.12); border-radius: 10px;
       padding: 8px 12px; color: var(--text-primary);
@@ -284,8 +292,9 @@
       /* Header subtitle hidden on mobile */
       .header-subtitle { display: none; }
 
-      /* Tab pills: tighter on mobile */
-      .tab-pill { padding: 6px 10px !important; font-size: 10px !important; }
+      /* Tab pills: readable + tappable on mobile. Raised to 12px (from 10px)
+         to clear the 12px readability floor; padding keeps 44px tap height. */
+      .tab-pill { padding: 10px 12px !important; font-size: 12px !important; min-height: 44px; }
 
       /* Section labels smaller */
       .section-label { font-size: 11px !important; }
@@ -311,7 +320,9 @@
 
     /* Extra small screens — iPhone SE, Galaxy Fold */
     @media (max-width: 375px) {
-      .tab-pill { padding: 5px 7px !important; font-size: 9px !important; }
+      /* Even on iPhone SE, keep tab pills readable. Labels stay 12px; allow
+         horizontal scroll rather than shrinking text below comfort. */
+      .tab-pill { padding: 10px 10px !important; font-size: 12px !important; min-height: 44px; }
       .player-card { padding: 8px !important; }
       .glass { padding: 12px !important; }
       td, th { padding-left: 4px !important; padding-right: 4px !important; font-size: 10px !important; }
@@ -446,7 +457,7 @@
         <div class="flex gap-2 items-center flex-wrap">
           <div style="position:relative;">
             <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;color:rgba(200,215,230,0.35);pointer-events:none;">&#x1F50D;</span>
-            <input id="playerSearch" type="text" placeholder="Search players…" class="w-56 sm:w-64" style="padding-left:32px;background:rgba(255,255,255,0.04);border:1px solid rgba(21,255,194,0.15);border-radius:10px;color:#eef2f7;font-size:13px;padding-top:8px;padding-bottom:8px;" />
+            <input id="playerSearch" type="search" autocomplete="off" placeholder="Search players…" class="w-56 sm:w-64" style="padding-left:32px;background:rgba(255,255,255,0.04);border:1px solid rgba(21,255,194,0.15);border-radius:10px;color:#eef2f7;font-size:13px;padding-top:8px;padding-bottom:8px;" />
           </div>
           <select id="playerSort" class="w-40" style="background:rgba(255,255,255,0.04);border:1px solid rgba(100,180,200,0.12);border-radius:10px;color:rgba(200,215,230,0.7);font-size:11px;padding:8px 10px;">
             <option value="dgRank">Sort: Rank</option>
@@ -686,7 +697,7 @@
 
       <!-- Filters row -->
       <div class="flex gap-3 items-center flex-wrap">
-        <input type="text" id="propPlayerSearch" placeholder="Search player…" style="font-size:11px;padding:5px 10px;border-radius:7px;background:rgba(14,26,44,0.8);border:1px solid rgba(100,180,200,0.15);color:#eef2f7;width:145px;">
+        <input type="search" id="propPlayerSearch" autocomplete="off" placeholder="Search player…" style="font-size:11px;padding:5px 10px;border-radius:7px;background:rgba(14,26,44,0.8);border:1px solid rgba(100,180,200,0.15);color:#eef2f7;width:145px;">
         <label class="flex items-center gap-1.5 cursor-pointer">
           <input type="checkbox" id="propHotOnly" class="w-3.5 h-3.5 accent-orange-400">
           <span class="text-[11px] font-semibold text-orange-400">Hot Only</span>
@@ -751,7 +762,7 @@
         </div>
         <div class="space-y-1.5">
           <label class="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">Book Odds</label>
-          <input id="propOdds" type="number" placeholder="+2500" class="w-full mono">
+          <input id="propOdds" type="text" inputmode="numeric" pattern="[+-]?[0-9]*" autocomplete="off" placeholder="+2500" class="w-full mono">
         </div>
       </div>
       <button id="analyzeProp" class="btn-primary w-full sm:w-auto">Analyze This Prop</button>
@@ -1000,7 +1011,7 @@
           </div>
           <div class="space-y-1.5">
             <label class="text-[11px] font-semibold text-slate-300 uppercase">O/U Line</label>
-            <input type="number" id="propLine" step="0.5" value="3.5" class="w-full" style="padding:8px 12px;">
+            <input type="number" inputmode="decimal" id="propLine" step="0.5" value="3.5" class="w-full" style="padding:8px 12px;">
           </div>
           <button id="runHoleProp" class="btn-primary text-xs" style="min-height:38px;">Analyze</button>
         </div>
@@ -1735,8 +1746,31 @@
 <script>
   // Disclaimer — shows on every visit (intentional: brand + responsible gambling)
   function dismissDisclaimer() {
-    document.getElementById('disclaimerModal').style.display = 'none';
+    var m = document.getElementById('disclaimerModal');
+    if (m) m.style.display = 'none';
+    // Unlock scroll if we locked it
+    document.body.style.overflow = '';
   }
+  // Lock body scroll while modal is open to prevent CLS + accidental scroll-past
+  (function() {
+    if (document.getElementById('disclaimerModal')) {
+      document.body.style.overflow = 'hidden';
+    }
+    // Backdrop tap to dismiss
+    var m = document.getElementById('disclaimerModal');
+    if (m) {
+      m.addEventListener('click', function(e) {
+        if (e.target === m) dismissDisclaimer();
+      });
+    }
+    // ESC key to dismiss
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var mm = document.getElementById('disclaimerModal');
+        if (mm && mm.style.display !== 'none') dismissDisclaimer();
+      }
+    });
+  })();
 
   // Tooltip system — fixed-position bubble appended to body (escapes overflow:hidden)
   (function() {
@@ -2698,7 +2732,24 @@
 
     if (!groups.length) {
       grid.innerHTML = '';
-      if (empty) empty.classList.remove('hidden');
+      if (empty) {
+        // Tailor the empty message to why the grid is empty
+        var reason;
+        if (all.length === 0) {
+          reason = 'No matchup markets available yet. Books typically open lines Wed evening; synthesized tee-time groups appear once the field is set.';
+        } else if (typeFilter !== 'all' && typeCounts[typeFilter] === 0) {
+          reason = 'No ' + (typeFilter === '3ball' ? '3-ball' : '2-ball') + ' matchups this week. ' +
+                   (typeFilter === '3ball' ? 'Signature events and cut-day rounds use 2-balls only.' : 'Regular PGA events use 3-balls Thu/Fri.');
+        } else if (roundFilter !== 'all') {
+          reason = 'No matchups for Round ' + roundFilter + '. Tee times for later rounds post after the preceding round closes.';
+        } else if (edgeFilter > 0) {
+          reason = 'No picks meet the ' + edgeFilter + '%+ EV threshold. Try lowering the filter or waiting for more line movement.';
+        } else {
+          reason = 'No matchups match these filters.';
+        }
+        empty.textContent = reason;
+        empty.classList.remove('hidden');
+      }
       return;
     }
     if (empty) empty.classList.add('hidden');
@@ -2776,7 +2827,7 @@
 
       var books = (g.bookSample || []).join(', ').toUpperCase();
 
-      return '<div class="glass rounded-xl overflow-hidden">'
+      return '<div class="glass rounded-xl overflow-hidden tb-card">'
         + '<div class="flex items-center justify-between px-4 py-2 border-b border-white/5" style="background:rgba(15,28,46,0.4)">'
         +   '<div class="flex items-center gap-2">'
         +     '<span class="text-[10px] font-bold px-2 py-0.5 rounded" style="background:rgba(21,255,194,0.12);color:#15ffc2;border:1px solid rgba(21,255,194,0.3)">' + (roundLabel || '3-BALL') + '</span>'
@@ -4211,16 +4262,19 @@
     var statusText = el('ls_statusText');
     var liveDot = el('ls_liveDot');
 
-    var _curMajor = getNextMajor();
+    // Prefer the LIVE tournament venue over next-major venue so we don't
+    // say "Quail Hollow" during RBC Heritage
+    var _liveEvt = (window.DATA && window.DATA.currentEvent) || null;
+    var _venue = (_liveEvt && _liveEvt.course) || getNextMajor().venue;
     if (status === 'IN_PROGRESS') {
       statusBadge.innerHTML = '<span class="stat-pill bg-pb-teal/15 text-pb-teal border border-pb-teal/30" style="font-size:10px">🟢 LIVE</span>';
-      statusText.textContent = 'Tournament in progress · ' + _curMajor.venue;
+      statusText.textContent = 'Tournament in progress · ' + _venue;
       liveDot.classList.remove('hidden');
       el('ls_countdown').classList.add('hidden');
       el('ls_leaderboardWrap').classList.remove('hidden');
     } else if (status === 'COMPLETED') {
       statusBadge.innerHTML = '<span class="stat-pill bg-white/5 text-slate-400 border border-white/10" style="font-size:10px">FINAL</span>';
-      statusText.textContent = 'Tournament complete · ' + _curMajor.venue;
+      statusText.textContent = 'Tournament complete · ' + _venue;
       liveDot.classList.add('hidden');
       el('ls_countdown').classList.add('hidden');
       el('ls_leaderboardWrap').classList.remove('hidden');
