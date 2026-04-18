@@ -704,10 +704,11 @@
         </label>
         <label class="flex items-center gap-1.5 cursor-pointer">
           <input type="checkbox" id="propCompetitiveOnly" class="w-3.5 h-3.5 accent-blue-400" checked>
-          <span class="text-[11px] font-semibold text-blue-400">Competitive Only</span>
+          <span class="text-[11px] font-semibold text-blue-400">Teeing Off This Week</span>
         </label>
         <select id="propSortSel" class="mono text-[10px] bg-white/5 border border-white/10 rounded-md px-2 py-1.5 text-slate-300 cursor-pointer">
           <option value="confScore">Sort: PropsBot Score ↓</option>
+          <option value="edgeVsBook">Sort: Edge vs Book ↓</option>
           <option value="propScore">Sort: Prop Score ↓</option>
           <option value="rank">Sort: Rank</option>
           <option value="courseFit">Sort: Course Fit</option>
@@ -732,57 +733,46 @@
       <span id="propsMatrixCount" class="mono text-[10px] text-slate-600"></span>
     </div>
 
-    <!-- CUSTOM PROP BUILDER (legacy tool, kept below) -->
+    <!-- CUSTOM PROP BUILDER (inline edge calculator) -->
     <div class="glass rounded-2xl p-5">
       <h3 class="text-sm font-bold text-white mb-1">Custom Prop Builder</h3>
-      <p class="text-xs text-slate-400 mb-4">Build and analyze custom prop combinations manually.</p>
-      <div class="grid gap-3 sm:grid-cols-3 mb-4">
+      <p class="text-xs text-slate-400 mb-4">Enter a player, market, line, and American odds to compute model probability vs book-implied probability and the resulting edge.</p>
+      <div class="grid gap-3 sm:grid-cols-4 mb-4">
         <div class="space-y-1.5">
           <label class="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">Player</label>
           <div class="search-select" data-ss="propPlayer"><input class="ss-input" placeholder="Search player…" autocomplete="off"><input type="hidden" id="propPlayer"><div class="ss-dropdown"></div></div>
         </div>
         <div class="space-y-1.5">
-          <label class="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">Prop Type</label>
-          <select id="propType" class="w-full">
-            <option>Outright Winner</option>
-            <option>Top 3 Finish</option>
-            <option>Top 5 Finish</option>
-            <option>Top 10 Finish</option>
-            <option>Top 20 Finish</option>
-            <option>Make Cut</option>
-            <option>Miss Cut</option>
-            <option>Top 5 (incl. ties)</option>
-            <option>Round 1 Leader</option>
-            <option>Round 2 Leader</option>
-            <option>36-Hole Leader</option>
-            <option>Finish Top Half</option>
-            <option>Bogey Free Round</option>
-            <option>Hole-in-One</option>
+          <label class="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">Market</label>
+          <select id="propMarket" class="w-full">
+            <option value="birdies">Birdies (4 Rnd) O/U</option>
+            <option value="bogeys">Bogeys (4 Rnd) O/U</option>
+            <option value="scoring">Scoring (4 Rnd) O/U</option>
           </select>
         </div>
         <div class="space-y-1.5">
-          <label class="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">Book Odds</label>
-          <input id="propOdds" type="text" inputmode="numeric" pattern="[+-]?[0-9]*" autocomplete="off" placeholder="+2500" class="w-full mono">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">O/U Line</label>
+          <input id="propBuilderLine" type="number" inputmode="decimal" step="0.5" placeholder="14.5" class="w-full mono">
+        </div>
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">American Odds</label>
+          <input id="propOdds" type="text" inputmode="numeric" pattern="[+-]?[0-9]*" autocomplete="off" placeholder="-110" class="w-full mono">
         </div>
       </div>
-      <button id="analyzeProp" class="btn-primary w-full sm:w-auto">Analyze This Prop</button>
-      <div class="mt-4 overflow-x-auto border border-white/5 rounded-xl">
-        <table class="min-w-full text-[11px]">
-          <thead class="bg-white/[0.02]">
-            <tr class="text-slate-500">
-              <th class="px-3 py-2 text-left font-semibold">Player</th>
-              <th class="px-3 py-2 text-left font-semibold">Prop</th>
-              <th class="px-3 py-2 text-right font-semibold">Model</th>
-              <th class="px-3 py-2 text-right font-semibold">Book Odds</th>
-              <th class="px-3 py-2 text-right font-semibold">Edge</th>
-              <th class="px-3 py-2 text-right font-semibold">Conf</th>
-              <th class="px-3 py-2 text-right font-semibold">Rec</th>
-              <th class="px-3 py-2 text-right font-semibold">EV%</th>
-            </tr>
-          </thead>
-          <tbody id="propBoard" class="divide-y divide-white/5"></tbody>
-        </table>
+      <button id="analyzeProp" class="btn-primary w-full sm:w-auto">Calculate Edge</button>
+      <div id="propBuilderResult" class="mt-4 hidden">
+        <div class="glass rounded-xl p-4" style="border:1px solid rgba(100,200,220,0.12);">
+          <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+            <span id="pbrPlayer" class="text-sm font-bold text-white"></span>
+            <span id="pbrBadge" class="mono text-[10px] font-bold px-2 py-1 rounded-md"></span>
+          </div>
+          <p id="pbrLine" class="text-[11px] text-slate-400 mb-2"></p>
+          <p id="pbrSummary" class="mono text-sm font-bold"></p>
+          <p id="pbrDetail" class="text-[10px] text-slate-500 mt-1"></p>
+        </div>
       </div>
+      <!-- Legacy table hidden (calculator now shows result inline above) -->
+      <table style="display:none"><tbody id="propBoard"></tbody></table>
     </div>
 
     <!-- Hidden elements kept for legacy JS compatibility -->
@@ -3215,37 +3205,105 @@
   });
 
   /* ============================================================
-     PROPS BUILDER (Custom)
+     PROPS BUILDER (Custom) — real inline edge calculator
+     Computes: model prob of OVER via normal CDF on (mean × 4 rounds)
+     vs the user-entered line, using scoreStd (fallback 2.85).
+     Book implied prob derived from American odds. Edge = model − book.
   ============================================================ */
+  // Standard-normal CDF via Abramowitz & Stegun approximation
+  function _normalCdf(z) {
+    var t = 1 / (1 + 0.2316419 * Math.abs(z));
+    var d = 0.3989422804 * Math.exp(-z * z / 2);
+    var p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+    return z > 0 ? 1 - p : p;
+  }
+  function _americanToImplied(american) {
+    var n = parseFloat(american);
+    if (!n || isNaN(n)) return null;
+    return n > 0 ? 100 / (n + 100) : Math.abs(n) / (Math.abs(n) + 100);
+  }
+  // Compute model P(OVER) for a stat-prop given 4-round mean & stddev
+  function _modelOverProb(mean4, line, std4) {
+    if (!std4 || std4 <= 0) return null;
+    // P(X > line) with continuity adjustment (line.5 style) = 1 - Phi((line - mean)/std)
+    var z = (line - mean4) / std4;
+    return 1 - _normalCdf(z);
+  }
+  // Returns { modelProb, bookProb, edge } for a player/market/line/odds
+  function _computeBuilderEdge(player, market, line, oddsAmerican) {
+    if (!player || isNaN(line)) return null;
+    var rounds = 4;
+    var mean4, invert = false;
+    if (market === 'birdies')      mean4 = (player.birdieAvg  || 3.5)  * rounds;
+    else if (market === 'bogeys')  mean4 = (player.bogeyAvg   || 2.85) * rounds;
+    else if (market === 'scoring') mean4 = (player.scoringAvg || 71.3) * rounds;
+    else return null;
+    // Per-round stddev → 4-round stddev via sqrt(4) = 2
+    var stdPerRound = (player.scoreStd && player.scoreStd > 0) ? player.scoreStd : 2.85;
+    var std4 = stdPerRound * Math.sqrt(rounds);
+    var modelProb = _modelOverProb(mean4, line, std4);
+    var bookProb  = _americanToImplied(oddsAmerican);
+    if (modelProb == null) return null;
+    return {
+      modelProb: modelProb,
+      bookProb:  bookProb,
+      edge:      bookProb != null ? (modelProb - bookProb) : null,
+      mean4:     mean4,
+      std4:      std4
+    };
+  }
+  // Expose for the value-board column
+  window._computeBuilderEdge = _computeBuilderEdge;
+
   el('analyzeProp').addEventListener('click', function() {
     var p = PLAYERS.find(function(pl) { return pl.id === parseInt(el('propPlayer').value); });
-    if (!p) return;
-    var propTypeLabel = el('propType').value;
-    var bookOddsVal = parseFloat(el('propOdds').value);
-    // Map label to internal type key for model prob
-    var typeMap = {
-      'Outright Winner': 'winner', 'Top 3 Finish': 'top3', 'Top 5 Finish': 'top5',
-      'Top 10 Finish': 'top10', 'Top 20 Finish': 'top20', 'Make Cut': 'makeCut',
-      'Round 1 Leader': 'r1Leader', 'Round 2 Leader': 'r2Leader', '36-Hole Leader': '36hLeader'
-    };
-    var internalType = typeMap[propTypeLabel] || 'winner';
-    var modelProb = calcModelProb(p, internalType);
-    var modelOddsVal = modelProbToAmericanOdds(modelProb);
-    var evPct = isNaN(bookOddsVal) ? null : calcEV(modelProb, bookOddsVal);
-    var fit = p.courseFit && p.courseFit.augusta ? p.courseFit.augusta : 0;
-    var rec = evPct != null ? (evPct > 5 ? 'BET' : evPct > 0 ? 'LEAN' : 'PASS') : '—';
-    var conf = Math.round(modelProb * 100);
+    var market = el('propMarket').value;
+    var line   = parseFloat(el('propBuilderLine').value);
+    var odds   = el('propOdds').value.trim();
+    var resultBox = el('propBuilderResult');
+    if (!p || isNaN(line) || !odds) {
+      if (resultBox) {
+        resultBox.classList.remove('hidden');
+        el('pbrPlayer').textContent  = 'Missing inputs';
+        el('pbrLine').textContent    = 'Pick a player, enter an O/U line, and enter American odds.';
+        el('pbrSummary').textContent = '';
+        el('pbrDetail').textContent  = '';
+        el('pbrBadge').textContent   = '';
+        el('pbrBadge').style.cssText = '';
+      }
+      return;
+    }
+    var r = _computeBuilderEdge(p, market, line, odds);
+    if (!r) return;
+    var modelPct = (r.modelProb * 100);
+    var bookPct  = r.bookProb != null ? (r.bookProb * 100) : null;
+    var edgePct  = r.edge     != null ? (r.edge * 100)     : null;
 
-    propBoard.push({
-      player: p.name, type: propTypeLabel,
-      model: (modelProb * 100).toFixed(1) + '%',
-      bookOdds: isNaN(bookOddsVal) ? '—' : (bookOddsVal > 0 ? '+' : '') + bookOddsVal,
-      edge: fit,
-      conf: conf,
-      rec: rec,
-      ev: evPct != null ? (evPct > 0 ? '+' : '') + evPct + '%' : '—'
-    });
-    renderPropBoard();
+    var badge, badgeCss;
+    if (edgePct == null) {
+      badge = 'NO ODDS'; badgeCss = 'background:rgba(200,215,230,0.08);color:rgba(200,215,230,0.7);border:1px solid rgba(200,215,230,0.2)';
+    } else if (edgePct > 3) {
+      badge = 'OVERLAY'; badgeCss = 'background:rgba(21,255,194,0.12);color:var(--teal);border:1px solid rgba(21,255,194,0.35)';
+    } else if (edgePct < -3) {
+      badge = 'FADE';    badgeCss = 'background:rgba(255,21,82,0.12);color:var(--red);border:1px solid rgba(255,21,82,0.35)';
+    } else {
+      badge = 'NEUTRAL'; badgeCss = 'background:rgba(240,192,64,0.10);color:var(--gold);border:1px solid rgba(240,192,64,0.3)';
+    }
+
+    var marketLabel = { birdies:'Birdies', bogeys:'Bogeys', scoring:'Scoring' }[market] || market;
+    var oddsStr = (/^[+-]/.test(odds) ? '' : (parseFloat(odds) > 0 ? '+' : '')) + odds;
+    var summary = 'Model: ' + modelPct.toFixed(1) + '%' +
+                  ' | Book: ' + (bookPct != null ? bookPct.toFixed(1) + '%' : '—') +
+                  ' | Edge: ' + (edgePct != null ? (edgePct >= 0 ? '+' : '') + edgePct.toFixed(1) + '%' : '—');
+
+    resultBox.classList.remove('hidden');
+    el('pbrPlayer').textContent  = p.name + ' — ' + marketLabel + ' O/U ' + line + ' @ ' + oddsStr;
+    el('pbrLine').textContent    = 'Projected 4-round total: ' + r.mean4.toFixed(1) + '  ·  σ: ' + r.std4.toFixed(2) + '  ·  Line: ' + line;
+    el('pbrSummary').textContent = summary;
+    el('pbrSummary').style.color = edgePct != null && edgePct > 3 ? 'var(--teal)' : edgePct != null && edgePct < -3 ? 'var(--red)' : '#eef2f7';
+    el('pbrDetail').textContent  = 'OVER recommendation shown. Edge > +3% = OVERLAY, < -3% = FADE, else NEUTRAL.';
+    el('pbrBadge').textContent   = badge;
+    el('pbrBadge').style.cssText = badgeCss;
   });
 
   function renderPropBoard() {
@@ -5621,9 +5679,26 @@
       return true;
     });
 
+    // Helper — compute edge vs book for stat markets where real propLines exist
+    function _cardEdgeVsBook(p) {
+      if (!(_propCat === 'birdies' || _propCat === 'bogeys' || _propCat === 'scoring')) return null;
+      var pl = (window.DATA && window.DATA.propLines) || {};
+      var pack = pl[p.name] && pl[p.name][_propCat];
+      if (!pack || typeof pack.line !== 'number' || !pack.overOdds) return null;
+      if (typeof window._computeBuilderEdge !== 'function') return null;
+      var r = window._computeBuilderEdge(p, _propCat, pack.line, pack.overOdds);
+      return r && r.edge != null ? r.edge : null;
+    }
+
     // Sort
     players.sort(function(a, b) {
       if (_propSortKey === 'confScore') return (b.confScore||0) - (a.confScore||0);
+      if (_propSortKey === 'edgeVsBook') {
+        var ea = _cardEdgeVsBook(a); var eb = _cardEdgeVsBook(b);
+        ea = (ea == null ? -999 : ea);
+        eb = (eb == null ? -999 : eb);
+        return eb - ea;
+      }
       if (_propSortKey === 'propScore') {
         var cat = _propCatToScoreKey(_propCat);
         var aPs = a.propScores ? (a.propScores[cat]||0) : (a.confScore||0);
@@ -5804,13 +5879,33 @@
 
       // Line display for stat props
       var lineInfo = '';
+      var hasRealBookLine = !!(isStatProp && sl && sl.source === 'book' && sl.overOdds);
+      var edgeBadge = '';
+      if (hasRealBookLine && typeof window._computeBuilderEdge === 'function') {
+        var _r = window._computeBuilderEdge(p, _propCat, sl.line, sl.overOdds);
+        if (_r && _r.edge != null) {
+          var _edgePct = _r.edge * 100;
+          var _ec = _edgePct > 3 ? 'var(--teal)' : _edgePct < -3 ? 'var(--red)' : 'var(--gold)';
+          var _elabel = _edgePct > 3 ? 'OVERLAY' : _edgePct < -3 ? 'FADE' : 'NEUTRAL';
+          edgeBadge =
+            '<div style="margin-top:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">' +
+              '<span class="mono" style="font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(100,180,200,0.08);border:1px solid rgba(100,180,200,0.2);color:rgba(200,215,230,0.75);">' +
+                'Model ' + (_r.modelProb*100).toFixed(1) + '% · Book ' + (_r.bookProb*100).toFixed(1) + '%' +
+              '</span>' +
+              '<span class="mono" style="font-size:9px;padding:1px 6px;border-radius:3px;font-weight:700;color:' + _ec + ';border:1px solid ' + _ec + ';background:transparent">' +
+                'Edge ' + (_edgePct>=0?'+':'') + _edgePct.toFixed(1) + '% · ' + _elabel +
+              '</span>' +
+            '</div>';
+        }
+      }
       if (isStatProp && sl) {
         lineInfo =
           '<div style="display:flex;align-items:center;gap:6px;margin-top:6px">' +
             '<span style="font-family:var(--mono);font-size:14px;font-weight:900;color:#eef2f7">' + sl.line + '</span>' +
             '<span style="font-size:11px;font-weight:800;letter-spacing:0.5px;color:' + dirColor + '">' + direction + '</span>' +
           '</div>' +
-          '<div style="font-family:var(--mono);font-size:9px;color:rgba(200,215,230,0.5);margin-top:2px">Proj: ' + sl.modelProj + ' · Δ' + Math.abs(sl.modelProj - sl.line).toFixed(1) + '</div>';
+          '<div style="font-family:var(--mono);font-size:9px;color:rgba(200,215,230,0.5);margin-top:2px">Proj: ' + sl.modelProj + ' · Δ' + Math.abs(sl.modelProj - sl.line).toFixed(1) + '</div>' +
+          edgeBadge;
       }
 
       // Placement display — value tier + key stats, no EV
@@ -5855,11 +5950,15 @@
               '</div>' +
               (isStatProp ? lineInfo : placementInfo) +
             '</div>' +
-            '<button onclick="window.addPropToParlay(\'' + p.name.replace(/'/g,"\\'") + '\',\'' + _propCat + '\',' + (bestOdds||0) + ')" ' +
+            // +Parlay: placement props use real book odds when present; stat props
+            // require a real book line (sl.source==='book'). Otherwise hide.
+            ((isStatProp ? hasRealBookLine : (bestOdds !== null))
+              ? '<button onclick="window.addPropToParlay(\'' + p.name.replace(/'/g,"\\'") + '\',\'' + _propCat + '\',' + ((isStatProp ? sl.overOdds : bestOdds)||0) + ')" ' +
               'style="align-self:center;flex-shrink:0;font-family:var(--mono);font-size:9px;padding:5px 10px;border-radius:6px;' +
               'border:1px solid rgba(21,255,194,0.2);color:rgba(21,255,194,0.6);background:transparent;cursor:pointer;transition:all 0.2s" ' +
               'onmouseover="this.style.background=\'rgba(21,255,194,0.08)\';this.style.borderColor=\'rgba(21,255,194,0.4)\'" ' +
-              'onmouseout="this.style.background=\'transparent\';this.style.borderColor=\'rgba(21,255,194,0.2)\'">+ Parlay</button>' +
+              'onmouseout="this.style.background=\'transparent\';this.style.borderColor=\'rgba(21,255,194,0.2)\'">+ Parlay</button>'
+              : '') +
           '</div>' +
 
           // Sportsbook Odds — horizontal card slider
