@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-18T22:36:53.529796",
+  "generatedAt": "2026-04-18T23:35:52.631427",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -617,7 +617,7 @@
       "edgeScore": 7.64,
       "owgrRank": 8,
       "evScore": 603.9,
-      "scoreStd": 2.07
+      "scoreStd": 3.83
     },
     {
       "id": 9,
@@ -1554,7 +1554,8 @@
           "market": "outright"
         }
       ],
-      "evScore": -85.3
+      "evScore": -85.3,
+      "scoreStd": 2.05
     },
     {
       "id": 14,
@@ -8974,23 +8975,23 @@
         "date": "2026-04-18",
         "tempHigh": 80.9,
         "tempLow": 63.9,
-        "windAvg": 8.7,
-        "windMax": 14.8,
-        "windDir": 166,
+        "windAvg": 8.2,
+        "windMax": 13.0,
+        "windDir": 164,
         "rainPct": 0
       },
       {
         "date": "2026-04-19",
         "tempHigh": 83.9,
-        "tempLow": 66.3,
-        "windAvg": 10.3,
+        "tempLow": 66.2,
+        "windAvg": 10.4,
         "windMax": 15.3,
-        "windDir": 298,
-        "rainPct": 16
+        "windDir": 294,
+        "rainPct": 12
       },
       {
         "date": "2026-04-20",
-        "tempHigh": 73.5,
+        "tempHigh": 72.6,
         "tempLow": 55.6,
         "windAvg": 7.8,
         "windMax": 10.6,
@@ -9128,23 +9129,23 @@
         "date": "2026-04-18",
         "tempHigh": 80.9,
         "tempLow": 63.9,
-        "windAvg": 8.7,
-        "windMax": 14.8,
-        "windDir": 166,
+        "windAvg": 8.2,
+        "windMax": 13.0,
+        "windDir": 164,
         "rainPct": 0
       },
       {
         "date": "2026-04-19",
         "tempHigh": 83.9,
-        "tempLow": 66.3,
-        "windAvg": 10.3,
+        "tempLow": 66.2,
+        "windAvg": 10.4,
         "windMax": 15.3,
-        "windDir": 298,
-        "rainPct": 16
+        "windDir": 294,
+        "rainPct": 12
       },
       {
         "date": "2026-04-20",
-        "tempHigh": 73.5,
+        "tempHigh": 72.6,
         "tempLow": 55.6,
         "windAvg": 7.8,
         "windMax": 10.6,
@@ -11921,6 +11922,14 @@
   },
   "news": [
     {
+      "headline": "Fitzpatrick up 3 shots at RBC Heritage as Scheffler surges",
+      "description": "Scottie Scheffler surged into contention after starting the day seven shots behind, but Matt Fitzpatrick stretched his lead at the RBC Heritage to three shots.",
+      "published": "2026-04-18T23:20:31Z",
+      "link": "https://www.espn.com/golf/story/_/id/48525844/fitzpatrick-3-shots-rbc-heritage-scheffler-surges",
+      "player": "Matt Fitzpatrick",
+      "image": "https://a.espncdn.com/photo/2026/0418/r1645687_600x400_3-2.jpg"
+    },
+    {
       "headline": "Fitzpatrick rides 'lucky' shot to 63, up 1 shot at RBC Heritage",
       "description": "Matt Fitzpatrick acknowledged getting \"lucky\" avoiding the water on the par-3 14th and capitalized by holing a 30-foot birdie, the highlight of his second-round 63 on Friday for a one-shot lead at the RBC Heritage.",
       "published": "2026-04-17T23:11:08Z",
@@ -12031,14 +12040,6 @@
       "link": "https://www.espn.com/video/clip?id=48472823",
       "player": "Rory McIlroy",
       "image": "https://a.espncdn.com/media/motion/2026/0413/dm_260413_COM_GOLF_Analysis_Rory_Rory_McIlroy3A_Good_things_come_to_those_who_wait_GLOBAL_2026-04-13/dm_260413_COM_GOLF_Analysis_Rory_Rory_McIlroy3A_Good_things_come_to_those_who_wait_GLOBAL_2026-04-13.jpg"
-    },
-    {
-      "headline": "'I don't make it easy': How Rory McIlroy won back-to-back Masters",
-      "description": "After seeing a six-shot lead erased Saturday and falling behind early Sunday, McIlroy still found a way to secure his second green jacket.﻿",
-      "published": "2026-04-13T04:12:09Z",
-      "link": "https://www.espn.com/golf/story/_/id/48467708/how-rory-mcilroy-won-back-back-masters-augusta-national",
-      "player": "Rory McIlroy",
-      "image": "https://a.espncdn.com/photo/2026/0412/r1642568_1296x729_16-9.jpg"
     }
   ],
   "propsByType": {
