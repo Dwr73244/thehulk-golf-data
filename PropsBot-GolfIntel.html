@@ -657,12 +657,19 @@
             <option value="5">EV ≥ 5%</option>
             <option value="10">EV ≥ 10%</option>
           </select>
+          <select id="tbSortBy" class="text-xs" style="background:rgba(255,255,255,0.04);border:1px solid rgba(100,180,200,0.15);border-radius:8px;color:#eef2f7;padding:6px 8px;">
+            <option value="ev">Best EV</option>
+            <option value="win">Highest Win %</option>
+            <option value="tee">Tee Time</option>
+            <option value="round">Round</option>
+          </select>
           <span id="tbCount" class="text-[10px] text-slate-500"></span>
         </div>
       </div>
       <div class="text-[10px] text-slate-500 mt-1">
         3-ball ties: dead-heat (2-way = half payout, 3-way = third). 2-ball ties: push (stake returned). Our EV accounts for both.
       </div>
+      <p class="text-[10px] text-slate-500 mt-1">Model: 10k Monte Carlo sims per group. Calibration tracked weekly.</p>
     </div>
     <div id="tbGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-3"></div>
     <div id="tbEmpty" class="hidden text-center text-xs text-slate-400 py-8">
@@ -2716,6 +2723,14 @@
     var typeFilter = tfEl ? tfEl.value : 'all';
     var edgeFilter = parseFloat((efEl ? efEl.value : '0')) || 0;
 
+    // Sort control: default to Best EV when book odds exist, else Highest Win %.
+    var sortEl = el('tbSortBy');
+    if (sortEl && !sortEl.dataset.tbInit) {
+      sortEl.value = isSynthetic ? 'win' : 'ev';
+      sortEl.dataset.tbInit = '1';
+    }
+    var sortBy = sortEl ? sortEl.value : (isSynthetic ? 'win' : 'ev');
+
     var groups = all.filter(function(g) {
       if (typeFilter !== 'all' && g.type !== typeFilter) return false;
       if (roundFilter !== 'all' && String(g.round) !== roundFilter) return false;
@@ -2726,6 +2741,42 @@
         if (!hasEdge) return false;
       }
       return true;
+    });
+
+    // Apply group-level sort
+    function _groupBestEv(g) {
+      var best = -Infinity;
+      (g.players || []).forEach(function(p) {
+        if (typeof p.ev === 'number' && p.ev > best) best = p.ev;
+      });
+      return best === -Infinity ? -999 : best;
+    }
+    function _groupBestWin(g) {
+      var best = -Infinity;
+      (g.players || []).forEach(function(p) {
+        var w = (typeof p.deadHeatWinValue === 'number') ? p.deadHeatWinValue
+              : (typeof p.pClearWin === 'number') ? p.pClearWin : -Infinity;
+        if (w > best) best = w;
+      });
+      return best === -Infinity ? -1 : best;
+    }
+    groups.sort(function(a, b) {
+      if (sortBy === 'win') return _groupBestWin(b) - _groupBestWin(a);
+      if (sortBy === 'tee') {
+        var ta = a.commence ? new Date(a.commence).getTime() : Infinity;
+        var tb = b.commence ? new Date(b.commence).getTime() : Infinity;
+        if (isNaN(ta)) ta = Infinity;
+        if (isNaN(tb)) tb = Infinity;
+        return ta - tb;
+      }
+      if (sortBy === 'round') {
+        var ra = a.round != null ? a.round : 99;
+        var rb = b.round != null ? b.round : 99;
+        if (ra !== rb) return ra - rb;
+        return _groupBestEv(b) - _groupBestEv(a);
+      }
+      // default: ev
+      return _groupBestEv(b) - _groupBestEv(a);
     });
 
     if (countEl) countEl.textContent = groups.length + ' group' + (groups.length === 1 ? '' : 's');
@@ -2780,8 +2831,8 @@
         var t3 = pctStr(p.pTie3, 1);
         var push = pctStr(p.pPush, 1);
         var tieSplit = is2Ball
-          ? ('win ' + clear + ' · push ' + push)
-          : ('clear ' + clear + ' · t2 ' + t2 + ' · t3 ' + t3);
+          ? ('win ' + clear + ' · <span title="2-ball tie = push (stake returned)">push</span> ' + push)
+          : ('clear ' + clear + ' · <span title="2-way tie — pays half under dead-heat rules">t2</span> ' + t2 + ' · <span title="3-way tie — pays one-third under dead-heat rules">t3</span> ' + t3);
         var ev = (typeof p.ev === 'number') ? (p.ev > 0 ? '+' : '') + p.ev.toFixed(1) + '%' : '—';
         var bookLabel = best.book ? best.book.toUpperCase() : '';
         var evC = evColor(p.ev);
@@ -2798,28 +2849,52 @@
                + '">' + o.book.toUpperCase() + ' ' + fmtAmerican(o.american) + '</span>';
         }).join('');
 
+        // Build best-odds / EV block. When synthetic, collapse dead dashes into a single muted-gold pill.
+        var bestEvBlock;
+        if (isSynthetic) {
+          bestEvBlock = '<div class="text-right" style="min-width:160px;">'
+            +   '<div class="text-[9px] text-slate-500">Fair: ' + fair + '</div>'
+            +   '<span style="display:inline-block;margin-top:4px;font-size:9px;padding:2px 6px;border-radius:999px;background:rgba(240,192,64,0.08);color:rgba(240,192,64,0.75);border:1px solid rgba(240,192,64,0.25);">Awaiting book odds</span>'
+            + '</div>';
+        } else {
+          bestEvBlock = '<div class="text-right" style="min-width:90px;">'
+            +   '<div class="mono text-xs text-slate-300">Best: <span class="font-bold text-white">' + bestOdds + '</span> <span class="text-[9px] text-slate-500">' + bookLabel + '</span></div>'
+            +   '<div class="text-[9px] text-slate-500">Fair: ' + fair + '</div>'
+            + '</div>'
+            + '<div class="text-right" style="min-width:60px;">'
+            +   '<div class="mono text-sm font-bold" style="color:' + evC + '">' + ev + '</div>'
+            +   '<div class="text-[9px] text-slate-500">EV</div>'
+            + '</div>';
+        }
+
+        // +Parlay button — safe no-op if window.addToParlay isn't defined (wired via delegated listener)
+        var _htmlEsc = function(s) {
+          return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        };
+        var parlayAmerican = (best && typeof best.american === 'number') ? String(best.american) : '';
+        var parlayFair = (typeof p.fairOdds === 'number') ? String(p.fairOdds) : '';
+        var parlayBtn = '<button type="button" class="tb-parlay-btn" '
+          + 'data-player="' + _htmlEsc(p.name || '') + '" '
+          + 'data-odds="' + _htmlEsc(parlayAmerican) + '" '
+          + 'data-fair="' + _htmlEsc(parlayFair) + '" '
+          + 'style="font-size:9px;padding:4px 8px;border-radius:6px;background:rgba(240,192,64,0.08);color:#f0c040;border:1px solid rgba(240,192,64,0.35);margin-left:6px;cursor:pointer;white-space:nowrap;">+ Parlay</button>';
+
         return '<div style="padding:10px 12px;' + bg + '">'
           + '<div class="flex items-center justify-between gap-3">'
           +   '<div class="flex-1 min-w-0">'
           +     '<div class="font-semibold text-white text-sm truncate">' + (p.name || '—') + '</div>'
           +     '<div class="text-[10px] text-slate-500 mt-0.5">'
           +       'SG: ' + (p.sgBlended != null ? p.sgBlended.toFixed(2) : '—')
-          +       ' · Fit: ' + (p.fitBoost != null ? (p.fitBoost > 0 ? '+' : '') + p.fitBoost.toFixed(2) : '—')
-          +       ' · μ: ' + (p.modelMean != null ? p.modelMean.toFixed(1) : '—')
+          +       ' · <span title="Course-fit boost in strokes (positive = advantage)">Fit</span>: ' + (p.fitBoost != null ? (p.fitBoost > 0 ? '+' : '') + p.fitBoost.toFixed(2) : '—')
+          +       ' · <span title="Mean simulated round score">μ</span>: ' + (p.modelMean != null ? p.modelMean.toFixed(1) : '—')
           +     '</div>'
           +   '</div>'
           +   '<div class="text-right" style="min-width:110px;">'
           +     '<div class="mono text-sm font-bold text-pb-teal">' + dh + '</div>'
           +     '<div class="text-[9px] text-slate-500">' + tieSplit + '</div>'
           +   '</div>'
-          +   '<div class="text-right" style="min-width:90px;">'
-          +     '<div class="mono text-xs text-slate-300">Best: <span class="font-bold text-white">' + bestOdds + '</span> <span class="text-[9px] text-slate-500">' + bookLabel + '</span></div>'
-          +     '<div class="text-[9px] text-slate-500">Fair: ' + fair + '</div>'
-          +   '</div>'
-          +   '<div class="text-right" style="min-width:60px;">'
-          +     '<div class="mono text-sm font-bold" style="color:' + evC + '">' + ev + '</div>'
-          +     '<div class="text-[9px] text-slate-500">EV</div>'
-          +   '</div>'
+          +   bestEvBlock
+          +   parlayBtn
           + '</div>'
           + (oddsChips ? '<div class="mt-1.5">' + oddsChips + '</div>' : '')
         + '</div>';
@@ -2846,9 +2921,33 @@
     var rf = document.getElementById('tbRoundFilter');
     var ef = document.getElementById('tbEdgeFilter');
     var tf = document.getElementById('tbTypeFilter');
+    var sf = document.getElementById('tbSortBy');
     if (rf) rf.addEventListener('change', renderThreeBalls);
     if (ef) ef.addEventListener('change', renderThreeBalls);
     if (tf) tf.addEventListener('change', renderThreeBalls);
+    if (sf) sf.addEventListener('change', renderThreeBalls);
+    // Delegated handler for +Parlay buttons inside the Matchups grid
+    var tbGrid = document.getElementById('tbGrid');
+    if (tbGrid) {
+      tbGrid.addEventListener('click', function(e) {
+        var btn = e.target && e.target.closest ? e.target.closest('.tb-parlay-btn') : null;
+        if (!btn) return;
+        try {
+          if (window.addToParlay) {
+            var oddsRaw = btn.getAttribute('data-odds');
+            var fairRaw = btn.getAttribute('data-fair');
+            var oddsNum = oddsRaw === '' || oddsRaw == null ? undefined : Number(oddsRaw);
+            var fairNum = fairRaw === '' || fairRaw == null ? undefined : Number(fairRaw);
+            window.addToParlay({
+              player: btn.getAttribute('data-player') || '',
+              market: 'matchup-win',
+              odds: isFinite(oddsNum) ? oddsNum : undefined,
+              fairOdds: isFinite(fairNum) ? fairNum : undefined
+            });
+          }
+        } catch (_) {}
+      });
+    }
   });
   window.renderThreeBalls = renderThreeBalls;
 
