@@ -1054,6 +1054,489 @@ def scrape_betting_odds():
 
 
 # ============================================================
+# FEATURE: 3-BALL ODDS + PREDICTIVE MODEL
+# ============================================================
+# A 3-ball is a bet on which of the 3 players in a tee-time group shoots the
+# lowest round. US books settle ties via dead-heat rules (win / n_tied).
+# Market = `3_balls` on The Odds API (also seen as `h2h_3_way` on some keys).
+# ============================================================
+
+THREEBALL_BOOK_MAP = {
+    "draftkings": "dk", "fanduel": "fd", "betmgm": "mgm", "caesars": "czr",
+    "pointsbetus": "pb", "bet365": "365", "bovada": "bov", "betonlineag": "bol",
+    "betrivers": "riv", "unibet_us": "uni", "wynnbet": "wyn", "superbook": "sup",
+    "twinspires": "twn", "betus": "bus", "lowvig": "low", "mybookieag": "myb",
+    "williamhill_us": "czr", "espnbet": "espn", "fliff": "flf", "hardrockbet": "hrb",
+    "fanatics": "fan",
+}
+
+
+def bdl_get_matchup_odds(tournament_id):
+    """Try BDL's matchup-odds endpoint. BDL's public docs list
+    `odds/matchups`; if that 404s we try a couple of alternate spellings.
+    Returns list of {eventId, commence, round, players:[{name, odds:[...]}]}.
+    """
+    for endpoint in ("odds/matchups", "odds/3_balls", "matchup_odds"):
+        raw = bdl_fetch(endpoint, {"tournament_id": str(tournament_id)})
+        if not raw:
+            continue
+        rows = raw.get("data") if isinstance(raw, dict) else raw
+        if not rows:
+            continue
+        print(f"[3BALL] BDL endpoint '{endpoint}' returned {len(rows)} rows")
+        groups = {}
+        for r in rows:
+            gid = r.get("matchup_id") or r.get("group_id") or r.get("id")
+            if not gid:
+                continue
+            player = r.get("player") or {}
+            pname = (
+                player.get("display_name")
+                or f"{player.get('first_name','')} {player.get('last_name','')}".strip()
+                if isinstance(player, dict) else str(player)
+            )
+            if not pname:
+                continue
+            price = r.get("odds") or r.get("american") or r.get("price")
+            if price is None:
+                continue
+            book = r.get("book") or r.get("sportsbook") or "bdl"
+            g = groups.setdefault(gid, {
+                "eventId": str(gid),
+                "commence": r.get("tee_time") or r.get("commence_time") or "",
+                "round": r.get("round") or r.get("round_number"),
+                "players": {},
+            })
+            g["players"].setdefault(pname, {"name": pname, "odds": []})
+            g["players"][pname]["odds"].append({"book": str(book)[:5].lower(),
+                                                "american": int(price)})
+        out = []
+        for g in groups.values():
+            players_list = list(g["players"].values())
+            if len(players_list) == 2:
+                g["type"] = "2ball"
+                g["players"] = players_list
+                out.append(g)
+            elif len(players_list) >= 3:
+                g["type"] = "3ball"
+                g["players"] = players_list[:3]
+                out.append(g)
+        if out:
+            return out
+    return []
+
+
+def synthesize_matchups_from_tee_times(tee_times, current_round=None):
+    """Build synthetic 2-ball or 3-ball groups from tee-time data.
+
+    Signature events (RBC Heritage, Genesis, Memorial, etc.) have 72-player
+    no-cut fields and play in 2-ball pairings. Regular events play 3-balls
+    Thu/Fri then 2-balls Sat/Sun after the cut.
+
+    Returns groups with type="2ball" or "3ball" and synthetic=True."""
+    if not tee_times:
+        return []
+    from collections import defaultdict
+    buckets = defaultdict(list)
+    for t in tee_times:
+        tt = t.get("teeTime")
+        rnd = t.get("round")
+        hole = t.get("startHole", 1)
+        name = t.get("player")
+        if not name or not tt:
+            continue
+        buckets[(rnd, tt, hole)].append(name)
+
+    groups = []
+    for (rnd, tt, hole), names in buckets.items():
+        if len(names) == 2:
+            group_type = "2ball"
+        elif len(names) == 3:
+            group_type = "3ball"
+        else:
+            continue
+        groups.append({
+            "eventId": f"synth-r{rnd}-{tt}-{hole}",
+            "commence": tt,
+            "round": rnd,
+            "type": group_type,
+            "players": [{"name": n, "odds": []} for n in names],
+            "synthetic": True,
+        })
+    return groups
+
+
+def _fetch_odds_api_once(url):
+    """Single-shot fetch for The Odds API — no retries on 4xx (422 = market
+    not supported for this sport; retrying just burns credits & log noise)."""
+    try:
+        req = Request(url, headers={"User-Agent": USER_AGENT})
+        with urlopen(req, timeout=15) as resp:
+            raw = resp.read().decode("utf-8", errors="replace")
+            return json.loads(raw), resp.status
+    except HTTPError as e:
+        return None, e.code
+    except (URLError, TimeoutError, json.JSONDecodeError, OSError):
+        return None, None
+
+
+def scrape_matchup_odds():
+    """Fetch 2-ball + 3-ball matchup odds from The Odds API.
+
+    Markets:
+      * 3_balls / h2h_3_way  = 3-player groups (regular PGA events Thu/Fri)
+      * h2h                  = 2-player groups (signature events + Sat/Sun after cut)
+
+    Strategy: discover active golf keys dynamically, try each market type,
+    skip 422 (market not supported).
+    """
+    if not ODDS_API_KEY:
+        print("[MATCHUP] Skipping — no ODDS_API_KEY")
+        return []
+
+    print("[MATCHUP] Discovering active golf sport keys from The Odds API...")
+    sports_url = f"https://api.the-odds-api.com/v4/sports?apiKey={ODDS_API_KEY}&all=false"
+    sports_data, _ = _fetch_odds_api_once(sports_url)
+    if not sports_data:
+        print("  Could not fetch sports list")
+        return []
+
+    golf_keys = [s.get("key") for s in sports_data
+                 if isinstance(s, dict) and str(s.get("group", "")).lower() == "golf"
+                 and s.get("active")]
+    # Winner-only keys only support 'outrights' — exclude them for matchup lookup
+    golf_keys = [k for k in golf_keys if k and not k.endswith("_winner")]
+    if not golf_keys:
+        print("  No non-winner golf keys active (matchups only post during event weeks)")
+        return []
+    print(f"  Candidate golf keys: {golf_keys}")
+
+    MATCHUP_MARKETS = ("3_balls", "h2h_3_way", "h2h")  # last one = 2-ball
+    data = None
+    sport_key_used = None
+    for sport_key in golf_keys:
+        url = (
+            f"https://api.the-odds-api.com/v4/sports/{sport_key}/odds"
+            f"?apiKey={ODDS_API_KEY}&regions=us&markets={','.join(MATCHUP_MARKETS)}&oddsFormat=american"
+        )
+        result, status = _fetch_odds_api_once(url)
+        if status == 422:
+            # Try each market individually to see which are supported
+            supported = []
+            for m in MATCHUP_MARKETS:
+                single_url = url.split("&markets=")[0] + f"&markets={m}" + "&oddsFormat=american"
+                single_url = (
+                    f"https://api.the-odds-api.com/v4/sports/{sport_key}/odds"
+                    f"?apiKey={ODDS_API_KEY}&regions=us&markets={m}&oddsFormat=american"
+                )
+                r, s = _fetch_odds_api_once(single_url)
+                if s != 422 and isinstance(r, list):
+                    supported.append((m, r))
+            if not supported:
+                print(f"  {sport_key}: no matchup markets supported")
+                continue
+            # Combine events across supported markets
+            merged = {}
+            for _m, evs in supported:
+                for ev in evs:
+                    merged[ev.get("id")] = ev
+            result = list(merged.values())
+        if isinstance(result, list) and result:
+            has_matchup = any(
+                any(m.get("key") in MATCHUP_MARKETS
+                    for bk in ev.get("bookmakers", []) for m in bk.get("markets", []))
+                for ev in result
+            )
+            if has_matchup:
+                data = result
+                sport_key_used = sport_key
+                break
+            else:
+                print(f"  {sport_key}: endpoint OK but no matchup markets posted yet")
+
+    if not data:
+        print("  No matchup markets posted right now (books typically open lines Wed evening)")
+        return []
+    print(f"  Matchup market live on sport key: {sport_key_used} ({len(data)} events)")
+
+    groups = []
+    for event in data:
+        # Collect odds per player across all books, and track matchup type
+        players_map = {}
+        matchup_type = None
+        for bk in event.get("bookmakers", []):
+            book_short = THREEBALL_BOOK_MAP.get(bk.get("key", ""), bk.get("key", "")[:3])
+            for market in bk.get("markets", []):
+                mkey = market.get("key")
+                if mkey not in MATCHUP_MARKETS:
+                    continue
+                if mkey == "h2h":
+                    matchup_type = "2ball"
+                elif mkey in ("3_balls", "h2h_3_way"):
+                    matchup_type = "3ball"
+                for outcome in market.get("outcomes", []):
+                    name = outcome.get("name", "").strip()
+                    price = outcome.get("price")
+                    if not name or price is None:
+                        continue
+                    if name.lower() in ("tie", "the field", "draw"):
+                        continue
+                    key = normalize_name(name)
+                    if key not in players_map:
+                        players_map[key] = {"name": name, "odds": []}
+                    players_map[key]["odds"].append({"book": book_short, "american": int(price)})
+
+        # Determine valid group: 2-ball or 3-ball
+        pcount = len(players_map)
+        if pcount == 2:
+            final_type = matchup_type or "2ball"
+        elif pcount >= 3:
+            final_type = matchup_type or "3ball"
+        else:
+            continue  # 1-player "matchup" is malformed
+
+        commence = event.get("commence_time", "")
+        round_num = _infer_round_from_commence(commence)
+        cap = 2 if final_type == "2ball" else 3
+
+        group = {
+            "eventId": event.get("id", ""),
+            "commence": commence,
+            "round": round_num,
+            "type": final_type,
+            "players": list(players_map.values())[:cap],
+        }
+        groups.append(group)
+
+    type_counts = {}
+    for g in groups:
+        type_counts[g["type"]] = type_counts.get(g["type"], 0) + 1
+    print(f"  Parsed {len(groups)} matchup groups: {type_counts}")
+    return groups
+
+
+def _infer_round_from_commence(commence_iso):
+    """Map an ISO commence time to a round number. Thu=1, Fri=2, Sat=3, Sun=4."""
+    if not commence_iso:
+        return None
+    try:
+        # strip trailing Z
+        ts = commence_iso.replace("Z", "+00:00")
+        dt = datetime.fromisoformat(ts)
+        # weekday: Mon=0 ... Sun=6
+        wd = dt.weekday()
+        return {3: 1, 4: 2, 5: 3, 6: 4}.get(wd)
+    except (ValueError, TypeError):
+        return None
+
+
+def _american_to_implied_prob(american):
+    """Convert American odds to implied probability (0..1)."""
+    if american is None:
+        return None
+    if american >= 0:
+        return 100.0 / (american + 100.0)
+    return -american / (-american + 100.0)
+
+
+def _prob_to_american(p):
+    """Convert probability to American odds. Returns None if p not in (0,1)."""
+    if p is None or p <= 0 or p >= 1:
+        return None
+    if p >= 0.5:
+        return int(round(-100 * p / (1 - p)))
+    return int(round(100 * (1 - p) / p))
+
+
+def predict_matchups(matchups, players, course_key=None, weather=None,
+                     tournament_sg=None, sims=10000):
+    """Monte Carlo model for matchup win probability, handles 2-ball AND 3-ball.
+
+    Tie semantics differ by market:
+      * 2-ball H2H: tie = PUSH (stake returned, EV neutral on ties)
+      * 3-ball: dead-heat rules (winnings divided by n_tied)
+
+    Model assumptions:
+      mean_score_i = par - (0.7 * sgTotal + 0.3 * liveTourneySG) * strokes_per_sg
+                         - courseFit_boost - form_boost + weather_penalty
+      score_i = round(mean_score_i + round_shock + individual_noise)
+
+    round_shock is shared across all 3 players in the group (course played
+    hard/easy that morning). Integer rounding produces realistic tie rates.
+    """
+    import random
+    random.seed(42)
+
+    # Build lookup of season SG by name
+    by_name = {normalize_name(p.get("name", "")): p for p in players}
+
+    # Build lookup of live tournament SG by name
+    live_sg = {}
+    for row in (tournament_sg or []):
+        live_sg[normalize_name(row.get("name", ""))] = row.get("sgTotal", 0) or 0
+
+    # Weather penalty — use average wind over round windows as a stroke penalty
+    wx_penalty = 0.0
+    wx_std_bump = 0.0
+    if isinstance(weather, dict):
+        wind_values = []
+        for day in (weather.get("forecast") or []):
+            w = day.get("windMph") or day.get("wind_mph") or day.get("wind")
+            if isinstance(w, (int, float)):
+                wind_values.append(w)
+        if wind_values:
+            avg_wind = sum(wind_values) / len(wind_values)
+            # Linear above 12 mph: each extra mph ≈ +0.08 strokes, +0.05 std dev
+            wx_penalty = max(0.0, (avg_wind - 12) * 0.08)
+            wx_std_bump = max(0.0, (avg_wind - 12) * 0.05)
+
+    PAR = 71  # PGA field-average round baseline (tour avg ~71.0 for par-70/71/72 mix)
+    BASE_STD = 2.85
+    ROUND_SHOCK_STD = 1.0  # course difficulty shift shared across group
+
+    for group in matchups:
+        # Build per-player params
+        pp_list = []
+        for p in group["players"]:
+            pdata = by_name.get(normalize_name(p["name"]), {}) or {}
+            sg_season = pdata.get("sgTotal") or 0.0
+            sg_live = live_sg.get(normalize_name(p["name"]), 0.0) or 0.0
+            sg_blended = 0.7 * sg_season + 0.3 * sg_live if sg_live else sg_season
+
+            fit_boost = 0.0
+            if course_key:
+                fit = (pdata.get("courseFit") or {}).get(course_key)
+                if isinstance(fit, (int, float)):
+                    # 75 = neutral, range 60-100 → ±1 stroke
+                    fit_boost = (fit - 75) / 25.0
+
+            form_boost = 0.0
+            form = pdata.get("recentForm") or {}
+            if form.get("trend") == "hot":
+                form_boost = 0.25
+            elif form.get("trend") == "cold":
+                form_boost = -0.25
+
+            mean_score = PAR - sg_blended - fit_boost - form_boost + wx_penalty
+
+            # Individual variance: volatile players (high |sgPutt| swings, cold trends) get wider tails
+            volatility = 0.0
+            if form.get("trend") in ("hot", "cold"):
+                volatility += 0.15
+            std_i = BASE_STD + wx_std_bump + volatility
+
+            pp_list.append({
+                "player": p,
+                "mean": mean_score,
+                "std": std_i,
+                "sgBlended": round(sg_blended, 2),
+                "fitBoost": round(fit_boost, 2),
+            })
+
+        # Monte Carlo — handle 2-ball and 3-ball
+        n = len(pp_list)
+        is_2ball = (n == 2)
+        clear_wins = [0] * n
+        tie2_wins = [0] * n   # i in 2-way tie for lowest (3-ball only)
+        tie_push = [0] * n    # 2-ball push — both scored lowest equally
+        tie3 = 0              # all 3 tied (3-ball only)
+
+        for _ in range(sims):
+            shock = random.gauss(0.0, ROUND_SHOCK_STD)
+            scores = []
+            for pp in pp_list:
+                raw = pp["mean"] + shock + random.gauss(0.0, pp["std"])
+                scores.append(round(raw))  # integer strokes — enables realistic ties
+            lo = min(scores)
+            winners = [i for i, s in enumerate(scores) if s == lo]
+            if is_2ball:
+                if len(winners) == 1:
+                    clear_wins[winners[0]] += 1
+                else:
+                    # 2-ball tie = push for both
+                    for i in winners:
+                        tie_push[i] += 1
+            else:
+                if len(winners) == 1:
+                    clear_wins[winners[0]] += 1
+                elif len(winners) == 2:
+                    for i in winners:
+                        tie2_wins[i] += 1
+                else:
+                    tie3 += 1
+
+        # Attach results to each player
+        for i, pp in enumerate(pp_list):
+            p_clear = clear_wins[i] / sims
+            if is_2ball:
+                p_push = tie_push[i] / sims
+                p_lose = 1 - p_clear - p_push
+                # For a 2-ball H2H, tie is a PUSH — doesn't add to win value
+                win_value = p_clear
+                p_t2 = p_t3 = None
+            else:
+                p_t2 = tie2_wins[i] / sims
+                p_t3 = tie3 / sims
+                p_push = None
+                p_lose = 1 - p_clear - p_t2 - p_t3
+                # Dead-heat-weighted (3-ball): clear + 0.5*t2 + 0.333*t3
+                win_value = p_clear + 0.5 * p_t2 + (1.0 / 3.0) * p_t3
+
+            odds_list = pp["player"].get("odds", [])
+            best = max(odds_list, key=lambda o: o["american"]) if odds_list else None
+            implied_best = _american_to_implied_prob(best["american"]) if best else None
+
+            ev = None
+            if best and win_value > 0:
+                am = best["american"]
+                payout_profit = (am / 100.0) if am > 0 else (100.0 / -am)
+                if is_2ball:
+                    # 2-ball: clear win pays full, push = stake back (0 EV), lose = -1
+                    ep = p_clear * payout_profit + p_push * 0 - p_lose * 1
+                else:
+                    # 3-ball dead-heat: clear full, 2-tie half, 3-tie third, else -1
+                    ep = (
+                        p_clear * payout_profit
+                        + p_t2 * (payout_profit * 0.5) - p_t2 * 0.5
+                        + p_t3 * (payout_profit / 3.0) - p_t3 * (2.0 / 3.0)
+                        - p_lose * 1
+                    )
+                ev = round(ep * 100, 2)  # %EV per $1 staked
+
+            result = {
+                "modelMean": round(pp["mean"], 2),
+                "modelStd": round(pp["std"], 2),
+                "sgBlended": pp["sgBlended"],
+                "fitBoost": pp["fitBoost"],
+                "pClearWin": round(p_clear, 4),
+                "deadHeatWinValue": round(win_value, 4),
+                "fairOdds": _prob_to_american(win_value),
+                "bestBook": best,
+                "impliedProbBest": round(implied_best, 4) if implied_best else None,
+                "ev": ev,
+            }
+            if is_2ball:
+                result["pPush"] = round(p_push, 4)
+            else:
+                result["pTie2"] = round(p_t2, 4)
+                result["pTie3"] = round(p_t3, 4)
+            pp["player"].update(result)
+
+        # Group-level metadata
+        group.setdefault("type", "2ball" if is_2ball else "3ball")
+        group["dhRulesApplied"] = not is_2ball  # 2-balls use push, not DH
+        group["bookSample"] = sorted({o["book"] for p in group["players"] for o in p.get("odds", [])})
+        group["simCount"] = sims
+
+    # Sort groups by best available edge (descending)
+    def group_edge(g):
+        evs = [p.get("ev") for p in g["players"] if isinstance(p.get("ev"), (int, float))]
+        return max(evs) if evs else -999
+    matchups.sort(key=group_edge, reverse=True)
+    return matchups
+
+
+# ============================================================
 # FEATURE: RECENT FORM (L5/L10 from ESPN)
 # ============================================================
 
@@ -1707,7 +2190,9 @@ def fetch_tee_times(bdl_field=None):
         print("  BDL field had no tee_time values — falling back to ESPN")
         tee_times = []
 
-    # Fallback: ESPN scoreboard
+    # Fallback: ESPN scoreboard. ESPN buries per-round tee times inside
+    # competitor.linescores[round-1].statistics.categories[0].stats[-1].displayValue
+    # (a human-readable datetime like "Thu Apr 16 13:50:00 PDT 2026").
     print("[TEE TIMES] Fetching tee times from ESPN...")
     url = "https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard"
     data = fetch_json(url)
@@ -1720,21 +2205,36 @@ def fetch_tee_times(bdl_field=None):
             return tee_times
         event = events[0]
         for comp in event.get("competitions", []):
-            round_num = (comp.get("status") or {}).get("period", 1)
             for competitor in comp.get("competitors", []):
                 athlete = competitor.get("athlete", {}) or {}
                 name = athlete.get("displayName", "")
-                status = competitor.get("status") or {}
-                tee_time = status.get("teeTime", "") if isinstance(status, dict) else ""
-                hole = status.get("hole", 1) if isinstance(status, dict) else 1
-                if name:
+                if not name:
+                    continue
+                # Emit one entry per round from linescores
+                for ls in (competitor.get("linescores") or []):
+                    period = ls.get("period")
+                    if not period or not (1 <= period <= 4):
+                        continue
+                    tee_time = ""
+                    try:
+                        stats = ls.get("statistics", {}).get("categories", [{}])[0].get("stats", [])
+                        # The last stat entry carries displayValue = tee-time datetime
+                        for s in stats:
+                            dv = s.get("displayValue", "")
+                            if isinstance(dv, str) and any(day in dv for day in
+                                    ("Mon ", "Tue ", "Wed ", "Thu ", "Fri ", "Sat ", "Sun ")):
+                                tee_time = dv
+                                break
+                    except (IndexError, AttributeError, TypeError):
+                        pass
                     tee_times.append({
                         "player": name,
                         "teeTime": tee_time,
-                        "round": round_num,
-                        "startHole": hole,
+                        "round": period,
+                        "startHole": 1,  # ESPN scoreboard doesn't expose start hole
                     })
-        print(f"  Got {len(tee_times)} tee time entries from ESPN")
+        with_time = sum(1 for t in tee_times if t["teeTime"])
+        print(f"  Got {len(tee_times)} tee-time entries from ESPN ({with_time} with times)")
     except Exception as e:
         print(f"  Error parsing tee times: {e}")
     return tee_times
@@ -2847,6 +3347,7 @@ def run_pipeline():
             "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
             "DataGolf.com (rankings, SG breakdowns)",
             "ESPN API (live leaderboard + tee times)",
+            "The Odds API (outrights + 3-ball matchups)",
             "Open-Meteo (weather forecasts)",
             "Manual curation (course fit, betting notes)"
         ],
@@ -3388,6 +3889,48 @@ def run_pipeline():
     else:
         output["propsByType"] = {"top5": {}, "top10": {}, "top20": {}, "r1Leader": {}, "makeCut": {}}
 
+    # ============================================================
+    # 3-BALL MATCHUPS + PREDICTIVE MODEL
+    # Priority: BDL matchup odds → Odds API 3_balls → synthesize from tee times
+    # ============================================================
+    matchups_raw = []
+    source = None
+    if bdl_tournament:
+        matchups_raw = bdl_get_matchup_odds(bdl_tournament["id"])
+        if matchups_raw:
+            source = "BallDontLie"
+    if not matchups_raw:
+        matchups_raw = scrape_matchup_odds()
+        if matchups_raw:
+            source = "TheOddsAPI"
+    if not matchups_raw and tee_times:
+        matchups_raw = synthesize_matchups_from_tee_times(tee_times)
+        if matchups_raw:
+            source = "SyntheticTeeTimes"
+            type_counts = {}
+            for g in matchups_raw:
+                type_counts[g["type"]] = type_counts.get(g["type"], 0) + 1
+            print(f"[MATCHUP] Synthesized from tee times: {type_counts} (no book odds yet)")
+
+    if matchups_raw:
+        matchups_scored = predict_matchups(
+            matchups_raw,
+            players=output["players"],
+            course_key=resolved_course,
+            weather=output.get("weather"),
+            tournament_sg=output.get("tournamentSG") or [],
+            sims=10000,
+        )
+        output["threeBalls"] = matchups_scored  # keep the key name — UI already uses it
+        output["threeBallsSource"] = source
+        edges = sum(1 for g in matchups_scored
+                    for p in g["players"]
+                    if isinstance(p.get("ev"), (int, float)) and p["ev"] > 5)
+        print(f"[MATCHUP] {len(matchups_scored)} groups modeled from {source}, {edges} picks with >5% EV")
+    else:
+        output["threeBalls"] = []
+        output["threeBallsSource"] = None
+
     # ---- DATA QUALITY METADATA ----
     ce = output.get("currentEvent") or {}
     lb = ce.get("leaderboard") or []
@@ -3404,6 +3947,12 @@ def run_pipeline():
         "tournamentStatus": ce.get("status", ""),
         "teeTimesTotal": len(output.get("teeTimes") or []),
         "teeTimesWithValues": sum(1 for t in (output.get("teeTimes") or []) if t.get("teeTime")),
+        "threeBallGroups": len(output.get("threeBalls") or []),
+        "threeBallEdges5pct": sum(
+            1 for g in (output.get("threeBalls") or [])
+            for p in g.get("players", [])
+            if isinstance(p.get("ev"), (int, float)) and p["ev"] > 5
+        ),
     }
 
     # ---- WRITE OUTPUT ----

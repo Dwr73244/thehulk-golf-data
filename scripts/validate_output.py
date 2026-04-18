@@ -18,6 +18,7 @@ print(f"Leaderboard: {q.get('leaderboardEntries')} entries from "
 print(f"Odds coverage: {q.get('playersWithOdds')}/{q.get('playersTotal')} "
       f"({q.get('oddsCoverage')})")
 print(f"Tee times: {q.get('teeTimesWithValues')}/{q.get('teeTimesTotal')} populated")
+print(f"3-balls: {q.get('threeBallGroups', 0)} groups, {q.get('threeBallEdges5pct', 0)} edges >5% EV")
 
 errors = []
 if len(d["players"]) < 50:
