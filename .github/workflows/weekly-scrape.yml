@@ -99,6 +99,9 @@ jobs:
           mkdir -p docs
           cp golf-data.json docs/
           cp PropsBot-GolfIntel.html docs/index.html
+          cp methodology.html docs/methodology.html
+          cp model_params.json docs/ 2>/dev/null || echo "model_params.json not present, skipping"
+          cp backtest-report.json docs/ 2>/dev/null || echo "backtest-report.json not present, skipping"
           cp robots.txt docs/
           cp sitemap.xml docs/
           echo '{ "headers": [{ "source": "**/*.json", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }] }' > docs/_headers

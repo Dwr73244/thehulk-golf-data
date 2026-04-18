@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <title>Predictive Model Methodology | PropsBot Golf Intelligence</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23070e1a'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' font-family='Apple Color Emoji,Segoe UI Emoji'%3E⛳%3C/text%3E%3C/svg%3E" />
+
+  <!-- SEO -->
+  <meta name="description" content="Full transparency on the PropsBot Golf Intelligence predictive model: inputs, Monte Carlo matchup sim, Bayesian confidence, dead-heat EV, anomaly detection, tunable parameters, and live backtest performance." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://golf.propsbot.ai/methodology" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://golf.propsbot.ai/methodology" />
+  <meta property="og:title" content="Predictive Model Methodology | PropsBot Golf Intelligence" />
+  <meta property="og:description" content="Inputs, methods, tunable parameters, and backtest performance behind the PropsBot Golf matchup and prop model." />
+  <meta property="og:image" content="https://propsbot.ai/wp-content/uploads/2024/01/propsbot-og.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pb: { teal:'#15ffc2', red:'#ff1552', gold:'#f0c040', blue:'#22a9ec', purple:'#AB8FFF', bg:'#070e1a', card:'rgba(14,26,44,0.85)' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+    :root {
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --teal: #15ffc2;
+      --red: #ff1552;
+      --gold: #f0c040;
+      --blue: #22a9ec;
+      --purple: #AB8FFF;
+      --bg: #070e1a;
+      --surface1: rgba(15,28,46,0.6);
+      --surface2: rgba(20,36,60,0.7);
+      --glass: rgba(18,28,45,0.92);
+      --card-border: rgba(100,200,220,0.07);
+      --divider: rgba(100,200,220,0.06);
+      --text-primary: #eef2f7;
+      --text-secondary: rgba(200,215,230,0.75);
+      --text-muted: rgba(150,180,210,0.3);
+      --brand-gradient: linear-gradient(135deg, #09d5a0, #22a9ec);
+    }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text-primary); }
+    .mono { font-family: var(--mono); }
+    body::before { content:''; display:block; height:3px; background: var(--brand-gradient); }
+
+    .glass { background: var(--surface1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--card-border); }
+
+    h1 {
+      font-weight: 800; letter-spacing: -0.5px;
+      background: var(--brand-gradient);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h2 {
+      font-family: var(--mono); font-weight: 700; color: var(--teal);
+      font-size: 15px; letter-spacing: 0.02em; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    h3 {
+      font-family: var(--mono); font-weight: 600; color: var(--gold);
+      font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+      margin: 14px 0 6px;
+    }
+    p, li { color: var(--text-secondary); line-height: 1.6; font-size: 14px; }
+    ul { padding-left: 1.1rem; margin: 6px 0 10px; }
+    li { margin-bottom: 4px; }
+    li::marker { color: var(--teal); }
+    strong { color: var(--text-primary); font-weight: 600; }
+    code { font-family: var(--mono); font-size: 12px; color: var(--teal); background: rgba(21,255,194,0.06); padding: 1px 6px; border-radius: 4px; }
+
+    .chip {
+      display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 600;
+      color: var(--gold); background: rgba(240,192,64,0.08);
+      border: 1px solid rgba(240,192,64,0.2); border-radius: 6px;
+      padding: 2px 8px; margin-right: 6px;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin-top: 8px; }
+    th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--divider); }
+    th { color: rgba(150,180,210,0.6); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; font-size: 10px; }
+    td { color: var(--text-secondary); }
+    td.val { color: var(--teal); font-weight: 600; text-align: right; white-space: nowrap; }
+
+    .loading { color: var(--text-muted); font-family: var(--mono); font-size: 12px; font-style: italic; }
+    .err { color: var(--red); font-family: var(--mono); font-size: 12px; }
+
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 26px !important; }
+      .glass { padding: 14px !important; }
+      p, li { font-size: 13px; }
+    }
+  </style>
+</head>
+<body class="h-full min-h-screen">
+
+<div class="max-w-4xl mx-auto px-4 py-6">
+
+  <!-- Header -->
+  <header class="mb-6">
+    <div class="flex items-center justify-between mb-4">
+      <a href="/" class="mono text-xs" style="color:var(--text-secondary);">&larr; golf.propsbot.ai</a>
+      <span class="chip">MODEL DOCS</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl mb-2">Predictive Model Methodology</h1>
+    <p class="text-sm" style="color:var(--text-secondary);max-width:42rem;">
+      Full transparency on how PropsBot Golf Intelligence builds matchup win probabilities,
+      scoring props, and confidence scores. Everything below is the actual pipeline — inputs,
+      methods, parameters, and live backtest performance.
+    </p>
+  </header>
+
+  <!-- 1. What we model -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>What we model</h2>
+    <p>
+      We generate probabilistic forecasts for every PGA Tour event. Some outputs are
+      <strong>directly observed</strong> (odds, scores, lines); most are <strong>derived</strong>
+      from a Monte Carlo simulation over player skill distributions.
+    </p>
+    <h3>Derived outputs</h3>
+    <ul>
+      <li><strong>Matchup win probability</strong> — 2-ball and 3-ball head-to-head probabilities (with push/dead-heat handling)</li>
+      <li><strong>Scoring over/unders</strong> — round and tournament totals, birdies, bogeys, eagles</li>
+      <li><strong>Make-cut probability</strong> — simulated through Friday using live-round variance</li>
+      <li><strong>Finishing position</strong> — top-5, top-10, top-20 probabilities from the full sim</li>
+      <li><strong>Outright winner</strong> — win-the-tournament probability from 10k runs</li>
+    </ul>
+    <h3>Observed inputs we surface</h3>
+    <ul>
+      <li>Live odds from DraftKings, FanDuel, BetMGM, Bovada (BDL + The Odds API)</li>
+      <li>Actual strokes-gained splits, live leaderboard, weather observations</li>
+    </ul>
+  </section>
+
+  <!-- 2. Inputs -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>Inputs</h2>
+    <ul>
+      <li><strong>Season SG</strong> — strokes-gained total &amp; categories from DataGolf and PGA Tour season aggregates</li>
+      <li><strong>Live tournament SG</strong> — round-by-round strokes-gained from BallDontLie (BDL)</li>
+      <li><strong>Course fit scores</strong> — per-venue fit model mapping player strengths (SG:OTT, SG:APP, SG:ARG, SG:PUTT, driving distance, accuracy) to course archetype</li>
+      <li><strong>Recent form</strong> — rolling SG trend windows at L5 and L10 events, hot/cold flags</li>
+      <li><strong>Weather</strong> — Open-Meteo hourly wind forecasts aligned to tee times; used to widen variance and apply directional penalties</li>
+      <li><strong>Book odds</strong> — BallDontLie (BDL) + The Odds API, consensus and best-price per market</li>
+    </ul>
+  </section>
+
+  <!-- 3. Methods -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>Methods</h2>
+
+    <h3>(a) Monte Carlo matchup simulation</h3>
+    <p>
+      We run <strong>10,000 simulated tournaments</strong> per event. Each player's per-round
+      score is drawn from a Normal distribution centered on their blended SG projection and
+      widened by per-player variance estimated from history. Scores are <strong>integer-rounded</strong>
+      (golf is a discrete game) and all players in a group share a <strong>round shock</strong>
+      term so matchup correlation is preserved on bad-weather days.
+    </p>
+
+    <h3>(b) Bayesian confidence score</h3>
+    <p>
+      Each projection blends a <strong>season prior</strong> (long-run SG baseline) with a
+      <strong>recent-course-type likelihood</strong> (how the player has fared at similar
+      venues). The posterior width determines the confidence score — tight posterior =
+      high confidence, wide posterior = low confidence.
+    </p>
+
+    <h3>(c) Dead-heat EV (3-ball) &amp; push EV (2-ball)</h3>
+    <p>
+      3-ball markets settle with <strong>dead-heat rules</strong> on ties, so our EV calculation
+      weights a tied outcome at 1/N payout. 2-ball markets typically <strong>push</strong> on ties
+      (stake returned) — we account for the tie probability explicitly from the sim instead of
+      rolling it into win probability.
+    </p>
+
+    <h3>(d) Anomaly detection</h3>
+    <p>
+      For every market, we compute a <strong>z-score</strong> of the book's implied probability
+      against the model's probability across the field. High-|z| entries surface as
+      Edge Finder picks; low-|z| entries are labeled "book-aligned."
+    </p>
+  </section>
+
+  <!-- 4. Tunable parameters -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>Tunable parameters</h2>
+    <p>
+      These are the actual values driving the current model, fetched live from
+      <code>/model_params.json</code>. They are overwritten weekly by the backtest job
+      when calibration drifts.
+    </p>
+    <div id="paramsTable">
+      <p class="loading">Loading live model parameters...</p>
+    </div>
+  </section>
+
+  <!-- 5. Performance -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>Performance (last backtest)</h2>
+    <p>
+      Live backtest output from <code>/backtest-report.json</code>. Runs every Monday at 2AM ET
+      against all completed tournament weeks in history. Brier score below 0.25 means the
+      model beats the 50/50 coin-flip benchmark on matchup markets.
+    </p>
+    <div id="backtestSummary">
+      <p class="loading">Loading backtest report...</p>
+    </div>
+    <div id="calibrationTable"></div>
+  </section>
+
+  <!-- 6. What we don't do -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>What we don't do</h2>
+    <ul>
+      <li><strong>No shot-level data</strong> — we work with round-level strokes gained, not per-shot tracking</li>
+      <li><strong>No sub-60-minute live scoring granularity</strong> — ESPN leaderboard pulls every 60s; we don't model intra-hole swings</li>
+      <li><strong>No DFS ownership projections</strong> — we're a betting model, not a DFS tool</li>
+      <li><strong>Course fit is semi-manual</strong> — venue archetype tags are curated, not fully learned; new/unique courses have wider fit-score uncertainty</li>
+      <li><strong>No injury/WD prediction</strong> — we react to field-change news, we don't forecast it</li>
+    </ul>
+  </section>
+
+  <!-- 7. Update cadence -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>Update cadence</h2>
+    <h3>Scraper (weekly-scrape.yml)</h3>
+    <ul>
+      <li><strong>Mon 1AM ET</strong> — weekly reset, next tournament detection, field + early odds</li>
+      <li><strong>Tue 1AM ET</strong> — BallDontLie catch-up, previous tournament data settled</li>
+      <li><strong>Wed (5 windows)</strong> — 5AM, 11AM, 2PM, 7PM, 10PM ET (opening lines &rarr; sharp action)</li>
+      <li><strong>Thu–Sun, 7AM–7PM ET hourly</strong> — tournament-week live updates (odds, confidence, props, analytics)</li>
+    </ul>
+    <h3>Backtest (weekly-backtest.yml)</h3>
+    <ul>
+      <li><strong>Mon 2AM ET</strong> — re-fit tunable parameters against the full history, overwrite <code>model_params.json</code> if calibration drifted</li>
+    </ul>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-4 mt-8 text-center">
+    <p class="text-xs mono" style="color:rgba(150,180,210,0.5);">
+      <a href="/">golf.propsbot.ai</a>
+      <span style="margin:0 8px;color:var(--text-muted);">&middot;</span>
+      <a href="https://propsbot.ai" target="_blank" rel="noopener">propsbot.ai</a>
+      <span style="margin:0 8px;color:var(--text-muted);">&middot;</span>
+      Educational tool only &middot; Not betting advice
+    </p>
+  </footer>
+
+</div>
+
+<script>
+  // ---------- Parameter descriptions ----------
+  var PARAM_DOCS = {
+    baseStd:          'Base per-round score standard deviation before player-specific and weather adjustments.',
+    roundShockStd:    'Shared round-level shock term applied to all players in a group — preserves correlation on weather days.',
+    sgBlendSeason:    'Weight on season-long strokes-gained when blending the projection prior.',
+    sgBlendLive:      'Weight on live-tournament strokes-gained when blending the projection prior.',
+    fitBoostScale:    'Maximum boost magnitude (in score units) applied by the course-fit score at the extremes.',
+    parBaseline:      'Default par used as the scoring baseline when a course par is not available.',
+    hotFormBoost:     'Per-round score boost applied to players flagged as "hot form" (rolling SG trending up).',
+    coldFormPenalty: 'Per-round score penalty applied to players flagged as "cold form" (rolling SG trending down).',
+    windPenaltySlope: 'Score penalty per mph of wind above the threshold — hurts the field uniformly.',
+    windStdSlope:    'Extra standard deviation per mph of wind above the threshold — widens variance.',
+    windThresholdMph:'Wind speed (mph) at which the penalty and extra variance kick in.',
+    lastTrainedAt:   'Timestamp of the last successful backtest re-fit.',
+    lastTrainedBrier:'Brier score the model achieved on the last re-fit run.',
+    lastTrainedWeeks:'Number of completed tournament weeks used in the last re-fit.'
+  };
+
+  function fmt(v) {
+    if (v === null || v === undefined) return '<span style="color:var(--text-muted);">null</span>';
+    if (typeof v === 'number') return Math.round(v * 10000) / 10000;
+    return String(v);
+  }
+
+  function renderParams(p) {
+    var el = document.getElementById('paramsTable');
+    var keys = Object.keys(p).filter(function(k){ return k[0] !== '_'; });
+    var rows = keys.map(function(k){
+      var doc = PARAM_DOCS[k] || '';
+      return '<tr><td class="mono" style="color:var(--gold);">' + k + '</td>'
+           + '<td>' + doc + '</td>'
+           + '<td class="val">' + fmt(p[k]) + '</td></tr>';
+    }).join('');
+    el.innerHTML = '<table><thead><tr><th>Parameter</th><th>What it does</th><th style="text-align:right;">Value</th></tr></thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  function renderBacktest(b) {
+    var el = document.getElementById('backtestSummary');
+    var calEl = document.getElementById('calibrationTable');
+    var rows = [];
+    function row(label, value) {
+      rows.push('<tr><td>' + label + '</td><td class="val">' + (value === undefined || value === null ? '—' : value) + '</td></tr>');
+    }
+    row('Ran at', b.ranAt || '—');
+    row('Weeks available', b.weeksAvailable);
+    if (b.status && b.status !== 'ok') {
+      row('Status', b.status);
+    }
+    row('Scored pairs', b.pairs);
+    row('Brier score', typeof b.brierScore === 'number' ? b.brierScore.toFixed(4) : undefined);
+    row('Mean predicted', typeof b.meanPredicted === 'number' ? b.meanPredicted.toFixed(4) : undefined);
+    row('Mean actual', typeof b.meanActual === 'number' ? b.meanActual.toFixed(4) : undefined);
+    row('Calibration drift', typeof b.calibrationDrift === 'number' ? b.calibrationDrift.toFixed(4) : undefined);
+    el.innerHTML = '<table><tbody>' + rows.join('') + '</tbody></table>';
+
+    if (Array.isArray(b.calibrationBins) && b.calibrationBins.length) {
+      var cr = b.calibrationBins.map(function(bin){
+        return '<tr>'
+          + '<td class="mono">' + (bin.bin || bin.range || '—') + '</td>'
+          + '<td class="val">' + (bin.n != null ? bin.n : '—') + '</td>'
+          + '<td class="val">' + (typeof bin.predicted === 'number' ? bin.predicted.toFixed(3) : '—') + '</td>'
+          + '<td class="val">' + (typeof bin.actual === 'number' ? bin.actual.toFixed(3) : '—') + '</td>'
+          + '</tr>';
+      }).join('');
+      calEl.innerHTML = '<h3 style="margin-top:16px;">Calibration bins</h3>'
+        + '<table><thead><tr><th>Bin</th><th style="text-align:right;">N</th><th style="text-align:right;">Predicted</th><th style="text-align:right;">Actual</th></tr></thead><tbody>'
+        + cr + '</tbody></table>';
+    } else {
+      calEl.innerHTML = '';
+    }
+  }
+
+  function fail(id, msg) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = '<p class="err">' + msg + '</p>';
+  }
+
+  // ---------- Fetch live JSON ----------
+  fetch('/model_params.json', { cache: 'no-store' })
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(renderParams)
+    .catch(function(e){ fail('paramsTable', 'Could not load model_params.json: ' + e.message); });
+
+  fetch('/backtest-report.json', { cache: 'no-store' })
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(renderBacktest)
+    .catch(function(e){ fail('backtestSummary', 'Could not load backtest-report.json: ' + e.message); });
+</script>
+
+</body>
+</html>
