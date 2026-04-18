@@ -2870,6 +2870,181 @@ def extract_stat_prop_lines(bdl_props_raw):
 #    mispriced props in low-frequency markets.
 # ============================================================
 
+def _ols_normal_equations(X, y):
+    """Solve ordinary least squares beta = (X'X)^-1 X'y by hand.
+
+    Pure-Python 2x2 up to NxN Gauss-Jordan. Designed for small feature
+    counts (we run with 5 SG components + intercept = 6 coefficients).
+    Returns the coefficient vector, or None if the system is singular.
+    """
+    n_rows = len(X)
+    if n_rows == 0:
+        return None
+    k = len(X[0])
+    # Build augmented normal matrix [X'X | X'y]
+    xtx = [[0.0] * k for _ in range(k)]
+    xty = [0.0] * k
+    for i in range(n_rows):
+        xi = X[i]
+        yi = y[i]
+        for a in range(k):
+            xty[a] += xi[a] * yi
+            for b in range(k):
+                xtx[a][b] += xi[a] * xi[b]
+    # Ridge-style stabilizer — tiny diagonal to avoid singularity on
+    # near-collinear SG columns in small samples.
+    for a in range(k):
+        xtx[a][a] += 1e-6
+    # Gauss-Jordan elimination on [xtx | xty]
+    aug = [row + [xty[i]] for i, row in enumerate(xtx)]
+    for c in range(k):
+        # pivot: largest absolute value in column c at or below row c
+        pivot = c
+        for r in range(c + 1, k):
+            if abs(aug[r][c]) > abs(aug[pivot][c]):
+                pivot = r
+        if abs(aug[pivot][c]) < 1e-12:
+            return None
+        aug[c], aug[pivot] = aug[pivot], aug[c]
+        # normalize pivot row
+        pv = aug[c][c]
+        for j in range(c, k + 1):
+            aug[c][j] /= pv
+        # eliminate other rows
+        for r in range(k):
+            if r == c:
+                continue
+            factor = aug[r][c]
+            if factor == 0:
+                continue
+            for j in range(c, k + 1):
+                aug[r][j] -= factor * aug[c][j]
+    return [aug[i][k] for i in range(k)]
+
+
+def compute_course_fit_v2(players, history_dir, course_key, min_events=5, max_weeks=60):
+    """Data-driven course-fit score from regression on historical finishes.
+
+    Walks history snapshots for the given course_key, gathers the
+    leaderboard finish position + SG components for players at each
+    event, regresses inverse-finish on (SG_OTT, SG_APP, SG_ARG, SG_PUTT,
+    SG_TOTAL) via OLS normal equations, and predicts each current
+    player's fit on a 0-100 scale.
+
+    Returns a dict {normalized_name: fit_score_0_to_100} — empty if
+    insufficient history (<min_events distinct completed events at this
+    course). Does not touch the hardcoded v1 courseFit.
+    """
+    if not course_key or not os.path.isdir(history_dir):
+        return {}, 0
+    files = sorted(
+        [f for f in os.listdir(history_dir) if f.endswith(".json")],
+        reverse=True,
+    )[:max_weeks]
+
+    # Collect one record per (event_date, player) — use the LATEST snapshot
+    # per event since it has the most finish info.
+    # event_key = (event_name, start_date) to dedupe mid-event snapshots.
+    per_event_best = {}  # event_key -> (snapshot_date, snap dict)
+    for fname in files:
+        try:
+            with open(os.path.join(history_dir, fname), encoding="utf-8") as f:
+                snap = json.load(f)
+        except (OSError, json.JSONDecodeError):
+            continue
+        ce = snap.get("currentEvent") or {}
+        ename = ce.get("name") or ""
+        course = ce.get("course") or ""
+        ck = match_venue_to_course(course, ename)
+        if ck != course_key:
+            continue
+        lb = ce.get("leaderboard") or []
+        # Require a completed-ish event: at least 5 players with round3>0
+        finished = sum(1 for e in lb if (e.get("round3") or 0) > 0)
+        if finished < 5:
+            continue
+        evt_key = (ename, ce.get("startDate") or "")
+        prior = per_event_best.get(evt_key)
+        if (prior is None) or (fname > prior[0]):
+            per_event_best[evt_key] = (fname, snap)
+
+    events = list(per_event_best.values())
+    if len(events) < min_events:
+        return {}, len(events)
+
+    # Build training rows: features = [1, sgOtt, sgApp, sgArg, sgPutt, sgTotal]
+    # target = -finish_position (higher = better, so positive regression coefs
+    # on "good" SG make sense). Normalize position within event to [−1, 0]
+    # to account for varying field sizes.
+    X, y = [], []
+    for _, snap in events:
+        lb = snap.get("currentEvent", {}).get("leaderboard") or []
+        snap_players = snap.get("players") or []
+        sg_by_name = {
+            normalize_name(p.get("name", "")): p for p in snap_players
+        }
+        # Sort leaderboard by totalStrokes asc for finish position.
+        ranked = [e for e in lb if (e.get("totalStrokes") or 0) > 0]
+        ranked.sort(key=lambda e: e.get("totalStrokes") or 999)
+        field = max(len(ranked), 1)
+        for pos, entry in enumerate(ranked, start=1):
+            name_lc = normalize_name(entry.get("name", ""))
+            pd = sg_by_name.get(name_lc)
+            if not pd:
+                continue
+            sg_ott = pd.get("sgOtt")
+            sg_app = pd.get("sgApp")
+            sg_arg = pd.get("sgArg")
+            sg_putt = pd.get("sgPutt")
+            sg_tot = pd.get("sgTotal")
+            feats = [sg_ott, sg_app, sg_arg, sg_putt, sg_tot]
+            if not all(isinstance(v, (int, float)) for v in feats):
+                continue
+            # Normalized "goodness" target in [-1, 0]: 1st place -> 0, last -> -1.
+            target = -(pos - 1) / field
+            X.append([1.0] + [float(v) for v in feats])
+            y.append(target)
+
+    if len(X) < 20:
+        # Not enough rows for a stable fit even if event-count passes.
+        return {}, len(events)
+
+    beta = _ols_normal_equations(X, y)
+    if beta is None:
+        return {}, len(events)
+
+    # Predict on current players, then rescale predicted range to 0-100.
+    preds = {}
+    for p in players:
+        feats = [
+            p.get("sgOtt"),
+            p.get("sgApp"),
+            p.get("sgArg"),
+            p.get("sgPutt"),
+            p.get("sgTotal"),
+        ]
+        if not all(isinstance(v, (int, float)) for v in feats):
+            continue
+        x = [1.0] + [float(v) for v in feats]
+        yhat = sum(b * xi for b, xi in zip(beta, x))
+        preds[normalize_name(p.get("name", ""))] = yhat
+
+    if not preds:
+        return {}, len(events)
+
+    lo = min(preds.values())
+    hi = max(preds.values())
+    span = hi - lo if hi > lo else 1.0
+    scaled = {}
+    for name_lc, yhat in preds.items():
+        # Map worst predicted to 50, best to 95 (keep on the courseFit scale,
+        # which v1 uses 60-100). Intentionally compressed since the model
+        # has thin history early on.
+        score = 50.0 + 45.0 * (yhat - lo) / span
+        scaled[name_lc] = round(score, 1)
+    return scaled, len(events)
+
+
 def _compute_player_variance(history_dir, max_weeks=20, min_rounds=5):
     """Compute per-player round-score stddev from history.
 
@@ -4553,6 +4728,40 @@ def run_pipeline():
         if attached:
             print(f"  Per-player variance: attached stddev to {attached} players (from history)")
 
+    # ---- COURSE FIT v2 (regression scaffolding, inactive in predict) ----
+    # Build data-driven fit scores from historical SG -> finish regression.
+    # If the course has <5 completed events in archive we skip gracefully.
+    v2_coverage = 0.0
+    v2_attached = 0
+    if resolved_course:
+        v2_map, v2_events = compute_course_fit_v2(
+            output["players"], history_dir, resolved_course
+        )
+        if v2_map:
+            for p in output["players"]:
+                score = v2_map.get(normalize_name(p.get("name", "")))
+                if score is None:
+                    continue
+                fit_v2 = p.get("courseFitV2")
+                if not isinstance(fit_v2, dict):
+                    fit_v2 = {}
+                fit_v2[resolved_course] = score
+                p["courseFitV2"] = fit_v2
+                if score > 0:
+                    v2_attached += 1
+            v2_coverage = round(v2_attached / max(len(output["players"]), 1), 3)
+            print(
+                f"  [COURSE FIT v2] Computed for {v2_attached} players at "
+                f"{resolved_course} from {v2_events} weeks of history"
+            )
+        else:
+            print(
+                f"  [COURSE FIT v2] Skipped {resolved_course}: "
+                f"only {v2_events} completed events in archive (need 5+)"
+            )
+    else:
+        print("  [COURSE FIT v2] Skipped: no resolved course_key for current event")
+
     # ---- DATA QUALITY METADATA ----
     ce = output.get("currentEvent") or {}
     lb = ce.get("leaderboard") or []
@@ -4575,6 +4784,7 @@ def run_pipeline():
             for p in g.get("players", [])
             if isinstance(p.get("ev"), (int, float)) and p["ev"] > 5
         ),
+        "courseFitV2Coverage": v2_coverage,
     }
 
     # ---- WRITE OUTPUT ----
