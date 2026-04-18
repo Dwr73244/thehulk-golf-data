@@ -26,7 +26,17 @@ REPORT_PATH = os.path.join(REPO_ROOT, "backtest-report.json")
 
 
 def load_history(weeks):
-    """Load last N weekly snapshots in reverse chronological order."""
+    """Load last N weekly snapshots in reverse chronological order.
+
+    Skips (with a warning) any file that is:
+      - unparseable JSON / unreadable
+      - flagged `partial` by the scraper
+      - missing the core keys the backtest needs (`currentEvent` +
+        either `threeBalls` or a leaderboard-capable event). Older
+        snapshots predate `threeBalls` and will simply be ignored by
+        `extract_scored_matchups`, but we still load them so trend UI
+        code that shares this loader has the full set.
+    """
     if not os.path.isdir(HISTORY_DIR):
         return []
     files = sorted(
@@ -34,13 +44,31 @@ def load_history(weeks):
         reverse=True,
     )[:weeks]
     out = []
+    skipped = 0
     for fname in files:
+        path = os.path.join(HISTORY_DIR, fname)
         try:
-            with open(os.path.join(HISTORY_DIR, fname), encoding="utf-8") as f:
+            with open(path, encoding="utf-8") as f:
                 snap = json.load(f)
-            out.append({"date": fname[:10], "data": snap})
-        except (OSError, json.JSONDecodeError):
+        except (OSError, json.JSONDecodeError) as e:
+            print(f"[BACKTEST] WARN: skipping unparseable snapshot {fname}: {e}")
+            skipped += 1
             continue
+        if not isinstance(snap, dict):
+            print(f"[BACKTEST] WARN: skipping non-dict snapshot {fname}")
+            skipped += 1
+            continue
+        if snap.get("partial"):
+            print(f"[BACKTEST] WARN: skipping partial snapshot {fname}")
+            skipped += 1
+            continue
+        out.append({
+            "date": fname[:10],
+            "data": snap,
+            "snapshotVersion": snap.get("snapshotVersion"),
+        })
+    if skipped:
+        print(f"[BACKTEST] Skipped {skipped} snapshot(s) due to parse/partial issues")
     return out
 
 
