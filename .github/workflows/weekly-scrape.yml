@@ -13,48 +13,25 @@ on:
     - cron: '0 23 * * 3'   # Wednesday  7PM ET — evening sharp action, books finalize
     - cron: '0 2 * * 4'    # Wednesday 10PM ET (Thu 2AM UTC) — overnight snapshot
 
-    # --- TOURNAMENT WEEK (Thu-Sun): every hour during play ---
+    # --- TOURNAMENT WEEK (Thu-Sun): every 30 min during peak play ---
     # Leaderboard scores update client-side via ESPN every 60s.
-    # This pipeline updates odds, confidence scores, props, and analytics.
-    # Covers 7AM ET through 11PM ET (peak play + evening line moves)
-    - cron: '0 11 * * 4'   # Thursday  7AM ET
-    - cron: '0 12 * * 4'   # Thursday  8AM ET
-    - cron: '0 13 * * 4'   # Thursday  9AM ET
-    - cron: '0 14 * * 4'   # Thursday 10AM ET
-    - cron: '0 15 * * 4'   # Thursday 11AM ET
-    - cron: '0 16 * * 4'   # Thursday 12PM ET
-    - cron: '0 17 * * 4'   # Thursday  1PM ET
-    - cron: '0 18 * * 4'   # Thursday  2PM ET
-    - cron: '0 19 * * 4'   # Thursday  3PM ET
-    - cron: '0 20 * * 4'   # Thursday  4PM ET
-    - cron: '0 21 * * 4'   # Thursday  5PM ET
-    - cron: '0 22 * * 4'   # Thursday  6PM ET
-    - cron: '0 23 * * 4'   # Thursday  7PM ET
-    - cron: '0 2 * * 5'    # Thursday 10PM ET — overnight lines
-
-    - cron: '0 11 * * 5'   # Friday    7AM ET
-    - cron: '0 13 * * 5'   # Friday    9AM ET
-    - cron: '0 15 * * 5'   # Friday   11AM ET
-    - cron: '0 17 * * 5'   # Friday    1PM ET — cut line forming
-    - cron: '0 19 * * 5'   # Friday    3PM ET
-    - cron: '0 21 * * 5'   # Friday    5PM ET — cut confirmed
-    - cron: '0 23 * * 5'   # Friday    7PM ET — post-cut lines
-
-    - cron: '0 11 * * 6'   # Saturday  7AM ET — moving day
-    - cron: '0 13 * * 6'   # Saturday  9AM ET
-    - cron: '0 15 * * 6'   # Saturday 11AM ET
-    - cron: '0 17 * * 6'   # Saturday  1PM ET
-    - cron: '0 19 * * 6'   # Saturday  3PM ET
-    - cron: '0 21 * * 6'   # Saturday  5PM ET
-    - cron: '0 23 * * 6'   # Saturday  7PM ET — Sunday odds set
-
-    - cron: '0 11 * * 0'   # Sunday    7AM ET — final round
-    - cron: '0 13 * * 0'   # Sunday    9AM ET
-    - cron: '0 15 * * 0'   # Sunday   11AM ET
-    - cron: '0 17 * * 0'   # Sunday    1PM ET — leaders on back 9
-    - cron: '0 19 * * 0'   # Sunday    3PM ET
-    - cron: '0 21 * * 0'   # Sunday    5PM ET — champion crowned
-    - cron: '0 23 * * 0'   # Sunday    7PM ET — final update
+    # This pipeline updates odds, confidence scores, props, matchup predictions,
+    # and odds_history.json line snapshots. Cadence closes the freshness gap
+    # vs DataGolf (~5min). See /methodology page for details.
+    # Covers 7AM ET through 7PM ET every 30 min + overnight snapshots.
+    # Thursday (R1)
+    - cron: '0,30 11-22 * * 4'       # Thu 7AM-6:30PM ET every 30 min (24 slots)
+    - cron: '0 23 * * 4'             # Thu 7PM ET
+    - cron: '0 2 * * 5'              # Thu 10PM ET — overnight lines
+    # Friday (R2 / cut day)
+    - cron: '0,30 11-22 * * 5'       # Fri 7AM-6:30PM ET every 30 min (24 slots)
+    - cron: '0 23 * * 5'             # Fri 7PM ET — post-cut lines
+    # Saturday (moving day)
+    - cron: '0,30 13-22 * * 6'       # Sat 9AM-6:30PM ET every 30 min (20 slots)
+    - cron: '0 23 * * 6'             # Sat 7PM ET — Sunday odds set
+    # Sunday (final round)
+    - cron: '0,30 13-22 * * 0'       # Sun 9AM-6:30PM ET every 30 min (20 slots)
+    - cron: '0 23 * * 0'             # Sun 7PM ET — final update
   workflow_dispatch:
   push:
     branches: [main]
@@ -97,6 +74,9 @@ jobs:
       - name: Generate tournament preview pages
         run: python scripts/generate_preview.py
 
+      - name: Generate per-player detail pages
+        run: python scripts/generate_player_pages.py
+
       - name: Copy HTML tool alongside data
         run: |
           mkdir -p docs
@@ -105,11 +85,14 @@ jobs:
           cp methodology.html docs/methodology.html
           cp calculator.html docs/calculator.html
           cp api.html docs/api.html
+          cp line-history.html docs/line-history.html
           cp model_params.json docs/ 2>/dev/null || echo "model_params.json not present, skipping"
           cp backtest-report.json docs/ 2>/dev/null || echo "backtest-report.json not present, skipping"
+          cp odds_history.json docs/ 2>/dev/null || echo "odds_history.json not present, skipping"
           cp robots.txt docs/
           cp sitemap.xml docs/
           cp -r previews docs/
+          cp -r player docs/ 2>/dev/null || echo "player/ not present, skipping"
           echo '{ "headers": [{ "source": "**/*.json", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }] }' > docs/_headers
           echo 'golf.propsbot.ai' > docs/CNAME
 
