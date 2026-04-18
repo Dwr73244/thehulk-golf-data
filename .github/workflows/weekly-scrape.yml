@@ -94,6 +94,9 @@ jobs:
           ls -la golf-data.json
           python scripts/validate_output.py
 
+      - name: Generate tournament preview pages
+        run: python scripts/generate_preview.py
+
       - name: Copy HTML tool alongside data
         run: |
           mkdir -p docs
@@ -106,6 +109,7 @@ jobs:
           cp backtest-report.json docs/ 2>/dev/null || echo "backtest-report.json not present, skipping"
           cp robots.txt docs/
           cp sitemap.xml docs/
+          cp -r previews docs/
           echo '{ "headers": [{ "source": "**/*.json", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }] }' > docs/_headers
           echo 'golf.propsbot.ai' > docs/CNAME
 
