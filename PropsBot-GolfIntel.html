@@ -1701,21 +1701,24 @@
 
     <!-- Results Table -->
     <div class="glass rounded-2xl overflow-hidden">
-      <div class="flex items-center justify-between px-5 py-3 border-b border-white/5">
-        <h3 class="text-sm font-semibold text-white">Value Plays — Sorted by Edge</h3>
+      <div class="flex items-center justify-between px-5 py-3 border-b border-white/5 flex-wrap gap-2">
+        <h3 class="text-sm font-semibold text-white">Value Plays — click a column to sort</h3>
         <span id="edgeFinderCount" class="mono text-xs text-slate-500"></span>
+      </div>
+      <div class="px-5 py-2 border-b border-white/5 bg-white/[0.01]">
+        <p class="text-[10px] text-slate-500"><span class="text-pb-gold">Multi-book shopping:</span> data pipeline only populated DK this week. Other books will return once the scraper refreshes.</p>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-white/5 bg-white/[0.015]">
-              <th class="px-3 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Player</th>
-              <th class="px-3 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Market</th>
-              <th class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Model %</th>
-              <th class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Book %</th>
-              <th class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Edge</th>
-              <th class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Book Odds</th>
-              <th class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Fair Odds</th>
+              <th data-sort-key="playerName" class="px-3 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Player</th>
+              <th data-sort-key="market" class="px-3 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Market</th>
+              <th data-sort-key="modelPct" class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Model %</th>
+              <th data-sort-key="bookPct" class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Book %</th>
+              <th data-sort-key="edge" class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Edge</th>
+              <th data-sort-key="bookOdds" class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Book Odds</th>
+              <th data-sort-key="fairOdds" class="px-3 py-2.5 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Fair Odds</th>
               <th class="px-3 py-2.5 text-center text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Add</th>
             </tr>
           </thead>
@@ -6065,9 +6068,10 @@
     simData.forEach(function(sr) {
       var winOdds = _bestBookOdds(sr.player, book);
       markets.forEach(function(m) {
-        var bookOdds = m.key === 'winner'
-          ? winOdds
-          : _estimateMarketOdds(winOdds, m.key);
+        var isDerived = m.key !== 'winner';
+        var bookOdds = isDerived
+          ? _estimateMarketOdds(winOdds, m.key)
+          : winOdds;
         if (!bookOdds) return;
 
         // Skip obviously stale / placeholder odds (real Make Cut / Top N lines don't go to +10000+)
@@ -6077,7 +6081,15 @@
         var modelPct  = sr.probs[m.key];
         var bookDec   = bookOdds > 0 ? (bookOdds/100+1) : (100/Math.abs(bookOdds)+1);
         var bookPct   = +(1/bookDec*100).toFixed(2);
-        var edge      = +Math.min(999, (modelPct - bookPct) / bookPct * 100).toFixed(1);
+        // Drop rows where book implied prob < 1% — divide-by-near-zero produces garbage +999% edges
+        if (bookPct / 100 < 0.01) return;
+        var rawEdge   = (modelPct - bookPct) / bookPct * 100;
+        // Cap displayed edge at +/-50%; flag clamped rows so the UI can show "50%+" with a tooltip
+        var EDGE_CAP  = 50;
+        var isClamped = Math.abs(rawEdge) > EDGE_CAP;
+        var edge      = isClamped
+          ? (rawEdge > 0 ? EDGE_CAP : -EDGE_CAP)
+          : +rawEdge.toFixed(1);
         if (edge < minEdge) return;
 
         var fairOdds = pctToAmerican(modelPct);
@@ -6089,6 +6101,9 @@
           modelPct:   +modelPct.toFixed(1),
           bookPct:    +bookPct.toFixed(1),
           edge:       edge,
+          rawEdge:    +rawEdge.toFixed(1),
+          isClamped:  isClamped,
+          isDerived:  isDerived,
           bookOdds:   bookOdds,
           fairOdds:   fairOdds,
           confScore:  sr.player.confScore || 0
@@ -6114,13 +6129,29 @@
     }
   }
 
+  // Sort state for Edge Finder table (set by header clicks via delegation)
+  var _edgeSortKey = 'edge';
+  var _edgeSortDir = 'desc';
+
   function _drawEdgeFinder() {
     var rows     = _buildEdgeRows(_edgeFinderCache, _edgeBookFilter, _edgeMarketFilter, _edgeMinEdge);
     var posRows  = rows.filter(function(r){ return r.edge > 0; });
-    var avgEdge  = posRows.length
-      ? (posRows.reduce(function(s,r){return s+r.edge;},0)/posRows.length).toFixed(1)
+    // Avg Edge: compute ONLY over non-clamped rows so the meaningless "510.5%" number is gone
+    var avgPool  = posRows.filter(function(r){ return !r.isClamped; });
+    var avgEdge  = avgPool.length
+      ? (avgPool.reduce(function(s,r){return s+r.edge;},0)/avgPool.length).toFixed(1)
       : '0.0';
-    var topBet   = rows.length ? rows[0] : null;
+
+    // Apply user-selected sort (default edge desc preserves prior behavior)
+    var sortedRows = rows.slice();
+    sortedRows.sort(function(a,b) {
+      var av = a[_edgeSortKey], bv = b[_edgeSortKey];
+      if (typeof av === 'string') { av = av.toLowerCase(); bv = (bv||'').toLowerCase(); }
+      if (av < bv) return _edgeSortDir === 'asc' ? -1 : 1;
+      if (av > bv) return _edgeSortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+    var topBet = sortedRows.length ? sortedRows[0] : null;
 
     // Summary cards
     var sumEl = el('edgeSummary');
@@ -6132,7 +6163,7 @@
         '</div>' +
         '<div class="glass rounded-xl p-3 text-center">' +
           '<div class="mono text-2xl font-bold text-pb-gold">' + avgEdge + '%</div>' +
-          '<div class="text-xs text-slate-400 mt-1">Avg Edge</div>' +
+          '<div class="text-xs text-slate-400 mt-1">Avg Edge <span class="text-slate-600">(non-clamped)</span></div>' +
         '</div>' +
         '<div class="glass rounded-xl p-3 text-center">' +
           '<div class="mono text-2xl font-bold text-slate-200">' + _buildEdgePool().length + '</div>' +
@@ -6141,10 +6172,26 @@
         (topBet
           ? '<div class="glass rounded-xl p-3 text-center">' +
               '<div class="mono text-sm font-bold text-white leading-tight">' + topBet.playerName + '</div>' +
-              '<div class="mono text-xs font-semibold mt-0.5" style="color:var(--teal)">' + topBet.market + ' · +' + topBet.edge + '% edge</div>' +
+              '<div class="mono text-xs font-semibold mt-0.5" style="color:var(--teal)">' + topBet.market + ' · ' + (topBet.isClamped ? '50%+' : ('+' + topBet.edge + '%')) + ' edge</div>' +
               '<div class="text-[10px] text-slate-500 mt-0.5">Top Value Bet</div>' +
             '</div>'
           : '<div class="glass rounded-xl p-3 text-center"><div class="text-xs text-slate-500">No top bet</div></div>');
+    }
+
+    // Update sort indicator arrows on headers
+    var edgeTabEl = document.getElementById('tab-edgefinder');
+    if (edgeTabEl) {
+      var ths = edgeTabEl.querySelectorAll('thead th[data-sort-key]');
+      ths.forEach(function(th) {
+        var baseLabel = th.getAttribute('data-label');
+        if (!baseLabel) {
+          baseLabel = th.textContent.replace(/[▲▼\s]+$/,'').trim();
+          th.setAttribute('data-label', baseLabel);
+        }
+        th.textContent = th.getAttribute('data-sort-key') === _edgeSortKey
+          ? baseLabel + (_edgeSortDir === 'asc' ? ' ▲' : ' ▼')
+          : baseLabel;
+      });
     }
 
     // Table
@@ -6152,14 +6199,14 @@
     if (!tbody) return;
     tbody.innerHTML = '';
 
-    if (rows.length === 0) {
+    if (sortedRows.length === 0) {
       tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-8 text-center text-slate-500 text-sm">No discrepancies match your current filters. Try lowering the minimum edge slider or selecting "All Markets".</td></tr>';
-      var cEl = el('edgeFinderCount');
-      if (cEl) cEl.textContent = '0 results';
+      var cEl0 = el('edgeFinderCount');
+      if (cEl0) cEl0.textContent = '0 results';
       return;
     }
 
-    rows.slice(0,60).forEach(function(r) {
+    sortedRows.slice(0,60).forEach(function(r) {
       var tr = document.createElement('tr');
       tr.className = 'hover:bg-white/[0.02] transition-colors border-b border-white/[0.03]';
       var edgeColor = r.edge >= 25  ? 'var(--teal)'
@@ -6168,18 +6215,25 @@
                     : 'var(--red)';
       var bookStr  = r.bookOdds > 0  ? '+'+r.bookOdds  : ''+r.bookOdds;
       var fairStr  = r.fairOdds > 0  ? '+'+r.fairOdds  : ''+r.fairOdds;
-      var edgeStr  = (r.edge > 0 ? '+' : '') + r.edge + '%';
+      var edgeStr  = r.isClamped
+        ? (r.edge > 0 ? '50%+' : '-50%+')
+        : ((r.edge > 0 ? '+' : '') + r.edge + '%');
+      var edgeTitle = r.isClamped ? ' title="Edge unusually large — may be stale or derived line"' : '';
       var bgRow    = r.edge >= 20
         ? 'background:rgba(21,255,194,0.03)'
         : r.edge < 0 ? 'background:rgba(255,21,82,0.02)' : '';
 
+      // Derived markets (Top 5 / Top 10 / Top 20 / Make Cut) are synthesized from win odds
+      var marketPrefix = r.isDerived ? '~' : '';
+      var marketTdTitle = r.isDerived ? ' title="Line estimated from win odds — not a direct book price"' : '';
+
       tr.setAttribute('style', bgRow);
       tr.innerHTML =
         '<td class="px-3 py-2.5 text-white font-medium text-sm">' + r.playerName + '</td>' +
-        '<td class="px-3 py-2.5"><span class="mono text-[10px] font-bold px-2 py-0.5 rounded" style="background:rgba(255,255,255,0.05);color:' + r.marketColor + '">' + r.market + '</span></td>' +
+        '<td class="px-3 py-2.5"' + marketTdTitle + '><span class="mono text-[10px] font-bold px-2 py-0.5 rounded" style="background:rgba(255,255,255,0.05);color:' + r.marketColor + '">' + marketPrefix + r.market + '</span></td>' +
         '<td class="px-3 py-2.5 mono text-right text-sm text-slate-300">' + r.modelPct + '%</td>' +
         '<td class="px-3 py-2.5 mono text-right text-sm text-slate-500">' + r.bookPct + '%</td>' +
-        '<td class="px-3 py-2.5 mono text-right font-bold text-sm" style="color:' + edgeColor + '">' + edgeStr + '</td>' +
+        '<td class="px-3 py-2.5 mono text-right font-bold text-sm" style="color:' + edgeColor + '"' + edgeTitle + '>' + edgeStr + '</td>' +
         '<td class="px-3 py-2.5 mono text-right text-pb-gold font-semibold text-sm">' + bookStr + '</td>' +
         '<td class="px-3 py-2.5 mono text-right text-slate-500 text-sm">' + fairStr + '</td>' +
         '<td class="px-3 py-2.5 text-center">' +
@@ -6193,7 +6247,7 @@
     });
 
     var cEl = el('edgeFinderCount');
-    if (cEl) cEl.textContent = Math.min(rows.length,60) + ' of ' + rows.length + ' results';
+    if (cEl) cEl.textContent = Math.min(sortedRows.length,60) + ' of ' + sortedRows.length + ' results';
   }
 
   function initEdgeFinder() {
@@ -6225,6 +6279,26 @@
       if (lbl) lbl.textContent = (_edgeMinEdge > 0 ? '+' : '') + _edgeMinEdge + '%';
       if (_edgeFinderCache) _drawEdgeFinder();
     });
+    // Sortable column headers — delegated click handler on the thead
+    var edgeTab = document.getElementById('tab-edgefinder');
+    if (edgeTab) {
+      var thead = edgeTab.querySelector('thead');
+      if (thead) {
+        thead.addEventListener('click', function(ev) {
+          var th = ev.target.closest && ev.target.closest('th[data-sort-key]');
+          if (!th) return;
+          var key = th.getAttribute('data-sort-key');
+          if (_edgeSortKey === key) {
+            _edgeSortDir = _edgeSortDir === 'asc' ? 'desc' : 'asc';
+          } else {
+            _edgeSortKey = key;
+            // Numeric columns default to desc (biggest first); string columns default to asc
+            _edgeSortDir = (key === 'playerName' || key === 'market') ? 'asc' : 'desc';
+          }
+          if (_edgeFinderCache) _drawEdgeFinder();
+        });
+      }
+    }
   }
 
   // Try to load external data, then initialize
