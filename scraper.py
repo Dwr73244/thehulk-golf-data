@@ -1113,7 +1113,12 @@ def bdl_get_matchup_odds(tournament_id):
         out = []
         for g in groups.values():
             players_list = list(g["players"].values())
-            if len(players_list) >= 3:
+            if len(players_list) == 2:
+                g["type"] = "2ball"
+                g["players"] = players_list
+                out.append(g)
+            elif len(players_list) >= 3:
+                g["type"] = "3ball"
                 g["players"] = players_list[:3]
                 out.append(g)
         if out:
@@ -1121,10 +1126,14 @@ def bdl_get_matchup_odds(tournament_id):
     return []
 
 
-def synthesize_threeballs_from_tee_times(tee_times, current_round=None):
-    """When books haven't posted 3-ball lines yet, build synthetic groups
-    from BDL tee-time data so the model still runs. Players sharing the
-    same tee_time + round + starting_hole form a group."""
+def synthesize_matchups_from_tee_times(tee_times, current_round=None):
+    """Build synthetic 2-ball or 3-ball groups from tee-time data.
+
+    Signature events (RBC Heritage, Genesis, Memorial, etc.) have 72-player
+    no-cut fields and play in 2-ball pairings. Regular events play 3-balls
+    Thu/Fri then 2-balls Sat/Sun after the cut.
+
+    Returns groups with type="2ball" or "3ball" and synthetic=True."""
     if not tee_times:
         return []
     from collections import defaultdict
@@ -1140,14 +1149,19 @@ def synthesize_threeballs_from_tee_times(tee_times, current_round=None):
 
     groups = []
     for (rnd, tt, hole), names in buckets.items():
-        if len(names) != 3:
-            continue  # ignore 2-balls and anomalies
+        if len(names) == 2:
+            group_type = "2ball"
+        elif len(names) == 3:
+            group_type = "3ball"
+        else:
+            continue
         groups.append({
             "eventId": f"synth-r{rnd}-{tt}-{hole}",
             "commence": tt,
             "round": rnd,
+            "type": group_type,
             "players": [{"name": n, "odds": []} for n in names],
-            "synthetic": True,  # flag — no book odds, model-only
+            "synthetic": True,
         })
     return groups
 
@@ -1166,19 +1180,21 @@ def _fetch_odds_api_once(url):
         return None, None
 
 
-def scrape_threeball_odds():
-    """Fetch 3-ball matchup odds from The Odds API.
+def scrape_matchup_odds():
+    """Fetch 2-ball + 3-ball matchup odds from The Odds API.
 
-    Strategy:
-      1. GET /v4/sports to discover active golf sport keys (avoids hardcoding)
-      2. For each golf key, try the 3_balls market. 422 = not supported, skip.
-      3. Return parsed groups. Empty list is fine — 3-balls only post Wed–Fri.
+    Markets:
+      * 3_balls / h2h_3_way  = 3-player groups (regular PGA events Thu/Fri)
+      * h2h                  = 2-player groups (signature events + Sat/Sun after cut)
+
+    Strategy: discover active golf keys dynamically, try each market type,
+    skip 422 (market not supported).
     """
     if not ODDS_API_KEY:
-        print("[3BALL] Skipping — no ODDS_API_KEY")
+        print("[MATCHUP] Skipping — no ODDS_API_KEY")
         return []
 
-    print("[3BALL] Discovering active golf sport keys from The Odds API...")
+    print("[MATCHUP] Discovering active golf sport keys from The Odds API...")
     sports_url = f"https://api.the-odds-api.com/v4/sports?apiKey={ODDS_API_KEY}&all=false"
     sports_data, _ = _fetch_odds_api_once(sports_url)
     if not sports_data:
@@ -1188,61 +1204,81 @@ def scrape_threeball_odds():
     golf_keys = [s.get("key") for s in sports_data
                  if isinstance(s, dict) and str(s.get("group", "")).lower() == "golf"
                  and s.get("active")]
-    # Winner-only keys only support 'outrights' — exclude them for 3-ball lookup
+    # Winner-only keys only support 'outrights' — exclude them for matchup lookup
     golf_keys = [k for k in golf_keys if k and not k.endswith("_winner")]
     if not golf_keys:
-        print("  No non-winner golf keys active (3-balls only post during event weeks)")
+        print("  No non-winner golf keys active (matchups only post during event weeks)")
         return []
     print(f"  Candidate golf keys: {golf_keys}")
 
+    MATCHUP_MARKETS = ("3_balls", "h2h_3_way", "h2h")  # last one = 2-ball
     data = None
     sport_key_used = None
     for sport_key in golf_keys:
         url = (
             f"https://api.the-odds-api.com/v4/sports/{sport_key}/odds"
-            f"?apiKey={ODDS_API_KEY}&regions=us&markets=3_balls&oddsFormat=american"
+            f"?apiKey={ODDS_API_KEY}&regions=us&markets={','.join(MATCHUP_MARKETS)}&oddsFormat=american"
         )
         result, status = _fetch_odds_api_once(url)
         if status == 422:
-            # Market not supported for this sport — try the h2h_3_way alias once
-            alt_url = url.replace("markets=3_balls", "markets=h2h_3_way")
-            result, status = _fetch_odds_api_once(alt_url)
-            if status == 422:
-                print(f"  {sport_key}: no 3-ball market supported")
+            # Try each market individually to see which are supported
+            supported = []
+            for m in MATCHUP_MARKETS:
+                single_url = url.split("&markets=")[0] + f"&markets={m}" + "&oddsFormat=american"
+                single_url = (
+                    f"https://api.the-odds-api.com/v4/sports/{sport_key}/odds"
+                    f"?apiKey={ODDS_API_KEY}&regions=us&markets={m}&oddsFormat=american"
+                )
+                r, s = _fetch_odds_api_once(single_url)
+                if s != 422 and isinstance(r, list):
+                    supported.append((m, r))
+            if not supported:
+                print(f"  {sport_key}: no matchup markets supported")
                 continue
+            # Combine events across supported markets
+            merged = {}
+            for _m, evs in supported:
+                for ev in evs:
+                    merged[ev.get("id")] = ev
+            result = list(merged.values())
         if isinstance(result, list) and result:
-            has_3ball = any(
-                any(m.get("key") in ("3_balls", "h2h_3_way")
+            has_matchup = any(
+                any(m.get("key") in MATCHUP_MARKETS
                     for bk in ev.get("bookmakers", []) for m in bk.get("markets", []))
                 for ev in result
             )
-            if has_3ball:
+            if has_matchup:
                 data = result
                 sport_key_used = sport_key
                 break
             else:
-                print(f"  {sport_key}: endpoint OK but no 3-ball markets posted yet")
+                print(f"  {sport_key}: endpoint OK but no matchup markets posted yet")
 
     if not data:
-        print("  No 3-ball markets posted right now (books typically open lines Wed evening)")
+        print("  No matchup markets posted right now (books typically open lines Wed evening)")
         return []
-    print(f"  3-ball market live on sport key: {sport_key_used} ({len(data)} events)")
+    print(f"  Matchup market live on sport key: {sport_key_used} ({len(data)} events)")
 
     groups = []
     for event in data:
-        # Collect odds per player across all books
-        players_map = {}  # canonical_name -> {name, odds: [{book, american}]}
+        # Collect odds per player across all books, and track matchup type
+        players_map = {}
+        matchup_type = None
         for bk in event.get("bookmakers", []):
             book_short = THREEBALL_BOOK_MAP.get(bk.get("key", ""), bk.get("key", "")[:3])
             for market in bk.get("markets", []):
-                if market.get("key") not in ("3_balls", "h2h_3_way"):
+                mkey = market.get("key")
+                if mkey not in MATCHUP_MARKETS:
                     continue
+                if mkey == "h2h":
+                    matchup_type = "2ball"
+                elif mkey in ("3_balls", "h2h_3_way"):
+                    matchup_type = "3ball"
                 for outcome in market.get("outcomes", []):
                     name = outcome.get("name", "").strip()
                     price = outcome.get("price")
                     if not name or price is None:
                         continue
-                    # Skip "tie" selections from 3-way+tie books — we handle ties in the model
                     if name.lower() in ("tie", "the field", "draw"):
                         continue
                     key = normalize_name(name)
@@ -1250,22 +1286,32 @@ def scrape_threeball_odds():
                         players_map[key] = {"name": name, "odds": []}
                     players_map[key]["odds"].append({"book": book_short, "american": int(price)})
 
-        if len(players_map) < 3:
-            continue  # Not a valid 3-ball
+        # Determine valid group: 2-ball or 3-ball
+        pcount = len(players_map)
+        if pcount == 2:
+            final_type = matchup_type or "2ball"
+        elif pcount >= 3:
+            final_type = matchup_type or "3ball"
+        else:
+            continue  # 1-player "matchup" is malformed
 
-        # Round inference from commence_time (day of week + hour)
         commence = event.get("commence_time", "")
         round_num = _infer_round_from_commence(commence)
+        cap = 2 if final_type == "2ball" else 3
 
         group = {
             "eventId": event.get("id", ""),
             "commence": commence,
             "round": round_num,
-            "players": list(players_map.values())[:3],  # safety cap
+            "type": final_type,
+            "players": list(players_map.values())[:cap],
         }
         groups.append(group)
 
-    print(f"  Parsed {len(groups)} 3-ball groups")
+    type_counts = {}
+    for g in groups:
+        type_counts[g["type"]] = type_counts.get(g["type"], 0) + 1
+    print(f"  Parsed {len(groups)} matchup groups: {type_counts}")
     return groups
 
 
@@ -1302,9 +1348,13 @@ def _prob_to_american(p):
     return int(round(100 * (1 - p) / p))
 
 
-def predict_threeballs(threeballs, players, course_key=None, weather=None,
-                       tournament_sg=None, sims=10000):
-    """Monte Carlo model for 3-ball win probability under dead-heat rules.
+def predict_matchups(matchups, players, course_key=None, weather=None,
+                     tournament_sg=None, sims=10000):
+    """Monte Carlo model for matchup win probability, handles 2-ball AND 3-ball.
+
+    Tie semantics differ by market:
+      * 2-ball H2H: tie = PUSH (stake returned, EV neutral on ties)
+      * 3-ball: dead-heat rules (winnings divided by n_tied)
 
     Model assumptions:
       mean_score_i = par - (0.7 * sgTotal + 0.3 * liveTourneySG) * strokes_per_sg
@@ -1344,7 +1394,7 @@ def predict_threeballs(threeballs, players, course_key=None, weather=None,
     BASE_STD = 2.85
     ROUND_SHOCK_STD = 1.0  # course difficulty shift shared across group
 
-    for group in threeballs:
+    for group in matchups:
         # Build per-player params
         pp_list = []
         for p in group["players"]:
@@ -1383,11 +1433,13 @@ def predict_threeballs(threeballs, players, course_key=None, weather=None,
                 "fitBoost": round(fit_boost, 2),
             })
 
-        # Monte Carlo
+        # Monte Carlo — handle 2-ball and 3-ball
         n = len(pp_list)
+        is_2ball = (n == 2)
         clear_wins = [0] * n
-        tie2_wins = [0] * n  # times i was in a 2-way tie for lowest
-        tie3 = 0
+        tie2_wins = [0] * n   # i in 2-way tie for lowest (3-ball only)
+        tie_push = [0] * n    # 2-ball push — both scored lowest equally
+        tie3 = 0              # all 3 tied (3-ball only)
 
         for _ in range(sims):
             shock = random.gauss(0.0, ROUND_SHOCK_STD)
@@ -1397,57 +1449,82 @@ def predict_threeballs(threeballs, players, course_key=None, weather=None,
                 scores.append(round(raw))  # integer strokes — enables realistic ties
             lo = min(scores)
             winners = [i for i, s in enumerate(scores) if s == lo]
-            if len(winners) == 1:
-                clear_wins[winners[0]] += 1
-            elif len(winners) == 2:
-                for i in winners:
-                    tie2_wins[i] += 1
+            if is_2ball:
+                if len(winners) == 1:
+                    clear_wins[winners[0]] += 1
+                else:
+                    # 2-ball tie = push for both
+                    for i in winners:
+                        tie_push[i] += 1
             else:
-                tie3 += 1
+                if len(winners) == 1:
+                    clear_wins[winners[0]] += 1
+                elif len(winners) == 2:
+                    for i in winners:
+                        tie2_wins[i] += 1
+                else:
+                    tie3 += 1
 
         # Attach results to each player
         for i, pp in enumerate(pp_list):
             p_clear = clear_wins[i] / sims
-            p_t2 = tie2_wins[i] / sims
-            p_t3 = tie3 / sims
-            # Dead-heat-weighted win value (used for fair-odds + EV)
-            dh_value = p_clear + 0.5 * p_t2 + (1.0 / 3.0) * p_t3
+            if is_2ball:
+                p_push = tie_push[i] / sims
+                p_lose = 1 - p_clear - p_push
+                # For a 2-ball H2H, tie is a PUSH — doesn't add to win value
+                win_value = p_clear
+                p_t2 = p_t3 = None
+            else:
+                p_t2 = tie2_wins[i] / sims
+                p_t3 = tie3 / sims
+                p_push = None
+                p_lose = 1 - p_clear - p_t2 - p_t3
+                # Dead-heat-weighted (3-ball): clear + 0.5*t2 + 0.333*t3
+                win_value = p_clear + 0.5 * p_t2 + (1.0 / 3.0) * p_t3
 
             odds_list = pp["player"].get("odds", [])
             best = max(odds_list, key=lambda o: o["american"]) if odds_list else None
             implied_best = _american_to_implied_prob(best["american"]) if best else None
 
             ev = None
-            if best and dh_value > 0:
-                # Dead-heat EV on a $1 stake vs the best American line
+            if best and win_value > 0:
                 am = best["american"]
                 payout_profit = (am / 100.0) if am > 0 else (100.0 / -am)
-                # Expected profit: clear win pays full, 2-tie pays half, 3-tie pays third, else -$1
-                ep = (
-                    p_clear * payout_profit
-                    + p_t2 * (payout_profit * 0.5) - p_t2 * 0.5
-                    + p_t3 * (payout_profit / 3.0) - p_t3 * (2.0 / 3.0)
-                    - (1 - p_clear - p_t2 - p_t3)
-                )
+                if is_2ball:
+                    # 2-ball: clear win pays full, push = stake back (0 EV), lose = -1
+                    ep = p_clear * payout_profit + p_push * 0 - p_lose * 1
+                else:
+                    # 3-ball dead-heat: clear full, 2-tie half, 3-tie third, else -1
+                    ep = (
+                        p_clear * payout_profit
+                        + p_t2 * (payout_profit * 0.5) - p_t2 * 0.5
+                        + p_t3 * (payout_profit / 3.0) - p_t3 * (2.0 / 3.0)
+                        - p_lose * 1
+                    )
                 ev = round(ep * 100, 2)  # %EV per $1 staked
 
-            pp["player"].update({
+            result = {
                 "modelMean": round(pp["mean"], 2),
                 "modelStd": round(pp["std"], 2),
                 "sgBlended": pp["sgBlended"],
                 "fitBoost": pp["fitBoost"],
                 "pClearWin": round(p_clear, 4),
-                "pTie2": round(p_t2, 4),
-                "pTie3": round(p_t3, 4),
-                "deadHeatWinValue": round(dh_value, 4),
-                "fairOdds": _prob_to_american(dh_value),
+                "deadHeatWinValue": round(win_value, 4),
+                "fairOdds": _prob_to_american(win_value),
                 "bestBook": best,
                 "impliedProbBest": round(implied_best, 4) if implied_best else None,
                 "ev": ev,
-            })
+            }
+            if is_2ball:
+                result["pPush"] = round(p_push, 4)
+            else:
+                result["pTie2"] = round(p_t2, 4)
+                result["pTie3"] = round(p_t3, 4)
+            pp["player"].update(result)
 
         # Group-level metadata
-        group["dhRulesApplied"] = True
+        group.setdefault("type", "2ball" if is_2ball else "3ball")
+        group["dhRulesApplied"] = not is_2ball  # 2-balls use push, not DH
         group["bookSample"] = sorted({o["book"] for p in group["players"] for o in p.get("odds", [])})
         group["simCount"] = sims
 
@@ -1455,8 +1532,8 @@ def predict_threeballs(threeballs, players, course_key=None, weather=None,
     def group_edge(g):
         evs = [p.get("ev") for p in g["players"] if isinstance(p.get("ev"), (int, float))]
         return max(evs) if evs else -999
-    threeballs.sort(key=group_edge, reverse=True)
-    return threeballs
+    matchups.sort(key=group_edge, reverse=True)
+    return matchups
 
 
 # ============================================================
@@ -3816,44 +3893,40 @@ def run_pipeline():
     # 3-BALL MATCHUPS + PREDICTIVE MODEL
     # Priority: BDL matchup odds → Odds API 3_balls → synthesize from tee times
     # ============================================================
-    threeballs_raw = []
+    matchups_raw = []
     source = None
     if bdl_tournament:
-        threeballs_raw = bdl_get_matchup_odds(bdl_tournament["id"])
-        if threeballs_raw:
+        matchups_raw = bdl_get_matchup_odds(bdl_tournament["id"])
+        if matchups_raw:
             source = "BallDontLie"
-    if not threeballs_raw:
-        threeballs_raw = scrape_threeball_odds()
-        if threeballs_raw:
+    if not matchups_raw:
+        matchups_raw = scrape_matchup_odds()
+        if matchups_raw:
             source = "TheOddsAPI"
-    if not threeballs_raw and tee_times:
-        # Synthesize from real tee-time groups — model-only, no book odds
-        cur_round = None
-        try:
-            # Prefer BDL's round number when available
-            cur_round = int(bdl_tournament.get("current_round") or 0) or None
-        except (ValueError, TypeError, AttributeError):
-            pass
-        threeballs_raw = synthesize_threeballs_from_tee_times(tee_times, current_round=cur_round)
-        if threeballs_raw:
+    if not matchups_raw and tee_times:
+        matchups_raw = synthesize_matchups_from_tee_times(tee_times)
+        if matchups_raw:
             source = "SyntheticTeeTimes"
-            print(f"[3BALL] Synthesized {len(threeballs_raw)} groups from tee times (no book odds yet)")
+            type_counts = {}
+            for g in matchups_raw:
+                type_counts[g["type"]] = type_counts.get(g["type"], 0) + 1
+            print(f"[MATCHUP] Synthesized from tee times: {type_counts} (no book odds yet)")
 
-    if threeballs_raw:
-        threeballs_scored = predict_threeballs(
-            threeballs_raw,
+    if matchups_raw:
+        matchups_scored = predict_matchups(
+            matchups_raw,
             players=output["players"],
             course_key=resolved_course,
             weather=output.get("weather"),
             tournament_sg=output.get("tournamentSG") or [],
             sims=10000,
         )
-        output["threeBalls"] = threeballs_scored
+        output["threeBalls"] = matchups_scored  # keep the key name — UI already uses it
         output["threeBallsSource"] = source
-        edges = sum(1 for g in threeballs_scored
+        edges = sum(1 for g in matchups_scored
                     for p in g["players"]
                     if isinstance(p.get("ev"), (int, float)) and p["ev"] > 5)
-        print(f"[3BALL] {len(threeballs_scored)} groups modeled from {source}, {edges} picks with >5% EV")
+        print(f"[MATCHUP] {len(matchups_scored)} groups modeled from {source}, {edges} picks with >5% EV")
     else:
         output["threeBalls"] = []
         output["threeBallsSource"] = None

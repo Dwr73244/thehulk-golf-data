@@ -413,7 +413,7 @@
   <div class="tab-scroll max-w-7xl mx-auto px-4 flex gap-1.5 py-2">
     <button class="tab-pill active rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="players">Players</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="matchups">Matchup Predictor</button>
-    <button class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="threeballs" style="border:1.5px solid rgba(21,255,194,0.35);background:linear-gradient(135deg,rgba(9,213,160,0.08),rgba(34,169,236,0.08));color:#15ffc2;">⛳ 3-Balls</button>
+    <button class="tab-pill rounded-lg px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap" data-tab="threeballs" style="border:1.5px solid rgba(21,255,194,0.35);background:linear-gradient(135deg,rgba(9,213,160,0.08),rgba(34,169,236,0.08));color:#15ffc2;">⛳ Matchups</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="props">Props Builder</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="tourney">Tournament Sim</button>
     <button class="tab-pill rounded-lg border border-transparent px-3.5 py-1.5 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="coursedata">Course Data</button>
@@ -613,14 +613,20 @@
     <div class="glass rounded-2xl p-4 glow-teal">
       <div class="flex items-center justify-between gap-3 flex-wrap mb-2">
         <div>
-          <h2 class="text-base font-bold text-white">⛳ 3-Ball Matchups</h2>
+          <h2 class="text-base font-bold text-white">⛳ Matchups — 2-Ball & 3-Ball</h2>
           <p class="text-[11px] text-slate-400">
-            Live 3-ball odds vs our Monte Carlo model (10k sims, integer-rounded scores, correlated round shock, dead-heat rules).
-            Groups sorted by best available edge. <span class="text-pb-teal">Teal %</span> = our model's dead-heat win value. <span style="color:#f0c040">Gold EV</span> = overlay vs best book.
+            Tee-time groupings vs our Monte Carlo model (10k sims, integer-rounded scores, shared round-shock for same-group correlation).
+            <span class="text-pb-teal">Teal %</span> = model win value. <span style="color:#f0c040">Gold EV</span> = overlay vs best book.
+            Signature events play 2-balls (tie = push); regular events play 3-balls Thu/Fri (tie = dead-heat) then 2-balls after cut.
           </p>
           <p id="tbSourceLine" class="text-[10px] text-slate-500 mt-1"></p>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
+          <select id="tbTypeFilter" class="text-xs" style="background:rgba(255,255,255,0.04);border:1px solid rgba(100,180,200,0.15);border-radius:8px;color:#eef2f7;padding:6px 8px;">
+            <option value="all">All Types</option>
+            <option value="3ball">3-Ball</option>
+            <option value="2ball">2-Ball (H2H)</option>
+          </select>
           <select id="tbRoundFilter" class="text-xs" style="background:rgba(255,255,255,0.04);border:1px solid rgba(100,180,200,0.15);border-radius:8px;color:#eef2f7;padding:6px 8px;">
             <option value="all">All Rounds</option>
             <option value="1">Round 1 (Thu)</option>
@@ -638,12 +644,12 @@
         </div>
       </div>
       <div class="text-[10px] text-slate-500 mt-1">
-        Dead-heat: 2-way tie = half payout, 3-way tie = third payout (US book default). Our EV accounts for this.
+        3-ball ties: dead-heat (2-way = half payout, 3-way = third). 2-ball ties: push (stake returned). Our EV accounts for both.
       </div>
     </div>
     <div id="tbGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-3"></div>
     <div id="tbEmpty" class="hidden text-center text-xs text-slate-400 py-8">
-      No 3-ball markets posted right now. Books typically open R1 lines Wed evening and R2 lines Thu evening.
+      No matchup markets available. Books typically open lines Wed evening; synthesized tee-time groups appear once field is set.
     </div>
   </div>
 
@@ -2642,9 +2648,11 @@
       }
     }
     var roundFilter = el('tbRoundFilter') ? el('tbRoundFilter').value : 'all';
+    var typeFilter = el('tbTypeFilter') ? el('tbTypeFilter').value : 'all';
     var edgeFilter = parseFloat((el('tbEdgeFilter') ? el('tbEdgeFilter').value : '0')) || 0;
 
     var groups = all.filter(function(g) {
+      if (typeFilter !== 'all' && g.type !== typeFilter) return false;
       if (roundFilter !== 'all' && String(g.round) !== roundFilter) return false;
       if (edgeFilter > 0) {
         var hasEdge = (g.players || []).some(function(p) {
@@ -2666,8 +2674,11 @@
 
     grid.innerHTML = groups.map(function(g) {
       var commence = g.commence ? new Date(g.commence) : null;
-      var commenceStr = commence ? commence.toLocaleString([], {weekday:'short', month:'short', day:'numeric', hour:'numeric', minute:'2-digit'}) : '';
-      var roundLabel = g.round ? ('R' + g.round) : '';
+      var commenceStr = commence && !isNaN(commence)
+        ? commence.toLocaleString([], {weekday:'short', month:'short', day:'numeric', hour:'numeric', minute:'2-digit'})
+        : (g.commence || '');
+      var typeBadge = g.type === '2ball' ? '2-BALL' : (g.type === '3ball' ? '3-BALL' : 'MATCHUP');
+      var roundLabel = g.round ? (typeBadge + ' R' + g.round) : typeBadge;
 
       // Best player row by EV
       var playersSorted = (g.players || []).slice().sort(function(a, b) {
@@ -2676,6 +2687,7 @@
         return eb - ea;
       });
 
+      var is2Ball = g.type === '2ball';
       var rowsHtml = playersSorted.map(function(p, idx) {
         var best = p.bestBook || {};
         var bestOdds = fmtAmerican(best.american);
@@ -2684,6 +2696,10 @@
         var clear = pctStr(p.pClearWin, 1);
         var t2 = pctStr(p.pTie2, 1);
         var t3 = pctStr(p.pTie3, 1);
+        var push = pctStr(p.pPush, 1);
+        var tieSplit = is2Ball
+          ? ('win ' + clear + ' · push ' + push)
+          : ('clear ' + clear + ' · t2 ' + t2 + ' · t3 ' + t3);
         var ev = (typeof p.ev === 'number') ? (p.ev > 0 ? '+' : '') + p.ev.toFixed(1) + '%' : '—';
         var bookLabel = best.book ? best.book.toUpperCase() : '';
         var evC = evColor(p.ev);
@@ -2712,7 +2728,7 @@
           +   '</div>'
           +   '<div class="text-right" style="min-width:110px;">'
           +     '<div class="mono text-sm font-bold text-pb-teal">' + dh + '</div>'
-          +     '<div class="text-[9px] text-slate-500">clear ' + clear + ' · t2 ' + t2 + ' · t3 ' + t3 + '</div>'
+          +     '<div class="text-[9px] text-slate-500">' + tieSplit + '</div>'
           +   '</div>'
           +   '<div class="text-right" style="min-width:90px;">'
           +     '<div class="mono text-xs text-slate-300">Best: <span class="font-bold text-white">' + bestOdds + '</span> <span class="text-[9px] text-slate-500">' + bookLabel + '</span></div>'
@@ -2747,8 +2763,10 @@
   document.addEventListener('DOMContentLoaded', function() {
     var rf = document.getElementById('tbRoundFilter');
     var ef = document.getElementById('tbEdgeFilter');
+    var tf = document.getElementById('tbTypeFilter');
     if (rf) rf.addEventListener('change', renderThreeBalls);
     if (ef) ef.addEventListener('change', renderThreeBalls);
+    if (tf) tf.addEventListener('change', renderThreeBalls);
   });
   window.renderThreeBalls = renderThreeBalls;
 
