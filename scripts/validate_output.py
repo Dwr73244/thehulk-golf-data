@@ -26,12 +26,50 @@ print(f"Majors schedule: {len(d.get('majorsSchedule') or [])} entries")
 errors = []
 
 # --- Data freshness / completeness ---
-if len(d["players"]) < 40:
-    errors.append(f"Player count too low: {len(d['players'])}")
+# Detect if current event is a major (check name + venue)
+evt_name = (ce.get("name") or "").lower()
+evt_course = (ce.get("course") or "").lower()
+is_major = (
+    any(kw in evt_name for kw in
+        ("masters", "pga championship", "u.s. open", "us open",
+         "open championship", "british open"))
+    or any(v in evt_course for v in
+        ("augusta", "oak hill", "aronimink", "quail hollow", "oakmont",
+         "shinnecock", "pinehurst", "royal portrush", "royal birkdale",
+         "royal troon", "st andrews"))
+)
+warnings = []
+
+# Player count floors — majors have ~156 starters, regular events have
+# 120-156, Signature events have ~70. Bump majors threshold higher.
+min_players = 120 if is_major else 40
+if len(d["players"]) < min_players:
+    errors.append(
+        f"Player count {len(d['players'])} too low for "
+        f"{'major (~156 expected)' if is_major else 'regular event'}"
+    )
+
 if live and not q.get("leaderboardHasScores"):
     errors.append("Tournament is live but leaderboard has no scores")
 if q.get("oddsCoverage", 0) < 0.3 and len(d["players"]) >= 50:
     errors.append(f"Odds coverage too low: {q.get('oddsCoverage')}")
+
+# Major-week specific: LIV players should be in the field. If we detect a
+# major but zero LIV notes anywhere, that's a signal the whitelist failed.
+if is_major:
+    liv_count = sum(
+        1 for p in d["players"]
+        if "LIV" in (p.get("notes", "") or "")
+    )
+    if liv_count < 5:  # Masters normally has ~14+ LIV invitees
+        warnings.append(
+            f"Only {liv_count} LIV players during major week — expected 10+. "
+            "Check fallback LIV roster + is_major detection."
+        )
+
+# Majors schedule emitted from BDL — if it's empty we've lost dynamic data
+if not d.get("majorsSchedule"):
+    warnings.append("majorsSchedule is empty — BDL tournaments fetch may have failed")
 
 # --- Schema drift detection ---
 # If any of these top-level keys disappear from the output, an upstream
@@ -57,9 +95,12 @@ if d["players"]:
         if count == len(d["players"]):
             errors.append(f"Schema drift: every player missing '{f}'")
 
+for w in warnings:
+    print(f"::warning::{w}")
+
 if errors:
     print("::error::Data quality checks failed:")
     for e in errors:
         print(f"::error::  - {e}")
     sys.exit(1)
-print("Data quality OK")
+print("Data quality OK" + (f" ({len(warnings)} warnings)" if warnings else ""))
