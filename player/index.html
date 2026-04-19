@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All PGA Tour Players — PropsBot Profiles</title>
+<meta name="description" content="Browse PropsBot player profiles: stats, odds, course fit, and recent form for every player in the field.">
+<link rel="canonical" href="https://golf.propsbot.ai/player/">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+:root {
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', -apple-system, sans-serif;
+  --teal: #15ffc2;
+  --teal-dim: rgba(21,255,194,0.65);
+  --gold: #f0c040;
+  --red: #ff5975;
+  --bg: #070e1a;
+  --glass: rgba(18,28,45,0.92);
+  --text-primary: #eef2f7;
+  --text-secondary: rgba(200,215,230,0.75);
+  --text-muted: rgba(150,180,210,0.45);
+  --border: rgba(120,160,200,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text-primary); font-family: var(--sans); line-height: 1.5; }
+body { min-height: 100vh; background: radial-gradient(1000px 600px at 20% -10%, rgba(21,255,194,0.06), transparent 60%), radial-gradient(900px 500px at 90% 10%, rgba(34,169,236,0.05), transparent 60%), var(--bg); }
+a { color: var(--teal); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.mono { font-family: var(--mono); }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); background: linear-gradient(135deg, rgba(9,213,160,0.08), rgba(34,169,236,0.05)); }
+.topbar .brand { font-family: var(--mono); font-weight: 800; color: var(--text-primary); font-size: 14px; letter-spacing: 0.03em; }
+.topbar .brand span { color: var(--teal); }
+.topbar .links a { font-family: var(--mono); font-size: 12px; margin-left: 16px; color: var(--text-secondary); }
+.topbar .links a:hover { color: var(--teal); }
+.glass { background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.45); }
+.card { padding: 18px 20px; margin-bottom: 18px; }
+.section-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 10px; }
+h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.headline { color: var(--text-secondary); margin-top: 6px; font-size: 14px; max-width: 780px; }
+.chip { display: inline-block; font-family: var(--mono); font-size: 11px; padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(21,255,194,0.25); background: rgba(21,255,194,0.08); color: var(--teal); margin-right: 6px; }
+.chip.gold { border-color: rgba(240,192,64,0.3); background: rgba(240,192,64,0.1); color: var(--gold); }
+.chip.muted { border-color: var(--border); background: rgba(255,255,255,0.02); color: var(--text-secondary); }
+.grid { display: grid; gap: 12px; }
+.grid.cols-6 { grid-template-columns: repeat(6, minmax(0,1fr)); }
+.grid.cols-5 { grid-template-columns: repeat(5, minmax(0,1fr)); }
+.grid.cols-4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+.grid.cols-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.grid.cols-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+@media (max-width: 760px) {
+  .grid.cols-6, .grid.cols-5, .grid.cols-4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .grid.cols-3 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  h1 { font-size: 26px; }
+}
+.stat { padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: rgba(255,255,255,0.015); }
+.stat .v { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--teal); }
+.stat .v.muted { color: var(--text-primary); }
+.stat .k { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); margin-top: 4px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+th { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); font-weight: 600; }
+td.num, th.num { text-align: right; font-family: var(--mono); }
+.bar-row { display: grid; grid-template-columns: 110px 1fr 56px; gap: 10px; align-items: center; margin-bottom: 6px; font-family: var(--mono); font-size: 12px; }
+.bar-track { height: 10px; background: rgba(255,255,255,0.04); border-radius: 5px; overflow: hidden; border: 1px solid var(--border); }
+.bar-fill { height: 100%; background: linear-gradient(90deg, rgba(21,255,194,0.9), rgba(34,169,236,0.9)); }
+.bar-val { text-align: right; color: var(--teal); font-weight: 600; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 760px) { .two-col { grid-template-columns: 1fr; } }
+.odds { font-family: var(--mono); font-size: 22px; font-weight: 800; color: var(--gold); }
+.footer-note { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 11px; text-align: center; line-height: 1.6; }
+.back-link { display: inline-block; font-family: var(--mono); font-size: 12px; color: var(--text-secondary); margin-bottom: 14px; }
+.back-link:hover { color: var(--teal); }
+.player-list { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+@media (max-width: 760px) { .player-list { grid-template-columns: 1fr; } }
+.player-list li a { display: flex; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: rgba(255,255,255,0.015); color: var(--text-primary); font-size: 13px; }
+.player-list li a:hover { background: rgba(21,255,194,0.06); border-color: rgba(21,255,194,0.35); text-decoration: none; }
+.player-list .rnk { font-family: var(--mono); color: var(--teal); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="topbar"><a href="/" class="brand">PropsBot <span>Golf Intelligence</span></a><div class="links"><a href="/">Main tool</a><a href="/methodology">Methodology</a><a href="/player/">All players</a></div></div><div class="wrap"><div class="card glass"><div class="section-label">Directory</div><h1>All Players</h1><p class="headline">83 players currently tracked. Click any player for full stats, odds, course fit, and event history.</p><ul class="player-list" style="margin-top:16px;"><li><a href="/player/scottie-scheffler.html"><span>Scottie Scheffler</span><span class="rnk">#1</span></a></li><li><a href="/player/xander-schauffele.html"><span>Xander Schauffele</span><span class="rnk">#2</span></a></li><li><a href="/player/collin-morikawa.html"><span>Collin Morikawa</span><span class="rnk">#3</span></a></li><li><a href="/player/patrick-cantlay.html"><span>Patrick Cantlay</span><span class="rnk">#4</span></a></li><li><a href="/player/tommy-fleetwood.html"><span>Tommy Fleetwood</span><span class="rnk">#5</span></a></li><li><a href="/player/viktor-hovland.html"><span>Viktor Hovland</span><span class="rnk">#6</span></a></li><li><a href="/player/ludvig-aberg.html"><span>Ludvig Åberg</span><span class="rnk">#7</span></a></li><li><a href="/player/shane-lowry.html"><span>Shane Lowry</span><span class="rnk">#8</span></a></li><li><a href="/player/wyndham-clark.html"><span>Wyndham Clark</span><span class="rnk">#9</span></a></li><li><a href="/player/brian-harman.html"><span>Brian Harman</span><span class="rnk">#10</span></a></li><li><a href="/player/sam-burns.html"><span>Sam Burns</span><span class="rnk">#11</span></a></li><li><a href="/player/russell-henley.html"><span>Russell Henley</span><span class="rnk">#12</span></a></li><li><a href="/player/jason-day.html"><span>Jason Day</span><span class="rnk">#13</span></a></li><li><a href="/player/matt-fitzpatrick.html"><span>Matt Fitzpatrick</span><span class="rnk">#14</span></a></li><li><a href="/player/keegan-bradley.html"><span>Keegan Bradley</span><span class="rnk">#15</span></a></li><li><a href="/player/max-homa.html"><span>Max Homa</span><span class="rnk">#16</span></a></li><li><a href="/player/sahith-theegala.html"><span>Sahith Theegala</span><span class="rnk">#17</span></a></li><li><a href="/player/sungjae-im.html"><span>Sungjae Im</span><span class="rnk">#18</span></a></li><li><a href="/player/corey-conners.html"><span>Corey Conners</span><span class="rnk">#19</span></a></li><li><a href="/player/sepp-straka.html"><span>Sepp Straka</span><span class="rnk">#20</span></a></li><li><a href="/player/tony-finau.html"><span>Tony Finau</span><span class="rnk">#21</span></a></li><li><a href="/player/si-woo-kim.html"><span>Si Woo Kim</span><span class="rnk">#22</span></a></li><li><a href="/player/denny-mccarthy.html"><span>Denny McCarthy</span><span class="rnk">#23</span></a></li><li><a href="/player/justin-thomas.html"><span>Justin Thomas</span><span class="rnk">#24</span></a></li><li><a href="/player/cameron-young.html"><span>Cameron Young</span><span class="rnk">#25</span></a></li><li><a href="/player/harris-english.html"><span>Harris English</span><span class="rnk">#26</span></a></li><li><a href="/player/akshay-bhatia.html"><span>Akshay Bhatia</span><span class="rnk">#27</span></a></li><li><a href="/player/billy-horschel.html"><span>Billy Horschel</span><span class="rnk">#28</span></a></li><li><a href="/player/robert-macintyre.html"><span>Robert MacIntyre</span><span class="rnk">#29</span></a></li><li><a href="/player/lucas-glover.html"><span>Lucas Glover</span><span class="rnk">#30</span></a></li><li><a href="/player/jordan-spieth.html"><span>Jordan Spieth</span><span class="rnk">#31</span></a></li><li><a href="/player/j-t-poston.html"><span>J.T. Poston</span><span class="rnk">#32</span></a></li><li><a href="/player/min-woo-lee.html"><span>Min Woo Lee</span><span class="rnk">#33</span></a></li><li><a href="/player/taylor-pendrith.html"><span>Taylor Pendrith</span><span class="rnk">#34</span></a></li><li><a href="/player/matt-mccarty.html"><span>Matt McCarty</span><span class="rnk">#35</span></a></li><li><a href="/player/andrew-novak.html"><span>Andrew Novak</span><span class="rnk">#36</span></a></li><li><a href="/player/jacob-bridgeman.html"><span>Jacob Bridgeman</span><span class="rnk">#37</span></a></li><li><a href="/player/ryan-fox.html"><span>Ryan Fox</span><span class="rnk">#38</span></a></li><li><a href="/player/ryan-gerard.html"><span>Ryan Gerard</span><span class="rnk">#39</span></a></li><li><a href="/player/bud-cauley.html"><span>Bud Cauley</span><span class="rnk">#40</span></a></li><li><a href="/player/ben-griffin.html"><span>Ben Griffin</span><span class="rnk">#41</span></a></li><li><a href="/player/chris-gotterup.html"><span>Chris Gotterup</span><span class="rnk">#42</span></a></li><li><a href="/player/justin-rose.html"><span>Justin Rose</span><span class="rnk">#43</span></a></li><li><a href="/player/gary-woodland.html"><span>Gary Woodland</span><span class="rnk">#44</span></a></li><li><a href="/player/michael-brennan.html"><span>Michael Brennan</span><span class="rnk">#45</span></a></li><li><a href="/player/kurt-kitayama.html"><span>Kurt Kitayama</span><span class="rnk">#46</span></a></li><li><a href="/player/patrick-rodgers.html"><span>Patrick Rodgers</span><span class="rnk">#47</span></a></li><li><a href="/player/pierceson-coody.html"><span>Pierceson Coody</span><span class="rnk">#48</span></a></li><li><a href="/player/chandler-blanchet.html"><span>Chandler Blanchet</span><span class="rnk">#49</span></a></li><li><a href="/player/steven-fisk.html"><span>Steven Fisk</span><span class="rnk">#50</span></a></li><li><a href="/player/j-j-spaun.html"><span>J.J. Spaun</span><span class="rnk">#51</span></a></li><li><a href="/player/ryo-hisatsune.html"><span>Ryo Hisatsune</span><span class="rnk">#52</span></a></li><li><a href="/player/rickie-fowler.html"><span>Rickie Fowler</span><span class="rnk">#53</span></a></li><li><a href="/player/aldrich-potgieter.html"><span>Aldrich Potgieter</span><span class="rnk">#54</span></a></li><li><a href="/player/jake-knapp.html"><span>Jake Knapp</span><span class="rnk">#55</span></a></li><li><a href="/player/sam-stevens.html"><span>Sam Stevens</span><span class="rnk">#56</span></a></li><li><a href="/player/matt-wallace.html"><span>Matt Wallace</span><span class="rnk">#57</span></a></li><li><a href="/player/adam-schenk.html"><span>Adam Schenk</span><span class="rnk">#58</span></a></li><li><a href="/player/alex-noren.html"><span>Alex Noren</span><span class="rnk">#59</span></a></li><li><a href="/player/nick-taylor.html"><span>Nick Taylor</span><span class="rnk">#60</span></a></li><li><a href="/player/jordan-smith.html"><span>Jordan Smith</span><span class="rnk">#61</span></a></li><li><a href="/player/michael-thorbjornsen.html"><span>Michael Thorbjornsen</span><span class="rnk">#62</span></a></li><li><a href="/player/michael-kim.html"><span>Michael Kim</span><span class="rnk">#63</span></a></li><li><a href="/player/maverick-mcnealy.html"><span>Maverick McNealy</span><span class="rnk">#64</span></a></li><li><a href="/player/joe-highsmith.html"><span>Joe Highsmith</span><span class="rnk">#65</span></a></li><li><a href="/player/nico-echavarria.html"><span>Nico Echavarria</span><span class="rnk">#66</span></a></li><li><a href="/player/daniel-berger.html"><span>Daniel Berger</span><span class="rnk">#67</span></a></li><li><a href="/player/johnny-keefer.html"><span>Johnny Keefer</span><span class="rnk">#68</span></a></li><li><a href="/player/brian-campbell.html"><span>Brian Campbell</span><span class="rnk">#69</span></a></li><li><a href="/player/david-lipsky.html"><span>David Lipsky</span><span class="rnk">#70</span></a></li><li><a href="/player/sami-valimaki.html"><span>Sami Välimäki</span><span class="rnk">#71</span></a></li><li><a href="/player/karl-vilips.html"><span>Karl Vilips</span><span class="rnk">#72</span></a></li><li><a href="/player/marco-penge.html"><span>Marco Penge</span><span class="rnk">#73</span></a></li><li><a href="/player/nicolai-hjgaard.html"><span>Nicolai Højgaard</span><span class="rnk">#74</span></a></li><li><a href="/player/andrew-putnam.html"><span>Andrew Putnam</span><span class="rnk">#75</span></a></li><li><a href="/player/sudarshan-yellamaraju.html"><span>Sudarshan Yellamaraju</span><span class="rnk">#76</span></a></li><li><a href="/player/austin-smotherman.html"><span>Austin Smotherman</span><span class="rnk">#77</span></a></li><li><a href="/player/tom-hoge.html"><span>Tom Hoge</span><span class="rnk">#78</span></a></li><li><a href="/player/harry-hall.html"><span>Harry Hall</span><span class="rnk">#79</span></a></li><li><a href="/player/garrick-higgo.html"><span>Garrick Higgo</span><span class="rnk">#80</span></a></li><li><a href="/player/jhonattan-vegas.html"><span>Jhonattan Vegas</span><span class="rnk">#81</span></a></li><li><a href="/player/william-mouw.html"><span>William Mouw</span><span class="rnk">#82</span></a></li><li><a href="/player/ricky-castillo.html"><span>Ricky Castillo</span><span class="rnk">#83</span></a></li></ul></div><div class="footer-note">Updated 2026-04-19T19:41:35.344962 · <a href="/">Back to PropsBot Golf</a></div></div>
+</body>
+</html>

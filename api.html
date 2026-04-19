@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <title>Golf Data API Docs | PropsBot AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicons (match main site) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23070e1a'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' font-family='Apple Color Emoji,Segoe UI Emoji'%3E⛳%3C/text%3E%3C/svg%3E" />
+
+  <!-- SEO -->
+  <meta name="description" content="Public JSON API documentation for golf.propsbot.ai — free, rate-limit-free PGA Tour data: player props, odds, strokes gained, course fit, tournament leaderboard, tee times, weather, anomalies, and more." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://golf.propsbot.ai/api" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://golf.propsbot.ai/api" />
+  <meta property="og:title" content="Golf Data API — Free Public JSON | PropsBot AI" />
+  <meta property="og:description" content="Consume PGA Tour player props, odds, strokes gained, course fit, leaderboards, tee times and more via a free public JSON endpoint." />
+  <meta property="og:image" content="https://propsbot.ai/wp-content/uploads/2024/01/propsbot-og.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pb: { teal:'#15ffc2', red:'#ff1552', gold:'#f0c040', blue:'#22a9ec', purple:'#AB8FFF', bg:'#070e1a', card:'rgba(14,26,44,0.85)' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+    :root {
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --teal: #15ffc2;
+      --red: #ff1552;
+      --gold: #f0c040;
+      --blue: #22a9ec;
+      --purple: #AB8FFF;
+      --bg: #070e1a;
+      --surface1: rgba(15,28,46,0.6);
+      --surface2: rgba(20,36,60,0.7);
+      --glass: rgba(18,28,45,0.92);
+      --card-border: rgba(100,200,220,0.07);
+      --divider: rgba(100,200,220,0.06);
+      --text-primary: #eef2f7;
+      --text-secondary: rgba(200,215,230,0.75);
+      --text-muted: rgba(150,180,210,0.3);
+      --brand-gradient: linear-gradient(135deg, #09d5a0, #22a9ec);
+    }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text-primary); }
+    .mono { font-family: var(--mono); }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #1e3a4a; border-radius: 3px; }
+
+    /* Brand accent bar */
+    body::before { content:''; display:block; height:3px; background: var(--brand-gradient); }
+
+    .glass { background: var(--surface1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--card-border); border-radius: 14px; }
+
+    h1.hero-title {
+      font-family: var(--mono);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: var(--brand-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2.section-title {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--teal);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .kbd-url, code.inline {
+      font-family: var(--mono);
+      background: rgba(7,14,26,0.8);
+      border: 1px solid rgba(120,160,200,0.12);
+      color: var(--teal);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      word-break: break-all;
+    }
+
+    pre.code-block {
+      font-family: var(--mono);
+      background: rgba(7,14,26,0.85);
+      border: 1px solid rgba(120,160,200,0.12);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 12px;
+      line-height: 1.55;
+      overflow-x: auto;
+      color: rgba(220,230,240,0.92);
+      white-space: pre;
+    }
+    pre.code-block .tok-key { color: var(--blue); }
+    pre.code-block .tok-str { color: #ffe6a8; }
+    pre.code-block .tok-num { color: var(--teal); }
+    pre.code-block .tok-bool { color: var(--gold); }
+    pre.code-block .tok-null { color: var(--red); }
+
+    details.key-block {
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      background: var(--surface1);
+      padding: 0;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    details.key-block[open] { border-color: rgba(21,255,194,0.25); }
+    details.key-block > summary {
+      cursor: pointer;
+      padding: 14px 18px;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+    }
+    details.key-block > summary::-webkit-details-marker { display: none; }
+    details.key-block > summary .chev {
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      width: 12px;
+      transition: transform 0.2s;
+    }
+    details.key-block[open] > summary .chev { transform: rotate(90deg); color: var(--teal); }
+    details.key-block > summary .k-name {
+      font-family: var(--mono);
+      font-weight: 700;
+      color: var(--teal);
+      font-size: 13.5px;
+    }
+    details.key-block > summary .k-type {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--gold);
+      background: rgba(240,192,64,0.08);
+      border: 1px solid rgba(240,192,64,0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    details.key-block > summary .k-desc {
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      flex: 1;
+    }
+    @media (max-width: 640px) {
+      details.key-block > summary { flex-wrap: wrap; }
+      details.key-block > summary .k-desc { flex-basis: 100%; }
+    }
+    details.key-block .body {
+      padding: 4px 18px 18px 18px;
+      border-top: 1px solid var(--divider);
+    }
+    details.key-block .example-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin: 12px 0 6px 0;
+    }
+    .live-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--mono); font-size: 10px;
+      background: rgba(21,255,194,0.08);
+      color: var(--teal);
+      border: 1px solid rgba(21,255,194,0.25);
+      padding: 3px 8px; border-radius: 999px; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .live-pill.err {
+      background: rgba(255,21,82,0.08); color: var(--red);
+      border-color: rgba(255,21,82,0.25);
+    }
+    .live-pill .dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
+      box-shadow: 0 0 8px var(--teal);
+      animation: pulse-live 1.6s ease-in-out infinite;
+    }
+    .live-pill.err .dot { background: var(--red); box-shadow: 0 0 8px var(--red); animation: none; }
+    @keyframes pulse-live { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+
+    .nav-chip {
+      display: inline-block;
+      font-family: var(--mono); font-size: 11px;
+      padding: 6px 11px; margin: 3px;
+      border-radius: 6px;
+      background: rgba(21,255,194,0.05);
+      border: 1px solid rgba(120,160,200,0.15);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .nav-chip:hover {
+      color: var(--teal);
+      border-color: rgba(21,255,194,0.4);
+      background: rgba(21,255,194,0.08);
+    }
+
+    .copy-btn {
+      font-family: var(--mono); font-size: 10px;
+      background: rgba(21,255,194,0.08);
+      color: var(--teal);
+      border: 1px solid rgba(21,255,194,0.25);
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .copy-btn:hover { background: rgba(21,255,194,0.15); }
+    .copy-btn.copied { background: rgba(21,255,194,0.25); color: var(--bg); }
+
+    .code-wrap { position: relative; }
+    .code-wrap .copy-btn { position: absolute; top: 8px; right: 8px; z-index: 2; }
+
+    hr.divider { border: 0; border-top: 1px solid var(--divider); margin: 32px 0; }
+
+    a.link {
+      color: var(--teal);
+      text-decoration: underline;
+      text-decoration-color: rgba(21,255,194,0.35);
+      text-underline-offset: 2px;
+    }
+    a.link:hover { text-decoration-color: var(--teal); }
+
+    table.url-table {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    table.url-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--divider);
+      vertical-align: top;
+    }
+    table.url-table td:first-child { width: 40%; }
+
+    .note {
+      background: rgba(21,255,194,0.03);
+      border-left: 3px solid var(--teal);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .note.amber {
+      background: rgba(240,192,64,0.04);
+      border-left-color: var(--gold);
+    }
+  </style>
+</head>
+<body class="min-h-full">
+
+<main class="max-w-5xl mx-auto px-4 py-8 sm:py-12">
+
+  <!-- Header -->
+  <header class="mb-10">
+    <div class="flex items-center gap-3 mb-4">
+      <a href="/" style="font-family:var(--mono);font-size:11px;color:var(--text-secondary);text-decoration:none;">&larr; golf.propsbot.ai</a>
+    </div>
+    <h1 class="hero-title text-3xl sm:text-5xl mb-3">Golf Data API</h1>
+    <p class="text-base sm:text-lg" style="color:var(--text-secondary);max-width:720px;">
+      Free, rate-limit-free public JSON from <span class="mono" style="color:var(--teal);">golf.propsbot.ai</span>.
+      Self-documenting — the examples below are generated from the live file on every page load.
+    </p>
+    <div class="mt-5 flex items-center gap-3 flex-wrap">
+      <span id="liveStatus" class="live-pill"><span class="dot"></span><span>Fetching live data&hellip;</span></span>
+      <span id="liveTs" class="mono" style="font-size:11px;color:var(--text-muted);"></span>
+    </div>
+  </header>
+
+  <!-- Overview -->
+  <section class="glass p-5 sm:p-7 mb-8">
+    <h2 class="section-title mb-3">Overview</h2>
+    <p style="color:var(--text-secondary);font-size:14px;line-height:1.65;">
+      Free, rate-limit-free public JSON. Updated <strong style="color:var(--text-primary);">Mon/Tue 1AM ET</strong>
+      &#183; <strong style="color:var(--text-primary);">5x Wednesday</strong> (5AM, 11AM, 2PM, 7PM, 10PM ET)
+      &#183; <strong style="color:var(--text-primary);">hourly Thu&ndash;Sun 7AM&ndash;7PM ET</strong> during tournament play.
+      Served via GitHub Pages edge cache &mdash; fast, CORS-open, no auth.
+    </p>
+  </section>
+
+  <!-- Base URLs -->
+  <section class="glass p-5 sm:p-7 mb-8">
+    <h2 class="section-title mb-4">Base URL &amp; Endpoints</h2>
+    <table class="url-table mono">
+      <tr>
+        <td><a class="link" href="https://golf.propsbot.ai/golf-data.json" target="_blank">/golf-data.json</a></td>
+        <td style="color:var(--text-secondary);">Primary dataset &mdash; everything below.</td>
+      </tr>
+      <tr>
+        <td><a class="link" href="https://golf.propsbot.ai/model_params.json" target="_blank">/model_params.json</a></td>
+        <td style="color:var(--text-secondary);">Current model weights / tuning parameters.</td>
+      </tr>
+      <tr>
+        <td><a class="link" href="https://golf.propsbot.ai/backtest-report.json" target="_blank">/backtest-report.json</a></td>
+        <td style="color:var(--text-secondary);">Historical backtest results.</td>
+      </tr>
+      <tr>
+        <td><a class="link" href="https://golf.propsbot.ai/sitemap.xml" target="_blank">/sitemap.xml</a></td>
+        <td style="color:var(--text-secondary);">Site map.</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- Response structure / keys -->
+  <section class="mb-8">
+    <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+      <h2 class="section-title">Response Structure</h2>
+      <div>
+        <a class="nav-chip" href="#examples">examples &rarr;</a>
+        <a class="nav-chip" href="#csv">CSV &rarr;</a>
+      </div>
+    </div>
+    <p style="color:var(--text-secondary);font-size:13px;margin-bottom:14px;">
+      Top-level keys in <code class="inline">golf-data.json</code>. Click any row to expand a live sample (first 2&ndash;3 items, pretty-printed).
+    </p>
+    <div id="keyBlocks" class="space-y-3"></div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Example code -->
+  <section id="examples" class="mb-8">
+    <h2 class="section-title mb-4">Example Code</h2>
+
+    <div class="mb-5">
+      <div class="example-label mono" style="color:var(--text-muted);font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">curl</div>
+      <div class="code-wrap">
+        <button class="copy-btn" data-copy-target="codeCurl">copy</button>
+<pre class="code-block" id="codeCurl">curl -s https://golf.propsbot.ai/golf-data.json | jq .generatedAt</pre>
+      </div>
+    </div>
+
+    <div class="mb-5">
+      <div class="example-label mono" style="color:var(--text-muted);font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Python (requests)</div>
+      <div class="code-wrap">
+        <button class="copy-btn" data-copy-target="codePy">copy</button>
+<pre class="code-block" id="codePy">import requests
+
+data = requests.get("https://golf.propsbot.ai/golf-data.json", timeout=30).json()
+print("generated:", data["generatedAt"])
+print("players:  ", len(data.get("players", [])))
+for p in data.get("players", [])[:5]:
+    print(f"  {p.get('rank','?'):>3}  {p.get('name')}  odds={p.get('odds')}")</pre>
+      </div>
+    </div>
+
+    <div class="mb-5">
+      <div class="example-label mono" style="color:var(--text-muted);font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Node (fetch)</div>
+      <div class="code-wrap">
+        <button class="copy-btn" data-copy-target="codeNode">copy</button>
+<pre class="code-block" id="codeNode">const res = await fetch("https://golf.propsbot.ai/golf-data.json");
+const data = await res.json();
+
+console.log("generated:", data.generatedAt);
+console.log("players:  ", data.players?.length ?? 0);
+for (const p of (data.players ?? []).slice(0, 5)) {
+  console.log(`  ${p.rank}  ${p.name}  odds=${p.odds}`);
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CSV export -->
+  <section id="csv" class="mb-8">
+    <h2 class="section-title mb-4">CSV Export</h2>
+    <p style="color:var(--text-secondary);font-size:13px;margin-bottom:14px;">
+      We only serve JSON. To get a spreadsheet-friendly player table, run this locally:
+    </p>
+    <div class="code-wrap">
+      <button class="copy-btn" data-copy-target="codeCsv">copy</button>
+<pre class="code-block" id="codeCsv">import csv, requests
+
+data = requests.get("https://golf.propsbot.ai/golf-data.json", timeout=30).json()
+players = data.get("players", [])
+
+# Flatten one level of nested dicts (odds, props summaries, etc.) into columns.
+rows = []
+for p in players:
+    row = {}
+    for k, v in p.items():
+        if isinstance(v, (dict, list)):
+            row[k] = "" if not v else str(v)  # keep simple; customize as needed
+        else:
+            row[k] = v
+    rows.append(row)
+
+if rows:
+    cols = sorted({k for r in rows for k in r.keys()})
+    with open("players.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=cols)
+        w.writeheader()
+        w.writerows(rows)
+    print(f"Wrote players.csv ({len(rows)} rows, {len(cols)} cols)")</pre>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Attribution -->
+  <section class="glass p-5 sm:p-7 mb-8">
+    <h2 class="section-title mb-3">Attribution</h2>
+    <p style="color:var(--text-secondary);font-size:14px;line-height:1.65;">
+      If you use this data publicly (a site, app, newsletter, video, etc.), please link back to
+      <a class="link" href="https://golf.propsbot.ai" target="_blank">https://golf.propsbot.ai</a>.
+      Not enforced &mdash; it&rsquo;s a polite ask. PropsBot keeps this free because credit helps us keep it free.
+    </p>
+  </section>
+
+  <!-- Rate limits -->
+  <section class="mb-10">
+    <h2 class="section-title mb-3">Rate Limits</h2>
+    <div class="note amber">
+      Served via GitHub Pages edge cache. Please cache client-side and call once per refresh interval
+      (roughly hourly during tournaments, less often mid-week). No hard rate limit, but sustained heavy
+      abuse may be blocked upstream by Cloudflare or GitHub.
+    </div>
+  </section>
+
+  <!-- Back to main -->
+  <div class="text-center mb-4">
+    <a class="nav-chip" href="/">&larr; Back to Golf Intel</a>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 py-3 mt-8">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <p class="text-[10px] text-slate-600">PropsBot Golf Intelligence &middot; API docs &middot; Educational tool only &middot; Not betting advice</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  var DATA_URL = 'https://golf.propsbot.ai/golf-data.json';
+
+  // Target keys + metadata (description + expected type).
+  var KEYS = [
+    { k:'generatedAt',      t:'string',  d:'ISO 8601 timestamp for when this snapshot was built.' },
+    { k:'players',          t:'array',   d:'Field roster with SG metrics, rank, odds, prop summary, and course fit.' },
+    { k:'currentEvent',     t:'object',  d:'Active tournament metadata plus live leaderboard.' },
+    { k:'courses',          t:'object',  d:'Hole-by-hole course data (par, yardage, historical scoring).' },
+    { k:'weather',          t:'object',  d:'Multi-day forecast for the tournament venue.' },
+    { k:'tournamentSG',     t:'object',  d:'Live Strokes Gained per round during play.' },
+    { k:'teeTimes',         t:'array',   d:'Full field tee times (grouping, start hole, R1/R2).' },
+    { k:'anomalies',        t:'array',   d:'Mispriced props flagged by the edge model.' },
+    { k:'oddsMovement',     t:'array',   d:'Line changes since the previous snapshot.' },
+    { k:'cutPrediction',    t:'object',  d:'Projected cut line + per-player make-cut probabilities.' },
+    { k:'news',             t:'array',   d:'Relevant tour news (withdrawals, injuries, commitments).' },
+    { k:'threeBalls',       t:'array',   d:'Matchup model output for 3-ball groupings.' },
+    { k:'threeBallsSource', t:'string',  d:'Source/vendor of the 3-ball matchup data.' },
+    { k:'propLines',        t:'object',  d:'Real sportsbook birdie / bogey / scoring lines per player.' },
+    { k:'majorsSchedule',   t:'array',   d:'Upcoming majors (date, course, format).' },
+    { k:'modelParams',      t:'object',  d:'Inline copy of the current model weights / tuning params.' },
+    { k:'dataQuality',      t:'object',  d:'Snapshot diagnostics: source freshness, missing fields, etc.' }
+  ];
+
+  // --- tiny pretty-printer with light syntax coloring ---
+  function escapeHtml(s){
+    return String(s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function colorize(jsonStr){
+    // Tokenize after JSON.stringify has already produced valid JSON.
+    // Pattern courtesy of the canonical "pretty print JSON" regex.
+    return escapeHtml(jsonStr).replace(
+      /("(\\u[a-fA-F0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(\.\d+)?([eE][+-]?\d+)?)/g,
+      function(match){
+        var cls = 'tok-num';
+        if (/^"/.test(match)) {
+          cls = /:$/.test(match) ? 'tok-key' : 'tok-str';
+        } else if (/true|false/.test(match)) {
+          cls = 'tok-bool';
+        } else if (/null/.test(match)) {
+          cls = 'tok-null';
+        }
+        return '<span class="'+cls+'">'+match+'</span>';
+      }
+    );
+  }
+
+  // Take the first N items of an array/object for the sample.
+  function truncateForSample(value, n){
+    n = n || 2;
+    if (Array.isArray(value)) {
+      return value.slice(0, n);
+    }
+    if (value && typeof value === 'object') {
+      var out = {};
+      var keys = Object.keys(value).slice(0, n + 1); // object: show up to 3 top keys
+      for (var i=0;i<keys.length;i++){
+        var v = value[keys[i]];
+        // If the top-level value is itself a large array, take first 2 entries.
+        if (Array.isArray(v) && v.length > 2) {
+          out[keys[i]] = v.slice(0, 2);
+          // annotate remainder
+          out[keys[i]].push("/* +" + (v.length - 2) + " more */");
+        } else {
+          out[keys[i]] = v;
+        }
+      }
+      return out;
+    }
+    return value;
+  }
+
+  function buildBlock(entry, value){
+    var details = document.createElement('details');
+    details.className = 'key-block';
+
+    var summary = document.createElement('summary');
+    summary.innerHTML =
+      '<span class="chev mono">&#9656;</span>' +
+      '<span class="k-name">' + entry.k + '</span>' +
+      '<span class="k-type">' + entry.t + '</span>' +
+      '<span class="k-desc">' + entry.d + '</span>';
+    details.appendChild(summary);
+
+    var body = document.createElement('div');
+    body.className = 'body';
+
+    // Meta line: show actual observed type / size
+    var metaLine = document.createElement('div');
+    metaLine.className = 'mono';
+    metaLine.style.cssText = 'font-size:11px;color:var(--text-muted);margin-top:8px;';
+    if (value === undefined || value === null) {
+      metaLine.textContent = 'live value: (not present in current snapshot)';
+    } else if (Array.isArray(value)) {
+      metaLine.textContent = 'live array length: ' + value.length;
+    } else if (typeof value === 'object') {
+      metaLine.textContent = 'live object keys: ' + Object.keys(value).length;
+    } else {
+      metaLine.textContent = 'live value type: ' + typeof value;
+    }
+    body.appendChild(metaLine);
+
+    var label = document.createElement('div');
+    label.className = 'example-label mono';
+    label.textContent = 'Example (live sample)';
+    body.appendChild(label);
+
+    var pre = document.createElement('pre');
+    pre.className = 'code-block';
+
+    var sample;
+    if (value === undefined) {
+      sample = null;
+    } else if (Array.isArray(value) || (value && typeof value === 'object')) {
+      sample = truncateForSample(value, 2);
+    } else {
+      sample = value;
+    }
+
+    var jsonStr;
+    try {
+      jsonStr = JSON.stringify(sample, null, 2);
+    } catch (e) {
+      jsonStr = String(sample);
+    }
+    // Cap very long samples.
+    if (jsonStr && jsonStr.length > 4000) {
+      jsonStr = jsonStr.slice(0, 4000) + '\n... (truncated)';
+    }
+    pre.innerHTML = colorize(jsonStr == null ? 'null' : jsonStr);
+    body.appendChild(pre);
+
+    details.appendChild(body);
+    return details;
+  }
+
+  function renderKeyBlocks(data){
+    var container = document.getElementById('keyBlocks');
+    container.innerHTML = '';
+    for (var i=0;i<KEYS.length;i++){
+      var entry = KEYS[i];
+      var val = data ? data[entry.k] : undefined;
+      container.appendChild(buildBlock(entry, val));
+    }
+  }
+
+  function setStatus(ok, msg, ts){
+    var pill = document.getElementById('liveStatus');
+    var tsEl = document.getElementById('liveTs');
+    pill.classList.toggle('err', !ok);
+    pill.innerHTML = '<span class="dot"></span><span>' + msg + '</span>';
+    if (ts) {
+      tsEl.textContent = 'generatedAt: ' + ts;
+    }
+  }
+
+  // Copy buttons
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.copy-btn');
+    if (!btn) return;
+    var targetId = btn.getAttribute('data-copy-target');
+    var el = document.getElementById(targetId);
+    if (!el) return;
+    var text = el.innerText || el.textContent || '';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function(){
+        btn.classList.add('copied');
+        var orig = btn.textContent;
+        btn.textContent = 'copied';
+        setTimeout(function(){ btn.classList.remove('copied'); btn.textContent = orig; }, 1200);
+      });
+    }
+  });
+
+  // Render placeholder blocks immediately so the page isn't empty if fetch is slow.
+  renderKeyBlocks(null);
+
+  // Fetch live data.
+  fetch(DATA_URL, { cache: 'no-store' })
+    .then(function(r){
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data){
+      setStatus(true, 'Live data loaded', data && data.generatedAt);
+      renderKeyBlocks(data);
+    })
+    .catch(function(err){
+      setStatus(false, 'Live fetch failed: ' + err.message, null);
+      // Leave placeholder blocks.
+    });
+
+})();
+</script>
+
+</body>
+</html>

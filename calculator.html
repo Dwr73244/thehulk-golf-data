@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Golf Bettor's Toolbox — PropsBot</title>
+  <meta name="description" content="Three essential golf betting calculators: Dead-Heat, Each-Way, and Parlay Break-Even. Built for golf majors and prop bettors." />
+  <meta name="robots" content="index,follow" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23070e1a'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' font-family='Apple Color Emoji,Segoe UI Emoji'%3E⛳%3C/text%3E%3C/svg%3E" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+    :root {
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --teal: #15ffc2;
+      --red: #ff1552;
+      --gold: #f0c040;
+      --blue: #22a9ec;
+      --bg: #070e1a;
+      --surface1: rgba(15,28,46,0.6);
+      --surface2: rgba(20,36,60,0.7);
+      --glass: rgba(18,28,45,0.92);
+      --card-border: rgba(100,200,220,0.07);
+      --divider: rgba(100,200,220,0.06);
+      --text-primary: #eef2f7;
+      --text-secondary: rgba(200,215,230,0.75);
+      --text-muted: rgba(150,180,210,0.4);
+      --brand-gradient: linear-gradient(135deg, #09d5a0, #22a9ec);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(circle at 20% 0%, rgba(21,255,194,0.04), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(34,169,236,0.04), transparent 40%);
+    }
+    .mono { font-family: var(--mono); }
+
+    header.page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+    }
+    .brand .logo {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--brand-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-weight: 900; color: var(--bg); font-size: 1rem;
+    }
+    .brand .title {
+      font-family: var(--mono); font-weight: 700; font-size: 0.9rem;
+      color: #eef2f7;
+    }
+    .brand .title em { color: var(--teal); font-style: normal; }
+    .back-link {
+      color: var(--text-secondary); text-decoration: none;
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 600;
+      padding: 0.4rem 0.75rem; border-radius: 8px;
+      border: 1px solid rgba(100,200,220,0.12);
+      transition: all 0.2s;
+    }
+    .back-link:hover { color: var(--teal); border-color: rgba(21,255,194,0.3); }
+
+    .hero {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0.75rem 1.25rem 1.5rem;
+    }
+    .hero h1 {
+      font-family: var(--mono);
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 800;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .hero h1 span { color: var(--teal); }
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin: 0;
+      max-width: 760px;
+      line-height: 1.55;
+    }
+
+    .grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.25rem 3rem;
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 960px) {
+      .grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+    }
+    .card h2 {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 800;
+      margin: 0 0 0.25rem;
+      color: var(--text-primary);
+    }
+    .card h2 .tag {
+      display: inline-block;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+    .card h2 .tag.most {
+      background: rgba(21,255,194,0.1);
+      color: var(--teal);
+      border: 1px solid rgba(21,255,194,0.25);
+    }
+    .card > .blurb {
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+      line-height: 1.5;
+      margin: 0 0 1rem;
+    }
+
+    label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 0.3rem;
+    }
+    .field { margin-bottom: 0.85rem; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(100,180,200,0.2);
+      border-radius: 8px;
+      padding: 0.55rem 0.7rem;
+      color: var(--text-primary);
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus, select:focus {
+      border-color: rgba(21,255,194,0.5);
+    }
+
+    .results {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--divider);
+    }
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--divider);
+      gap: 0.5rem;
+    }
+    .result-row:last-child { border-bottom: none; }
+    .result-row .k {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+    .result-row .v {
+      font-family: var(--mono);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+    .v.teal { color: var(--teal); }
+    .v.gold { color: var(--gold); }
+    .v.red { color: var(--red); }
+    .v.blue { color: var(--blue); }
+
+    .legs { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .leg {
+      display: grid;
+      grid-template-columns: 28px 1fr 1fr auto;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .leg .idx {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .leg input {
+      padding: 0.4rem 0.55rem;
+      font-size: 0.75rem;
+    }
+    .btn {
+      background: rgba(21,255,194,0.08);
+      color: var(--teal);
+      border: 1px solid rgba(21,255,194,0.25);
+      border-radius: 8px;
+      padding: 0.45rem 0.8rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.03em;
+    }
+    .btn:hover { background: rgba(21,255,194,0.14); }
+    .btn.ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: rgba(100,180,200,0.15);
+      padding: 0.25rem 0.5rem;
+      font-size: 0.65rem;
+    }
+    .btn.ghost:hover { color: var(--red); border-color: rgba(255,21,82,0.3); }
+
+    .payout-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+    .payout-grid .pg {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(100,180,200,0.08);
+      border-radius: 8px;
+      padding: 0.45rem 0.5rem;
+      text-align: center;
+    }
+    .payout-grid .pg .label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .payout-grid .pg .val {
+      font-family: var(--mono);
+      font-weight: 800;
+      color: var(--teal);
+      font-size: 0.82rem;
+      margin-top: 0.15rem;
+    }
+
+    .ev-block {
+      margin-top: 0.75rem;
+      padding: 0.7rem;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(100,180,200,0.08);
+      border-radius: 8px;
+    }
+    .ev-block .ev-headline {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .ev-block .ev-sub {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .notes {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 1.25rem 2rem;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      line-height: 1.5;
+    }
+
+    footer.site {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 1rem 1.25rem 2rem;
+      text-align: center;
+    }
+    footer.site a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin: 0 0.55rem;
+      font-size: 0.72rem;
+      font-family: var(--mono);
+    }
+    footer.site a:hover { color: var(--teal); }
+    footer.site p {
+      color: var(--text-muted);
+      font-size: 0.65rem;
+      margin: 0.5rem 0 0;
+    }
+  </style>
+</head>
+<body>
+
+<header class="page">
+  <a class="brand" href="/">
+    <span class="logo">P</span>
+    <span class="title">PropsBot <em>Golf Toolbox</em></span>
+  </a>
+  <a class="back-link" href="/">← Back to Golf Intel</a>
+</header>
+
+<section class="hero">
+  <h1>Golf Bettor's <span>Toolbox</span></h1>
+  <p>Three calculators built for golf bettors: dead-heat reductions on tied finishes, each-way payouts used in majors, and parlay break-even analysis. All math runs live in your browser — no tracking, no sign-up.</p>
+</section>
+
+<main class="grid">
+
+  <!-- ========== DEAD-HEAT ========== -->
+  <section class="card" id="dh-card">
+    <h2>Dead-Heat <span class="tag most">Most used</span></h2>
+    <p class="blurb">When multiple players tie for a finishing position that's partly outside the paid range (e.g. 3 tied for T5 with places paid Top 5), winnings are split among the tied golfers.</p>
+
+    <div class="field">
+      <label for="dh-stake">Stake ($)</label>
+      <input type="text" inputmode="decimal" pattern="[+-]?[0-9]*\.?[0-9]*" id="dh-stake" value="100" />
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="dh-odds">American odds</label>
+        <input type="text" inputmode="decimal" pattern="[+-]?[0-9]*\.?[0-9]*" id="dh-odds" value="+500" />
+      </div>
+      <div class="field">
+        <label for="dh-tied">Players tied</label>
+        <input type="text" inputmode="decimal" pattern="[0-9]*" id="dh-tied" value="2" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="dh-paid">Places paid (top N)</label>
+        <input type="text" inputmode="decimal" pattern="[0-9]*" id="dh-paid" value="5" />
+      </div>
+      <div class="field">
+        <label for="dh-pos">Tie position (e.g. T5)</label>
+        <input type="text" inputmode="decimal" pattern="[0-9]*" id="dh-pos" value="5" />
+      </div>
+    </div>
+
+    <div class="results">
+      <div class="result-row"><span class="k">Full win payout</span><span class="v" id="dh-full">—</span></div>
+      <div class="result-row"><span class="k">Dead-heat payout</span><span class="v teal" id="dh-dh">—</span></div>
+      <div class="result-row"><span class="k">Reduction</span><span class="v red" id="dh-red">—</span></div>
+      <div class="result-row"><span class="k">Effective odds</span><span class="v blue" id="dh-effodds">—</span></div>
+    </div>
+  </section>
+
+  <!-- ========== EACH-WAY ========== -->
+  <section class="card" id="ew-card">
+    <h2>Each-Way</h2>
+    <p class="blurb">British-style bet split in two equal halves — one for the win, one for a place finish. Common at majors where books offer 1/4 or 1/5 odds on Top 5 or Top 8.</p>
+
+    <div class="field">
+      <label for="ew-stake">Total stake ($) — split 50/50</label>
+      <input type="text" inputmode="decimal" pattern="[+-]?[0-9]*\.?[0-9]*" id="ew-stake" value="20" />
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="ew-odds">Win odds (American)</label>
+        <input type="text" inputmode="decimal" pattern="[+-]?[0-9]*\.?[0-9]*" id="ew-odds" value="+2000" />
+      </div>
+      <div class="field">
+        <label for="ew-frac">Place fraction</label>
+        <select id="ew-frac">
+          <option value="0.25">1/4 odds</option>
+          <option value="0.2">1/5 odds</option>
+          <option value="0.333333">1/3 odds</option>
+          <option value="0.5">1/2 odds</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="ew-places">Places paid (usually 5 or 8)</label>
+      <input type="text" inputmode="decimal" pattern="[0-9]*" id="ew-places" value="5" />
+    </div>
+
+    <div class="results">
+      <div class="result-row"><span class="k">Wins outright</span><span class="v teal" id="ew-win">—</span></div>
+      <div class="result-row"><span class="k">Places (not win)</span><span class="v gold" id="ew-place">—</span></div>
+      <div class="result-row"><span class="k">Both (win + place)</span><span class="v teal" id="ew-both">—</span></div>
+      <div class="result-row"><span class="k">Misses both</span><span class="v red" id="ew-miss">—</span></div>
+    </div>
+  </section>
+
+  <!-- ========== PARLAY BREAK-EVEN ========== -->
+  <section class="card" id="pr-card">
+    <h2>Parlay Break-Even</h2>
+    <p class="blurb">Combine any number of American-odds legs. See the true decimal line, combined American odds, break-even win probability, and sample payouts. Optionally add your own subjective probability per leg to estimate edge.</p>
+
+    <label>Legs</label>
+    <div class="legs" id="pr-legs"></div>
+    <button class="btn" id="pr-add" type="button">+ Add leg</button>
+
+    <div class="results">
+      <div class="result-row"><span class="k">Combined decimal</span><span class="v" id="pr-dec">—</span></div>
+      <div class="result-row"><span class="k">Combined American</span><span class="v teal" id="pr-am">—</span></div>
+      <div class="result-row"><span class="k">Break-even win %</span><span class="v gold" id="pr-be">—</span></div>
+
+      <div class="payout-grid">
+        <div class="pg"><div class="label">$10 →</div><div class="val" id="pr-p10">—</div></div>
+        <div class="pg"><div class="label">$25 →</div><div class="val" id="pr-p25">—</div></div>
+        <div class="pg"><div class="label">$100 →</div><div class="val" id="pr-p100">—</div></div>
+      </div>
+
+      <div class="ev-block" id="pr-ev">
+        <div class="ev-headline" id="pr-ev-head">Optional: enter your own win % in the 3rd column of each leg to see projected EV.</div>
+        <div class="ev-sub" id="pr-ev-sub"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="notes">
+  <strong style="color:var(--text-secondary)">Formulas used.</strong>
+  American to decimal: positive odds → (odds / 100) + 1; negative odds → (100 / |odds|) + 1. Dead-heat payout: <span class="mono">stake + winnings × (places_paid − position + 1) / tied</span>. Each-way: win-half pays full odds, place-half pays odds × fraction. Parlay: multiply decimal odds across legs. Break-even: 1 / decimal. EV: subjective_prob × (decimal − 1) − (1 − subjective_prob). Not betting advice.
+</div>
+
+<footer class="site">
+  <a href="/">Golf Intel</a>
+  <a href="/#methodology">Methodology</a>
+  <a href="https://propsbot.ai" target="_blank" rel="noopener">PropsBot.ai</a>
+  <p>Educational tool only · Not affiliated with any sportsbook · Not betting advice</p>
+</footer>
+
+<script>
+(function(){
+  // ---------- helpers ----------
+  function parseNum(v, fallback){
+    if(v === undefined || v === null) return fallback;
+    var s = String(v).trim().replace(/[, $]/g,'');
+    if(s === '' || s === '+' || s === '-') return fallback;
+    var n = parseFloat(s);
+    return isFinite(n) ? n : fallback;
+  }
+  function parseInt2(v, fallback){
+    var n = parseNum(v, fallback);
+    return Math.max(0, Math.floor(n));
+  }
+  function americanToDecimal(odds){
+    if(!isFinite(odds) || odds === 0) return NaN;
+    if(odds > 0) return odds / 100 + 1;
+    return 100 / Math.abs(odds) + 1;
+  }
+  function decimalToAmerican(dec){
+    if(!isFinite(dec) || dec <= 1) return NaN;
+    if(dec >= 2) return Math.round((dec - 1) * 100);
+    return Math.round(-100 / (dec - 1));
+  }
+  function fmtMoney(n){
+    if(!isFinite(n)) return '—';
+    return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+  function fmtAmerican(n){
+    if(!isFinite(n)) return '—';
+    return (n > 0 ? '+' : '') + Math.round(n);
+  }
+  function fmtPct(n, digits){
+    if(!isFinite(n)) return '—';
+    return (n * 100).toFixed(digits == null ? 1 : digits) + '%';
+  }
+  function $(id){ return document.getElementById(id); }
+
+  // ---------- DEAD-HEAT ----------
+  function calcDeadHeat(){
+    var stake = parseNum($('dh-stake').value, NaN);
+    var odds  = parseNum($('dh-odds').value, NaN);
+    var tied  = parseInt2($('dh-tied').value, 1) || 1;
+    var paid  = parseInt2($('dh-paid').value, 1) || 1;
+    var pos   = parseInt2($('dh-pos').value, 1) || 1;
+
+    if(!isFinite(stake) || !isFinite(odds)){
+      ['dh-full','dh-dh','dh-red','dh-effodds'].forEach(function(i){ $(i).textContent = '—'; });
+      return;
+    }
+    var dec = americanToDecimal(odds);
+    var fullWin = stake * (dec - 1);
+    // Positions paid within the tie: max(0, paid_down_to - position + 1), capped at tied count.
+    var posInTie = Math.max(0, Math.min(tied, paid - pos + 1));
+    var fraction = posInTie / tied;
+    var dhWin = fullWin * fraction;
+    var reduction = fullWin - dhWin;
+    var dhPayout = stake + dhWin;
+    var fullPayout = stake + fullWin;
+
+    $('dh-full').textContent = fmtMoney(fullPayout);
+    $('dh-dh').textContent   = fmtMoney(dhPayout);
+    $('dh-red').textContent  = (reduction > 0 ? '-' : '') + fmtMoney(Math.abs(reduction)).replace('-','');
+    var effDec = stake > 0 ? (dhPayout / stake) : NaN;
+    $('dh-effodds').textContent = isFinite(effDec) && effDec > 1 ? fmtAmerican(decimalToAmerican(effDec)) : '—';
+  }
+
+  // ---------- EACH-WAY ----------
+  function calcEachWay(){
+    var stake  = parseNum($('ew-stake').value, NaN);
+    var odds   = parseNum($('ew-odds').value, NaN);
+    var frac   = parseNum($('ew-frac').value, 0.25);
+    var places = parseInt2($('ew-places').value, 5) || 5;
+
+    if(!isFinite(stake) || !isFinite(odds)){
+      ['ew-win','ew-place','ew-both','ew-miss'].forEach(function(i){ $(i).textContent = '—'; });
+      return;
+    }
+    var half = stake / 2;
+    var decWin = americanToDecimal(odds);
+    // Place leg uses odds * fraction (applied to the NET fractional odds, not decimal directly)
+    var fracNet = (decWin - 1) * frac;          // fractional odds for place
+    var decPlace = 1 + fracNet;
+
+    var winOnly   = half * (decWin - 1) + half; // win half returns; place half loses
+    var winAndPlace = half * (decWin - 1) + half + half * fracNet + half; // both halves hit
+    var placeOnly = -half + half * fracNet + half; // win half lost, place half hit (returns stake+profit, minus lost half)
+    var missBoth  = -stake;
+
+    $('ew-win').textContent   = fmtMoney(winOnly) + '  (if win half cashed alone)';
+    $('ew-place').textContent = fmtMoney(placeOnly);
+    $('ew-both').textContent  = fmtMoney(winAndPlace);
+    $('ew-miss').textContent  = fmtMoney(missBoth);
+  }
+
+  // ---------- PARLAY ----------
+  var legs = [
+    { odds: '-110', prob: '' },
+    { odds: '+150', prob: '' }
+  ];
+
+  function renderLegs(){
+    var host = $('pr-legs');
+    host.innerHTML = '';
+    legs.forEach(function(leg, i){
+      var row = document.createElement('div');
+      row.className = 'leg';
+      row.innerHTML =
+        '<div class="idx">#' + (i+1) + '</div>' +
+        '<input type="text" inputmode="decimal" pattern="[+-]?[0-9]*\\.?[0-9]*" placeholder="American odds" data-k="odds" data-i="'+i+'" value="'+leg.odds+'" />' +
+        '<input type="text" inputmode="decimal" pattern="[0-9]*\\.?[0-9]*" placeholder="Your win % (optional)" data-k="prob" data-i="'+i+'" value="'+leg.prob+'" />' +
+        (legs.length > 1 ? '<button class="btn ghost" type="button" data-rm="'+i+'">✕</button>' : '<div></div>');
+      host.appendChild(row);
+    });
+    host.querySelectorAll('input').forEach(function(inp){
+      inp.addEventListener('input', function(e){
+        var i = +e.target.getAttribute('data-i');
+        var k = e.target.getAttribute('data-k');
+        legs[i][k] = e.target.value;
+        calcParlay();
+      });
+    });
+    host.querySelectorAll('button[data-rm]').forEach(function(b){
+      b.addEventListener('click', function(e){
+        var i = +e.target.getAttribute('data-rm');
+        legs.splice(i, 1);
+        renderLegs();
+        calcParlay();
+      });
+    });
+  }
+
+  function calcParlay(){
+    var combined = 1;
+    var ok = legs.length > 0;
+    var userProbProd = 1;
+    var anyUserProb = false;
+    var allUserProb = legs.length > 0;
+
+    legs.forEach(function(leg){
+      var o = parseNum(leg.odds, NaN);
+      if(!isFinite(o)){ ok = false; return; }
+      combined *= americanToDecimal(o);
+
+      var p = parseNum(leg.prob, NaN);
+      if(isFinite(p) && p > 0){
+        var pp = p > 1 ? p/100 : p;
+        userProbProd *= pp;
+        anyUserProb = true;
+      } else {
+        allUserProb = false;
+      }
+    });
+
+    if(!ok){
+      ['pr-dec','pr-am','pr-be','pr-p10','pr-p25','pr-p100'].forEach(function(i){ $(i).textContent = '—'; });
+      $('pr-ev-head').textContent = 'Enter American odds on every leg to compute.';
+      $('pr-ev-sub').textContent = '';
+      return;
+    }
+    var am = decimalToAmerican(combined);
+    var be = 1 / combined;
+    $('pr-dec').textContent = combined.toFixed(3);
+    $('pr-am').textContent  = fmtAmerican(am);
+    $('pr-be').textContent  = fmtPct(be, 2);
+    $('pr-p10').textContent  = fmtMoney(10  * combined);
+    $('pr-p25').textContent  = fmtMoney(25  * combined);
+    $('pr-p100').textContent = fmtMoney(100 * combined);
+
+    if(anyUserProb && allUserProb){
+      var ev = userProbProd * (combined - 1) - (1 - userProbProd);
+      var evPct = ev * 100; // per $1 staked
+      var sign = ev >= 0 ? '+' : '';
+      $('pr-ev-head').textContent = 'Projected EV: ' + sign + evPct.toFixed(2) + '% per $1 — your combined win probability ' + fmtPct(userProbProd, 2) + ' vs break-even ' + fmtPct(be, 2);
+      $('pr-ev-head').style.color = ev >= 0 ? 'var(--teal)' : 'var(--red)';
+      $('pr-ev-sub').textContent = ev >= 0
+        ? 'This parlay is +EV by your own estimates. Remember: your inputs are subjective.'
+        : 'This parlay is -EV by your own estimates. You would need a higher win probability on one or more legs.';
+    } else {
+      $('pr-ev-head').textContent = 'Optional: enter your own win % in the 3rd column of each leg to see projected EV.';
+      $('pr-ev-head').style.color = '';
+      $('pr-ev-sub').textContent = '';
+    }
+  }
+
+  $('pr-add').addEventListener('click', function(){
+    legs.push({ odds: '+100', prob: '' });
+    renderLegs();
+    calcParlay();
+  });
+
+  // ---------- wire up live updates ----------
+  ['dh-stake','dh-odds','dh-tied','dh-paid','dh-pos'].forEach(function(id){
+    $(id).addEventListener('input', calcDeadHeat);
+  });
+  ['ew-stake','ew-odds','ew-places'].forEach(function(id){
+    $(id).addEventListener('input', calcEachWay);
+  });
+  $('ew-frac').addEventListener('change', calcEachWay);
+
+  // initial render
+  renderLegs();
+  calcDeadHeat();
+  calcEachWay();
+  calcParlay();
+})();
+</script>
+
+</body>
+</html>
