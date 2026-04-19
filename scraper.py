@@ -2247,6 +2247,111 @@ def send_discord_alerts(output):
                             "rank": rank,
                         })
 
+    # ---- Outright winner + placement (Top 5/10/20) + make cut alerts ----
+    # Only alert on real book odds. Per-market EV thresholds get TIGHTER
+    # for markets where our model is less calibrated (winner is hardest,
+    # make-cut is easiest). All tagged BETA until backtest validates.
+    #
+    # Model-probability calibration is heuristic — propScores[market]/100
+    # scaled to each market's peak-player rate. Refined automatically once
+    # backtest-report.json has 30+ scored events.
+    MARKET_CAL = {
+        "winner":  {"peak": 0.15, "ev_threshold": 15.0, "label": "Outright"},
+        "top5":    {"peak": 0.25, "ev_threshold": 12.0, "label": "Top 5"},
+        "top10":   {"peak": 0.35, "ev_threshold": 10.0, "label": "Top 10"},
+        "top20":   {"peak": 0.55, "ev_threshold": 8.0,  "label": "Top 20"},
+        "makeCut": {"peak": 0.85, "ev_threshold": 6.0,  "label": "Make Cut"},
+    }
+
+    def _parse_american(raw):
+        if raw is None:
+            return None
+        try:
+            return int(str(raw).replace("+", "").strip())
+        except (ValueError, TypeError):
+            return None
+
+    def _ev_on_stake(model_prob, american):
+        if american is None or not (0 < model_prob < 1):
+            return None
+        payout = american / 100.0 if american > 0 else 100.0 / -american
+        return (model_prob * payout - (1 - model_prob)) * 100  # %
+
+    def _best_odds(odds_dict):
+        """Best American odds (highest positive / closest to zero negative)."""
+        if not isinstance(odds_dict, dict):
+            return None, None
+        best_book, best_val = None, None
+        for book, raw in odds_dict.items():
+            v = _parse_american(raw)
+            if v is None:
+                continue
+            if best_val is None or v > best_val:
+                best_val = v
+                best_book = book
+        return best_book, best_val
+
+    props_by_type = output.get("propsByType") or {}
+    for player in output.get("players", []):
+        name = player.get("name", "")
+        rank = player.get("rank", "?")
+        conf = player.get("confScore")
+        prop_scores = player.get("propScores") or {}
+
+        for market, cal in MARKET_CAL.items():
+            # ---- Source of real book odds for this market ----
+            if market == "winner":
+                book_odds = player.get("odds") or {}
+            else:
+                # propsByType[market] is keyed by player name, value is odds string
+                market_prices = props_by_type.get(market) or {}
+                raw = market_prices.get(name)
+                if raw is None:
+                    continue  # no real book line — skip (don't fabricate)
+                # Normalize to the {book: odds} shape
+                if isinstance(raw, dict):
+                    book_odds = raw
+                else:
+                    book_odds = {"book": raw}
+
+            best_book, best_val = _best_odds(book_odds)
+            if best_val is None:
+                continue  # no parseable odds
+
+            # ---- Model probability for this market ----
+            if market == "winner":
+                if conf is None:
+                    continue
+                model_prob = (conf / 100.0) * cal["peak"]
+            else:
+                score = prop_scores.get(market)
+                if score is None:
+                    # Fall back to confScore as rough proxy
+                    score = conf
+                if score is None:
+                    continue
+                model_prob = (score / 100.0) * cal["peak"]
+
+            ev = _ev_on_stake(model_prob, best_val)
+            if ev is None or ev < cal["ev_threshold"]:
+                continue
+
+            book_label = str(best_book).upper() if best_book and best_book != "book" else ""
+            odds_str = f"{'+' if best_val > 0 else ''}{best_val}"
+            prop_label = (
+                f"{cal['label']} — {name}"
+                + (f" @ {book_label}" if book_label else "")
+                + f" {odds_str}"
+            )
+            alerts.append({
+                "player": name,
+                "prop": prop_label,
+                "model": f"{model_prob*100:.1f}% model prob",
+                "edge": f"+{ev:.1f}% EV",
+                "conf": min(95, round(55 + ev * 1.5)),
+                "rank": rank,
+            })
+
     # ---- 2-ball / 3-ball matchup alerts ----
     # Only fire when real book odds exist (source != SyntheticTeeTimes)
     # and EV >= threshold. Dead-heat math is already baked into ev/fairOdds
