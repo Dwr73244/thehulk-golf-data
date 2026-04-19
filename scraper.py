@@ -63,6 +63,11 @@ TIMEOUT = 15
 # Delay between requests to be respectful
 REQUEST_DELAY = 2.0
 
+# Neutral course-fit default used when a player has no curated/computed fit
+# for the current venue. 75 = neutral on our 60-100 scale, producing a
+# zero-stroke boost via the `(fit - 75) / 25.0` formula.
+DEFAULT_COURSE_FIT = 75
+
 # ============================================================
 # HTTP HELPERS
 # ============================================================
@@ -830,6 +835,79 @@ VENUE_ALIASES = {
     "colonial": "colonial",
     "muirfield village": "memorial", "memorial": "memorial",
     "tpc scottsdale": "tpc_scottsdale", "phoenix open": "tpc_scottsdale",
+
+    # --- 2026 PGA Tour schedule coverage (added) ---
+    # 3M Open — TPC Twin Cities, Blaine, MN
+    "tpc twin cities": "tpc_twin_cities", "3m open": "tpc_twin_cities",
+    # American Express — PGA West / La Quinta CC, La Quinta, CA
+    "pga west": "pga_west", "american express": "pga_west", "la quinta": "pga_west",
+    # Bank of Utah Championship — Black Desert Resort, Ivins, UT
+    "black desert": "black_desert", "bank of utah": "black_desert",
+    # Baycurrent Classic — Yokohama Country Club, Japan
+    "yokohama country club": "yokohama", "baycurrent": "yokohama",
+    # Biltmore Championship — The Cliffs at Walnut Cove, Asheville, NC
+    "walnut cove": "walnut_cove", "biltmore championship": "walnut_cove",
+    # Butterfield Bermuda Championship — Port Royal Golf Course, Southampton
+    "port royal": "port_royal", "bermuda championship": "port_royal",
+    # Cadillac Championship — Trump National Doral (Blue Monster), Miami, FL
+    "doral": "doral", "blue monster": "doral", "cadillac championship": "doral",
+    # CJ Cup Byron Nelson — TPC Craig Ranch, McKinney, TX
+    "tpc craig ranch": "tpc_craig_ranch", "byron nelson": "tpc_craig_ranch",
+    # Cognizant Classic — PGA National (Champion), Palm Beach Gardens, FL
+    "pga national": "pga_national", "cognizant classic": "pga_national",
+    # Corales Puntacana Championship — Corales GC, Punta Cana, DR
+    "corales": "corales", "puntacana": "corales",
+    # FedEx St. Jude Championship — TPC Southwind, Memphis, TN
+    "tpc southwind": "tpc_southwind", "st. jude": "tpc_southwind", "st jude": "tpc_southwind",
+    # Genesis Scottish Open — The Renaissance Club, North Berwick, Scotland
+    "renaissance club": "renaissance", "scottish open": "renaissance",
+    # Good Good Championship — Omni Barton Creek, Austin, TX
+    "barton creek": "barton_creek", "good good": "barton_creek",
+    # Houston Open — Memorial Park GC, Houston, TX
+    "memorial park": "memorial_park", "houston open": "memorial_park",
+    # ISCO Championship — Keene Trace GC, Nicholasville, KY
+    "keene trace": "keene_trace", "isco championship": "keene_trace",
+    # John Deere Classic — TPC Deere Run, Silvis, IL
+    "tpc deere run": "tpc_deere_run", "deere run": "tpc_deere_run", "john deere": "tpc_deere_run",
+    # Myrtle Beach Classic — Dunes Golf & Beach Club (rotates; alias "myrtle beach")
+    "myrtle beach": "myrtle_beach", "dunes golf": "myrtle_beach",
+    # Open Championship — Royal Birkdale, Southport, England (2026)
+    "royal birkdale": "royal_birkdale", "birkdale": "royal_birkdale",
+    "the open championship": "royal_birkdale", "open championship": "royal_birkdale",
+    # PGA Championship — Aronimink GC, Newtown Square, PA (2026)
+    "aronimink": "aronimink", "pga championship": "aronimink",
+    # Puerto Rico Open — Grand Reserve GC, Rio Grande, PR
+    "grand reserve": "grand_reserve", "puerto rico open": "grand_reserve",
+    # RBC Canadian Open — TPC Toronto at Osprey Valley, Caledon, ON (2026)
+    "osprey valley": "osprey_valley", "tpc toronto": "osprey_valley", "canadian open": "osprey_valley",
+    # Rocket Classic — Detroit Golf Club, Detroit, MI
+    "detroit golf": "detroit_gc", "rocket classic": "detroit_gc", "rocket mortgage": "detroit_gc",
+    # RSM Classic — Sea Island Resort (Seaside/Plantation), St. Simons, GA
+    "sea island": "sea_island", "rsm classic": "sea_island",
+    # Sony Open — Waialae Country Club, Honolulu, HI
+    "waialae": "waialae", "sony open": "waialae",
+    # Travelers Championship — TPC River Highlands, Cromwell, CT
+    "tpc river highlands": "tpc_river_highlands", "river highlands": "tpc_river_highlands",
+    "travelers championship": "tpc_river_highlands",
+    # Truist Championship — Quail Hollow uses existing "quail hollow" alias above
+    "truist championship": "quail_hollow",
+    # U.S. Open — Shinnecock Hills, Southampton, NY (2026)
+    "shinnecock": "shinnecock", "u.s. open": "shinnecock", "us open": "shinnecock",
+    # Valero Texas Open — TPC San Antonio (Oaks), San Antonio, TX
+    "tpc san antonio": "tpc_san_antonio", "valero texas": "tpc_san_antonio",
+    # Valspar Championship — Innisbrook (Copperhead), Palm Harbor, FL
+    "innisbrook": "innisbrook", "copperhead": "innisbrook", "valspar": "innisbrook",
+    # VidantaWorld Mexico Open — VidantaWorld, Nuevo Nayarit, MX
+    "vidantaworld": "vidanta", "vidanta": "vidanta", "mexico open": "vidanta",
+    # World Wide Technology Championship — El Cardonal at Diamante, Cabo San Lucas
+    "el cardonal": "el_cardonal", "diamante": "el_cardonal",
+    "world wide technology": "el_cardonal",
+    # Wyndham Championship — Sedgefield Country Club, Greensboro, NC
+    "sedgefield": "sedgefield", "wyndham championship": "sedgefield",
+    # Zurich Classic — TPC Louisiana, Avondale, LA
+    "tpc louisiana": "tpc_louisiana", "zurich classic": "tpc_louisiana",
+    # BMW Championship 2026 — Bellerive CC, St. Louis, MO (rotates)
+    "bellerive": "bellerive", "bmw championship": "bellerive",
 }
 
 
@@ -845,9 +923,9 @@ def match_venue_to_course(venue_name, event_name=""):
 # Major-tournament venues across recent + upcoming cycles
 _MAJOR_VENUES = {
     "augusta", "augusta national",                          # Masters
-    "valhalla", "quail hollow", "oak hill", "southern hills",  # PGA Championship
-    "pinehurst", "pinehurst no. 2", "oakmont", "los angeles country club",  # US Open
-    "royal troon", "royal portrush", "royal liverpool", "hoylake", "st andrews", "st. andrews", "royal st georges",  # Open Championship
+    "valhalla", "quail hollow", "oak hill", "southern hills", "aronimink",  # PGA Championship (2026: Aronimink)
+    "pinehurst", "pinehurst no. 2", "oakmont", "los angeles country club", "shinnecock", "shinnecock hills",  # US Open (2026: Shinnecock)
+    "royal troon", "royal portrush", "royal liverpool", "hoylake", "st andrews", "st. andrews", "royal st georges", "royal birkdale",  # Open Championship (2026: Royal Birkdale)
 }
 
 _MAJOR_NAME_KEYWORDS = (
@@ -1813,7 +1891,10 @@ def predict_matchups(matchups, players, course_key=None, weather=None,
 
             fit_boost = 0.0
             if course_key:
-                fit = (pdata.get("courseFit") or {}).get(course_key)
+                # Fallback to DEFAULT_COURSE_FIT (75 = neutral, 0 stroke boost)
+                # so newly-added 2026 venues without curated per-player fits
+                # don't drop through as NaN/0.
+                fit = (pdata.get("courseFit") or {}).get(course_key, DEFAULT_COURSE_FIT)
                 if isinstance(fit, (int, float)):
                     # 75 = neutral, range 60-100 → ±1 stroke
                     fit_boost = (fit - 75) / 25.0
@@ -3470,10 +3551,13 @@ def calculate_player_confidence_score(player, all_players, course_key="augusta",
     # 2. COURSE FIT  (18%)
     # Pulls from curated courseFit dict; bonus for elite fit.
     # =========================================================
-    course_fit = 0
+    course_fit = DEFAULT_COURSE_FIT
     cf = player.get("courseFit")
     if isinstance(cf, dict):
-        course_fit = cf.get(course_key, cf.get("augusta", 0))
+        # Fallback chain: exact course key → augusta (legacy default) →
+        # DEFAULT_COURSE_FIT so new 2026 venues with no curated fit still
+        # score neutral instead of zeroing out the 16-point fit bucket.
+        course_fit = cf.get(course_key, cf.get("augusta", DEFAULT_COURSE_FIT))
     elif isinstance(cf, (int, float)):
         course_fit = cf
 
