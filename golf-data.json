@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-19T13:59:54.409669",
+  "generatedAt": "2026-04-19T14:02:09.471835",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -123,7 +123,7 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": -15.75,
-          "fence": 3.09,
+          "fence": 3.03,
           "market": "outright"
         }
       ],
@@ -235,7 +235,7 @@
           "type": "iqr_outlier",
           "direction": "UNDERPRICED",
           "edge_pct": 10.31,
-          "fence": 9.03,
+          "fence": 9.07,
           "market": "outright"
         },
         {
@@ -286,7 +286,7 @@
       },
       "notes": "Second-best iron player. Low ball flight suits firm/windy. Premium bogey under play.",
       "odds": {
-        "dk": "+47000"
+        "dk": "+47500"
       },
       "fieldInfo": {
         "owgr": 16,
@@ -297,8 +297,8 @@
       "recentForm": {
         "lastResult": "#23 at RBC Heritage",
         "lastPosition": 23,
-        "l5AvgFinish": 26.6,
-        "l10AvgFinish": 29.0,
+        "l5AvgFinish": 26.4,
+        "l10AvgFinish": 28.8,
         "l5McPct": 100,
         "trend": "steady",
         "events": 6,
@@ -315,7 +315,7 @@
       "bayesianScore": {
         "score": 75,
         "prior": 85.0,
-        "likelihood": 61.6,
+        "likelihood": 61.9,
         "posterior_sigma": 13.6,
         "data_points": 6
       },
@@ -352,17 +352,17 @@
           "type": "iqr_outlier",
           "direction": "UNDERPRICED",
           "edge_pct": 10.18,
-          "fence": 9.03,
+          "fence": 9.07,
           "market": "outright"
         },
         {
           "type": "low_freq_value",
           "direction": "UNDERPRICED",
           "market": "top20_makecut",
-          "note": "confScore 69.3 but odds +47000 — likely value in placement markets"
+          "note": "confScore 69.3 but odds +47500 — likely value in placement markets"
         }
       ],
-      "evScore": 4796.0
+      "evScore": 4848.0
     },
     {
       "id": 6,
@@ -414,8 +414,8 @@
       "recentForm": {
         "lastResult": "#10 at RBC Heritage",
         "lastPosition": 10,
-        "l5AvgFinish": 18.8,
-        "l10AvgFinish": 18.8,
+        "l5AvgFinish": 19.0,
+        "l10AvgFinish": 19.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
@@ -432,8 +432,8 @@
       "bayesianScore": {
         "score": 80,
         "prior": 81.0,
-        "likelihood": 79.0,
-        "posterior_sigma": 13.1,
+        "likelihood": 78.7,
+        "posterior_sigma": 13.0,
         "data_points": 5
       },
       "competitiveness": "active",
@@ -517,8 +517,8 @@
       "recentForm": {
         "lastResult": "#59 at RBC Heritage",
         "lastPosition": 59,
-        "l5AvgFinish": 42.6,
-        "l10AvgFinish": 36.7,
+        "l5AvgFinish": 41.6,
+        "l10AvgFinish": 36.0,
         "l5McPct": 80,
         "trend": "cold",
         "events": 7,
@@ -535,7 +535,7 @@
       "bayesianScore": {
         "score": 65,
         "prior": 75.0,
-        "likelihood": 45.2,
+        "likelihood": 46.6,
         "posterior_sigma": 14.6,
         "data_points": 7
       },
@@ -572,7 +572,7 @@
           "type": "iqr_outlier",
           "direction": "UNDERPRICED",
           "edge_pct": 9.07,
-          "fence": 9.03,
+          "fence": 9.07,
           "market": "outright"
         },
         {
@@ -1127,8 +1127,8 @@
       "recentForm": {
         "lastResult": "#34 at RBC Heritage",
         "lastPosition": 34,
-        "l5AvgFinish": 26.0,
-        "l10AvgFinish": 30.7,
+        "l5AvgFinish": 25.8,
+        "l10AvgFinish": 30.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 6,
@@ -1145,8 +1145,8 @@
       "bayesianScore": {
         "score": 66,
         "prior": 78.4,
-        "likelihood": 60.9,
-        "posterior_sigma": 9.5,
+        "likelihood": 61.2,
+        "posterior_sigma": 9.4,
         "data_points": 6
       },
       "competitiveness": "active",
@@ -1235,8 +1235,8 @@
       "recentForm": {
         "lastResult": "#35 at RBC Heritage",
         "lastPosition": 35,
-        "l5AvgFinish": 30.4,
-        "l10AvgFinish": 31.8,
+        "l5AvgFinish": 30.6,
+        "l10AvgFinish": 32.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 6,
@@ -1253,7 +1253,7 @@
       "bayesianScore": {
         "score": 59,
         "prior": 66.0,
-        "likelihood": 56.6,
+        "likelihood": 56.3,
         "posterior_sigma": 8.7,
         "data_points": 6
       },
@@ -1287,9 +1287,117 @@
       "evScore": 36358.1
     },
     {
+      "id": 19,
+      "name": "Jason Day",
+      "rank": 13,
+      "sgTotal": 0.82,
+      "sgOtt": 0.4,
+      "sgApp": 0.28,
+      "sgArg": 0.08,
+      "sgPutt": 0.06,
+      "birdieAvg": 4.2,
+      "bogeyAvg": 2.3,
+      "scoringAvg": 70.5,
+      "gir": 66.5,
+      "fairways": 62.0,
+      "scramble": 60.0,
+      "proxAvg": 34.5,
+      "missDir": "right",
+      "flight": "high_fade",
+      "courseFit": {
+        "augusta": 69,
+        "tpc_sawgrass": 69,
+        "pebble": 66,
+        "torrey_south": 68,
+        "riviera": 66,
+        "valhalla": 68,
+        "pinehurst_2": 66,
+        "royal_troon": 64,
+        "royal_portrush": 63,
+        "oakmont": 64,
+        "quail_hollow": 69,
+        "east_lake": 68,
+        "bay_hill": 70,
+        "harbour_town": 66,
+        "colonial": 66,
+        "memorial": 68,
+        "tpc_scottsdale": 68
+      },
+      "augustaHistory": {
+        "appearances": 14,
+        "bestFinish": 2,
+        "cuts": 12,
+        "top10": 5,
+        "avgScore": 71.2
+      },
+      "notes": "Resurgent veteran. Short game wizard when healthy. Bay Hill specialist. Good at TPC Sawgrass.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 54,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 54,
+      "recentForm": {
+        "lastResult": "#56 at RBC Heritage",
+        "lastPosition": 56,
+        "l5AvgFinish": 41.0,
+        "l10AvgFinish": 39.2,
+        "l5McPct": 80,
+        "trend": "steady",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 70.0,
+          "r2Avg": 72.0,
+          "r3Avg": 72.0,
+          "closingDelta": 1.0
+        }
+      },
+      "makeCutPct": 85.7,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 1.0,
+      "bayesianScore": {
+        "score": 59,
+        "prior": 66.4,
+        "likelihood": 44.6,
+        "posterior_sigma": 14.6,
+        "data_points": 6
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 6.4,
+        "fit": 10.6,
+        "history": 5.9,
+        "form": 7.0,
+        "gir": 5.7,
+        "driving": 3.2,
+        "birdie_bogey": 4.7,
+        "cut": 3.6,
+        "market": 0.0,
+        "closing": 1.0,
+        "field_strength": 1.5,
+        "consistency": 1.5,
+        "tee_time": 0.6,
+        "ml_bayes": 1.7
+      },
+      "propScores": {
+        "win": 52,
+        "top5": 54,
+        "top10": 56,
+        "top20": 61,
+        "makeCut": 65
+      },
+      "confScore": 53.300000000000004,
+      "edgeScore": 7.98,
+      "owgrRank": 19,
+      "evScore": 39883.0
+    },
+    {
       "id": 33,
       "name": "Matt Fitzpatrick",
-      "rank": 13,
+      "rank": 14,
       "sgTotal": 0.48,
       "sgOtt": 0.1,
       "sgApp": 0.3,
@@ -1397,120 +1505,12 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": -46.58,
-          "fence": 3.09,
+          "fence": 3.03,
           "market": "outright"
         }
       ],
       "evScore": -85.4,
       "scoreStd": 2.07
-    },
-    {
-      "id": 19,
-      "name": "Jason Day",
-      "rank": 14,
-      "sgTotal": 0.82,
-      "sgOtt": 0.4,
-      "sgApp": 0.28,
-      "sgArg": 0.08,
-      "sgPutt": 0.06,
-      "birdieAvg": 4.2,
-      "bogeyAvg": 2.3,
-      "scoringAvg": 70.5,
-      "gir": 66.5,
-      "fairways": 62.0,
-      "scramble": 60.0,
-      "proxAvg": 34.5,
-      "missDir": "right",
-      "flight": "high_fade",
-      "courseFit": {
-        "augusta": 69,
-        "tpc_sawgrass": 69,
-        "pebble": 66,
-        "torrey_south": 68,
-        "riviera": 66,
-        "valhalla": 68,
-        "pinehurst_2": 66,
-        "royal_troon": 64,
-        "royal_portrush": 63,
-        "oakmont": 64,
-        "quail_hollow": 69,
-        "east_lake": 68,
-        "bay_hill": 70,
-        "harbour_town": 66,
-        "colonial": 66,
-        "memorial": 68,
-        "tpc_scottsdale": 68
-      },
-      "augustaHistory": {
-        "appearances": 14,
-        "bestFinish": 2,
-        "cuts": 12,
-        "top10": 5,
-        "avgScore": 71.2
-      },
-      "notes": "Resurgent veteran. Short game wizard when healthy. Bay Hill specialist. Good at TPC Sawgrass.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 54,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 54,
-      "recentForm": {
-        "lastResult": "#56 at RBC Heritage",
-        "lastPosition": 56,
-        "l5AvgFinish": 44.2,
-        "l10AvgFinish": 41.8,
-        "l5McPct": 60,
-        "trend": "steady",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 70.0,
-          "r2Avg": 72.0,
-          "r3Avg": 72.0,
-          "closingDelta": 1.0
-        }
-      },
-      "makeCutPct": 85.7,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 1.0,
-      "bayesianScore": {
-        "score": 57,
-        "prior": 66.4,
-        "likelihood": 39.7,
-        "posterior_sigma": 14.6,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 6.4,
-        "fit": 10.6,
-        "history": 5.9,
-        "form": 7.0,
-        "gir": 5.7,
-        "driving": 3.2,
-        "birdie_bogey": 4.7,
-        "cut": 3.6,
-        "market": 0.0,
-        "closing": 1.0,
-        "field_strength": 1.5,
-        "consistency": 1.5,
-        "tee_time": 0.6,
-        "ml_bayes": 1.2
-      },
-      "propScores": {
-        "win": 52,
-        "top5": 53,
-        "top10": 55,
-        "top20": 60,
-        "makeCut": 64
-      },
-      "confScore": 52.800000000000004,
-      "edgeScore": 7.9,
-      "owgrRank": 19,
-      "evScore": 39507.9
     },
     {
       "id": 30,
@@ -1623,16 +1623,125 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": 2.51,
-          "fence": 9.03,
+          "fence": 9.07,
           "market": "outright"
         }
       ],
       "evScore": 46.5
     },
     {
+      "id": 12,
+      "name": "Max Homa",
+      "rank": 16,
+      "sgTotal": 1.05,
+      "sgOtt": 0.42,
+      "sgApp": 0.38,
+      "sgArg": 0.15,
+      "sgPutt": 0.1,
+      "birdieAvg": 4.2,
+      "bogeyAvg": 2.3,
+      "scoringAvg": 70.3,
+      "gir": 67.0,
+      "fairways": 64.5,
+      "scramble": 61.0,
+      "proxAvg": 34.5,
+      "missDir": "left",
+      "flight": "high_draw",
+      "courseFit": {
+        "augusta": 67,
+        "tpc_sawgrass": 68,
+        "pebble": 70,
+        "torrey_south": 72,
+        "riviera": 74,
+        "valhalla": 67,
+        "pinehurst_2": 67,
+        "royal_troon": 66,
+        "royal_portrush": 68,
+        "oakmont": 68,
+        "quail_hollow": 68,
+        "east_lake": 68,
+        "bay_hill": 67,
+        "harbour_town": 68,
+        "colonial": 69,
+        "memorial": 69,
+        "tpc_scottsdale": 68
+      },
+      "augustaHistory": {
+        "appearances": 4,
+        "bestFinish": 12,
+        "cuts": 3,
+        "top10": 0,
+        "avgScore": 72.3
+      },
+      "notes": "Solid all-around. Riviera and Torrey specialist. Reliable at home courses.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 140,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 140,
+      "recentForm": {
+        "lastResult": "#65 at RBC Heritage",
+        "lastPosition": 65,
+        "l5AvgFinish": 44.2,
+        "l10AvgFinish": 37.5,
+        "l5McPct": 80,
+        "trend": "cold",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 70.0,
+          "r2Avg": 70.0,
+          "r3Avg": 74.0,
+          "closingDelta": 3.0
+        }
+      },
+      "makeCutPct": 75.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 3.0,
+      "bayesianScore": {
+        "score": 61,
+        "prior": 71.0,
+        "likelihood": 42.1,
+        "posterior_sigma": 14.6,
+        "data_points": 6
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 8.3,
+        "fit": 10.9,
+        "history": 3.1,
+        "form": 5.7,
+        "gir": 6.0,
+        "driving": 3.7,
+        "birdie_bogey": 4.7,
+        "cut": 3.3,
+        "market": 0.0,
+        "closing": 0.0,
+        "field_strength": 1.5,
+        "consistency": 1.5,
+        "tee_time": 0.6,
+        "ml_bayes": 2.6
+      },
+      "propScores": {
+        "win": 51,
+        "top5": 52,
+        "top10": 54,
+        "top20": 58,
+        "makeCut": 61
+      },
+      "confScore": 52.2,
+      "edgeScore": 7.81,
+      "owgrRank": 12,
+      "evScore": 39057.8,
+      "scoreStd": 1.85
+    },
+    {
       "id": 17,
       "name": "Keegan Bradley",
-      "rank": 16,
+      "rank": 17,
       "sgTotal": 0.88,
       "sgOtt": 0.35,
       "sgApp": 0.32,
@@ -1739,115 +1848,6 @@
       "scoreStd": 2.31
     },
     {
-      "id": 12,
-      "name": "Max Homa",
-      "rank": 17,
-      "sgTotal": 1.05,
-      "sgOtt": 0.42,
-      "sgApp": 0.38,
-      "sgArg": 0.15,
-      "sgPutt": 0.1,
-      "birdieAvg": 4.2,
-      "bogeyAvg": 2.3,
-      "scoringAvg": 70.3,
-      "gir": 67.0,
-      "fairways": 64.5,
-      "scramble": 61.0,
-      "proxAvg": 34.5,
-      "missDir": "left",
-      "flight": "high_draw",
-      "courseFit": {
-        "augusta": 67,
-        "tpc_sawgrass": 68,
-        "pebble": 70,
-        "torrey_south": 72,
-        "riviera": 74,
-        "valhalla": 67,
-        "pinehurst_2": 67,
-        "royal_troon": 66,
-        "royal_portrush": 68,
-        "oakmont": 68,
-        "quail_hollow": 68,
-        "east_lake": 68,
-        "bay_hill": 67,
-        "harbour_town": 68,
-        "colonial": 69,
-        "memorial": 69,
-        "tpc_scottsdale": 68
-      },
-      "augustaHistory": {
-        "appearances": 4,
-        "bestFinish": 12,
-        "cuts": 3,
-        "top10": 0,
-        "avgScore": 72.3
-      },
-      "notes": "Solid all-around. Riviera and Torrey specialist. Reliable at home courses.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 140,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 140,
-      "recentForm": {
-        "lastResult": "#65 at RBC Heritage",
-        "lastPosition": 65,
-        "l5AvgFinish": 46.0,
-        "l10AvgFinish": 39.0,
-        "l5McPct": 60,
-        "trend": "cold",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 70.0,
-          "r2Avg": 70.0,
-          "r3Avg": 74.0,
-          "closingDelta": 3.0
-        }
-      },
-      "makeCutPct": 75.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 3.0,
-      "bayesianScore": {
-        "score": 60,
-        "prior": 71.0,
-        "likelihood": 39.3,
-        "posterior_sigma": 14.6,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 8.3,
-        "fit": 10.9,
-        "history": 3.1,
-        "form": 5.7,
-        "gir": 6.0,
-        "driving": 3.7,
-        "birdie_bogey": 4.7,
-        "cut": 3.3,
-        "market": 0.0,
-        "closing": 0.0,
-        "field_strength": 1.5,
-        "consistency": 1.5,
-        "tee_time": 0.6,
-        "ml_bayes": 2.3
-      },
-      "propScores": {
-        "win": 51,
-        "top5": 51,
-        "top10": 53,
-        "top20": 58,
-        "makeCut": 61
-      },
-      "confScore": 51.9,
-      "edgeScore": 7.77,
-      "owgrRank": 12,
-      "evScore": 38832.8,
-      "scoreStd": 1.85
-    },
-    {
       "id": 14,
       "name": "Sungjae Im",
       "rank": 18,
@@ -1897,8 +1897,8 @@
       "recentForm": {
         "lastResult": "#51 at RBC Heritage",
         "lastPosition": 51,
-        "l5AvgFinish": 40.6,
-        "l10AvgFinish": 40.6,
+        "l5AvgFinish": 41.8,
+        "l10AvgFinish": 41.8,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
@@ -1913,10 +1913,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": 2.0,
       "bayesianScore": {
-        "score": 49,
+        "score": 48,
         "prior": 69.0,
-        "likelihood": 47.6,
-        "posterior_sigma": 4.8,
+        "likelihood": 45.6,
+        "posterior_sigma": 5.5,
         "data_points": 5
       },
       "competitiveness": "active",
@@ -1934,25 +1934,127 @@
         "field_strength": 1.5,
         "consistency": 1.6,
         "tee_time": 0.6,
-        "ml_bayes": -0.5
+        "ml_bayes": -0.7
       },
       "propScores": {
         "win": 50,
         "top5": 51,
         "top10": 53,
         "top20": 58,
-        "makeCut": 61
+        "makeCut": 60
       },
-      "confScore": 51.1,
-      "edgeScore": 7.65,
+      "confScore": 50.9,
+      "edgeScore": 7.62,
       "owgrRank": 14,
-      "evScore": 38232.7,
+      "evScore": 38082.6,
       "scoreStd": 2.82
+    },
+    {
+      "id": 10,
+      "name": "Sahith Theegala",
+      "rank": 19,
+      "sgTotal": 1.18,
+      "sgOtt": 0.52,
+      "sgApp": 0.42,
+      "sgArg": 0.1,
+      "sgPutt": 0.14,
+      "birdieAvg": 4.8,
+      "bogeyAvg": 2.7,
+      "scoringAvg": 70.1,
+      "gir": 66.5,
+      "fairways": 57.0,
+      "scramble": 56.5,
+      "proxAvg": 34.2,
+      "missDir": "left",
+      "flight": "high_draw",
+      "courseFit": {
+        "augusta": 70,
+        "tpc_sawgrass": 70,
+        "pebble": 70,
+        "torrey_south": 69,
+        "riviera": 73,
+        "valhalla": 71,
+        "pinehurst_2": 69,
+        "royal_troon": 68,
+        "royal_portrush": 69,
+        "oakmont": 70,
+        "quail_hollow": 71,
+        "east_lake": 70,
+        "bay_hill": 69,
+        "harbour_town": 66,
+        "colonial": 69,
+        "memorial": 71,
+        "tpc_scottsdale": 71
+      },
+      "notes": "High birdie upside but high bogey rate. Very aggressive. Best for birdie overs.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 119,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 119,
+      "recentForm": {
+        "lastResult": "#52 at RBC Heritage",
+        "lastPosition": 52,
+        "l5AvgFinish": 40.3,
+        "l10AvgFinish": 40.3,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 3,
+        "roundAvgs": {
+          "r1Avg": 69.0,
+          "r2Avg": 67.0,
+          "r3Avg": 72.0,
+          "closingDelta": 4.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 4.0,
+      "bayesianScore": {
+        "score": 59,
+        "prior": 73.6,
+        "likelihood": 48.8,
+        "posterior_sigma": 11.5,
+        "data_points": 3
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 9.2,
+        "fit": 10.6,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.8,
+        "driving": 2.2,
+        "birdie_bogey": 4.9,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 0.0,
+        "field_strength": 2.0,
+        "consistency": 1.4,
+        "tee_time": 0.6,
+        "ml_bayes": 1.1
+      },
+      "propScores": {
+        "win": 52,
+        "top5": 52,
+        "top10": 53,
+        "top20": 56,
+        "makeCut": 58
+      },
+      "confScore": 50.7,
+      "edgeScore": 7.59,
+      "owgrRank": 10,
+      "evScore": 37932.6,
+      "scoreStd": 2.07
     },
     {
       "id": 29,
       "name": "Corey Conners",
-      "rank": 19,
+      "rank": 20,
       "sgTotal": 0.58,
       "sgOtt": 0.2,
       "sgApp": 0.45,
@@ -2006,8 +2108,8 @@
       "recentForm": {
         "lastResult": "#62 at RBC Heritage",
         "lastPosition": 62,
-        "l5AvgFinish": 45.2,
-        "l10AvgFinish": 49.5,
+        "l5AvgFinish": 47.0,
+        "l10AvgFinish": 51.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 6,
@@ -2022,10 +2124,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": 4.5,
       "bayesianScore": {
-        "score": 49,
+        "score": 47,
         "prior": 61.6,
-        "likelihood": 32.4,
-        "posterior_sigma": 13.4,
+        "likelihood": 29.6,
+        "posterior_sigma": 13.5,
         "data_points": 6
       },
       "competitiveness": "active",
@@ -2043,7 +2145,7 @@
         "field_strength": 1.0,
         "consistency": 1.5,
         "tee_time": 0.6,
-        "ml_bayes": -0.6
+        "ml_bayes": -1.0
       },
       "propScores": {
         "win": 48,
@@ -2052,113 +2154,11 @@
         "top20": 59,
         "makeCut": 64
       },
-      "confScore": 51.0,
-      "edgeScore": 7.63,
+      "confScore": 50.6,
+      "edgeScore": 7.57,
       "owgrRank": 29,
-      "evScore": 38157.6,
+      "evScore": 37857.6,
       "scoreStd": 2.49
-    },
-    {
-      "id": 10,
-      "name": "Sahith Theegala",
-      "rank": 20,
-      "sgTotal": 1.18,
-      "sgOtt": 0.52,
-      "sgApp": 0.42,
-      "sgArg": 0.1,
-      "sgPutt": 0.14,
-      "birdieAvg": 4.8,
-      "bogeyAvg": 2.7,
-      "scoringAvg": 70.1,
-      "gir": 66.5,
-      "fairways": 57.0,
-      "scramble": 56.5,
-      "proxAvg": 34.2,
-      "missDir": "left",
-      "flight": "high_draw",
-      "courseFit": {
-        "augusta": 70,
-        "tpc_sawgrass": 70,
-        "pebble": 70,
-        "torrey_south": 69,
-        "riviera": 73,
-        "valhalla": 71,
-        "pinehurst_2": 69,
-        "royal_troon": 68,
-        "royal_portrush": 69,
-        "oakmont": 70,
-        "quail_hollow": 71,
-        "east_lake": 70,
-        "bay_hill": 69,
-        "harbour_town": 66,
-        "colonial": 69,
-        "memorial": 71,
-        "tpc_scottsdale": 71
-      },
-      "notes": "High birdie upside but high bogey rate. Very aggressive. Best for birdie overs.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 119,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 119,
-      "recentForm": {
-        "lastResult": "#52 at RBC Heritage",
-        "lastPosition": 52,
-        "l5AvgFinish": 38.3,
-        "l10AvgFinish": 38.3,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 3,
-        "roundAvgs": {
-          "r1Avg": 69.0,
-          "r2Avg": 67.0,
-          "r3Avg": 72.0,
-          "closingDelta": 4.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 4.0,
-      "bayesianScore": {
-        "score": 59,
-        "prior": 73.6,
-        "likelihood": 51.7,
-        "posterior_sigma": 10.5,
-        "data_points": 3
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 9.2,
-        "fit": 10.6,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.8,
-        "driving": 2.2,
-        "birdie_bogey": 4.9,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 0.0,
-        "field_strength": 2.0,
-        "consistency": 1.4,
-        "tee_time": 0.6,
-        "ml_bayes": 1.1
-      },
-      "propScores": {
-        "win": 52,
-        "top5": 52,
-        "top10": 53,
-        "top20": 56,
-        "makeCut": 58
-      },
-      "confScore": 50.7,
-      "edgeScore": 7.59,
-      "owgrRank": 10,
-      "evScore": 37932.6,
-      "scoreStd": 2.07
     },
     {
       "id": 16,
@@ -2352,7 +2352,7 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": 1.15,
-          "fence": 9.03,
+          "fence": 9.07,
           "market": "outright"
         }
       ],
@@ -2510,8 +2510,8 @@
       "recentForm": {
         "lastResult": "#71 at RBC Heritage",
         "lastPosition": 71,
-        "l5AvgFinish": 70.0,
-        "l10AvgFinish": 70.0,
+        "l5AvgFinish": 70.3,
+        "l10AvgFinish": 70.3,
         "l5McPct": 0,
         "trend": "steady",
         "events": 3,
@@ -2528,7 +2528,7 @@
       "bayesianScore": {
         "score": 17,
         "prior": 64.4,
-        "likelihood": 13.7,
+        "likelihood": 13.3,
         "posterior_sigma": 4.8,
         "data_points": 3
       },
@@ -2612,27 +2612,21 @@
       "recentForm": {
         "lastResult": "#81 at RBC Heritage",
         "lastPosition": 81,
-        "l5AvgFinish": 62.2,
-        "l10AvgFinish": 62.2,
-        "l5McPct": 40,
+        "l5AvgFinish": 57.8,
+        "l10AvgFinish": 57.8,
+        "l5McPct": 50,
         "trend": "steady",
-        "events": 5,
-        "roundAvgs": {
-          "r1Avg": 76.0,
-          "r2Avg": 75.0,
-          "r3Avg": 70.0,
-          "closingDelta": -4.5
-        }
+        "events": 4,
+        "roundAvgs": null
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
-      "closingDelta": -4.5,
       "bayesianScore": {
-        "score": 35,
+        "score": 38,
         "prior": 67.0,
-        "likelihood": 15.8,
-        "posterior_sigma": 11.1,
-        "data_points": 5
+        "likelihood": 19.9,
+        "posterior_sigma": 11.3,
+        "data_points": 4
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -2645,24 +2639,23 @@
         "birdie_bogey": 4.8,
         "cut": 3.0,
         "market": 0.0,
-        "closing": 4.0,
+        "closing": 2.0,
         "field_strength": 1.5,
         "consistency": 1.4,
         "tee_time": 0.6,
-        "ml_bayes": -3.1
+        "ml_bayes": -1.7
       },
       "propScores": {
-        "win": 48,
-        "top5": 49,
+        "win": 47,
+        "top5": 48,
         "top10": 50,
         "top20": 53,
-        "makeCut": 53
+        "makeCut": 55
       },
-      "confScore": 48.5,
-      "edgeScore": 7.26,
+      "confScore": 47.9,
+      "edgeScore": 7.17,
       "owgrRank": 18,
-      "evScore": 36282.3,
-      "scoreStd": 2.88
+      "evScore": 35832.2
     },
     {
       "id": 40,
@@ -2812,7 +2805,7 @@
       },
       "notes": "Young lefty talent. Aggressive. Putting holds him back. High birdie ceiling with high floor.",
       "odds": {
-        "dk": "+225000"
+        "dk": "+250000"
       },
       "fieldInfo": {
         "owgr": 45,
@@ -2872,7 +2865,7 @@
       "confScore": 47.0,
       "edgeScore": 7.01,
       "owgrRank": 35,
-      "evScore": 15769.6,
+      "evScore": 17532.0,
       "scoreStd": 4.65
     },
     {
@@ -3076,8 +3069,7 @@
       "confScore": 45.5,
       "edgeScore": 6.81,
       "owgrRank": 27,
-      "evScore": 34031.8,
-      "scoreStd": 2.42
+      "evScore": 34031.8
     },
     {
       "id": 80,
@@ -3244,8 +3236,8 @@
       "recentForm": {
         "lastResult": "#42 at RBC Heritage",
         "lastPosition": 42,
-        "l5AvgFinish": 47.8,
-        "l10AvgFinish": 47.8,
+        "l5AvgFinish": 48.8,
+        "l10AvgFinish": 48.8,
         "l5McPct": 75,
         "trend": "steady",
         "events": 4,
@@ -3260,10 +3252,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": -0.5,
       "bayesianScore": {
-        "score": 49,
+        "score": 47,
         "prior": 58.0,
-        "likelihood": 45.9,
-        "posterior_sigma": 8.8,
+        "likelihood": 44.3,
+        "posterior_sigma": 8.1,
         "data_points": 4
       },
       "competitiveness": "active",
@@ -3281,126 +3273,24 @@
         "field_strength": 1.0,
         "consistency": 1.5,
         "tee_time": 0.6,
-        "ml_bayes": 0.8
+        "ml_bayes": 0.5
       },
       "propScores": {
         "win": 41,
         "top5": 44,
-        "top10": 48,
-        "top20": 54,
+        "top10": 47,
+        "top20": 53,
         "makeCut": 59
-      },
-      "confScore": 44.4,
-      "edgeScore": 6.64,
-      "owgrRank": 36,
-      "evScore": 33206.7
-    },
-    {
-      "id": 46,
-      "name": "Jordan Spieth",
-      "rank": 32,
-      "sgTotal": 0.15,
-      "sgOtt": 0.1,
-      "sgApp": 0.08,
-      "sgArg": 0.05,
-      "sgPutt": -0.08,
-      "birdieAvg": 3.8,
-      "bogeyAvg": 2.4,
-      "scoringAvg": 71.5,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 62.0,
-      "proxAvg": 35.5,
-      "missDir": "left",
-      "flight": "high_draw",
-      "courseFit": {
-        "augusta": 63,
-        "tpc_sawgrass": 58,
-        "pebble": 61,
-        "torrey_south": 59,
-        "riviera": 58,
-        "valhalla": 60,
-        "pinehurst_2": 59,
-        "royal_troon": 62,
-        "royal_portrush": 53,
-        "oakmont": 52,
-        "quail_hollow": 58,
-        "east_lake": 61,
-        "bay_hill": 59,
-        "harbour_town": 58,
-        "colonial": 62,
-        "memorial": 59,
-        "tpc_scottsdale": 60
-      },
-      "notes": "3x major champ in a slump. Course history still matters — elite at Augusta, Colonial, Pebble. Buy low candidate.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 80,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 80,
-      "recentForm": {
-        "lastResult": "#47 at RBC Heritage",
-        "lastPosition": 47,
-        "l5AvgFinish": 39.4,
-        "l10AvgFinish": 46.3,
-        "l5McPct": 100,
-        "trend": "hot",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 69.0,
-          "r2Avg": 72.0,
-          "r3Avg": 67.0,
-          "closingDelta": -1.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": -1.0,
-      "bayesianScore": {
-        "score": 46,
-        "prior": 53.0,
-        "likelihood": 40.6,
-        "posterior_sigma": 12.0,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 1.6,
-        "fit": 9.3,
-        "history": 3.5,
-        "form": 8.3,
-        "gir": 5.2,
-        "driving": 2.6,
-        "birdie_bogey": 3.9,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 3.0,
-        "field_strength": 1.0,
-        "consistency": 1.6,
-        "tee_time": 0.6,
-        "ml_bayes": 0.5
-      },
-      "propScores": {
-        "win": 42,
-        "top5": 45,
-        "top10": 48,
-        "top20": 54,
-        "makeCut": 57
       },
       "confScore": 44.1,
       "edgeScore": 6.6,
-      "owgrRank": 46,
-      "evScore": 32981.6,
-      "scoreStd": 2.13
+      "owgrRank": 36,
+      "evScore": 32981.6
     },
     {
       "id": 79,
       "name": "J.T. Poston",
-      "rank": 33,
+      "rank": 32,
       "sgTotal": 0.2,
       "sgOtt": 0.08,
       "sgApp": 0.1,
@@ -3454,8 +3344,8 @@
       "recentForm": {
         "lastResult": "#58 at RBC Heritage",
         "lastPosition": 58,
-        "l5AvgFinish": 54.5,
-        "l10AvgFinish": 54.5,
+        "l5AvgFinish": 53.2,
+        "l10AvgFinish": 53.2,
         "l5McPct": 75,
         "trend": "steady",
         "events": 4,
@@ -3470,10 +3360,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": -2.0,
       "bayesianScore": {
-        "score": 39,
+        "score": 40,
         "prior": 54.0,
-        "likelihood": 27.3,
-        "posterior_sigma": 12.1,
+        "likelihood": 29.3,
+        "posterior_sigma": 11.9,
         "data_points": 4
       },
       "competitiveness": "active",
@@ -3491,7 +3381,7 @@
         "field_strength": 0.5,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": -0.8
+        "ml_bayes": -0.7
       },
       "propScores": {
         "win": 40,
@@ -3500,11 +3390,112 @@
         "top20": 54,
         "makeCut": 57
       },
-      "confScore": 43.800000000000004,
-      "edgeScore": 6.55,
+      "confScore": 43.9,
+      "edgeScore": 6.57,
       "owgrRank": 70,
-      "evScore": 32756.6,
+      "evScore": 32831.6,
       "scoreStd": 2.07
+    },
+    {
+      "id": 46,
+      "name": "Jordan Spieth",
+      "rank": 33,
+      "sgTotal": 0.15,
+      "sgOtt": 0.1,
+      "sgApp": 0.08,
+      "sgArg": 0.05,
+      "sgPutt": -0.08,
+      "birdieAvg": 3.8,
+      "bogeyAvg": 2.4,
+      "scoringAvg": 71.5,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 62.0,
+      "proxAvg": 35.5,
+      "missDir": "left",
+      "flight": "high_draw",
+      "courseFit": {
+        "augusta": 63,
+        "tpc_sawgrass": 58,
+        "pebble": 61,
+        "torrey_south": 59,
+        "riviera": 58,
+        "valhalla": 60,
+        "pinehurst_2": 59,
+        "royal_troon": 62,
+        "royal_portrush": 53,
+        "oakmont": 52,
+        "quail_hollow": 58,
+        "east_lake": 61,
+        "bay_hill": 59,
+        "harbour_town": 58,
+        "colonial": 62,
+        "memorial": 59,
+        "tpc_scottsdale": 60
+      },
+      "notes": "3x major champ in a slump. Course history still matters — elite at Augusta, Colonial, Pebble. Buy low candidate.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 80,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 80,
+      "recentForm": {
+        "lastResult": "#47 at RBC Heritage",
+        "lastPosition": 47,
+        "l5AvgFinish": 40.4,
+        "l10AvgFinish": 47.2,
+        "l5McPct": 100,
+        "trend": "hot",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 69.0,
+          "r2Avg": 72.0,
+          "r3Avg": 67.0,
+          "closingDelta": -1.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": -1.0,
+      "bayesianScore": {
+        "score": 45,
+        "prior": 53.0,
+        "likelihood": 39.1,
+        "posterior_sigma": 11.8,
+        "data_points": 6
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 1.6,
+        "fit": 9.3,
+        "history": 3.5,
+        "form": 8.3,
+        "gir": 5.2,
+        "driving": 2.6,
+        "birdie_bogey": 3.9,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 3.0,
+        "field_strength": 1.0,
+        "consistency": 1.6,
+        "tee_time": 0.6
+      },
+      "propScores": {
+        "win": 41,
+        "top5": 45,
+        "top10": 48,
+        "top20": 53,
+        "makeCut": 57
+      },
+      "confScore": 43.6,
+      "edgeScore": 6.52,
+      "owgrRank": 46,
+      "evScore": 32606.5,
+      "scoreStd": 2.13
     },
     {
       "id": 32,
@@ -3556,12 +3547,15 @@
       "recentForm": {
         "lastResult": "#75 at RBC Heritage",
         "lastPosition": 75,
-        "l5AvgFinish": 80.0,
-        "l10AvgFinish": 80.0,
+        "l5AvgFinish": 77.5,
+        "l10AvgFinish": 77.5,
         "l5McPct": 0,
         "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 74.0,
+          "r2Avg": 75.0
+        }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
@@ -4111,9 +4105,111 @@
       "scoreStd": 1.69
     },
     {
+      "id": 49,
+      "name": "Ben Griffin",
+      "rank": 40,
+      "sgTotal": 0.08,
+      "sgOtt": 0.18,
+      "sgApp": 0.0,
+      "sgArg": -0.02,
+      "sgPutt": -0.08,
+      "birdieAvg": 3.7,
+      "bogeyAvg": 2.3,
+      "scoringAvg": 71.5,
+      "gir": 65.5,
+      "fairways": 63.0,
+      "scramble": 57.0,
+      "proxAvg": 35.5,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 52,
+        "tpc_sawgrass": 54,
+        "pebble": 54,
+        "torrey_south": 54,
+        "riviera": 54,
+        "valhalla": 56,
+        "pinehurst_2": 54,
+        "royal_troon": 54,
+        "royal_portrush": 51,
+        "oakmont": 51,
+        "quail_hollow": 55,
+        "east_lake": 54,
+        "bay_hill": 54,
+        "harbour_town": 54,
+        "colonial": 55,
+        "memorial": 54,
+        "tpc_scottsdale": 55
+      },
+      "notes": "Steady mid-tier player. No outstanding skill. MC candidate at weaker fields. Fade at marquee events.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 8,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 8,
+      "recentForm": {
+        "lastResult": "#41 at RBC Heritage",
+        "lastPosition": 41,
+        "l5AvgFinish": 30.8,
+        "l10AvgFinish": 39.8,
+        "l5McPct": 100,
+        "trend": "hot",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 69.0,
+          "r2Avg": 67.0,
+          "r3Avg": 72.0,
+          "closingDelta": 4.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 4.0,
+      "bayesianScore": {
+        "score": 51,
+        "prior": 51.6,
+        "likelihood": 50.7,
+        "posterior_sigma": 13.1,
+        "data_points": 6
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.9,
+        "history": 3.5,
+        "form": 8.3,
+        "gir": 5.0,
+        "driving": 3.3,
+        "birdie_bogey": 4.0,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 0.0,
+        "field_strength": 1.0,
+        "consistency": 1.6,
+        "tee_time": 0.6,
+        "ml_bayes": 3.0
+      },
+      "propScores": {
+        "win": 38,
+        "top5": 41,
+        "top10": 46,
+        "top20": 54,
+        "makeCut": 59
+      },
+      "confScore": 40.6,
+      "edgeScore": 6.07,
+      "owgrRank": 49,
+      "evScore": 30356.1,
+      "scoreStd": 2.07
+    },
+    {
       "id": 9011,
       "name": "Michael Brennan",
-      "rank": 40,
+      "rank": 41,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4213,213 +4309,9 @@
       "scoreStd": 2.96
     },
     {
-      "id": 49,
-      "name": "Ben Griffin",
-      "rank": 41,
-      "sgTotal": 0.08,
-      "sgOtt": 0.18,
-      "sgApp": 0.0,
-      "sgArg": -0.02,
-      "sgPutt": -0.08,
-      "birdieAvg": 3.7,
-      "bogeyAvg": 2.3,
-      "scoringAvg": 71.5,
-      "gir": 65.5,
-      "fairways": 63.0,
-      "scramble": 57.0,
-      "proxAvg": 35.5,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 52,
-        "tpc_sawgrass": 54,
-        "pebble": 54,
-        "torrey_south": 54,
-        "riviera": 54,
-        "valhalla": 56,
-        "pinehurst_2": 54,
-        "royal_troon": 54,
-        "royal_portrush": 51,
-        "oakmont": 51,
-        "quail_hollow": 55,
-        "east_lake": 54,
-        "bay_hill": 54,
-        "harbour_town": 54,
-        "colonial": 55,
-        "memorial": 54,
-        "tpc_scottsdale": 55
-      },
-      "notes": "Steady mid-tier player. No outstanding skill. MC candidate at weaker fields. Fade at marquee events.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 8,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 8,
-      "recentForm": {
-        "lastResult": "#41 at RBC Heritage",
-        "lastPosition": 41,
-        "l5AvgFinish": 32.0,
-        "l10AvgFinish": 40.8,
-        "l5McPct": 100,
-        "trend": "hot",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 69.0,
-          "r2Avg": 67.0,
-          "r3Avg": 72.0,
-          "closingDelta": 4.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 4.0,
-      "bayesianScore": {
-        "score": 50,
-        "prior": 51.6,
-        "likelihood": 48.8,
-        "posterior_sigma": 13.2,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.9,
-        "history": 3.5,
-        "form": 8.3,
-        "gir": 5.0,
-        "driving": 3.3,
-        "birdie_bogey": 4.0,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 0.0,
-        "field_strength": 1.0,
-        "consistency": 1.6,
-        "tee_time": 0.6,
-        "ml_bayes": 2.8
-      },
-      "propScores": {
-        "win": 38,
-        "top5": 41,
-        "top10": 46,
-        "top20": 54,
-        "makeCut": 59
-      },
-      "confScore": 40.4,
-      "edgeScore": 6.04,
-      "owgrRank": 49,
-      "evScore": 30206.1,
-      "scoreStd": 2.07
-    },
-    {
-      "id": 9004,
-      "name": "Ryan Gerard",
-      "rank": 42,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 44,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 44,
-      "recentForm": {
-        "lastResult": "#69 at RBC Heritage",
-        "lastPosition": 69,
-        "l5AvgFinish": 44.2,
-        "l10AvgFinish": 41.7,
-        "l5McPct": 80,
-        "trend": "steady",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 73.0,
-          "r2Avg": 72.0,
-          "r3Avg": 65.0,
-          "closingDelta": -4.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": -4.0,
-      "bayesianScore": {
-        "score": 46,
-        "prior": 50.0,
-        "likelihood": 41.0,
-        "posterior_sigma": 13.4,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 4.0,
-        "field_strength": 1.0,
-        "consistency": 1.7,
-        "tee_time": 0.6,
-        "ml_bayes": 1.7
-      },
-      "propScores": {
-        "win": 38,
-        "top5": 42,
-        "top10": 46,
-        "top20": 53,
-        "makeCut": 57
-      },
-      "confScore": 40.300000000000004,
-      "edgeScore": 6.03,
-      "owgrRank": 44,
-      "evScore": 30131.0,
-      "scoreStd": 3.5
-    },
-    {
       "id": 9013,
       "name": "Gary Woodland",
-      "rank": 43,
+      "rank": 42,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4521,7 +4413,7 @@
     {
       "id": 9000,
       "name": "Justin Rose",
-      "rank": 44,
+      "rank": 43,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4609,6 +4501,108 @@
       "edgeScore": 4.0,
       "owgrRank": 10,
       "evScore": 200.0
+    },
+    {
+      "id": 9004,
+      "name": "Ryan Gerard",
+      "rank": 44,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 44,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 44,
+      "recentForm": {
+        "lastResult": "#69 at RBC Heritage",
+        "lastPosition": 69,
+        "l5AvgFinish": 47.2,
+        "l10AvgFinish": 44.2,
+        "l5McPct": 60,
+        "trend": "steady",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 73.0,
+          "r2Avg": 72.0,
+          "r3Avg": 65.0,
+          "closingDelta": -4.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": -4.0,
+      "bayesianScore": {
+        "score": 45,
+        "prior": 50.0,
+        "likelihood": 36.4,
+        "posterior_sigma": 14.2,
+        "data_points": 6
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 4.0,
+        "field_strength": 1.0,
+        "consistency": 1.7,
+        "tee_time": 0.6,
+        "ml_bayes": 1.4
+      },
+      "propScores": {
+        "win": 38,
+        "top5": 42,
+        "top10": 46,
+        "top20": 53,
+        "makeCut": 57
+      },
+      "confScore": 40.0,
+      "edgeScore": 5.98,
+      "owgrRank": 44,
+      "evScore": 29906.0,
+      "scoreStd": 3.5
     },
     {
       "id": 9015,
@@ -5017,110 +5011,9 @@
       "evScore": 529.6
     },
     {
-      "id": 9002,
-      "name": "Chris Gotterup",
-      "rank": 49,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 28,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 28,
-      "recentForm": {
-        "lastResult": "#61 at RBC Heritage",
-        "lastPosition": 61,
-        "l5AvgFinish": 46.0,
-        "l10AvgFinish": 51.5,
-        "l5McPct": 100,
-        "trend": "hot",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 70.0,
-          "r2Avg": 72.0,
-          "r3Avg": 69.0,
-          "closingDelta": -0.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": -0.5,
-      "bayesianScore": {
-        "score": 42,
-        "prior": 50.0,
-        "likelihood": 32.9,
-        "posterior_sigma": 12.9,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 8.3,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 2.5,
-        "field_strength": 1.0,
-        "consistency": 1.7,
-        "tee_time": 0.6,
-        "ml_bayes": 0.8
-      },
-      "propScores": {
-        "win": 37,
-        "top5": 41,
-        "top10": 45,
-        "top20": 53,
-        "makeCut": 57
-      },
-      "confScore": 39.4,
-      "edgeScore": 5.89,
-      "owgrRank": 28,
-      "evScore": 29455.9
-    },
-    {
       "id": 9038,
       "name": "Steven Fisk",
-      "rank": 50,
+      "rank": 49,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5219,110 +5112,9 @@
       "evScore": 4633.9
     },
     {
-      "id": 9010,
-      "name": "Sam Stevens",
-      "rank": 51,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 50,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 50,
-      "recentForm": {
-        "lastResult": "#43 at RBC Heritage",
-        "lastPosition": 43,
-        "l5AvgFinish": 37.0,
-        "l10AvgFinish": 39.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 70.0,
-          "r2Avg": 69.0,
-          "r3Avg": 68.0,
-          "closingDelta": 0.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 0.5,
-      "bayesianScore": {
-        "score": 48,
-        "prior": 50.0,
-        "likelihood": 46.6,
-        "posterior_sigma": 10.4,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 1.5,
-        "field_strength": 1.0,
-        "consistency": 1.7,
-        "tee_time": 0.6,
-        "ml_bayes": 2.6
-      },
-      "propScores": {
-        "win": 37,
-        "top5": 40,
-        "top10": 45,
-        "top20": 53,
-        "makeCut": 58
-      },
-      "confScore": 39.2,
-      "edgeScore": 5.86,
-      "owgrRank": 50,
-      "evScore": 29305.9
-    },
-    {
       "id": 9035,
       "name": "Chandler Blanchet",
-      "rank": 52,
+      "rank": 50,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5424,7 +5216,7 @@
     {
       "id": 9001,
       "name": "J.J. Spaun",
-      "rank": 53,
+      "rank": 51,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5523,9 +5315,313 @@
       "evScore": 29230.9
     },
     {
+      "id": 9002,
+      "name": "Chris Gotterup",
+      "rank": 52,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 28,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 28,
+      "recentForm": {
+        "lastResult": "#61 at RBC Heritage",
+        "lastPosition": 61,
+        "l5AvgFinish": 46.8,
+        "l10AvgFinish": 52.2,
+        "l5McPct": 100,
+        "trend": "hot",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 70.0,
+          "r2Avg": 72.0,
+          "r3Avg": 69.0,
+          "closingDelta": -0.5
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": -0.5,
+      "bayesianScore": {
+        "score": 41,
+        "prior": 50.0,
+        "likelihood": 31.6,
+        "posterior_sigma": 13.0,
+        "data_points": 6
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 8.3,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 2.5,
+        "field_strength": 1.0,
+        "consistency": 1.7,
+        "tee_time": 0.6,
+        "ml_bayes": 0.5
+      },
+      "propScores": {
+        "win": 37,
+        "top5": 41,
+        "top10": 45,
+        "top20": 52,
+        "makeCut": 57
+      },
+      "confScore": 39.1,
+      "edgeScore": 5.85,
+      "owgrRank": 28,
+      "evScore": 29230.9
+    },
+    {
+      "id": 9010,
+      "name": "Sam Stevens",
+      "rank": 53,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 50,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 50,
+      "recentForm": {
+        "lastResult": "#43 at RBC Heritage",
+        "lastPosition": 43,
+        "l5AvgFinish": 37.8,
+        "l10AvgFinish": 39.7,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 70.0,
+          "r2Avg": 69.0,
+          "r3Avg": 68.0,
+          "closingDelta": 0.5
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 0.5,
+      "bayesianScore": {
+        "score": 47,
+        "prior": 50.0,
+        "likelihood": 45.4,
+        "posterior_sigma": 10.2,
+        "data_points": 6
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 1.5,
+        "field_strength": 1.0,
+        "consistency": 1.7,
+        "tee_time": 0.6,
+        "ml_bayes": 2.3
+      },
+      "propScores": {
+        "win": 36,
+        "top5": 40,
+        "top10": 44,
+        "top20": 52,
+        "makeCut": 58
+      },
+      "confScore": 38.9,
+      "edgeScore": 5.82,
+      "owgrRank": 50,
+      "evScore": 29080.8
+    },
+    {
+      "id": 9022,
+      "name": "Matt Wallace",
+      "rank": 54,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 75,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 75,
+      "recentForm": {
+        "lastResult": "#39 at RBC Heritage",
+        "lastPosition": 39,
+        "l5AvgFinish": 36.8,
+        "l10AvgFinish": 36.8,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 4,
+        "roundAvgs": {
+          "r1Avg": 69.0,
+          "r2Avg": 72.0,
+          "r3Avg": 68.0,
+          "closingDelta": -0.5
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": -0.5,
+      "bayesianScore": {
+        "score": 51,
+        "prior": 50.0,
+        "likelihood": 52.1,
+        "posterior_sigma": 14.0,
+        "data_points": 4
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 2.5,
+        "field_strength": 0.5,
+        "consistency": 1.7,
+        "tee_time": 0.6,
+        "ml_bayes": 2.2
+      },
+      "propScores": {
+        "win": 36,
+        "top5": 40,
+        "top10": 45,
+        "top20": 52,
+        "makeCut": 58
+      },
+      "confScore": 38.800000000000004,
+      "edgeScore": 5.8,
+      "owgrRank": 75,
+      "evScore": 29005.8,
+      "scoreStd": 1.81
+    },
+    {
       "id": 9008,
       "name": "Nico Echavarria",
-      "rank": 54,
+      "rank": 55,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5572,8 +5668,8 @@
       "recentForm": {
         "lastResult": "#78 at RBC Heritage",
         "lastPosition": 78,
-        "l5AvgFinish": 56.8,
-        "l10AvgFinish": 56.8,
+        "l5AvgFinish": 59.8,
+        "l10AvgFinish": 59.8,
         "l5McPct": 25,
         "trend": "steady",
         "events": 4,
@@ -5588,10 +5684,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": -2.5,
       "bayesianScore": {
-        "score": 42,
+        "score": 41,
         "prior": 50.0,
-        "likelihood": 27.9,
-        "posterior_sigma": 14.3,
+        "likelihood": 23.5,
+        "posterior_sigma": 14.6,
         "data_points": 4
       },
       "competitiveness": "active",
@@ -5608,26 +5704,25 @@
         "closing": 4.0,
         "field_strength": 0.5,
         "consistency": 1.7,
-        "tee_time": 0.6,
-        "ml_bayes": 0.5
+        "tee_time": 0.6
       },
       "propScores": {
-        "win": 36,
+        "win": 35,
         "top5": 40,
-        "top10": 45,
+        "top10": 44,
         "top20": 51,
-        "makeCut": 56
+        "makeCut": 55
       },
-      "confScore": 39.1,
-      "edgeScore": 5.85,
+      "confScore": 38.6,
+      "edgeScore": 5.77,
       "owgrRank": 52,
-      "evScore": 29230.9,
+      "evScore": 28855.8,
       "scoreStd": 3.11
     },
     {
       "id": 9016,
       "name": "Ryo Hisatsune",
-      "rank": 55,
+      "rank": 56,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5674,9 +5769,9 @@
       "recentForm": {
         "lastResult": "#68 at RBC Heritage",
         "lastPosition": 68,
-        "l5AvgFinish": 47.0,
-        "l10AvgFinish": 47.0,
-        "l5McPct": 75,
+        "l5AvgFinish": 50.2,
+        "l10AvgFinish": 50.2,
+        "l5McPct": 50,
         "trend": "steady",
         "events": 4,
         "roundAvgs": {
@@ -5690,10 +5785,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": -2.5,
       "bayesianScore": {
-        "score": 46,
+        "score": 44,
         "prior": 50.0,
-        "likelihood": 38.3,
-        "posterior_sigma": 14.2,
+        "likelihood": 33.1,
+        "posterior_sigma": 14.6,
         "data_points": 4
       },
       "competitiveness": "active",
@@ -5711,25 +5806,25 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": 1.3
+        "ml_bayes": 1.0
       },
       "propScores": {
-        "win": 36,
+        "win": 35,
         "top5": 40,
         "top10": 45,
         "top20": 52,
-        "makeCut": 57
+        "makeCut": 56
       },
-      "confScore": 38.9,
-      "edgeScore": 5.82,
+      "confScore": 38.6,
+      "edgeScore": 5.77,
       "owgrRank": 127,
-      "evScore": 29080.8,
+      "evScore": 28855.8,
       "scoreStd": 3.62
     },
     {
       "id": 9019,
       "name": "Rickie Fowler",
-      "rank": 56,
+      "rank": 57,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5829,107 +5924,6 @@
       "scoreStd": 2.07
     },
     {
-      "id": 9020,
-      "name": "Nick Taylor",
-      "rank": 57,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 57,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 57,
-      "recentForm": {
-        "lastResult": "#63 at RBC Heritage",
-        "lastPosition": 63,
-        "l5AvgFinish": 36.4,
-        "l10AvgFinish": 33.9,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 7,
-        "roundAvgs": {
-          "r1Avg": 69.0,
-          "r2Avg": 70.0,
-          "r3Avg": 70.0,
-          "closingDelta": 1.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 1.5,
-      "bayesianScore": {
-        "score": 50,
-        "prior": 50.0,
-        "likelihood": 49.6,
-        "posterior_sigma": 11.5,
-        "data_points": 7
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 0.5,
-        "field_strength": 0.5,
-        "consistency": 1.7,
-        "tee_time": 0.6,
-        "ml_bayes": 4.0
-      },
-      "propScores": {
-        "win": 36,
-        "top5": 40,
-        "top10": 45,
-        "top20": 53,
-        "makeCut": 59
-      },
-      "confScore": 38.6,
-      "edgeScore": 5.77,
-      "owgrRank": 57,
-      "evScore": 28855.8
-    },
-    {
       "id": 41,
       "name": "Jake Knapp",
       "rank": 58,
@@ -5979,8 +5973,8 @@
       "recentForm": {
         "lastResult": "#80 at RBC Heritage",
         "lastPosition": 80,
-        "l5AvgFinish": 55.8,
-        "l10AvgFinish": 50.7,
+        "l5AvgFinish": 56.4,
+        "l10AvgFinish": 51.2,
         "l5McPct": 40,
         "trend": "cold",
         "events": 6,
@@ -6032,8 +6026,8 @@
       "scoreStd": 2.62
     },
     {
-      "id": 9022,
-      "name": "Matt Wallace",
+      "id": 9020,
+      "name": "Nick Taylor",
       "rank": 59,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -6073,35 +6067,35 @@
         "dk": "+500000"
       },
       "fieldInfo": {
-        "owgr": 75,
+        "owgr": 57,
         "entryStatus": "IN",
         "inField": true
       },
-      "owgr": 75,
+      "owgr": 57,
       "recentForm": {
-        "lastResult": "#39 at RBC Heritage",
-        "lastPosition": 39,
-        "l5AvgFinish": 39.2,
-        "l10AvgFinish": 39.2,
+        "lastResult": "#63 at RBC Heritage",
+        "lastPosition": 63,
+        "l5AvgFinish": 38.6,
+        "l10AvgFinish": 35.4,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 4,
+        "events": 7,
         "roundAvgs": {
           "r1Avg": 69.0,
-          "r2Avg": 72.0,
-          "r3Avg": 68.0,
-          "closingDelta": -0.5
+          "r2Avg": 70.0,
+          "r3Avg": 70.0,
+          "closingDelta": 1.5
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
-      "closingDelta": -0.5,
+      "closingDelta": 1.5,
       "bayesianScore": {
-        "score": 49,
+        "score": 48,
         "prior": 50.0,
-        "likelihood": 48.2,
-        "posterior_sigma": 14.2,
-        "data_points": 4
+        "likelihood": 46.5,
+        "posterior_sigma": 12.9,
+        "data_points": 7
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -6114,24 +6108,23 @@
         "birdie_bogey": 3.4,
         "cut": 3.0,
         "market": 0.0,
-        "closing": 2.5,
+        "closing": 0.5,
         "field_strength": 0.5,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": 1.9
+        "ml_bayes": 3.5
       },
       "propScores": {
-        "win": 36,
-        "top5": 40,
-        "top10": 45,
-        "top20": 52,
-        "makeCut": 57
+        "win": 35,
+        "top5": 39,
+        "top10": 44,
+        "top20": 53,
+        "makeCut": 59
       },
-      "confScore": 38.5,
-      "edgeScore": 5.76,
-      "owgrRank": 75,
-      "evScore": 28780.8,
-      "scoreStd": 1.81
+      "confScore": 38.1,
+      "edgeScore": 5.7,
+      "owgrRank": 57,
+      "evScore": 28480.7
     },
     {
       "id": 9003,
@@ -6181,11 +6174,11 @@
       },
       "owgr": 11,
       "recentForm": {
-        "lastResult": "#73 at RBC Heritage",
-        "lastPosition": 73,
-        "l5AvgFinish": 56.8,
-        "l10AvgFinish": 53.0,
-        "l5McPct": 80,
+        "lastResult": "#72 at RBC Heritage",
+        "lastPosition": 72,
+        "l5AvgFinish": 59.0,
+        "l10AvgFinish": 54.8,
+        "l5McPct": 60,
         "trend": "steady",
         "events": 6,
         "roundAvgs": {
@@ -6199,10 +6192,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": -4.0,
       "bayesianScore": {
-        "score": 33,
+        "score": 32,
         "prior": 50.0,
-        "likelihood": 25.2,
-        "posterior_sigma": 10.2,
+        "likelihood": 21.8,
+        "posterior_sigma": 11.0,
         "data_points": 6
       },
       "competitiveness": "active",
@@ -6220,19 +6213,19 @@
         "field_strength": 1.5,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": -1.5
+        "ml_bayes": -1.7
       },
       "propScores": {
         "win": 36,
         "top5": 40,
-        "top10": 44,
+        "top10": 43,
         "top20": 50,
         "makeCut": 54
       },
-      "confScore": 38.1,
-      "edgeScore": 5.7,
+      "confScore": 37.9,
+      "edgeScore": 5.67,
       "owgrRank": 11,
-      "evScore": 28480.7,
+      "evScore": 28330.7,
       "scoreStd": 3.24
     },
     {
@@ -6285,8 +6278,8 @@
       "recentForm": {
         "lastResult": "#24 at RBC Heritage",
         "lastPosition": 24,
-        "l5AvgFinish": 21.0,
-        "l10AvgFinish": 21.0,
+        "l5AvgFinish": 21.3,
+        "l10AvgFinish": 21.3,
         "l5McPct": 100,
         "trend": "steady",
         "events": 3,
@@ -6301,9 +6294,9 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": 3.0,
       "bayesianScore": {
-        "score": 73,
+        "score": 72,
         "prior": 50.0,
-        "likelihood": 74.6,
+        "likelihood": 74.1,
         "posterior_sigma": 4.8,
         "data_points": 3
       },
@@ -6322,227 +6315,24 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": 4.4
+        "ml_bayes": 4.3
       },
       "propScores": {
         "win": 35,
-        "top5": 39,
+        "top5": 38,
         "top10": 44,
         "top20": 53,
         "makeCut": 60
       },
-      "confScore": 38.0,
-      "edgeScore": 5.67,
-      "owgrRank": 112,
-      "evScore": 18430.7
-    },
-    {
-      "id": 9021,
-      "name": "Johnny Keefer",
-      "rank": 62,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 48,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 48,
-      "recentForm": {
-        "lastResult": "#64 at RBC Heritage",
-        "lastPosition": 64,
-        "l5AvgFinish": 37.2,
-        "l10AvgFinish": 37.2,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 4,
-        "roundAvgs": {
-          "r1Avg": 69.0,
-          "r2Avg": 70.0,
-          "r3Avg": 70.0,
-          "closingDelta": 1.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 1.5,
-      "bayesianScore": {
-        "score": 50,
-        "prior": 50.0,
-        "likelihood": 50.1,
-        "posterior_sigma": 13.9,
-        "data_points": 4
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 0.5,
-        "field_strength": 1.0,
-        "consistency": 1.7,
-        "tee_time": 0.6,
-        "ml_bayes": 2.2
-      },
-      "propScores": {
-        "win": 35,
-        "top5": 39,
-        "top10": 43,
-        "top20": 52,
-        "makeCut": 58
-      },
-      "confScore": 37.800000000000004,
+      "confScore": 37.9,
       "edgeScore": 5.65,
-      "owgrRank": 48,
-      "evScore": 28255.7
-    },
-    {
-      "id": 9007,
-      "name": "Daniel Berger",
-      "rank": 63,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 61,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 61,
-      "recentForm": {
-        "lastResult": "#49 at RBC Heritage",
-        "lastPosition": 49,
-        "l5AvgFinish": 50.5,
-        "l10AvgFinish": 50.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 4,
-        "roundAvgs": {
-          "r1Avg": 66.0,
-          "r2Avg": 74.0,
-          "r3Avg": 68.0,
-          "closingDelta": 0.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 0.0,
-      "bayesianScore": {
-        "score": 43,
-        "prior": 50.0,
-        "likelihood": 41.8,
-        "posterior_sigma": 6.5,
-        "data_points": 4
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 2.0,
-        "field_strength": 0.5,
-        "consistency": 1.7,
-        "tee_time": 0.6,
-        "ml_bayes": 1.0
-      },
-      "propScores": {
-        "win": 34,
-        "top5": 38,
-        "top10": 43,
-        "top20": 51,
-        "makeCut": 56
-      },
-      "confScore": 37.6,
-      "edgeScore": 5.62,
-      "owgrRank": 61,
-      "evScore": 28105.6,
-      "scoreStd": 3.82
+      "owgrRank": 112,
+      "evScore": 18381.9
     },
     {
       "id": 9040,
       "name": "Adam Schenk",
-      "rank": 64,
+      "rank": 62,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6589,8 +6379,8 @@
       "recentForm": {
         "lastResult": "#46 at RBC Heritage",
         "lastPosition": 46,
-        "l5AvgFinish": 51.0,
-        "l10AvgFinish": 51.0,
+        "l5AvgFinish": 50.5,
+        "l10AvgFinish": 50.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 4,
@@ -6605,10 +6395,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": -1.5,
       "bayesianScore": {
-        "score": 38,
+        "score": 39,
         "prior": 50.0,
-        "likelihood": 31.3,
-        "posterior_sigma": 10.6,
+        "likelihood": 32.1,
+        "posterior_sigma": 10.9,
         "data_points": 4
       },
       "competitiveness": "active",
@@ -6643,7 +6433,7 @@
     {
       "id": 9009,
       "name": "Michael Kim",
-      "rank": 65,
+      "rank": 63,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6690,9 +6480,9 @@
       "recentForm": {
         "lastResult": "#45 at RBC Heritage",
         "lastPosition": 45,
-        "l5AvgFinish": 54.4,
-        "l10AvgFinish": 54.4,
-        "l5McPct": 40,
+        "l5AvgFinish": 48.8,
+        "l10AvgFinish": 48.8,
+        "l5McPct": 60,
         "trend": "steady",
         "events": 5,
         "roundAvgs": {
@@ -6706,9 +6496,9 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": 1.0,
       "bayesianScore": {
-        "score": 42,
+        "score": 46,
         "prior": 50.0,
-        "likelihood": 28.0,
+        "likelihood": 37.6,
         "posterior_sigma": 14.6,
         "data_points": 5
       },
@@ -6727,7 +6517,109 @@
         "field_strength": 1.0,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": 1.2
+        "ml_bayes": 1.9
+      },
+      "propScores": {
+        "win": 35,
+        "top5": 39,
+        "top10": 44,
+        "top20": 52,
+        "makeCut": 57
+      },
+      "confScore": 37.5,
+      "edgeScore": 5.61,
+      "owgrRank": 36,
+      "evScore": 28030.6,
+      "scoreStd": 1.91
+    },
+    {
+      "id": 9021,
+      "name": "Johnny Keefer",
+      "rank": 64,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 48,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 48,
+      "recentForm": {
+        "lastResult": "#64 at RBC Heritage",
+        "lastPosition": 64,
+        "l5AvgFinish": 40.5,
+        "l10AvgFinish": 40.5,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 4,
+        "roundAvgs": {
+          "r1Avg": 69.0,
+          "r2Avg": 70.0,
+          "r3Avg": 70.0,
+          "closingDelta": 1.5
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 1.5,
+      "bayesianScore": {
+        "score": 48,
+        "prior": 50.0,
+        "likelihood": 44.9,
+        "posterior_sigma": 14.6,
+        "data_points": 4
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 0.5,
+        "field_strength": 1.0,
+        "consistency": 1.7,
+        "tee_time": 0.6,
+        "ml_bayes": 1.9
       },
       "propScores": {
         "win": 35,
@@ -6736,16 +6628,423 @@
         "top20": 51,
         "makeCut": 57
       },
-      "confScore": 36.800000000000004,
-      "edgeScore": 5.5,
-      "owgrRank": 36,
-      "evScore": 27505.5,
-      "scoreStd": 1.91
+      "confScore": 37.5,
+      "edgeScore": 5.61,
+      "owgrRank": 48,
+      "evScore": 28030.6
+    },
+    {
+      "id": 9023,
+      "name": "Jordan Smith",
+      "rank": 65,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 89,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 89,
+      "recentForm": {
+        "lastResult": "#40 at RBC Heritage",
+        "lastPosition": 40,
+        "l5AvgFinish": 49.3,
+        "l10AvgFinish": 49.3,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 3,
+        "roundAvgs": {
+          "r1Avg": 69.0,
+          "r2Avg": 72.0,
+          "r3Avg": 68.0,
+          "closingDelta": -0.5
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": -0.5,
+      "bayesianScore": {
+        "score": 43,
+        "prior": 50.0,
+        "likelihood": 40.9,
+        "posterior_sigma": 8.2,
+        "data_points": 3
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 2.5,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "tee_time": 0.6,
+        "ml_bayes": 0.7
+      },
+      "propScores": {
+        "win": 34,
+        "top5": 38,
+        "top10": 43,
+        "top20": 51,
+        "makeCut": 56
+      },
+      "confScore": 37.300000000000004,
+      "edgeScore": 5.58,
+      "owgrRank": 89,
+      "evScore": 27880.6,
+      "scoreStd": 1.81
+    },
+    {
+      "id": 47,
+      "name": "Michael Thorbjornsen",
+      "rank": 66,
+      "sgTotal": 0.12,
+      "sgOtt": 0.25,
+      "sgApp": 0.05,
+      "sgArg": -0.05,
+      "sgPutt": -0.13,
+      "birdieAvg": 3.9,
+      "bogeyAvg": 2.4,
+      "scoringAvg": 71.5,
+      "gir": 65.5,
+      "fairways": 61.0,
+      "scramble": 55.0,
+      "proxAvg": 35.5,
+      "missDir": "right",
+      "flight": "high_fade",
+      "courseFit": {
+        "augusta": 54,
+        "tpc_sawgrass": 54,
+        "pebble": 54,
+        "torrey_south": 56,
+        "riviera": 54,
+        "valhalla": 57,
+        "pinehurst_2": 54,
+        "royal_troon": 54,
+        "royal_portrush": 52,
+        "oakmont": 51,
+        "quail_hollow": 57,
+        "east_lake": 54,
+        "bay_hill": 56,
+        "harbour_town": 53,
+        "colonial": 54,
+        "memorial": 56,
+        "tpc_scottsdale": 56
+      },
+      "notes": "Promising rookie from Stanford. Athletic and long. Raw but talented. Watch for breakout at long courses.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 68,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 68,
+      "recentForm": {
+        "lastResult": "#53 at RBC Heritage",
+        "lastPosition": 53,
+        "l5AvgFinish": 51.3,
+        "l10AvgFinish": 51.3,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 3,
+        "roundAvgs": {
+          "r1Avg": 70.0,
+          "r2Avg": 68.0,
+          "r3Avg": 74.0,
+          "closingDelta": 4.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 4.0,
+      "bayesianScore": {
+        "score": 42,
+        "prior": 52.4,
+        "likelihood": 35.9,
+        "posterior_sigma": 11.1,
+        "data_points": 3
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 1.0,
+        "fit": 6.8,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.9,
+        "birdie_bogey": 4.1,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 0.0,
+        "field_strength": 1.0,
+        "consistency": 1.6,
+        "tee_time": 0.6,
+        "ml_bayes": 0.6
+      },
+      "propScores": {
+        "win": 34,
+        "top5": 37,
+        "top10": 42,
+        "top20": 50,
+        "makeCut": 56
+      },
+      "confScore": 37.2,
+      "edgeScore": 5.56,
+      "owgrRank": 47,
+      "evScore": 27805.6,
+      "scoreStd": 2.49
+    },
+    {
+      "id": 9007,
+      "name": "Daniel Berger",
+      "rank": 67,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 61,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 61,
+      "recentForm": {
+        "lastResult": "#49 at RBC Heritage",
+        "lastPosition": 49,
+        "l5AvgFinish": 52.0,
+        "l10AvgFinish": 52.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 4,
+        "roundAvgs": {
+          "r1Avg": 66.0,
+          "r2Avg": 74.0,
+          "r3Avg": 68.0,
+          "closingDelta": 0.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 0.0,
+      "bayesianScore": {
+        "score": 40,
+        "prior": 50.0,
+        "likelihood": 39.4,
+        "posterior_sigma": 5.5,
+        "data_points": 4
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 2.0,
+        "field_strength": 0.5,
+        "consistency": 1.7,
+        "tee_time": 0.6,
+        "ml_bayes": 0.5
+      },
+      "propScores": {
+        "win": 34,
+        "top5": 38,
+        "top10": 43,
+        "top20": 50,
+        "makeCut": 56
+      },
+      "confScore": 37.1,
+      "edgeScore": 5.55,
+      "owgrRank": 61,
+      "evScore": 27730.6,
+      "scoreStd": 3.82
+    },
+    {
+      "id": 9030,
+      "name": "David Lipsky",
+      "rank": 68,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 144,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 144,
+      "recentForm": {
+        "lastResult": "#55 at RBC Heritage",
+        "lastPosition": 55,
+        "l5AvgFinish": 59.7,
+        "l10AvgFinish": 59.7,
+        "l5McPct": 67,
+        "trend": "steady",
+        "events": 3,
+        "roundAvgs": {
+          "r1Avg": 72.0,
+          "r2Avg": 71.0,
+          "r3Avg": 68.0,
+          "closingDelta": -1.5
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": -1.5,
+      "bayesianScore": {
+        "score": 31,
+        "prior": 50.0,
+        "likelihood": 27.6,
+        "posterior_sigma": 6.6,
+        "data_points": 3
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 3.5,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "tee_time": 0.6,
+        "ml_bayes": -0.7
+      },
+      "propScores": {
+        "win": 33,
+        "top5": 38,
+        "top10": 42,
+        "top20": 50,
+        "makeCut": 55
+      },
+      "confScore": 36.9,
+      "edgeScore": 5.52,
+      "owgrRank": 144,
+      "evScore": 27580.5,
+      "scoreStd": 1.69
     },
     {
       "id": 50,
       "name": "Maverick McNealy",
-      "rank": 66,
+      "rank": 69,
       "sgTotal": 0.05,
       "sgOtt": 0.15,
       "sgApp": 0.0,
@@ -6799,8 +7098,8 @@
       "recentForm": {
         "lastResult": "#48 at RBC Heritage",
         "lastPosition": 48,
-        "l5AvgFinish": 50.8,
-        "l10AvgFinish": 46.3,
+        "l5AvgFinish": 52.2,
+        "l10AvgFinish": 47.5,
         "l5McPct": 80,
         "trend": "steady",
         "events": 6,
@@ -6815,10 +7114,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": -1.0,
       "bayesianScore": {
-        "score": 44,
+        "score": 42,
         "prior": 51.0,
-        "likelihood": 38.7,
-        "posterior_sigma": 11.5,
+        "likelihood": 36.5,
+        "posterior_sigma": 10.9,
         "data_points": 6
       },
       "competitiveness": "active",
@@ -6836,324 +7135,20 @@
         "field_strength": 1.0,
         "consistency": 1.6,
         "tee_time": 0.6,
-        "ml_bayes": 2.1
+        "ml_bayes": 1.7
       },
       "propScores": {
         "win": 35,
         "top5": 38,
-        "top10": 42,
+        "top10": 41,
         "top20": 47,
         "makeCut": 48
       },
-      "confScore": 36.7,
-      "edgeScore": 5.49,
+      "confScore": 36.300000000000004,
+      "edgeScore": 5.43,
       "owgrRank": 50,
-      "evScore": 27430.5,
+      "evScore": 27130.4,
       "scoreStd": 3.62
-    },
-    {
-      "id": 9030,
-      "name": "David Lipsky",
-      "rank": 67,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 144,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 144,
-      "recentForm": {
-        "lastResult": "#55 at RBC Heritage",
-        "lastPosition": 55,
-        "l5AvgFinish": 60.0,
-        "l10AvgFinish": 60.0,
-        "l5McPct": 67,
-        "trend": "steady",
-        "events": 3,
-        "roundAvgs": {
-          "r1Avg": 72.0,
-          "r2Avg": 71.0,
-          "r3Avg": 68.0,
-          "closingDelta": -1.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": -1.5,
-      "bayesianScore": {
-        "score": 30,
-        "prior": 50.0,
-        "likelihood": 27.1,
-        "posterior_sigma": 6.3,
-        "data_points": 3
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 3.5,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "tee_time": 0.6,
-        "ml_bayes": -0.9
-      },
-      "propScores": {
-        "win": 33,
-        "top5": 38,
-        "top10": 42,
-        "top20": 50,
-        "makeCut": 55
-      },
-      "confScore": 36.7,
-      "edgeScore": 5.49,
-      "owgrRank": 144,
-      "evScore": 27430.5,
-      "scoreStd": 1.69
-    },
-    {
-      "id": 47,
-      "name": "Michael Thorbjornsen",
-      "rank": 68,
-      "sgTotal": 0.12,
-      "sgOtt": 0.25,
-      "sgApp": 0.05,
-      "sgArg": -0.05,
-      "sgPutt": -0.13,
-      "birdieAvg": 3.9,
-      "bogeyAvg": 2.4,
-      "scoringAvg": 71.5,
-      "gir": 65.5,
-      "fairways": 61.0,
-      "scramble": 55.0,
-      "proxAvg": 35.5,
-      "missDir": "right",
-      "flight": "high_fade",
-      "courseFit": {
-        "augusta": 54,
-        "tpc_sawgrass": 54,
-        "pebble": 54,
-        "torrey_south": 56,
-        "riviera": 54,
-        "valhalla": 57,
-        "pinehurst_2": 54,
-        "royal_troon": 54,
-        "royal_portrush": 52,
-        "oakmont": 51,
-        "quail_hollow": 57,
-        "east_lake": 54,
-        "bay_hill": 56,
-        "harbour_town": 53,
-        "colonial": 54,
-        "memorial": 56,
-        "tpc_scottsdale": 56
-      },
-      "notes": "Promising rookie from Stanford. Athletic and long. Raw but talented. Watch for breakout at long courses.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 68,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 68,
-      "recentForm": {
-        "lastResult": "#53 at RBC Heritage",
-        "lastPosition": 53,
-        "l5AvgFinish": 55.3,
-        "l10AvgFinish": 55.3,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 3,
-        "roundAvgs": {
-          "r1Avg": 70.0,
-          "r2Avg": 68.0,
-          "r3Avg": 74.0,
-          "closingDelta": 4.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 4.0,
-      "bayesianScore": {
-        "score": 40,
-        "prior": 52.4,
-        "likelihood": 30.1,
-        "posterior_sigma": 12.1,
-        "data_points": 3
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 1.0,
-        "fit": 6.8,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.9,
-        "birdie_bogey": 4.1,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 0.0,
-        "field_strength": 1.0,
-        "consistency": 1.6,
-        "tee_time": 0.6
-      },
-      "propScores": {
-        "win": 34,
-        "top5": 37,
-        "top10": 41,
-        "top20": 49,
-        "makeCut": 55
-      },
-      "confScore": 36.6,
-      "edgeScore": 5.47,
-      "owgrRank": 47,
-      "evScore": 27355.5,
-      "scoreStd": 2.49
-    },
-    {
-      "id": 9023,
-      "name": "Jordan Smith",
-      "rank": 69,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 89,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 89,
-      "recentForm": {
-        "lastResult": "#40 at RBC Heritage",
-        "lastPosition": 40,
-        "l5AvgFinish": 52.7,
-        "l10AvgFinish": 52.7,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 3,
-        "roundAvgs": {
-          "r1Avg": 69.0,
-          "r2Avg": 72.0,
-          "r3Avg": 68.0,
-          "closingDelta": -0.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": -0.5,
-      "bayesianScore": {
-        "score": 37,
-        "prior": 50.0,
-        "likelihood": 36.0,
-        "posterior_sigma": 4.8,
-        "data_points": 3
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 2.5,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "tee_time": 0.6
-      },
-      "propScores": {
-        "win": 33,
-        "top5": 37,
-        "top10": 42,
-        "top20": 50,
-        "makeCut": 55
-      },
-      "confScore": 36.6,
-      "edgeScore": 5.47,
-      "owgrRank": 89,
-      "evScore": 27355.5,
-      "scoreStd": 1.81
     },
     {
       "id": 9032,
@@ -7205,8 +7200,8 @@
       "recentForm": {
         "lastResult": "#74 at RBC Heritage",
         "lastPosition": 74,
-        "l5AvgFinish": 49.6,
-        "l10AvgFinish": 49.7,
+        "l5AvgFinish": 49.4,
+        "l10AvgFinish": 49.5,
         "l5McPct": 60,
         "trend": "steady",
         "events": 6,
@@ -7223,8 +7218,8 @@
       "bayesianScore": {
         "score": 42,
         "prior": 50.0,
-        "likelihood": 29.1,
-        "posterior_sigma": 14.1,
+        "likelihood": 29.4,
+        "posterior_sigma": 14.0,
         "data_points": 6
       },
       "competitiveness": "active",
@@ -7258,111 +7253,9 @@
       "scoreStd": 2.62
     },
     {
-      "id": 96,
-      "name": "Marco Penge",
-      "rank": 71,
-      "sgTotal": 0.05,
-      "sgOtt": 0.12,
-      "sgApp": 0.02,
-      "sgArg": -0.02,
-      "sgPutt": -0.07,
-      "birdieAvg": 3.6,
-      "bogeyAvg": 2.3,
-      "scoringAvg": 71.8,
-      "gir": 65.0,
-      "fairways": 63.0,
-      "scramble": 56.0,
-      "proxAvg": 35.5,
-      "missDir": "neutral",
-      "flight": "mid_fade",
-      "courseFit": {
-        "augusta": 53,
-        "tpc_sawgrass": 53,
-        "pebble": 54,
-        "torrey_south": 54,
-        "riviera": 54,
-        "valhalla": 54,
-        "pinehurst_2": 54,
-        "royal_troon": 55,
-        "royal_portrush": 51,
-        "oakmont": 50,
-        "quail_hollow": 54,
-        "east_lake": 53,
-        "bay_hill": 53,
-        "harbour_town": 54,
-        "colonial": 54,
-        "memorial": 54,
-        "tpc_scottsdale": 54
-      },
-      "notes": "English DP World Tour graduate. Steady but unspectacular. Still building PGA Tour résumé.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 29,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 29,
-      "recentForm": {
-        "lastResult": "#72 at RBC Heritage",
-        "lastPosition": 72,
-        "l5AvgFinish": 70.0,
-        "l10AvgFinish": 62.7,
-        "l5McPct": 20,
-        "trend": "cold",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 73.0,
-          "r2Avg": 73.0,
-          "r3Avg": 68.0,
-          "closingDelta": -3.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": -3.0,
-      "bayesianScore": {
-        "score": 27,
-        "prior": 51.0,
-        "likelihood": 15.4,
-        "posterior_sigma": 10.2,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.9,
-        "history": 3.5,
-        "form": 5.7,
-        "gir": 4.9,
-        "driving": 3.2,
-        "birdie_bogey": 3.8,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 4.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "tee_time": 0.6,
-        "ml_bayes": -2.6
-      },
-      "propScores": {
-        "win": 32,
-        "top5": 37,
-        "top10": 41,
-        "top20": 48,
-        "makeCut": 53
-      },
-      "confScore": 36.0,
-      "edgeScore": 5.38,
-      "owgrRank": 120,
-      "evScore": 26905.4,
-      "scoreStd": 2.31
-    },
-    {
       "id": 9017,
       "name": "Sami Välimäki",
-      "rank": 72,
+      "rank": 71,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7436,6 +7329,108 @@
       "evScore": 10165.4
     },
     {
+      "id": 96,
+      "name": "Marco Penge",
+      "rank": 72,
+      "sgTotal": 0.05,
+      "sgOtt": 0.12,
+      "sgApp": 0.02,
+      "sgArg": -0.02,
+      "sgPutt": -0.07,
+      "birdieAvg": 3.6,
+      "bogeyAvg": 2.3,
+      "scoringAvg": 71.8,
+      "gir": 65.0,
+      "fairways": 63.0,
+      "scramble": 56.0,
+      "proxAvg": 35.5,
+      "missDir": "neutral",
+      "flight": "mid_fade",
+      "courseFit": {
+        "augusta": 53,
+        "tpc_sawgrass": 53,
+        "pebble": 54,
+        "torrey_south": 54,
+        "riviera": 54,
+        "valhalla": 54,
+        "pinehurst_2": 54,
+        "royal_troon": 55,
+        "royal_portrush": 51,
+        "oakmont": 50,
+        "quail_hollow": 54,
+        "east_lake": 53,
+        "bay_hill": 53,
+        "harbour_town": 54,
+        "colonial": 54,
+        "memorial": 54,
+        "tpc_scottsdale": 54
+      },
+      "notes": "English DP World Tour graduate. Steady but unspectacular. Still building PGA Tour résumé.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 29,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 29,
+      "recentForm": {
+        "lastResult": "#73 at RBC Heritage",
+        "lastPosition": 73,
+        "l5AvgFinish": 70.6,
+        "l10AvgFinish": 63.2,
+        "l5McPct": 20,
+        "trend": "cold",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 73.0,
+          "r2Avg": 73.0,
+          "r3Avg": 68.0,
+          "closingDelta": -3.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": -3.0,
+      "bayesianScore": {
+        "score": 26,
+        "prior": 51.0,
+        "likelihood": 14.5,
+        "posterior_sigma": 10.3,
+        "data_points": 6
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.9,
+        "history": 3.5,
+        "form": 5.7,
+        "gir": 4.9,
+        "driving": 3.2,
+        "birdie_bogey": 3.8,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 4.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "tee_time": 0.6,
+        "ml_bayes": -2.8
+      },
+      "propScores": {
+        "win": 32,
+        "top5": 36,
+        "top10": 41,
+        "top20": 48,
+        "makeCut": 52
+      },
+      "confScore": 35.800000000000004,
+      "edgeScore": 5.35,
+      "owgrRank": 120,
+      "evScore": 26755.4,
+      "scoreStd": 2.31
+    },
+    {
       "id": 9041,
       "name": "Karl Vilips",
       "rank": 73,
@@ -7485,8 +7480,8 @@
       "recentForm": {
         "lastResult": "#44 at RBC Heritage",
         "lastPosition": 44,
-        "l5AvgFinish": 36.3,
-        "l10AvgFinish": 36.3,
+        "l5AvgFinish": 37.7,
+        "l10AvgFinish": 37.7,
         "l5McPct": 100,
         "trend": "steady",
         "events": 3,
@@ -7501,10 +7496,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": 2.5,
       "bayesianScore": {
-        "score": 55,
+        "score": 53,
         "prior": 50.0,
-        "likelihood": 55.1,
-        "posterior_sigma": 5.8,
+        "likelihood": 53.1,
+        "posterior_sigma": 7.1,
         "data_points": 3
       },
       "competitiveness": "active",
@@ -7522,25 +7517,127 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": 2.4
+        "ml_bayes": 2.2
       },
       "propScores": {
         "win": 33,
-        "top5": 37,
+        "top5": 36,
         "top10": 42,
         "top20": 51,
         "makeCut": 58
       },
-      "confScore": 36.0,
-      "edgeScore": 5.38,
+      "confScore": 35.800000000000004,
+      "edgeScore": 5.35,
       "owgrRank": 145,
-      "evScore": 26905.4,
+      "evScore": 26755.4,
       "scoreStd": 1.55
+    },
+    {
+      "id": 9037,
+      "name": "William Mouw",
+      "rank": 74,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 115,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 115,
+      "recentForm": {
+        "lastResult": "#38 at RBC Heritage",
+        "lastPosition": 38,
+        "l5AvgFinish": 55.3,
+        "l10AvgFinish": 55.3,
+        "l5McPct": 67,
+        "trend": "steady",
+        "events": 3,
+        "roundAvgs": {
+          "r1Avg": 68.0,
+          "r2Avg": 73.0,
+          "r3Avg": 72.0,
+          "closingDelta": 1.5
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 1.5,
+      "bayesianScore": {
+        "score": 41,
+        "prior": 50.0,
+        "likelihood": 33.7,
+        "posterior_sigma": 12.2,
+        "data_points": 3
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 0.5,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "tee_time": 0.6,
+        "ml_bayes": 0.7
+      },
+      "propScores": {
+        "win": 32,
+        "top5": 36,
+        "top10": 41,
+        "top20": 50,
+        "makeCut": 56
+      },
+      "confScore": 35.300000000000004,
+      "edgeScore": 5.28,
+      "owgrRank": 115,
+      "evScore": 26380.3,
+      "scoreStd": 2.42
     },
     {
       "id": 9006,
       "name": "Nicolai Højgaard",
-      "rank": 74,
+      "rank": 75,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7587,8 +7684,8 @@
       "recentForm": {
         "lastResult": "#60 at RBC Heritage",
         "lastPosition": 60,
-        "l5AvgFinish": 57.0,
-        "l10AvgFinish": 57.0,
+        "l5AvgFinish": 57.5,
+        "l10AvgFinish": 57.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 4,
@@ -7603,9 +7700,9 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": 0.5,
       "bayesianScore": {
-        "score": 33,
+        "score": 32,
         "prior": 50.0,
-        "likelihood": 31.5,
+        "likelihood": 30.7,
         "posterior_sigma": 4.8,
         "data_points": 4
       },
@@ -7623,25 +7720,26 @@
         "closing": 1.5,
         "field_strength": 0.5,
         "consistency": 1.7,
-        "tee_time": 0.6
+        "tee_time": 0.6,
+        "ml_bayes": -0.5
       },
       "propScores": {
-        "win": 33,
-        "top5": 37,
-        "top10": 42,
-        "top20": 50,
+        "win": 32,
+        "top5": 36,
+        "top10": 41,
+        "top20": 49,
         "makeCut": 55
       },
-      "confScore": 35.6,
-      "edgeScore": 5.32,
+      "confScore": 35.1,
+      "edgeScore": 5.25,
       "owgrRank": 77,
-      "evScore": 26605.3,
+      "evScore": 26230.3,
       "scoreStd": 2.33
     },
     {
       "id": 9031,
       "name": "Andrew Putnam",
-      "rank": 75,
+      "rank": 76,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7688,8 +7786,8 @@
       "recentForm": {
         "lastResult": "#50 at RBC Heritage",
         "lastPosition": 50,
-        "l5AvgFinish": 33.0,
-        "l10AvgFinish": 33.0,
+        "l5AvgFinish": 34.5,
+        "l10AvgFinish": 34.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 4,
@@ -7704,10 +7802,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": 1.0,
       "bayesianScore": {
-        "score": 53,
+        "score": 52,
         "prior": 50.0,
-        "likelihood": 56.3,
-        "posterior_sigma": 12.5,
+        "likelihood": 53.9,
+        "posterior_sigma": 13.1,
         "data_points": 4
       },
       "competitiveness": "declining",
@@ -7725,7 +7823,7 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": 2.8
+        "ml_bayes": 2.6
       },
       "propScores": {
         "win": 34,
@@ -7737,107 +7835,6 @@
       "confScore": 35,
       "edgeScore": 5.23,
       "owgrRank": 180,
-      "evScore": 26155.2
-    },
-    {
-      "id": 9034,
-      "name": "Tom Hoge",
-      "rank": 76,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 99,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 99,
-      "recentForm": {
-        "lastResult": "#67 at RBC Heritage",
-        "lastPosition": 67,
-        "l5AvgFinish": 58.0,
-        "l10AvgFinish": 58.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 3,
-        "roundAvgs": {
-          "r1Avg": 71.0,
-          "r2Avg": 70.0,
-          "r3Avg": 70.0,
-          "closingDelta": 0.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 0.5,
-      "bayesianScore": {
-        "score": 30,
-        "prior": 50.0,
-        "likelihood": 28.5,
-        "posterior_sigma": 4.8,
-        "data_points": 3
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 1.5,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "tee_time": 0.6,
-        "ml_bayes": -0.6
-      },
-      "propScores": {
-        "win": 31,
-        "top5": 35,
-        "top10": 41,
-        "top20": 49,
-        "makeCut": 55
-      },
-      "confScore": 35.0,
-      "edgeScore": 5.23,
-      "owgrRank": 99,
       "evScore": 26155.2
     },
     {
@@ -7890,8 +7887,8 @@
       "recentForm": {
         "lastResult": "#54 at RBC Heritage",
         "lastPosition": 54,
-        "l5AvgFinish": 45.8,
-        "l10AvgFinish": 45.8,
+        "l5AvgFinish": 44.2,
+        "l10AvgFinish": 44.2,
         "l5McPct": 100,
         "trend": "steady",
         "events": 4,
@@ -7906,10 +7903,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": 1.5,
       "bayesianScore": {
-        "score": 44,
+        "score": 45,
         "prior": 50.0,
-        "likelihood": 38.2,
-        "posterior_sigma": 12.2,
+        "likelihood": 40.6,
+        "posterior_sigma": 11.7,
         "data_points": 4
       },
       "competitiveness": "declining",
@@ -7927,10 +7924,10 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": 1.4
+        "ml_bayes": 1.6
       },
       "propScores": {
-        "win": 32,
+        "win": 33,
         "top5": 35,
         "top10": 35,
         "top20": 35,
@@ -7943,109 +7940,9 @@
       "scoreStd": 3.73
     },
     {
-      "id": 9018,
-      "name": "Harry Hall",
-      "rank": 78,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 60,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 60,
-      "recentForm": {
-        "lastResult": "#66 at RBC Heritage",
-        "lastPosition": 66,
-        "l5AvgFinish": 58.8,
-        "l10AvgFinish": 58.8,
-        "l5McPct": 75,
-        "trend": "steady",
-        "events": 4,
-        "roundAvgs": {
-          "r1Avg": 70.0,
-          "r2Avg": 69.0,
-          "r3Avg": 72.0,
-          "closingDelta": 2.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 2.5,
-      "bayesianScore": {
-        "score": 35,
-        "prior": 50.0,
-        "likelihood": 30.1,
-        "posterior_sigma": 9.3,
-        "data_points": 4
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 0.0,
-        "field_strength": 0.5,
-        "consistency": 1.7,
-        "tee_time": 0.6
-      },
-      "propScores": {
-        "win": 31,
-        "top5": 35,
-        "top10": 40,
-        "top20": 49,
-        "makeCut": 55
-      },
-      "confScore": 34.6,
-      "edgeScore": 5.17,
-      "owgrRank": 60,
-      "evScore": 25855.2
-    },
-    {
       "id": 9028,
       "name": "Austin Smotherman",
-      "rank": 79,
+      "rank": 78,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -8092,8 +7989,8 @@
       "recentForm": {
         "lastResult": "#76 at RBC Heritage",
         "lastPosition": 76,
-        "l5AvgFinish": 67.8,
-        "l10AvgFinish": 67.8,
+        "l5AvgFinish": 67.2,
+        "l10AvgFinish": 67.2,
         "l5McPct": 25,
         "trend": "steady",
         "events": 4,
@@ -8108,10 +8005,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": -3.0,
       "bayesianScore": {
-        "score": 17,
+        "score": 18,
         "prior": 50.0,
-        "likelihood": 9.4,
-        "posterior_sigma": 8.1,
+        "likelihood": 9.7,
+        "posterior_sigma": 7.9,
         "data_points": 4
       },
       "competitiveness": "active",
@@ -8129,25 +8026,226 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": -3.1
+        "ml_bayes": -2.9
       },
       "propScores": {
-        "win": 31,
+        "win": 32,
         "top5": 36,
         "top10": 41,
         "top20": 48,
-        "makeCut": 52
+        "makeCut": 53
       },
-      "confScore": 34.5,
-      "edgeScore": 5.16,
+      "confScore": 34.7,
+      "edgeScore": 5.19,
       "owgrRank": 130,
-      "evScore": 25780.2,
+      "evScore": 25930.2,
       "scoreStd": 2.13
+    },
+    {
+      "id": 9018,
+      "name": "Harry Hall",
+      "rank": 79,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 60,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 60,
+      "recentForm": {
+        "lastResult": "#66 at RBC Heritage",
+        "lastPosition": 66,
+        "l5AvgFinish": 60.0,
+        "l10AvgFinish": 60.0,
+        "l5McPct": 50,
+        "trend": "steady",
+        "events": 4,
+        "roundAvgs": {
+          "r1Avg": 70.0,
+          "r2Avg": 69.0,
+          "r3Avg": 72.0,
+          "closingDelta": 2.5
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 2.5,
+      "bayesianScore": {
+        "score": 35,
+        "prior": 50.0,
+        "likelihood": 28.1,
+        "posterior_sigma": 10.0,
+        "data_points": 4
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 0.0,
+        "field_strength": 0.5,
+        "consistency": 1.7,
+        "tee_time": 0.6
+      },
+      "propScores": {
+        "win": 31,
+        "top5": 35,
+        "top10": 40,
+        "top20": 49,
+        "makeCut": 55
+      },
+      "confScore": 34.6,
+      "edgeScore": 5.17,
+      "owgrRank": 60,
+      "evScore": 25855.2
+    },
+    {
+      "id": 9034,
+      "name": "Tom Hoge",
+      "rank": 80,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+500000"
+      },
+      "fieldInfo": {
+        "owgr": 99,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 99,
+      "recentForm": {
+        "lastResult": "#67 at RBC Heritage",
+        "lastPosition": 67,
+        "l5AvgFinish": 60.7,
+        "l10AvgFinish": 60.7,
+        "l5McPct": 67,
+        "trend": "steady",
+        "events": 3,
+        "roundAvgs": {
+          "r1Avg": 71.0,
+          "r2Avg": 70.0,
+          "r3Avg": 70.0,
+          "closingDelta": 0.5
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 0.5,
+      "bayesianScore": {
+        "score": 27,
+        "prior": 50.0,
+        "likelihood": 24.6,
+        "posterior_sigma": 5.6,
+        "data_points": 3
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.0,
+        "driving": 2.6,
+        "birdie_bogey": 3.4,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 1.5,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "tee_time": 0.6,
+        "ml_bayes": -1.0
+      },
+      "propScores": {
+        "win": 31,
+        "top5": 35,
+        "top10": 40,
+        "top20": 48,
+        "makeCut": 54
+      },
+      "confScore": 34.6,
+      "edgeScore": 5.17,
+      "owgrRank": 99,
+      "evScore": 25855.2
     },
     {
       "id": 9033,
       "name": "Jhonattan Vegas",
-      "rank": 80,
+      "rank": 81,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -8194,8 +8292,8 @@
       "recentForm": {
         "lastResult": "#77 at RBC Heritage",
         "lastPosition": 77,
-        "l5AvgFinish": 75.3,
-        "l10AvgFinish": 75.3,
+        "l5AvgFinish": 75.7,
+        "l10AvgFinish": 75.7,
         "l5McPct": 0,
         "trend": "steady",
         "events": 3,
@@ -8212,7 +8310,7 @@
       "bayesianScore": {
         "score": 10,
         "prior": 50.0,
-        "likelihood": 6.9,
+        "likelihood": 6.5,
         "posterior_sigma": 4.8,
         "data_points": 3
       },
@@ -8249,7 +8347,7 @@
     {
       "id": 9027,
       "name": "Garrick Higgo",
-      "rank": 81,
+      "rank": 82,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -8296,9 +8394,9 @@
       "recentForm": {
         "lastResult": "#57 at RBC Heritage",
         "lastPosition": 57,
-        "l5AvgFinish": 63.0,
-        "l10AvgFinish": 63.0,
-        "l5McPct": 33,
+        "l5AvgFinish": 59.7,
+        "l10AvgFinish": 59.7,
+        "l5McPct": 67,
         "trend": "steady",
         "events": 3,
         "roundAvgs": {
@@ -8312,10 +8410,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": 1.5,
       "bayesianScore": {
-        "score": 25,
+        "score": 29,
         "prior": 50.0,
-        "likelihood": 21.7,
-        "posterior_sigma": 6.3,
+        "likelihood": 26.6,
+        "posterior_sigma": 6.1,
         "data_points": 3
       },
       "competitiveness": "active",
@@ -8333,122 +8431,20 @@
         "field_strength": 0.5,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": -1.1
+        "ml_bayes": -0.6
       },
       "propScores": {
         "win": 31,
-        "top5": 34,
+        "top5": 35,
         "top10": 40,
-        "top20": 48,
-        "makeCut": 54
+        "top20": 49,
+        "makeCut": 55
       },
-      "confScore": 33.5,
-      "edgeScore": 5.01,
+      "confScore": 34.0,
+      "edgeScore": 5.08,
       "owgrRank": 66,
-      "evScore": 25030.0,
+      "evScore": 25405.1,
       "scoreStd": 1.55
-    },
-    {
-      "id": 9037,
-      "name": "William Mouw",
-      "rank": 82,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+500000"
-      },
-      "fieldInfo": {
-        "owgr": 115,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 115,
-      "recentForm": {
-        "lastResult": "#38 at RBC Heritage",
-        "lastPosition": 38,
-        "l5AvgFinish": 65.3,
-        "l10AvgFinish": 65.3,
-        "l5McPct": 33,
-        "trend": "steady",
-        "events": 3,
-        "roundAvgs": {
-          "r1Avg": 68.0,
-          "r2Avg": 73.0,
-          "r3Avg": 72.0,
-          "closingDelta": 1.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 1.5,
-      "bayesianScore": {
-        "score": 21,
-        "prior": 50.0,
-        "likelihood": 19.0,
-        "posterior_sigma": 4.8,
-        "data_points": 3
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.0,
-        "driving": 2.6,
-        "birdie_bogey": 3.4,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 0.5,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "tee_time": 0.6,
-        "ml_bayes": -1.5
-      },
-      "propScores": {
-        "win": 29,
-        "top5": 33,
-        "top10": 39,
-        "top20": 47,
-        "makeCut": 54
-      },
-      "confScore": 33.1,
-      "edgeScore": 4.95,
-      "owgrRank": 115,
-      "evScore": 24730.0,
-      "scoreStd": 2.42
     },
     {
       "id": 9029,
@@ -8500,8 +8496,8 @@
       "recentForm": {
         "lastResult": "#70 at RBC Heritage",
         "lastPosition": 70,
-        "l5AvgFinish": 68.0,
-        "l10AvgFinish": 68.0,
+        "l5AvgFinish": 67.7,
+        "l10AvgFinish": 67.7,
         "l5McPct": 33,
         "trend": "steady",
         "events": 3,
@@ -8516,10 +8512,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": 1.0,
       "bayesianScore": {
-        "score": 18,
+        "score": 19,
         "prior": 50.0,
-        "likelihood": 15.6,
-        "posterior_sigma": 4.9,
+        "likelihood": 16.1,
+        "posterior_sigma": 4.8,
         "data_points": 3
       },
       "competitiveness": "declining",
@@ -8537,7 +8533,7 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "tee_time": 0.6,
-        "ml_bayes": -1.9
+        "ml_bayes": -1.8
       },
       "propScores": {
         "win": 30,
@@ -8546,10 +8542,10 @@
         "top20": 35,
         "makeCut": 35
       },
-      "confScore": 32.7,
-      "edgeScore": 4.89,
+      "confScore": 32.800000000000004,
+      "edgeScore": 4.9,
       "owgrRank": 173,
-      "evScore": 24429.9
+      "evScore": 24504.9
     }
   ],
   "currentEvent": {
@@ -9343,25 +9339,25 @@
         "thru": ""
       },
       {
+        "name": "Alex Noren",
+        "position": "T70",
+        "score": "-1",
+        "totalStrokes": 244.0,
+        "round1": 73.0,
+        "round2": 73.0,
+        "round3": 66.0,
+        "round4": 32.0,
+        "thru": ""
+      },
+      {
         "name": "Marco Penge",
-        "position": "T72",
+        "position": "73",
         "score": "E",
         "totalStrokes": 257.0,
         "round1": 73.0,
         "round2": 73.0,
         "round3": 68.0,
         "round4": 43.0,
-        "thru": ""
-      },
-      {
-        "name": "Alex Noren",
-        "position": "T72",
-        "score": "E",
-        "totalStrokes": 241.0,
-        "round1": 73.0,
-        "round2": 73.0,
-        "round3": 66.0,
-        "round4": 29.0,
         "thru": ""
       },
       {
@@ -9455,8 +9451,8 @@
       },
       {
         "date": "2026-04-20",
-        "tempHigh": 70.2,
-        "tempLow": 54.9,
+        "tempHigh": 70.5,
+        "tempLow": 56.1,
         "windAvg": 9.9,
         "windMax": 11.7,
         "windDir": 88,
@@ -9465,7 +9461,7 @@
       {
         "date": "2026-04-21",
         "tempHigh": 72.6,
-        "tempLow": 49.2,
+        "tempLow": 51.9,
         "windAvg": 8.9,
         "windMax": 11.8,
         "windDir": 86,
@@ -9609,8 +9605,8 @@
       },
       {
         "date": "2026-04-20",
-        "tempHigh": 70.2,
-        "tempLow": 54.9,
+        "tempHigh": 70.5,
+        "tempLow": 56.1,
         "windAvg": 9.9,
         "windMax": 11.7,
         "windDir": 88,
@@ -9619,7 +9615,7 @@
       {
         "date": "2026-04-21",
         "tempHigh": 72.6,
-        "tempLow": 49.2,
+        "tempLow": 51.9,
         "windAvg": 8.9,
         "windMax": 11.8,
         "windDir": 86,
@@ -11695,30 +11691,6 @@
       "startHole": 1
     },
     {
-      "player": "Marco Penge",
-      "teeTime": "Thu Apr 16 10:35:00 PDT 2026",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Marco Penge",
-      "teeTime": "Fri Apr 17 14:10:00 PDT 2026",
-      "round": 2,
-      "startHole": 1
-    },
-    {
-      "player": "Marco Penge",
-      "teeTime": "Sat Apr 18 07:15:00 PDT 2026",
-      "round": 3,
-      "startHole": 1
-    },
-    {
-      "player": "Marco Penge",
-      "teeTime": "Sun Apr 19 07:49:00 PDT 2026",
-      "round": 4,
-      "startHole": 1
-    },
-    {
       "player": "Alex Noren",
       "teeTime": "Thu Apr 16 11:50:00 PDT 2026",
       "round": 1,
@@ -11739,6 +11711,30 @@
     {
       "player": "Alex Noren",
       "teeTime": "Sun Apr 19 08:30:00 PDT 2026",
+      "round": 4,
+      "startHole": 1
+    },
+    {
+      "player": "Marco Penge",
+      "teeTime": "Thu Apr 16 10:35:00 PDT 2026",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Marco Penge",
+      "teeTime": "Fri Apr 17 14:10:00 PDT 2026",
+      "round": 2,
+      "startHole": 1
+    },
+    {
+      "player": "Marco Penge",
+      "teeTime": "Sat Apr 18 07:15:00 PDT 2026",
+      "round": 3,
+      "startHole": 1
+    },
+    {
+      "player": "Marco Penge",
+      "teeTime": "Sun Apr 19 07:49:00 PDT 2026",
       "round": 4,
       "startHole": 1
     },
@@ -11972,7 +11968,7 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": -15.75,
-        "fence": 3.09,
+        "fence": 3.03,
         "market": "outright"
       }
     ],
@@ -11981,7 +11977,7 @@
         "type": "iqr_outlier",
         "direction": "UNDERPRICED",
         "edge_pct": 10.31,
-        "fence": 9.03,
+        "fence": 9.07,
         "market": "outright"
       },
       {
@@ -11996,14 +11992,14 @@
         "type": "iqr_outlier",
         "direction": "UNDERPRICED",
         "edge_pct": 10.18,
-        "fence": 9.03,
+        "fence": 9.07,
         "market": "outright"
       },
       {
         "type": "low_freq_value",
         "direction": "UNDERPRICED",
         "market": "top20_makecut",
-        "note": "confScore 69.3 but odds +47000 — likely value in placement markets"
+        "note": "confScore 69.3 but odds +47500 — likely value in placement markets"
       }
     ],
     "Tommy Fleetwood": [
@@ -12011,7 +12007,7 @@
         "type": "iqr_outlier",
         "direction": "UNDERPRICED",
         "edge_pct": 9.07,
-        "fence": 9.03,
+        "fence": 9.07,
         "market": "outright"
       },
       {
@@ -12033,7 +12029,7 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": -46.58,
-        "fence": 3.09,
+        "fence": 3.03,
         "market": "outright"
       }
     ],
@@ -12042,7 +12038,7 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": 2.51,
-        "fence": 9.03,
+        "fence": 9.07,
         "market": "outright"
       }
     ],
@@ -12051,7 +12047,7 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": 1.15,
-        "fence": 9.03,
+        "fence": 9.07,
         "market": "outright"
       }
     ]
@@ -12065,9 +12061,9 @@
       "significant": true
     },
     "Collin Morikawa": {
-      "current": "+47000",
+      "current": "+47500",
       "previous": "+44000",
-      "change": 3000,
+      "change": 3500,
       "direction": "longer",
       "significant": true
     },
@@ -12117,6 +12113,13 @@
       "current": "+11000",
       "previous": "+10500",
       "change": 500,
+      "direction": "longer",
+      "significant": true
+    },
+    "Akshay Bhatia": {
+      "current": "+250000",
+      "previous": "+225000",
+      "change": 25000,
       "direction": "longer",
       "significant": true
     },
@@ -18943,48 +18946,6 @@
       "simCount": 10000
     },
     {
-      "eventId": "synth-r3-Sat Apr 18 07:15:00 PDT 2026-1",
-      "commence": "Sat Apr 18 07:15:00 PDT 2026",
-      "round": 3,
-      "type": "2ball",
-      "players": [
-        {
-          "name": "Marco Penge",
-          "odds": [],
-          "modelMean": 72.04,
-          "modelStd": 3.0,
-          "sgBlended": 0.05,
-          "fitBoost": -0.84,
-          "pClearWin": 0.4487,
-          "deadHeatWinValue": 0.4487,
-          "fairOdds": 123,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0937
-        },
-        {
-          "name": "Austin Smotherman",
-          "odds": [],
-          "modelMean": 72.0,
-          "modelStd": 2.85,
-          "sgBlended": 0.0,
-          "fitBoost": -1.0,
-          "pClearWin": 0.4576,
-          "deadHeatWinValue": 0.4576,
-          "fairOdds": 119,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0937
-        }
-      ],
-      "synthetic": true,
-      "dhRulesApplied": false,
-      "bookSample": [],
-      "simCount": 10000
-    },
-    {
       "eventId": "synth-r3-Sat Apr 18 07:25:00 PDT 2026-1",
       "commence": "Sat Apr 18 07:25:00 PDT 2026",
       "round": 3,
@@ -18997,13 +18958,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": -1.0,
-          "pClearWin": 0.4466,
-          "deadHeatWinValue": 0.4466,
-          "fairOdds": 124,
+          "pClearWin": 0.4487,
+          "deadHeatWinValue": 0.4487,
+          "fairOdds": 123,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0936
+          "pPush": 0.0962
         },
         {
           "name": "Jake Knapp",
@@ -19012,13 +18973,55 @@
           "modelStd": 3.0,
           "sgBlended": 0.28,
           "fitBoost": -1.0,
-          "pClearWin": 0.4598,
-          "deadHeatWinValue": 0.4598,
+          "pClearWin": 0.4551,
+          "deadHeatWinValue": 0.4551,
+          "fairOdds": 120,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0962
+        }
+      ],
+      "synthetic": true,
+      "dhRulesApplied": false,
+      "bookSample": [],
+      "simCount": 10000
+    },
+    {
+      "eventId": "synth-r3-Sat Apr 18 07:15:00 PDT 2026-1",
+      "commence": "Sat Apr 18 07:15:00 PDT 2026",
+      "round": 3,
+      "type": "2ball",
+      "players": [
+        {
+          "name": "Marco Penge",
+          "odds": [],
+          "modelMean": 72.04,
+          "modelStd": 3.0,
+          "sgBlended": 0.05,
+          "fitBoost": -0.84,
+          "pClearWin": 0.4435,
+          "deadHeatWinValue": 0.4435,
+          "fairOdds": 125,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0947
+        },
+        {
+          "name": "Austin Smotherman",
+          "odds": [],
+          "modelMean": 72.0,
+          "modelStd": 2.85,
+          "sgBlended": 0.0,
+          "fitBoost": -1.0,
+          "pClearWin": 0.4618,
+          "deadHeatWinValue": 0.4618,
           "fairOdds": 117,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0936
+          "pPush": 0.0947
         }
       ],
       "synthetic": true,
