@@ -2247,6 +2247,48 @@ def send_discord_alerts(output):
                             "rank": rank,
                         })
 
+    # ---- 2-ball / 3-ball matchup alerts ----
+    # Only fire when real book odds exist (source != SyntheticTeeTimes)
+    # and EV >= threshold. Dead-heat math is already baked into ev/fairOdds
+    # at scrape time, so we just read and filter here.
+    MATCHUP_EV_THRESHOLD = 5.0  # %
+    MATCHUP_EV_STRONG = 10.0    # escalate label for 10%+ edges
+    matchup_source = output.get("threeBallsSource")
+    if matchup_source and matchup_source != "SyntheticTeeTimes":
+        for group in output.get("threeBalls") or []:
+            group_type = group.get("type") or "2ball"
+            round_num = group.get("round")
+            players = group.get("players") or []
+            for p in players:
+                ev = p.get("ev")
+                if not isinstance(ev, (int, float)) or ev < MATCHUP_EV_THRESHOLD:
+                    continue
+                best = p.get("bestBook") or {}
+                odds_val = best.get("american")
+                book_label = (best.get("book") or "").upper()
+                if not isinstance(odds_val, (int, float)):
+                    continue
+                # Build opponent summary so the Discord reader sees the
+                # matchup in context (who we're backing vs. who)
+                opponents = [op.get("name") for op in players if op is not p]
+                opp_str = " vs ".join(o for o in opponents if o)
+                win_pct = (p.get("deadHeatWinValue") or 0) * 100
+                conf = min(95, round(60 + ev * 2.5))  # rough mapping
+                tier = "STRONG" if ev >= MATCHUP_EV_STRONG else "EDGE"
+                prop_label = (
+                    f"{group_type.upper()} R{round_num} — {p.get('name')} vs "
+                    f"{opp_str} @ {book_label} "
+                    f"{'+' if odds_val > 0 else ''}{int(odds_val)}"
+                )
+                alerts.append({
+                    "player": p.get("name", ""),
+                    "prop": prop_label,
+                    "model": f"{win_pct:.1f}% win",
+                    "edge": f"{tier} +{ev:.1f}% EV",
+                    "conf": conf,
+                    "rank": "MU",
+                })
+
     if not alerts:
         print(
             f"  No high-edge alerts this cycle "
@@ -2269,7 +2311,7 @@ def send_discord_alerts(output):
 
     payload = {
         "embeds": [{
-            "title": "🔬 PropsBot Golf — High-Edge Prop Alerts [BETA]",
+            "title": "🔬 PropsBot Golf — High-Edge Prop + Matchup Alerts [BETA]",
             "description": f"**{event_name}** | {len(alerts)} signals found, showing top {len(top_alerts)}\n*Beta signals — model confidence thresholds are experimental.*",
             "color": 1441730,  # #15ffc2
             "fields": fields,
