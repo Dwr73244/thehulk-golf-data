@@ -2162,41 +2162,96 @@ def send_discord_alerts(output):
     if output.get("currentEvent"):
         event_name = output["currentEvent"].get("name", "")
 
-    for player in output.get("players", []):
-        # Check birdie over potential
-        birdie_avg = player.get("birdieAvg", 4.0)
-        line = 3.5
-        edge = birdie_avg - line
-        if edge >= 0.8:  # Strong over signal
-            conf = min(95, round(65 + edge * 15))
-            if conf >= 75:
-                alerts.append({
-                    "player": player["name"],
-                    "prop": f"OVER {line} Birdies",
-                    "model": f"{birdie_avg} avg",
-                    "edge": f"+{edge:.1f}",
-                    "conf": conf,
-                    "rank": player.get("rank", "?"),
-                })
+    # CRITICAL: only alert on props where a real sportsbook is actually
+    # offering a line. Previously we hardcoded "OVER 3.5 Birdies" / "UNDER
+    # 2.5 Bogeys" and sent alerts using season averages — but if no book
+    # was offering 3.5 Birdies that week (most non-tournament days), the
+    # alert was pointing at a market that didn't exist. User reported this.
+    prop_lines = output.get("propLines") or {}
 
-        # Check bogey under potential
-        bogey_avg = player.get("bogeyAvg", 2.5)
-        line = 2.5
-        edge = line - bogey_avg
-        if edge >= 0.4:
-            conf = min(95, round(60 + edge * 20))
-            if conf >= 75:
-                alerts.append({
-                    "player": player["name"],
-                    "prop": f"UNDER {line} Bogeys",
-                    "model": f"{bogey_avg} avg",
-                    "edge": f"+{edge:.1f}",
-                    "conf": conf,
-                    "rank": player.get("rank", "?"),
-                })
+    # Helper: is there a real book line for (player, market)?
+    def _real_line(player_name, market):
+        pack = (prop_lines.get(player_name) or {}).get(market) or {}
+        line_val = pack.get("line")
+        if not isinstance(line_val, (int, float)):
+            return None
+        return {
+            "line": float(line_val),
+            "over": pack.get("overOdds"),
+            "under": pack.get("underOdds"),
+            "book": (pack.get("book") or "").strip(),
+        }
+
+    skipped_no_line = 0
+    for player in output.get("players", []):
+        name = player.get("name", "")
+        rank = player.get("rank", "?")
+
+        # ---- Birdies OVER: only if book is posting a line ----
+        birdie_avg = player.get("birdieAvg")
+        if birdie_avg is not None:
+            book_birdie = _real_line(name, "birdies")
+            if book_birdie is None:
+                skipped_no_line += 1
+            else:
+                # Compare season avg vs ACTUAL book line. If book is 4.5 birdies
+                # over 4 rounds, compare the 4-round projection, not per-round.
+                # Heuristic: lines >= 8 are tournament totals (4-rd), lines < 8
+                # are per-round.
+                line = book_birdie["line"]
+                is_tourney = line >= 8
+                projection = birdie_avg * 4 if is_tourney else birdie_avg
+                edge = projection - line
+                if edge >= 0.8:
+                    conf = min(95, round(65 + edge * 15))
+                    if conf >= 75:
+                        over_odds = book_birdie["over"]
+                        odds_str = ""
+                        if isinstance(over_odds, (int, float)):
+                            odds_str = f" {'+' if over_odds > 0 else ''}{int(over_odds)}"
+                        book_str = f" @ {book_birdie['book'].upper()}" if book_birdie["book"] else ""
+                        alerts.append({
+                            "player": name,
+                            "prop": f"OVER {line} Birdies{book_str}{odds_str}",
+                            "model": f"{projection:.1f} proj",
+                            "edge": f"+{edge:.1f}",
+                            "conf": conf,
+                            "rank": rank,
+                        })
+
+        # ---- Bogeys UNDER: only if book is posting a line ----
+        bogey_avg = player.get("bogeyAvg")
+        if bogey_avg is not None:
+            book_bogey = _real_line(name, "bogeys")
+            if book_bogey is None:
+                skipped_no_line += 1
+            else:
+                line = book_bogey["line"]
+                is_tourney = line >= 6
+                projection = bogey_avg * 4 if is_tourney else bogey_avg
+                edge = line - projection
+                if edge >= 0.4:
+                    conf = min(95, round(60 + edge * 20))
+                    if conf >= 75:
+                        under_odds = book_bogey["under"]
+                        odds_str = ""
+                        if isinstance(under_odds, (int, float)):
+                            odds_str = f" {'+' if under_odds > 0 else ''}{int(under_odds)}"
+                        book_str = f" @ {book_bogey['book'].upper()}" if book_bogey["book"] else ""
+                        alerts.append({
+                            "player": name,
+                            "prop": f"UNDER {line} Bogeys{book_str}{odds_str}",
+                            "model": f"{projection:.1f} proj",
+                            "edge": f"+{edge:.1f}",
+                            "conf": conf,
+                            "rank": rank,
+                        })
 
     if not alerts:
-        print("  No high-edge alerts this cycle")
+        print(
+            f"  No high-edge alerts this cycle "
+            f"({skipped_no_line} player/market pairs skipped — no book line posted)"
+        )
         return
 
     # Sort by confidence
