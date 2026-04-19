@@ -2255,12 +2255,23 @@ def send_discord_alerts(output):
     # Model-probability calibration is heuristic — propScores[market]/100
     # scaled to each market's peak-player rate. Refined automatically once
     # backtest-report.json has 30+ scored events.
+    # Per-market sanity bands. Book odds OUTSIDE these ranges are either
+    # flat-default longshots (books don't actually care about that edge) or
+    # overwhelming favorites where no real edge is findable.
+    # min_american / max_american: acceptable book-price window
+    # max_ratio:  reject if model_prob / book_implied exceeds this (prevents
+    #            "+50000 at 3% model = fake 1400% EV" bug)
     MARKET_CAL = {
-        "winner":  {"peak": 0.15, "ev_threshold": 15.0, "label": "Outright"},
-        "top5":    {"peak": 0.25, "ev_threshold": 12.0, "label": "Top 5"},
-        "top10":   {"peak": 0.35, "ev_threshold": 10.0, "label": "Top 10"},
-        "top20":   {"peak": 0.55, "ev_threshold": 8.0,  "label": "Top 20"},
-        "makeCut": {"peak": 0.85, "ev_threshold": 6.0,  "label": "Make Cut"},
+        "winner":  {"peak": 0.15, "ev_threshold": 15.0, "label": "Outright",
+                    "min_american": -400, "max_american":  3000, "max_ratio": 2.5},
+        "top5":    {"peak": 0.25, "ev_threshold": 12.0, "label": "Top 5",
+                    "min_american": -250, "max_american":  2000, "max_ratio": 2.2},
+        "top10":   {"peak": 0.35, "ev_threshold": 10.0, "label": "Top 10",
+                    "min_american": -200, "max_american":  1500, "max_ratio": 2.0},
+        "top20":   {"peak": 0.55, "ev_threshold":  8.0, "label": "Top 20",
+                    "min_american": -300, "max_american":  1000, "max_ratio": 1.8},
+        "makeCut": {"peak": 0.85, "ev_threshold":  6.0, "label": "Make Cut",
+                    "min_american": -500, "max_american":   500, "max_ratio": 1.6},
     }
 
     def _parse_american(raw):
@@ -2318,6 +2329,17 @@ def send_discord_alerts(output):
             if best_val is None:
                 continue  # no parseable odds
 
+            # ---- GUARD 1: book-odds sanity band ----
+            # Flat-default longshots (+50000 type) aren't real priced markets;
+            # overwhelming favorites have no findable edge. Skip both.
+            if best_val < cal["min_american"] or best_val > cal["max_american"]:
+                continue
+
+            # ---- Book implied probability ----
+            book_implied = _american_to_implied_prob(best_val)
+            if book_implied is None or book_implied <= 0:
+                continue
+
             # ---- Model probability for this market ----
             if market == "winner":
                 if conf is None:
@@ -2331,6 +2353,14 @@ def send_discord_alerts(output):
                 if score is None:
                     continue
                 model_prob = (score / 100.0) * cal["peak"]
+
+            # ---- GUARD 2: model/book ratio sanity ----
+            # If our model says 3x+ what the book says, that's overconfidence,
+            # not edge. Books generally price longshot fields correctly — any
+            # "massive" edge vs a +2000 line is almost always our noise.
+            ratio = model_prob / book_implied if book_implied > 0 else 0
+            if ratio > cal["max_ratio"]:
+                continue
 
             ev = _ev_on_stake(model_prob, best_val)
             if ev is None or ev < cal["ev_threshold"]:
@@ -2358,6 +2388,9 @@ def send_discord_alerts(output):
     # at scrape time, so we just read and filter here.
     MATCHUP_EV_THRESHOLD = 5.0  # %
     MATCHUP_EV_STRONG = 10.0    # escalate label for 10%+ edges
+    MATCHUP_MIN_AMERICAN = -250  # skip matchups priced heavier than -250
+    MATCHUP_MAX_AMERICAN =  400  # skip lopsided "not really a matchup" lines
+    MATCHUP_MAX_RATIO = 1.8      # model/book ratio cap (overconfidence guard)
     matchup_source = output.get("threeBallsSource")
     if matchup_source and matchup_source != "SyntheticTeeTimes":
         for group in output.get("threeBalls") or []:
@@ -2372,6 +2405,14 @@ def send_discord_alerts(output):
                 odds_val = best.get("american")
                 book_label = (best.get("book") or "").upper()
                 if not isinstance(odds_val, (int, float)):
+                    continue
+                # Sanity band — skip lopsided or flat-pricing lines
+                if odds_val < MATCHUP_MIN_AMERICAN or odds_val > MATCHUP_MAX_AMERICAN:
+                    continue
+                # Overconfidence guard
+                book_implied_p = _american_to_implied_prob(odds_val) or 0
+                model_prob_p = p.get("deadHeatWinValue") or 0
+                if book_implied_p > 0 and model_prob_p / book_implied_p > MATCHUP_MAX_RATIO:
                     continue
                 # Build opponent summary so the Discord reader sees the
                 # matchup in context (who we're backing vs. who)
