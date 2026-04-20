@@ -1,5 +1,58 @@
 {
-  "ranAt": "2026-04-18T01:34:29.713635Z",
-  "weeksAvailable": 8,
-  "status": "no_scored_pairs"
+  "ranAt": "2026-04-20T08:22:45.434323Z",
+  "weeksAvailable": 10,
+  "pairs": 546,
+  "brierScore": 0.2256,
+  "meanPredicted": 0.452,
+  "meanActual": 0.5,
+  "calibrationDrift": 0.048,
+  "calibrationBins": [
+    {
+      "bin": "0.1-0.2",
+      "n": 1,
+      "predicted": 0.185,
+      "actual": 0.0
+    },
+    {
+      "bin": "0.2-0.3",
+      "n": 32,
+      "predicted": 0.273,
+      "actual": 0.406
+    },
+    {
+      "bin": "0.3-0.4",
+      "n": 95,
+      "predicted": 0.344,
+      "actual": 0.389
+    },
+    {
+      "bin": "0.4-0.5",
+      "n": 282,
+      "predicted": 0.45,
+      "actual": 0.493
+    },
+    {
+      "bin": "0.5-0.6",
+      "n": 90,
+      "predicted": 0.55,
+      "actual": 0.644
+    },
+    {
+      "bin": "0.6-0.7",
+      "n": 42,
+      "predicted": 0.625,
+      "actual": 0.548
+    },
+    {
+      "bin": "0.7-0.8",
+      "n": 4,
+      "predicted": 0.715,
+      "actual": 0.75
+    }
+  ],
+  "status": "ok",
+  "tuning": {
+    "applied": false,
+    "reason": "in-tolerance"
+  }
 }
