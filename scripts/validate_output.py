@@ -70,25 +70,20 @@ if _start_raw:
 
 _coverage = q.get("oddsCoverage", 0) or 0
 _player_count_ok = len(d["players"]) >= 50
+# Odds coverage rule:
+#   IN_PROGRESS / COMPLETED: low coverage = hard error (pipeline broken)
+#   NOT_STARTED: any coverage level is acceptable (books open at their own pace,
+#     often Tue-Wed, sometimes later for small-field events). Warn only so we
+#     still get a signal in the log, but don't block the deploy.
 if _player_count_ok and _coverage < 0.3:
-    is_pretournament_gap = (
-        status == "NOT_STARTED"
-        and _days_to_start is not None
-        and _days_to_start > 4
-    )
-    if is_pretournament_gap:
+    if status == "NOT_STARTED":
+        days_note = f" (tee-off in {_days_to_start:.1f} days)" if _days_to_start is not None else ""
         warnings.append(
-            f"Odds coverage {_coverage:.0%} — event starts in {_days_to_start:.1f} days, "
-            "books likely haven't opened lines yet (expected state)"
-        )
-    elif status == "NOT_STARTED":
-        # Within 4 days of tee-off, books should be open → hard error
-        errors.append(
-            f"Odds coverage too low: {_coverage:.0%} with tee-off in "
-            f"{_days_to_start:.1f} days (books should have opened lines)"
+            f"Odds coverage {_coverage:.0%} — NOT_STARTED{days_note}. "
+            "Books may not have opened lines yet; next scrape will pick them up."
         )
     else:
-        errors.append(f"Odds coverage too low: {_coverage:.0%}")
+        errors.append(f"Odds coverage too low: {_coverage:.0%} during {status}")
 
 # Major-week specific: LIV players should be in the field. If we detect a
 # major but zero LIV notes anywhere, that's a signal the whitelist failed.
