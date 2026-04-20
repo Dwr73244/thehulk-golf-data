@@ -51,8 +51,44 @@ if len(d["players"]) < min_players:
 
 if live and not q.get("leaderboardHasScores"):
     errors.append("Tournament is live but leaderboard has no scores")
-if q.get("oddsCoverage", 0) < 0.3 and len(d["players"]) >= 50:
-    errors.append(f"Odds coverage too low: {q.get('oddsCoverage')}")
+
+# Odds coverage expectations depend on tournament status:
+#   NOT_STARTED + event >= 4 days away: books often haven't opened lines → 0% is fine
+#   NOT_STARTED + event < 4 days away:  books should be live → expect some coverage
+#   IN_PROGRESS / COMPLETED:             odds should be populated
+from datetime import datetime as _dt, timezone as _tz
+_days_to_start = None
+_start_raw = ce.get("startDate") or ""
+if _start_raw:
+    try:
+        _start_dt = _dt.fromisoformat(_start_raw.replace("Z", "+00:00"))
+        if _start_dt.tzinfo is None:
+            _start_dt = _start_dt.replace(tzinfo=_tz.utc)
+        _days_to_start = (_start_dt - _dt.now(_tz.utc)).total_seconds() / 86400
+    except (ValueError, TypeError):
+        pass
+
+_coverage = q.get("oddsCoverage", 0) or 0
+_player_count_ok = len(d["players"]) >= 50
+if _player_count_ok and _coverage < 0.3:
+    is_pretournament_gap = (
+        status == "NOT_STARTED"
+        and _days_to_start is not None
+        and _days_to_start > 4
+    )
+    if is_pretournament_gap:
+        warnings.append(
+            f"Odds coverage {_coverage:.0%} — event starts in {_days_to_start:.1f} days, "
+            "books likely haven't opened lines yet (expected state)"
+        )
+    elif status == "NOT_STARTED":
+        # Within 4 days of tee-off, books should be open → hard error
+        errors.append(
+            f"Odds coverage too low: {_coverage:.0%} with tee-off in "
+            f"{_days_to_start:.1f} days (books should have opened lines)"
+        )
+    else:
+        errors.append(f"Odds coverage too low: {_coverage:.0%}")
 
 # Major-week specific: LIV players should be in the field. If we detect a
 # major but zero LIV notes anywhere, that's a signal the whitelist failed.
