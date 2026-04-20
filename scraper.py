@@ -498,7 +498,12 @@ def bdl_get_futures_odds(tournament_id):
         return {}
 
     # Group by player: {player_name: {vendor: american_odds}}
+    # Filter "market closed" placeholders: books park eliminated / non-contender
+    # players at ridiculous prices (+100000, +500000, +1000000) instead of
+    # removing the market. These aren't bettable lines — treat them as absent.
     odds_map = {}
+    PHANTOM_ODDS_THRESHOLD = 50000  # anything ≥ this is a book "closed market" flag
+    skipped_phantom = 0
     for o in odds:
         if o.get("market_type") != "tournament_winner":
             continue
@@ -507,6 +512,13 @@ def bdl_get_futures_odds(tournament_id):
         vendor = o.get("vendor", "")
         american = o.get("american_odds", 0)
         if not name:
+            continue
+        # Strip phantom "market closed" placeholders
+        try:
+            if abs(int(american)) >= PHANTOM_ODDS_THRESHOLD:
+                skipped_phantom += 1
+                continue
+        except (ValueError, TypeError):
             continue
 
         # Shorten vendor names
@@ -517,7 +529,8 @@ def bdl_get_futures_odds(tournament_id):
             odds_map[name] = {}
         odds_map[name][short] = f"+{american}" if american > 0 else str(american)
 
-    print(f"  Got odds for {len(odds_map)} players")
+    suffix = f" ({skipped_phantom} phantom/closed-market entries skipped)" if skipped_phantom else ""
+    print(f"  Got odds for {len(odds_map)} players{suffix}")
     return odds_map
 
 
@@ -1530,6 +1543,13 @@ def scrape_betting_odds():
                     name = outcome.get("name", "")
                     price = outcome.get("price", 0)
                     if not name:
+                        continue
+                    # Strip phantom "market closed" placeholders (books park
+                    # eliminated players at +100000 / +500000 etc.)
+                    try:
+                        if abs(int(price)) >= 50000:
+                            continue
+                    except (ValueError, TypeError):
                         continue
                     if name not in odds_map:
                         odds_map[name] = {}
