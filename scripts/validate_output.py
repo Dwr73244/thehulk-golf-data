@@ -95,6 +95,21 @@ if d["players"]:
         if count == len(d["players"]):
             errors.append(f"Schema drift: every player missing '{f}'")
 
+# Phantom "market closed" odds detection — books park eliminated players
+# at +100000 / +500000 etc. These should have been stripped upstream.
+phantom_count = 0
+for p in d["players"]:
+    for _book, raw in (p.get("odds") or {}).items():
+        try:
+            v = abs(int(str(raw).replace("+", "").strip()))
+            if v >= 50000:
+                phantom_count += 1
+                break
+        except (ValueError, TypeError):
+            pass
+if phantom_count > 0:
+    warnings.append(f"{phantom_count} players have phantom (>=+/-50000) odds — stripping logic may have regressed")
+
 for w in warnings:
     print(f"::warning::{w}")
 
