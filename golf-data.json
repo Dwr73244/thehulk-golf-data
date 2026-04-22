@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-22T10:10:26.728611",
+  "generatedAt": "2026-04-22T16:06:42.228543",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -1038,7 +1038,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": 2.72,
+          "z": 2.73,
           "direction": "UNDERPRICED",
           "edge_pct": 7.22,
           "market": "outright"
@@ -1187,7 +1187,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": 1.88,
+          "z": 1.89,
           "direction": "UNDERPRICED",
           "edge_pct": 6.09,
           "market": "outright"
@@ -2753,7 +2753,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+1700"
+        "dk": "+1750"
       },
       "fieldInfo": {
         "owgr": 44,
@@ -2810,18 +2810,18 @@
         "makeCut": 58
       },
       "confScore": 41.6,
-      "edgeScore": 0.68,
+      "edgeScore": 0.83,
       "owgrRank": 44,
       "anomalies": [
         {
           "type": "z_score",
-          "z": -2.09,
+          "z": -1.99,
           "direction": "OVERPRICED",
-          "edge_pct": 0.68,
+          "edge_pct": 0.83,
           "market": "outright"
         }
       ],
-      "evScore": 12.3,
+      "evScore": 15.4,
       "scoreStd": 3.46
     },
     {
@@ -3575,7 +3575,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -1.92,
+          "z": -1.93,
           "direction": "OVERPRICED",
           "edge_pct": 0.91,
           "market": "outright"
@@ -3786,7 +3786,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+4400"
+        "dk": "+4500"
       },
       "fieldInfo": {
         "owgr": 49,
@@ -3828,9 +3828,9 @@
         "makeCut": 55
       },
       "confScore": 37.0,
-      "edgeScore": 3.33,
+      "edgeScore": 3.38,
       "owgrRank": 49,
-      "evScore": 149.8
+      "evScore": 155.3
     },
     {
       "id": 9016,
@@ -3871,7 +3871,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+6500"
+        "dk": "+6600"
       },
       "fieldInfo": {
         "owgr": 66,
@@ -3927,9 +3927,9 @@
         "makeCut": 55
       },
       "confScore": 37.0,
-      "edgeScore": 4.03,
+      "edgeScore": 4.06,
       "owgrRank": 66,
-      "evScore": 266.3,
+      "evScore": 271.9,
       "scoreStd": 2.36
     },
     {
@@ -9907,6 +9907,15 @@
       "confScore": 18,
       "edgeScore": 0.0,
       "owgrRank": 381,
+      "anomalies": [
+        {
+          "type": "z_score",
+          "z": -1.8,
+          "direction": "OVERPRICED",
+          "edge_pct": 1.09,
+          "market": "outright"
+        }
+      ],
       "evScore": 67.4
     },
     {
@@ -11321,7 +11330,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -2.54,
+          "z": -2.55,
           "direction": "OVERPRICED",
           "edge_pct": 0.07,
           "market": "outright"
@@ -11840,7 +11849,7 @@
     "Geoff Ogilvy": [
       {
         "type": "z_score",
-        "z": 2.72,
+        "z": 2.73,
         "direction": "UNDERPRICED",
         "edge_pct": 7.22,
         "market": "outright"
@@ -11856,7 +11865,7 @@
     "Chris Kirk": [
       {
         "type": "z_score",
-        "z": 1.88,
+        "z": 1.89,
         "direction": "UNDERPRICED",
         "edge_pct": 6.09,
         "market": "outright"
@@ -11865,25 +11874,34 @@
     "Ryan Gerard": [
       {
         "type": "z_score",
-        "z": -2.09,
+        "z": -1.99,
         "direction": "OVERPRICED",
-        "edge_pct": 0.68,
+        "edge_pct": 0.83,
         "market": "outright"
       }
     ],
     "Karl Vilips": [
       {
         "type": "z_score",
-        "z": -1.92,
+        "z": -1.93,
         "direction": "OVERPRICED",
         "edge_pct": 0.91,
+        "market": "outright"
+      }
+    ],
+    "Dylan Wu": [
+      {
+        "type": "z_score",
+        "z": -1.8,
+        "direction": "OVERPRICED",
+        "edge_pct": 1.09,
         "market": "outright"
       }
     ],
     "Scott Piercy": [
       {
         "type": "z_score",
-        "z": -2.54,
+        "z": -2.55,
         "direction": "OVERPRICED",
         "edge_pct": 0.07,
         "market": "outright"
@@ -11990,16 +12008,16 @@
       "significant": false
     },
     "Rasmus Neergaard-Petersen": {
-      "current": "+4400",
+      "current": "+4500",
       "previous": "+4100",
-      "change": 300,
+      "change": 400,
       "direction": "longer",
       "significant": false
     },
     "Garrick Higgo": {
-      "current": "+6500",
+      "current": "+6600",
       "previous": "+6200",
-      "change": 300,
+      "change": 400,
       "direction": "longer",
       "significant": false
     },
@@ -12235,6 +12253,22 @@
   },
   "news": [
     {
+      "headline": "How to bet the Zurich Classic of New Orleans: Best bets, tips and more",
+      "description": "All of the traits bettors should be looking for at the Zurich Classic, and the best bets to make.",
+      "published": "2026-04-22T12:44:54Z",
+      "link": "https://www.espn.com/betting/golf/story/_/id/48552116/golf-pga-tour-betting-2026-zurich-classic-new-orleans",
+      "player": "",
+      "image": "https://a.espncdn.com/photo/2026/0421/r1647057_1296x729_16-9.jpg"
+    },
+    {
+      "headline": "Zurich Classic of New Orleans 2026: How to watch, PGA schedule",
+      "description": "The PGA Tour will switch things up this week when it heads to TPC Louisiana for the Zurich Classic of New Orleans.",
+      "published": "2026-04-22T15:02:49Z",
+      "link": "https://www.espn.com/golf/story/_/id/48553973/zurich-classic-new-orleans-2026-watch-pga-schedule",
+      "player": "",
+      "image": "https://a.espncdn.com/photo/2022/0420/r1002105_608x342_16-9.jpg"
+    },
+    {
       "headline": "Zurich Classic of New Orleans preview",
       "description": "Here's what to keep an eye out for at the Zurich Classic of New Orleans.",
       "published": "2026-04-21T21:01:19Z",
@@ -12337,22 +12371,6 @@
       "link": "https://www.espn.com/golf/story/_/id/48502780/max-homa-asked-garcia-says-angry-golfers-look-spoiled",
       "player": "Max Homa",
       "image": "https://a.espncdn.com/photo/2025/0511/r1491359_1296x729_16-9.jpg"
-    },
-    {
-      "headline": "Tiger Woods fights subpoena for prescription drug records",
-      "description": "Tiger Woods' attorney is fighting prosecutors' attempts to subpoena the 15-time major champion's prescription drug records from a pharmacy, according to records.",
-      "published": "2026-04-16T12:41:06Z",
-      "link": "https://www.espn.com/golf/story/_/id/48502155/tiger-woods-fights-subpoena-prescription-drug-records",
-      "player": "Tiger Woods",
-      "image": "https://a.espncdn.com/photo/2024/0718/r1360141_1296x729_16-9.jpg"
-    },
-    {
-      "headline": "How to bet the RBC Heritage: Best bets, DFS tips and more",
-      "description": "All of the traits bettors should be looking for at the RBC Heritage, and the best bets to make.",
-      "published": "2026-04-15T15:15:14Z",
-      "link": "https://www.espn.com/betting/golf/story/_/id/48485808/golf-pga-tour-betting-2026-rbc-heritage",
-      "player": "",
-      "image": "https://a.espncdn.com/photo/2026/0415/r1643459_1296x729_16-9.jpg"
     }
   ],
   "propsByType": {
