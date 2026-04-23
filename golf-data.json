@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-23T12:03:08.338215",
+  "generatedAt": "2026-04-23T14:19:46.016468",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -247,7 +247,7 @@
       },
       "notes": "High birdie upside but high bogey rate. Very aggressive. Best for birdie overs.",
       "odds": {
-        "dk": "+2150"
+        "dk": "+2100"
       },
       "fieldInfo": {
         "owgr": 119,
@@ -304,9 +304,9 @@
         "makeCut": 63
       },
       "confScore": 62.4,
-      "edgeScore": 4.92,
+      "edgeScore": 4.81,
       "owgrRank": 10,
-      "evScore": 110.6,
+      "evScore": 105.9,
       "scoreStd": 1.92
     },
     {
@@ -1023,7 +1023,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+35000"
+        "dk": "+33000"
       },
       "fieldInfo": {
         "owgr": null,
@@ -1038,20 +1038,13 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": 2.72,
+          "z": 2.06,
           "direction": "UNDERPRICED",
-          "edge_pct": 7.22,
-          "market": "outright"
-        },
-        {
-          "type": "iqr_outlier",
-          "direction": "UNDERPRICED",
-          "edge_pct": 7.22,
-          "fence": 6.82,
+          "edge_pct": 7.2,
           "market": "outright"
         }
       ],
-      "evScore": 2532.5
+      "evScore": 2382.5
     },
     {
       "id": 9121,
@@ -1148,7 +1141,7 @@
       },
       "notes": "Comeback story. Steady and consistent. Good at shorter accuracy courses. Low variance player.",
       "odds": {
-        "dk": "+7200"
+        "dk": "+31000"
       },
       "fieldInfo": {
         "owgr": 78,
@@ -1168,7 +1161,7 @@
         "driving": 3.7,
         "birdie_bogey": 4.7,
         "cut": 3.3,
-        "market": 0.3,
+        "market": 0.1,
         "closing": 2.0,
         "field_strength": 1.0,
         "consistency": 1.6,
@@ -1182,18 +1175,18 @@
         "makeCut": 60
       },
       "confScore": 49.7,
-      "edgeScore": 6.09,
+      "edgeScore": 7.13,
       "owgrRank": 31,
       "anomalies": [
         {
           "type": "z_score",
-          "z": 1.89,
+          "z": 2.02,
           "direction": "UNDERPRICED",
-          "edge_pct": 6.09,
+          "edge_pct": 7.13,
           "market": "outright"
         }
       ],
-      "evScore": 444.2
+      "evScore": 2218.5
     },
     {
       "id": 38,
@@ -1464,7 +1457,7 @@
       },
       "notes": "Oklahoma product with power. Still developing consistency. Better at longer courses. Thin field value play.",
       "odds": {
-        "dk": "+2500"
+        "dk": "+3300"
       },
       "fieldInfo": {
         "owgr": 123,
@@ -1484,7 +1477,7 @@
         "driving": 3.3,
         "birdie_bogey": 4.7,
         "cut": 3.0,
-        "market": 0.9,
+        "market": 0.7,
         "closing": 2.0,
         "field_strength": 1.0,
         "consistency": 1.6,
@@ -1498,9 +1491,9 @@
         "makeCut": 58
       },
       "confScore": 46.7,
-      "edgeScore": 3.16,
+      "edgeScore": 4.06,
       "owgrRank": 39,
-      "evScore": 82.1
+      "evScore": 138.2
     },
     {
       "id": 32,
@@ -1541,7 +1534,7 @@
       },
       "notes": "Bomber who relies on length. Weak short game. Best at wide-open bombers courses. Fade at precision tracks.",
       "odds": {
-        "dk": "+3000"
+        "dk": "+4200"
       },
       "fieldInfo": {
         "owgr": 51,
@@ -1583,7 +1576,7 @@
         "driving": 3.1,
         "birdie_bogey": 4.8,
         "cut": 3.0,
-        "market": 0.8,
+        "market": 0.6,
         "closing": 4.0,
         "field_strength": 1.0,
         "consistency": 1.5,
@@ -1598,9 +1591,9 @@
         "makeCut": 53
       },
       "confScore": 46.3,
-      "edgeScore": 3.72,
+      "edgeScore": 4.62,
       "owgrRank": 32,
-      "evScore": 115.3,
+      "evScore": 198.6,
       "scoreStd": 4.74
     },
     {
@@ -1721,7 +1714,7 @@
       },
       "notes": "Irish power player. Better on links and European-style tracks. Augusta is not his best fit but competitive.",
       "odds": {
-        "dk": "+3900"
+        "dk": "+3100"
       },
       "fieldInfo": {
         "owgr": 160,
@@ -1741,7 +1734,7 @@
         "driving": 3.3,
         "birdie_bogey": 4.6,
         "cut": 3.1,
-        "market": 0.6,
+        "market": 0.8,
         "closing": 2.0,
         "field_strength": 0.5,
         "consistency": 1.6,
@@ -1750,14 +1743,14 @@
       "propScores": {
         "win": 42,
         "top5": 45,
-        "top10": 48,
+        "top10": 49,
         "top20": 54,
         "makeCut": 58
       },
       "confScore": 44.6,
-      "edgeScore": 4.19,
+      "edgeScore": 3.57,
       "owgrRank": 62,
-      "evScore": 167.6
+      "evScore": 114.1
     },
     {
       "id": 45,
@@ -1798,7 +1791,7 @@
       },
       "notes": "South African with smooth swing. Accuracy player. Good in wind. Putting holds him back from contending.",
       "odds": {
-        "dk": "+4900"
+        "dk": "+4700"
       },
       "fieldInfo": {
         "owgr": 79,
@@ -1832,9 +1825,9 @@
         "makeCut": 58
       },
       "confScore": 44.5,
-      "edgeScore": 4.67,
+      "edgeScore": 4.59,
       "owgrRank": 45,
-      "evScore": 233.8
+      "evScore": 220.4
     },
     {
       "id": 77,
@@ -1954,7 +1947,7 @@
       },
       "notes": "German journeyman having a solid stretch. Shot 58 on mini-tour. Reliable for MC at weaker fields.",
       "odds": {
-        "dk": "+4700"
+        "dk": "+4500"
       },
       "fieldInfo": {
         "owgr": 108,
@@ -1988,9 +1981,9 @@
         "makeCut": 57
       },
       "confScore": 44.4,
-      "edgeScore": 4.58,
+      "edgeScore": 4.49,
       "owgrRank": 43,
-      "evScore": 219.7
+      "evScore": 206.4
     },
     {
       "id": 78,
@@ -2398,7 +2391,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+3000"
+        "dk": "+2900"
       },
       "fieldInfo": {
         "owgr": 31,
@@ -2448,9 +2441,9 @@
         "makeCut": 60
       },
       "confScore": 42.0,
-      "edgeScore": 3.07,
+      "edgeScore": 2.97,
       "owgrRank": 31,
-      "evScore": 95.3
+      "evScore": 89.0
     },
     {
       "id": 9005,
@@ -2745,7 +2738,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+1750"
+        "dk": "+1800"
       },
       "fieldInfo": {
         "owgr": 44,
@@ -2802,18 +2795,9 @@
         "makeCut": 58
       },
       "confScore": 41.6,
-      "edgeScore": 0.83,
+      "edgeScore": 0.98,
       "owgrRank": 44,
-      "anomalies": [
-        {
-          "type": "z_score",
-          "z": -1.99,
-          "direction": "OVERPRICED",
-          "edge_pct": 0.83,
-          "market": "outright"
-        }
-      ],
-      "evScore": 15.4,
+      "evScore": 18.6,
       "scoreStd": 3.46
     },
     {
@@ -3207,7 +3191,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+8400"
+        "dk": "+8200"
       },
       "fieldInfo": {
         "owgr": 118,
@@ -3264,9 +3248,9 @@
         "makeCut": 58
       },
       "confScore": 39.4,
-      "edgeScore": 4.73,
+      "edgeScore": 4.71,
       "owgrRank": 118,
-      "evScore": 402.3,
+      "evScore": 390.5,
       "scoreStd": 3.06
     },
     {
@@ -3308,7 +3292,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+12500"
+        "dk": "+12000"
       },
       "fieldInfo": {
         "owgr": 135,
@@ -3365,9 +3349,9 @@
         "makeCut": 57
       },
       "confScore": 39.2,
-      "edgeScore": 5.09,
+      "edgeScore": 5.05,
       "owgrRank": 135,
-      "evScore": 640.9,
+      "evScore": 611.5,
       "scoreStd": 3.0
     },
     {
@@ -3467,118 +3451,9 @@
       "scoreStd": 1.66
     },
     {
-      "id": 9042,
-      "name": "Karl Vilips",
-      "rank": 43,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+1900"
-      },
-      "fieldInfo": {
-        "owgr": 145,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 145,
-      "recentForm": {
-        "l5AvgFinish": 37.4,
-        "l10AvgFinish": 37.4,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 5,
-        "roundAvgs": {
-          "r1Avg": 70.0,
-          "r2Avg": 67.0,
-          "r3Avg": 70.0,
-          "r4Avg": 70.0,
-          "closingDelta": 1.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 1.5,
-      "bayesianScore": {
-        "score": 54,
-        "prior": 50.0,
-        "likelihood": 53.9,
-        "posterior_sigma": 4.8,
-        "data_points": 5
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 1.2,
-        "closing": 0.5,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 3.6
-      },
-      "propScores": {
-        "win": 35,
-        "top5": 39,
-        "top10": 44,
-        "top20": 53,
-        "makeCut": 59
-      },
-      "confScore": 38.6,
-      "edgeScore": 0.79,
-      "owgrRank": 145,
-      "anomalies": [
-        {
-          "type": "z_score",
-          "z": -2.02,
-          "direction": "OVERPRICED",
-          "edge_pct": 0.79,
-          "market": "outright"
-        }
-      ],
-      "evScore": 15.8
-    },
-    {
       "id": 88,
       "name": "Lee Hodges",
-      "rank": 44,
+      "rank": 43,
       "sgTotal": 0.12,
       "sgOtt": 0.15,
       "sgApp": 0.05,
@@ -3653,6 +3528,106 @@
       },
       "confScore": 38.4,
       "owgrRank": 86
+    },
+    {
+      "id": 9042,
+      "name": "Karl Vilips",
+      "rank": 44,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+4400"
+      },
+      "fieldInfo": {
+        "owgr": 145,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 145,
+      "recentForm": {
+        "l5AvgFinish": 37.4,
+        "l10AvgFinish": 37.4,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 5,
+        "roundAvgs": {
+          "r1Avg": 70.0,
+          "r2Avg": 67.0,
+          "r3Avg": 70.0,
+          "r4Avg": 70.0,
+          "closingDelta": 1.5
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 1.5,
+      "bayesianScore": {
+        "score": 54,
+        "prior": 50.0,
+        "likelihood": 53.9,
+        "posterior_sigma": 4.8,
+        "data_points": 5
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.5,
+        "closing": 0.5,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 3.8
+      },
+      "propScores": {
+        "win": 34,
+        "top5": 38,
+        "top10": 44,
+        "top20": 53,
+        "makeCut": 59
+      },
+      "confScore": 37.8,
+      "edgeScore": 3.45,
+      "owgrRank": 145,
+      "evScore": 155.1
     },
     {
       "id": 9009,
@@ -3751,8 +3726,8 @@
       "scoreStd": 1.77
     },
     {
-      "id": 9006,
-      "name": "Max Greyserman",
+      "id": 9011,
+      "name": "Rasmus Neergaard-Petersen",
       "rank": 46,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -3789,14 +3764,14 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+3700"
+        "dk": "+4200"
       },
       "fieldInfo": {
-        "owgr": 32,
+        "owgr": 49,
         "entryStatus": "IN",
         "inField": true
       },
-      "owgr": 32,
+      "owgr": 49,
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "competitiveness": "active",
@@ -3823,13 +3798,13 @@
         "makeCut": 55
       },
       "confScore": 37.0,
-      "edgeScore": 2.92,
-      "owgrRank": 32,
-      "evScore": 110.9
+      "edgeScore": 3.22,
+      "owgrRank": 49,
+      "evScore": 138.7
     },
     {
-      "id": 9011,
-      "name": "Rasmus Neergaard-Petersen",
+      "id": 9016,
+      "name": "Garrick Higgo",
       "rank": 47,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -3866,84 +3841,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+4500"
-      },
-      "fieldInfo": {
-        "owgr": 49,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 49,
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.5,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.7,
-        "par5": 0.0
-      },
-      "propScores": {
-        "win": 34,
-        "top5": 38,
-        "top10": 42,
-        "top20": 50,
-        "makeCut": 55
-      },
-      "confScore": 37.0,
-      "edgeScore": 3.38,
-      "owgrRank": 49,
-      "evScore": 155.3
-    },
-    {
-      "id": 9016,
-      "name": "Garrick Higgo",
-      "rank": 48,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+6600"
+        "dk": "+6300"
       },
       "fieldInfo": {
         "owgr": 66,
@@ -3999,14 +3897,107 @@
         "makeCut": 55
       },
       "confScore": 37.0,
-      "edgeScore": 4.06,
+      "edgeScore": 3.99,
       "owgrRank": 66,
-      "evScore": 271.9,
+      "evScore": 255.2,
       "scoreStd": 2.36
     },
     {
-      "id": 9012,
-      "name": "Max McGreevy",
+      "id": 9022,
+      "name": "Alex Smalley",
+      "rank": 48,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+1075"
+      },
+      "fieldInfo": {
+        "owgr": 122,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 122,
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 2.0,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0
+      },
+      "propScores": {
+        "win": 33,
+        "top5": 38,
+        "top10": 43,
+        "top20": 51,
+        "makeCut": 56
+      },
+      "confScore": 37.0,
+      "edgeScore": -2.96,
+      "owgrRank": 122,
+      "anomalies": [
+        {
+          "type": "z_score",
+          "z": -3.5,
+          "direction": "OVERPRICED",
+          "edge_pct": -2.96,
+          "market": "outright"
+        },
+        {
+          "type": "iqr_outlier",
+          "direction": "OVERPRICED",
+          "edge_pct": -2.96,
+          "fence": -0.73,
+          "market": "outright"
+        }
+      ],
+      "evScore": -34.8
+    },
+    {
+      "id": 9006,
+      "name": "Max Greyserman",
       "rank": 49,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4043,7 +4034,84 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+3700"
+        "dk": "+13000"
+      },
+      "fieldInfo": {
+        "owgr": 32,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 32,
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.2,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.7,
+        "par5": 0.0
+      },
+      "propScores": {
+        "win": 33,
+        "top5": 37,
+        "top10": 42,
+        "top20": 50,
+        "makeCut": 55
+      },
+      "confScore": 36.0,
+      "edgeScore": 4.64,
+      "owgrRank": 32,
+      "evScore": 607.4
+    },
+    {
+      "id": 9012,
+      "name": "Max McGreevy",
+      "rank": 50,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+2800"
       },
       "fieldInfo": {
         "owgr": 67,
@@ -4063,7 +4131,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.6,
+        "market": 0.8,
         "closing": 2.0,
         "field_strength": 0.5,
         "consistency": 1.7,
@@ -4077,14 +4145,14 @@
         "makeCut": 55
       },
       "confScore": 36.0,
-      "edgeScore": 2.77,
+      "edgeScore": 1.95,
       "owgrRank": 67,
-      "evScore": 105.2
+      "evScore": 56.6
     },
     {
       "id": 9014,
       "name": "Rico Hoey",
-      "rank": 50,
+      "rank": 51,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4156,7 +4224,7 @@
     {
       "id": 9015,
       "name": "John Parry",
-      "rank": 51,
+      "rank": 52,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4224,83 +4292,6 @@
       },
       "confScore": 36.0,
       "owgrRank": 82
-    },
-    {
-      "id": 9022,
-      "name": "Alex Smalley",
-      "rank": 52,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+3100"
-      },
-      "fieldInfo": {
-        "owgr": 122,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 122,
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.8,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0
-      },
-      "propScores": {
-        "win": 32,
-        "top5": 37,
-        "top10": 42,
-        "top20": 50,
-        "makeCut": 55
-      },
-      "confScore": 36.0,
-      "edgeScore": 2.27,
-      "owgrRank": 122,
-      "evScore": 72.8
     },
     {
       "id": 9001,
@@ -5244,7 +5235,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+6100"
+        "dk": "+5900"
       },
       "fieldInfo": {
         "owgr": 116,
@@ -5278,9 +5269,9 @@
         "makeCut": 55
       },
       "confScore": 35.0,
-      "edgeScore": 3.64,
+      "edgeScore": 3.58,
       "owgrRank": 116,
-      "evScore": 225.5
+      "evScore": 215.0
     },
     {
       "id": 9034,
@@ -5681,7 +5672,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+7200"
+        "dk": "+12500"
       },
       "fieldInfo": {
         "owgr": 167,
@@ -5701,23 +5692,23 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.3,
+        "market": 0.2,
         "closing": 2.0,
         "field_strength": 0.0,
         "consistency": 1.7,
         "par5": 0.0
       },
       "propScores": {
-        "win": 32,
+        "win": 31,
         "top5": 35,
         "top10": 35,
         "top20": 35,
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 3.88,
+      "edgeScore": 4.46,
       "owgrRank": 167,
-      "evScore": 283.2
+      "evScore": 561.5
     },
     {
       "id": 9041,
@@ -6334,7 +6325,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+9800"
+        "dk": "+8200"
       },
       "fieldInfo": {
         "owgr": 126,
@@ -6354,23 +6345,23 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.2,
+        "market": 0.3,
         "closing": 2.0,
         "field_strength": 0.0,
         "consistency": 1.7,
         "par5": 0.0
       },
       "propScores": {
-        "win": 31,
+        "win": 32,
         "top5": 36,
         "top10": 41,
         "top20": 49,
         "makeCut": 55
       },
       "confScore": 35.0,
-      "edgeScore": 4.24,
+      "edgeScore": 4.05,
       "owgrRank": 126,
-      "evScore": 419.7
+      "evScore": 335.7
     },
     {
       "id": 9051,
@@ -6411,7 +6402,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+10000"
+        "dk": "+9600"
       },
       "fieldInfo": {
         "owgr": 213,
@@ -6445,9 +6436,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.26,
+      "edgeScore": 4.22,
       "owgrRank": 213,
-      "evScore": 430.2
+      "evScore": 409.2
     },
     {
       "id": 9052,
@@ -6776,7 +6767,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+8600"
+        "dk": "+9200"
       },
       "fieldInfo": {
         "owgr": 146,
@@ -6810,9 +6801,9 @@
         "makeCut": 55
       },
       "confScore": 35.0,
-      "edgeScore": 4.1,
+      "edgeScore": 4.17,
       "owgrRank": 146,
-      "evScore": 356.8
+      "evScore": 388.2
     },
     {
       "id": 9057,
@@ -6997,7 +6988,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+12000"
+        "dk": "+11500"
       },
       "fieldInfo": {
         "owgr": 153,
@@ -7031,9 +7022,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.42,
+      "edgeScore": 4.39,
       "owgrRank": 153,
-      "evScore": 535.2
+      "evScore": 509.0
     },
     {
       "id": 9060,
@@ -7218,7 +7209,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+5600"
+        "dk": "+2500"
       },
       "fieldInfo": {
         "owgr": 207,
@@ -7238,7 +7229,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.4,
+        "market": 0.9,
         "closing": 2.0,
         "field_strength": 0.0,
         "consistency": 1.7,
@@ -7251,10 +7242,10 @@
         "top20": 35,
         "makeCut": 35
       },
-      "confScore": 35.0,
-      "edgeScore": 3.5,
+      "confScore": 35,
+      "edgeScore": 1.4,
       "owgrRank": 207,
-      "evScore": 199.3
+      "evScore": 36.5
     },
     {
       "id": 9064,
@@ -7295,7 +7286,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+7000"
+        "dk": "+6100"
       },
       "fieldInfo": {
         "owgr": 175,
@@ -7315,7 +7306,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.3,
+        "market": 0.4,
         "closing": 2.0,
         "field_strength": 0.0,
         "consistency": 1.7,
@@ -7329,9 +7320,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 3.84,
+      "edgeScore": 3.64,
       "owgrRank": 175,
-      "evScore": 272.7
+      "evScore": 225.5
     },
     {
       "id": 9065,
@@ -7516,7 +7507,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+6200"
+        "dk": "+7400"
       },
       "fieldInfo": {
         "owgr": 265,
@@ -7536,7 +7527,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.4,
+        "market": 0.3,
         "closing": 2.0,
         "field_strength": 0.0,
         "consistency": 1.7,
@@ -7550,9 +7541,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 3.66,
+      "edgeScore": 3.92,
       "owgrRank": 265,
-      "evScore": 230.8
+      "evScore": 293.7
     },
     {
       "id": 9068,
@@ -7593,7 +7584,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+7800"
+        "dk": "+7600"
       },
       "fieldInfo": {
         "owgr": 236,
@@ -7627,9 +7618,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 3.98,
+      "edgeScore": 3.95,
       "owgrRank": 236,
-      "evScore": 314.8
+      "evScore": 304.2
     },
     {
       "id": 9069,
@@ -8030,7 +8021,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+8600"
+        "dk": "+22500"
       },
       "fieldInfo": {
         "owgr": 230,
@@ -8050,23 +8041,23 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.3,
+        "market": 0.1,
         "closing": 2.0,
         "field_strength": 0.0,
         "consistency": 1.7,
         "par5": 0.0
       },
       "propScores": {
-        "win": 32,
+        "win": 31,
         "top5": 35,
         "top10": 35,
         "top20": 35,
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.1,
+      "edgeScore": 4.81,
       "owgrRank": 230,
-      "evScore": 356.8
+      "evScore": 1086.5
     },
     {
       "id": 9076,
@@ -8107,7 +8098,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+10500"
+        "dk": "+10000"
       },
       "fieldInfo": {
         "owgr": 271,
@@ -8141,9 +8132,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.31,
+      "edgeScore": 4.26,
       "owgrRank": 271,
-      "evScore": 456.5
+      "evScore": 430.2
     },
     {
       "id": 9077,
@@ -8256,7 +8247,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+6600"
+        "dk": "+6400"
       },
       "fieldInfo": {
         "owgr": 224,
@@ -8290,9 +8281,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 3.76,
+      "edgeScore": 3.71,
       "owgrRank": 224,
-      "evScore": 251.7
+      "evScore": 241.2
     },
     {
       "id": 9079,
@@ -8333,7 +8324,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+3500"
+        "dk": "+3400"
       },
       "fieldInfo": {
         "owgr": 290,
@@ -8367,9 +8358,9 @@
         "makeCut": 35
       },
       "confScore": 35,
-      "edgeScore": 2.47,
+      "edgeScore": 2.39,
       "owgrRank": 290,
-      "evScore": 89.0
+      "evScore": 83.8
     },
     {
       "id": 9080,
@@ -8554,7 +8545,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+14000"
+        "dk": "+13000"
       },
       "fieldInfo": {
         "owgr": 199,
@@ -8588,9 +8579,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.54,
+      "edgeScore": 4.49,
       "owgrRank": 199,
-      "evScore": 640.2
+      "evScore": 587.8
     },
     {
       "id": 9083,
@@ -8631,7 +8622,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+5900"
+        "dk": "+5700"
       },
       "fieldInfo": {
         "owgr": 257,
@@ -8665,9 +8656,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 3.58,
+      "edgeScore": 3.53,
       "owgrRank": 257,
-      "evScore": 215.0
+      "evScore": 204.5
     },
     {
       "id": 9084,
@@ -8708,7 +8699,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+8600"
+        "dk": "+15000"
       },
       "fieldInfo": {
         "owgr": 261,
@@ -8728,23 +8719,23 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.3,
+        "market": 0.2,
         "closing": 2.0,
         "field_strength": 0.0,
         "consistency": 1.7,
         "par5": 0.0
       },
       "propScores": {
-        "win": 32,
+        "win": 31,
         "top5": 35,
         "top10": 35,
         "top20": 35,
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.1,
+      "edgeScore": 4.59,
       "owgrRank": 261,
-      "evScore": 356.8
+      "evScore": 692.8
     },
     {
       "id": 9086,
@@ -8785,7 +8776,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+23000"
+        "dk": "+30000"
       },
       "fieldInfo": {
         "owgr": 280,
@@ -8819,9 +8810,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.82,
+      "edgeScore": 4.92,
       "owgrRank": 280,
-      "evScore": 1112.8
+      "evScore": 1480.2
     },
     {
       "id": 9087,
@@ -9078,7 +9069,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+18500"
+        "dk": "+17500"
       },
       "fieldInfo": {
         "owgr": 268,
@@ -9112,9 +9103,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.71,
+      "edgeScore": 4.68,
       "owgrRank": 268,
-      "evScore": 876.5
+      "evScore": 824.0
     },
     {
       "id": 9098,
@@ -9227,7 +9218,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+4000"
+        "dk": "+1550"
       },
       "fieldInfo": {
         "owgr": 144,
@@ -9269,7 +9260,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.6,
+        "market": 1.5,
         "closing": 3.0,
         "field_strength": 0.0,
         "consistency": 1.7,
@@ -9277,16 +9268,38 @@
         "ml_bayes": -3.2
       },
       "propScores": {
-        "win": 30,
-        "top5": 34,
-        "top10": 39,
+        "win": 31,
+        "top5": 35,
+        "top10": 40,
         "top20": 47,
-        "makeCut": 52
+        "makeCut": 53
       },
       "confScore": 33.8,
-      "edgeScore": 2.63,
+      "edgeScore": -0.99,
       "owgrRank": 144,
-      "evScore": 107.9,
+      "anomalies": [
+        {
+          "type": "z_score",
+          "z": -2.42,
+          "direction": "OVERPRICED",
+          "edge_pct": -0.99,
+          "market": "outright"
+        },
+        {
+          "type": "iqr_outlier",
+          "direction": "OVERPRICED",
+          "edge_pct": -0.99,
+          "fence": -0.73,
+          "market": "outright"
+        },
+        {
+          "type": "low_freq_fade",
+          "direction": "OVERPRICED",
+          "market": "outright_fade",
+          "note": "confScore 33.8 but odds +1550 — market may be overvaluing name"
+        }
+      ],
+      "evScore": -16.3,
       "scoreStd": 1.82
     },
     {
@@ -9520,7 +9533,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+7000"
+        "dk": "+9400"
       },
       "fieldInfo": {
         "owgr": 99,
@@ -9577,9 +9590,9 @@
         "makeCut": 53
       },
       "confScore": 31.8,
-      "edgeScore": 3.36,
+      "edgeScore": 3.72,
       "owgrRank": 99,
-      "evScore": 238.7
+      "evScore": 353.2
     },
     {
       "id": 9033,
@@ -9839,7 +9852,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+6100"
+        "dk": "+5900"
       },
       "fieldInfo": {
         "owgr": 381,
@@ -9875,16 +9888,7 @@
       "confScore": 18,
       "edgeScore": 0.0,
       "owgrRank": 381,
-      "anomalies": [
-        {
-          "type": "z_score",
-          "z": -1.8,
-          "direction": "OVERPRICED",
-          "edge_pct": 1.09,
-          "market": "outright"
-        }
-      ],
-      "evScore": 67.4
+      "evScore": 62.0
     },
     {
       "id": 9092,
@@ -10217,7 +10221,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+10000"
+        "dk": "+9800"
       },
       "fieldInfo": {
         "owgr": 307,
@@ -10253,7 +10257,7 @@
       "confScore": 18,
       "edgeScore": 0.0,
       "owgrRank": 307,
-      "evScore": 172.7
+      "evScore": 167.3
     },
     {
       "id": 9097,
@@ -10440,7 +10444,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+21000"
+        "dk": "+39000"
       },
       "fieldInfo": {
         "owgr": 382,
@@ -10476,7 +10480,7 @@
       "confScore": 18,
       "edgeScore": 0.0,
       "owgrRank": 382,
-      "evScore": 469.7
+      "evScore": 955.7
     },
     {
       "id": 9101,
@@ -10590,7 +10594,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+38000"
+        "dk": "+44000"
       },
       "fieldInfo": {
         "owgr": 453,
@@ -10626,7 +10630,7 @@
       "confScore": 18,
       "edgeScore": 0.0,
       "owgrRank": 453,
-      "evScore": 928.7
+      "evScore": 1090.7
     },
     {
       "id": 9104,
@@ -10667,7 +10671,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+12500"
+        "dk": "+9600"
       },
       "fieldInfo": {
         "owgr": 447,
@@ -10703,7 +10707,7 @@
       "confScore": 18,
       "edgeScore": 0.0,
       "owgrRank": 447,
-      "evScore": 240.2
+      "evScore": 161.9
     },
     {
       "id": 9105,
@@ -10744,7 +10748,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+44000"
+        "dk": "+42000"
       },
       "fieldInfo": {
         "owgr": 463,
@@ -10780,7 +10784,7 @@
       "confScore": 18,
       "edgeScore": 0.0,
       "owgrRank": 463,
-      "evScore": 1090.7
+      "evScore": 1036.7
     },
     {
       "id": 9106,
@@ -11259,7 +11263,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+12000"
+        "dk": "+11500"
       },
       "fieldInfo": {
         "owgr": 609,
@@ -11298,20 +11302,13 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -2.55,
+          "z": -1.86,
           "direction": "OVERPRICED",
-          "edge_pct": 0.07,
-          "market": "outright"
-        },
-        {
-          "type": "iqr_outlier",
-          "direction": "OVERPRICED",
-          "edge_pct": 0.07,
-          "fence": 6.82,
+          "edge_pct": 0.04,
           "market": "outright"
         }
       ],
-      "evScore": 8.9
+      "evScore": 4.4
     },
     {
       "id": 9112,
@@ -11683,11 +11680,827 @@
     "name": "Zurich Classic of New Orleans",
     "course": "TPC Louisiana",
     "startDate": "2026-04-23T00:00:00.000Z",
-    "status": "NOT_STARTED",
+    "status": "IN_PROGRESS",
     "city": "Avondale",
     "state": "Louisiana",
     "bdlId": 22,
-    "leaderboard": []
+    "leaderboard": [
+      {
+        "name": "",
+        "position": "1",
+        "score": "-2",
+        "totalStrokes": 26.0,
+        "round1": 26.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "2",
+        "score": "-1",
+        "totalStrokes": 8.0,
+        "round1": 8.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T3",
+        "score": "E",
+        "totalStrokes": 4.0,
+        "round1": 4.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T3",
+        "score": "E",
+        "totalStrokes": 12.0,
+        "round1": 12.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T3",
+        "score": "E",
+        "totalStrokes": 17.0,
+        "round1": 17.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T3",
+        "score": "E",
+        "totalStrokes": 20.0,
+        "round1": 20.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "7",
+        "score": "-6",
+        "totalStrokes": 22.0,
+        "round1": 22.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T8",
+        "score": "-5",
+        "totalStrokes": 23.0,
+        "round1": 23.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T8",
+        "score": "-5",
+        "totalStrokes": 28.0,
+        "round1": 28.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T10",
+        "score": "-4",
+        "totalStrokes": 8.0,
+        "round1": 8.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T10",
+        "score": "-4",
+        "totalStrokes": 20.0,
+        "round1": 20.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T10",
+        "score": "-4",
+        "totalStrokes": 29.0,
+        "round1": 29.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T13",
+        "score": "-3",
+        "totalStrokes": 13.0,
+        "round1": 13.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T13",
+        "score": "-3",
+        "totalStrokes": 21.0,
+        "round1": 21.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T13",
+        "score": "-3",
+        "totalStrokes": 26.0,
+        "round1": 26.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T13",
+        "score": "-3",
+        "totalStrokes": 28.0,
+        "round1": 28.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 7.0,
+        "round1": 7.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 7.0,
+        "round1": 7.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 11.0,
+        "round1": 11.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 11.0,
+        "round1": 11.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 15.0,
+        "round1": 15.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 18.0,
+        "round1": 18.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 18.0,
+        "round1": 18.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 18.0,
+        "round1": 18.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 18.0,
+        "round1": 18.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 22.0,
+        "round1": 22.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 22.0,
+        "round1": 22.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 26.0,
+        "round1": 26.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 27.0,
+        "round1": 27.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T17",
+        "score": "-2",
+        "totalStrokes": 29.0,
+        "round1": 29.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T31",
+        "score": "-1",
+        "totalStrokes": 8.0,
+        "round1": 8.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T31",
+        "score": "-1",
+        "totalStrokes": 8.0,
+        "round1": 8.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T31",
+        "score": "-1",
+        "totalStrokes": 8.0,
+        "round1": 8.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T31",
+        "score": "-1",
+        "totalStrokes": 8.0,
+        "round1": 8.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T31",
+        "score": "-1",
+        "totalStrokes": 15.0,
+        "round1": 15.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T31",
+        "score": "-1",
+        "totalStrokes": 23.0,
+        "round1": 23.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T37",
+        "score": "E",
+        "totalStrokes": 0.0,
+        "round1": 0.0,
+        "round2": 0.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      }
+    ],
+    "leaderboardSource": "ESPN"
   },
   "courses": {
     "augusta": {
@@ -11817,93 +12630,391 @@
     "Geoff Ogilvy": [
       {
         "type": "z_score",
-        "z": 2.72,
+        "z": 2.06,
         "direction": "UNDERPRICED",
-        "edge_pct": 7.22,
-        "market": "outright"
-      },
-      {
-        "type": "iqr_outlier",
-        "direction": "UNDERPRICED",
-        "edge_pct": 7.22,
-        "fence": 6.82,
+        "edge_pct": 7.2,
         "market": "outright"
       }
     ],
     "Chris Kirk": [
       {
         "type": "z_score",
-        "z": 1.89,
+        "z": 2.02,
         "direction": "UNDERPRICED",
-        "edge_pct": 6.09,
+        "edge_pct": 7.13,
         "market": "outright"
       }
     ],
-    "Ryan Gerard": [
+    "Alex Smalley": [
       {
         "type": "z_score",
-        "z": -1.99,
+        "z": -3.5,
         "direction": "OVERPRICED",
-        "edge_pct": 0.83,
-        "market": "outright"
-      }
-    ],
-    "Karl Vilips": [
-      {
-        "type": "z_score",
-        "z": -2.02,
-        "direction": "OVERPRICED",
-        "edge_pct": 0.79,
-        "market": "outright"
-      }
-    ],
-    "Dylan Wu": [
-      {
-        "type": "z_score",
-        "z": -1.8,
-        "direction": "OVERPRICED",
-        "edge_pct": 1.09,
-        "market": "outright"
-      }
-    ],
-    "Scott Piercy": [
-      {
-        "type": "z_score",
-        "z": -2.55,
-        "direction": "OVERPRICED",
-        "edge_pct": 0.07,
+        "edge_pct": -2.96,
         "market": "outright"
       },
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": 0.07,
-        "fence": 6.82,
+        "edge_pct": -2.96,
+        "fence": -0.73,
+        "market": "outright"
+      }
+    ],
+    "David Lipsky": [
+      {
+        "type": "z_score",
+        "z": -2.42,
+        "direction": "OVERPRICED",
+        "edge_pct": -0.99,
+        "market": "outright"
+      },
+      {
+        "type": "iqr_outlier",
+        "direction": "OVERPRICED",
+        "edge_pct": -0.99,
+        "fence": -0.73,
+        "market": "outright"
+      },
+      {
+        "type": "low_freq_fade",
+        "direction": "OVERPRICED",
+        "market": "outright_fade",
+        "note": "confScore 33.8 but odds +1550 — market may be overvaluing name"
+      }
+    ],
+    "Scott Piercy": [
+      {
+        "type": "z_score",
+        "z": -1.86,
+        "direction": "OVERPRICED",
+        "edge_pct": 0.04,
         "market": "outright"
       }
     ]
   },
   "oddsMovement": {
-    "Karl Vilips": {
-      "current": "+1900",
-      "previous": "+1950",
+    "Sahith Theegala": {
+      "current": "+2100",
+      "previous": "+2150",
       "change": -50,
       "direction": "shorter",
       "significant": false
     },
-    "Rasmus Neergaard-Petersen": {
+    "Geoff Ogilvy": {
+      "current": "+33000",
+      "previous": "+35000",
+      "change": -2000,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Chris Kirk": {
+      "current": "+31000",
+      "previous": "+7200",
+      "change": 23800,
+      "direction": "longer",
+      "significant": true
+    },
+    "Austin Eckroat": {
+      "current": "+3300",
+      "previous": "+2500",
+      "change": 800,
+      "direction": "longer",
+      "significant": true
+    },
+    "Taylor Pendrith": {
+      "current": "+4200",
+      "previous": "+3000",
+      "change": 1200,
+      "direction": "longer",
+      "significant": true
+    },
+    "Seamus Power": {
+      "current": "+3100",
+      "previous": "+3900",
+      "change": -800,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Christiaan Bezuidenhout": {
+      "current": "+4700",
+      "previous": "+4900",
+      "change": -200,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Stephan Jaeger": {
       "current": "+4500",
-      "previous": "+4400",
-      "change": 100,
+      "previous": "+4700",
+      "change": -200,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Kristoffer Reitan": {
+      "current": "+2900",
+      "previous": "+3000",
+      "change": -100,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Ryan Gerard": {
+      "current": "+1800",
+      "previous": "+1750",
+      "change": 50,
       "direction": "longer",
       "significant": false
     },
-    "Alex Smalley": {
-      "current": "+3100",
-      "previous": "+3000",
-      "change": 100,
-      "direction": "longer",
+    "Chandler Blanchet": {
+      "current": "+8200",
+      "previous": "+8400",
+      "change": -200,
+      "direction": "shorter",
       "significant": false
+    },
+    "Adam Schenk": {
+      "current": "+12000",
+      "previous": "+12500",
+      "change": -500,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Karl Vilips": {
+      "current": "+4400",
+      "previous": "+1950",
+      "change": 2450,
+      "direction": "longer",
+      "significant": true
+    },
+    "Rasmus Neergaard-Petersen": {
+      "current": "+4200",
+      "previous": "+4400",
+      "change": -200,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Garrick Higgo": {
+      "current": "+6300",
+      "previous": "+6600",
+      "change": -300,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Alex Smalley": {
+      "current": "+1075",
+      "previous": "+3000",
+      "change": -1925,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Max Greyserman": {
+      "current": "+13000",
+      "previous": "+3700",
+      "change": 9300,
+      "direction": "longer",
+      "significant": true
+    },
+    "Max McGreevy": {
+      "current": "+2800",
+      "previous": "+3700",
+      "change": -900,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Takumi Kanaya": {
+      "current": "+5900",
+      "previous": "+6100",
+      "change": -200,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Chad Ramey": {
+      "current": "+12500",
+      "previous": "+7200",
+      "change": 5300,
+      "direction": "longer",
+      "significant": true
+    },
+    "Patrick Fishburn": {
+      "current": "+8200",
+      "previous": "+9800",
+      "change": -1600,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Joel Dahmen": {
+      "current": "+9600",
+      "previous": "+10000",
+      "change": -400,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Christo Lamprecht": {
+      "current": "+9200",
+      "previous": "+8600",
+      "change": 600,
+      "direction": "longer",
+      "significant": true
+    },
+    "Kensei Hirata": {
+      "current": "+11500",
+      "previous": "+12000",
+      "change": -500,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Sam Ryder": {
+      "current": "+2500",
+      "previous": "+5600",
+      "change": -3100,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Luke Clanton": {
+      "current": "+6100",
+      "previous": "+7000",
+      "change": -900,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Pontus Nyholm": {
+      "current": "+7400",
+      "previous": "+6200",
+      "change": 1200,
+      "direction": "longer",
+      "significant": true
+    },
+    "Matthieu Pavon": {
+      "current": "+7600",
+      "previous": "+7800",
+      "change": -200,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Ben Silverman": {
+      "current": "+22500",
+      "previous": "+8600",
+      "change": 13900,
+      "direction": "longer",
+      "significant": true
+    },
+    "David Skinns": {
+      "current": "+10000",
+      "previous": "+10500",
+      "change": -500,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Davis Chatfield": {
+      "current": "+6400",
+      "previous": "+6600",
+      "change": -200,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Brandt Snedeker": {
+      "current": "+3400",
+      "previous": "+3500",
+      "change": -100,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Harry Higgs": {
+      "current": "+13000",
+      "previous": "+14000",
+      "change": -1000,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Greyson Sigg": {
+      "current": "+5700",
+      "previous": "+5900",
+      "change": -200,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Ben Kohles": {
+      "current": "+15000",
+      "previous": "+8600",
+      "change": 6400,
+      "direction": "longer",
+      "significant": true
+    },
+    "Noah Goodwin": {
+      "current": "+30000",
+      "previous": "+23000",
+      "change": 7000,
+      "direction": "longer",
+      "significant": true
+    },
+    "Henrik Norlander": {
+      "current": "+17500",
+      "previous": "+18500",
+      "change": -1000,
+      "direction": "shorter",
+      "significant": true
+    },
+    "David Lipsky": {
+      "current": "+1550",
+      "previous": "+4000",
+      "change": -2450,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Tom Hoge": {
+      "current": "+9400",
+      "previous": "+7000",
+      "change": 2400,
+      "direction": "longer",
+      "significant": true
+    },
+    "Dylan Wu": {
+      "current": "+5900",
+      "previous": "+6100",
+      "change": -200,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Brice Garnett": {
+      "current": "+9800",
+      "previous": "+10000",
+      "change": -200,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Rafael Campos": {
+      "current": "+39000",
+      "previous": "+21000",
+      "change": 18000,
+      "direction": "longer",
+      "significant": true
+    },
+    "Marcelo Rozo": {
+      "current": "+44000",
+      "previous": "+38000",
+      "change": 6000,
+      "direction": "longer",
+      "significant": true
+    },
+    "Nick Hardy": {
+      "current": "+9600",
+      "previous": "+12500",
+      "change": -2900,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Troy Merritt": {
+      "current": "+42000",
+      "previous": "+44000",
+      "change": -2000,
+      "direction": "shorter",
+      "significant": true
+    },
+    "Scott Piercy": {
+      "current": "+11500",
+      "previous": "+12000",
+      "change": -500,
+      "direction": "shorter",
+      "significant": true
     }
   },
   "cutPrediction": {
@@ -12142,14 +13253,14 @@
     "backtest": "Mon 2AM ET — weekly model retune if calibration drifts"
   },
   "dataQuality": {
-    "leaderboardEntries": 0,
-    "leaderboardSource": "none",
-    "leaderboardHasScores": false,
+    "leaderboardEntries": 74,
+    "leaderboardSource": "ESPN",
+    "leaderboardHasScores": true,
     "playersTotal": 149,
     "playersWithOdds": 46,
     "playersWithForm": 31,
     "oddsCoverage": 0.309,
-    "tournamentStatus": "NOT_STARTED",
+    "tournamentStatus": "IN_PROGRESS",
     "teeTimesTotal": 0,
     "teeTimesWithValues": 0,
     "threeBallGroups": 0,
