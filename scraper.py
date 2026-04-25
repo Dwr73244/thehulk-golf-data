@@ -2384,7 +2384,15 @@ def send_discord_alerts(output):
                 best_book = book
         return best_book, best_val
 
+    # Track the single best (highest-EV) pick per placement market across the
+    # whole field. The previous behavior emitted every player × market pair
+    # that passed the EV threshold — on a 156-player field that produced
+    # dozens of placement alerts before the global cap kicked in. We want one
+    # decisive pick per market: the highest-confidence Outright / Top 5 /
+    # Top 10 / Top 20 / Make Cut / R1 Leader. Birdie / bogey / matchup alerts
+    # keep their own per-pick logic below.
     props_by_type = output.get("propsByType") or {}
+    best_per_market = {}  # market_key -> alert dict (highest conf so far)
     for player in output.get("players", []):
         name = player.get("name", "")
         rank = player.get("rank", "?")
@@ -2455,14 +2463,23 @@ def send_discord_alerts(output):
                 + (f" @ {book_label}" if book_label else "")
                 + f" {odds_str}"
             )
-            alerts.append({
-                "player": name,
-                "prop": prop_label,
-                "model": f"{model_prob*100:.1f}% model prob",
-                "edge": f"+{ev:.1f}% EV",
-                "conf": min(95, round(55 + ev * 1.5)),
-                "rank": rank,
-            })
+            candidate_conf = min(95, round(55 + ev * 1.5))
+            existing = best_per_market.get(market)
+            # Keep only the highest-conf pick per market. EV is the dominant
+            # term in candidate_conf, so this is effectively "highest EV" with
+            # the same monotonic mapping the rest of the alerter already uses.
+            if existing is None or candidate_conf > existing["conf"]:
+                best_per_market[market] = {
+                    "player": name,
+                    "prop": prop_label,
+                    "model": f"{model_prob*100:.1f}% model prob",
+                    "edge": f"+{ev:.1f}% EV",
+                    "conf": candidate_conf,
+                    "rank": rank,
+                }
+
+    # Promote one pick per placement market into the global alerts list.
+    alerts.extend(best_per_market.values())
 
     # ---- 2-ball / 3-ball matchup alerts ----
     # Only fire when real book odds exist (source != SyntheticTeeTimes)
