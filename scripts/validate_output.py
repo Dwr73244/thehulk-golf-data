@@ -71,10 +71,14 @@ if _start_raw:
 _coverage = q.get("oddsCoverage", 0) or 0
 _player_count_ok = len(d["players"]) >= 50
 # Odds coverage rule:
-#   IN_PROGRESS / COMPLETED: low coverage = hard error (pipeline broken)
-#   NOT_STARTED: any coverage level is acceptable (books open at their own pace,
-#     often Tue-Wed, sometimes later for small-field events). Warn only so we
-#     still get a signal in the log, but don't block the deploy.
+#   IN_PROGRESS / COMPLETED: books legitimately thin the futures market once
+#     the cut hits and non-contenders fall off — coverage often drops to
+#     10-20% by Saturday/Sunday. Treat very low coverage (<5%) as a hard
+#     error (real pipeline break — odds endpoint returned nothing usable),
+#     5-30% as a warning, and >=30% as fine.
+#   NOT_STARTED: any coverage level is acceptable (books open at their own
+#     pace, often Tue-Wed, sometimes later for small-field events). Warn
+#     only so we still get a signal in the log.
 if _player_count_ok and _coverage < 0.3:
     if status == "NOT_STARTED":
         days_note = f" (tee-off in {_days_to_start:.1f} days)" if _days_to_start is not None else ""
@@ -82,8 +86,16 @@ if _player_count_ok and _coverage < 0.3:
             f"Odds coverage {_coverage:.0%} — NOT_STARTED{days_note}. "
             "Books may not have opened lines yet; next scrape will pick them up."
         )
+    elif _coverage < 0.05:
+        errors.append(
+            f"Odds coverage critically low: {_coverage:.0%} during {status} "
+            "— odds endpoint likely broken (expected at least a handful of contenders)"
+        )
     else:
-        errors.append(f"Odds coverage too low: {_coverage:.0%} during {status}")
+        warnings.append(
+            f"Odds coverage {_coverage:.0%} during {status} — books likely thinned "
+            "futures market post-cut; expected late in the tournament."
+        )
 
 # Major-week specific: LIV players should be in the field. If we detect a
 # major but zero LIV notes anywhere, that's a signal the whitelist failed.
