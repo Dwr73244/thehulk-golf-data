@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-25T19:24:31.221227",
+  "generatedAt": "2026-04-25T20:00:11.569452",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -246,9 +246,6 @@
         "tpc_scottsdale": 71
       },
       "notes": "High birdie upside but high bogey rate. Very aggressive. Best for birdie overs.",
-      "odds": {
-        "dk": "+24000"
-      },
       "fieldInfo": {
         "owgr": 119,
         "entryStatus": "IN",
@@ -289,32 +286,21 @@
         "driving": 3.1,
         "birdie_bogey": 5.2,
         "cut": 3.0,
-        "market": 0.1,
+        "market": 2.7,
         "closing": 0.0,
         "field_strength": 2.0,
         "consistency": 1.4,
-        "par5": 1.6,
-        "ml_bayes": 1.0
+        "par5": 1.6
       },
       "propScores": {
-        "win": 64,
-        "top5": 62,
-        "top10": 61,
-        "top20": 62,
-        "makeCut": 62
+        "win": 66,
+        "top5": 63,
+        "top10": 63,
+        "top20": 63,
+        "makeCut": 63
       },
-      "confScore": 61.6,
-      "edgeScore": 8.83,
+      "confScore": 63.6,
       "owgrRank": 10,
-      "anomalies": [
-        {
-          "type": "low_freq_value",
-          "direction": "UNDERPRICED",
-          "market": "top20_makecut",
-          "note": "confScore 61.6 but odds +24000 — likely value in placement markets"
-        }
-      ],
-      "evScore": 2126.8,
       "scoreStd": 1.92
     },
     {
@@ -1272,7 +1258,7 @@
       },
       "notes": "Oklahoma product with power. Still developing consistency. Better at longer courses. Thin field value play.",
       "odds": {
-        "dk": "+450"
+        "dk": "+475"
       },
       "fieldInfo": {
         "owgr": 123,
@@ -1306,18 +1292,18 @@
         "makeCut": 60
       },
       "confScore": 48.7,
-      "edgeScore": -10.88,
+      "edgeScore": -10.09,
       "owgrRank": 39,
       "anomalies": [
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -10.88,
-          "fence": -6.11,
+          "edge_pct": -10.09,
+          "fence": -6.83,
           "market": "outright"
         }
       ],
-      "evScore": -59.8
+      "evScore": -58.0
     },
     {
       "id": 32,
@@ -1763,7 +1749,7 @@
       },
       "notes": "Irish power player. Better on links and European-style tracks. Augusta is not his best fit but competitive.",
       "odds": {
-        "dk": "+13500"
+        "dk": "+8000"
       },
       "fieldInfo": {
         "owgr": 160,
@@ -1783,7 +1769,7 @@
         "driving": 3.3,
         "birdie_bogey": 4.6,
         "cut": 3.1,
-        "market": 0.2,
+        "market": 0.3,
         "closing": 2.0,
         "field_strength": 0.5,
         "consistency": 1.6,
@@ -1794,12 +1780,12 @@
         "top5": 45,
         "top10": 48,
         "top20": 54,
-        "makeCut": 57
+        "makeCut": 58
       },
       "confScore": 44.6,
-      "edgeScore": 5.95,
+      "edgeScore": 5.46,
       "owgrRank": 62,
-      "evScore": 809.8
+      "evScore": 441.9
     },
     {
       "id": 77,
@@ -2094,7 +2080,7 @@
       },
       "notes": "South African with smooth swing. Accuracy player. Good in wind. Putting holds him back from contending.",
       "odds": {
-        "dk": "+15500"
+        "dk": "+7400"
       },
       "fieldInfo": {
         "owgr": 79,
@@ -2114,23 +2100,23 @@
         "driving": 3.6,
         "birdie_bogey": 4.4,
         "cut": 3.0,
-        "market": 0.2,
+        "market": 0.3,
         "closing": 2.0,
         "field_strength": 1.0,
         "consistency": 1.6,
         "par5": 0.5
       },
       "propScores": {
-        "win": 41,
-        "top5": 44,
+        "win": 42,
+        "top5": 45,
         "top10": 48,
         "top20": 54,
         "makeCut": 57
       },
       "confScore": 43.5,
-      "edgeScore": 5.88,
+      "edgeScore": 5.19,
       "owgrRank": 45,
-      "evScore": 917.9
+      "evScore": 389.4
     },
     {
       "id": 9000,
@@ -2459,7 +2445,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+4900"
+        "dk": "+2600"
       },
       "fieldInfo": {
         "owgr": 31,
@@ -2494,7 +2480,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.5,
+        "market": 0.9,
         "closing": 2.0,
         "field_strength": 1.0,
         "consistency": 1.7,
@@ -2504,14 +2490,14 @@
       "propScores": {
         "win": 39,
         "top5": 43,
-        "top10": 47,
+        "top10": 48,
         "top20": 55,
-        "makeCut": 60
+        "makeCut": 61
       },
       "confScore": 42.0,
-      "edgeScore": 4.3,
+      "edgeScore": 2.6,
       "owgrRank": 31,
-      "evScore": 215.0
+      "evScore": 70.1
     },
     {
       "id": 9005,
@@ -3669,7 +3655,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+205"
+        "dk": "+225"
       },
       "fieldInfo": {
         "owgr": 122,
@@ -3703,25 +3689,25 @@
         "makeCut": 57
       },
       "confScore": 38.0,
-      "edgeScore": -27.09,
+      "edgeScore": -25.07,
       "owgrRank": 122,
       "anomalies": [
         {
           "type": "z_score",
-          "z": -3.01,
+          "z": -2.79,
           "direction": "OVERPRICED",
-          "edge_pct": -27.09,
+          "edge_pct": -25.07,
           "market": "outright"
         },
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -27.09,
-          "fence": -6.11,
+          "edge_pct": -25.07,
+          "fence": -6.83,
           "market": "outright"
         }
       ],
-      "evScore": -82.6
+      "evScore": -81.5
     },
     {
       "id": 9042,
@@ -3762,7 +3748,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+40000"
+        "dk": "+17000"
       },
       "fieldInfo": {
         "owgr": 145,
@@ -3819,9 +3805,9 @@
         "makeCut": 59
       },
       "confScore": 37.8,
-      "edgeScore": 5.42,
+      "edgeScore": 5.09,
       "owgrRank": 145,
-      "evScore": 2173.7
+      "evScore": 869.6
     },
     {
       "id": 9009,
@@ -4150,7 +4136,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+25000"
+        "dk": "+45000"
       },
       "fieldInfo": {
         "owgr": 67,
@@ -4184,9 +4170,9 @@
         "makeCut": 55
       },
       "confScore": 36.0,
-      "edgeScore": 5.0,
+      "edgeScore": 5.18,
       "owgrRank": 67,
-      "evScore": 1255.4
+      "evScore": 2335.4
     },
     {
       "id": 9014,
@@ -8129,9 +8115,6 @@
         "tpc_scottsdale": 50
       },
       "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+18500"
-      },
       "fieldInfo": {
         "owgr": 224,
         "entryStatus": "IN",
@@ -8150,7 +8133,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.1,
+        "market": 0.0,
         "closing": 2.0,
         "field_strength": 0.0,
         "consistency": 1.7,
@@ -8164,9 +8147,7 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.71,
-      "owgrRank": 224,
-      "evScore": 876.5
+      "owgrRank": 224
     },
     {
       "id": 9079,
@@ -8567,7 +8548,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+6100"
+        "dk": "+6800"
       },
       "fieldInfo": {
         "owgr": 261,
@@ -8587,7 +8568,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.4,
+        "market": 0.3,
         "closing": 2.0,
         "field_strength": 0.0,
         "consistency": 1.7,
@@ -8601,9 +8582,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 3.64,
+      "edgeScore": 3.8,
       "owgrRank": 261,
-      "evScore": 225.5
+      "evScore": 262.2
     },
     {
       "id": 9086,
@@ -9172,7 +9153,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+45000"
+        "dk": "+32500"
       },
       "fieldInfo": {
         "owgr": 144,
@@ -9229,9 +9210,9 @@
         "makeCut": 52
       },
       "confScore": 33.0,
-      "edgeScore": 4.73,
+      "edgeScore": 4.64,
       "owgrRank": 144,
-      "evScore": 2132.4,
+      "evScore": 1513.7,
       "scoreStd": 1.82
     },
     {
@@ -9273,7 +9254,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+2350"
+        "dk": "+3800"
       },
       "fieldInfo": {
         "owgr": 99,
@@ -9315,7 +9296,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 1.0,
+        "market": 0.6,
         "closing": 1.0,
         "field_strength": 0.0,
         "consistency": 1.7,
@@ -9323,24 +9304,16 @@
         "ml_bayes": -2.4
       },
       "propScores": {
-        "win": 29,
+        "win": 28,
         "top5": 33,
         "top10": 38,
         "top20": 47,
         "makeCut": 53
       },
       "confScore": 32.6,
-      "edgeScore": 0.81,
+      "edgeScore": 2.33,
       "owgrRank": 99,
-      "anomalies": [
-        {
-          "type": "low_freq_fade",
-          "direction": "OVERPRICED",
-          "market": "outright_fade",
-          "note": "confScore 32.6 but odds +2350 — market may be overvaluing name"
-        }
-      ],
-      "evScore": 19.8
+      "evScore": 90.7
     },
     {
       "id": 9017,
@@ -10061,7 +10034,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+4400"
+        "dk": "+4200"
       },
       "fieldInfo": {
         "owgr": 307,
@@ -10081,7 +10054,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.5,
+        "market": 0.6,
         "closing": 2.0,
         "field_strength": 0.0,
         "consistency": 1.7,
@@ -10097,7 +10070,7 @@
       "confScore": 18,
       "edgeScore": 0.0,
       "owgrRank": 307,
-      "evScore": 21.5
+      "evScore": 16.1
     },
     {
       "id": 9097,
@@ -11498,109 +11471,32 @@
     "leaderboard": [
       {
         "name": "",
-        "position": "1",
-        "score": "-22",
-        "totalStrokes": 155.0,
+        "position": "T1",
+        "score": "-23",
+        "totalStrokes": 161.0,
+        "round1": 58.0,
+        "round2": 70.0,
+        "round3": 33.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T1",
+        "score": "-23",
+        "totalStrokes": 161.0,
         "round1": 64.0,
         "round2": 65.0,
-        "round3": 26.0,
+        "round3": 32.0,
         "round4": 0.0,
         "thru": ""
       },
       {
         "name": "",
-        "position": "2",
-        "score": "-21",
-        "totalStrokes": 159.0,
-        "round1": 59.0,
-        "round2": 70.0,
-        "round3": 30.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T3",
-        "score": "-20",
-        "totalStrokes": 169.0,
-        "round1": 63.0,
-        "round2": 68.0,
-        "round3": 38.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T3",
-        "score": "-20",
-        "totalStrokes": 184.0,
-        "round1": 64.0,
-        "round2": 69.0,
-        "round3": 51.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T5",
-        "score": "-18",
-        "totalStrokes": 162.0,
+        "position": "T1",
+        "score": "-23",
+        "totalStrokes": 181.0,
         "round1": 61.0,
-        "round2": 69.0,
-        "round3": 32.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T5",
-        "score": "-18",
-        "totalStrokes": 166.0,
-        "round1": 63.0,
-        "round2": 71.0,
-        "round3": 32.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T5",
-        "score": "-18",
-        "totalStrokes": 166.0,
-        "round1": 63.0,
-        "round2": 67.0,
-        "round3": 36.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T5",
-        "score": "-18",
-        "totalStrokes": 175.0,
-        "round1": 63.0,
-        "round2": 68.0,
-        "round3": 44.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T5",
-        "score": "-18",
-        "totalStrokes": 182.0,
-        "round1": 64.0,
-        "round2": 69.0,
-        "round3": 49.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T5",
-        "score": "-18",
-        "totalStrokes": 182.0,
-        "round1": 62.0,
         "round2": 70.0,
         "round3": 50.0,
         "round4": 0.0,
@@ -11608,8 +11504,8 @@
       },
       {
         "name": "",
-        "position": "T5",
-        "score": "-18",
+        "position": "4",
+        "score": "-22",
         "totalStrokes": 191.0,
         "round1": 64.0,
         "round2": 69.0,
@@ -11619,73 +11515,227 @@
       },
       {
         "name": "",
-        "position": "T12",
-        "score": "-17",
-        "totalStrokes": 167.0,
-        "round1": 60.0,
+        "position": "T5",
+        "score": "-21",
+        "totalStrokes": 163.0,
+        "round1": 59.0,
         "round2": 70.0,
-        "round3": 37.0,
+        "round3": 34.0,
         "round4": 0.0,
         "thru": ""
       },
       {
         "name": "",
-        "position": "T12",
-        "score": "-17",
-        "totalStrokes": 187.0,
-        "round1": 62.0,
-        "round2": 71.0,
-        "round3": 54.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T12",
-        "score": "-17",
-        "totalStrokes": 192.0,
-        "round1": 66.0,
-        "round2": 67.0,
-        "round3": 59.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T15",
-        "score": "-16",
-        "totalStrokes": 173.0,
-        "round1": 63.0,
-        "round2": 71.0,
-        "round3": 39.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T15",
-        "score": "-16",
-        "totalStrokes": 176.0,
-        "round1": 66.0,
-        "round2": 68.0,
+        "position": "T5",
+        "score": "-21",
+        "totalStrokes": 172.0,
+        "round1": 61.0,
+        "round2": 69.0,
         "round3": 42.0,
         "round4": 0.0,
         "thru": ""
       },
       {
         "name": "",
-        "position": "T15",
-        "score": "-16",
+        "position": "T5",
+        "score": "-21",
+        "totalStrokes": 179.0,
+        "round1": 63.0,
+        "round2": 68.0,
+        "round3": 48.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T5",
+        "score": "-21",
+        "totalStrokes": 190.0,
+        "round1": 65.0,
+        "round2": 68.0,
+        "round3": 57.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T9",
+        "score": "-20",
+        "totalStrokes": 169.0,
+        "round1": 60.0,
+        "round2": 70.0,
+        "round3": 39.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T9",
+        "score": "-20",
+        "totalStrokes": 177.0,
+        "round1": 60.0,
+        "round2": 70.0,
+        "round3": 47.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T9",
+        "score": "-20",
         "totalStrokes": 177.0,
         "round1": 63.0,
-        "round2": 68.0,
-        "round3": 46.0,
+        "round2": 67.0,
+        "round3": 47.0,
         "round4": 0.0,
         "thru": ""
       },
       {
         "name": "",
-        "position": "T18",
+        "position": "T9",
+        "score": "-20",
+        "totalStrokes": 184.0,
+        "round1": 63.0,
+        "round2": 68.0,
+        "round3": 53.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T13",
+        "score": "-19",
+        "totalStrokes": 189.0,
+        "round1": 64.0,
+        "round2": 69.0,
+        "round3": 56.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T13",
+        "score": "-19",
+        "totalStrokes": 194.0,
+        "round1": 64.0,
+        "round2": 69.0,
+        "round3": 61.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T13",
+        "score": "-19",
+        "totalStrokes": 197.0,
+        "round1": 64.0,
+        "round2": 69.0,
+        "round3": 64.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T16",
+        "score": "-18",
+        "totalStrokes": 174.0,
+        "round1": 65.0,
+        "round2": 69.0,
+        "round3": 40.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T16",
+        "score": "-18",
+        "totalStrokes": 175.0,
+        "round1": 60.0,
+        "round2": 70.0,
+        "round3": 45.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T16",
+        "score": "-18",
+        "totalStrokes": 191.0,
+        "round1": 65.0,
+        "round2": 68.0,
+        "round3": 58.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "19",
+        "score": "-17",
+        "totalStrokes": 183.0,
+        "round1": 63.0,
+        "round2": 68.0,
+        "round3": 52.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "20",
+        "score": "-15",
+        "totalStrokes": 174.0,
+        "round1": 63.0,
+        "round2": 71.0,
+        "round3": 40.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "21",
+        "score": "-14",
+        "totalStrokes": 178.0,
+        "round1": 66.0,
+        "round2": 68.0,
+        "round3": 44.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T22",
+        "score": "-13",
+        "totalStrokes": 183.0,
+        "round1": 63.0,
+        "round2": 71.0,
+        "round3": 49.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T22",
+        "score": "-13",
+        "totalStrokes": 187.0,
+        "round1": 65.0,
+        "round2": 69.0,
+        "round3": 53.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "24",
+        "score": "-12",
+        "totalStrokes": 192.0,
+        "round1": 64.0,
+        "round2": 70.0,
+        "round3": 58.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T25",
         "score": "-9",
         "totalStrokes": 135.0,
         "round1": 67.0,
@@ -11696,7 +11746,7 @@
       },
       {
         "name": "",
-        "position": "T18",
+        "position": "T25",
         "score": "-9",
         "totalStrokes": 135.0,
         "round1": 67.0,
@@ -11707,7 +11757,7 @@
       },
       {
         "name": "",
-        "position": "T18",
+        "position": "T25",
         "score": "-9",
         "totalStrokes": 135.0,
         "round1": 63.0,
@@ -11718,7 +11768,7 @@
       },
       {
         "name": "",
-        "position": "T18",
+        "position": "T25",
         "score": "-9",
         "totalStrokes": 135.0,
         "round1": 66.0,
@@ -11729,7 +11779,7 @@
       },
       {
         "name": "",
-        "position": "T18",
+        "position": "T25",
         "score": "-9",
         "totalStrokes": 135.0,
         "round1": 63.0,
@@ -11740,7 +11790,7 @@
       },
       {
         "name": "",
-        "position": "T18",
+        "position": "T25",
         "score": "-9",
         "totalStrokes": 135.0,
         "round1": 66.0,
@@ -11751,7 +11801,7 @@
       },
       {
         "name": "",
-        "position": "T18",
+        "position": "T25",
         "score": "-9",
         "totalStrokes": 135.0,
         "round1": 63.0,
@@ -11762,7 +11812,7 @@
       },
       {
         "name": "",
-        "position": "T18",
+        "position": "T25",
         "score": "-9",
         "totalStrokes": 135.0,
         "round1": 66.0,
@@ -11773,7 +11823,7 @@
       },
       {
         "name": "",
-        "position": "T18",
+        "position": "T25",
         "score": "-9",
         "totalStrokes": 135.0,
         "round1": 67.0,
@@ -11784,7 +11834,7 @@
       },
       {
         "name": "",
-        "position": "T27",
+        "position": "T34",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 67.0,
@@ -11795,7 +11845,7 @@
       },
       {
         "name": "",
-        "position": "T27",
+        "position": "T34",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 65.0,
@@ -11806,7 +11856,7 @@
       },
       {
         "name": "",
-        "position": "T27",
+        "position": "T34",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 65.0,
@@ -11817,7 +11867,7 @@
       },
       {
         "name": "",
-        "position": "T27",
+        "position": "T34",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 63.0,
@@ -11828,7 +11878,7 @@
       },
       {
         "name": "",
-        "position": "T27",
+        "position": "T34",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 61.0,
@@ -11839,7 +11889,7 @@
       },
       {
         "name": "",
-        "position": "T27",
+        "position": "T34",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 62.0,
@@ -11850,7 +11900,7 @@
       },
       {
         "name": "",
-        "position": "T27",
+        "position": "T34",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 64.0,
@@ -11861,7 +11911,7 @@
       },
       {
         "name": "",
-        "position": "T27",
+        "position": "T34",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 66.0,
@@ -11872,7 +11922,7 @@
       },
       {
         "name": "",
-        "position": "T27",
+        "position": "T34",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 66.0,
@@ -11883,7 +11933,7 @@
       },
       {
         "name": "",
-        "position": "T27",
+        "position": "T34",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 64.0,
@@ -11894,7 +11944,7 @@
       },
       {
         "name": "",
-        "position": "T37",
+        "position": "T44",
         "score": "-7",
         "totalStrokes": 137.0,
         "round1": 65.0,
@@ -11905,7 +11955,7 @@
       },
       {
         "name": "",
-        "position": "T37",
+        "position": "T44",
         "score": "-7",
         "totalStrokes": 137.0,
         "round1": 66.0,
@@ -11916,7 +11966,7 @@
       },
       {
         "name": "",
-        "position": "T37",
+        "position": "T44",
         "score": "-7",
         "totalStrokes": 137.0,
         "round1": 61.0,
@@ -11927,7 +11977,7 @@
       },
       {
         "name": "",
-        "position": "T37",
+        "position": "T44",
         "score": "-7",
         "totalStrokes": 137.0,
         "round1": 61.0,
@@ -11938,7 +11988,7 @@
       },
       {
         "name": "",
-        "position": "T37",
+        "position": "T44",
         "score": "-7",
         "totalStrokes": 137.0,
         "round1": 67.0,
@@ -11949,7 +11999,7 @@
       },
       {
         "name": "",
-        "position": "T37",
+        "position": "T44",
         "score": "-7",
         "totalStrokes": 137.0,
         "round1": 67.0,
@@ -11960,7 +12010,7 @@
       },
       {
         "name": "",
-        "position": "43",
+        "position": "50",
         "score": "-6",
         "totalStrokes": 138.0,
         "round1": 67.0,
@@ -11971,7 +12021,7 @@
       },
       {
         "name": "",
-        "position": "44",
+        "position": "51",
         "score": "-5",
         "totalStrokes": 139.0,
         "round1": 64.0,
@@ -11982,7 +12032,7 @@
       },
       {
         "name": "",
-        "position": "T45",
+        "position": "T52",
         "score": "-4",
         "totalStrokes": 140.0,
         "round1": 66.0,
@@ -11993,7 +12043,7 @@
       },
       {
         "name": "",
-        "position": "T45",
+        "position": "T52",
         "score": "-4",
         "totalStrokes": 140.0,
         "round1": 64.0,
@@ -12004,7 +12054,7 @@
       },
       {
         "name": "",
-        "position": "T47",
+        "position": "T54",
         "score": "-3",
         "totalStrokes": 141.0,
         "round1": 66.0,
@@ -12015,7 +12065,7 @@
       },
       {
         "name": "",
-        "position": "T47",
+        "position": "T54",
         "score": "-3",
         "totalStrokes": 141.0,
         "round1": 68.0,
@@ -12026,7 +12076,7 @@
       },
       {
         "name": "",
-        "position": "T49",
+        "position": "T56",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 64.0,
@@ -12037,7 +12087,7 @@
       },
       {
         "name": "",
-        "position": "T49",
+        "position": "T56",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 67.0,
@@ -12048,7 +12098,7 @@
       },
       {
         "name": "",
-        "position": "T49",
+        "position": "T56",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 66.0,
@@ -12059,7 +12109,7 @@
       },
       {
         "name": "",
-        "position": "T49",
+        "position": "T56",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 65.0,
@@ -12070,7 +12120,7 @@
       },
       {
         "name": "",
-        "position": "T49",
+        "position": "T56",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 67.0,
@@ -12081,7 +12131,7 @@
       },
       {
         "name": "",
-        "position": "T54",
+        "position": "T61",
         "score": "-1",
         "totalStrokes": 143.0,
         "round1": 72.0,
@@ -12092,7 +12142,7 @@
       },
       {
         "name": "",
-        "position": "T54",
+        "position": "T61",
         "score": "-1",
         "totalStrokes": 143.0,
         "round1": 63.0,
@@ -12103,7 +12153,7 @@
       },
       {
         "name": "",
-        "position": "56",
+        "position": "63",
         "score": "+1",
         "totalStrokes": 145.0,
         "round1": 67.0,
@@ -12114,199 +12164,122 @@
       },
       {
         "name": "",
-        "position": "57",
-        "score": "-23",
-        "totalStrokes": 154.0,
-        "round1": 58.0,
-        "round2": 70.0,
-        "round3": 26.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "58",
-        "score": "-21",
-        "totalStrokes": 172.0,
+        "position": "T64",
+        "score": "-19",
+        "totalStrokes": 165.0,
         "round1": 61.0,
-        "round2": 70.0,
-        "round3": 41.0,
+        "round2": 68.0,
+        "round3": 36.0,
         "round4": 0.0,
         "thru": ""
       },
       {
         "name": "",
-        "position": "T59",
-        "score": "-20",
-        "totalStrokes": 160.0,
-        "round1": 60.0,
-        "round2": 70.0,
-        "round3": 30.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T59",
-        "score": "-20",
-        "totalStrokes": 164.0,
+        "position": "T64",
+        "score": "-19",
+        "totalStrokes": 170.0,
         "round1": 61.0,
         "round2": 69.0,
-        "round3": 34.0,
+        "round3": 40.0,
         "round4": 0.0,
         "thru": ""
       },
       {
         "name": "",
-        "position": "T59",
-        "score": "-20",
-        "totalStrokes": 169.0,
-        "round1": 60.0,
-        "round2": 70.0,
+        "position": "T64",
+        "score": "-19",
+        "totalStrokes": 173.0,
+        "round1": 63.0,
+        "round2": 71.0,
         "round3": 39.0,
         "round4": 0.0,
         "thru": ""
       },
       {
         "name": "",
-        "position": "T62",
+        "position": "T64",
         "score": "-19",
-        "totalStrokes": 161.0,
-        "round1": 61.0,
-        "round2": 68.0,
-        "round3": 32.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T62",
-        "score": "-19",
-        "totalStrokes": 185.0,
-        "round1": 65.0,
-        "round2": 68.0,
-        "round3": 52.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T62",
-        "score": "-19",
-        "totalStrokes": 185.0,
-        "round1": 64.0,
-        "round2": 69.0,
-        "round3": 52.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T65",
-        "score": "-17",
-        "totalStrokes": 183.0,
+        "totalStrokes": 190.0,
         "round1": 67.0,
         "round2": 66.0,
-        "round3": 50.0,
+        "round3": 57.0,
         "round4": 0.0,
         "thru": ""
       },
       {
         "name": "",
-        "position": "T65",
+        "position": "T68",
+        "score": "-18",
+        "totalStrokes": 190.0,
+        "round1": 62.0,
+        "round2": 70.0,
+        "round3": 58.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T68",
+        "score": "-18",
+        "totalStrokes": 193.0,
+        "round1": 62.0,
+        "round2": 71.0,
+        "round3": 60.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T68",
+        "score": "-18",
+        "totalStrokes": 198.0,
+        "round1": 66.0,
+        "round2": 67.0,
+        "round3": 65.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T71",
+        "score": "-17",
+        "totalStrokes": 179.0,
+        "round1": 63.0,
+        "round2": 71.0,
+        "round3": 45.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T71",
         "score": "-17",
         "totalStrokes": 183.0,
-        "round1": 65.0,
-        "round2": 68.0,
-        "round3": 50.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T67",
-        "score": "-16",
-        "totalStrokes": 168.0,
-        "round1": 64.0,
-        "round2": 70.0,
-        "round3": 34.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T67",
-        "score": "-16",
-        "totalStrokes": 180.0,
-        "round1": 63.0,
-        "round2": 70.0,
-        "round3": 47.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "69",
-        "score": "-15",
-        "totalStrokes": 165.0,
-        "round1": 65.0,
-        "round2": 69.0,
-        "round3": 31.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T70",
-        "score": "-13",
-        "totalStrokes": 167.0,
-        "round1": 63.0,
-        "round2": 71.0,
-        "round3": 33.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T70",
-        "score": "-13",
-        "totalStrokes": 171.0,
         "round1": 66.0,
         "round2": 68.0,
-        "round3": 37.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T70",
-        "score": "-13",
-        "totalStrokes": 176.0,
-        "round1": 63.0,
-        "round2": 71.0,
-        "round3": 42.0,
+        "round3": 49.0,
         "round4": 0.0,
         "thru": ""
       },
       {
         "name": "",
         "position": "T73",
-        "score": "-12",
-        "totalStrokes": 180.0,
+        "score": "-16",
+        "totalStrokes": 188.0,
+        "round1": 63.0,
+        "round2": 70.0,
+        "round3": 55.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "",
+        "position": "T73",
+        "score": "-16",
+        "totalStrokes": 176.0,
         "round1": 64.0,
         "round2": 70.0,
-        "round3": 46.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
-        "name": "",
-        "position": "T73",
-        "score": "-12",
-        "totalStrokes": 180.0,
-        "round1": 65.0,
-        "round2": 69.0,
-        "round3": 46.0,
+        "round3": 42.0,
         "round4": 0.0,
         "thru": ""
       }
@@ -12438,137 +12411,107 @@
   "weather": null,
   "teeTimes": [],
   "anomalies": {
-    "Sahith Theegala": [
-      {
-        "type": "low_freq_value",
-        "direction": "UNDERPRICED",
-        "market": "top20_makecut",
-        "note": "confScore 61.6 but odds +24000 — likely value in placement markets"
-      }
-    ],
     "Austin Eckroat": [
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -10.88,
-        "fence": -6.11,
+        "edge_pct": -10.09,
+        "fence": -6.83,
         "market": "outright"
       }
     ],
     "Alex Smalley": [
       {
         "type": "z_score",
-        "z": -3.01,
+        "z": -2.79,
         "direction": "OVERPRICED",
-        "edge_pct": -27.09,
+        "edge_pct": -25.07,
         "market": "outright"
       },
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -27.09,
-        "fence": -6.11,
+        "edge_pct": -25.07,
+        "fence": -6.83,
         "market": "outright"
-      }
-    ],
-    "Tom Hoge": [
-      {
-        "type": "low_freq_fade",
-        "direction": "OVERPRICED",
-        "market": "outright_fade",
-        "note": "confScore 32.6 but odds +2350 — market may be overvaluing name"
       }
     ]
   },
   "oddsMovement": {
-    "Sahith Theegala": {
-      "current": "+24000",
-      "previous": "+1650",
-      "change": 22350,
-      "direction": "longer",
-      "significant": true
-    },
     "Austin Eckroat": {
-      "current": "+450",
+      "current": "+475",
       "previous": "+560",
-      "change": -110,
+      "change": -85,
       "direction": "shorter",
       "significant": false
     },
     "Seamus Power": {
-      "current": "+13500",
+      "current": "+8000",
       "previous": "+5200",
-      "change": 8300,
+      "change": 2800,
       "direction": "longer",
       "significant": true
     },
     "Christiaan Bezuidenhout": {
-      "current": "+15500",
+      "current": "+7400",
       "previous": "+19500",
-      "change": -4000,
+      "change": -12100,
       "direction": "shorter",
       "significant": true
     },
     "Kristoffer Reitan": {
-      "current": "+4900",
+      "current": "+2600",
       "previous": "+3700",
-      "change": 1200,
-      "direction": "longer",
+      "change": -1100,
+      "direction": "shorter",
       "significant": true
     },
     "Alex Smalley": {
-      "current": "+205",
+      "current": "+225",
       "previous": "+490",
-      "change": -285,
+      "change": -265,
       "direction": "shorter",
       "significant": false
     },
     "Karl Vilips": {
-      "current": "+40000",
+      "current": "+17000",
       "previous": "+31000",
-      "change": 9000,
-      "direction": "longer",
+      "change": -14000,
+      "direction": "shorter",
       "significant": true
     },
     "Max McGreevy": {
-      "current": "+25000",
+      "current": "+45000",
       "previous": "+8800",
-      "change": 16200,
-      "direction": "longer",
-      "significant": true
-    },
-    "Davis Chatfield": {
-      "current": "+18500",
-      "previous": "+13000",
-      "change": 5500,
+      "change": 36200,
       "direction": "longer",
       "significant": true
     },
     "Ben Kohles": {
-      "current": "+6100",
+      "current": "+6800",
       "previous": "+10000",
-      "change": -3900,
+      "change": -3200,
       "direction": "shorter",
       "significant": true
     },
     "David Lipsky": {
-      "current": "+45000",
+      "current": "+32500",
       "previous": "+5300",
-      "change": 39700,
+      "change": 27200,
       "direction": "longer",
       "significant": true
     },
     "Tom Hoge": {
-      "current": "+2350",
+      "current": "+3800",
       "previous": "+2900",
-      "change": -550,
-      "direction": "shorter",
+      "change": 900,
+      "direction": "longer",
       "significant": true
     },
     "Brice Garnett": {
-      "current": "+4400",
+      "current": "+4200",
       "previous": "+10500",
-      "change": -6100,
+      "change": -6300,
       "direction": "shorter",
       "significant": true
     }
@@ -12724,23 +12667,23 @@
   "propsByType": {
     "top5": {
       "Karl Vilips": {
-        "dk": "+1100",
+        "dk": "+630",
         "fd": "+550"
       },
       "Sahith Theegala": {
-        "dk": "+780",
+        "dk": "+1275",
         "fd": "+310"
       },
       "Austin Eckroat": {
-        "dk": "-245",
+        "dk": "-225",
         "fd": "-115"
       },
       "Kristoffer Reitan": {
-        "dk": "+270",
+        "dk": "+176",
         "fd": "+160"
       },
       "Alex Smalley": {
-        "dk": "-480",
+        "dk": "-410",
         "fd": "-140"
       },
       "Taylor Pendrith": {
@@ -12748,36 +12691,36 @@
         "fd": "+380"
       },
       "Brandt Snedeker": {
-        "dk": "+13500"
+        "dk": "+30000"
       },
       "Max McGreevy": {
-        "dk": "+920",
+        "dk": "+1425",
         "fd": "+1400"
       },
       "Seamus Power": {
-        "dk": "+560"
+        "dk": "+390"
       },
       "Max Greyserman": {
         "dk": "+49000",
         "fd": "+2500"
       },
       "David Lipsky": {
-        "dk": "+1300",
+        "dk": "+1075",
         "fd": "+1500"
       },
       "Pete Brown": {
-        "dk": "+5000"
+        "dk": "+6100"
       },
       "Rasmus Neergaard-Petersen": {
-        "dk": "+4900",
+        "dk": "+3700",
         "fd": "+1600"
       },
       "Christiaan Bezuidenhout": {
-        "dk": "+560",
+        "dk": "+335",
         "fd": "+950"
       },
       "Takumi Kanaya": {
-        "dk": "+2600",
+        "dk": "+2800",
         "fd": "+1000"
       },
       "Pontus Nyholm": {
@@ -12785,38 +12728,38 @@
         "fd": "+430"
       },
       "Davis Chatfield": {
-        "dk": "+630",
+        "dk": "+2350",
         "fd": "+1100"
       },
       "Tom Hoge": {
-        "dk": "+172",
+        "dk": "+255",
         "fd": "+145"
       },
       "Luke Clanton": {
-        "dk": "+2200",
+        "dk": "+2450",
         "fd": "+1700"
       },
       "Chad Ramey": {
-        "dk": "+9000",
+        "dk": "+12000",
         "fd": "+2000"
       },
       "Matthieu Pavon": {
-        "dk": "+4600",
+        "dk": "+3300",
         "fd": "+1200"
       },
       "Ben Kohles": {
-        "dk": "+335",
+        "dk": "+365",
         "fd": "+2500"
       },
       "Patrick Fishburn": {
         "dk": "+40000"
       },
       "Brice Garnett": {
-        "dk": "+245",
+        "dk": "+240",
         "fd": "+490"
       },
       "Nick Hardy": {
-        "dk": "+5000",
+        "dk": "+3900",
         "fd": "+1700"
       },
       "Matt Fitzpatrick": {
@@ -12825,7 +12768,7 @@
       },
       "Ryan Gerard": {
         "fd": "+900",
-        "dk": "+32000"
+        "dk": "+39000"
       },
       "Arthur Griffin": {
         "fd": "+900"
@@ -12917,22 +12860,22 @@
     },
     "top10": {
       "Karl Vilips": {
-        "dk": "+260",
+        "dk": "+160",
         "fd": "+175"
       },
       "Sahith Theegala": {
-        "dk": "+192",
+        "dk": "+280",
         "fd": "+100"
       },
       "Logan Smith": {
         "dk": "+40000"
       },
       "Austin Eckroat": {
-        "dk": "-850",
+        "dk": "-750",
         "fd": "-320"
       },
       "Kristoffer Reitan": {
-        "dk": "-122",
+        "dk": "-184",
         "fd": "-190"
       },
       "Taylor Pendrith": {
@@ -12940,35 +12883,35 @@
         "fd": "+150"
       },
       "Alex Smalley": {
-        "dk": "-1700",
+        "dk": "-1400",
         "fd": "-390"
       },
       "Yeongsu Kim": {
         "dk": "+40000"
       },
       "Brandt Snedeker": {
-        "dk": "+2050"
+        "dk": "+3800"
       },
       "Max McGreevy": {
-        "dk": "+240",
+        "dk": "+345",
         "fd": "+430"
       },
       "Seamus Power": {
-        "dk": "+152"
+        "dk": "+110"
       },
       "Max Greyserman": {
         "dk": "+25000",
         "fd": "+1300"
       },
       "David Lipsky": {
-        "dk": "+310",
+        "dk": "+265",
         "fd": "+440"
       },
       "Pete Brown": {
-        "dk": "+830"
+        "dk": "+970"
       },
       "Rasmus Neergaard-Petersen": {
-        "dk": "+980",
+        "dk": "+780",
         "fd": "+490"
       },
       "Stephan Jaeger": {
@@ -12976,7 +12919,7 @@
         "fd": "+125"
       },
       "Christiaan Bezuidenhout": {
-        "dk": "+146",
+        "dk": "-112",
         "fd": "+280"
       },
       "Sam Ryder": {
@@ -12988,7 +12931,7 @@
         "fd": "+320"
       },
       "Takumi Kanaya": {
-        "dk": "+510",
+        "dk": "+520",
         "fd": "+310"
       },
       "Dylan Wu": {
@@ -12999,7 +12942,7 @@
         "fd": "+175"
       },
       "Davis Chatfield": {
-        "dk": "+160",
+        "dk": "+475",
         "fd": "+320"
       },
       "Garrick Higgo": {
@@ -13007,11 +12950,11 @@
         "fd": "+950"
       },
       "Tom Hoge": {
-        "dk": "-182",
+        "dk": "-124",
         "fd": "-195"
       },
       "Chad Ramey": {
-        "dk": "+1550",
+        "dk": "+1900",
         "fd": "+600"
       },
       "Chris Kirk": {
@@ -13019,11 +12962,11 @@
         "fd": "+600"
       },
       "Luke Clanton": {
-        "dk": "+485",
+        "dk": "+530",
         "fd": "+600"
       },
       "Matthieu Pavon": {
-        "dk": "+800",
+        "dk": "+620",
         "fd": "+370"
       },
       "Chandler Blanchet": {
@@ -13035,7 +12978,7 @@
         "fd": "+3000"
       },
       "Ben Kohles": {
-        "dk": "-102",
+        "dk": "+106",
         "fd": "+650"
       },
       "Ben Silverman": {
@@ -13050,7 +12993,7 @@
         "fd": "+700"
       },
       "Brice Garnett": {
-        "dk": "-140",
+        "dk": "-142",
         "fd": "+150"
       },
       "Sam Walker": {
@@ -13068,7 +13011,7 @@
         "dk": "+40000"
       },
       "Nick Hardy": {
-        "dk": "+940",
+        "dk": "+760",
         "fd": "+500"
       },
       "Harry Higgs": {
@@ -13114,7 +13057,7 @@
       },
       "Ryan Gerard": {
         "fd": "+270",
-        "dk": "+3900"
+        "dk": "+4700"
       },
       "Tim Clark": {
         "fd": "+195"
@@ -13455,9 +13398,9 @@
     "leaderboardSource": "ESPN",
     "leaderboardHasScores": true,
     "playersTotal": 149,
-    "playersWithOdds": 13,
+    "playersWithOdds": 11,
     "playersWithForm": 30,
-    "oddsCoverage": 0.087,
+    "oddsCoverage": 0.074,
     "tournamentStatus": "IN_PROGRESS",
     "teeTimesTotal": 0,
     "teeTimesWithValues": 0,
