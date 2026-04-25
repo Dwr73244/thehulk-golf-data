@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-25T14:01:55.016216",
+  "generatedAt": "2026-04-25T15:06:32.319229",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -247,7 +247,7 @@
       },
       "notes": "High birdie upside but high bogey rate. Very aggressive. Best for birdie overs.",
       "odds": {
-        "dk": "+2700"
+        "dk": "+2600"
       },
       "fieldInfo": {
         "owgr": 119,
@@ -304,9 +304,9 @@
         "makeCut": 63
       },
       "confScore": 62.4,
-      "edgeScore": 5.79,
+      "edgeScore": 5.66,
       "owgrRank": 10,
-      "evScore": 162.1,
+      "evScore": 152.7,
       "scoreStd": 1.92
     },
     {
@@ -1264,7 +1264,7 @@
       },
       "notes": "Oklahoma product with power. Still developing consistency. Better at longer courses. Thin field value play.",
       "odds": {
-        "dk": "+660"
+        "dk": "+670"
       },
       "fieldInfo": {
         "owgr": 123,
@@ -1298,25 +1298,25 @@
         "makeCut": 60
       },
       "confScore": 48.7,
-      "edgeScore": -5.85,
+      "edgeScore": -5.68,
       "owgrRank": 39,
       "anomalies": [
         {
           "type": "z_score",
-          "z": -1.97,
+          "z": -1.94,
           "direction": "OVERPRICED",
-          "edge_pct": -5.85,
+          "edge_pct": -5.68,
           "market": "outright"
         },
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -5.85,
-          "fence": -1.79,
+          "edge_pct": -5.68,
+          "fence": -1.82,
           "market": "outright"
         }
       ],
-      "evScore": -44.5
+      "evScore": -43.8
     },
     {
       "id": 32,
@@ -1618,7 +1618,7 @@
       },
       "notes": "Irish power player. Better on links and European-style tracks. Augusta is not his best fit but competitive.",
       "odds": {
-        "dk": "+2300"
+        "dk": "+2350"
       },
       "fieldInfo": {
         "owgr": 160,
@@ -1652,9 +1652,9 @@
         "makeCut": 58
       },
       "confScore": 45.6,
-      "edgeScore": 2.67,
+      "edgeScore": 2.76,
       "owgrRank": 62,
-      "evScore": 64.2
+      "evScore": 67.6
     },
     {
       "id": 43,
@@ -2170,7 +2170,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+1125"
+        "dk": "+1150"
       },
       "fieldInfo": {
         "owgr": 31,
@@ -2205,7 +2205,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 2.0,
+        "market": 1.9,
         "closing": 2.0,
         "field_strength": 1.0,
         "consistency": 1.7,
@@ -2220,9 +2220,9 @@
         "makeCut": 61
       },
       "confScore": 43.0,
-      "edgeScore": -1.71,
+      "edgeScore": -1.55,
       "owgrRank": 31,
-      "evScore": -21.0
+      "evScore": -19.4
     },
     {
       "id": 47,
@@ -3640,7 +3640,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -3.05,
+          "z": -3.07,
           "direction": "OVERPRICED",
           "edge_pct": -10.43,
           "market": "outright"
@@ -3649,7 +3649,7 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": -10.43,
-          "fence": -1.79,
+          "fence": -1.82,
           "market": "outright"
         }
       ],
@@ -4082,7 +4082,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+20000"
+        "dk": "+21000"
       },
       "fieldInfo": {
         "owgr": 49,
@@ -4116,9 +4116,9 @@
         "makeCut": 55
       },
       "confScore": 36.0,
-      "edgeScore": 4.9,
+      "edgeScore": 4.93,
       "owgrRank": 49,
-      "evScore": 985.4
+      "evScore": 1039.4
     },
     {
       "id": 9012,
@@ -4159,7 +4159,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+17500"
+        "dk": "+18000"
       },
       "fieldInfo": {
         "owgr": 67,
@@ -4193,9 +4193,9 @@
         "makeCut": 55
       },
       "confScore": 36.0,
-      "edgeScore": 4.83,
+      "edgeScore": 4.85,
       "owgrRank": 67,
-      "evScore": 850.4
+      "evScore": 877.4
     },
     {
       "id": 9014,
@@ -5624,7 +5624,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+30000"
+        "dk": "+31000"
       },
       "fieldInfo": {
         "owgr": 167,
@@ -5658,9 +5658,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.92,
+      "edgeScore": 4.93,
       "owgrRank": 167,
-      "evScore": 1480.2
+      "evScore": 1532.7
     },
     {
       "id": 9041,
@@ -7213,7 +7213,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+27000"
+        "dk": "+27500"
       },
       "fieldInfo": {
         "owgr": 175,
@@ -7247,9 +7247,9 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.88,
+      "edgeScore": 4.89,
       "owgrRank": 175,
-      "evScore": 1322.8
+      "evScore": 1349.0
     },
     {
       "id": 9065,
@@ -9174,7 +9174,7 @@
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": -3.5,
-          "fence": -1.79,
+          "fence": -1.82,
           "market": "outright"
         },
         {
@@ -12486,23 +12486,23 @@
     "Austin Eckroat": [
       {
         "type": "z_score",
-        "z": -1.97,
+        "z": -1.94,
         "direction": "OVERPRICED",
-        "edge_pct": -5.85,
+        "edge_pct": -5.68,
         "market": "outright"
       },
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -5.85,
-        "fence": -1.79,
+        "edge_pct": -5.68,
+        "fence": -1.82,
         "market": "outright"
       }
     ],
     "Alex Smalley": [
       {
         "type": "z_score",
-        "z": -3.05,
+        "z": -3.07,
         "direction": "OVERPRICED",
         "edge_pct": -10.43,
         "market": "outright"
@@ -12511,7 +12511,7 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": -10.43,
-        "fence": -1.79,
+        "fence": -1.82,
         "market": "outright"
       }
     ],
@@ -12520,7 +12520,7 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": -3.5,
-        "fence": -1.79,
+        "fence": -1.82,
         "market": "outright"
       },
       {
@@ -12533,23 +12533,23 @@
   },
   "oddsMovement": {
     "Sahith Theegala": {
-      "current": "+2700",
+      "current": "+2600",
       "previous": "+1650",
-      "change": 1050,
+      "change": 950,
       "direction": "longer",
       "significant": true
     },
     "Austin Eckroat": {
-      "current": "+660",
+      "current": "+670",
       "previous": "+560",
-      "change": 100,
+      "change": 110,
       "direction": "longer",
       "significant": false
     },
     "Seamus Power": {
-      "current": "+2300",
+      "current": "+2350",
       "previous": "+5200",
-      "change": -2900,
+      "change": -2850,
       "direction": "shorter",
       "significant": true
     },
@@ -12561,9 +12561,9 @@
       "significant": true
     },
     "Kristoffer Reitan": {
-      "current": "+1125",
+      "current": "+1150",
       "previous": "+3700",
-      "change": -2575,
+      "change": -2550,
       "direction": "shorter",
       "significant": true
     },
@@ -12589,16 +12589,16 @@
       "significant": true
     },
     "Rasmus Neergaard-Petersen": {
-      "current": "+20000",
+      "current": "+21000",
       "previous": "+5900",
-      "change": 14100,
+      "change": 15100,
       "direction": "longer",
       "significant": true
     },
     "Max McGreevy": {
-      "current": "+17500",
+      "current": "+18000",
       "previous": "+8800",
-      "change": 8700,
+      "change": 9200,
       "direction": "longer",
       "significant": true
     },
@@ -12821,7 +12821,7 @@
         "fd": "+550"
       },
       "Sahith Theegala": {
-        "dk": "+295",
+        "dk": "+290",
         "fd": "+310"
       },
       "Austin Eckroat": {
@@ -12841,14 +12841,14 @@
         "fd": "+380"
       },
       "Brandt Snedeker": {
-        "dk": "+1175"
+        "dk": "+1200"
       },
       "Max McGreevy": {
         "dk": "+1250",
         "fd": "+1400"
       },
       "Seamus Power": {
-        "dk": "+265"
+        "dk": "+270"
       },
       "Max Greyserman": {
         "dk": "+49000",
@@ -12878,7 +12878,7 @@
         "fd": "+430"
       },
       "Davis Chatfield": {
-        "dk": "+950",
+        "dk": "+960",
         "fd": "+1100"
       },
       "Tom Hoge": {
@@ -12887,7 +12887,7 @@
       },
       "Luke Clanton": {
         "dk": "+1800",
-        "fd": "+2000"
+        "fd": "+1700"
       },
       "Chad Ramey": {
         "dk": "+1900",
@@ -12906,7 +12906,7 @@
       },
       "Brice Garnett": {
         "dk": "+420",
-        "fd": "+480"
+        "fd": "+490"
       },
       "Nick Hardy": {
         "dk": "+1500",
@@ -13010,11 +13010,11 @@
     },
     "top10": {
       "Karl Vilips": {
-        "dk": "+170",
+        "dk": "+172",
         "fd": "+175"
       },
       "Sahith Theegala": {
-        "dk": "+106",
+        "dk": "+105",
         "fd": "+100"
       },
       "Logan Smith": {
@@ -13025,7 +13025,7 @@
         "fd": "-320"
       },
       "Kristoffer Reitan": {
-        "dk": "-176",
+        "dk": "-175",
         "fd": "-190"
       },
       "Taylor Pendrith": {
@@ -13054,7 +13054,7 @@
         "fd": "+1300"
       },
       "David Lipsky": {
-        "dk": "+400",
+        "dk": "+405",
         "fd": "+440"
       },
       "Pete Brown": {
@@ -13207,7 +13207,7 @@
       },
       "Ryan Gerard": {
         "fd": "+270",
-        "dk": "+255"
+        "dk": "+260"
       },
       "Tim Clark": {
         "fd": "+195"
