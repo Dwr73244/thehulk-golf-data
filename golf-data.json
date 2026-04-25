@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-25T01:42:28.277799",
+  "generatedAt": "2026-04-25T14:01:55.016216",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -12734,14 +12734,6 @@
       "image": "https://a.espncdn.com/photo/2022/0420/r1002105_608x342_16-9.jpg"
     },
     {
-      "headline": "Zurich Classic of New Orleans preview",
-      "description": "Here's what to keep an eye out for at the Zurich Classic of New Orleans.",
-      "published": "2026-04-21T21:01:19Z",
-      "link": "https://www.espn.com/video/clip?id=48553625",
-      "player": "",
-      "image": "https://a.espncdn.com/media/motion/2026/0421/ss_20260421_164105746_3497557/ss_20260421_164105746_3497557.jpg"
-    },
-    {
       "headline": "Hawaii's Sentry, Sony Open off PGA Tour schedule in 2027",
       "description": "The PGA Tour will not be in Hawaii in 2027 for the first time in 56 years as it moves toward a revamped schedule that no longer will start the season in the middle of the Pacific Ocean.",
       "published": "2026-04-21T08:02:06Z",
@@ -12812,6 +12804,14 @@
       "link": "https://www.espn.com/golf/story/_/id/48508067/bernhard-langer-68-breaks-age-share-senior-pga-championship-lead",
       "player": "Bernhard Langer",
       "image": "https://a.espncdn.com/photo/2025/0411/r1477082_600x400_3-2.jpg"
+    },
+    {
+      "headline": "Ludvig Aberg shoots 63 for 1-shot lead at RBC Heritage",
+      "description": "Ludvig Aberg has the lead at the RBC Heritage with a bogey-free 63 at Harbour Town.",
+      "published": "2026-04-17T00:42:09Z",
+      "link": "https://www.espn.com/golf/story/_/id/48507549/ludvig-aberg-shoots-63-one-shot-lead-rbc-heritage",
+      "player": "Ludvig Åberg",
+      "image": "https://a.espncdn.com/photo/2026/0401/r1637142_600x400_3-2.jpg"
     }
   ],
   "propsByType": {
@@ -12830,7 +12830,7 @@
       },
       "Kristoffer Reitan": {
         "dk": "+150",
-        "fd": "+150"
+        "fd": "+160"
       },
       "Alex Smalley": {
         "dk": "-128",
@@ -12879,7 +12879,7 @@
       },
       "Davis Chatfield": {
         "dk": "+950",
-        "fd": "+1000"
+        "fd": "+1100"
       },
       "Tom Hoge": {
         "dk": "+146",
@@ -12899,21 +12899,21 @@
       },
       "Ben Kohles": {
         "dk": "+2100",
-        "fd": "+2200"
+        "fd": "+2500"
       },
       "Patrick Fishburn": {
         "dk": "+40000"
       },
       "Brice Garnett": {
         "dk": "+420",
-        "fd": "+460"
+        "fd": "+480"
       },
       "Nick Hardy": {
         "dk": "+1500",
         "fd": "+1700"
       },
       "Matt Fitzpatrick": {
-        "fd": "-210",
+        "fd": "-230",
         "dk": "+225"
       },
       "Ryan Gerard": {
@@ -13396,13 +13396,19 @@
     "makeCut": {},
     "r1Leader": {
       "Matt Fitzpatrick": {
-        "fd": "+12500"
-      },
-      "Austin Eckroat": {
         "fd": "+380"
       },
+      "Karl Vilips": {
+        "fd": "+15000"
+      },
+      "Tim Clark": {
+        "fd": "+20000"
+      },
+      "Austin Eckroat": {
+        "fd": "+600"
+      },
       "Sahith Theegala": {
-        "fd": "+2700"
+        "fd": "+7000"
       },
       "Matt Wallace": {
         "fd": "+20000"
@@ -13411,25 +13417,13 @@
         "fd": "+3500"
       },
       "Kristoffer Reitan": {
-        "fd": "+8000"
+        "fd": "+1300"
       },
       "Alex Smalley": {
-        "fd": "+220"
-      },
-      "Bobby Mitchell": {
-        "fd": "+10000"
-      },
-      "David Lipsky": {
-        "fd": "+10000"
+        "fd": "+250"
       },
       "Stephan Jaeger": {
         "fd": "+1900"
-      },
-      "Max McGreevy": {
-        "fd": "+30000"
-      },
-      "Rasmus Neergaard-Petersen": {
-        "fd": "+10000"
       },
       "Pontus Nyholm": {
         "fd": "+2500"
@@ -13440,29 +13434,32 @@
       "Sam Ryder": {
         "fd": "+12500"
       },
+      "Christiaan Bezuidenhout": {
+        "fd": "+30000"
+      },
       "Aaron Jarvis": {
-        "fd": "+40000"
+        "fd": "+30000"
       },
       "Takumi Kanaya": {
-        "fd": "+4000"
+        "fd": "+40000"
+      },
+      "Davis Chatfield": {
+        "fd": "+40000"
       },
       "Tom Hoge": {
-        "fd": "+2500"
-      },
-      "Ben Kohles": {
-        "fd": "+15000"
+        "fd": "+700"
       },
       "Adam Hadwin": {
-        "fd": "+15000"
+        "fd": "+4500"
       },
-      "Nick Hardy": {
-        "fd": "+25000"
+      "Matthieu Pavon": {
+        "fd": "+30000"
       },
       "David Skinns": {
         "fd": "+15000"
       },
       "Brice Garnett": {
-        "fd": "+15000"
+        "fd": "+5000"
       }
     }
   },
