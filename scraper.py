@@ -490,30 +490,87 @@ def bdl_get_tournament_field(tournament_id):
     return entries
 
 
+EMPTY_FUTURES = {"winner": {}, "top5": {}, "top10": {}, "top20": {}, "makeCut": {}, "r1Leader": {}}
+
+
+def _classify_futures_market(market_type):
+    """Map BDL `market_type` strings to our internal market keys.
+
+    Substring-based so we tolerate variants like top_5_finish / top_5 / top5.
+    Order matters — check the more specific tokens before less specific ones
+    (top_20 before top_2, top_10 before top_1).
+    Returns None for unknown markets so we can log them.
+    """
+    if not market_type:
+        return None
+    m = str(market_type).lower()
+    if m == "tournament_winner" or "outright" in m:
+        return "winner"
+    if "top_20" in m or "top20" in m or "top 20" in m:
+        return "top20"
+    if "top_10" in m or "top10" in m or "top 10" in m:
+        return "top10"
+    if "top_5" in m or "top5" in m or "top 5" in m:
+        return "top5"
+    if "make_cut" in m or "makecut" in m or "make cut" in m:
+        return "makeCut"
+    if (
+        "first_round_leader" in m
+        or "round_1_leader" in m
+        or "r1_leader" in m
+        or "first round leader" in m
+    ):
+        return "r1Leader"
+    return None
+
+
 def bdl_get_futures_odds(tournament_id):
-    """Get outright winner futures odds from BDL (replaces The Odds API)."""
+    """Get all futures markets from BDL: winner + top 5/10/20 + make cut + R1 leader.
+
+    Returns a market-keyed dict — each value is `{player_name: {vendor: odds_str}}`:
+
+        {
+          "winner":   {"Scottie Scheffler": {"dk": "+800", "fd": "+850", ...}, ...},
+          "top5":     {...},
+          "top10":    {...},
+          "top20":    {...},
+          "makeCut":  {...},
+          "r1Leader": {...},
+        }
+
+    Phantom "market closed" odds (|american| >= 50000) are stripped — books park
+    eliminated / non-contender players at +500000 instead of removing the market.
+
+    Previous version filtered to `tournament_winner` only, which dropped every
+    placement market on the floor. That broke top5/top10/top20/makeCut Discord
+    alerts because their consumer reads from output["propsByType"][market],
+    which had nothing in it.
+    """
     print(f"[BDL] Fetching futures odds (tournament_id={tournament_id})...")
     odds = bdl_fetch_all("futures", {"tournament_ids[]": str(tournament_id)})
+    out = {k: {} for k in EMPTY_FUTURES}
     if not odds:
-        return {}
+        return out
 
-    # Group by player: {player_name: {vendor: american_odds}}
-    # Filter "market closed" placeholders: books park eliminated / non-contender
-    # players at ridiculous prices (+100000, +500000, +1000000) instead of
-    # removing the market. These aren't bettable lines — treat them as absent.
-    odds_map = {}
     PHANTOM_ODDS_THRESHOLD = 50000  # anything ≥ this is a book "closed market" flag
     skipped_phantom = 0
+    unknown_markets = {}
+    vendor_short = {"fanduel": "fd", "draftkings": "dk", "betmgm": "mgm",
+                    "caesars": "czr", "pointsbet": "pb", "bet365": "365"}
+
     for o in odds:
-        if o.get("market_type") != "tournament_winner":
+        market = _classify_futures_market(o.get("market_type"))
+        if market is None:
+            mt = o.get("market_type") or "<empty>"
+            unknown_markets[mt] = unknown_markets.get(mt, 0) + 1
             continue
+
         player = o.get("player", {})
         name = player.get("display_name", "")
         vendor = o.get("vendor", "")
         american = o.get("american_odds", 0)
         if not name:
             continue
-        # Strip phantom "market closed" placeholders
         try:
             if abs(int(american)) >= PHANTOM_ODDS_THRESHOLD:
                 skipped_phantom += 1
@@ -521,17 +578,22 @@ def bdl_get_futures_odds(tournament_id):
         except (ValueError, TypeError):
             continue
 
-        # Shorten vendor names
-        short = {"fanduel": "fd", "draftkings": "dk", "betmgm": "mgm", "caesars": "czr",
-                 "pointsbet": "pb", "bet365": "365"}.get(vendor, vendor[:3])
+        short = vendor_short.get(vendor, vendor[:3])
+        bucket = out[market]
+        if name not in bucket:
+            bucket[name] = {}
+        bucket[name][short] = f"+{american}" if american > 0 else str(american)
 
-        if name not in odds_map:
-            odds_map[name] = {}
-        odds_map[name][short] = f"+{american}" if american > 0 else str(american)
-
+    parts = [f"{k}={len(v)}" for k, v in out.items() if v]
+    summary = ", ".join(parts) if parts else "no markets parsed"
     suffix = f" ({skipped_phantom} phantom/closed-market entries skipped)" if skipped_phantom else ""
-    print(f"  Got odds for {len(odds_map)} players{suffix}")
-    return odds_map
+    if unknown_markets:
+        top_unknown = sorted(unknown_markets.items(), key=lambda kv: -kv[1])[:3]
+        suffix += " (ignored market_types: " + ", ".join(
+            f"{k}×{v}" for k, v in top_unknown
+        ) + ")"
+    print(f"  {summary}{suffix}")
+    return out
 
 
 def bdl_get_player_props(tournament_id):
@@ -3163,46 +3225,6 @@ def fetch_player_news():
     return news_items
 
 
-# ============================================================
-# PROPS BY TYPE PARSER
-# ============================================================
-
-def parse_props_by_type(bdl_props):
-    """
-    Parse BDL props dict into categorized prop groups.
-    bdl_props is keyed by player name with prop type sub-keys.
-    Returns dict with top5, top10, top20, r1Leader, make_cut sections.
-    """
-    top5 = {}
-    top10 = {}
-    top20 = {}
-    r1_leader = {}
-    make_cut = {}
-
-    for player_name, props in bdl_props.items():
-        if isinstance(props, dict):
-            for prop_key, odds_val in props.items():
-                key_lower = prop_key.lower()
-                if "top_5" in key_lower or "top5" in key_lower or "top 5" in key_lower:
-                    top5[player_name] = odds_val
-                elif "top_10" in key_lower or "top10" in key_lower or "top 10" in key_lower:
-                    top10[player_name] = odds_val
-                elif "top_20" in key_lower or "top20" in key_lower or "top 20" in key_lower:
-                    top20[player_name] = odds_val
-                elif "first_round" in key_lower or "r1_leader" in key_lower or "round 1 leader" in key_lower:
-                    r1_leader[player_name] = odds_val
-                elif "make_cut" in key_lower or "cut" in key_lower:
-                    make_cut[player_name] = odds_val
-
-    return {
-        "top5": top5,
-        "top10": top10,
-        "top20": top20,
-        "r1Leader": r1_leader,
-        "makeCut": make_cut
-    }
-
-
 def extract_stat_prop_lines(bdl_props_raw):
     """Extract actual book lines for birdie/bogey/scoring stat props.
 
@@ -4406,6 +4428,7 @@ def run_pipeline():
     # PRIMARY: BallDontLie PGA API (GOAT tier)
     # ============================================================
     bdl_tournament = None
+    bdl_futures = {k: {} for k in EMPTY_FUTURES}
     bdl_odds = {}
     bdl_props = {}
     bdl_field = []
@@ -4419,8 +4442,9 @@ def run_pipeline():
             # Get tournament field
             bdl_field = bdl_get_tournament_field(tid)
 
-            # Get futures odds (outright winner)
-            bdl_odds = bdl_get_futures_odds(tid)
+            # Get futures odds (winner + top5/10/20/makeCut/r1Leader)
+            bdl_futures = bdl_get_futures_odds(tid)
+            bdl_odds = bdl_futures.get("winner", {})
 
             # Get player props (if tournament is upcoming/in-progress)
             if bdl_tournament.get("status") in ("NOT_STARTED", "IN_PROGRESS"):
@@ -5001,13 +5025,23 @@ def run_pipeline():
     # ============================================================
     # CATEGORIZED PROPS
     # ============================================================
+    # Placement markets (top 5/10/20 + make cut + R1 leader) come from the
+    # same BDL `futures` endpoint as the outright winner — they are NOT in
+    # `player_props` (which is birdie / bogey / scoring totals only). The
+    # previous version of this block fed `bdl_props` into a parser that
+    # never produced any data, so placement Discord alerts never fired.
+    output["propsByType"] = {
+        "top5":     bdl_futures.get("top5", {}),
+        "top10":    bdl_futures.get("top10", {}),
+        "top20":    bdl_futures.get("top20", {}),
+        "makeCut":  bdl_futures.get("makeCut", {}),
+        "r1Leader": bdl_futures.get("r1Leader", {}),
+    }
     if bdl_props:
-        output["propsByType"] = parse_props_by_type(bdl_props)
         # Real book lines for stat props (birdies/bogeys/scoring/eagles)
         output["propLines"] = extract_stat_prop_lines(bdl_props)
         print(f"  Extracted book lines for {len(output['propLines'])} players")
     else:
-        output["propsByType"] = {"top5": {}, "top10": {}, "top20": {}, "r1Leader": {}, "makeCut": {}}
         output["propLines"] = {}
 
     # ============================================================

@@ -4823,9 +4823,20 @@
       container.innerHTML = '<p class="text-xs text-slate-500 text-center py-6">Live odds data not yet available for this prop type</p>';
       return;
     }
-    // Convert object to array sorted by odds value (ascending = most favored)
+    // Convert object to array sorted by odds value (ascending = most favored).
+    // Each entry's value is either a scalar odds string or a {vendor: odds}
+    // dict (BDL futures across multiple books) — collapse to best American.
     var rows = Object.entries(data).map(function(e) {
-      return { name: e[0], odds: e[1] };
+      var v = e[1];
+      var best = null;
+      if (v && typeof v === 'object') {
+        Object.keys(v).forEach(function(k) {
+          var n = parseInt(v[k]);
+          if (!isNaN(n) && (best === null || n > best)) best = n;
+        });
+        v = best === null ? '—' : (best > 0 ? '+' : '') + best;
+      }
+      return { name: e[0], odds: v };
     });
     // Sort by absolute odds value ascending
     rows.sort(function(a, b) {
@@ -5405,9 +5416,25 @@
       return odds[bookFilter] ? parseInt(odds[bookFilter]) : null;
     }
 
-    // For other prop types, use propsByType from live data
-    if (pt && pt[propType] && pt[propType][player.name]) {
-      return parseInt(pt[propType][player.name]);
+    // For other prop types, use propsByType from live data.
+    // Value is either a scalar odds string ("+450") or a {vendor: odds} dict —
+    // pick the best (highest American) for the cell when bookFilter == 'best',
+    // otherwise honor the requested book.
+    if (pt && pt[propType] && pt[propType][player.name] != null) {
+      var raw = pt[propType][player.name];
+      if (typeof raw === 'object') {
+        var pick = null;
+        if (bookFilter && bookFilter !== 'best' && raw[bookFilter] != null) {
+          pick = parseInt(raw[bookFilter]);
+        } else {
+          Object.keys(raw).forEach(function(k) {
+            var v = parseInt(raw[k]);
+            if (!isNaN(v) && (pick === null || v > pick)) pick = v;
+          });
+        }
+        return pick;
+      }
+      return parseInt(raw);
     }
 
     // Estimate from win odds using multiplier
