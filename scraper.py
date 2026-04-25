@@ -2384,15 +2384,16 @@ def send_discord_alerts(output):
                 best_book = book
         return best_book, best_val
 
-    # Track the single best (highest-EV) pick per placement market across the
-    # whole field. The previous behavior emitted every player × market pair
-    # that passed the EV threshold — on a 156-player field that produced
-    # dozens of placement alerts before the global cap kicked in. We want one
-    # decisive pick per market: the highest-confidence Outright / Top 5 /
-    # Top 10 / Top 20 / Make Cut / R1 Leader. Birdie / bogey / matchup alerts
-    # keep their own per-pick logic below.
+    # Keep the top 3 highest-confidence picks per placement market across the
+    # whole field. The pre-best-per-market behavior emitted every player ×
+    # market pair that passed the EV threshold — on a 156-player field that
+    # produced dozens of placement alerts before the global cap kicked in.
+    # Now: 3 decisive picks per market (Outright / Top 5 / Top 10 / Top 20 /
+    # Make Cut / R1 Leader). Birdie / bogey / matchup alerts keep their own
+    # per-pick logic below.
+    PICKS_PER_MARKET = 3
     props_by_type = output.get("propsByType") or {}
-    best_per_market = {}  # market_key -> alert dict (highest conf so far)
+    candidates_per_market = {}  # market_key -> list of alert dicts
     for player in output.get("players", []):
         name = player.get("name", "")
         rank = player.get("rank", "?")
@@ -2464,22 +2465,22 @@ def send_discord_alerts(output):
                 + f" {odds_str}"
             )
             candidate_conf = min(95, round(55 + ev * 1.5))
-            existing = best_per_market.get(market)
-            # Keep only the highest-conf pick per market. EV is the dominant
-            # term in candidate_conf, so this is effectively "highest EV" with
-            # the same monotonic mapping the rest of the alerter already uses.
-            if existing is None or candidate_conf > existing["conf"]:
-                best_per_market[market] = {
-                    "player": name,
-                    "prop": prop_label,
-                    "model": f"{model_prob*100:.1f}% model prob",
-                    "edge": f"+{ev:.1f}% EV",
-                    "conf": candidate_conf,
-                    "rank": rank,
-                }
+            candidates_per_market.setdefault(market, []).append({
+                "player": name,
+                "prop": prop_label,
+                "model": f"{model_prob*100:.1f}% model prob",
+                "edge": f"+{ev:.1f}% EV",
+                "conf": candidate_conf,
+                "rank": rank,
+            })
 
-    # Promote one pick per placement market into the global alerts list.
-    alerts.extend(best_per_market.values())
+    # Take the top PICKS_PER_MARKET highest-conf candidates per market and
+    # promote them into the global alerts list. EV is the dominant term in
+    # `conf`, so this is effectively "highest EV" with the same monotonic
+    # mapping the rest of the alerter already uses.
+    for market_picks in candidates_per_market.values():
+        market_picks.sort(key=lambda x: x["conf"], reverse=True)
+        alerts.extend(market_picks[:PICKS_PER_MARKET])
 
     # ---- 2-ball / 3-ball matchup alerts ----
     # Only fire when real book odds exist (source != SyntheticTeeTimes)
@@ -2543,7 +2544,10 @@ def send_discord_alerts(output):
 
     # Sort by confidence
     alerts.sort(key=lambda x: x["conf"], reverse=True)
-    top_alerts = alerts[:5]  # Max 5 per cycle
+    # Discord embed field limit is 25. With 3 placement picks × 6 markets =
+    # 18 max placements, plus a few birdies/bogeys/matchups, we stay well
+    # under the limit.
+    top_alerts = alerts[:22]
 
     # Build Discord embed
     fields = []
