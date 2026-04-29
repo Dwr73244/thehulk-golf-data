@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-04-29T16:25:40.048031",
+  "generatedAt": "2026-04-29T19:05:10.587827",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -115,7 +115,7 @@
       "anomalies": [
         {
           "type": "z_score",
-          "z": -7.09,
+          "z": -7.1,
           "direction": "OVERPRICED",
           "edge_pct": -11.11,
           "market": "outright"
@@ -170,7 +170,7 @@
       },
       "notes": "Second-best iron player. Low ball flight suits firm/windy. Premium bogey under play.",
       "odds": {
-        "dk": "+2000"
+        "dk": "+1950"
       },
       "fieldInfo": {
         "owgr": 16,
@@ -214,7 +214,7 @@
         "driving": 4.3,
         "birdie_bogey": 5.8,
         "cut": 3.0,
-        "market": 1.1,
+        "market": 1.2,
         "closing": 1.5,
         "field_strength": 2.0,
         "consistency": 1.6,
@@ -230,9 +230,9 @@
         "makeCut": 74
       },
       "confScore": 73.80000000000001,
-      "edgeScore": 6.31,
+      "edgeScore": 6.19,
       "owgrRank": 4,
-      "evScore": 132.5,
+      "evScore": 126.9,
       "scoreStd": 2.06
     },
     {
@@ -999,7 +999,7 @@
       },
       "notes": "High birdie upside but high bogey rate. Very aggressive. Best for birdie overs.",
       "odds": {
-        "dk": "+6900"
+        "dk": "+6800"
       },
       "fieldInfo": {
         "owgr": 119,
@@ -1058,9 +1058,9 @@
         "makeCut": 62
       },
       "confScore": 55.9,
-      "edgeScore": 6.96,
+      "edgeScore": 6.94,
       "owgrRank": 10,
-      "evScore": 486.9,
+      "evScore": 478.6,
       "scoreStd": 1.92
     },
     {
@@ -1218,7 +1218,7 @@
       },
       "notes": "Steady veteran. Consistent without being flashy. Good MC and top-20 candidate.",
       "odds": {
-        "dk": "+6200"
+        "dk": "+6100"
       },
       "fieldInfo": {
         "owgr": 15,
@@ -1277,9 +1277,9 @@
         "makeCut": 65
       },
       "confScore": 55.1,
-      "edgeScore": 6.68,
+      "edgeScore": 6.65,
       "owgrRank": 17,
-      "evScore": 420.7,
+      "evScore": 412.4,
       "scoreStd": 2.12
     },
     {
@@ -2593,7 +2593,7 @@
       },
       "notes": "3x major champ in a slump. Course history still matters — elite at Augusta, Colonial, Pebble. Buy low candidate.",
       "odds": {
-        "dk": "+4300"
+        "dk": "+4200"
       },
       "fieldInfo": {
         "owgr": 80,
@@ -2637,7 +2637,7 @@
         "driving": 2.8,
         "birdie_bogey": 4.3,
         "cut": 3.0,
-        "market": 0.5,
+        "market": 0.6,
         "closing": 4.0,
         "field_strength": 1.0,
         "consistency": 1.6,
@@ -2652,9 +2652,9 @@
         "makeCut": 58
       },
       "confScore": 45.699999999999996,
-      "edgeScore": 4.58,
+      "edgeScore": 4.53,
       "owgrRank": 46,
-      "evScore": 201.6,
+      "evScore": 194.8,
       "scoreStd": 1.91
     },
     {
@@ -2763,9 +2763,119 @@
       "scoreStd": 2.85
     },
     {
+      "id": 87,
+      "name": "Ryan Fox",
+      "rank": 27,
+      "sgTotal": 0.18,
+      "sgOtt": 0.28,
+      "sgApp": 0.08,
+      "sgArg": -0.05,
+      "sgPutt": -0.13,
+      "birdieAvg": 3.8,
+      "bogeyAvg": 2.3,
+      "scoringAvg": 71.6,
+      "gir": 65.5,
+      "fairways": 62.0,
+      "scramble": 56.0,
+      "proxAvg": 34.5,
+      "missDir": "left",
+      "flight": "high_draw",
+      "courseFit": {
+        "augusta": 57,
+        "tpc_sawgrass": 55,
+        "pebble": 57,
+        "torrey_south": 57,
+        "riviera": 56,
+        "valhalla": 57,
+        "pinehurst_2": 56,
+        "royal_troon": 59,
+        "royal_portrush": 53,
+        "oakmont": 52,
+        "quail_hollow": 57,
+        "east_lake": 55,
+        "bay_hill": 56,
+        "harbour_town": 56,
+        "colonial": 55,
+        "memorial": 56,
+        "tpc_scottsdale": 55
+      },
+      "augustaHistory": {
+        "appearances": 2,
+        "bestFinish": 28,
+        "cuts": 1,
+        "top10": 0,
+        "avgScore": 73.5
+      },
+      "notes": "New Zealand bomber. Son of Grant Fox. Huge off the tee but Augusta short game demands more. Better on longer bombers tracks.",
+      "odds": {
+        "dk": "+11000"
+      },
+      "fieldInfo": {
+        "owgr": 39,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 39,
+      "recentForm": {
+        "lastResult": "#44 at Cadillac Championship",
+        "lastPosition": 44,
+        "l5AvgFinish": 21.0,
+        "l10AvgFinish": 21.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 65.0,
+          "r2Avg": 72.0,
+          "r3Avg": 67.0,
+          "r4Avg": 71.0,
+          "closingDelta": 0.5
+        }
+      },
+      "makeCutPct": 50.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": 0.5,
+      "bayesianScore": {
+        "score": 72,
+        "prior": 53.6,
+        "likelihood": 75.1,
+        "posterior_sigma": 6.6,
+        "data_points": 6
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 1.2,
+        "fit": 9.1,
+        "history": 1.0,
+        "form": 7.0,
+        "gir": 5.3,
+        "driving": 3.3,
+        "birdie_bogey": 4.4,
+        "cut": 2.8,
+        "market": 0.2,
+        "closing": 1.5,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.7,
+        "ml_bayes": 5.0
+      },
+      "propScores": {
+        "win": 40,
+        "top5": 43,
+        "top10": 48,
+        "top20": 55,
+        "makeCut": 60
+      },
+      "confScore": 43.7,
+      "edgeScore": 5.65,
+      "owgrRank": 84,
+      "evScore": 627.6,
+      "scoreStd": 3.77
+    },
+    {
       "id": 41,
       "name": "Jake Knapp",
-      "rank": 27,
+      "rank": 28,
       "sgTotal": 0.28,
       "sgOtt": 0.58,
       "sgApp": 0.0,
@@ -2801,7 +2911,7 @@
       },
       "notes": "Longest hitter on Tour. Accuracy is a problem. Short game is Tour-worst tier. Only play at bomber-friendly tracks.",
       "odds": {
-        "dk": "+3000"
+        "dk": "+3500"
       },
       "fieldInfo": {
         "owgr": 105,
@@ -2845,7 +2955,7 @@
         "driving": 2.8,
         "birdie_bogey": 4.4,
         "cut": 3.0,
-        "market": 0.8,
+        "market": 0.7,
         "closing": 4.0,
         "field_strength": 1.0,
         "consistency": 1.5,
@@ -2853,22 +2963,22 @@
         "ml_bayes": -0.7
       },
       "propScores": {
-        "win": 42,
+        "win": 41,
         "top5": 45,
         "top10": 48,
         "top20": 52,
         "makeCut": 55
       },
       "confScore": 43.599999999999994,
-      "edgeScore": 3.31,
+      "edgeScore": 3.76,
       "owgrRank": 41,
-      "evScore": 102.7,
+      "evScore": 135.4,
       "scoreStd": 2.34
     },
     {
       "id": 36,
       "name": "Min Woo Lee",
-      "rank": 28,
+      "rank": 29,
       "sgTotal": 0.4,
       "sgOtt": 0.42,
       "sgApp": 0.12,
@@ -2978,7 +3088,7 @@
     {
       "id": 32,
       "name": "Taylor Pendrith",
-      "rank": 29,
+      "rank": 30,
       "sgTotal": 0.5,
       "sgOtt": 0.55,
       "sgApp": 0.1,
@@ -3081,7 +3191,7 @@
     {
       "id": 9012,
       "name": "Matt McCarty",
-      "rank": 30,
+      "rank": 31,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -3180,116 +3290,6 @@
       "owgrRank": 55,
       "evScore": 538.5,
       "scoreStd": 1.9
-    },
-    {
-      "id": 87,
-      "name": "Ryan Fox",
-      "rank": 31,
-      "sgTotal": 0.18,
-      "sgOtt": 0.28,
-      "sgApp": 0.08,
-      "sgArg": -0.05,
-      "sgPutt": -0.13,
-      "birdieAvg": 3.8,
-      "bogeyAvg": 2.3,
-      "scoringAvg": 71.6,
-      "gir": 65.5,
-      "fairways": 62.0,
-      "scramble": 56.0,
-      "proxAvg": 34.5,
-      "missDir": "left",
-      "flight": "high_draw",
-      "courseFit": {
-        "augusta": 57,
-        "tpc_sawgrass": 55,
-        "pebble": 57,
-        "torrey_south": 57,
-        "riviera": 56,
-        "valhalla": 57,
-        "pinehurst_2": 56,
-        "royal_troon": 59,
-        "royal_portrush": 53,
-        "oakmont": 52,
-        "quail_hollow": 57,
-        "east_lake": 55,
-        "bay_hill": 56,
-        "harbour_town": 56,
-        "colonial": 55,
-        "memorial": 56,
-        "tpc_scottsdale": 55
-      },
-      "augustaHistory": {
-        "appearances": 2,
-        "bestFinish": 28,
-        "cuts": 1,
-        "top10": 0,
-        "avgScore": 73.5
-      },
-      "notes": "New Zealand bomber. Son of Grant Fox. Huge off the tee but Augusta short game demands more. Better on longer bombers tracks.",
-      "odds": {
-        "dk": "+11500"
-      },
-      "fieldInfo": {
-        "owgr": 39,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 39,
-      "recentForm": {
-        "lastResult": "#44 at Cadillac Championship",
-        "lastPosition": 44,
-        "l5AvgFinish": 21.0,
-        "l10AvgFinish": 21.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 65.0,
-          "r2Avg": 72.0,
-          "r3Avg": 67.0,
-          "r4Avg": 71.0,
-          "closingDelta": 0.5
-        }
-      },
-      "makeCutPct": 50.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": 0.5,
-      "bayesianScore": {
-        "score": 72,
-        "prior": 53.6,
-        "likelihood": 75.1,
-        "posterior_sigma": 6.6,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 1.2,
-        "fit": 9.1,
-        "history": 1.0,
-        "form": 7.0,
-        "gir": 5.3,
-        "driving": 3.3,
-        "birdie_bogey": 4.4,
-        "cut": 2.8,
-        "market": 0.2,
-        "closing": 1.5,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.7,
-        "ml_bayes": 5.0
-      },
-      "propScores": {
-        "win": 40,
-        "top5": 43,
-        "top10": 48,
-        "top20": 55,
-        "makeCut": 60
-      },
-      "confScore": 42.7,
-      "edgeScore": 5.54,
-      "owgrRank": 84,
-      "evScore": 643.0,
-      "scoreStd": 3.77
     },
     {
       "id": 9002,
@@ -3433,7 +3433,7 @@
       },
       "notes": "Power player with accuracy issues. Thrives at wide courses. Short game liability.",
       "odds": {
-        "dk": "+6400"
+        "dk": "+6300"
       },
       "fieldInfo": {
         "owgr": 131,
@@ -3471,9 +3471,9 @@
         "makeCut": 56
       },
       "confScore": 42.1,
-      "edgeScore": 4.78,
+      "edgeScore": 4.75,
       "owgrRank": 42,
-      "evScore": 310.5
+      "evScore": 304.2
     },
     {
       "id": 97,
@@ -4145,7 +4145,7 @@
       },
       "notes": "Stanford product. West Coast familiarity helps. Pebble and Torrey specialist. Thin field MC candidate.",
       "odds": {
-        "dk": "+3100"
+        "dk": "+3000"
       },
       "fieldInfo": {
         "owgr": 21,
@@ -4204,9 +4204,9 @@
         "makeCut": 52
       },
       "confScore": 41.3,
-      "edgeScore": 3.07,
+      "edgeScore": 2.97,
       "owgrRank": 50,
-      "evScore": 98.2,
+      "evScore": 92.0,
       "scoreStd": 3.29
     },
     {
@@ -4351,7 +4351,7 @@
       },
       "notes": "Steady mid-tier player. No outstanding skill. MC candidate at weaker fields. Fade at marquee events.",
       "odds": {
-        "dk": "+5800"
+        "dk": "+5700"
       },
       "fieldInfo": {
         "owgr": 8,
@@ -4410,9 +4410,9 @@
         "makeCut": 60
       },
       "confScore": 41.1,
-      "edgeScore": 4.47,
+      "edgeScore": 4.44,
       "owgrRank": 49,
-      "evScore": 263.7,
+      "evScore": 257.6,
       "scoreStd": 1.87
     },
     {
@@ -4646,7 +4646,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+4000"
+        "dk": "+3900"
       },
       "fieldInfo": {
         "owgr": 37,
@@ -4705,9 +4705,9 @@
         "makeCut": 60
       },
       "confScore": 40.0,
-      "edgeScore": 3.56,
+      "edgeScore": 3.5,
       "owgrRank": 37,
-      "evScore": 146.0,
+      "evScore": 140.0,
       "scoreStd": 2.11
     },
     {
@@ -5058,7 +5058,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+39000"
+        "dk": "+38000"
       },
       "fieldInfo": {
         "owgr": 118,
@@ -5119,7 +5119,7 @@
       "confScore": 39.4,
       "edgeScore": 5.65,
       "owgrRank": 118,
-      "evScore": 2210.8,
+      "evScore": 2151.7,
       "scoreStd": 3.06
     },
     {
@@ -5470,7 +5470,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+9000"
+        "dk": "+8800"
       },
       "fieldInfo": {
         "owgr": 61,
@@ -5529,9 +5529,9 @@
         "makeCut": 57
       },
       "confScore": 38.6,
-      "edgeScore": 4.69,
+      "edgeScore": 4.67,
       "owgrRank": 61,
-      "evScore": 426.9,
+      "evScore": 415.3,
       "scoreStd": 3.28
     },
     {
@@ -7416,7 +7416,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+49000"
+        "dk": "+48000"
       },
       "fieldInfo": {
         "owgr": 99,
@@ -7475,9 +7475,9 @@
         "makeCut": 53
       },
       "confScore": 31.8,
-      "edgeScore": 4.57,
+      "edgeScore": 4.56,
       "owgrRank": 99,
-      "evScore": 2242.1
+      "evScore": 2194.4
     }
   ],
   "currentEvent": {
@@ -8483,7 +8483,7 @@
     "Scottie Scheffler": [
       {
         "type": "z_score",
-        "z": -7.09,
+        "z": -7.1,
         "direction": "OVERPRICED",
         "edge_pct": -11.11,
         "market": "outright"
@@ -8511,13 +8511,6 @@
       "current": "+315",
       "previous": "+310",
       "change": 5,
-      "direction": "longer",
-      "significant": false
-    },
-    "Collin Morikawa": {
-      "current": "+2000",
-      "previous": "+1950",
-      "change": 50,
       "direction": "longer",
       "significant": false
     },
@@ -8564,9 +8557,9 @@
       "significant": false
     },
     "Sahith Theegala": {
-      "current": "+6900",
+      "current": "+6800",
       "previous": "+6700",
-      "change": 200,
+      "change": 100,
       "direction": "longer",
       "significant": false
     },
@@ -8578,9 +8571,9 @@
       "significant": false
     },
     "Keegan Bradley": {
-      "current": "+6200",
+      "current": "+6100",
       "previous": "+6000",
-      "change": 200,
+      "change": 100,
       "direction": "longer",
       "significant": false
     },
@@ -8634,17 +8627,24 @@
       "significant": false
     },
     "Jordan Spieth": {
-      "current": "+4300",
+      "current": "+4200",
       "previous": "+4100",
-      "change": 200,
+      "change": 100,
       "direction": "longer",
       "significant": false
     },
-    "Jake Knapp": {
-      "current": "+3000",
-      "previous": "+3200",
-      "change": -200,
+    "Ryan Fox": {
+      "current": "+11000",
+      "previous": "+12500",
+      "change": -1500,
       "direction": "shorter",
+      "significant": true
+    },
+    "Jake Knapp": {
+      "current": "+3500",
+      "previous": "+3200",
+      "change": 300,
+      "direction": "longer",
       "significant": false
     },
     "Min Woo Lee": {
@@ -8654,13 +8654,6 @@
       "direction": "longer",
       "significant": false
     },
-    "Ryan Fox": {
-      "current": "+11500",
-      "previous": "+12500",
-      "change": -1000,
-      "direction": "shorter",
-      "significant": true
-    },
     "Chris Gotterup": {
       "current": "+2700",
       "previous": "+2800",
@@ -8669,11 +8662,11 @@
       "significant": false
     },
     "Keith Mitchell": {
-      "current": "+6400",
+      "current": "+6300",
       "previous": "+5900",
-      "change": 500,
+      "change": 400,
       "direction": "longer",
-      "significant": true
+      "significant": false
     },
     "Jacob Bridgeman": {
       "current": "+4400",
@@ -8711,9 +8704,9 @@
       "significant": true
     },
     "Maverick McNealy": {
-      "current": "+3100",
+      "current": "+3000",
       "previous": "+3200",
-      "change": -100,
+      "change": -200,
       "direction": "shorter",
       "significant": false
     },
@@ -8725,9 +8718,9 @@
       "significant": true
     },
     "Ben Griffin": {
-      "current": "+5800",
+      "current": "+5700",
       "previous": "+5500",
-      "change": 300,
+      "change": 200,
       "direction": "longer",
       "significant": false
     },
@@ -8746,11 +8739,11 @@
       "significant": true
     },
     "Kurt Kitayama": {
-      "current": "+4000",
+      "current": "+3900",
       "previous": "+4400",
-      "change": -400,
+      "change": -500,
       "direction": "shorter",
-      "significant": false
+      "significant": true
     },
     "Andrew Novak": {
       "current": "+13000",
@@ -8774,9 +8767,9 @@
       "significant": true
     },
     "Chandler Blanchet": {
-      "current": "+39000",
+      "current": "+38000",
       "previous": "+34000",
-      "change": 5000,
+      "change": 4000,
       "direction": "longer",
       "significant": true
     },
@@ -8802,9 +8795,9 @@
       "significant": true
     },
     "Daniel Berger": {
-      "current": "+9000",
+      "current": "+8800",
       "previous": "+9600",
-      "change": -600,
+      "change": -800,
       "direction": "shorter",
       "significant": true
     },
@@ -9091,15 +9084,15 @@
         "fd": "+330"
       },
       "Russell Henley": {
-        "dk": "+400",
+        "dk": "+395",
         "fd": "+390"
       },
       "Tommy Fleetwood": {
-        "dk": "+380",
+        "dk": "+375",
         "fd": "+390"
       },
       "Sam Burns": {
-        "dk": "+490",
+        "dk": "+485",
         "fd": "+460"
       },
       "Patrick Cantlay": {
@@ -9115,7 +9108,7 @@
         "fd": "+490"
       },
       "Justin Rose": {
-        "dk": "+620",
+        "dk": "+610",
         "fd": "+550"
       },
       "Maverick McNealy": {
@@ -9123,7 +9116,7 @@
         "fd": "+500"
       },
       "Viktor Hovland": {
-        "dk": "+520",
+        "dk": "+510",
         "fd": "+550"
       },
       "Adam Scott": {
@@ -9131,7 +9124,7 @@
         "fd": "+500"
       },
       "Jake Knapp": {
-        "dk": "+475",
+        "dk": "+570",
         "fd": "+430"
       },
       "Chris Gotterup": {
@@ -9139,7 +9132,7 @@
         "fd": "+390"
       },
       "Jordan Spieth": {
-        "dk": "+620",
+        "dk": "+610",
         "fd": "+750"
       },
       "Harris English": {
@@ -9147,11 +9140,11 @@
         "fd": "+550"
       },
       "Jacob Bridgeman": {
-        "dk": "+630",
+        "dk": "+620",
         "fd": "+550"
       },
       "Rickie Fowler": {
-        "dk": "+680",
+        "dk": "+670",
         "fd": "+750"
       },
       "Min Woo Lee": {
@@ -9175,19 +9168,19 @@
         "fd": "+600"
       },
       "Kurt Kitayama": {
-        "dk": "+590",
+        "dk": "+580",
         "fd": "+600"
       },
       "J.J. Spaun": {
-        "dk": "+760",
+        "dk": "+750",
         "fd": "+850"
       },
       "Nicolai Højgaard": {
-        "dk": "+620",
+        "dk": "+610",
         "fd": "+600"
       },
       "Shane Lowry": {
-        "dk": "+830",
+        "dk": "+820",
         "fd": "+850"
       },
       "Sepp Straka": {
@@ -9211,7 +9204,7 @@
         "fd": "+1100"
       },
       "Sahith Theegala": {
-        "dk": "+910",
+        "dk": "+900",
         "fd": "+950"
       },
       "Sam Stevens": {
@@ -9222,7 +9215,7 @@
         "fd": "+950"
       },
       "Pierceson Coody": {
-        "dk": "+990",
+        "dk": "+980",
         "fd": "+1000"
       },
       "Gary Woodland": {
@@ -9234,7 +9227,7 @@
         "fd": "+1000"
       },
       "Corey Conners": {
-        "dk": "+1100",
+        "dk": "+1075",
         "fd": "+1200"
       },
       "Daniel Berger": {
@@ -9274,7 +9267,7 @@
         "fd": "+1000"
       },
       "Ryan Fox": {
-        "dk": "+1400",
+        "dk": "+1375",
         "fd": "+1400"
       },
       "Taylor Pendrith": {
@@ -9298,7 +9291,7 @@
         "fd": "+2500"
       },
       "Max Homa": {
-        "dk": "+1650",
+        "dk": "+1600",
         "fd": "+2000"
       },
       "Michael Kim": {
@@ -9310,7 +9303,7 @@
         "fd": "+1500"
       },
       "Max Greyserman": {
-        "dk": "+1700",
+        "dk": "+1650",
         "fd": "+2200"
       },
       "Austin Smotherman": {
@@ -9326,11 +9319,11 @@
         "fd": "+3300"
       },
       "Chandler Blanchet": {
-        "dk": "+3600",
+        "dk": "+3500",
         "fd": "+3000"
       },
       "Joel Dahmen": {
-        "dk": "+3500",
+        "dk": "+3400",
         "fd": "+3500"
       },
       "Nico Echavarria": {
@@ -9338,11 +9331,11 @@
         "fd": "+4000"
       },
       "Jhonattan Vegas": {
-        "dk": "+4100",
+        "dk": "+4000",
         "fd": "+4000"
       },
       "Lucas Glover": {
-        "dk": "+4700",
+        "dk": "+4600",
         "fd": "+4500"
       },
       "David Lipsky": {
@@ -9380,12 +9373,12 @@
         "fd": "-110"
       },
       "Collin Morikawa": {
-        "dk": "+152",
+        "dk": "+150",
         "fd": "+145"
       },
       "Russell Henley": {
         "dk": "+178",
-        "fd": "+165"
+        "fd": "+175"
       },
       "Tommy Fleetwood": {
         "dk": "+172",
@@ -9408,7 +9401,7 @@
         "fd": "+220"
       },
       "Maverick McNealy": {
-        "dk": "+220",
+        "dk": "+215",
         "fd": "+220"
       },
       "Justin Rose": {
@@ -9428,7 +9421,7 @@
         "fd": "+180"
       },
       "Jake Knapp": {
-        "dk": "+215",
+        "dk": "+260",
         "fd": "+190"
       },
       "Jordan Spieth": {
@@ -9452,11 +9445,11 @@
         "fd": "+330"
       },
       "Ben Griffin": {
-        "dk": "+340",
+        "dk": "+335",
         "fd": "+360"
       },
       "Jason Day": {
-        "dk": "+365",
+        "dk": "+360",
         "fd": "+450"
       },
       "Akshay Bhatia": {
@@ -9500,11 +9493,11 @@
         "fd": "+390"
       },
       "Alex Noren": {
-        "dk": "+475",
-        "fd": "+480"
+        "dk": "+470",
+        "fd": "+470"
       },
       "Sahith Theegala": {
-        "dk": "+390",
+        "dk": "+385",
         "fd": "+420"
       },
       "Sam Stevens": {
@@ -9524,14 +9517,14 @@
       },
       "Ryo Hisatsune": {
         "dk": "+445",
-        "fd": "+480"
+        "fd": "+470"
       },
       "Corey Conners": {
         "dk": "+460",
         "fd": "+500"
       },
       "Daniel Berger": {
-        "dk": "+465",
+        "dk": "+460",
         "fd": "+550"
       },
       "Jordan Smith": {
@@ -9552,7 +9545,7 @@
       },
       "Ricky Castillo": {
         "dk": "+540",
-        "fd": "+550"
+        "fd": "+600"
       },
       "J.T. Poston": {
         "dk": "+590",
@@ -9563,11 +9556,11 @@
         "fd": "+650"
       },
       "Sudarshan Yellamaraju": {
-        "dk": "+475",
+        "dk": "+470",
         "fd": "+450"
       },
       "Taylor Pendrith": {
-        "dk": "+590",
+        "dk": "+580",
         "fd": "+600"
       },
       "Ryan Fox": {
@@ -9587,7 +9580,7 @@
         "fd": "+550"
       },
       "Denny McCarthy": {
-        "dk": "+800",
+        "dk": "+790",
         "fd": "+950"
       },
       "Max Homa": {
@@ -9599,11 +9592,11 @@
         "fd": "+600"
       },
       "Michael Kim": {
-        "dk": "+760",
+        "dk": "+750",
         "fd": "+850"
       },
       "Max Greyserman": {
-        "dk": "+690",
+        "dk": "+680",
         "fd": "+1000"
       },
       "Austin Smotherman": {
@@ -9611,7 +9604,7 @@
         "fd": "+850"
       },
       "Aldrich Potgieter": {
-        "dk": "+690",
+        "dk": "+680",
         "fd": "+550"
       },
       "Andrew Putnam": {
@@ -9623,7 +9616,7 @@
         "fd": "+1300"
       },
       "Chandler Blanchet": {
-        "dk": "+1300",
+        "dk": "+1275",
         "fd": "+1200"
       },
       "Nico Echavarria": {
@@ -9644,18 +9637,18 @@
       },
       "Tom Hoge": {
         "dk": "+1550",
-        "fd": "+1600"
+        "fd": "+1800"
       },
       "Brian Campbell": {
         "dk": "+3200",
-        "fd": "+4000"
+        "fd": "+3000"
       },
       "Keith Mitchell": {
         "dk": "+375",
         "fd": "+420"
       },
       "Alex Smalley": {
-        "dk": "+475",
+        "dk": "+470",
         "fd": "+420"
       },
       "Alex Fitzpatrick": {
@@ -9674,7 +9667,7 @@
         "fd": "-195"
       },
       "Russell Henley": {
-        "fd": "-170"
+        "fd": "-165"
       },
       "Min Woo Lee": {
         "fd": "-165"
@@ -9797,10 +9790,10 @@
         "fd": "+175"
       },
       "Ricky Castillo": {
-        "fd": "+195"
+        "fd": "+210"
       },
       "Daniel Berger": {
-        "fd": "+195"
+        "fd": "+190"
       },
       "Alex Fitzpatrick": {
         "fd": "+240"
@@ -9875,7 +9868,7 @@
         "fd": "+550"
       },
       "Brian Campbell": {
-        "fd": "+1200"
+        "fd": "+900"
       },
       "Michael Thorbjornsen": {
         "fd": "-105"
@@ -9893,7 +9886,7 @@
         "fd": "+2500"
       },
       "Russell Henley": {
-        "fd": "+2700"
+        "fd": "+3000"
       },
       "Min Woo Lee": {
         "fd": "+2700"
@@ -9929,7 +9922,7 @@
         "fd": "+2700"
       },
       "Harris English": {
-        "fd": "+3000"
+        "fd": "+3300"
       },
       "Kurt Kitayama": {
         "fd": "+3300"
@@ -10034,7 +10027,7 @@
         "fd": "+7000"
       },
       "Sungjae Im": {
-        "fd": "+5500"
+        "fd": "+5000"
       },
       "Matt Wallace": {
         "fd": "+5500"
@@ -10094,7 +10087,7 @@
         "fd": "+8000"
       },
       "Brian Campbell": {
-        "fd": "+15000"
+        "fd": "+12500"
       },
       "Michael Thorbjornsen": {
         "fd": "+3500"
