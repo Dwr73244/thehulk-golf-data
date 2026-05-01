@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-05-01T05:45:18.887358",
+  "generatedAt": "2026-05-01T11:50:34.886402",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -66,23 +66,23 @@
       "recentForm": {
         "lastResult": "#33 at Cadillac Championship",
         "lastPosition": 33,
-        "l5AvgFinish": 17.5,
-        "l10AvgFinish": 17.5,
+        "l5AvgFinish": 33.0,
+        "l10AvgFinish": 33.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 69.5
+          "r1Avg": 71.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 89,
+        "score": 87,
         "prior": 95,
-        "likelihood": 78.3,
-        "posterior_sigma": 14.3,
-        "data_points": 9
+        "likelihood": 73.9,
+        "posterior_sigma": 14.1,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -100,36 +100,36 @@
         "consistency": 1.6,
         "par5": 2.7,
         "cross_signal": 3.0,
-        "ml_bayes": 1.9
+        "ml_bayes": 1.3
       },
       "propScores": {
-        "win": 87,
+        "win": 86,
         "top5": 84,
-        "top10": 83,
+        "top10": 82,
         "top20": 80,
         "makeCut": 77
       },
-      "confScore": 84.60000000000001,
-      "edgeScore": -9.53,
+      "confScore": 84.0,
+      "edgeScore": -9.62,
       "owgrRank": 1,
       "anomalies": [
         {
           "type": "z_score",
-          "z": -2.67,
+          "z": -2.7,
           "direction": "OVERPRICED",
-          "edge_pct": -9.53,
+          "edge_pct": -9.62,
           "market": "outright"
         },
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -9.53,
-          "fence": 2.16,
+          "edge_pct": -9.62,
+          "fence": 1.92,
           "market": "outright"
         }
       ],
-      "evScore": 18.0,
-      "scoreStd": 1.88
+      "evScore": 17.2,
+      "scoreStd": 2.07
     },
     {
       "id": 4,
@@ -186,23 +186,23 @@
       "recentForm": {
         "lastResult": "#65 at Cadillac Championship",
         "lastPosition": 65,
-        "l5AvgFinish": 34.5,
-        "l10AvgFinish": 34.5,
+        "l5AvgFinish": 65.0,
+        "l10AvgFinish": 65.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 71.0
+          "r1Avg": 75.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 78,
+        "score": 75,
         "prior": 85.0,
-        "likelihood": 64.7,
+        "likelihood": 54.3,
         "posterior_sigma": 14.6,
-        "data_points": 9
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -220,20 +220,20 @@
         "consistency": 1.6,
         "par5": 1.9,
         "cross_signal": 3.0,
-        "ml_bayes": 2.4
+        "ml_bayes": 1.5
       },
       "propScores": {
         "win": 73,
-        "top5": 73,
-        "top10": 73,
+        "top5": 72,
+        "top10": 72,
         "top20": 73,
-        "makeCut": 73
+        "makeCut": 72
       },
-      "confScore": 72.30000000000001,
-      "edgeScore": 6.5,
+      "confScore": 71.4,
+      "edgeScore": 6.36,
       "owgrRank": 4,
-      "evScore": 4357.3,
-      "scoreStd": 2.69
+      "evScore": 4301.8,
+      "scoreStd": 3.1
     },
     {
       "id": 6,
@@ -287,14 +287,6 @@
         "inField": true
       },
       "owgr": 24,
-      "recentForm": {
-        "l5AvgFinish": 11.0,
-        "l10AvgFinish": 11.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
-      },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
@@ -390,23 +382,23 @@
       "recentForm": {
         "lastResult": "#64 at Cadillac Championship",
         "lastPosition": 64,
-        "l5AvgFinish": 57.0,
-        "l10AvgFinish": 57.0,
+        "l5AvgFinish": 64.0,
+        "l10AvgFinish": 64.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 69.5
+          "r1Avg": 75.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 65,
+        "score": 63,
         "prior": 77.0,
-        "likelihood": 40.4,
+        "likelihood": 35.0,
         "posterior_sigma": 14.6,
-        "data_points": 9
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -423,19 +415,19 @@
         "field_strength": 2.0,
         "consistency": 1.4,
         "par5": 1.8,
-        "ml_bayes": 1.6
+        "ml_bayes": 1.0
       },
       "propScores": {
-        "win": 62,
-        "top5": 62,
-        "top10": 62,
-        "top20": 63,
-        "makeCut": 63
+        "win": 61,
+        "top5": 61,
+        "top10": 61,
+        "top20": 62,
+        "makeCut": 62
       },
-      "confScore": 61.4,
-      "edgeScore": 5.98,
+      "confScore": 60.8,
+      "edgeScore": 5.89,
       "owgrRank": 8,
-      "evScore": 231.6
+      "evScore": 228.3
     },
     {
       "id": 9,
@@ -492,13 +484,13 @@
       "recentForm": {
         "lastResult": "#25 at Cadillac Championship",
         "lastPosition": 25,
-        "l5AvgFinish": 39.0,
-        "l10AvgFinish": 39.0,
+        "l5AvgFinish": 25.0,
+        "l10AvgFinish": 25.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 73.0
+          "r1Avg": 70.0
         }
       },
       "makeCutPct": 60.0,
@@ -506,8 +498,8 @@
       "bayesianScore": {
         "score": 65,
         "prior": 75.0,
-        "likelihood": 47.7,
-        "posterior_sigma": 14.1,
+        "likelihood": 50.3,
+        "posterior_sigma": 13.8,
         "data_points": 10
       },
       "competitiveness": "active",
@@ -538,7 +530,7 @@
       "edgeScore": 5.21,
       "owgrRank": 9,
       "evScore": 180.9,
-      "scoreStd": 3.88
+      "scoreStd": 3.77
     },
     {
       "id": 10,
@@ -595,8 +587,8 @@
       "recentForm": {
         "lastResult": "#11 at Cadillac Championship",
         "lastPosition": 11,
-        "l5AvgFinish": 19.0,
-        "l10AvgFinish": 19.0,
+        "l5AvgFinish": 11.0,
+        "l10AvgFinish": 11.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -607,11 +599,11 @@
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 71,
+        "score": 73,
         "prior": 73.6,
-        "likelihood": 69.3,
-        "posterior_sigma": 10.2,
-        "data_points": 6
+        "likelihood": 73.1,
+        "posterior_sigma": 10.5,
+        "data_points": 7
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -628,25 +620,127 @@
         "field_strength": 2.0,
         "consistency": 1.4,
         "par5": 1.6,
-        "ml_bayes": 3.5
+        "ml_bayes": 4.6
       },
       "propScores": {
-        "win": 60,
-        "top5": 60,
+        "win": 61,
+        "top5": 61,
+        "top10": 62,
+        "top20": 63,
+        "makeCut": 64
+      },
+      "confScore": 60.2,
+      "edgeScore": 7.03,
+      "owgrRank": 10,
+      "evScore": 351.5,
+      "scoreStd": 1.81
+    },
+    {
+      "id": 11,
+      "name": "Hideki Matsuyama",
+      "rank": 7,
+      "sgTotal": 1.12,
+      "sgOtt": 0.38,
+      "sgApp": 0.52,
+      "sgArg": 0.12,
+      "sgPutt": 0.1,
+      "birdieAvg": 4.4,
+      "bogeyAvg": 2.2,
+      "scoringAvg": 70.0,
+      "gir": 69.0,
+      "fairways": 64.0,
+      "scramble": 60.0,
+      "proxAvg": 32.5,
+      "missDir": "left",
+      "flight": "high_draw",
+      "courseFit": {
+        "augusta": 76,
+        "tpc_sawgrass": 72,
+        "pebble": 70,
+        "torrey_south": 71,
+        "riviera": 72,
+        "valhalla": 71,
+        "pinehurst_2": 71,
+        "royal_troon": 70,
+        "royal_portrush": 69,
+        "oakmont": 70,
+        "quail_hollow": 71,
+        "east_lake": 72,
+        "bay_hill": 71,
+        "harbour_town": 69,
+        "colonial": 71,
+        "memorial": 73,
+        "tpc_scottsdale": 73
+      },
+      "notes": "Masters champion. Elite approach play with high ball flight. Streaky putter — hot weeks can win anywhere.",
+      "odds": {
+        "dk": "+3800",
+        "low": "+4500",
+        "bol": "+4500",
+        "mgm": "+4000",
+        "fd": "+4000",
+        "riv": "+3300"
+      },
+      "fieldInfo": {
+        "owgr": 17,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 17,
+      "recentForm": {
+        "lastResult": "#24 at Cadillac Championship",
+        "lastPosition": 24,
+        "l5AvgFinish": 24.0,
+        "l10AvgFinish": 24.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 70.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 64,
+        "prior": 72.4,
+        "likelihood": 63.4,
+        "posterior_sigma": 4.9,
+        "data_points": 5
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 9.0,
+        "fit": 12.2,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 6.8,
+        "driving": 3.7,
+        "birdie_bogey": 5.4,
+        "cut": 3.0,
+        "market": 0.6,
+        "closing": 2.0,
+        "field_strength": 1.5,
+        "consistency": 1.5,
+        "par5": 1.4,
+        "ml_bayes": 1.2
+      },
+      "propScores": {
+        "win": 58,
+        "top5": 59,
         "top10": 60,
         "top20": 62,
         "makeCut": 63
       },
-      "confScore": 59.1,
-      "edgeScore": 6.87,
-      "owgrRank": 10,
-      "evScore": 343.2,
-      "scoreStd": 1.86
+      "confScore": 58.6,
+      "edgeScore": 6.23,
+      "owgrRank": 11,
+      "evScore": 242.8
     },
     {
       "id": 13,
       "name": "Shane Lowry",
-      "rank": 7,
+      "rank": 8,
       "sgTotal": 1.02,
       "sgOtt": 0.3,
       "sgApp": 0.42,
@@ -711,17 +805,17 @@
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 71.0
+          "r1Avg": 72.0
         }
       },
       "makeCutPct": 83.3,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 61,
+        "score": 59,
         "prior": 70.4,
-        "likelihood": 51.4,
-        "posterior_sigma": 12.6,
-        "data_points": 9
+        "likelihood": 48.7,
+        "posterior_sigma": 12.2,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -738,235 +832,25 @@
         "field_strength": 1.5,
         "consistency": 1.5,
         "par5": 1.1,
-        "ml_bayes": 1.2
-      },
-      "propScores": {
-        "win": 57,
-        "top5": 58,
-        "top10": 60,
-        "top20": 63,
-        "makeCut": 66
-      },
-      "confScore": 58.300000000000004,
-      "edgeScore": 6.78,
-      "owgrRank": 13,
-      "evScore": 1657.7,
-      "scoreStd": 1.76
-    },
-    {
-      "id": 11,
-      "name": "Hideki Matsuyama",
-      "rank": 8,
-      "sgTotal": 1.12,
-      "sgOtt": 0.38,
-      "sgApp": 0.52,
-      "sgArg": 0.12,
-      "sgPutt": 0.1,
-      "birdieAvg": 4.4,
-      "bogeyAvg": 2.2,
-      "scoringAvg": 70.0,
-      "gir": 69.0,
-      "fairways": 64.0,
-      "scramble": 60.0,
-      "proxAvg": 32.5,
-      "missDir": "left",
-      "flight": "high_draw",
-      "courseFit": {
-        "augusta": 76,
-        "tpc_sawgrass": 72,
-        "pebble": 70,
-        "torrey_south": 71,
-        "riviera": 72,
-        "valhalla": 71,
-        "pinehurst_2": 71,
-        "royal_troon": 70,
-        "royal_portrush": 69,
-        "oakmont": 70,
-        "quail_hollow": 71,
-        "east_lake": 72,
-        "bay_hill": 71,
-        "harbour_town": 69,
-        "colonial": 71,
-        "memorial": 73,
-        "tpc_scottsdale": 73
-      },
-      "notes": "Masters champion. Elite approach play with high ball flight. Streaky putter — hot weeks can win anywhere.",
-      "odds": {
-        "dk": "+3800",
-        "low": "+4500",
-        "bol": "+4500",
-        "mgm": "+4000",
-        "fd": "+4000",
-        "riv": "+3300"
-      },
-      "fieldInfo": {
-        "owgr": 17,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 17,
-      "recentForm": {
-        "lastResult": "#24 at Cadillac Championship",
-        "lastPosition": 24,
-        "l5AvgFinish": 24.0,
-        "l10AvgFinish": 24.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 62,
-        "prior": 72.4,
-        "likelihood": 60.9,
-        "posterior_sigma": 4.8,
-        "data_points": 5
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 9.0,
-        "fit": 12.2,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 6.8,
-        "driving": 3.7,
-        "birdie_bogey": 5.4,
-        "cut": 3.0,
-        "market": 0.6,
-        "closing": 2.0,
-        "field_strength": 1.5,
-        "consistency": 1.5,
-        "par5": 1.4,
-        "ml_bayes": 0.9
-      },
-      "propScores": {
-        "win": 58,
-        "top5": 59,
-        "top10": 60,
-        "top20": 62,
-        "makeCut": 63
-      },
-      "confScore": 58.3,
-      "edgeScore": 6.18,
-      "owgrRank": 11,
-      "evScore": 241.1
-    },
-    {
-      "id": 15,
-      "name": "Sam Burns",
-      "rank": 9,
-      "sgTotal": 0.92,
-      "sgOtt": 0.45,
-      "sgApp": 0.35,
-      "sgArg": 0.08,
-      "sgPutt": 0.04,
-      "birdieAvg": 4.5,
-      "bogeyAvg": 2.4,
-      "scoringAvg": 70.3,
-      "gir": 67.0,
-      "fairways": 60.0,
-      "scramble": 58.5,
-      "proxAvg": 34.5,
-      "missDir": "right",
-      "flight": "high_fade",
-      "courseFit": {
-        "augusta": 68,
-        "tpc_sawgrass": 69,
-        "pebble": 66,
-        "torrey_south": 68,
-        "riviera": 67,
-        "valhalla": 69,
-        "pinehurst_2": 67,
-        "royal_troon": 65,
-        "royal_portrush": 65,
-        "oakmont": 65,
-        "quail_hollow": 69,
-        "east_lake": 69,
-        "bay_hill": 68,
-        "harbour_town": 66,
-        "colonial": 67,
-        "memorial": 69,
-        "tpc_scottsdale": 69
-      },
-      "augustaHistory": {
-        "appearances": 4,
-        "bestFinish": 8,
-        "cuts": 3,
-        "top10": 1,
-        "avgScore": 71.8
-      },
-      "notes": "Talented ball-striker with streaky putting. When putter is hot, can contend anywhere.",
-      "fieldInfo": {
-        "owgr": 25,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 25,
-      "odds": {
-        "low": "+7000",
-        "bol": "+7000",
-        "mgm": "+5500",
-        "dk": "+6000",
-        "fd": "+5000",
-        "riv": "+6600"
-      },
-      "recentForm": {
-        "lastResult": "#69 at Cadillac Championship",
-        "lastPosition": 69,
-        "l5AvgFinish": 44.5,
-        "l10AvgFinish": 44.5,
-        "l5McPct": 50,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 73.0
-        }
-      },
-      "makeCutPct": 75.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 65,
-        "prior": 68.4,
-        "likelihood": 59.9,
-        "posterior_sigma": 14.6,
-        "data_points": 9
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 7.2,
-        "fit": 10.9,
-        "history": 4.5,
-        "form": 7.0,
-        "gir": 6.0,
-        "driving": 3.3,
-        "birdie_bogey": 5.2,
-        "cut": 3.3,
-        "market": 0.5,
-        "closing": 2.0,
-        "field_strength": 1.5,
-        "consistency": 1.4,
-        "par5": 1.4,
-        "ml_bayes": 3.2
+        "ml_bayes": 0.6
       },
       "propScores": {
         "win": 56,
         "top5": 58,
         "top10": 59,
-        "top20": 62,
-        "makeCut": 64
+        "top20": 63,
+        "makeCut": 65
       },
-      "confScore": 57.6,
-      "edgeScore": 6.68,
-      "owgrRank": 15,
-      "evScore": 427.0,
-      "scoreStd": 3.31
+      "confScore": 57.7,
+      "edgeScore": 6.69,
+      "owgrRank": 13,
+      "evScore": 1639.7,
+      "scoreStd": 1.8
     },
     {
       "id": 22,
       "name": "Cameron Young",
-      "rank": 10,
+      "rank": 9,
       "sgTotal": 0.75,
       "sgOtt": 0.65,
       "sgApp": 0.18,
@@ -1018,23 +902,23 @@
       "recentForm": {
         "lastResult": "#1 at Cadillac Championship",
         "lastPosition": 1,
-        "l5AvgFinish": 15.5,
-        "l10AvgFinish": 15.5,
+        "l5AvgFinish": 1.0,
+        "l10AvgFinish": 1.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 67.5
+          "r1Avg": 64.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 67,
+        "score": 69,
         "prior": 65.0,
-        "likelihood": 68.7,
-        "posterior_sigma": 12.1,
-        "data_points": 9
+        "likelihood": 73.8,
+        "posterior_sigma": 12.7,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -1051,151 +935,144 @@
         "field_strength": 1.5,
         "consistency": 1.4,
         "par5": 1.6,
-        "ml_bayes": 4.3
+        "ml_bayes": 4.9
       },
       "propScores": {
         "win": 56,
-        "top5": 57,
+        "top5": 58,
         "top10": 59,
-        "top20": 61,
-        "makeCut": 63
+        "top20": 62,
+        "makeCut": 64
       },
-      "confScore": 56.9,
-      "edgeScore": -29.63,
+      "confScore": 57.5,
+      "edgeScore": -29.54,
       "owgrRank": 22,
       "anomalies": [
         {
           "type": "z_score",
           "z": -6.58,
           "direction": "OVERPRICED",
-          "edge_pct": -29.63,
+          "edge_pct": -29.54,
           "market": "outright"
         },
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -29.63,
-          "fence": 2.16,
+          "edge_pct": -29.54,
+          "fence": 1.92,
           "market": "outright"
         }
       ],
-      "evScore": -77.6,
-      "scoreStd": 2.25
+      "evScore": -77.4,
+      "scoreStd": 2.41
     },
     {
-      "id": 17,
-      "name": "Keegan Bradley",
-      "rank": 11,
-      "sgTotal": 0.88,
-      "sgOtt": 0.35,
-      "sgApp": 0.32,
-      "sgArg": 0.12,
-      "sgPutt": 0.09,
-      "birdieAvg": 4.1,
-      "bogeyAvg": 2.2,
+      "id": 14,
+      "name": "Sungjae Im",
+      "rank": 10,
+      "sgTotal": 0.95,
+      "sgOtt": 0.28,
+      "sgApp": 0.4,
+      "sgArg": 0.15,
+      "sgPutt": 0.12,
+      "birdieAvg": 4.0,
+      "bogeyAvg": 2.0,
       "scoringAvg": 70.4,
-      "gir": 67.5,
-      "fairways": 65.0,
-      "scramble": 60.5,
-      "proxAvg": 34.2,
-      "missDir": "left",
-      "flight": "high_draw",
+      "gir": 68.5,
+      "fairways": 69.0,
+      "scramble": 61.5,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
       "courseFit": {
-        "augusta": 66,
-        "tpc_sawgrass": 66,
-        "pebble": 65,
+        "augusta": 68,
+        "tpc_sawgrass": 69,
+        "pebble": 67,
         "torrey_south": 66,
-        "riviera": 67,
+        "riviera": 68,
         "valhalla": 67,
-        "pinehurst_2": 67,
-        "royal_troon": 66,
-        "royal_portrush": 65,
-        "oakmont": 65,
-        "quail_hollow": 67,
-        "east_lake": 66,
-        "bay_hill": 66,
-        "harbour_town": 67,
-        "colonial": 68,
-        "memorial": 68,
-        "tpc_scottsdale": 66
+        "pinehurst_2": 68,
+        "royal_troon": 67,
+        "royal_portrush": 66,
+        "oakmont": 67,
+        "quail_hollow": 68,
+        "east_lake": 68,
+        "bay_hill": 68,
+        "harbour_town": 69,
+        "colonial": 70,
+        "memorial": 69,
+        "tpc_scottsdale": 68
       },
-      "augustaHistory": {
-        "appearances": 10,
-        "bestFinish": 14,
-        "cuts": 7,
-        "top10": 0,
-        "avgScore": 72.5
-      },
-      "notes": "Steady veteran. Consistent without being flashy. Good MC and top-20 candidate.",
+      "notes": "Iron man — plays every week. Rarely misses cuts. Great for MC and top 20 props.",
       "odds": {
-        "dk": "+20000",
-        "low": "+15000",
-        "bol": "+15000",
-        "mgm": "+9000",
-        "fd": "+10000",
-        "riv": "+10000"
+        "dk": "+14500",
+        "low": "+13500",
+        "bol": "+13500",
+        "mgm": "+10000",
+        "fd": "+6500",
+        "riv": "+6600"
       },
       "fieldInfo": {
-        "owgr": 15,
+        "owgr": 41,
         "entryStatus": "IN",
         "inField": true
       },
-      "owgr": 15,
+      "owgr": 41,
       "recentForm": {
-        "lastResult": "#45 at Cadillac Championship",
-        "lastPosition": 45,
-        "l5AvgFinish": 29.0,
-        "l10AvgFinish": 29.0,
+        "lastResult": "#15 at Cadillac Championship",
+        "lastPosition": 15,
+        "l5AvgFinish": 15.0,
+        "l10AvgFinish": 15.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 69.5
+          "r1Avg": 70.0
         }
       },
-      "makeCutPct": 70.0,
+      "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 67,
-        "prior": 67.6,
-        "likelihood": 67.2,
-        "posterior_sigma": 13.4,
+        "score": 64,
+        "prior": 69.0,
+        "likelihood": 58.7,
+        "posterior_sigma": 12.4,
         "data_points": 9
       },
       "competitiveness": "active",
       "confBreakdown": {
-        "sg": 6.9,
-        "fit": 10.6,
-        "history": 3.0,
+        "sg": 7.6,
+        "fit": 10.9,
+        "history": 3.5,
         "form": 7.0,
-        "gir": 6.1,
-        "driving": 3.8,
-        "birdie_bogey": 5.0,
-        "cut": 3.2,
-        "market": 0.3,
+        "gir": 6.4,
+        "driving": 4.1,
+        "birdie_bogey": 5.1,
+        "cut": 3.0,
+        "market": 0.4,
         "closing": 2.0,
         "field_strength": 1.5,
-        "consistency": 1.5,
+        "consistency": 1.6,
         "par5": 1.1,
-        "ml_bayes": 4.5
+        "ml_bayes": 3.0
       },
       "propScores": {
-        "win": 55,
-        "top5": 57,
-        "top10": 59,
-        "top20": 62,
-        "makeCut": 64
+        "win": 56,
+        "top5": 58,
+        "top10": 60,
+        "top20": 63,
+        "makeCut": 65
       },
-      "confScore": 56.6,
-      "edgeScore": 7.39,
-      "owgrRank": 17,
-      "evScore": 1606.5,
-      "scoreStd": 2.23
+      "confScore": 57.1,
+      "edgeScore": 7.05,
+      "owgrRank": 14,
+      "evScore": 1150.5,
+      "scoreStd": 2.29
     },
     {
       "id": 12,
       "name": "Max Homa",
-      "rank": 12,
+      "rank": 11,
       "sgTotal": 1.05,
       "sgOtt": 0.42,
       "sgApp": 0.38,
@@ -1254,9 +1131,9 @@
       "recentForm": {
         "lastResult": "#21 at Cadillac Championship",
         "lastPosition": 21,
-        "l5AvgFinish": 45.0,
-        "l10AvgFinish": 45.0,
-        "l5McPct": 50,
+        "l5AvgFinish": 21.0,
+        "l10AvgFinish": 21.0,
+        "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
@@ -1266,11 +1143,11 @@
       "makeCutPct": 75.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 60,
+        "score": 62,
         "prior": 71.0,
-        "likelihood": 39.1,
+        "likelihood": 45.5,
         "posterior_sigma": 14.6,
-        "data_points": 9
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -1287,25 +1164,348 @@
         "field_strength": 1.5,
         "consistency": 1.5,
         "par5": 1.4,
-        "ml_bayes": 1.7
+        "ml_bayes": 2.3
+      },
+      "propScores": {
+        "win": 56,
+        "top5": 57,
+        "top10": 58,
+        "top20": 62,
+        "makeCut": 64
+      },
+      "confScore": 56.699999999999996,
+      "edgeScore": 6.99,
+      "owgrRank": 12,
+      "evScore": 1014.2,
+      "scoreStd": 1.8
+    },
+    {
+      "id": 15,
+      "name": "Sam Burns",
+      "rank": 12,
+      "sgTotal": 0.92,
+      "sgOtt": 0.45,
+      "sgApp": 0.35,
+      "sgArg": 0.08,
+      "sgPutt": 0.04,
+      "birdieAvg": 4.5,
+      "bogeyAvg": 2.4,
+      "scoringAvg": 70.3,
+      "gir": 67.0,
+      "fairways": 60.0,
+      "scramble": 58.5,
+      "proxAvg": 34.5,
+      "missDir": "right",
+      "flight": "high_fade",
+      "courseFit": {
+        "augusta": 68,
+        "tpc_sawgrass": 69,
+        "pebble": 66,
+        "torrey_south": 68,
+        "riviera": 67,
+        "valhalla": 69,
+        "pinehurst_2": 67,
+        "royal_troon": 65,
+        "royal_portrush": 65,
+        "oakmont": 65,
+        "quail_hollow": 69,
+        "east_lake": 69,
+        "bay_hill": 68,
+        "harbour_town": 66,
+        "colonial": 67,
+        "memorial": 69,
+        "tpc_scottsdale": 69
+      },
+      "augustaHistory": {
+        "appearances": 4,
+        "bestFinish": 8,
+        "cuts": 3,
+        "top10": 1,
+        "avgScore": 71.8
+      },
+      "notes": "Talented ball-striker with streaky putting. When putter is hot, can contend anywhere.",
+      "fieldInfo": {
+        "owgr": 25,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 25,
+      "odds": {
+        "low": "+7000",
+        "bol": "+7000",
+        "mgm": "+5500",
+        "dk": "+6000",
+        "fd": "+5000",
+        "riv": "+6600"
+      },
+      "recentForm": {
+        "lastResult": "#69 at Cadillac Championship",
+        "lastPosition": 69,
+        "l5AvgFinish": 69.0,
+        "l10AvgFinish": 69.0,
+        "l5McPct": 0,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 76.0
+        }
+      },
+      "makeCutPct": 75.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 62,
+        "prior": 68.4,
+        "likelihood": 49.4,
+        "posterior_sigma": 14.6,
+        "data_points": 10
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 7.2,
+        "fit": 10.9,
+        "history": 4.5,
+        "form": 7.0,
+        "gir": 6.0,
+        "driving": 3.3,
+        "birdie_bogey": 5.2,
+        "cut": 3.3,
+        "market": 0.5,
+        "closing": 2.0,
+        "field_strength": 1.5,
+        "consistency": 1.4,
+        "par5": 1.4,
+        "ml_bayes": 2.3
+      },
+      "propScores": {
+        "win": 56,
+        "top5": 57,
+        "top10": 58,
+        "top20": 61,
+        "makeCut": 63
+      },
+      "confScore": 56.699999999999996,
+      "edgeScore": 6.54,
+      "owgrRank": 15,
+      "evScore": 418.8,
+      "scoreStd": 3.64
+    },
+    {
+      "id": 17,
+      "name": "Keegan Bradley",
+      "rank": 13,
+      "sgTotal": 0.88,
+      "sgOtt": 0.35,
+      "sgApp": 0.32,
+      "sgArg": 0.12,
+      "sgPutt": 0.09,
+      "birdieAvg": 4.1,
+      "bogeyAvg": 2.2,
+      "scoringAvg": 70.4,
+      "gir": 67.5,
+      "fairways": 65.0,
+      "scramble": 60.5,
+      "proxAvg": 34.2,
+      "missDir": "left",
+      "flight": "high_draw",
+      "courseFit": {
+        "augusta": 66,
+        "tpc_sawgrass": 66,
+        "pebble": 65,
+        "torrey_south": 66,
+        "riviera": 67,
+        "valhalla": 67,
+        "pinehurst_2": 67,
+        "royal_troon": 66,
+        "royal_portrush": 65,
+        "oakmont": 65,
+        "quail_hollow": 67,
+        "east_lake": 66,
+        "bay_hill": 66,
+        "harbour_town": 67,
+        "colonial": 68,
+        "memorial": 68,
+        "tpc_scottsdale": 66
+      },
+      "augustaHistory": {
+        "appearances": 10,
+        "bestFinish": 14,
+        "cuts": 7,
+        "top10": 0,
+        "avgScore": 72.5
+      },
+      "notes": "Steady veteran. Consistent without being flashy. Good MC and top-20 candidate.",
+      "odds": {
+        "dk": "+20000",
+        "low": "+15000",
+        "bol": "+15000",
+        "mgm": "+9000",
+        "fd": "+10000",
+        "riv": "+10000"
+      },
+      "fieldInfo": {
+        "owgr": 15,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 15,
+      "recentForm": {
+        "lastResult": "#45 at Cadillac Championship",
+        "lastPosition": 45,
+        "l5AvgFinish": 45.0,
+        "l10AvgFinish": 45.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 72.0
+        }
+      },
+      "makeCutPct": 70.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 65,
+        "prior": 67.6,
+        "likelihood": 61.7,
+        "posterior_sigma": 13.7,
+        "data_points": 10
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 6.9,
+        "fit": 10.6,
+        "history": 3.0,
+        "form": 7.0,
+        "gir": 6.1,
+        "driving": 3.8,
+        "birdie_bogey": 5.0,
+        "cut": 3.2,
+        "market": 0.3,
+        "closing": 2.0,
+        "field_strength": 1.5,
+        "consistency": 1.5,
+        "par5": 1.1,
+        "ml_bayes": 3.9
       },
       "propScores": {
         "win": 55,
         "top5": 56,
         "top10": 58,
-        "top20": 61,
-        "makeCut": 63
+        "top20": 62,
+        "makeCut": 64
       },
-      "confScore": 56.1,
-      "edgeScore": 6.9,
-      "owgrRank": 12,
-      "evScore": 1002.4,
-      "scoreStd": 1.84
+      "confScore": 56.0,
+      "edgeScore": 7.3,
+      "owgrRank": 17,
+      "evScore": 1588.4,
+      "scoreStd": 2.31
+    },
+    {
+      "id": 21,
+      "name": "Brian Harman",
+      "rank": 14,
+      "sgTotal": 0.78,
+      "sgOtt": 0.15,
+      "sgApp": 0.3,
+      "sgArg": 0.2,
+      "sgPutt": 0.13,
+      "birdieAvg": 3.8,
+      "bogeyAvg": 1.9,
+      "scoringAvg": 70.5,
+      "gir": 66.5,
+      "fairways": 70.5,
+      "scramble": 65.0,
+      "proxAvg": 35.5,
+      "missDir": "left",
+      "flight": "low_draw",
+      "courseFit": {
+        "augusta": 63,
+        "tpc_sawgrass": 67,
+        "pebble": 69,
+        "torrey_south": 64,
+        "riviera": 66,
+        "valhalla": 64,
+        "pinehurst_2": 68,
+        "royal_troon": 72,
+        "royal_portrush": 64,
+        "oakmont": 64,
+        "quail_hollow": 64,
+        "east_lake": 66,
+        "bay_hill": 64,
+        "harbour_town": 70,
+        "colonial": 70,
+        "memorial": 66,
+        "tpc_scottsdale": 64
+      },
+      "notes": "Open champion. Lefty with great short game. Not a power player. Thrives on accuracy courses and links.",
+      "odds": {
+        "dk": "+6000",
+        "low": "+12500",
+        "bol": "+12500",
+        "mgm": "+12500",
+        "fd": "+10000",
+        "riv": "+10000"
+      },
+      "fieldInfo": {
+        "owgr": 35,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 35,
+      "recentForm": {
+        "lastResult": "#7 at Cadillac Championship",
+        "lastPosition": 7,
+        "l5AvgFinish": 7.0,
+        "l10AvgFinish": 7.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 68.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 69,
+        "prior": 65.6,
+        "likelihood": 74.1,
+        "posterior_sigma": 13.9,
+        "data_points": 9
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 6.3,
+        "fit": 10.1,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 6.0,
+        "driving": 4.1,
+        "birdie_bogey": 5.0,
+        "cut": 3.0,
+        "market": 0.4,
+        "closing": 2.0,
+        "field_strength": 1.5,
+        "consistency": 1.6,
+        "par5": 0.7,
+        "ml_bayes": 5.0
+      },
+      "propScores": {
+        "win": 55,
+        "top5": 57,
+        "top10": 59,
+        "top20": 63,
+        "makeCut": 65
+      },
+      "confScore": 55.7,
+      "edgeScore": 6.72,
+      "owgrRank": 21,
+      "evScore": 409.7,
+      "scoreStd": 4.15
     },
     {
       "id": 19,
       "name": "Jason Day",
-      "rank": 13,
+      "rank": 15,
       "sgTotal": 0.82,
       "sgOtt": 0.4,
       "sgApp": 0.28,
@@ -1364,23 +1564,23 @@
       "recentForm": {
         "lastResult": "#71 at Cadillac Championship",
         "lastPosition": 71,
-        "l5AvgFinish": 56.5,
-        "l10AvgFinish": 56.5,
-        "l5McPct": 50,
+        "l5AvgFinish": 71.0,
+        "l10AvgFinish": 71.0,
+        "l5McPct": 0,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 73.5
+          "r1Avg": 77.0
         }
       },
       "makeCutPct": 85.7,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 57,
+        "score": 55,
         "prior": 66.4,
-        "likelihood": 39.4,
+        "likelihood": 32.8,
         "posterior_sigma": 14.6,
-        "data_points": 9
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -1396,129 +1596,25 @@
         "closing": 2.0,
         "field_strength": 1.5,
         "consistency": 1.5,
-        "par5": 1.2,
-        "ml_bayes": 0.5
+        "par5": 1.2
       },
       "propScores": {
         "win": 54,
-        "top5": 56,
-        "top10": 58,
-        "top20": 62,
-        "makeCut": 65
+        "top5": 55,
+        "top10": 57,
+        "top20": 61,
+        "makeCut": 64
       },
-      "confScore": 55.7,
-      "edgeScore": 6.84,
+      "confScore": 55.2,
+      "edgeScore": 6.76,
       "owgrRank": 19,
-      "evScore": 576.8,
-      "scoreStd": 3.35
-    },
-    {
-      "id": 14,
-      "name": "Sungjae Im",
-      "rank": 14,
-      "sgTotal": 0.95,
-      "sgOtt": 0.28,
-      "sgApp": 0.4,
-      "sgArg": 0.15,
-      "sgPutt": 0.12,
-      "birdieAvg": 4.0,
-      "bogeyAvg": 2.0,
-      "scoringAvg": 70.4,
-      "gir": 68.5,
-      "fairways": 69.0,
-      "scramble": 61.5,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 68,
-        "tpc_sawgrass": 69,
-        "pebble": 67,
-        "torrey_south": 66,
-        "riviera": 68,
-        "valhalla": 67,
-        "pinehurst_2": 68,
-        "royal_troon": 67,
-        "royal_portrush": 66,
-        "oakmont": 67,
-        "quail_hollow": 68,
-        "east_lake": 68,
-        "bay_hill": 68,
-        "harbour_town": 69,
-        "colonial": 70,
-        "memorial": 69,
-        "tpc_scottsdale": 68
-      },
-      "notes": "Iron man — plays every week. Rarely misses cuts. Great for MC and top 20 props.",
-      "odds": {
-        "dk": "+14500",
-        "low": "+13500",
-        "bol": "+13500",
-        "mgm": "+10000",
-        "fd": "+6500",
-        "riv": "+6600"
-      },
-      "fieldInfo": {
-        "owgr": 41,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 41,
-      "recentForm": {
-        "lastResult": "#15 at Cadillac Championship",
-        "lastPosition": 15,
-        "l5AvgFinish": 30.0,
-        "l10AvgFinish": 30.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 68.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 59,
-        "prior": 69.0,
-        "likelihood": 53.1,
-        "posterior_sigma": 11.3,
-        "data_points": 8
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 7.6,
-        "fit": 10.9,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 6.4,
-        "driving": 4.1,
-        "birdie_bogey": 5.1,
-        "cut": 3.0,
-        "market": 0.4,
-        "closing": 2.0,
-        "field_strength": 1.5,
-        "consistency": 1.6,
-        "par5": 1.1,
-        "ml_bayes": 1.5
-      },
-      "propScores": {
-        "win": 55,
-        "top5": 56,
-        "top10": 58,
-        "top20": 62,
-        "makeCut": 63
-      },
-      "confScore": 55.6,
-      "edgeScore": 6.82,
-      "owgrRank": 14,
-      "evScore": 1117.6,
-      "scoreStd": 2.36
+      "evScore": 570.7,
+      "scoreStd": 3.59
     },
     {
       "id": 20,
       "name": "Russell Henley",
-      "rank": 15,
+      "rank": 16,
       "sgTotal": 0.8,
       "sgOtt": 0.22,
       "sgApp": 0.38,
@@ -1577,23 +1673,23 @@
       "recentForm": {
         "lastResult": "#44 at Cadillac Championship",
         "lastPosition": 44,
-        "l5AvgFinish": 36.5,
-        "l10AvgFinish": 36.5,
+        "l5AvgFinish": 44.0,
+        "l10AvgFinish": 44.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 70.0
+          "r1Avg": 72.0
         }
       },
       "makeCutPct": 87.5,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 59,
+        "score": 57,
         "prior": 66.0,
-        "likelihood": 56.4,
-        "posterior_sigma": 9.6,
-        "data_points": 9
+        "likelihood": 53.3,
+        "posterior_sigma": 10.0,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -1610,122 +1706,19 @@
         "field_strength": 1.5,
         "consistency": 1.6,
         "par5": 0.9,
-        "ml_bayes": 1.5
+        "ml_bayes": 0.9
       },
       "propScores": {
         "win": 54,
         "top5": 56,
-        "top10": 59,
+        "top10": 58,
         "top20": 63,
-        "makeCut": 67
+        "makeCut": 66
       },
-      "confScore": 55.4,
-      "edgeScore": 6.35,
+      "confScore": 54.8,
+      "edgeScore": 6.26,
       "owgrRank": 20,
-      "evScore": 689.4
-    },
-    {
-      "id": 21,
-      "name": "Brian Harman",
-      "rank": 16,
-      "sgTotal": 0.78,
-      "sgOtt": 0.15,
-      "sgApp": 0.3,
-      "sgArg": 0.2,
-      "sgPutt": 0.13,
-      "birdieAvg": 3.8,
-      "bogeyAvg": 1.9,
-      "scoringAvg": 70.5,
-      "gir": 66.5,
-      "fairways": 70.5,
-      "scramble": 65.0,
-      "proxAvg": 35.5,
-      "missDir": "left",
-      "flight": "low_draw",
-      "courseFit": {
-        "augusta": 63,
-        "tpc_sawgrass": 67,
-        "pebble": 69,
-        "torrey_south": 64,
-        "riviera": 66,
-        "valhalla": 64,
-        "pinehurst_2": 68,
-        "royal_troon": 72,
-        "royal_portrush": 64,
-        "oakmont": 64,
-        "quail_hollow": 64,
-        "east_lake": 66,
-        "bay_hill": 64,
-        "harbour_town": 70,
-        "colonial": 70,
-        "memorial": 66,
-        "tpc_scottsdale": 64
-      },
-      "notes": "Open champion. Lefty with great short game. Not a power player. Thrives on accuracy courses and links.",
-      "odds": {
-        "dk": "+6000",
-        "low": "+12500",
-        "bol": "+12500",
-        "mgm": "+12500",
-        "fd": "+10000",
-        "riv": "+10000"
-      },
-      "fieldInfo": {
-        "owgr": 35,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 35,
-      "recentForm": {
-        "lastResult": "#7 at Cadillac Championship",
-        "lastPosition": 7,
-        "l5AvgFinish": 19.5,
-        "l10AvgFinish": 19.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 69.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 66,
-        "prior": 65.6,
-        "likelihood": 67.0,
-        "posterior_sigma": 14.5,
-        "data_points": 9
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 6.3,
-        "fit": 10.1,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 6.0,
-        "driving": 4.1,
-        "birdie_bogey": 5.0,
-        "cut": 3.0,
-        "market": 0.4,
-        "closing": 2.0,
-        "field_strength": 1.5,
-        "consistency": 1.6,
-        "par5": 0.7,
-        "ml_bayes": 4.6
-      },
-      "propScores": {
-        "win": 55,
-        "top5": 56,
-        "top10": 59,
-        "top20": 63,
-        "makeCut": 65
-      },
-      "confScore": 55.300000000000004,
-      "edgeScore": 6.66,
-      "owgrRank": 21,
-      "evScore": 406.0,
-      "scoreStd": 4.28
+      "evScore": 680.9
     },
     {
       "id": 18,
@@ -1782,23 +1775,23 @@
       "recentForm": {
         "lastResult": "#19 at Cadillac Championship",
         "lastPosition": 19,
-        "l5AvgFinish": 48.0,
-        "l10AvgFinish": 48.0,
-        "l5McPct": 50,
+        "l5AvgFinish": 19.0,
+        "l10AvgFinish": 19.0,
+        "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 73.0
+          "r1Avg": 70.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 53,
+        "score": 56,
         "prior": 67.0,
-        "likelihood": 24.8,
+        "likelihood": 34.9,
         "posterior_sigma": 14.6,
-        "data_points": 8
+        "data_points": 9
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -1814,135 +1807,26 @@
         "closing": 2.0,
         "field_strength": 1.5,
         "consistency": 1.4,
-        "par5": 1.5
+        "par5": 1.5,
+        "ml_bayes": 0.8
       },
       "propScores": {
-        "win": 52,
+        "win": 53,
         "top5": 54,
-        "top10": 55,
-        "top20": 58,
-        "makeCut": 59
-      },
-      "confScore": 53.5,
-      "edgeScore": 3.68,
-      "owgrRank": 18,
-      "evScore": 469.8,
-      "scoreStd": 3.9
-    },
-    {
-      "id": 35,
-      "name": "Akshay Bhatia",
-      "rank": 18,
-      "sgTotal": 0.42,
-      "sgOtt": 0.38,
-      "sgApp": 0.15,
-      "sgArg": 0.02,
-      "sgPutt": -0.13,
-      "birdieAvg": 4.3,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 71.0,
-      "gir": 66.0,
-      "fairways": 58.0,
-      "scramble": 56.0,
-      "proxAvg": 35.0,
-      "missDir": "left",
-      "flight": "high_draw",
-      "courseFit": {
-        "augusta": 60,
-        "tpc_sawgrass": 59,
-        "pebble": 58,
-        "torrey_south": 62,
-        "riviera": 60,
-        "valhalla": 62,
-        "pinehurst_2": 58,
-        "royal_troon": 57,
-        "royal_portrush": 57,
-        "oakmont": 56,
-        "quail_hollow": 62,
-        "east_lake": 60,
-        "bay_hill": 60,
-        "harbour_town": 56,
-        "colonial": 58,
-        "memorial": 60,
-        "tpc_scottsdale": 62
-      },
-      "augustaHistory": {
-        "appearances": 2,
-        "bestFinish": 10,
-        "cuts": 2,
-        "top10": 1,
-        "avgScore": 71.8
-      },
-      "notes": "Young lefty talent. Aggressive. Putting holds him back. High birdie ceiling with high floor.",
-      "odds": {
-        "dk": "+6700",
-        "low": "+7000",
-        "bol": "+7000",
-        "mgm": "+6600",
-        "fd": "+6500",
-        "riv": "+5000"
-      },
-      "fieldInfo": {
-        "owgr": 45,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 45,
-      "recentForm": {
-        "lastResult": "#18 at Cadillac Championship",
-        "lastPosition": 18,
-        "l5AvgFinish": 18.5,
-        "l10AvgFinish": 18.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 71.5
-        }
-      },
-      "makeCutPct": 100.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 68,
-        "prior": 58.4,
-        "likelihood": 71.2,
-        "posterior_sigma": 9.4,
-        "data_points": 8
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 3.0,
-        "fit": 9.6,
-        "history": 5.2,
-        "form": 7.0,
-        "gir": 5.4,
-        "driving": 3.0,
-        "birdie_bogey": 4.8,
-        "cut": 3.9,
-        "market": 0.4,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.5,
-        "par5": 1.0,
-        "ml_bayes": 5.0
-      },
-      "propScores": {
-        "win": 50,
-        "top5": 53,
         "top10": 56,
-        "top20": 62,
-        "makeCut": 68
+        "top20": 58,
+        "makeCut": 60
       },
-      "confScore": 53.0,
-      "edgeScore": 6.43,
-      "owgrRank": 35,
-      "evScore": 440.6,
-      "scoreStd": 3.93
+      "confScore": 54.3,
+      "edgeScore": 3.8,
+      "owgrRank": 18,
+      "evScore": 478.3,
+      "scoreStd": 3.81
     },
     {
       "id": 30,
       "name": "Sepp Straka",
-      "rank": 19,
+      "rank": 18,
       "sgTotal": 0.55,
       "sgOtt": 0.3,
       "sgApp": 0.18,
@@ -2001,23 +1885,23 @@
       "recentForm": {
         "lastResult": "#17 at Cadillac Championship",
         "lastPosition": 17,
-        "l5AvgFinish": 34.0,
-        "l10AvgFinish": 34.0,
+        "l5AvgFinish": 17.0,
+        "l10AvgFinish": 17.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 68.0
+          "r1Avg": 70.0
         }
       },
       "makeCutPct": 100.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 60,
+        "score": 61,
         "prior": 61.0,
-        "likelihood": 58.1,
+        "likelihood": 61.9,
         "posterior_sigma": 14.6,
-        "data_points": 9
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -2034,20 +1918,130 @@
         "field_strength": 1.0,
         "consistency": 1.5,
         "par5": 0.9,
-        "ml_bayes": 3.0
+        "ml_bayes": 3.3
+      },
+      "propScores": {
+        "win": 51,
+        "top5": 53,
+        "top10": 56,
+        "top20": 62,
+        "makeCut": 66
+      },
+      "confScore": 53.199999999999996,
+      "edgeScore": 6.19,
+      "owgrRank": 30,
+      "evScore": 498.5,
+      "scoreStd": 3.72
+    },
+    {
+      "id": 35,
+      "name": "Akshay Bhatia",
+      "rank": 19,
+      "sgTotal": 0.42,
+      "sgOtt": 0.38,
+      "sgApp": 0.15,
+      "sgArg": 0.02,
+      "sgPutt": -0.13,
+      "birdieAvg": 4.3,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 71.0,
+      "gir": 66.0,
+      "fairways": 58.0,
+      "scramble": 56.0,
+      "proxAvg": 35.0,
+      "missDir": "left",
+      "flight": "high_draw",
+      "courseFit": {
+        "augusta": 60,
+        "tpc_sawgrass": 59,
+        "pebble": 58,
+        "torrey_south": 62,
+        "riviera": 60,
+        "valhalla": 62,
+        "pinehurst_2": 58,
+        "royal_troon": 57,
+        "royal_portrush": 57,
+        "oakmont": 56,
+        "quail_hollow": 62,
+        "east_lake": 60,
+        "bay_hill": 60,
+        "harbour_town": 56,
+        "colonial": 58,
+        "memorial": 60,
+        "tpc_scottsdale": 62
+      },
+      "augustaHistory": {
+        "appearances": 2,
+        "bestFinish": 10,
+        "cuts": 2,
+        "top10": 1,
+        "avgScore": 71.8
+      },
+      "notes": "Young lefty talent. Aggressive. Putting holds him back. High birdie ceiling with high floor.",
+      "odds": {
+        "dk": "+6700",
+        "low": "+7000",
+        "bol": "+7000",
+        "mgm": "+6600",
+        "fd": "+6500",
+        "riv": "+5000"
+      },
+      "fieldInfo": {
+        "owgr": 45,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 45,
+      "recentForm": {
+        "lastResult": "#18 at Cadillac Championship",
+        "lastPosition": 18,
+        "l5AvgFinish": 18.0,
+        "l10AvgFinish": 18.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 70.0
+        }
+      },
+      "makeCutPct": 100.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 69,
+        "prior": 58.4,
+        "likelihood": 72.3,
+        "posterior_sigma": 8.8,
+        "data_points": 9
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 3.0,
+        "fit": 9.6,
+        "history": 5.2,
+        "form": 7.0,
+        "gir": 5.4,
+        "driving": 3.0,
+        "birdie_bogey": 4.8,
+        "cut": 3.9,
+        "market": 0.4,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.5,
+        "par5": 1.0,
+        "ml_bayes": 5.0
       },
       "propScores": {
         "win": 50,
         "top5": 53,
         "top10": 56,
-        "top20": 61,
-        "makeCut": 66
+        "top20": 62,
+        "makeCut": 68
       },
-      "confScore": 52.9,
-      "edgeScore": 6.15,
-      "owgrRank": 30,
-      "evScore": 495.1,
-      "scoreStd": 3.81
+      "confScore": 53.0,
+      "edgeScore": 6.43,
+      "owgrRank": 35,
+      "evScore": 440.6,
+      "scoreStd": 3.83
     },
     {
       "id": 66,
@@ -2111,13 +2105,13 @@
       "recentForm": {
         "lastResult": "#23 at Cadillac Championship",
         "lastPosition": 23,
-        "l5AvgFinish": 13.0,
-        "l10AvgFinish": 13.0,
+        "l5AvgFinish": 23.0,
+        "l10AvgFinish": 23.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 68.0
+          "r1Avg": 70.0
         }
       },
       "makeCutPct": 71.4,
@@ -2125,7 +2119,7 @@
       "bayesianScore": {
         "score": 65,
         "prior": 59.0,
-        "likelihood": 77.2,
+        "likelihood": 75.5,
         "posterior_sigma": 14.6,
         "data_points": 9
       },
@@ -2224,17 +2218,19 @@
         "l10AvgFinish": 66.0,
         "l5McPct": 0,
         "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 76.0
+        }
       },
       "makeCutPct": 87.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 44,
+        "score": 41,
         "prior": 63.6,
-        "likelihood": 29.7,
-        "posterior_sigma": 11.5,
-        "data_points": 4
+        "likelihood": 24.2,
+        "posterior_sigma": 11.8,
+        "data_points": 5
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -2251,24 +2247,127 @@
         "field_strength": 1.5,
         "consistency": 1.5,
         "par5": 1.0,
-        "ml_bayes": -1.3
+        "ml_bayes": -2.2
       },
       "propScores": {
-        "win": 50,
-        "top5": 52,
-        "top10": 54,
+        "win": 49,
+        "top5": 51,
+        "top10": 53,
         "top20": 58,
-        "makeCut": 62
+        "makeCut": 61
       },
-      "confScore": 51.7,
-      "edgeScore": 6.76,
+      "confScore": 50.8,
+      "edgeScore": 6.63,
       "owgrRank": 25,
-      "evScore": 838.4
+      "evScore": 822.0
+    },
+    {
+      "id": 23,
+      "name": "Denny McCarthy",
+      "rank": 22,
+      "sgTotal": 0.72,
+      "sgOtt": 0.05,
+      "sgApp": 0.15,
+      "sgArg": 0.18,
+      "sgPutt": 0.34,
+      "birdieAvg": 3.6,
+      "bogeyAvg": 1.8,
+      "scoringAvg": 70.6,
+      "gir": 65.0,
+      "fairways": 70.0,
+      "scramble": 68.0,
+      "proxAvg": 36.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 61,
+        "tpc_sawgrass": 66,
+        "pebble": 67,
+        "torrey_south": 62,
+        "riviera": 66,
+        "valhalla": 61,
+        "pinehurst_2": 67,
+        "royal_troon": 65,
+        "royal_portrush": 62,
+        "oakmont": 64,
+        "quail_hollow": 63,
+        "east_lake": 64,
+        "bay_hill": 63,
+        "harbour_town": 70,
+        "colonial": 70,
+        "memorial": 64,
+        "tpc_scottsdale": 65
+      },
+      "notes": "Best putter on Tour. Short off the tee. Needs accuracy courses where length doesn't matter. Elite bogey under.",
+      "odds": {
+        "dk": "+37500",
+        "low": "+30000",
+        "bol": "+30000",
+        "mgm": "+15000",
+        "fd": "+10000",
+        "riv": "+10000"
+      },
+      "fieldInfo": {
+        "owgr": 72,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 72,
+      "recentForm": {
+        "lastResult": "#30 at Cadillac Championship",
+        "lastPosition": 30,
+        "l5AvgFinish": 30.0,
+        "l10AvgFinish": 30.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 71.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 52,
+        "prior": 64.4,
+        "likelihood": 35.5,
+        "posterior_sigma": 13.6,
+        "data_points": 7
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 5.8,
+        "fit": 9.8,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.5,
+        "driving": 3.9,
+        "birdie_bogey": 4.9,
+        "cut": 3.0,
+        "market": 0.2,
+        "closing": 2.0,
+        "field_strength": 1.5,
+        "consistency": 1.7,
+        "par5": 0.3,
+        "ml_bayes": 0.7
+      },
+      "propScores": {
+        "win": 49,
+        "top5": 51,
+        "top10": 53,
+        "top20": 58,
+        "makeCut": 61
+      },
+      "confScore": 50.0,
+      "edgeScore": 6.51,
+      "owgrRank": 23,
+      "evScore": 2720.0,
+      "scoreStd": 2.12
     },
     {
       "id": 29,
       "name": "Corey Conners",
-      "rank": 22,
+      "rank": 23,
       "sgTotal": 0.58,
       "sgOtt": 0.2,
       "sgApp": 0.45,
@@ -2327,23 +2426,23 @@
       "recentForm": {
         "lastResult": "#50 at Cadillac Championship",
         "lastPosition": 50,
-        "l5AvgFinish": 54.0,
-        "l10AvgFinish": 54.0,
+        "l5AvgFinish": 50.0,
+        "l10AvgFinish": 50.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 70.0
+          "r1Avg": 73.0
         }
       },
       "makeCutPct": 100.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 42,
+        "score": 41,
         "prior": 61.6,
-        "likelihood": 30.3,
-        "posterior_sigma": 11.1,
-        "data_points": 9
+        "likelihood": 30.6,
+        "posterior_sigma": 10.3,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -2360,7 +2459,7 @@
         "field_strength": 1.0,
         "consistency": 1.5,
         "par5": 1.0,
-        "ml_bayes": -3.3
+        "ml_bayes": -3.6
       },
       "propScores": {
         "win": 47,
@@ -2369,222 +2468,16 @@
         "top20": 58,
         "makeCut": 62
       },
-      "confScore": 49.7,
-      "edgeScore": 5.49,
+      "confScore": 49.4,
+      "edgeScore": 5.45,
       "owgrRank": 29,
-      "evScore": 354.8,
-      "scoreStd": 2.4
-    },
-    {
-      "id": 40,
-      "name": "Harris English",
-      "rank": 23,
-      "sgTotal": 0.3,
-      "sgOtt": 0.22,
-      "sgApp": 0.12,
-      "sgArg": 0.02,
-      "sgPutt": -0.06,
-      "birdieAvg": 3.8,
-      "bogeyAvg": 2.2,
-      "scoringAvg": 71.2,
-      "gir": 66.0,
-      "fairways": 65.0,
-      "scramble": 59.0,
-      "proxAvg": 35.5,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 58,
-        "tpc_sawgrass": 60,
-        "pebble": 59,
-        "torrey_south": 60,
-        "riviera": 59,
-        "valhalla": 60,
-        "pinehurst_2": 59,
-        "royal_troon": 58,
-        "royal_portrush": 55,
-        "oakmont": 55,
-        "quail_hollow": 60,
-        "east_lake": 62,
-        "bay_hill": 60,
-        "harbour_town": 60,
-        "colonial": 59,
-        "memorial": 60,
-        "tpc_scottsdale": 59
-      },
-      "notes": "Steady veteran. Good all-around game without elite skill. East Lake familiarity. Reliable for MC at full fields.",
-      "fieldInfo": {
-        "owgr": 13,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 13,
-      "odds": {
-        "low": "+10000",
-        "bol": "+10000",
-        "mgm": "+8000",
-        "dk": "+8000",
-        "fd": "+10000",
-        "riv": "+6600"
-      },
-      "recentForm": {
-        "lastResult": "#53 at Cadillac Championship",
-        "lastPosition": 53,
-        "l5AvgFinish": 29.0,
-        "l10AvgFinish": 29.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 69.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 60,
-        "prior": 56.0,
-        "likelihood": 67.5,
-        "posterior_sigma": 14.6,
-        "data_points": 9
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 2.3,
-        "fit": 9.3,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.5,
-        "driving": 3.6,
-        "birdie_bogey": 4.6,
-        "cut": 3.0,
-        "market": 0.3,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.6,
-        "par5": 0.6,
-        "ml_bayes": 4.6
-      },
-      "propScores": {
-        "win": 46,
-        "top5": 49,
-        "top10": 53,
-        "top20": 59,
-        "makeCut": 62
-      },
-      "confScore": 49.2,
-      "edgeScore": 6.15,
-      "owgrRank": 40,
-      "evScore": 497.8,
-      "scoreStd": 2.88
-    },
-    {
-      "id": 23,
-      "name": "Denny McCarthy",
-      "rank": 24,
-      "sgTotal": 0.72,
-      "sgOtt": 0.05,
-      "sgApp": 0.15,
-      "sgArg": 0.18,
-      "sgPutt": 0.34,
-      "birdieAvg": 3.6,
-      "bogeyAvg": 1.8,
-      "scoringAvg": 70.6,
-      "gir": 65.0,
-      "fairways": 70.0,
-      "scramble": 68.0,
-      "proxAvg": 36.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 61,
-        "tpc_sawgrass": 66,
-        "pebble": 67,
-        "torrey_south": 62,
-        "riviera": 66,
-        "valhalla": 61,
-        "pinehurst_2": 67,
-        "royal_troon": 65,
-        "royal_portrush": 62,
-        "oakmont": 64,
-        "quail_hollow": 63,
-        "east_lake": 64,
-        "bay_hill": 63,
-        "harbour_town": 70,
-        "colonial": 70,
-        "memorial": 64,
-        "tpc_scottsdale": 65
-      },
-      "notes": "Best putter on Tour. Short off the tee. Needs accuracy courses where length doesn't matter. Elite bogey under.",
-      "odds": {
-        "dk": "+37500",
-        "low": "+30000",
-        "bol": "+30000",
-        "mgm": "+15000",
-        "fd": "+10000",
-        "riv": "+10000"
-      },
-      "fieldInfo": {
-        "owgr": 72,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 72,
-      "recentForm": {
-        "lastResult": "#30 at Cadillac Championship",
-        "lastPosition": 30,
-        "l5AvgFinish": 47.5,
-        "l10AvgFinish": 47.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 72.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 46,
-        "prior": 64.4,
-        "likelihood": 28.4,
-        "posterior_sigma": 12.8,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 5.8,
-        "fit": 9.8,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.5,
-        "driving": 3.9,
-        "birdie_bogey": 4.9,
-        "cut": 3.0,
-        "market": 0.2,
-        "closing": 2.0,
-        "field_strength": 1.5,
-        "consistency": 1.7,
-        "par5": 0.3,
-        "ml_bayes": -0.7
-      },
-      "propScores": {
-        "win": 47,
-        "top5": 49,
-        "top10": 52,
-        "top20": 57,
-        "makeCut": 60
-      },
-      "confScore": 48.599999999999994,
-      "edgeScore": 6.3,
-      "owgrRank": 23,
-      "evScore": 2641.0,
-      "scoreStd": 2.18
+      "evScore": 352.0,
+      "scoreStd": 2.44
     },
     {
       "id": 46,
       "name": "Jordan Spieth",
-      "rank": 25,
+      "rank": 24,
       "sgTotal": 0.15,
       "sgOtt": 0.1,
       "sgApp": 0.08,
@@ -2636,23 +2529,23 @@
       "recentForm": {
         "lastResult": "#2 at Cadillac Championship",
         "lastPosition": 2,
-        "l5AvgFinish": 19.0,
-        "l10AvgFinish": 19.0,
+        "l5AvgFinish": 2.0,
+        "l10AvgFinish": 2.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 67.0
+          "r1Avg": 65.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 54,
+        "score": 57,
         "prior": 53.0,
-        "likelihood": 56.7,
-        "posterior_sigma": 14.3,
-        "data_points": 9
+        "likelihood": 64.1,
+        "posterior_sigma": 14.6,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -2669,143 +2562,144 @@
         "field_strength": 1.0,
         "consistency": 1.6,
         "par5": 0.3,
-        "ml_bayes": 2.6
+        "ml_bayes": 3.5
       },
       "propScores": {
-        "win": 45,
-        "top5": 48,
-        "top10": 52,
-        "top20": 57,
-        "makeCut": 61
+        "win": 46,
+        "top5": 49,
+        "top10": 53,
+        "top20": 58,
+        "makeCut": 62
       },
-      "confScore": 47.9,
-      "edgeScore": -7.52,
+      "confScore": 48.8,
+      "edgeScore": -7.39,
       "owgrRank": 46,
       "anomalies": [
         {
           "type": "z_score",
-          "z": -2.28,
+          "z": -2.26,
           "direction": "OVERPRICED",
-          "edge_pct": -7.52,
+          "edge_pct": -7.39,
           "market": "outright"
         },
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -7.52,
-          "fence": 2.16,
+          "edge_pct": -7.39,
+          "fence": 1.92,
           "market": "outright"
         }
       ],
-      "evScore": -51.1,
-      "scoreStd": 2.12
+      "evScore": -50.2,
+      "scoreStd": 2.27
     },
     {
-      "id": 32,
-      "name": "Taylor Pendrith",
-      "rank": 26,
-      "sgTotal": 0.5,
-      "sgOtt": 0.55,
-      "sgApp": 0.1,
-      "sgArg": -0.05,
-      "sgPutt": -0.1,
-      "birdieAvg": 4.3,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 70.9,
-      "gir": 65.5,
-      "fairways": 57.0,
-      "scramble": 55.0,
-      "proxAvg": 35.0,
-      "missDir": "right",
-      "flight": "high_fade",
+      "id": 40,
+      "name": "Harris English",
+      "rank": 25,
+      "sgTotal": 0.3,
+      "sgOtt": 0.22,
+      "sgApp": 0.12,
+      "sgArg": 0.02,
+      "sgPutt": -0.06,
+      "birdieAvg": 3.8,
+      "bogeyAvg": 2.2,
+      "scoringAvg": 71.2,
+      "gir": 66.0,
+      "fairways": 65.0,
+      "scramble": 59.0,
+      "proxAvg": 35.5,
+      "missDir": "neutral",
+      "flight": "neutral",
       "courseFit": {
-        "augusta": 61,
-        "tpc_sawgrass": 59,
-        "pebble": 58,
-        "torrey_south": 63,
-        "riviera": 60,
-        "valhalla": 65,
+        "augusta": 58,
+        "tpc_sawgrass": 60,
+        "pebble": 59,
+        "torrey_south": 60,
+        "riviera": 59,
+        "valhalla": 60,
         "pinehurst_2": 59,
         "royal_troon": 58,
-        "royal_portrush": 57,
-        "oakmont": 57,
-        "quail_hollow": 64,
-        "east_lake": 60,
-        "bay_hill": 62,
-        "harbour_town": 57,
-        "colonial": 57,
-        "memorial": 61,
-        "tpc_scottsdale": 62
+        "royal_portrush": 55,
+        "oakmont": 55,
+        "quail_hollow": 60,
+        "east_lake": 62,
+        "bay_hill": 60,
+        "harbour_town": 60,
+        "colonial": 59,
+        "memorial": 60,
+        "tpc_scottsdale": 59
       },
-      "notes": "Bomber who relies on length. Weak short game. Best at wide-open bombers courses. Fade at precision tracks.",
-      "odds": {
-        "dk": "+23000",
-        "low": "+22500",
-        "bol": "+22500",
-        "mgm": "+15000",
-        "fd": "+12500",
-        "riv": "+12500"
-      },
+      "notes": "Steady veteran. Good all-around game without elite skill. East Lake familiarity. Reliable for MC at full fields.",
       "fieldInfo": {
-        "owgr": 51,
+        "owgr": 13,
         "entryStatus": "IN",
         "inField": true
       },
-      "owgr": 51,
+      "owgr": 13,
+      "odds": {
+        "low": "+10000",
+        "bol": "+10000",
+        "mgm": "+8000",
+        "dk": "+8000",
+        "fd": "+10000",
+        "riv": "+6600"
+      },
       "recentForm": {
-        "lastResult": "#28 at Cadillac Championship",
-        "lastPosition": 28,
-        "l5AvgFinish": 49.5,
-        "l10AvgFinish": 49.5,
-        "l5McPct": 50,
+        "lastResult": "#53 at Cadillac Championship",
+        "lastPosition": 53,
+        "l5AvgFinish": 53.0,
+        "l10AvgFinish": 53.0,
+        "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 72.5
+          "r1Avg": 74.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 47,
-        "prior": 60.0,
-        "likelihood": 25.2,
-        "posterior_sigma": 14.2,
-        "data_points": 5
+        "score": 57,
+        "prior": 56.0,
+        "likelihood": 59.8,
+        "posterior_sigma": 14.6,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
-        "sg": 3.5,
-        "fit": 9.8,
+        "sg": 2.3,
+        "fit": 9.3,
         "history": 3.5,
         "form": 7.0,
-        "gir": 5.2,
-        "driving": 3.1,
-        "birdie_bogey": 4.8,
+        "gir": 5.5,
+        "driving": 3.6,
+        "birdie_bogey": 4.6,
         "cut": 3.0,
-        "market": 0.2,
+        "market": 0.3,
         "closing": 2.0,
         "field_strength": 1.0,
-        "consistency": 1.5,
-        "par5": 1.3
+        "consistency": 1.6,
+        "par5": 0.6,
+        "ml_bayes": 3.7
       },
       "propScores": {
-        "win": 44,
-        "top5": 46,
-        "top10": 49,
-        "top20": 54,
-        "makeCut": 57
+        "win": 45,
+        "top5": 48,
+        "top10": 52,
+        "top20": 58,
+        "makeCut": 61
       },
-      "confScore": 46.3,
-      "edgeScore": 6.15,
-      "owgrRank": 32,
-      "evScore": 1504.3,
-      "scoreStd": 4.56
+      "confScore": 48.300000000000004,
+      "edgeScore": 6.01,
+      "owgrRank": 40,
+      "evScore": 486.8,
+      "scoreStd": 3.16
     },
     {
       "id": 36,
       "name": "Min Woo Lee",
-      "rank": 27,
+      "rank": 26,
       "sgTotal": 0.4,
       "sgOtt": 0.42,
       "sgApp": 0.12,
@@ -2864,8 +2758,8 @@
       "recentForm": {
         "lastResult": "#20 at Cadillac Championship",
         "lastPosition": 20,
-        "l5AvgFinish": 42.0,
-        "l10AvgFinish": 42.0,
+        "l5AvgFinish": 20.0,
+        "l10AvgFinish": 20.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -2876,11 +2770,11 @@
       "makeCutPct": 100.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 50,
+        "score": 54,
         "prior": 58.0,
-        "likelihood": 39.2,
-        "posterior_sigma": 13.8,
-        "data_points": 7
+        "likelihood": 46.5,
+        "posterior_sigma": 14.3,
+        "data_points": 8
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -2897,20 +2791,123 @@
         "field_strength": 1.0,
         "consistency": 1.5,
         "par5": 1.0,
-        "ml_bayes": 1.3
+        "ml_bayes": 2.7
       },
       "propScores": {
-        "win": 43,
-        "top5": 46,
-        "top10": 50,
-        "top20": 56,
-        "makeCut": 61
+        "win": 45,
+        "top5": 48,
+        "top10": 51,
+        "top20": 57,
+        "makeCut": 63
       },
-      "confScore": 46.3,
-      "edgeScore": 4.82,
+      "confScore": 47.7,
+      "edgeScore": 5.03,
       "owgrRank": 36,
-      "evScore": 226.4,
-      "scoreStd": 2.22
+      "evScore": 236.3,
+      "scoreStd": 2.16
+    },
+    {
+      "id": 32,
+      "name": "Taylor Pendrith",
+      "rank": 27,
+      "sgTotal": 0.5,
+      "sgOtt": 0.55,
+      "sgApp": 0.1,
+      "sgArg": -0.05,
+      "sgPutt": -0.1,
+      "birdieAvg": 4.3,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 70.9,
+      "gir": 65.5,
+      "fairways": 57.0,
+      "scramble": 55.0,
+      "proxAvg": 35.0,
+      "missDir": "right",
+      "flight": "high_fade",
+      "courseFit": {
+        "augusta": 61,
+        "tpc_sawgrass": 59,
+        "pebble": 58,
+        "torrey_south": 63,
+        "riviera": 60,
+        "valhalla": 65,
+        "pinehurst_2": 59,
+        "royal_troon": 58,
+        "royal_portrush": 57,
+        "oakmont": 57,
+        "quail_hollow": 64,
+        "east_lake": 60,
+        "bay_hill": 62,
+        "harbour_town": 57,
+        "colonial": 57,
+        "memorial": 61,
+        "tpc_scottsdale": 62
+      },
+      "notes": "Bomber who relies on length. Weak short game. Best at wide-open bombers courses. Fade at precision tracks.",
+      "odds": {
+        "dk": "+23000",
+        "low": "+22500",
+        "bol": "+22500",
+        "mgm": "+15000",
+        "fd": "+12500",
+        "riv": "+12500"
+      },
+      "fieldInfo": {
+        "owgr": 51,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 51,
+      "recentForm": {
+        "lastResult": "#28 at Cadillac Championship",
+        "lastPosition": 28,
+        "l5AvgFinish": 28.0,
+        "l10AvgFinish": 28.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 71.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 51,
+        "prior": 60.0,
+        "likelihood": 34.4,
+        "posterior_sigma": 14.6,
+        "data_points": 6
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 3.5,
+        "fit": 9.8,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.2,
+        "driving": 3.1,
+        "birdie_bogey": 4.8,
+        "cut": 3.0,
+        "market": 0.2,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.5,
+        "par5": 1.3,
+        "ml_bayes": 1.1
+      },
+      "propScores": {
+        "win": 45,
+        "top5": 47,
+        "top10": 50,
+        "top20": 55,
+        "makeCut": 58
+      },
+      "confScore": 47.4,
+      "edgeScore": 6.32,
+      "owgrRank": 32,
+      "evScore": 1542.4,
+      "scoreStd": 4.41
     },
     {
       "id": 80,
@@ -2970,23 +2967,23 @@
       "recentForm": {
         "lastResult": "#42 at Cadillac Championship",
         "lastPosition": 42,
-        "l5AvgFinish": 45.5,
-        "l10AvgFinish": 45.5,
+        "l5AvgFinish": 42.0,
+        "l10AvgFinish": 42.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 70.5
+          "r1Avg": 72.0
         }
       },
       "makeCutPct": 75.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 52,
+        "score": 51,
         "prior": 53.6,
-        "likelihood": 51.2,
-        "posterior_sigma": 11.1,
-        "data_points": 6
+        "likelihood": 49.4,
+        "posterior_sigma": 10.5,
+        "data_points": 7
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -3016,7 +3013,7 @@
       "edgeScore": 6.3,
       "owgrRank": 72,
       "evScore": 1265.8,
-      "scoreStd": 2.9
+      "scoreStd": 2.93
     },
     {
       "id": 87,
@@ -3080,23 +3077,23 @@
       "recentForm": {
         "lastResult": "#41 at Cadillac Championship",
         "lastPosition": 41,
-        "l5AvgFinish": 31.0,
-        "l10AvgFinish": 31.0,
+        "l5AvgFinish": 41.0,
+        "l10AvgFinish": 41.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 68.5
+          "r1Avg": 72.0
         }
       },
       "makeCutPct": 50.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 63,
+        "score": 59,
         "prior": 53.6,
-        "likelihood": 68.1,
-        "posterior_sigma": 11.2,
-        "data_points": 7
+        "likelihood": 63.1,
+        "posterior_sigma": 11.9,
+        "data_points": 8
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -3182,23 +3179,23 @@
       "recentForm": {
         "lastResult": "#16 at Cadillac Championship",
         "lastPosition": 16,
-        "l5AvgFinish": 26.5,
-        "l10AvgFinish": 26.5,
+        "l5AvgFinish": 16.0,
+        "l10AvgFinish": 16.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 69.5
+          "r1Avg": 70.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 55,
+        "score": 57,
         "prior": 51.6,
-        "likelihood": 57.8,
-        "posterior_sigma": 12.5,
-        "data_points": 9
+        "likelihood": 61.9,
+        "posterior_sigma": 12.6,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -3228,7 +3225,7 @@
       "edgeScore": 4.34,
       "owgrRank": 49,
       "evScore": 388.2,
-      "scoreStd": 1.82
+      "scoreStd": 1.78
     },
     {
       "id": 41,
@@ -3281,14 +3278,6 @@
         "inField": true
       },
       "owgr": 105,
-      "recentForm": {
-        "l5AvgFinish": 76.0,
-        "l10AvgFinish": 76.0,
-        "l5McPct": 0,
-        "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
-      },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
@@ -3386,8 +3375,10 @@
         "l10AvgFinish": 55.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 74.0
+        }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
@@ -3420,206 +3411,9 @@
       "evScore": 853.6
     },
     {
-      "id": 9001,
-      "name": "J.J. Spaun",
-      "rank": 33,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+21000"
-      },
-      "fieldInfo": {
-        "owgr": 6,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 6,
-      "recentForm": {
-        "lastResult": "#39 at Cadillac Championship",
-        "lastPosition": 39,
-        "l5AvgFinish": 33.5,
-        "l10AvgFinish": 33.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 70.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 54,
-        "prior": 50.0,
-        "likelihood": 56.5,
-        "posterior_sigma": 12.1,
-        "data_points": 9
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.1,
-        "closing": 2.0,
-        "field_strength": 2.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 5.0
-      },
-      "propScores": {
-        "win": 40,
-        "top5": 44,
-        "top10": 48,
-        "top20": 55,
-        "makeCut": 60
-      },
-      "confScore": 42.0,
-      "edgeScore": 5.83,
-      "owgrRank": 6,
-      "evScore": 1229.3
-    },
-    {
-      "id": 47,
-      "name": "Michael Thorbjornsen",
-      "rank": 34,
-      "sgTotal": 0.12,
-      "sgOtt": 0.25,
-      "sgApp": 0.05,
-      "sgArg": -0.05,
-      "sgPutt": -0.13,
-      "birdieAvg": 3.9,
-      "bogeyAvg": 2.4,
-      "scoringAvg": 71.5,
-      "gir": 65.5,
-      "fairways": 61.0,
-      "scramble": 55.0,
-      "proxAvg": 35.5,
-      "missDir": "right",
-      "flight": "high_fade",
-      "courseFit": {
-        "augusta": 54,
-        "tpc_sawgrass": 54,
-        "pebble": 54,
-        "torrey_south": 56,
-        "riviera": 54,
-        "valhalla": 57,
-        "pinehurst_2": 54,
-        "royal_troon": 54,
-        "royal_portrush": 52,
-        "oakmont": 51,
-        "quail_hollow": 57,
-        "east_lake": 54,
-        "bay_hill": 56,
-        "harbour_town": 53,
-        "colonial": 54,
-        "memorial": 56,
-        "tpc_scottsdale": 56
-      },
-      "notes": "Promising rookie from Stanford. Athletic and long. Raw but talented. Watch for breakout at long courses.",
-      "fieldInfo": {
-        "owgr": 68,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 68,
-      "odds": {
-        "low": "+15000",
-        "bol": "+15000",
-        "mgm": "+15000"
-      },
-      "recentForm": {
-        "lastResult": "#59 at Cadillac Championship",
-        "lastPosition": 59,
-        "l5AvgFinish": 46.0,
-        "l10AvgFinish": 46.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 72.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 48,
-        "prior": 52.4,
-        "likelihood": 44.0,
-        "posterior_sigma": 13.0,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.7,
-        "fit": 6.9,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 3.1,
-        "birdie_bogey": 4.4,
-        "cut": 3.0,
-        "market": 0.2,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.6,
-        "par5": 0.6,
-        "ml_bayes": 1.9
-      },
-      "propScores": {
-        "win": 38,
-        "top5": 42,
-        "top10": 46,
-        "top20": 53,
-        "makeCut": 58
-      },
-      "confScore": 41.5,
-      "edgeScore": 5.56,
-      "owgrRank": 47,
-      "evScore": 840.0,
-      "scoreStd": 3.2
-    },
-    {
       "id": 79,
       "name": "J.T. Poston",
-      "rank": 35,
+      "rank": 33,
       "sgTotal": 0.2,
       "sgOtt": 0.08,
       "sgApp": 0.1,
@@ -3678,8 +3472,8 @@
       "recentForm": {
         "lastResult": "#34 at Cadillac Championship",
         "lastPosition": 34,
-        "l5AvgFinish": 47.5,
-        "l10AvgFinish": 47.5,
+        "l5AvgFinish": 34.0,
+        "l10AvgFinish": 34.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -3690,10 +3484,10 @@
       "makeCutPct": 66.7,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 42,
+        "score": 44,
         "prior": 54.0,
-        "likelihood": 32.9,
-        "posterior_sigma": 11.8,
+        "likelihood": 35.9,
+        "posterior_sigma": 11.9,
         "data_points": 7
       },
       "competitiveness": "active",
@@ -3710,7 +3504,315 @@
         "closing": 2.0,
         "field_strength": 0.5,
         "consistency": 1.7,
-        "par5": 0.3
+        "par5": 0.3,
+        "ml_bayes": 0.7
+      },
+      "propScores": {
+        "win": 39,
+        "top5": 43,
+        "top10": 47,
+        "top20": 54,
+        "makeCut": 58
+      },
+      "confScore": 42.0,
+      "edgeScore": 5.51,
+      "owgrRank": 70,
+      "evScore": 1292.3,
+      "scoreStd": 1.89
+    },
+    {
+      "id": 9020,
+      "name": "Nick Taylor",
+      "rank": 34,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+1900",
+        "low": "+22500",
+        "bol": "+22500",
+        "mgm": "+20000"
+      },
+      "fieldInfo": {
+        "owgr": 57,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 57,
+      "recentForm": {
+        "lastResult": "#4 at Cadillac Championship",
+        "lastPosition": 4,
+        "l5AvgFinish": 4.0,
+        "l10AvgFinish": 4.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 66.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 53,
+        "prior": 50.0,
+        "likelihood": 57.7,
+        "posterior_sigma": 14.6,
+        "data_points": 10
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 1.2,
+        "closing": 2.0,
+        "field_strength": 0.5,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 4.8
+      },
+      "propScores": {
+        "win": 38,
+        "top5": 42,
+        "top10": 47,
+        "top20": 55,
+        "makeCut": 61
+      },
+      "confScore": 41.8,
+      "edgeScore": 1.27,
+      "owgrRank": 57,
+      "anomalies": [
+        {
+          "type": "iqr_outlier",
+          "direction": "OVERPRICED",
+          "edge_pct": 1.27,
+          "fence": 8.86,
+          "market": "outright"
+        }
+      ],
+      "evScore": 25.4,
+      "scoreStd": 1.61
+    },
+    {
+      "id": 9001,
+      "name": "J.J. Spaun",
+      "rank": 35,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+21000"
+      },
+      "fieldInfo": {
+        "owgr": 6,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 6,
+      "recentForm": {
+        "lastResult": "#39 at Cadillac Championship",
+        "lastPosition": 39,
+        "l5AvgFinish": 39.0,
+        "l10AvgFinish": 39.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 72.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 52,
+        "prior": 50.0,
+        "likelihood": 53.0,
+        "posterior_sigma": 10.5,
+        "data_points": 9
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.1,
+        "closing": 2.0,
+        "field_strength": 2.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 4.5
+      },
+      "propScores": {
+        "win": 40,
+        "top5": 43,
+        "top10": 47,
+        "top20": 55,
+        "makeCut": 60
+      },
+      "confScore": 41.5,
+      "edgeScore": 5.75,
+      "owgrRank": 6,
+      "evScore": 1213.5
+    },
+    {
+      "id": 47,
+      "name": "Michael Thorbjornsen",
+      "rank": 36,
+      "sgTotal": 0.12,
+      "sgOtt": 0.25,
+      "sgApp": 0.05,
+      "sgArg": -0.05,
+      "sgPutt": -0.13,
+      "birdieAvg": 3.9,
+      "bogeyAvg": 2.4,
+      "scoringAvg": 71.5,
+      "gir": 65.5,
+      "fairways": 61.0,
+      "scramble": 55.0,
+      "proxAvg": 35.5,
+      "missDir": "right",
+      "flight": "high_fade",
+      "courseFit": {
+        "augusta": 54,
+        "tpc_sawgrass": 54,
+        "pebble": 54,
+        "torrey_south": 56,
+        "riviera": 54,
+        "valhalla": 57,
+        "pinehurst_2": 54,
+        "royal_troon": 54,
+        "royal_portrush": 52,
+        "oakmont": 51,
+        "quail_hollow": 57,
+        "east_lake": 54,
+        "bay_hill": 56,
+        "harbour_town": 53,
+        "colonial": 54,
+        "memorial": 56,
+        "tpc_scottsdale": 56
+      },
+      "notes": "Promising rookie from Stanford. Athletic and long. Raw but talented. Watch for breakout at long courses.",
+      "fieldInfo": {
+        "owgr": 68,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 68,
+      "odds": {
+        "low": "+15000",
+        "bol": "+15000",
+        "mgm": "+15000"
+      },
+      "recentForm": {
+        "lastResult": "#59 at Cadillac Championship",
+        "lastPosition": 59,
+        "l5AvgFinish": 59.0,
+        "l10AvgFinish": 59.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 74.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 46,
+        "prior": 52.4,
+        "likelihood": 38.4,
+        "posterior_sigma": 13.2,
+        "data_points": 7
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.7,
+        "fit": 6.9,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 3.1,
+        "birdie_bogey": 4.4,
+        "cut": 3.0,
+        "market": 0.2,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.6,
+        "par5": 0.6,
+        "ml_bayes": 1.7
       },
       "propScores": {
         "win": 38,
@@ -3719,16 +3821,16 @@
         "top20": 53,
         "makeCut": 57
       },
-      "confScore": 41.3,
-      "edgeScore": 5.4,
-      "owgrRank": 70,
-      "evScore": 1269.1,
-      "scoreStd": 1.95
+      "confScore": 41.300000000000004,
+      "edgeScore": 5.53,
+      "owgrRank": 47,
+      "evScore": 835.4,
+      "scoreStd": 3.26
     },
     {
       "id": 9005,
       "name": "Kurt Kitayama",
-      "rank": 36,
+      "rank": 37,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -3777,23 +3879,23 @@
       "recentForm": {
         "lastResult": "#67 at Cadillac Championship",
         "lastPosition": 67,
-        "l5AvgFinish": 38.0,
-        "l10AvgFinish": 38.0,
-        "l5McPct": 50,
+        "l5AvgFinish": 67.0,
+        "l10AvgFinish": 67.0,
+        "l5McPct": 0,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 72.5
+          "r1Avg": 76.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 58,
+        "score": 53,
         "prior": 50.0,
-        "likelihood": 72.5,
+        "likelihood": 59.6,
         "posterior_sigma": 14.6,
-        "data_points": 8
+        "data_points": 9
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -3823,12 +3925,12 @@
       "edgeScore": 5.36,
       "owgrRank": 37,
       "evScore": 674.9,
-      "scoreStd": 2.86
+      "scoreStd": 3.33
     },
     {
       "id": 9010,
       "name": "Gary Woodland",
-      "rank": 37,
+      "rank": 38,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -3880,23 +3982,23 @@
       "recentForm": {
         "lastResult": "#8 at Cadillac Championship",
         "lastPosition": 8,
-        "l5AvgFinish": 9.0,
-        "l10AvgFinish": 9.0,
+        "l5AvgFinish": 8.0,
+        "l10AvgFinish": 8.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 66.5
+          "r1Avg": 68.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 60,
+        "score": 61,
         "prior": 50.0,
-        "likelihood": 78.0,
-        "posterior_sigma": 14.6,
-        "data_points": 9
+        "likelihood": 80.4,
+        "posterior_sigma": 14.5,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -3926,12 +4028,12 @@
       "edgeScore": 2.82,
       "owgrRank": 125,
       "evScore": 84.5,
-      "scoreStd": 2.64
+      "scoreStd": 2.56
     },
     {
       "id": 9012,
       "name": "Matt McCarty",
-      "rank": 38,
+      "rank": 39,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -3993,10 +4095,10 @@
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 60,
+        "score": 65,
         "prior": 50.0,
-        "likelihood": 72.1,
-        "posterior_sigma": 13.3,
+        "likelihood": 76.3,
+        "posterior_sigma": 11.9,
         "data_points": 10
       },
       "competitiveness": "active",
@@ -4027,12 +4129,12 @@
       "edgeScore": 4.68,
       "owgrRank": 55,
       "evScore": 318.2,
-      "scoreStd": 1.84
+      "scoreStd": 1.79
     },
     {
       "id": 9013,
       "name": "Kristoffer Reitan",
-      "rank": 39,
+      "rank": 40,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4085,16 +4187,18 @@
         "l10AvgFinish": 22.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 70.0
+        }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
         "score": 70,
         "prior": 50.0,
-        "likelihood": 74.9,
-        "posterior_sigma": 7.6,
+        "likelihood": 73.6,
+        "posterior_sigma": 7.2,
         "data_points": 5
       },
       "competitiveness": "active",
@@ -4129,7 +4233,7 @@
     {
       "id": 9014,
       "name": "Andrew Novak",
-      "rank": 40,
+      "rank": 41,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4181,22 +4285,22 @@
       "recentForm": {
         "lastResult": "#35 at Cadillac Championship",
         "lastPosition": 35,
-        "l5AvgFinish": 29.5,
-        "l10AvgFinish": 29.5,
+        "l5AvgFinish": 35.0,
+        "l10AvgFinish": 35.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 68.0
+          "r1Avg": 71.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 62,
+        "score": 59,
         "prior": 50.0,
-        "likelihood": 68.1,
-        "posterior_sigma": 10.6,
+        "likelihood": 64.5,
+        "posterior_sigma": 10.7,
         "data_points": 8
       },
       "competitiveness": "active",
@@ -4227,12 +4331,12 @@
       "edgeScore": 5.49,
       "owgrRank": 33,
       "evScore": 1259.1,
-      "scoreStd": 3.59
+      "scoreStd": 3.55
     },
     {
       "id": 9016,
       "name": "Rickie Fowler",
-      "rank": 41,
+      "rank": 42,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4284,23 +4388,23 @@
       "recentForm": {
         "lastResult": "#14 at Cadillac Championship",
         "lastPosition": 14,
-        "l5AvgFinish": 11.0,
-        "l10AvgFinish": 11.0,
+        "l5AvgFinish": 14.0,
+        "l10AvgFinish": 14.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 67.0
+          "r1Avg": 69.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 84,
+        "score": 83,
         "prior": 50.0,
-        "likelihood": 86.7,
+        "likelihood": 85.6,
         "posterior_sigma": 4.8,
-        "data_points": 6
+        "data_points": 7
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -4330,12 +4434,12 @@
       "edgeScore": 3.21,
       "owgrRank": 86,
       "evScore": 109.1,
-      "scoreStd": 1.98
+      "scoreStd": 1.94
     },
     {
       "id": 9019,
       "name": "Bud Cauley",
-      "rank": 42,
+      "rank": 43,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4383,22 +4487,22 @@
       "recentForm": {
         "lastResult": "#9 at Cadillac Championship",
         "lastPosition": 9,
-        "l5AvgFinish": 8.0,
-        "l10AvgFinish": 8.0,
+        "l5AvgFinish": 9.0,
+        "l10AvgFinish": 9.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 68.5
+          "r1Avg": 69.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 72,
+        "score": 81,
         "prior": 50.0,
-        "likelihood": 84.8,
-        "posterior_sigma": 10.8,
+        "likelihood": 87.9,
+        "posterior_sigma": 7.7,
         "data_points": 7
       },
       "competitiveness": "active",
@@ -4429,116 +4533,7 @@
       "edgeScore": 4.97,
       "owgrRank": 70,
       "evScore": 422.7,
-      "scoreStd": 1.76
-    },
-    {
-      "id": 9020,
-      "name": "Nick Taylor",
-      "rank": 43,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+1900",
-        "low": "+22500",
-        "bol": "+22500",
-        "mgm": "+20000"
-      },
-      "fieldInfo": {
-        "owgr": 57,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 57,
-      "recentForm": {
-        "lastResult": "#4 at Cadillac Championship",
-        "lastPosition": 4,
-        "l5AvgFinish": 33.5,
-        "l10AvgFinish": 33.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 67.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 50,
-        "prior": 50.0,
-        "likelihood": 48.7,
-        "posterior_sigma": 14.6,
-        "data_points": 10
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 1.2,
-        "closing": 2.0,
-        "field_strength": 0.5,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 3.9
-      },
-      "propScores": {
-        "win": 37,
-        "top5": 42,
-        "top10": 46,
-        "top20": 54,
-        "makeCut": 60
-      },
-      "confScore": 40.9,
-      "edgeScore": 1.13,
-      "owgrRank": 57,
-      "anomalies": [
-        {
-          "type": "iqr_outlier",
-          "direction": "OVERPRICED",
-          "edge_pct": 1.13,
-          "fence": 8.6,
-          "market": "outright"
-        }
-      ],
-      "evScore": 22.7
+      "scoreStd": 1.73
     },
     {
       "id": 97,
@@ -4594,23 +4589,23 @@
       "recentForm": {
         "lastResult": "#72 at Cadillac Championship",
         "lastPosition": 72,
-        "l5AvgFinish": 56.0,
-        "l10AvgFinish": 56.0,
-        "l5McPct": 50,
+        "l5AvgFinish": 72.0,
+        "l10AvgFinish": 72.0,
+        "l5McPct": 0,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 77.0
+          "r1Avg": 79.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 46,
+        "score": 44,
         "prior": 51.6,
-        "likelihood": 38.9,
-        "posterior_sigma": 13.1,
-        "data_points": 9
+        "likelihood": 32.4,
+        "posterior_sigma": 13.9,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -4627,20 +4622,19 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "par5": 0.4,
-        "ml_bayes": 2.3
+        "ml_bayes": 1.7
       },
       "propScores": {
         "win": 36,
-        "top5": 41,
-        "top10": 46,
-        "top20": 54,
-        "makeCut": 59
+        "top5": 40,
+        "top10": 45,
+        "top20": 53,
+        "makeCut": 58
       },
-      "confScore": 40.699999999999996,
-      "edgeScore": 4.61,
+      "confScore": 40.1,
+      "edgeScore": 4.52,
       "owgrRank": 115,
-      "evScore": 516.6,
-      "scoreStd": 4.83
+      "evScore": 507.5
     },
     {
       "id": 9000,
@@ -4701,17 +4695,19 @@
         "l10AvgFinish": 54.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 74.0
+        }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 52,
+        "score": 49,
         "prior": 50.0,
-        "likelihood": 55.2,
+        "likelihood": 47.3,
         "posterior_sigma": 14.6,
-        "data_points": 4
+        "data_points": 5
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -4794,23 +4790,23 @@
       "recentForm": {
         "lastResult": "#38 at Cadillac Championship",
         "lastPosition": 38,
-        "l5AvgFinish": 30.5,
-        "l10AvgFinish": 30.5,
+        "l5AvgFinish": 38.0,
+        "l10AvgFinish": 38.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 70.5
+          "r1Avg": 72.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 62,
+        "score": 59,
         "prior": 50.0,
-        "likelihood": 69.4,
-        "posterior_sigma": 10.9,
-        "data_points": 6
+        "likelihood": 64.7,
+        "posterior_sigma": 11.5,
+        "data_points": 7
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -4840,7 +4836,7 @@
       "edgeScore": 5.64,
       "owgrRank": 96,
       "evScore": 1556.0,
-      "scoreStd": 2.55
+      "scoreStd": 2.62
     },
     {
       "id": 9024,
@@ -4893,23 +4889,23 @@
       "recentForm": {
         "lastResult": "#27 at Cadillac Championship",
         "lastPosition": 27,
-        "l5AvgFinish": 24.5,
-        "l10AvgFinish": 24.5,
+        "l5AvgFinish": 27.0,
+        "l10AvgFinish": 27.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 70.0
+          "r1Avg": 71.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 69,
+        "score": 67,
         "prior": 50.0,
-        "likelihood": 71.5,
+        "likelihood": 69.8,
         "posterior_sigma": 6.2,
-        "data_points": 6
+        "data_points": 7
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -4939,7 +4935,7 @@
       "edgeScore": 5.5,
       "owgrRank": 121,
       "evScore": 1826.0,
-      "scoreStd": 1.91
+      "scoreStd": 1.94
     },
     {
       "id": 9025,
@@ -4993,23 +4989,23 @@
       "recentForm": {
         "lastResult": "#13 at Cadillac Championship",
         "lastPosition": 13,
-        "l5AvgFinish": 22.0,
-        "l10AvgFinish": 22.0,
+        "l5AvgFinish": 13.0,
+        "l10AvgFinish": 13.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 68.0
+          "r1Avg": 69.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 69,
+        "score": 71,
         "prior": 50.0,
-        "likelihood": 77.4,
-        "posterior_sigma": 10.0,
-        "data_points": 7
+        "likelihood": 78.7,
+        "posterior_sigma": 9.3,
+        "data_points": 8
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -5039,7 +5035,7 @@
       "edgeScore": 4.57,
       "owgrRank": 83,
       "evScore": 320.0,
-      "scoreStd": 2.66
+      "scoreStd": 2.59
     },
     {
       "id": 9002,
@@ -5091,23 +5087,23 @@
       "recentForm": {
         "lastResult": "#51 at Cadillac Championship",
         "lastPosition": 51,
-        "l5AvgFinish": 38.5,
-        "l10AvgFinish": 38.5,
+        "l5AvgFinish": 51.0,
+        "l10AvgFinish": 51.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 71.5
+          "r1Avg": 73.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 49,
+        "score": 48,
         "prior": 50.0,
-        "likelihood": 47.9,
-        "posterior_sigma": 13.9,
-        "data_points": 9
+        "likelihood": 44.6,
+        "posterior_sigma": 13.6,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -5124,25 +5120,126 @@
         "field_strength": 1.0,
         "consistency": 1.7,
         "par5": 0.0,
-        "ml_bayes": 3.9
+        "ml_bayes": 3.6
       },
       "propScores": {
         "win": 37,
         "top5": 41,
         "top10": 46,
-        "top20": 54,
+        "top20": 53,
         "makeCut": 59
       },
-      "confScore": 39.9,
-      "edgeScore": 5.32,
+      "confScore": 39.6,
+      "edgeScore": 5.28,
       "owgrRank": 28,
-      "evScore": 803.7,
-      "scoreStd": 2.5
+      "evScore": 796.9,
+      "scoreStd": 2.54
+    },
+    {
+      "id": 9008,
+      "name": "Nico Echavarria",
+      "rank": 50,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+6200",
+        "low": "+32500",
+        "bol": "+32500",
+        "mgm": "+25000"
+      },
+      "fieldInfo": {
+        "owgr": 52,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 52,
+      "recentForm": {
+        "lastResult": "#5 at Cadillac Championship",
+        "lastPosition": 5,
+        "l5AvgFinish": 5.0,
+        "l10AvgFinish": 5.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 67.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 55,
+        "prior": 50.0,
+        "likelihood": 63.6,
+        "posterior_sigma": 14.6,
+        "data_points": 5
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.4,
+        "closing": 2.0,
+        "field_strength": 0.5,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 3.6
+      },
+      "propScores": {
+        "win": 36,
+        "top5": 40,
+        "top10": 45,
+        "top20": 53,
+        "makeCut": 59
+      },
+      "confScore": 39.6,
+      "edgeScore": 4.35,
+      "owgrRank": 52,
+      "evScore": 274.2,
+      "scoreStd": 3.45
     },
     {
       "id": 9004,
       "name": "Ryan Gerard",
-      "rank": 50,
+      "rank": 51,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5192,23 +5289,23 @@
       "recentForm": {
         "lastResult": "#47 at Cadillac Championship",
         "lastPosition": 47,
-        "l5AvgFinish": 40.5,
-        "l10AvgFinish": 40.5,
+        "l5AvgFinish": 47.0,
+        "l10AvgFinish": 47.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 72.5
+          "r1Avg": 72.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 49,
+        "score": 47,
         "prior": 50.0,
-        "likelihood": 47.9,
-        "posterior_sigma": 12.0,
-        "data_points": 9
+        "likelihood": 45.7,
+        "posterior_sigma": 11.7,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -5225,121 +5322,20 @@
         "field_strength": 1.0,
         "consistency": 1.7,
         "par5": 0.0,
-        "ml_bayes": 3.9
+        "ml_bayes": 3.3
       },
       "propScores": {
         "win": 37,
         "top5": 41,
-        "top10": 46,
-        "top20": 54,
-        "makeCut": 59
+        "top10": 45,
+        "top20": 53,
+        "makeCut": 58
       },
-      "confScore": 39.9,
-      "edgeScore": 5.19,
+      "confScore": 39.3,
+      "edgeScore": 5.1,
       "owgrRank": 44,
-      "evScore": 1342.4,
-      "scoreStd": 3.39
-    },
-    {
-      "id": 9009,
-      "name": "Michael Kim",
-      "rank": 51,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 36,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 36,
-      "odds": {
-        "low": "+35000",
-        "bol": "+35000",
-        "mgm": "+17500",
-        "dk": "+15000"
-      },
-      "recentForm": {
-        "lastResult": "#57 at Cadillac Championship",
-        "lastPosition": 57,
-        "l5AvgFinish": 41.0,
-        "l10AvgFinish": 41.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 71.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 49,
-        "prior": 50.0,
-        "likelihood": 47.8,
-        "posterior_sigma": 14.6,
-        "data_points": 8
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.2,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 3.9
-      },
-      "propScores": {
-        "win": 37,
-        "top5": 41,
-        "top10": 46,
-        "top20": 54,
-        "makeCut": 59
-      },
-      "confScore": 39.9,
-      "edgeScore": 5.32,
-      "owgrRank": 36,
-      "evScore": 803.7,
-      "scoreStd": 4.01
+      "evScore": 1320.7,
+      "scoreStd": 3.33
     },
     {
       "id": 9022,
@@ -5392,23 +5388,23 @@
       "recentForm": {
         "lastResult": "#49 at Cadillac Championship",
         "lastPosition": 49,
-        "l5AvgFinish": 32.5,
-        "l10AvgFinish": 32.5,
+        "l5AvgFinish": 49.0,
+        "l10AvgFinish": 49.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 71.0
+          "r1Avg": 73.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 53,
+        "score": 51,
         "prior": 50.0,
-        "likelihood": 57.7,
-        "posterior_sigma": 14.2,
-        "data_points": 6
+        "likelihood": 52.2,
+        "posterior_sigma": 14.1,
+        "data_points": 7
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -5425,23 +5421,315 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "par5": 0.0,
-        "ml_bayes": 4.0
+        "ml_bayes": 4.2
+      },
+      "propScores": {
+        "win": 36,
+        "top5": 40,
+        "top10": 45,
+        "top20": 54,
+        "makeCut": 59
+      },
+      "confScore": 39.2,
+      "owgrRank": 89,
+      "scoreStd": 2.39
+    },
+    {
+      "id": 9009,
+      "name": "Michael Kim",
+      "rank": 53,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 36,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 36,
+      "odds": {
+        "low": "+35000",
+        "bol": "+35000",
+        "mgm": "+17500",
+        "dk": "+15000"
+      },
+      "recentForm": {
+        "lastResult": "#57 at Cadillac Championship",
+        "lastPosition": 57,
+        "l5AvgFinish": 57.0,
+        "l10AvgFinish": 57.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 74.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 46,
+        "prior": 50.0,
+        "likelihood": 39.9,
+        "posterior_sigma": 14.4,
+        "data_points": 8
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.2,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 3.0
       },
       "propScores": {
         "win": 36,
         "top5": 40,
         "top10": 45,
         "top20": 53,
-        "makeCut": 59
+        "makeCut": 58
       },
       "confScore": 39.0,
-      "owgrRank": 89,
-      "scoreStd": 2.3
+      "edgeScore": 5.19,
+      "owgrRank": 36,
+      "evScore": 783.4,
+      "scoreStd": 4.01
+    },
+    {
+      "id": 9030,
+      "name": "Brian Campbell",
+      "rank": 54,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 71,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 71,
+      "recentForm": {
+        "lastResult": "#26 at Cadillac Championship",
+        "lastPosition": 26,
+        "l5AvgFinish": 26.0,
+        "l10AvgFinish": 26.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 70.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 45,
+        "prior": 50.0,
+        "likelihood": 35.7,
+        "posterior_sigma": 14.6,
+        "data_points": 10
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.9,
+        "closing": 2.0,
+        "field_strength": 0.5,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 2.7
+      },
+      "propScores": {
+        "win": 36,
+        "top5": 40,
+        "top10": 45,
+        "top20": 53,
+        "makeCut": 58
+      },
+      "confScore": 38.7,
+      "owgrRank": 71,
+      "scoreStd": 2.33
+    },
+    {
+      "id": 9035,
+      "name": "Tom Hoge",
+      "rank": 55,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+23000",
+        "mgm": "+25000"
+      },
+      "fieldInfo": {
+        "owgr": 99,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 99,
+      "recentForm": {
+        "lastResult": "#10 at Cadillac Championship",
+        "lastPosition": 10,
+        "l5AvgFinish": 10.0,
+        "l10AvgFinish": 10.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 69.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 49,
+        "prior": 50.0,
+        "likelihood": 45.7,
+        "posterior_sigma": 14.6,
+        "data_points": 7
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.1,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 3.7
+      },
+      "propScores": {
+        "win": 35,
+        "top5": 40,
+        "top10": 45,
+        "top20": 53,
+        "makeCut": 59
+      },
+      "confScore": 38.7,
+      "edgeScore": 5.37,
+      "owgrRank": 99,
+      "evScore": 1241.0
     },
     {
       "id": 50,
       "name": "Maverick McNealy",
-      "rank": 53,
+      "rank": 56,
       "sgTotal": 0.05,
       "sgOtt": 0.15,
       "sgApp": 0.0,
@@ -5500,13 +5788,13 @@
       "recentForm": {
         "lastResult": "#31 at Cadillac Championship",
         "lastPosition": 31,
-        "l5AvgFinish": 24.0,
-        "l10AvgFinish": 24.0,
+        "l5AvgFinish": 31.0,
+        "l10AvgFinish": 31.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 72.5
+          "r1Avg": 71.0
         }
       },
       "makeCutPct": 0.0,
@@ -5514,8 +5802,8 @@
       "bayesianScore": {
         "score": 54,
         "prior": 51.0,
-        "likelihood": 58.2,
-        "posterior_sigma": 13.8,
+        "likelihood": 58.4,
+        "posterior_sigma": 13.3,
         "data_points": 9
       },
       "competitiveness": "active",
@@ -5546,204 +5834,12 @@
       "edgeScore": 4.34,
       "owgrRank": 50,
       "evScore": 307.9,
-      "scoreStd": 3.22
-    },
-    {
-      "id": 9008,
-      "name": "Nico Echavarria",
-      "rank": 54,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+6200",
-        "low": "+32500",
-        "bol": "+32500",
-        "mgm": "+25000"
-      },
-      "fieldInfo": {
-        "owgr": 52,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 52,
-      "recentForm": {
-        "lastResult": "#5 at Cadillac Championship",
-        "lastPosition": 5,
-        "l5AvgFinish": 5.0,
-        "l10AvgFinish": 5.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 51,
-        "prior": 50.0,
-        "likelihood": 51.9,
-        "posterior_sigma": 14.6,
-        "data_points": 4
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.4,
-        "closing": 2.0,
-        "field_strength": 0.5,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 2.2
-      },
-      "propScores": {
-        "win": 35,
-        "top5": 39,
-        "top10": 44,
-        "top20": 52,
-        "makeCut": 57
-      },
-      "confScore": 38.2,
-      "edgeScore": 4.14,
-      "owgrRank": 52,
-      "evScore": 261.0,
-      "scoreStd": 3.43
-    },
-    {
-      "id": 9030,
-      "name": "Brian Campbell",
-      "rank": 55,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 71,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 71,
-      "recentForm": {
-        "lastResult": "#26 at Cadillac Championship",
-        "lastPosition": 26,
-        "l5AvgFinish": 52.5,
-        "l10AvgFinish": 52.5,
-        "l5McPct": 50,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 69.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 43,
-        "prior": 50.0,
-        "likelihood": 28.6,
-        "posterior_sigma": 14.6,
-        "data_points": 9
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.9,
-        "closing": 2.0,
-        "field_strength": 0.5,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 2.1
-      },
-      "propScores": {
-        "win": 35,
-        "top5": 39,
-        "top10": 44,
-        "top20": 52,
-        "makeCut": 58
-      },
-      "confScore": 38.1,
-      "owgrRank": 71,
-      "scoreStd": 2.38
+      "scoreStd": 3.16
     },
     {
       "id": 9011,
       "name": "Sam Stevens",
-      "rank": 56,
+      "rank": 57,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5793,23 +5889,23 @@
       "recentForm": {
         "lastResult": "#36 at Cadillac Championship",
         "lastPosition": 36,
-        "l5AvgFinish": 52.0,
-        "l10AvgFinish": 52.0,
-        "l5McPct": 50,
+        "l5AvgFinish": 36.0,
+        "l10AvgFinish": 36.0,
+        "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 70.5
+          "r1Avg": 71.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 42,
+        "score": 43,
         "prior": 50.0,
-        "likelihood": 33.7,
-        "posterior_sigma": 12.6,
-        "data_points": 9
+        "likelihood": 37.2,
+        "posterior_sigma": 12.5,
+        "data_points": 10
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -5826,421 +5922,25 @@
         "field_strength": 1.0,
         "consistency": 1.7,
         "par5": 0.0,
-        "ml_bayes": 1.8
+        "ml_bayes": 2.1
       },
       "propScores": {
-        "win": 35,
-        "top5": 39,
+        "win": 36,
+        "top5": 40,
         "top10": 44,
         "top20": 52,
         "makeCut": 57
       },
-      "confScore": 37.8,
-      "edgeScore": 4.96,
+      "confScore": 38.1,
+      "edgeScore": 5.01,
       "owgrRank": 50,
-      "evScore": 699.5,
-      "scoreStd": 2.38
-    },
-    {
-      "id": 9023,
-      "name": "Matt Wallace",
-      "rank": 57,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 75,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 75,
-      "odds": {
-        "mgm": "+20000",
-        "dk": "+40000"
-      },
-      "recentForm": {
-        "lastResult": "#52 at Cadillac Championship",
-        "lastPosition": 52,
-        "l5AvgFinish": 54.5,
-        "l10AvgFinish": 54.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 71.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 43,
-        "prior": 50.0,
-        "likelihood": 36.0,
-        "posterior_sigma": 12.6,
-        "data_points": 7
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.1,
-        "closing": 2.0,
-        "field_strength": 0.5,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 1.8
-      },
-      "propScores": {
-        "win": 34,
-        "top5": 38,
-        "top10": 43,
-        "top20": 51,
-        "makeCut": 57
-      },
-      "confScore": 37.8,
-      "edgeScore": 5.17,
-      "owgrRank": 75,
-      "evScore": 2173.7,
-      "scoreStd": 1.86
-    },
-    {
-      "id": 9007,
-      "name": "Daniel Berger",
-      "rank": 58,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 61,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 61,
-      "odds": {
-        "low": "+15000",
-        "bol": "+15000",
-        "mgm": "+10000",
-        "dk": "+10000",
-        "fd": "+6500",
-        "riv": "+6600"
-      },
-      "recentForm": {
-        "lastResult": "#68 at Cadillac Championship",
-        "lastPosition": 68,
-        "l5AvgFinish": 55.5,
-        "l10AvgFinish": 55.5,
-        "l5McPct": 50,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 71.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 42,
-        "prior": 50.0,
-        "likelihood": 35.2,
-        "posterior_sigma": 12.0,
-        "data_points": 7
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.4,
-        "closing": 2.0,
-        "field_strength": 0.5,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 1.6
-      },
-      "propScores": {
-        "win": 34,
-        "top5": 38,
-        "top10": 43,
-        "top20": 51,
-        "makeCut": 57
-      },
-      "confScore": 37.6,
-      "edgeScore": 4.12,
-      "owgrRank": 61,
-      "evScore": 469.6,
-      "scoreStd": 3.53
-    },
-    {
-      "id": 9031,
-      "name": "Chandler Blanchet",
-      "rank": 59,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 118,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 118,
-      "recentForm": {
-        "lastResult": "#62 at Cadillac Championship",
-        "lastPosition": 62,
-        "l5AvgFinish": 50.5,
-        "l10AvgFinish": 50.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 73.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 46,
-        "prior": 50.0,
-        "likelihood": 41.0,
-        "posterior_sigma": 12.7,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 2.5
-      },
-      "propScores": {
-        "win": 34,
-        "top5": 38,
-        "top10": 43,
-        "top20": 52,
-        "makeCut": 57
-      },
-      "confScore": 37.5,
-      "owgrRank": 118,
-      "scoreStd": 3.25
-    },
-    {
-      "id": 9017,
-      "name": "Ryo Hisatsune",
-      "rank": 60,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+32500",
-        "low": "+20000",
-        "bol": "+20000",
-        "mgm": "+20000"
-      },
-      "fieldInfo": {
-        "owgr": 127,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 127,
-      "recentForm": {
-        "lastResult": "#37 at Cadillac Championship",
-        "lastPosition": 37,
-        "l5AvgFinish": 49.5,
-        "l10AvgFinish": 49.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 73.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 43,
-        "prior": 50.0,
-        "likelihood": 34.7,
-        "posterior_sigma": 12.9,
-        "data_points": 7
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.1,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 2.1
-      },
-      "propScores": {
-        "win": 33,
-        "top5": 38,
-        "top10": 43,
-        "top20": 51,
-        "makeCut": 57
-      },
-      "confScore": 37.1,
-      "edgeScore": 5.07,
-      "owgrRank": 127,
-      "evScore": 1714.2,
-      "scoreStd": 3.11
+      "evScore": 705.8,
+      "scoreStd": 2.32
     },
     {
       "id": 9018,
       "name": "Harry Hall",
-      "rank": 61,
+      "rank": 58,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6288,23 +5988,23 @@
       "recentForm": {
         "lastResult": "#32 at Cadillac Championship",
         "lastPosition": 32,
-        "l5AvgFinish": 49.5,
-        "l10AvgFinish": 49.5,
-        "l5McPct": 50,
+        "l5AvgFinish": 32.0,
+        "l10AvgFinish": 32.0,
+        "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 70.5
+          "r1Avg": 71.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 40,
+        "score": 43,
         "prior": 50.0,
-        "likelihood": 30.7,
-        "posterior_sigma": 12.3,
-        "data_points": 7
+        "likelihood": 36.3,
+        "posterior_sigma": 12.9,
+        "data_points": 8
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -6321,313 +6021,24 @@
         "field_strength": 0.5,
         "consistency": 1.7,
         "par5": 0.0,
-        "ml_bayes": 1.1
+        "ml_bayes": 2.1
       },
       "propScores": {
-        "win": 34,
-        "top5": 38,
-        "top10": 43,
-        "top20": 51,
-        "makeCut": 56
-      },
-      "confScore": 37.1,
-      "edgeScore": 4.9,
-      "owgrRank": 60,
-      "evScore": 935.1
-    },
-    {
-      "id": 9032,
-      "name": "Alex Smalley",
-      "rank": 62,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+1000",
-        "low": "+30000",
-        "bol": "+30000"
-      },
-      "fieldInfo": {
-        "owgr": 122,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 122,
-      "recentForm": {
-        "lastResult": "#3 at Cadillac Championship",
-        "lastPosition": 3,
-        "l5AvgFinish": 3.0,
-        "l10AvgFinish": 3.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 2.2,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0
-      },
-      "propScores": {
-        "win": 33,
-        "top5": 38,
-        "top10": 43,
-        "top20": 51,
-        "makeCut": 56
-      },
-      "confScore": 37.0,
-      "edgeScore": -3.54,
-      "owgrRank": 122,
-      "anomalies": [
-        {
-          "type": "iqr_outlier",
-          "direction": "OVERPRICED",
-          "edge_pct": -3.54,
-          "fence": 2.16,
-          "market": "outright"
-        }
-      ],
-      "evScore": -39.0
-    },
-    {
-      "id": 9035,
-      "name": "Tom Hoge",
-      "rank": 63,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+23000",
-        "mgm": "+25000"
-      },
-      "fieldInfo": {
-        "owgr": 99,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 99,
-      "recentForm": {
-        "lastResult": "#10 at Cadillac Championship",
-        "lastPosition": 10,
-        "l5AvgFinish": 41.5,
-        "l10AvgFinish": 41.5,
-        "l5McPct": 50,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 70.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 44,
-        "prior": 50.0,
-        "likelihood": 33.4,
-        "posterior_sigma": 14.6,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.1,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 2.0
-      },
-      "propScores": {
-        "win": 33,
-        "top5": 38,
-        "top10": 43,
-        "top20": 51,
+        "win": 35,
+        "top5": 39,
+        "top10": 44,
+        "top20": 52,
         "makeCut": 57
       },
-      "confScore": 37.0,
-      "edgeScore": 5.12,
-      "owgrRank": 99,
-      "evScore": 1182.1
-    },
-    {
-      "id": 9029,
-      "name": "David Lipsky",
-      "rank": 64,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 144,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 144,
-      "recentForm": {
-        "lastResult": "#29 at Cadillac Championship",
-        "lastPosition": 29,
-        "l5AvgFinish": 50.5,
-        "l10AvgFinish": 50.5,
-        "l5McPct": 50,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 71.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 40,
-        "prior": 50.0,
-        "likelihood": 26.5,
-        "posterior_sigma": 13.6,
-        "data_points": 6
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 1.1
-      },
-      "propScores": {
-        "win": 32,
-        "top5": 37,
-        "top10": 42,
-        "top20": 50,
-        "makeCut": 56
-      },
-      "confScore": 36.1,
-      "owgrRank": 144,
-      "scoreStd": 1.76
+      "confScore": 38.1,
+      "edgeScore": 5.05,
+      "owgrRank": 60,
+      "evScore": 963.0
     },
     {
       "id": 9021,
       "name": "Max Greyserman",
-      "rank": 65,
+      "rank": 59,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6681,11 +6092,20 @@
         "l10AvgFinish": 40.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 72.0
+        }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 53,
+        "prior": 50.0,
+        "likelihood": 56.9,
+        "posterior_sigma": 12.7,
+        "data_points": 3
+      },
       "competitiveness": "active",
       "confBreakdown": {
         "sg": 0.0,
@@ -6700,24 +6120,515 @@
         "closing": 2.0,
         "field_strength": 1.0,
         "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 1.9
+      },
+      "propScores": {
+        "win": 35,
+        "top5": 39,
+        "top10": 44,
+        "top20": 52,
+        "makeCut": 57
+      },
+      "confScore": 37.9,
+      "edgeScore": 5.02,
+      "owgrRank": 32,
+      "evScore": 2321.8
+    },
+    {
+      "id": 9029,
+      "name": "David Lipsky",
+      "rank": 60,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 144,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 144,
+      "recentForm": {
+        "lastResult": "#29 at Cadillac Championship",
+        "lastPosition": 29,
+        "l5AvgFinish": 29.0,
+        "l10AvgFinish": 29.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 71.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 44,
+        "prior": 50.0,
+        "likelihood": 34.3,
+        "posterior_sigma": 14.2,
+        "data_points": 7
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 2.4
+      },
+      "propScores": {
+        "win": 34,
+        "top5": 38,
+        "top10": 43,
+        "top20": 52,
+        "makeCut": 57
+      },
+      "confScore": 37.4,
+      "owgrRank": 144,
+      "scoreStd": 1.72
+    },
+    {
+      "id": 9007,
+      "name": "Daniel Berger",
+      "rank": 61,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 61,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 61,
+      "odds": {
+        "low": "+15000",
+        "bol": "+15000",
+        "mgm": "+10000",
+        "dk": "+10000",
+        "fd": "+6500",
+        "riv": "+6600"
+      },
+      "recentForm": {
+        "lastResult": "#68 at Cadillac Championship",
+        "lastPosition": 68,
+        "l5AvgFinish": 68.0,
+        "l10AvgFinish": 68.0,
+        "l5McPct": 0,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 76.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 40,
+        "prior": 50.0,
+        "likelihood": 29.2,
+        "posterior_sigma": 12.9,
+        "data_points": 8
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.4,
+        "closing": 2.0,
+        "field_strength": 0.5,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 1.2
+      },
+      "propScores": {
+        "win": 34,
+        "top5": 38,
+        "top10": 43,
+        "top20": 51,
+        "makeCut": 56
+      },
+      "confScore": 37.2,
+      "edgeScore": 4.06,
+      "owgrRank": 61,
+      "evScore": 463.6,
+      "scoreStd": 3.71
+    },
+    {
+      "id": 9031,
+      "name": "Chandler Blanchet",
+      "rank": 62,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 118,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 118,
+      "recentForm": {
+        "lastResult": "#62 at Cadillac Championship",
+        "lastPosition": 62,
+        "l5AvgFinish": 62.0,
+        "l10AvgFinish": 62.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 75.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 43,
+        "prior": 50.0,
+        "likelihood": 35.2,
+        "posterior_sigma": 13.1,
+        "data_points": 7
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 2.1
+      },
+      "propScores": {
+        "win": 33,
+        "top5": 38,
+        "top10": 43,
+        "top20": 51,
+        "makeCut": 57
+      },
+      "confScore": 37.1,
+      "owgrRank": 118,
+      "scoreStd": 3.39
+    },
+    {
+      "id": 9032,
+      "name": "Alex Smalley",
+      "rank": 63,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+1000",
+        "low": "+30000",
+        "bol": "+30000"
+      },
+      "fieldInfo": {
+        "owgr": 122,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 122,
+      "recentForm": {
+        "lastResult": "#3 at Cadillac Championship",
+        "lastPosition": 3,
+        "l5AvgFinish": 3.0,
+        "l10AvgFinish": 3.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 65.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 2.2,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
         "par5": 0.0
+      },
+      "propScores": {
+        "win": 33,
+        "top5": 38,
+        "top10": 43,
+        "top20": 51,
+        "makeCut": 56
+      },
+      "confScore": 37.0,
+      "edgeScore": -3.54,
+      "owgrRank": 122,
+      "anomalies": [
+        {
+          "type": "iqr_outlier",
+          "direction": "OVERPRICED",
+          "edge_pct": -3.54,
+          "fence": 1.92,
+          "market": "outright"
+        }
+      ],
+      "evScore": -39.0
+    },
+    {
+      "id": 9017,
+      "name": "Ryo Hisatsune",
+      "rank": 64,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+32500",
+        "low": "+20000",
+        "bol": "+20000",
+        "mgm": "+20000"
+      },
+      "fieldInfo": {
+        "owgr": 127,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 127,
+      "recentForm": {
+        "lastResult": "#37 at Cadillac Championship",
+        "lastPosition": 37,
+        "l5AvgFinish": 37.0,
+        "l10AvgFinish": 37.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 72.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 40,
+        "prior": 50.0,
+        "likelihood": 34.8,
+        "posterior_sigma": 10.7,
+        "data_points": 7
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.1,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 1.3
       },
       "propScores": {
         "win": 33,
         "top5": 37,
         "top10": 42,
-        "top20": 50,
-        "makeCut": 55
+        "top20": 51,
+        "makeCut": 56
       },
-      "confScore": 36.0,
-      "edgeScore": 4.74,
-      "owgrRank": 32,
-      "evScore": 2200.4
+      "confScore": 36.3,
+      "edgeScore": 4.95,
+      "owgrRank": 127,
+      "evScore": 1675.1,
+      "scoreStd": 3.04
     },
     {
       "id": 9003,
       "name": "Alex Noren",
-      "rank": 66,
+      "rank": 65,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6761,22 +6672,22 @@
       "recentForm": {
         "lastResult": "#58 at Cadillac Championship",
         "lastPosition": 58,
-        "l5AvgFinish": 62.0,
-        "l10AvgFinish": 62.0,
-        "l5McPct": 50,
+        "l5AvgFinish": 58.0,
+        "l10AvgFinish": 58.0,
+        "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 73.5
+          "r1Avg": 74.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 27,
+        "score": 26,
         "prior": 50.0,
-        "likelihood": 21.7,
-        "posterior_sigma": 8.1,
+        "likelihood": 21.0,
+        "posterior_sigma": 7.3,
         "data_points": 9
       },
       "competitiveness": "active",
@@ -6794,7 +6705,7 @@
         "field_strength": 1.5,
         "consistency": 1.7,
         "par5": 0.0,
-        "ml_bayes": -3.6
+        "ml_bayes": -3.9
       },
       "propScores": {
         "win": 33,
@@ -6803,14 +6714,14 @@
         "top20": 48,
         "makeCut": 53
       },
-      "confScore": 35.4,
+      "confScore": 35.1,
       "owgrRank": 11,
       "scoreStd": 2.99
     },
     {
       "id": 9028,
       "name": "Andrew Putnam",
-      "rank": 67,
+      "rank": 66,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6859,22 +6770,22 @@
       "recentForm": {
         "lastResult": "#6 at Cadillac Championship",
         "lastPosition": 6,
-        "l5AvgFinish": 25.0,
-        "l10AvgFinish": 25.0,
+        "l5AvgFinish": 6.0,
+        "l10AvgFinish": 6.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 69.5
+          "r1Avg": 68.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 54,
+        "score": 56,
         "prior": 50.0,
-        "likelihood": 60.4,
-        "posterior_sigma": 13.8,
+        "likelihood": 65.7,
+        "posterior_sigma": 14.2,
         "data_points": 7
       },
       "competitiveness": "declining",
@@ -6907,102 +6818,9 @@
       "evScore": 482.7
     },
     {
-      "id": 9034,
-      "name": "Sudarshan Yellamaraju",
-      "rank": 68,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 278,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 278,
-      "recentForm": {
-        "lastResult": "#56 at Cadillac Championship",
-        "lastPosition": 56,
-        "l5AvgFinish": 55.0,
-        "l10AvgFinish": 55.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 74.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 39,
-        "prior": 50.0,
-        "likelihood": 34.2,
-        "posterior_sigma": 9.9,
-        "data_points": 7
-      },
-      "competitiveness": "declining",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 1.1
-      },
-      "propScores": {
-        "win": 32,
-        "top5": 35,
-        "top10": 35,
-        "top20": 35,
-        "makeCut": 35
-      },
-      "confScore": 35,
-      "owgrRank": 278,
-      "scoreStd": 3.36
-    },
-    {
       "id": 9036,
       "name": "Alex Fitzpatrick",
-      "rank": 69,
+      "rank": 67,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7053,8 +6871,10 @@
         "l10AvgFinish": 43.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 72.0
+        }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
@@ -7089,7 +6909,7 @@
     {
       "id": 9037,
       "name": "Joel Dahmen",
-      "rank": 70,
+      "rank": 68,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7137,8 +6957,10 @@
         "l10AvgFinish": 61.0,
         "l5McPct": 100,
         "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 75.0
+        }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
@@ -7169,9 +6991,108 @@
       "owgrRank": 213
     },
     {
+      "id": 9023,
+      "name": "Matt Wallace",
+      "rank": 69,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 75,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 75,
+      "odds": {
+        "mgm": "+20000",
+        "dk": "+40000"
+      },
+      "recentForm": {
+        "lastResult": "#52 at Cadillac Championship",
+        "lastPosition": 52,
+        "l5AvgFinish": 52.0,
+        "l10AvgFinish": 52.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 74.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 32,
+        "prior": 50.0,
+        "likelihood": 30.5,
+        "posterior_sigma": 4.8,
+        "data_points": 7
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.1,
+        "closing": 2.0,
+        "field_strength": 0.5,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": -1.1
+      },
+      "propScores": {
+        "win": 31,
+        "top5": 35,
+        "top10": 40,
+        "top20": 48,
+        "makeCut": 54
+      },
+      "confScore": 34.9,
+      "edgeScore": 4.74,
+      "owgrRank": 75,
+      "evScore": 1999.2,
+      "scoreStd": 2.01
+    },
+    {
       "id": 9006,
       "name": "Nicolai Højgaard",
-      "rank": 71,
+      "rank": 70,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7215,23 +7136,23 @@
       "recentForm": {
         "lastResult": "#63 at Cadillac Championship",
         "lastPosition": 63,
-        "l5AvgFinish": 59.5,
-        "l10AvgFinish": 59.5,
+        "l5AvgFinish": 63.0,
+        "l10AvgFinish": 63.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 74.0
+          "r1Avg": 75.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 31,
+        "score": 30,
         "prior": 50.0,
-        "likelihood": 27.6,
-        "posterior_sigma": 7.1,
-        "data_points": 7
+        "likelihood": 24.7,
+        "posterior_sigma": 7.9,
+        "data_points": 8
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -7248,23 +7169,23 @@
         "field_strength": 0.5,
         "consistency": 1.7,
         "par5": 0.0,
-        "ml_bayes": -1.3
+        "ml_bayes": -1.8
       },
       "propScores": {
-        "win": 32,
-        "top5": 36,
-        "top10": 41,
-        "top20": 49,
+        "win": 31,
+        "top5": 35,
+        "top10": 40,
+        "top20": 48,
         "makeCut": 54
       },
-      "confScore": 34.7,
+      "confScore": 34.2,
       "owgrRank": 77,
-      "scoreStd": 2.3
+      "scoreStd": 2.48
     },
     {
       "id": 9026,
       "name": "Ricky Castillo",
-      "rank": 72,
+      "rank": 71,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7308,23 +7229,23 @@
       "recentForm": {
         "lastResult": "#48 at Cadillac Championship",
         "lastPosition": 48,
-        "l5AvgFinish": 54.0,
-        "l10AvgFinish": 54.0,
+        "l5AvgFinish": 48.0,
+        "l10AvgFinish": 48.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 72.5
+          "r1Avg": 73.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 29,
+        "score": 31,
         "prior": 50.0,
-        "likelihood": 26.4,
-        "posterior_sigma": 6.1,
-        "data_points": 6
+        "likelihood": 28.3,
+        "posterior_sigma": 6.2,
+        "data_points": 7
       },
       "competitiveness": "declining",
       "confBreakdown": {
@@ -7341,23 +7262,209 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "par5": 0.0,
-        "ml_bayes": -1.3
+        "ml_bayes": -1.1
       },
       "propScores": {
         "win": 30,
-        "top5": 34,
+        "top5": 35,
         "top10": 35,
         "top20": 35,
         "makeCut": 35
       },
-      "confScore": 33.7,
+      "confScore": 33.9,
       "owgrRank": 173,
-      "scoreStd": 1.94
+      "scoreStd": 1.96
+    },
+    {
+      "id": 9034,
+      "name": "Sudarshan Yellamaraju",
+      "rank": 72,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 278,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 278,
+      "recentForm": {
+        "lastResult": "#56 at Cadillac Championship",
+        "lastPosition": 56,
+        "l5AvgFinish": 56.0,
+        "l10AvgFinish": 56.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 74.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 31,
+        "prior": 50.0,
+        "likelihood": 29.4,
+        "posterior_sigma": 5.6,
+        "data_points": 7
+      },
+      "competitiveness": "declining",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": -1.1
+      },
+      "propScores": {
+        "win": 30,
+        "top5": 35,
+        "top10": 35,
+        "top20": 35,
+        "makeCut": 35
+      },
+      "confScore": 33.9,
+      "owgrRank": 278,
+      "scoreStd": 3.38
+    },
+    {
+      "id": 9027,
+      "name": "Austin Smotherman",
+      "rank": 73,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 130,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 130,
+      "recentForm": {
+        "lastResult": "#70 at Cadillac Championship",
+        "lastPosition": 70,
+        "l5AvgFinish": 70.0,
+        "l10AvgFinish": 70.0,
+        "l5McPct": 0,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 77.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 10,
+        "prior": 50.0,
+        "likelihood": 6.5,
+        "posterior_sigma": 4.8,
+        "data_points": 7
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": -5.0
+      },
+      "propScores": {
+        "win": 26,
+        "top5": 31,
+        "top10": 36,
+        "top20": 44,
+        "makeCut": 50
+      },
+      "confScore": 30.0,
+      "owgrRank": 130,
+      "scoreStd": 2.59
     },
     {
       "id": 9033,
       "name": "Jhonattan Vegas",
-      "rank": 73,
+      "rank": 74,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7405,23 +7512,23 @@
       "recentForm": {
         "lastResult": "#60 at Cadillac Championship",
         "lastPosition": 60,
-        "l5AvgFinish": 67.5,
-        "l10AvgFinish": 67.5,
-        "l5McPct": 50,
+        "l5AvgFinish": 60.0,
+        "l10AvgFinish": 60.0,
+        "l5McPct": 100,
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 76.0
+          "r1Avg": 75.0
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 13,
+        "score": 15,
         "prior": 50.0,
-        "likelihood": 10.1,
-        "posterior_sigma": 4.8,
-        "data_points": 6
+        "likelihood": 11.9,
+        "posterior_sigma": 5.0,
+        "data_points": 7
       },
       "competitiveness": "active",
       "confBreakdown": {
@@ -7438,101 +7545,6 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "par5": 0.0,
-        "ml_bayes": -4.9
-      },
-      "propScores": {
-        "win": 26,
-        "top5": 31,
-        "top10": 36,
-        "top20": 44,
-        "makeCut": 50
-      },
-      "confScore": 30.1,
-      "edgeScore": 4.12,
-      "owgrRank": 85,
-      "evScore": 1259.0,
-      "scoreStd": 3.58
-    },
-    {
-      "id": 9027,
-      "name": "Austin Smotherman",
-      "rank": 74,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 130,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 130,
-      "recentForm": {
-        "lastResult": "#70 at Cadillac Championship",
-        "lastPosition": 70,
-        "l5AvgFinish": 72.0,
-        "l10AvgFinish": 72.0,
-        "l5McPct": 0,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 75.5
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 13,
-        "prior": 50.0,
-        "likelihood": 8.7,
-        "posterior_sigma": 5.7,
-        "data_points": 7
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0,
         "ml_bayes": -5.0
       },
       "propScores": {
@@ -7543,8 +7555,10 @@
         "makeCut": 50
       },
       "confScore": 30.0,
-      "owgrRank": 130,
-      "scoreStd": 2.4
+      "edgeScore": 4.1,
+      "owgrRank": 85,
+      "evScore": 1254.5,
+      "scoreStd": 3.55
     }
   ],
   "currentEvent": {
@@ -9706,16 +9720,16 @@
     "Scottie Scheffler": [
       {
         "type": "z_score",
-        "z": -2.67,
+        "z": -2.7,
         "direction": "OVERPRICED",
-        "edge_pct": -9.53,
+        "edge_pct": -9.62,
         "market": "outright"
       },
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -9.53,
-        "fence": 2.16,
+        "edge_pct": -9.62,
+        "fence": 1.92,
         "market": "outright"
       }
     ],
@@ -9724,30 +9738,30 @@
         "type": "z_score",
         "z": -6.58,
         "direction": "OVERPRICED",
-        "edge_pct": -29.63,
+        "edge_pct": -29.54,
         "market": "outright"
       },
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -29.63,
-        "fence": 2.16,
+        "edge_pct": -29.54,
+        "fence": 1.92,
         "market": "outright"
       }
     ],
     "Jordan Spieth": [
       {
         "type": "z_score",
-        "z": -2.28,
+        "z": -2.26,
         "direction": "OVERPRICED",
-        "edge_pct": -7.52,
+        "edge_pct": -7.39,
         "market": "outright"
       },
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -7.52,
-        "fence": 2.16,
+        "edge_pct": -7.39,
+        "fence": 1.92,
         "market": "outright"
       }
     ],
@@ -9755,8 +9769,8 @@
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": 1.13,
-        "fence": 8.6,
+        "edge_pct": 1.27,
+        "fence": 8.86,
         "market": "outright"
       }
     ],
@@ -9765,7 +9779,7 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": -3.54,
-        "fence": 2.16,
+        "fence": 1.92,
         "market": "outright"
       }
     ]
@@ -10733,17 +10747,104 @@
     },
     "makeCut": {},
     "r1Leader": {
+      "Scottie Scheffler": {
+        "fd": "+6000"
+      },
+      "Cameron Young": {
+        "fd": "+105"
+      },
+      "Russell Henley": {
+        "fd": "+40000"
+      },
+      "Min Woo Lee": {
+        "fd": "+10000"
+      },
       "Patrick Cantlay": {
         "fd": "+3000"
+      },
+      "Hideki Matsuyama": {
+        "fd": "+7500"
       },
       "Jake Knapp": {
         "fd": "+3300"
       },
+      "Tommy Fleetwood": {
+        "fd": "+7500"
+      },
+      "Si Woo Kim": {
+        "fd": "+8000"
+      },
+      "Maverick McNealy": {
+        "fd": "+30000"
+      },
+      "Akshay Bhatia": {
+        "fd": "+12500"
+      },
       "Jordan Spieth": {
-        "fd": "+2700"
+        "fd": "+430"
+      },
+      "Gary Woodland": {
+        "fd": "+3300"
+      },
+      "Rickie Fowler": {
+        "fd": "+4500"
+      },
+      "Sepp Straka": {
+        "fd": "+15000"
+      },
+      "Ben Griffin": {
+        "fd": "+12500"
+      },
+      "Justin Thomas": {
+        "fd": "+12500"
       },
       "Alex Smalley": {
-        "fd": "+2700"
+        "fd": "+500"
+      },
+      "Sahith Theegala": {
+        "fd": "+7500"
+      },
+      "Matt McCarty": {
+        "fd": "+8000"
+      },
+      "Andrew Novak": {
+        "fd": "+25000"
+      },
+      "Aldrich Potgieter": {
+        "fd": "+5500"
+      },
+      "Bud Cauley": {
+        "fd": "+8000"
+      },
+      "Nick Taylor": {
+        "fd": "+850"
+      },
+      "Sungjae Im": {
+        "fd": "+25000"
+      },
+      "Max Homa": {
+        "fd": "+12500"
+      },
+      "Brian Harman": {
+        "fd": "+5000"
+      },
+      "J.T. Poston": {
+        "fd": "+30000"
+      },
+      "Andrew Putnam": {
+        "fd": "+8000"
+      },
+      "Nico Echavarria": {
+        "fd": "+2500"
+      },
+      "Tom Hoge": {
+        "fd": "+12500"
+      },
+      "Brian Campbell": {
+        "fd": "+40000"
+      },
+      "Kristoffer Reitan": {
+        "fd": "+10000"
       }
     }
   },
@@ -12346,7 +12447,7 @@
     "leaderboardHasScores": true,
     "playersTotal": 74,
     "playersWithOdds": 65,
-    "playersWithForm": 74,
+    "playersWithForm": 72,
     "oddsCoverage": 0.878,
     "tournamentStatus": "IN_PROGRESS",
     "teeTimesTotal": 144,
