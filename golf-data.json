@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-05-01T23:12:06.821650",
+  "generatedAt": "2026-05-01T23:41:17.392294",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -50,7 +50,7 @@
       },
       "notes": "Elite ball-striker. Best SG:Approach on Tour. Premium plays: strokes under, birdies over.",
       "odds": {
-        "dk": "+610"
+        "dk": "+600"
       },
       "fieldInfo": {
         "owgr": 1,
@@ -61,8 +61,8 @@
       "recentForm": {
         "lastResult": "#8 at Cadillac Championship",
         "lastPosition": 8,
-        "l5AvgFinish": 21.5,
-        "l10AvgFinish": 21.5,
+        "l5AvgFinish": 20.5,
+        "l10AvgFinish": 20.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -75,7 +75,7 @@
       "bayesianScore": {
         "score": 89,
         "prior": 95,
-        "likelihood": 80.1,
+        "likelihood": 80.6,
         "posterior_sigma": 13.8,
         "data_points": 10
       },
@@ -105,19 +105,19 @@
         "makeCut": 77
       },
       "confScore": 84.60000000000001,
-      "edgeScore": -1.39,
+      "edgeScore": -1.6,
       "owgrRank": 1,
       "anomalies": [
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -1.39,
-          "fence": 1.53,
+          "edge_pct": -1.6,
+          "fence": 1.49,
           "market": "outright"
         }
       ],
-      "evScore": -9.9,
-      "scoreStd": 2.73
+      "evScore": -11.2,
+      "scoreStd": 2.01
     },
     {
       "id": 4,
@@ -345,8 +345,8 @@
       },
       "owgr": 14,
       "recentForm": {
-        "lastResult": "#57 at Cadillac Championship",
-        "lastPosition": 57,
+        "lastResult": "#56 at Cadillac Championship",
+        "lastPosition": 56,
         "l5AvgFinish": 60.5,
         "l10AvgFinish": 60.5,
         "l5McPct": 100,
@@ -430,7 +430,7 @@
       },
       "notes": "Links-style player. Low ball flight suits windy conditions. Good bogey under candidate.",
       "odds": {
-        "dk": "+8600"
+        "dk": "+8400"
       },
       "fieldInfo": {
         "owgr": 3,
@@ -484,17 +484,17 @@
         "makeCut": 65
       },
       "confScore": 60.699999999999996,
-      "edgeScore": 7.96,
+      "edgeScore": 7.93,
       "owgrRank": 9,
       "anomalies": [
         {
           "type": "low_freq_value",
           "direction": "UNDERPRICED",
           "market": "top20_makecut",
-          "note": "confScore 60.699999999999996 but odds +8600 — likely value in placement markets"
+          "note": "confScore 60.699999999999996 but odds +8400 — likely value in placement markets"
         }
       ],
-      "evScore": 692.1,
+      "evScore": 673.9,
       "scoreStd": 3.67
     },
     {
@@ -542,10 +542,10 @@
       },
       "owgr": 119,
       "recentForm": {
-        "lastResult": "#55 at Cadillac Championship",
-        "lastPosition": 55,
-        "l5AvgFinish": 32.5,
-        "l10AvgFinish": 32.5,
+        "lastResult": "#54 at Cadillac Championship",
+        "lastPosition": 54,
+        "l5AvgFinish": 33.0,
+        "l10AvgFinish": 33.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -558,8 +558,8 @@
       "bayesianScore": {
         "score": 68,
         "prior": 73.6,
-        "likelihood": 59.6,
-        "posterior_sigma": 13.7,
+        "likelihood": 59.3,
+        "posterior_sigma": 13.8,
         "data_points": 7
       },
       "competitiveness": "active",
@@ -741,8 +741,8 @@
       },
       "owgr": 25,
       "recentForm": {
-        "lastResult": "#43 at Cadillac Championship",
-        "lastPosition": 43,
+        "lastResult": "#42 at Cadillac Championship",
+        "lastPosition": 42,
         "l5AvgFinish": 56.0,
         "l10AvgFinish": 56.0,
         "l5McPct": 50,
@@ -828,7 +828,7 @@
       },
       "notes": "Masters champion. Elite approach play with high ball flight. Streaky putter — hot weeks can win anywhere.",
       "odds": {
-        "dk": "+20000"
+        "dk": "+19500"
       },
       "fieldInfo": {
         "owgr": 17,
@@ -839,8 +839,8 @@
       "recentForm": {
         "lastResult": "#25 at Cadillac Championship",
         "lastPosition": 25,
-        "l5AvgFinish": 25.5,
-        "l10AvgFinish": 25.5,
+        "l5AvgFinish": 24.5,
+        "l10AvgFinish": 24.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -851,9 +851,9 @@
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 63,
+        "score": 64,
         "prior": 72.4,
-        "likelihood": 62.3,
+        "likelihood": 63.0,
         "posterior_sigma": 4.8,
         "data_points": 5
       },
@@ -872,19 +872,19 @@
         "field_strength": 1.5,
         "consistency": 1.5,
         "par5": 1.4,
-        "ml_bayes": 1.1
+        "ml_bayes": 1.2
       },
       "propScores": {
         "win": 58,
         "top5": 58,
-        "top10": 59,
+        "top10": 60,
         "top20": 62,
         "makeCut": 63
       },
-      "confScore": 58.5,
+      "confScore": 58.6,
       "edgeScore": 8.28,
       "owgrRank": 11,
-      "evScore": 1663.8
+      "evScore": 1622.8
     },
     {
       "id": 12,
@@ -938,10 +938,10 @@
       },
       "owgr": 140,
       "recentForm": {
-        "lastResult": "#32 at Cadillac Championship",
-        "lastPosition": 32,
-        "l5AvgFinish": 27.0,
-        "l10AvgFinish": 27.0,
+        "lastResult": "#31 at Cadillac Championship",
+        "lastPosition": 31,
+        "l5AvgFinish": 26.5,
+        "l10AvgFinish": 26.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -954,7 +954,7 @@
       "bayesianScore": {
         "score": 61,
         "prior": 71.0,
-        "likelihood": 42.3,
+        "likelihood": 42.6,
         "posterior_sigma": 14.6,
         "data_points": 10
       },
@@ -1025,7 +1025,7 @@
       },
       "notes": "Huge power but accuracy issues. Multiple runner-up finishes. Volatile scorer — birdie overs at long courses.",
       "odds": {
-        "dk": "-174"
+        "dk": "-176"
       },
       "fieldInfo": {
         "owgr": 19,
@@ -1079,26 +1079,26 @@
         "makeCut": 64
       },
       "confScore": 57.5,
-      "edgeScore": -54.88,
+      "edgeScore": -55.14,
       "owgrRank": 22,
       "anomalies": [
         {
           "type": "z_score",
-          "z": -5.08,
+          "z": -5.09,
           "direction": "OVERPRICED",
-          "edge_pct": -54.88,
+          "edge_pct": -55.14,
           "market": "outright"
         },
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -54.88,
-          "fence": 1.53,
+          "edge_pct": -55.14,
+          "fence": 1.49,
           "market": "outright"
         }
       ],
-      "evScore": -86.4,
-      "scoreStd": 3.11
+      "evScore": -86.5,
+      "scoreStd": 2.36
     },
     {
       "id": 17,
@@ -1152,10 +1152,10 @@
       },
       "owgr": 15,
       "recentForm": {
-        "lastResult": "#53 at Cadillac Championship",
-        "lastPosition": 53,
-        "l5AvgFinish": 48.5,
-        "l10AvgFinish": 48.5,
+        "lastResult": "#52 at Cadillac Championship",
+        "lastPosition": 52,
+        "l5AvgFinish": 49.0,
+        "l10AvgFinish": 49.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -1168,8 +1168,8 @@
       "bayesianScore": {
         "score": 65,
         "prior": 67.6,
-        "likelihood": 59.9,
-        "posterior_sigma": 14.3,
+        "likelihood": 59.6,
+        "posterior_sigma": 14.4,
         "data_points": 10
       },
       "competitiveness": "active",
@@ -1254,8 +1254,8 @@
       "recentForm": {
         "lastResult": "#61 at Cadillac Championship",
         "lastPosition": 61,
-        "l5AvgFinish": 66.5,
-        "l10AvgFinish": 66.5,
+        "l5AvgFinish": 66.0,
+        "l10AvgFinish": 66.0,
         "l5McPct": 50,
         "trend": "steady",
         "events": 2,
@@ -1268,7 +1268,7 @@
       "bayesianScore": {
         "score": 56,
         "prior": 66.4,
-        "likelihood": 34.8,
+        "likelihood": 35.0,
         "posterior_sigma": 14.6,
         "data_points": 10
       },
@@ -1431,7 +1431,7 @@
       },
       "notes": "Open champion. Lefty with great short game. Not a power player. Thrives on accuracy courses and links.",
       "odds": {
-        "dk": "+9000"
+        "dk": "+8800"
       },
       "fieldInfo": {
         "owgr": 35,
@@ -1442,8 +1442,8 @@
       "recentForm": {
         "lastResult": "#11 at Cadillac Championship",
         "lastPosition": 11,
-        "l5AvgFinish": 8.0,
-        "l10AvgFinish": 8.0,
+        "l5AvgFinish": 9.0,
+        "l10AvgFinish": 9.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -1456,8 +1456,8 @@
       "bayesianScore": {
         "score": 69,
         "prior": 65.6,
-        "likelihood": 73.5,
-        "posterior_sigma": 13.8,
+        "likelihood": 72.9,
+        "posterior_sigma": 13.7,
         "data_points": 9
       },
       "competitiveness": "active",
@@ -1485,9 +1485,9 @@
         "makeCut": 65
       },
       "confScore": 55.7,
-      "edgeScore": 7.26,
+      "edgeScore": 7.23,
       "owgrRank": 21,
-      "evScore": 660.3,
+      "evScore": 643.6,
       "scoreStd": 4.06
     },
     {
@@ -1536,7 +1536,7 @@
       },
       "notes": "Extremely accurate. Low bogey rate. Great at precision courses like Harbour Town and Colonial.",
       "odds": {
-        "dk": "+36000"
+        "dk": "+35000"
       },
       "fieldInfo": {
         "owgr": 5,
@@ -1545,10 +1545,10 @@
       },
       "owgr": 5,
       "recentForm": {
-        "lastResult": "#29 at Cadillac Championship",
-        "lastPosition": 29,
-        "l5AvgFinish": 37.0,
-        "l10AvgFinish": 37.0,
+        "lastResult": "#28 at Cadillac Championship",
+        "lastPosition": 28,
+        "l5AvgFinish": 36.5,
+        "l10AvgFinish": 36.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -1561,8 +1561,8 @@
       "bayesianScore": {
         "score": 59,
         "prior": 66.0,
-        "likelihood": 57.0,
-        "posterior_sigma": 8.9,
+        "likelihood": 57.3,
+        "posterior_sigma": 9.0,
         "data_points": 10
       },
       "competitiveness": "active",
@@ -1592,7 +1592,7 @@
       "confScore": 55.4,
       "edgeScore": 8.03,
       "owgrRank": 20,
-      "evScore": 2899.9
+      "evScore": 2816.8
     },
     {
       "id": 18,
@@ -1641,8 +1641,8 @@
       "recentForm": {
         "lastResult": "#39 at Cadillac Championship",
         "lastPosition": 39,
-        "l5AvgFinish": 30.0,
-        "l10AvgFinish": 30.0,
+        "l5AvgFinish": 29.0,
+        "l10AvgFinish": 29.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -1655,7 +1655,7 @@
       "bayesianScore": {
         "score": 54,
         "prior": 67.0,
-        "likelihood": 28.8,
+        "likelihood": 29.3,
         "posterior_sigma": 14.6,
         "data_points": 9
       },
@@ -1684,7 +1684,7 @@
       },
       "confScore": 54.5,
       "owgrRank": 18,
-      "scoreStd": 4.5
+      "scoreStd": 3.7
     },
     {
       "id": 30,
@@ -1838,10 +1838,10 @@
       },
       "owgr": 45,
       "recentForm": {
-        "lastResult": "#33 at Cadillac Championship",
-        "lastPosition": 33,
-        "l5AvgFinish": 21.0,
-        "l10AvgFinish": 21.0,
+        "lastResult": "#32 at Cadillac Championship",
+        "lastPosition": 32,
+        "l5AvgFinish": 25.5,
+        "l10AvgFinish": 25.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -1852,10 +1852,10 @@
       "makeCutPct": 100.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 68,
+        "score": 65,
         "prior": 58.4,
-        "likelihood": 70.6,
-        "posterior_sigma": 8.7,
+        "likelihood": 68.1,
+        "posterior_sigma": 9.8,
         "data_points": 9
       },
       "competitiveness": "active",
@@ -1873,18 +1873,18 @@
         "field_strength": 1.0,
         "consistency": 1.5,
         "par5": 1.0,
-        "ml_bayes": 5.0
+        "ml_bayes": 4.8
       },
       "propScores": {
         "win": 52,
-        "top5": 55,
+        "top5": 54,
         "top10": 58,
         "top20": 63,
-        "makeCut": 69
+        "makeCut": 68
       },
-      "confScore": 54.0,
+      "confScore": 53.8,
       "owgrRank": 35,
-      "scoreStd": 3.78
+      "scoreStd": 3.8
     },
     {
       "id": 29,
@@ -1938,10 +1938,10 @@
       },
       "owgr": 30,
       "recentForm": {
-        "lastResult": "#27 at Cadillac Championship",
-        "lastPosition": 27,
-        "l5AvgFinish": 39.0,
-        "l10AvgFinish": 39.0,
+        "lastResult": "#26 at Cadillac Championship",
+        "lastPosition": 26,
+        "l5AvgFinish": 38.5,
+        "l10AvgFinish": 38.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -1954,8 +1954,8 @@
       "bayesianScore": {
         "score": 49,
         "prior": 61.6,
-        "likelihood": 36.5,
-        "posterior_sigma": 12.7,
+        "likelihood": 36.8,
+        "posterior_sigma": 12.8,
         "data_points": 10
       },
       "competitiveness": "active",
@@ -2032,7 +2032,7 @@
       },
       "notes": "Versatile Korean player with multiple wins. Solid all-around game. Steady at Augusta but ceiling is top-10. Reliable MC prop.",
       "odds": {
-        "dk": "+2900"
+        "dk": "+2800"
       },
       "fieldInfo": {
         "owgr": 47,
@@ -2043,8 +2043,8 @@
       "recentForm": {
         "lastResult": "#10 at Cadillac Championship",
         "lastPosition": 10,
-        "l5AvgFinish": 15.5,
-        "l10AvgFinish": 15.5,
+        "l5AvgFinish": 16.5,
+        "l10AvgFinish": 16.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -2057,7 +2057,7 @@
       "bayesianScore": {
         "score": 66,
         "prior": 59.0,
-        "likelihood": 79.6,
+        "likelihood": 79.1,
         "posterior_sigma": 14.6,
         "data_points": 9
       },
@@ -2086,9 +2086,9 @@
         "makeCut": 64
       },
       "confScore": 52.6,
-      "edgeScore": 4.56,
+      "edgeScore": 4.44,
       "owgrRank": 38,
-      "evScore": 136.7
+      "evScore": 128.8
     },
     {
       "id": 25,
@@ -2144,8 +2144,8 @@
       "recentForm": {
         "lastResult": "#62 at Cadillac Championship",
         "lastPosition": 62,
-        "l5AvgFinish": 63.0,
-        "l10AvgFinish": 63.0,
+        "l5AvgFinish": 64.0,
+        "l10AvgFinish": 64.0,
         "l5McPct": 50,
         "trend": "steady",
         "events": 2,
@@ -2158,8 +2158,8 @@
       "bayesianScore": {
         "score": 40,
         "prior": 63.6,
-        "likelihood": 26.5,
-        "posterior_sigma": 11.0,
+        "likelihood": 25.7,
+        "posterior_sigma": 11.2,
         "data_points": 5
       },
       "competitiveness": "active",
@@ -2234,10 +2234,10 @@
       },
       "owgr": 72,
       "recentForm": {
-        "lastResult": "#31 at Cadillac Championship",
-        "lastPosition": 31,
-        "l5AvgFinish": 31.0,
-        "l10AvgFinish": 31.0,
+        "lastResult": "#30 at Cadillac Championship",
+        "lastPosition": 30,
+        "l5AvgFinish": 30.5,
+        "l10AvgFinish": 30.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -2250,8 +2250,8 @@
       "bayesianScore": {
         "score": 51,
         "prior": 64.4,
-        "likelihood": 34.8,
-        "posterior_sigma": 13.4,
+        "likelihood": 35.1,
+        "posterior_sigma": 13.5,
         "data_points": 7
       },
       "competitiveness": "active",
@@ -2326,8 +2326,8 @@
       },
       "owgr": 13,
       "recentForm": {
-        "lastResult": "#58 at Cadillac Championship",
-        "lastPosition": 58,
+        "lastResult": "#57 at Cadillac Championship",
+        "lastPosition": 57,
         "l5AvgFinish": 55.5,
         "l10AvgFinish": 55.5,
         "l5McPct": 100,
@@ -2413,7 +2413,7 @@
       },
       "notes": "Bomber who relies on length. Weak short game. Best at wide-open bombers courses. Fade at precision tracks.",
       "odds": {
-        "dk": "+7600"
+        "dk": "+7400"
       },
       "fieldInfo": {
         "owgr": 51,
@@ -2424,8 +2424,8 @@
       "recentForm": {
         "lastResult": "#7 at Cadillac Championship",
         "lastPosition": 7,
-        "l5AvgFinish": 17.0,
-        "l10AvgFinish": 17.0,
+        "l5AvgFinish": 17.5,
+        "l10AvgFinish": 17.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -2438,7 +2438,7 @@
       "bayesianScore": {
         "score": 54,
         "prior": 60.0,
-        "likelihood": 41.9,
+        "likelihood": 41.6,
         "posterior_sigma": 14.6,
         "data_points": 6
       },
@@ -2467,9 +2467,9 @@
         "makeCut": 59
       },
       "confScore": 48.0,
-      "edgeScore": 5.9,
+      "edgeScore": 5.87,
       "owgrRank": 32,
-      "evScore": 454.4,
+      "evScore": 440.0,
       "scoreStd": 4.41
     },
     {
@@ -2518,7 +2518,7 @@
       },
       "notes": "Australian talent with power. Sister Minjee is LPGA star. Inconsistent but can go low. Good for T20 at mid-tier.",
       "odds": {
-        "dk": "+36000"
+        "dk": "+38000"
       },
       "fieldInfo": {
         "owgr": 43,
@@ -2527,10 +2527,10 @@
       },
       "owgr": 43,
       "recentForm": {
-        "lastResult": "#26 at Cadillac Championship",
-        "lastPosition": 26,
-        "l5AvgFinish": 22.5,
-        "l10AvgFinish": 22.5,
+        "lastResult": "#33 at Cadillac Championship",
+        "lastPosition": 33,
+        "l5AvgFinish": 23.0,
+        "l10AvgFinish": 23.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -2543,7 +2543,7 @@
       "bayesianScore": {
         "score": 53,
         "prior": 58.0,
-        "likelihood": 45.0,
+        "likelihood": 44.7,
         "posterior_sigma": 13.9,
         "data_points": 8
       },
@@ -2572,10 +2572,10 @@
         "makeCut": 62
       },
       "confScore": 47.4,
-      "edgeScore": 6.83,
+      "edgeScore": 6.85,
       "owgrRank": 36,
-      "evScore": 2466.7,
-      "scoreStd": 2.16
+      "evScore": 2608.9,
+      "scoreStd": 2.21
     },
     {
       "id": 46,
@@ -2616,7 +2616,7 @@
       },
       "notes": "3x major champ in a slump. Course history still matters — elite at Augusta, Colonial, Pebble. Buy low candidate.",
       "odds": {
-        "dk": "+1275"
+        "dk": "+1250"
       },
       "fieldInfo": {
         "owgr": 80,
@@ -2625,10 +2625,10 @@
       },
       "owgr": 80,
       "recentForm": {
-        "lastResult": "#4 at Cadillac Championship",
-        "lastPosition": 4,
-        "l5AvgFinish": 6.5,
-        "l10AvgFinish": 6.5,
+        "lastResult": "#3 at Cadillac Championship",
+        "lastPosition": 3,
+        "l5AvgFinish": 3.0,
+        "l10AvgFinish": 3.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -2639,10 +2639,10 @@
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 56,
+        "score": 57,
         "prior": 53.0,
-        "likelihood": 62.4,
-        "posterior_sigma": 14.4,
+        "likelihood": 64.1,
+        "posterior_sigma": 14.6,
         "data_points": 10
       },
       "competitiveness": "active",
@@ -2655,34 +2655,34 @@
         "driving": 2.8,
         "birdie_bogey": 4.3,
         "cut": 3.0,
-        "market": 1.7,
+        "market": 1.8,
         "closing": 2.0,
         "field_strength": 1.0,
         "consistency": 1.6,
         "par5": 0.3,
-        "ml_bayes": 3.8
+        "ml_bayes": 4.1
       },
       "propScores": {
-        "win": 45,
-        "top5": 48,
+        "win": 46,
+        "top5": 49,
         "top10": 52,
-        "top20": 57,
+        "top20": 58,
         "makeCut": 61
       },
-      "confScore": 47.099999999999994,
-      "edgeScore": -0.21,
+      "confScore": 47.4,
+      "edgeScore": -0.3,
       "owgrRank": 46,
       "anomalies": [
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -0.21,
-          "fence": 1.53,
+          "edge_pct": -0.3,
+          "fence": 1.49,
           "market": "outright"
         }
       ],
-      "evScore": -2.9,
-      "scoreStd": 2.84
+      "evScore": -4.0,
+      "scoreStd": 2.26
     },
     {
       "id": 80,
@@ -2736,10 +2736,10 @@
       },
       "owgr": 64,
       "recentForm": {
-        "lastResult": "#28 at Cadillac Championship",
-        "lastPosition": 28,
-        "l5AvgFinish": 35.5,
-        "l10AvgFinish": 35.5,
+        "lastResult": "#27 at Cadillac Championship",
+        "lastPosition": 27,
+        "l5AvgFinish": 35.0,
+        "l10AvgFinish": 35.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -2752,8 +2752,8 @@
       "bayesianScore": {
         "score": 54,
         "prior": 53.6,
-        "likelihood": 53.5,
-        "posterior_sigma": 10.6,
+        "likelihood": 53.8,
+        "posterior_sigma": 10.7,
         "data_points": 7
       },
       "competitiveness": "active",
@@ -2930,7 +2930,7 @@
       },
       "notes": "Ball-striking specialist. Consistent mid-field at Augusta. No major breakthrough yet. Solid MC prop.",
       "odds": {
-        "dk": "+15500"
+        "dk": "+15000"
       },
       "fieldInfo": {
         "owgr": 58,
@@ -2984,9 +2984,9 @@
         "makeCut": 60
       },
       "confScore": 43.599999999999994,
-      "edgeScore": 5.9,
+      "edgeScore": 5.88,
       "owgrRank": 70,
-      "evScore": 920.2,
+      "evScore": 887.5,
       "scoreStd": 1.93
     },
     {
@@ -3028,7 +3028,7 @@
       },
       "notes": "Steady mid-tier player. No outstanding skill. MC candidate at weaker fields. Fade at marquee events.",
       "odds": {
-        "dk": "+16000"
+        "dk": "+15500"
       },
       "fieldInfo": {
         "owgr": 8,
@@ -3067,7 +3067,7 @@
         "driving": 3.3,
         "birdie_bogey": 4.3,
         "cut": 3.0,
-        "market": 0.1,
+        "market": 0.2,
         "closing": 2.0,
         "field_strength": 1.0,
         "consistency": 1.6,
@@ -3075,16 +3075,16 @@
         "ml_bayes": 5.0
       },
       "propScores": {
-        "win": 40,
+        "win": 41,
         "top5": 44,
         "top10": 49,
         "top20": 56,
         "makeCut": 60
       },
       "confScore": 43.4,
-      "edgeScore": 5.89,
+      "edgeScore": 5.87,
       "owgrRank": 49,
-      "evScore": 948.1,
+      "evScore": 915.6,
       "scoreStd": 1.74
     },
     {
@@ -3132,10 +3132,10 @@
       },
       "owgr": 131,
       "recentForm": {
-        "lastResult": "#60 at Cadillac Championship",
-        "lastPosition": 60,
-        "l5AvgFinish": 58.0,
-        "l10AvgFinish": 58.0,
+        "lastResult": "#58 at Cadillac Championship",
+        "lastPosition": 58,
+        "l5AvgFinish": 57.5,
+        "l10AvgFinish": 57.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -3172,102 +3172,9 @@
       "owgrRank": 42
     },
     {
-      "id": 47,
-      "name": "Michael Thorbjornsen",
-      "rank": 33,
-      "sgTotal": 0.12,
-      "sgOtt": 0.25,
-      "sgApp": 0.05,
-      "sgArg": -0.05,
-      "sgPutt": -0.13,
-      "birdieAvg": 3.9,
-      "bogeyAvg": 2.4,
-      "scoringAvg": 71.5,
-      "gir": 65.5,
-      "fairways": 61.0,
-      "scramble": 55.0,
-      "proxAvg": 35.5,
-      "missDir": "right",
-      "flight": "high_fade",
-      "courseFit": {
-        "augusta": 54,
-        "tpc_sawgrass": 54,
-        "pebble": 54,
-        "torrey_south": 56,
-        "riviera": 54,
-        "valhalla": 57,
-        "pinehurst_2": 54,
-        "royal_troon": 54,
-        "royal_portrush": 52,
-        "oakmont": 51,
-        "quail_hollow": 57,
-        "east_lake": 54,
-        "bay_hill": 56,
-        "harbour_town": 53,
-        "colonial": 54,
-        "memorial": 56,
-        "tpc_scottsdale": 56
-      },
-      "notes": "Promising rookie from Stanford. Athletic and long. Raw but talented. Watch for breakout at long courses.",
-      "fieldInfo": {
-        "owgr": 68,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 68,
-      "recentForm": {
-        "lastResult": "#51 at Cadillac Championship",
-        "lastPosition": 51,
-        "l5AvgFinish": 54.5,
-        "l10AvgFinish": 54.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 74.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 47,
-        "prior": 52.4,
-        "likelihood": 41.3,
-        "posterior_sigma": 12.4,
-        "data_points": 7
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.7,
-        "fit": 6.9,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 3.1,
-        "birdie_bogey": 4.4,
-        "cut": 3.0,
-        "market": 1.6,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.6,
-        "par5": 0.6,
-        "ml_bayes": 1.7
-      },
-      "propScores": {
-        "win": 39,
-        "top5": 43,
-        "top10": 47,
-        "top20": 54,
-        "makeCut": 58
-      },
-      "confScore": 42.300000000000004,
-      "owgrRank": 47,
-      "scoreStd": 3.18
-    },
-    {
       "id": 41,
       "name": "Jake Knapp",
-      "rank": 34,
+      "rank": 33,
       "sgTotal": 0.28,
       "sgOtt": 0.58,
       "sgApp": 0.0,
@@ -3350,6 +3257,99 @@
       "scoreStd": 2.34
     },
     {
+      "id": 47,
+      "name": "Michael Thorbjornsen",
+      "rank": 34,
+      "sgTotal": 0.12,
+      "sgOtt": 0.25,
+      "sgApp": 0.05,
+      "sgArg": -0.05,
+      "sgPutt": -0.13,
+      "birdieAvg": 3.9,
+      "bogeyAvg": 2.4,
+      "scoringAvg": 71.5,
+      "gir": 65.5,
+      "fairways": 61.0,
+      "scramble": 55.0,
+      "proxAvg": 35.5,
+      "missDir": "right",
+      "flight": "high_fade",
+      "courseFit": {
+        "augusta": 54,
+        "tpc_sawgrass": 54,
+        "pebble": 54,
+        "torrey_south": 56,
+        "riviera": 54,
+        "valhalla": 57,
+        "pinehurst_2": 54,
+        "royal_troon": 54,
+        "royal_portrush": 52,
+        "oakmont": 51,
+        "quail_hollow": 57,
+        "east_lake": 54,
+        "bay_hill": 56,
+        "harbour_town": 53,
+        "colonial": 54,
+        "memorial": 56,
+        "tpc_scottsdale": 56
+      },
+      "notes": "Promising rookie from Stanford. Athletic and long. Raw but talented. Watch for breakout at long courses.",
+      "fieldInfo": {
+        "owgr": 68,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 68,
+      "recentForm": {
+        "lastResult": "#50 at Cadillac Championship",
+        "lastPosition": 50,
+        "l5AvgFinish": 55.0,
+        "l10AvgFinish": 55.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 74.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 46,
+        "prior": 52.4,
+        "likelihood": 40.9,
+        "posterior_sigma": 12.5,
+        "data_points": 7
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.7,
+        "fit": 6.9,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 3.1,
+        "birdie_bogey": 4.4,
+        "cut": 3.0,
+        "market": 1.6,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.6,
+        "par5": 0.6,
+        "ml_bayes": 1.4
+      },
+      "propScores": {
+        "win": 39,
+        "top5": 43,
+        "top10": 47,
+        "top20": 53,
+        "makeCut": 58
+      },
+      "confScore": 42.0,
+      "owgrRank": 47,
+      "scoreStd": 3.18
+    },
+    {
       "id": 9001,
       "name": "J.J. Spaun",
       "rank": 35,
@@ -3388,7 +3388,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+31000"
+        "dk": "+30000"
       },
       "fieldInfo": {
         "owgr": 6,
@@ -3399,8 +3399,8 @@
       "recentForm": {
         "lastResult": "#24 at Cadillac Championship",
         "lastPosition": 24,
-        "l5AvgFinish": 32.5,
-        "l10AvgFinish": 32.5,
+        "l5AvgFinish": 31.5,
+        "l10AvgFinish": 31.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -3411,10 +3411,10 @@
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 54,
+        "score": 55,
         "prior": 50.0,
-        "likelihood": 56.6,
-        "posterior_sigma": 10.8,
+        "likelihood": 57.2,
+        "posterior_sigma": 11.0,
         "data_points": 9
       },
       "competitiveness": "active",
@@ -3442,9 +3442,9 @@
         "makeCut": 60
       },
       "confScore": 42.0,
-      "edgeScore": 5.98,
+      "edgeScore": 5.97,
       "owgrRank": 6,
-      "evScore": 1859.3
+      "evScore": 1796.3
     },
     {
       "id": 9014,
@@ -3586,8 +3586,8 @@
       "recentForm": {
         "lastResult": "#69 at Cadillac Championship",
         "lastPosition": 69,
-        "l5AvgFinish": 63.0,
-        "l10AvgFinish": 63.0,
+        "l5AvgFinish": 61.5,
+        "l10AvgFinish": 61.5,
         "l5McPct": 50,
         "trend": "steady",
         "events": 2,
@@ -3600,7 +3600,7 @@
       "bayesianScore": {
         "score": 47,
         "prior": 50.0,
-        "likelihood": 41.4,
+        "likelihood": 41.6,
         "posterior_sigma": 14.6,
         "data_points": 5
       },
@@ -3676,8 +3676,8 @@
       },
       "owgr": 28,
       "recentForm": {
-        "lastResult": "#44 at Cadillac Championship",
-        "lastPosition": 44,
+        "lastResult": "#43 at Cadillac Championship",
+        "lastPosition": 43,
         "l5AvgFinish": 47.5,
         "l10AvgFinish": 47.5,
         "l5McPct": 100,
@@ -3725,8 +3725,8 @@
       "scoreStd": 2.49
     },
     {
-      "id": 9004,
-      "name": "Ryan Gerard",
+      "id": 9005,
+      "name": "Kurt Kitayama",
       "rank": 39,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -3762,101 +3762,8 @@
         "tpc_scottsdale": 50
       },
       "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 44,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 44,
-      "recentForm": {
-        "lastResult": "#47 at Cadillac Championship",
-        "lastPosition": 47,
-        "l5AvgFinish": 46.5,
-        "l10AvgFinish": 46.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 72.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 48,
-        "prior": 50.0,
-        "likelihood": 45.9,
-        "posterior_sigma": 11.6,
-        "data_points": 10
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 1.7,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 3.0
-      },
-      "propScores": {
-        "win": 38,
-        "top5": 42,
-        "top10": 47,
-        "top20": 54,
-        "makeCut": 59
-      },
-      "confScore": 41.0,
-      "owgrRank": 44,
-      "scoreStd": 3.28
-    },
-    {
-      "id": 9005,
-      "name": "Kurt Kitayama",
-      "rank": 40,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+14000"
+        "dk": "+13500"
       },
       "fieldInfo": {
         "owgr": 37,
@@ -3910,14 +3817,112 @@
         "makeCut": 60
       },
       "confScore": 41.0,
-      "edgeScore": 5.44,
+      "edgeScore": 5.41,
       "owgrRank": 37,
-      "evScore": 767.1,
+      "evScore": 736.4,
       "scoreStd": 3.4
     },
     {
       "id": 9010,
       "name": "Gary Woodland",
+      "rank": 40,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+2700"
+      },
+      "fieldInfo": {
+        "owgr": 125,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 125,
+      "recentForm": {
+        "lastResult": "#5 at Cadillac Championship",
+        "lastPosition": 5,
+        "l5AvgFinish": 6.5,
+        "l10AvgFinish": 6.5,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 68.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 61,
+        "prior": 50.0,
+        "likelihood": 81.2,
+        "posterior_sigma": 14.6,
+        "data_points": 10
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.9,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 5.0
+      },
+      "propScores": {
+        "win": 37,
+        "top5": 42,
+        "top10": 47,
+        "top20": 55,
+        "makeCut": 61
+      },
+      "confScore": 41.0,
+      "edgeScore": 2.58,
+      "owgrRank": 125,
+      "evScore": 72.2,
+      "scoreStd": 2.51
+    },
+    {
+      "id": 9012,
+      "name": "Matt McCarty",
       "rank": 41,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -3954,105 +3959,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+2800"
-      },
-      "fieldInfo": {
-        "owgr": 125,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 125,
-      "recentForm": {
-        "lastResult": "#5 at Cadillac Championship",
-        "lastPosition": 5,
-        "l5AvgFinish": 6.0,
-        "l10AvgFinish": 6.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 68.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 61,
-        "prior": 50.0,
-        "likelihood": 81.3,
-        "posterior_sigma": 14.6,
-        "data_points": 10
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.8,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 5.0
-      },
-      "propScores": {
-        "win": 37,
-        "top5": 42,
-        "top10": 47,
-        "top20": 55,
-        "makeCut": 60
-      },
-      "confScore": 41.0,
-      "edgeScore": 2.7,
-      "owgrRank": 125,
-      "evScore": 78.3,
-      "scoreStd": 2.56
-    },
-    {
-      "id": 9012,
-      "name": "Matt McCarty",
-      "rank": 42,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+12500"
+        "dk": "+12000"
       },
       "fieldInfo": {
         "owgr": 55,
@@ -4106,14 +4013,111 @@
         "makeCut": 60
       },
       "confScore": 41.0,
-      "edgeScore": 5.36,
+      "edgeScore": 5.32,
       "owgrRank": 55,
-      "evScore": 674.9,
+      "evScore": 644.1,
       "scoreStd": 1.77
     },
     {
       "id": 9013,
       "name": "Kristoffer Reitan",
+      "rank": 42,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+5900"
+      },
+      "fieldInfo": {
+        "owgr": 31,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 31,
+      "recentForm": {
+        "lastResult": "#9 at Cadillac Championship",
+        "lastPosition": 9,
+        "l5AvgFinish": 15.5,
+        "l10AvgFinish": 15.5,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 70.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 72,
+        "prior": 50.0,
+        "likelihood": 78.6,
+        "posterior_sigma": 8.7,
+        "data_points": 5
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.4,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 5.0
+      },
+      "propScores": {
+        "win": 39,
+        "top5": 43,
+        "top10": 47,
+        "top20": 55,
+        "makeCut": 60
+      },
+      "confScore": 41.0,
+      "edgeScore": 4.48,
+      "owgrRank": 31,
+      "evScore": 269.0
+    },
+    {
+      "id": 9019,
+      "name": "Bud Cauley",
       "rank": 43,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4150,104 +4154,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+6000"
-      },
-      "fieldInfo": {
-        "owgr": 31,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 31,
-      "recentForm": {
-        "lastResult": "#9 at Cadillac Championship",
-        "lastPosition": 9,
-        "l5AvgFinish": 14.5,
-        "l10AvgFinish": 14.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 70.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 72,
-        "prior": 50.0,
-        "likelihood": 79.3,
-        "posterior_sigma": 9.2,
-        "data_points": 5
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.4,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 5.0
-      },
-      "propScores": {
-        "win": 39,
-        "top5": 43,
-        "top10": 47,
-        "top20": 55,
-        "makeCut": 60
-      },
-      "confScore": 41.0,
-      "edgeScore": 4.51,
-      "owgrRank": 31,
-      "evScore": 275.1
-    },
-    {
-      "id": 9019,
-      "name": "Bud Cauley",
-      "rank": 44,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+31000"
+        "dk": "+30000"
       },
       "fieldInfo": {
         "owgr": 70,
@@ -4301,15 +4208,15 @@
         "makeCut": 60
       },
       "confScore": 41.0,
-      "edgeScore": 5.83,
+      "edgeScore": 5.82,
       "owgrRank": 70,
-      "evScore": 1812.6,
+      "evScore": 1751.1,
       "scoreStd": 1.82
     },
     {
       "id": 9020,
       "name": "Nick Taylor",
-      "rank": 45,
+      "rank": 44,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4345,7 +4252,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+2800"
+        "dk": "+2700"
       },
       "fieldInfo": {
         "owgr": 57,
@@ -4354,8 +4261,8 @@
       },
       "owgr": 57,
       "recentForm": {
-        "lastResult": "#3 at Cadillac Championship",
-        "lastPosition": 3,
+        "lastResult": "#2 at Cadillac Championship",
+        "lastPosition": 2,
         "l5AvgFinish": 3.5,
         "l10AvgFinish": 3.5,
         "l5McPct": 100,
@@ -4384,7 +4291,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.8,
+        "market": 0.9,
         "closing": 2.0,
         "field_strength": 0.5,
         "consistency": 1.7,
@@ -4396,13 +4303,106 @@
         "top5": 42,
         "top10": 47,
         "top20": 55,
-        "makeCut": 60
+        "makeCut": 61
       },
       "confScore": 41.0,
-      "edgeScore": 2.7,
+      "edgeScore": 2.58,
       "owgrRank": 57,
-      "evScore": 78.3,
+      "evScore": 72.2,
       "scoreStd": 1.57
+    },
+    {
+      "id": 9004,
+      "name": "Ryan Gerard",
+      "rank": 45,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 44,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 44,
+      "recentForm": {
+        "lastResult": "#46 at Cadillac Championship",
+        "lastPosition": 46,
+        "l5AvgFinish": 47.0,
+        "l10AvgFinish": 47.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 72.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 47,
+        "prior": 50.0,
+        "likelihood": 45.7,
+        "posterior_sigma": 11.7,
+        "data_points": 10
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 1.7,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 2.7
+      },
+      "propScores": {
+        "win": 38,
+        "top5": 42,
+        "top10": 46,
+        "top20": 54,
+        "makeCut": 59
+      },
+      "confScore": 40.7,
+      "owgrRank": 44,
+      "scoreStd": 3.28
     },
     {
       "id": 9009,
@@ -4449,10 +4449,10 @@
       },
       "owgr": 36,
       "recentForm": {
-        "lastResult": "#50 at Cadillac Championship",
-        "lastPosition": 50,
-        "l5AvgFinish": 53.0,
-        "l10AvgFinish": 53.0,
+        "lastResult": "#49 at Cadillac Championship",
+        "lastPosition": 49,
+        "l5AvgFinish": 53.5,
+        "l10AvgFinish": 53.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -4465,8 +4465,8 @@
       "bayesianScore": {
         "score": 47,
         "prior": 50.0,
-        "likelihood": 42.2,
-        "posterior_sigma": 14.0,
+        "likelihood": 42.0,
+        "posterior_sigma": 14.1,
         "data_points": 8
       },
       "competitiveness": "active",
@@ -4498,9 +4498,102 @@
       "scoreStd": 3.91
     },
     {
+      "id": 9011,
+      "name": "Sam Stevens",
+      "rank": 47,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 50,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 50,
+      "recentForm": {
+        "lastResult": "#29 at Cadillac Championship",
+        "lastPosition": 29,
+        "l5AvgFinish": 33.0,
+        "l10AvgFinish": 33.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 71.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 45,
+        "prior": 50.0,
+        "likelihood": 38.8,
+        "posterior_sigma": 13.0,
+        "data_points": 10
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 1.5,
+        "closing": 2.0,
+        "field_strength": 1.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 2.1
+      },
+      "propScores": {
+        "win": 37,
+        "top5": 41,
+        "top10": 45,
+        "top20": 53,
+        "makeCut": 58
+      },
+      "confScore": 40.1,
+      "owgrRank": 50,
+      "scoreStd": 2.27
+    },
+    {
       "id": 9015,
       "name": "Pierceson Coody",
-      "rank": 47,
+      "rank": 48,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4542,10 +4635,10 @@
       },
       "owgr": 96,
       "recentForm": {
-        "lastResult": "#48 at Cadillac Championship",
-        "lastPosition": 48,
-        "l5AvgFinish": 42.5,
-        "l10AvgFinish": 42.5,
+        "lastResult": "#47 at Cadillac Championship",
+        "lastPosition": 47,
+        "l5AvgFinish": 43.0,
+        "l10AvgFinish": 43.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -4556,10 +4649,10 @@
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 56,
+        "score": 55,
         "prior": 50.0,
-        "likelihood": 61.9,
-        "posterior_sigma": 12.9,
+        "likelihood": 61.5,
+        "posterior_sigma": 13.0,
         "data_points": 7
       },
       "competitiveness": "active",
@@ -4593,7 +4686,7 @@
     {
       "id": 9016,
       "name": "Rickie Fowler",
-      "rank": 48,
+      "rank": 49,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4629,7 +4722,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+7400"
+        "dk": "+7200"
       },
       "fieldInfo": {
         "owgr": 86,
@@ -4683,15 +4776,15 @@
         "makeCut": 60
       },
       "confScore": 40.0,
-      "edgeScore": 4.67,
+      "edgeScore": 4.63,
       "owgrRank": 86,
-      "evScore": 350.0,
+      "evScore": 338.0,
       "scoreStd": 1.94
     },
     {
       "id": 9025,
       "name": "Aldrich Potgieter",
-      "rank": 49,
+      "rank": 50,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4727,7 +4820,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+29000"
+        "dk": "+27500"
       },
       "fieldInfo": {
         "owgr": 83,
@@ -4781,15 +4874,15 @@
         "makeCut": 60
       },
       "confScore": 40.0,
-      "edgeScore": 5.66,
+      "edgeScore": 5.64,
       "owgrRank": 83,
-      "evScore": 1646.0,
+      "evScore": 1556.0,
       "scoreStd": 2.6
     },
     {
       "id": 9008,
       "name": "Nico Echavarria",
-      "rank": 50,
+      "rank": 51,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4878,99 +4971,6 @@
       "confScore": 39.8,
       "owgrRank": 52,
       "scoreStd": 3.34
-    },
-    {
-      "id": 9011,
-      "name": "Sam Stevens",
-      "rank": 51,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 50,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 50,
-      "recentForm": {
-        "lastResult": "#30 at Cadillac Championship",
-        "lastPosition": 30,
-        "l5AvgFinish": 33.5,
-        "l10AvgFinish": 33.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 71.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 44,
-        "prior": 50.0,
-        "likelihood": 38.5,
-        "posterior_sigma": 12.9,
-        "data_points": 10
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 1.5,
-        "closing": 2.0,
-        "field_strength": 1.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 1.8
-      },
-      "propScores": {
-        "win": 37,
-        "top5": 41,
-        "top10": 45,
-        "top20": 52,
-        "makeCut": 58
-      },
-      "confScore": 39.8,
-      "owgrRank": 50,
-      "scoreStd": 2.27
     },
     {
       "id": 9024,
@@ -5110,10 +5110,10 @@
       },
       "owgr": 32,
       "recentForm": {
-        "lastResult": "#46 at Cadillac Championship",
-        "lastPosition": 46,
-        "l5AvgFinish": 42.5,
-        "l10AvgFinish": 42.5,
+        "lastResult": "#45 at Cadillac Championship",
+        "lastPosition": 45,
+        "l5AvgFinish": 43.0,
+        "l10AvgFinish": 43.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -5126,8 +5126,8 @@
       "bayesianScore": {
         "score": 52,
         "prior": 50.0,
-        "likelihood": 54.2,
-        "posterior_sigma": 13.3,
+        "likelihood": 53.6,
+        "posterior_sigma": 13.4,
         "data_points": 3
       },
       "competitiveness": "active",
@@ -5158,9 +5158,102 @@
       "owgrRank": 32
     },
     {
+      "id": 9022,
+      "name": "Jordan Smith",
+      "rank": 54,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 89,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 89,
+      "recentForm": {
+        "lastResult": "#59 at Cadillac Championship",
+        "lastPosition": 59,
+        "l5AvgFinish": 45.0,
+        "l10AvgFinish": 45.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 73.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 52,
+        "prior": 50.0,
+        "likelihood": 54.7,
+        "posterior_sigma": 13.6,
+        "data_points": 7
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.4,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 4.5
+      },
+      "propScores": {
+        "win": 36,
+        "top5": 41,
+        "top10": 46,
+        "top20": 54,
+        "makeCut": 60
+      },
+      "confScore": 39.5,
+      "owgrRank": 89,
+      "scoreStd": 2.46
+    },
+    {
       "id": 97,
       "name": "Jacob Bridgeman",
-      "rank": 54,
+      "rank": 55,
       "sgTotal": 0.08,
       "sgOtt": 0.15,
       "sgApp": 0.05,
@@ -5204,8 +5297,8 @@
       "recentForm": {
         "lastResult": "#72 at Cadillac Championship",
         "lastPosition": 72,
-        "l5AvgFinish": 70.5,
-        "l10AvgFinish": 70.5,
+        "l5AvgFinish": 72.0,
+        "l10AvgFinish": 72.0,
         "l5McPct": 0,
         "trend": "steady",
         "events": 2,
@@ -5218,8 +5311,8 @@
       "bayesianScore": {
         "score": 44,
         "prior": 51.6,
-        "likelihood": 32.5,
-        "posterior_sigma": 13.8,
+        "likelihood": 32.4,
+        "posterior_sigma": 13.9,
         "data_points": 10
       },
       "competitiveness": "active",
@@ -5252,7 +5345,7 @@
     {
       "id": 50,
       "name": "Maverick McNealy",
-      "rank": 55,
+      "rank": 56,
       "sgTotal": 0.05,
       "sgOtt": 0.15,
       "sgApp": 0.0,
@@ -5301,10 +5394,10 @@
       },
       "owgr": 21,
       "recentForm": {
-        "lastResult": "#54 at Cadillac Championship",
-        "lastPosition": 54,
-        "l5AvgFinish": 42.0,
-        "l10AvgFinish": 42.0,
+        "lastResult": "#53 at Cadillac Championship",
+        "lastPosition": 53,
+        "l5AvgFinish": 42.5,
+        "l10AvgFinish": 42.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -5317,8 +5410,8 @@
       "bayesianScore": {
         "score": 51,
         "prior": 51.0,
-        "likelihood": 52.3,
-        "posterior_sigma": 14.2,
+        "likelihood": 52.0,
+        "posterior_sigma": 14.3,
         "data_points": 9
       },
       "competitiveness": "active",
@@ -5352,7 +5445,7 @@
     {
       "id": 9018,
       "name": "Harry Hall",
-      "rank": 56,
+      "rank": 57,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5388,7 +5481,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+22000"
+        "dk": "+21000"
       },
       "fieldInfo": {
         "owgr": 60,
@@ -5442,102 +5535,9 @@
         "makeCut": 58
       },
       "confScore": 39.3,
-      "edgeScore": 5.44,
+      "edgeScore": 5.42,
       "owgrRank": 60,
-      "evScore": 1202.8
-    },
-    {
-      "id": 9022,
-      "name": "Jordan Smith",
-      "rank": 57,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 89,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 89,
-      "recentForm": {
-        "lastResult": "#41 at Cadillac Championship",
-        "lastPosition": 41,
-        "l5AvgFinish": 52.0,
-        "l10AvgFinish": 52.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 73.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 50,
-        "prior": 50.0,
-        "likelihood": 50.3,
-        "posterior_sigma": 14.5,
-        "data_points": 7
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.4,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 3.9
-      },
-      "propScores": {
-        "win": 36,
-        "top5": 40,
-        "top10": 45,
-        "top20": 53,
-        "makeCut": 59
-      },
-      "confScore": 38.9,
-      "owgrRank": 89,
-      "scoreStd": 2.39
+      "evScore": 1143.8
     },
     {
       "id": 9007,
@@ -5584,8 +5584,8 @@
       },
       "owgr": 61,
       "recentForm": {
-        "lastResult": "#42 at Cadillac Championship",
-        "lastPosition": 42,
+        "lastResult": "#41 at Cadillac Championship",
+        "lastPosition": 41,
         "l5AvgFinish": 55.0,
         "l10AvgFinish": 55.0,
         "l5McPct": 50,
@@ -5865,8 +5865,8 @@
       "recentForm": {
         "lastResult": "#40 at Cadillac Championship",
         "lastPosition": 40,
-        "l5AvgFinish": 24.5,
-        "l10AvgFinish": 24.5,
+        "l5AvgFinish": 25.0,
+        "l10AvgFinish": 25.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -5879,7 +5879,7 @@
       "bayesianScore": {
         "score": 45,
         "prior": 50.0,
-        "likelihood": 36.5,
+        "likelihood": 36.2,
         "posterior_sigma": 14.6,
         "data_points": 7
       },
@@ -6004,107 +6004,9 @@
       "scoreStd": 3.33
     },
     {
-      "id": 9032,
-      "name": "Alex Smalley",
-      "rank": 63,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "dk": "+1450"
-      },
-      "fieldInfo": {
-        "owgr": 122,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 122,
-      "recentForm": {
-        "lastResult": "#2 at Cadillac Championship",
-        "lastPosition": 2,
-        "l5AvgFinish": 2.5,
-        "l10AvgFinish": 2.5,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 65.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 1.5,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0
-      },
-      "propScores": {
-        "win": 33,
-        "top5": 37,
-        "top10": 42,
-        "top20": 50,
-        "makeCut": 56
-      },
-      "confScore": 37.0,
-      "edgeScore": -0.9,
-      "owgrRank": 122,
-      "anomalies": [
-        {
-          "type": "iqr_outlier",
-          "direction": "OVERPRICED",
-          "edge_pct": -0.9,
-          "fence": 1.53,
-          "market": "outright"
-        }
-      ],
-      "evScore": -14.0
-    },
-    {
       "id": 9006,
       "name": "Nicolai Højgaard",
-      "rank": 64,
+      "rank": 63,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6195,6 +6097,104 @@
       "scoreStd": 2.48
     },
     {
+      "id": 9032,
+      "name": "Alex Smalley",
+      "rank": 64,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "dk": "+1900"
+      },
+      "fieldInfo": {
+        "owgr": 122,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 122,
+      "recentForm": {
+        "lastResult": "#4 at Cadillac Championship",
+        "lastPosition": 4,
+        "l5AvgFinish": 2.5,
+        "l10AvgFinish": 2.5,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 65.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 1.2,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0
+      },
+      "propScores": {
+        "win": 32,
+        "top5": 37,
+        "top10": 42,
+        "top20": 50,
+        "makeCut": 56
+      },
+      "confScore": 36.0,
+      "edgeScore": 0.4,
+      "owgrRank": 122,
+      "anomalies": [
+        {
+          "type": "iqr_outlier",
+          "direction": "OVERPRICED",
+          "edge_pct": 0.4,
+          "fence": 8.66,
+          "market": "outright"
+        }
+      ],
+      "evScore": 8.0
+    },
+    {
       "id": 9029,
       "name": "David Lipsky",
       "rank": 65,
@@ -6239,8 +6239,8 @@
       },
       "owgr": 144,
       "recentForm": {
-        "lastResult": "#59 at Cadillac Championship",
-        "lastPosition": 59,
+        "lastResult": "#60 at Cadillac Championship",
+        "lastPosition": 60,
         "l5AvgFinish": 44.0,
         "l10AvgFinish": 44.0,
         "l5McPct": 100,
@@ -6380,101 +6380,9 @@
       "scoreStd": 3.28
     },
     {
-      "id": 9026,
-      "name": "Ricky Castillo",
-      "rank": 67,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 173,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 173,
-      "recentForm": {
-        "lastResult": "#45 at Cadillac Championship",
-        "lastPosition": 45,
-        "l5AvgFinish": 44.0,
-        "l10AvgFinish": 44.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 2,
-        "roundAvgs": {
-          "r1Avg": 73.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "bayesianScore": {
-        "score": 35,
-        "prior": 50.0,
-        "likelihood": 30.8,
-        "posterior_sigma": 8.7,
-        "data_points": 7
-      },
-      "competitiveness": "declining",
-      "confBreakdown": {
-        "sg": 0.0,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 2.0,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0
-      },
-      "propScores": {
-        "win": 31,
-        "top5": 35,
-        "top10": 35,
-        "top20": 35,
-        "makeCut": 35
-      },
-      "confScore": 35.0,
-      "owgrRank": 173,
-      "scoreStd": 2.19
-    },
-    {
       "id": 9028,
       "name": "Andrew Putnam",
-      "rank": 68,
+      "rank": 67,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6571,7 +6479,7 @@
     {
       "id": 9034,
       "name": "Sudarshan Yellamaraju",
-      "rank": 69,
+      "rank": 68,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6607,7 +6515,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+26000"
+        "dk": "+25000"
       },
       "fieldInfo": {
         "owgr": 278,
@@ -6661,15 +6569,15 @@
         "makeCut": 35
       },
       "confScore": 35,
-      "edgeScore": 4.87,
+      "edgeScore": 4.85,
       "owgrRank": 278,
-      "evScore": 1270.2,
+      "evScore": 1217.7,
       "scoreStd": 3.43
     },
     {
       "id": 9036,
       "name": "Alex Fitzpatrick",
-      "rank": 70,
+      "rank": 69,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6705,7 +6613,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+9400"
+        "dk": "+9200"
       },
       "fieldInfo": {
         "owgr": 203,
@@ -6716,8 +6624,8 @@
       "recentForm": {
         "lastResult": "#6 at Cadillac Championship",
         "lastPosition": 6,
-        "l5AvgFinish": 24.0,
-        "l10AvgFinish": 24.0,
+        "l5AvgFinish": 24.5,
+        "l10AvgFinish": 24.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -6751,14 +6659,14 @@
         "makeCut": 35
       },
       "confScore": 35.0,
-      "edgeScore": 4.2,
+      "edgeScore": 4.17,
       "owgrRank": 203,
-      "evScore": 398.8
+      "evScore": 388.2
     },
     {
       "id": 9037,
       "name": "Joel Dahmen",
-      "rank": 71,
+      "rank": 70,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6842,7 +6750,7 @@
     {
       "id": 9023,
       "name": "Matt Wallace",
-      "rank": 72,
+      "rank": 71,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -6884,10 +6792,10 @@
       },
       "owgr": 75,
       "recentForm": {
-        "lastResult": "#52 at Cadillac Championship",
-        "lastPosition": 52,
-        "l5AvgFinish": 51.5,
-        "l10AvgFinish": 51.5,
+        "lastResult": "#51 at Cadillac Championship",
+        "lastPosition": 51,
+        "l5AvgFinish": 52.0,
+        "l10AvgFinish": 52.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -6900,7 +6808,7 @@
       "bayesianScore": {
         "score": 32,
         "prior": 50.0,
-        "likelihood": 30.8,
+        "likelihood": 30.5,
         "posterior_sigma": 4.8,
         "data_points": 7
       },
@@ -6931,6 +6839,99 @@
       "confScore": 34.9,
       "owgrRank": 75,
       "scoreStd": 1.96
+    },
+    {
+      "id": 9026,
+      "name": "Ricky Castillo",
+      "rank": 72,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 173,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 173,
+      "recentForm": {
+        "lastResult": "#44 at Cadillac Championship",
+        "lastPosition": 44,
+        "l5AvgFinish": 46.5,
+        "l10AvgFinish": 46.5,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 2,
+        "roundAvgs": {
+          "r1Avg": 73.0
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "bayesianScore": {
+        "score": 32,
+        "prior": 50.0,
+        "likelihood": 29.2,
+        "posterior_sigma": 7.1,
+        "data_points": 7
+      },
+      "competitiveness": "declining",
+      "confBreakdown": {
+        "sg": 0.0,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.0,
+        "closing": 2.0,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": -0.8
+      },
+      "propScores": {
+        "win": 30,
+        "top5": 35,
+        "top10": 35,
+        "top20": 35,
+        "makeCut": 35
+      },
+      "confScore": 34.2,
+      "owgrRank": 173,
+      "scoreStd": 1.91
     },
     {
       "id": 9033,
@@ -6977,10 +6978,10 @@
       },
       "owgr": 85,
       "recentForm": {
-        "lastResult": "#49 at Cadillac Championship",
-        "lastPosition": 49,
-        "l5AvgFinish": 54.0,
-        "l10AvgFinish": 54.0,
+        "lastResult": "#48 at Cadillac Championship",
+        "lastPosition": 48,
+        "l5AvgFinish": 54.5,
+        "l10AvgFinish": 54.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 2,
@@ -6991,10 +6992,10 @@
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "bayesianScore": {
-        "score": 25,
+        "score": 24,
         "prior": 50.0,
-        "likelihood": 15.7,
-        "posterior_sigma": 9.4,
+        "likelihood": 15.3,
+        "posterior_sigma": 9.1,
         "data_points": 7
       },
       "competitiveness": "active",
@@ -7012,16 +7013,16 @@
         "field_strength": 0.0,
         "consistency": 1.7,
         "par5": 0.0,
-        "ml_bayes": -2.9
+        "ml_bayes": -3.1
       },
       "propScores": {
         "win": 29,
         "top5": 33,
         "top10": 38,
-        "top20": 47,
+        "top20": 46,
         "makeCut": 52
       },
-      "confScore": 33.1,
+      "confScore": 32.9,
       "owgrRank": 85,
       "scoreStd": 3.49
     },
@@ -7070,8 +7071,8 @@
       },
       "owgr": 130,
       "recentForm": {
-        "lastResult": "#56 at Cadillac Championship",
-        "lastPosition": 56,
+        "lastResult": "#55 at Cadillac Championship",
+        "lastPosition": 55,
         "l5AvgFinish": 63.0,
         "l10AvgFinish": 63.0,
         "l5McPct": 50,
@@ -7140,19 +7141,8 @@
         "thru": ""
       },
       {
-        "name": "Alex Smalley",
-        "position": "2",
-        "score": "-9",
-        "totalStrokes": 131.0,
-        "round1": 65.0,
-        "round2": 66.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
         "name": "Nick Taylor",
-        "position": "T3",
+        "position": "T2",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 66.0,
@@ -7163,7 +7153,18 @@
       },
       {
         "name": "Jordan Spieth",
-        "position": "T3",
+        "position": "T2",
+        "score": "-8",
+        "totalStrokes": 136.0,
+        "round1": 65.0,
+        "round2": 71.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "Alex Smalley",
+        "position": "T2",
         "score": "-8",
         "totalStrokes": 136.0,
         "round1": 65.0,
@@ -7404,19 +7405,8 @@
         "thru": ""
       },
       {
-        "name": "Min Woo Lee",
-        "position": "T24",
-        "score": "-3",
-        "totalStrokes": 137.0,
-        "round1": 70.0,
-        "round2": 67.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
         "name": "Corey Conners",
-        "position": "T27",
+        "position": "T26",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 73.0,
@@ -7427,7 +7417,7 @@
       },
       {
         "name": "Lucas Glover",
-        "position": "T27",
+        "position": "T26",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 72.0,
@@ -7438,7 +7428,7 @@
       },
       {
         "name": "Russell Henley",
-        "position": "T27",
+        "position": "T26",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 72.0,
@@ -7449,7 +7439,7 @@
       },
       {
         "name": "Sam Stevens",
-        "position": "T27",
+        "position": "T26",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 71.0,
@@ -7460,7 +7450,7 @@
       },
       {
         "name": "Denny McCarthy",
-        "position": "T27",
+        "position": "T26",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 71.0,
@@ -7471,7 +7461,7 @@
       },
       {
         "name": "Max Homa",
-        "position": "T27",
+        "position": "T26",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 70.0,
@@ -7482,7 +7472,18 @@
       },
       {
         "name": "Akshay Bhatia",
-        "position": "T27",
+        "position": "T26",
+        "score": "-2",
+        "totalStrokes": 142.0,
+        "round1": 70.0,
+        "round2": 72.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "Min Woo Lee",
+        "position": "T26",
         "score": "-2",
         "totalStrokes": 142.0,
         "round1": 70.0,
@@ -7569,19 +7570,8 @@
         "thru": ""
       },
       {
-        "name": "Jordan Smith",
-        "position": "T34",
-        "score": "-1",
-        "totalStrokes": 139.0,
-        "round1": 73.0,
-        "round2": 66.0,
-        "round3": 0.0,
-        "round4": 0.0,
-        "thru": ""
-      },
-      {
         "name": "Daniel Berger",
-        "position": "T42",
+        "position": "T41",
         "score": "E",
         "totalStrokes": 144.0,
         "round1": 76.0,
@@ -7592,7 +7582,7 @@
       },
       {
         "name": "Sam Burns",
-        "position": "T42",
+        "position": "T41",
         "score": "E",
         "totalStrokes": 144.0,
         "round1": 76.0,
@@ -7603,7 +7593,7 @@
       },
       {
         "name": "Chris Gotterup",
-        "position": "T42",
+        "position": "T41",
         "score": "E",
         "totalStrokes": 144.0,
         "round1": 73.0,
@@ -7614,7 +7604,7 @@
       },
       {
         "name": "Ricky Castillo",
-        "position": "T42",
+        "position": "T41",
         "score": "E",
         "totalStrokes": 144.0,
         "round1": 73.0,
@@ -7625,7 +7615,7 @@
       },
       {
         "name": "Max Greyserman",
-        "position": "T42",
+        "position": "T41",
         "score": "E",
         "totalStrokes": 144.0,
         "round1": 72.0,
@@ -7636,7 +7626,7 @@
       },
       {
         "name": "Ryan Gerard",
-        "position": "T42",
+        "position": "T41",
         "score": "E",
         "totalStrokes": 144.0,
         "round1": 72.0,
@@ -7647,7 +7637,7 @@
       },
       {
         "name": "Pierceson Coody",
-        "position": "T42",
+        "position": "T41",
         "score": "E",
         "totalStrokes": 144.0,
         "round1": 72.0,
@@ -7658,7 +7648,7 @@
       },
       {
         "name": "Jhonattan Vegas",
-        "position": "T49",
+        "position": "T48",
         "score": "+1",
         "totalStrokes": 145.0,
         "round1": 75.0,
@@ -7669,7 +7659,7 @@
       },
       {
         "name": "Michael Kim",
-        "position": "T49",
+        "position": "T48",
         "score": "+1",
         "totalStrokes": 145.0,
         "round1": 74.0,
@@ -7680,7 +7670,7 @@
       },
       {
         "name": "Michael Thorbjornsen",
-        "position": "T49",
+        "position": "T48",
         "score": "+1",
         "totalStrokes": 145.0,
         "round1": 74.0,
@@ -7691,7 +7681,7 @@
       },
       {
         "name": "Matt Wallace",
-        "position": "T49",
+        "position": "T48",
         "score": "+1",
         "totalStrokes": 145.0,
         "round1": 74.0,
@@ -7702,7 +7692,7 @@
       },
       {
         "name": "Keegan Bradley",
-        "position": "T49",
+        "position": "T48",
         "score": "+1",
         "totalStrokes": 145.0,
         "round1": 72.0,
@@ -7713,7 +7703,7 @@
       },
       {
         "name": "Maverick McNealy",
-        "position": "T49",
+        "position": "T48",
         "score": "+1",
         "totalStrokes": 145.0,
         "round1": 71.0,
@@ -7724,7 +7714,7 @@
       },
       {
         "name": "Sahith Theegala",
-        "position": "T49",
+        "position": "T48",
         "score": "+1",
         "totalStrokes": 145.0,
         "round1": 69.0,
@@ -7735,7 +7725,7 @@
       },
       {
         "name": "Austin Smotherman",
-        "position": "T56",
+        "position": "T55",
         "score": "+2",
         "totalStrokes": 146.0,
         "round1": 77.0,
@@ -7746,7 +7736,7 @@
       },
       {
         "name": "Viktor Hovland",
-        "position": "T56",
+        "position": "T55",
         "score": "+2",
         "totalStrokes": 146.0,
         "round1": 75.0,
@@ -7757,7 +7747,7 @@
       },
       {
         "name": "Harris English",
-        "position": "T56",
+        "position": "T55",
         "score": "+2",
         "totalStrokes": 146.0,
         "round1": 74.0,
@@ -7767,23 +7757,34 @@
         "thru": ""
       },
       {
-        "name": "David Lipsky",
-        "position": "T56",
+        "name": "Keith Mitchell",
+        "position": "T55",
         "score": "+2",
         "totalStrokes": 146.0,
-        "round1": 71.0,
-        "round2": 75.0,
+        "round1": 74.0,
+        "round2": 72.0,
         "round3": 0.0,
         "round4": 0.0,
         "thru": ""
       },
       {
-        "name": "Keith Mitchell",
-        "position": "T56",
+        "name": "Jordan Smith",
+        "position": "T55",
         "score": "+2",
-        "totalStrokes": 142.0,
-        "round1": 74.0,
-        "round2": 68.0,
+        "totalStrokes": 146.0,
+        "round1": 73.0,
+        "round2": 73.0,
+        "round3": 0.0,
+        "round4": 0.0,
+        "thru": ""
+      },
+      {
+        "name": "David Lipsky",
+        "position": "T55",
+        "score": "+2",
+        "totalStrokes": 146.0,
+        "round1": 71.0,
+        "round2": 75.0,
         "round3": 0.0,
         "round4": 0.0,
         "thru": ""
@@ -8050,362 +8051,362 @@
     {
       "name": "Cameron Young",
       "rounds": 3,
-      "sgTotal": 7.75,
+      "sgTotal": 7.78,
       "sgOTT": 0.0,
-      "sgAPP": 2.34,
+      "sgAPP": 2.37,
       "sgATG": 0.0,
-      "sgPutt": 3.68
-    },
-    {
-      "name": "Alex Smalley",
-      "rounds": 3,
-      "sgTotal": 4.75,
-      "sgOTT": 0.0,
-      "sgAPP": 3.37,
-      "sgATG": 0.0,
-      "sgPutt": 0.99
+      "sgPutt": 3.67
     },
     {
       "name": "Jordan Spieth",
       "rounds": 3,
-      "sgTotal": 4.42,
+      "sgTotal": 4.44,
       "sgOTT": 0.0,
-      "sgAPP": 2.87,
+      "sgAPP": 2.9,
       "sgATG": 0.0,
-      "sgPutt": -0.54
+      "sgPutt": -0.56
+    },
+    {
+      "name": "Alex Smalley",
+      "rounds": 3,
+      "sgTotal": 4.44,
+      "sgOTT": 0.0,
+      "sgAPP": 2.65,
+      "sgATG": 0.0,
+      "sgPutt": 1.38
     },
     {
       "name": "Nick Taylor",
       "rounds": 3,
-      "sgTotal": 4.42,
+      "sgTotal": 4.44,
       "sgOTT": 0.0,
-      "sgAPP": 0.65,
+      "sgAPP": 0.68,
       "sgATG": 0.0,
-      "sgPutt": 2.89
+      "sgPutt": 2.87
     },
     {
       "name": "Gary Woodland",
       "rounds": 3,
-      "sgTotal": 3.75,
+      "sgTotal": 3.78,
       "sgOTT": 0.0,
-      "sgAPP": 3.71,
+      "sgAPP": 3.74,
       "sgATG": 0.0,
-      "sgPutt": 0.56
+      "sgPutt": 0.55
     },
     {
       "name": "Taylor Pendrith",
       "rounds": 3,
-      "sgTotal": 3.08,
+      "sgTotal": 3.11,
       "sgOTT": 0.0,
-      "sgAPP": 2.24,
+      "sgAPP": 2.27,
       "sgATG": 0.0,
-      "sgPutt": -0.78
+      "sgPutt": -0.79
     },
     {
       "name": "Brian Harman",
       "rounds": 3,
-      "sgTotal": 3.08,
+      "sgTotal": 3.11,
       "sgOTT": 0.0,
-      "sgAPP": 0.31,
+      "sgAPP": 0.34,
       "sgATG": 0.0,
-      "sgPutt": 1.66
+      "sgPutt": 1.65
     },
     {
       "name": "Scottie Scheffler",
       "rounds": 3,
-      "sgTotal": 3.08,
+      "sgTotal": 3.11,
       "sgOTT": 0.0,
-      "sgAPP": 2.16,
+      "sgAPP": 2.19,
       "sgATG": 0.0,
-      "sgPutt": 0.03
+      "sgPutt": 0.02
     },
     {
       "name": "Kristoffer Reitan",
       "rounds": 3,
-      "sgTotal": 3.08,
+      "sgTotal": 3.11,
       "sgOTT": 0.0,
-      "sgAPP": 0.61,
+      "sgAPP": 0.64,
       "sgATG": 0.0,
-      "sgPutt": 0.13
+      "sgPutt": 0.11
     },
     {
       "name": "Alex Fitzpatrick",
       "rounds": 3,
-      "sgTotal": 3.08,
+      "sgTotal": 3.11,
       "sgOTT": 0.0,
-      "sgAPP": 0.84,
+      "sgAPP": 0.87,
       "sgATG": 0.0,
-      "sgPutt": -0.08
+      "sgPutt": -0.09
     },
     {
       "name": "Si Woo Kim",
       "rounds": 3,
-      "sgTotal": 3.08,
+      "sgTotal": 3.11,
       "sgOTT": 0.0,
-      "sgAPP": 2.32,
+      "sgAPP": 2.35,
       "sgATG": 0.0,
-      "sgPutt": -1.78
+      "sgPutt": -1.8
     },
     {
       "name": "Matt McCarty",
       "rounds": 3,
-      "sgTotal": 2.42,
+      "sgTotal": 2.44,
       "sgOTT": 0.0,
-      "sgAPP": 1.42,
+      "sgAPP": 1.45,
       "sgATG": 0.0,
-      "sgPutt": 0.21
+      "sgPutt": 0.2
     },
     {
       "name": "Andrew Putnam",
       "rounds": 3,
-      "sgTotal": 2.42,
+      "sgTotal": 2.44,
       "sgOTT": 0.0,
-      "sgAPP": -0.97,
+      "sgAPP": -0.94,
       "sgATG": 0.0,
-      "sgPutt": 3.16
+      "sgPutt": 3.15
     },
     {
       "name": "J.T. Poston",
       "rounds": 3,
-      "sgTotal": 2.42,
+      "sgTotal": 2.44,
       "sgOTT": 0.0,
-      "sgAPP": 1.94,
+      "sgAPP": 1.97,
       "sgATG": 0.0,
-      "sgPutt": 0.78
+      "sgPutt": 0.77
     },
     {
       "name": "Rickie Fowler",
       "rounds": 3,
-      "sgTotal": 2.42,
+      "sgTotal": 2.44,
       "sgOTT": 0.0,
-      "sgAPP": -0.13,
+      "sgAPP": -0.11,
       "sgATG": 0.0,
-      "sgPutt": 2.94
+      "sgPutt": 2.92
     },
     {
       "name": "Bud Cauley",
       "rounds": 3,
-      "sgTotal": 1.75,
+      "sgTotal": 1.78,
       "sgOTT": 0.0,
-      "sgAPP": 3.81,
+      "sgAPP": 3.84,
       "sgATG": 0.0,
-      "sgPutt": -3.94
+      "sgPutt": -3.95
     },
     {
       "name": "Ben Griffin",
       "rounds": 3,
-      "sgTotal": 1.75,
+      "sgTotal": 1.78,
       "sgOTT": 0.0,
-      "sgAPP": -2.08,
+      "sgAPP": -2.06,
       "sgATG": 0.0,
-      "sgPutt": 1.76
+      "sgPutt": 1.75
     },
     {
       "name": "Harry Hall",
       "rounds": 3,
-      "sgTotal": 1.75,
+      "sgTotal": 1.78,
       "sgOTT": 0.0,
-      "sgAPP": -0.46,
+      "sgAPP": -0.43,
       "sgATG": 0.0,
-      "sgPutt": 0.81
+      "sgPutt": 0.8
     },
     {
       "name": "Sudarshan Yellamaraju",
       "rounds": 3,
-      "sgTotal": 1.75,
+      "sgTotal": 1.78,
       "sgOTT": 0.0,
-      "sgAPP": 0.08,
+      "sgAPP": 0.11,
       "sgATG": 0.0,
-      "sgPutt": 0.61
+      "sgPutt": 0.59
     },
     {
       "name": "Kurt Kitayama",
       "rounds": 3,
-      "sgTotal": 1.75,
+      "sgTotal": 1.78,
       "sgOTT": 0.0,
-      "sgAPP": 1.5,
+      "sgAPP": 1.53,
       "sgATG": 0.0,
-      "sgPutt": -0.71
+      "sgPutt": -0.73
     },
     {
       "name": "Aldrich Potgieter",
       "rounds": 3,
-      "sgTotal": 1.75,
+      "sgTotal": 1.78,
       "sgOTT": 0.0,
-      "sgAPP": 0.47,
+      "sgAPP": 0.5,
       "sgATG": 0.0,
-      "sgPutt": 0.35
+      "sgPutt": 0.34
     },
     {
       "name": "Nico Echavarria",
       "rounds": 3,
-      "sgTotal": 1.75,
+      "sgTotal": 1.78,
       "sgOTT": 0.0,
-      "sgAPP": -0.01,
+      "sgAPP": 0.02,
       "sgATG": 0.0,
-      "sgPutt": 2.28
+      "sgPutt": 2.26
     },
     {
       "name": "Tommy Fleetwood",
       "rounds": 3,
-      "sgTotal": 1.75,
+      "sgTotal": 1.78,
       "sgOTT": 0.0,
-      "sgAPP": 0.12,
+      "sgAPP": 0.15,
       "sgATG": 0.0,
-      "sgPutt": -0.21
+      "sgPutt": -0.23
     },
     {
       "name": "J.J. Spaun",
       "rounds": 3,
-      "sgTotal": 1.08,
+      "sgTotal": 1.11,
       "sgOTT": 0.0,
-      "sgAPP": 0.87,
+      "sgAPP": 0.89,
       "sgATG": 0.0,
-      "sgPutt": -1.2
+      "sgPutt": -1.21
     },
     {
       "name": "Hideki Matsuyama",
       "rounds": 3,
-      "sgTotal": 1.08,
+      "sgTotal": 1.11,
       "sgOTT": 0.0,
-      "sgAPP": 1.31,
-      "sgATG": 0.0,
-      "sgPutt": -0.4
-    },
-    {
-      "name": "Min Woo Lee",
-      "rounds": 3,
-      "sgTotal": 0.75,
-      "sgOTT": 0.0,
-      "sgAPP": -0.44,
-      "sgATG": 0.0,
-      "sgPutt": 1.04
-    },
-    {
-      "name": "Denny McCarthy",
-      "rounds": 3,
-      "sgTotal": 0.42,
-      "sgOTT": 0.0,
-      "sgAPP": -0.37,
-      "sgATG": 0.0,
-      "sgPutt": 2.72
-    },
-    {
-      "name": "Akshay Bhatia",
-      "rounds": 3,
-      "sgTotal": 0.42,
-      "sgOTT": 0.0,
-      "sgAPP": -0.36,
-      "sgATG": 0.0,
-      "sgPutt": 2.03
-    },
-    {
-      "name": "Max Homa",
-      "rounds": 3,
-      "sgTotal": 0.42,
-      "sgOTT": 0.0,
-      "sgAPP": -2.0,
-      "sgATG": 0.0,
-      "sgPutt": 0.23
-    },
-    {
-      "name": "Lucas Glover",
-      "rounds": 3,
-      "sgTotal": 0.42,
-      "sgOTT": 0.0,
-      "sgAPP": 1.39,
+      "sgAPP": 1.34,
       "sgATG": 0.0,
       "sgPutt": -0.41
     },
     {
+      "name": "Denny McCarthy",
+      "rounds": 3,
+      "sgTotal": 0.44,
+      "sgOTT": 0.0,
+      "sgAPP": -0.34,
+      "sgATG": 0.0,
+      "sgPutt": 2.71
+    },
+    {
+      "name": "Akshay Bhatia",
+      "rounds": 3,
+      "sgTotal": 0.44,
+      "sgOTT": 0.0,
+      "sgAPP": -0.33,
+      "sgATG": 0.0,
+      "sgPutt": 2.02
+    },
+    {
+      "name": "Min Woo Lee",
+      "rounds": 3,
+      "sgTotal": 0.44,
+      "sgOTT": 0.0,
+      "sgAPP": -0.28,
+      "sgATG": 0.0,
+      "sgPutt": 1.0
+    },
+    {
+      "name": "Max Homa",
+      "rounds": 3,
+      "sgTotal": 0.44,
+      "sgOTT": 0.0,
+      "sgAPP": -1.97,
+      "sgATG": 0.0,
+      "sgPutt": 0.21
+    },
+    {
+      "name": "Lucas Glover",
+      "rounds": 3,
+      "sgTotal": 0.44,
+      "sgOTT": 0.0,
+      "sgAPP": 1.42,
+      "sgATG": 0.0,
+      "sgPutt": -0.42
+    },
+    {
       "name": "Corey Conners",
       "rounds": 3,
-      "sgTotal": 0.42,
+      "sgTotal": 0.44,
       "sgOTT": 0.0,
-      "sgAPP": 0.83,
+      "sgAPP": 0.86,
       "sgATG": 0.0,
-      "sgPutt": 1.37
+      "sgPutt": 1.36
     },
     {
       "name": "Russell Henley",
       "rounds": 3,
-      "sgTotal": 0.42,
+      "sgTotal": 0.44,
       "sgOTT": 0.0,
-      "sgAPP": -0.9,
+      "sgAPP": -0.87,
       "sgATG": 0.0,
-      "sgPutt": 1.25
+      "sgPutt": 1.24
     },
     {
       "name": "Sam Stevens",
       "rounds": 3,
-      "sgTotal": 0.42,
+      "sgTotal": 0.44,
       "sgOTT": 0.0,
-      "sgAPP": -0.3,
+      "sgAPP": -0.27,
       "sgATG": 0.0,
-      "sgPutt": 0.61
+      "sgPutt": 0.6
     },
     {
       "name": "Tom Hoge",
       "rounds": 3,
-      "sgTotal": -0.25,
+      "sgTotal": -0.22,
       "sgOTT": 0.0,
-      "sgAPP": 0.4,
+      "sgAPP": 0.43,
       "sgATG": 0.0,
-      "sgPutt": -0.45
+      "sgPutt": -0.47
     },
     {
       "name": "Sepp Straka",
       "rounds": 3,
-      "sgTotal": -0.25,
+      "sgTotal": -0.22,
       "sgOTT": 0.0,
-      "sgAPP": 0.99,
+      "sgAPP": 1.01,
       "sgATG": 0.0,
-      "sgPutt": -1.18
+      "sgPutt": -1.19
     },
     {
       "name": "Justin Thomas",
       "rounds": 3,
-      "sgTotal": -0.25,
+      "sgTotal": -0.22,
       "sgOTT": 0.0,
-      "sgAPP": -0.69,
+      "sgAPP": -0.66,
       "sgATG": 0.0,
-      "sgPutt": -0.84
+      "sgPutt": -0.85
     },
     {
       "name": "Ryan Fox",
       "rounds": 3,
-      "sgTotal": -0.25,
+      "sgTotal": -0.22,
       "sgOTT": 0.0,
-      "sgAPP": 0.29,
+      "sgAPP": 0.32,
       "sgATG": 0.0,
-      "sgPutt": -2.22
+      "sgPutt": -2.23
     },
     {
       "name": "Alex Noren",
       "rounds": 3,
-      "sgTotal": -0.25,
+      "sgTotal": -0.22,
       "sgOTT": 0.0,
-      "sgAPP": 0.23,
+      "sgAPP": 0.26,
       "sgATG": 0.0,
-      "sgPutt": 0.58
+      "sgPutt": 0.56
     },
     {
       "name": "Nicolai Højgaard",
       "rounds": 3,
-      "sgTotal": -0.25,
+      "sgTotal": -0.22,
       "sgOTT": 0.0,
-      "sgAPP": 1.43,
+      "sgAPP": 1.46,
       "sgATG": 0.0,
-      "sgPutt": -1.02
+      "sgPutt": -1.03
     },
     {
       "name": "Brian Campbell",
       "rounds": 3,
-      "sgTotal": -0.25,
+      "sgTotal": -0.22,
       "sgOTT": 0.0,
-      "sgAPP": 0.78,
+      "sgAPP": 0.8,
       "sgATG": 0.0,
-      "sgPutt": -0.47
+      "sgPutt": -0.48
     }
   ],
   "teeTimes": [
@@ -8423,24 +8424,6 @@
     },
     {
       "player": "Cameron Young",
-      "teeTime": "",
-      "round": 3,
-      "startHole": 1
-    },
-    {
-      "player": "Alex Smalley",
-      "teeTime": "Thu Apr 30 11:40:00 PDT 2026",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Alex Smalley",
-      "teeTime": "Fri May 01 14:55:00 PDT 2026",
-      "round": 2,
-      "startHole": 1
-    },
-    {
-      "player": "Alex Smalley",
       "teeTime": "",
       "round": 3,
       "startHole": 1
@@ -8477,6 +8460,24 @@
     },
     {
       "player": "Jordan Spieth",
+      "teeTime": "",
+      "round": 3,
+      "startHole": 1
+    },
+    {
+      "player": "Alex Smalley",
+      "teeTime": "Thu Apr 30 11:40:00 PDT 2026",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Alex Smalley",
+      "teeTime": "Fri May 01 14:55:00 PDT 2026",
+      "round": 2,
+      "startHole": 1
+    },
+    {
+      "player": "Alex Smalley",
       "teeTime": "",
       "round": 3,
       "startHole": 1
@@ -8860,24 +8861,6 @@
       "startHole": 1
     },
     {
-      "player": "Min Woo Lee",
-      "teeTime": "Thu Apr 30 11:30:00 PDT 2026",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Min Woo Lee",
-      "teeTime": "Fri May 01 14:45:00 PDT 2026",
-      "round": 2,
-      "startHole": 1
-    },
-    {
-      "player": "Min Woo Lee",
-      "teeTime": "",
-      "round": 3,
-      "startHole": 1
-    },
-    {
       "player": "Corey Conners",
       "teeTime": "Thu Apr 30 13:30:00 PDT 2026",
       "round": 1,
@@ -9004,6 +8987,24 @@
       "startHole": 1
     },
     {
+      "player": "Min Woo Lee",
+      "teeTime": "Thu Apr 30 11:30:00 PDT 2026",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Min Woo Lee",
+      "teeTime": "Fri May 01 14:45:00 PDT 2026",
+      "round": 2,
+      "startHole": 1
+    },
+    {
+      "player": "Min Woo Lee",
+      "teeTime": "",
+      "round": 3,
+      "startHole": 1
+    },
+    {
       "player": "Nicolai Højgaard",
       "teeTime": "Thu Apr 30 13:10:00 PDT 2026",
       "round": 1,
@@ -9125,24 +9126,6 @@
     },
     {
       "player": "Tom Hoge",
-      "teeTime": "",
-      "round": 3,
-      "startHole": 1
-    },
-    {
-      "player": "Jordan Smith",
-      "teeTime": "Thu Apr 30 11:30:00 PDT 2026",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Jordan Smith",
-      "teeTime": "Fri May 01 14:45:00 PDT 2026",
-      "round": 2,
-      "startHole": 1
-    },
-    {
-      "player": "Jordan Smith",
       "teeTime": "",
       "round": 3,
       "startHole": 1
@@ -9454,24 +9437,6 @@
       "startHole": 1
     },
     {
-      "player": "David Lipsky",
-      "teeTime": "Thu Apr 30 09:20:00 PDT 2026",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "David Lipsky",
-      "teeTime": "Fri May 01 12:35:00 PDT 2026",
-      "round": 2,
-      "startHole": 1
-    },
-    {
-      "player": "David Lipsky",
-      "teeTime": "",
-      "round": 3,
-      "startHole": 1
-    },
-    {
       "player": "Keith Mitchell",
       "teeTime": "Thu Apr 30 11:40:00 PDT 2026",
       "round": 1,
@@ -9485,6 +9450,42 @@
     },
     {
       "player": "Keith Mitchell",
+      "teeTime": "",
+      "round": 3,
+      "startHole": 1
+    },
+    {
+      "player": "Jordan Smith",
+      "teeTime": "Thu Apr 30 11:30:00 PDT 2026",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Jordan Smith",
+      "teeTime": "Fri May 01 14:45:00 PDT 2026",
+      "round": 2,
+      "startHole": 1
+    },
+    {
+      "player": "Jordan Smith",
+      "teeTime": "",
+      "round": 3,
+      "startHole": 1
+    },
+    {
+      "player": "David Lipsky",
+      "teeTime": "Thu Apr 30 09:20:00 PDT 2026",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "David Lipsky",
+      "teeTime": "Fri May 01 12:35:00 PDT 2026",
+      "round": 2,
+      "startHole": 1
+    },
+    {
+      "player": "David Lipsky",
       "teeTime": "",
       "round": 3,
       "startHole": 1
@@ -9711,8 +9712,8 @@
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -1.39,
-        "fence": 1.53,
+        "edge_pct": -1.6,
+        "fence": 1.49,
         "market": "outright"
       }
     ],
@@ -9721,22 +9722,22 @@
         "type": "low_freq_value",
         "direction": "UNDERPRICED",
         "market": "top20_makecut",
-        "note": "confScore 60.699999999999996 but odds +8600 — likely value in placement markets"
+        "note": "confScore 60.699999999999996 but odds +8400 — likely value in placement markets"
       }
     ],
     "Cameron Young": [
       {
         "type": "z_score",
-        "z": -5.08,
+        "z": -5.09,
         "direction": "OVERPRICED",
-        "edge_pct": -54.88,
+        "edge_pct": -55.14,
         "market": "outright"
       },
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -54.88,
-        "fence": 1.53,
+        "edge_pct": -55.14,
+        "fence": 1.49,
         "market": "outright"
       }
     ],
@@ -9744,8 +9745,8 @@
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -0.21,
-        "fence": 1.53,
+        "edge_pct": -0.3,
+        "fence": 1.49,
         "market": "outright"
       }
     ],
@@ -9753,166 +9754,166 @@
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -0.9,
-        "fence": 1.53,
+        "edge_pct": 0.4,
+        "fence": 8.66,
         "market": "outright"
       }
     ]
   },
   "oddsMovement": {
     "Scottie Scheffler": {
-      "current": "+610",
+      "current": "+600",
       "previous": "+830",
-      "change": -220,
+      "change": -230,
       "direction": "shorter",
       "significant": false
     },
     "Tommy Fleetwood": {
-      "current": "+8600",
+      "current": "+8400",
       "previous": "+3000",
-      "change": 5600,
+      "change": 5400,
       "direction": "longer",
       "significant": true
     },
     "Hideki Matsuyama": {
-      "current": "+20000",
+      "current": "+19500",
       "previous": "+3800",
-      "change": 16200,
+      "change": 15700,
       "direction": "longer",
       "significant": true
     },
     "Cameron Young": {
-      "current": "-174",
+      "current": "-176",
       "previous": "+162",
-      "change": -336,
+      "change": -338,
       "direction": "shorter",
       "significant": false
     },
     "Brian Harman": {
-      "current": "+9000",
+      "current": "+8800",
       "previous": "+6000",
-      "change": 3000,
+      "change": 2800,
       "direction": "longer",
       "significant": true
     },
     "Russell Henley": {
-      "current": "+36000",
+      "current": "+35000",
       "previous": "+9400",
-      "change": 26600,
+      "change": 25600,
       "direction": "longer",
       "significant": true
     },
     "Si Woo Kim": {
-      "current": "+2900",
+      "current": "+2800",
       "previous": "+3400",
-      "change": -500,
+      "change": -600,
       "direction": "shorter",
       "significant": true
     },
     "Taylor Pendrith": {
-      "current": "+7600",
+      "current": "+7400",
       "previous": "+23000",
-      "change": -15400,
+      "change": -15600,
       "direction": "shorter",
       "significant": true
     },
     "Min Woo Lee": {
-      "current": "+36000",
+      "current": "+38000",
       "previous": "+4600",
-      "change": 31400,
+      "change": 33400,
       "direction": "longer",
       "significant": true
     },
     "Jordan Spieth": {
-      "current": "+1275",
+      "current": "+1250",
       "previous": "+580",
-      "change": 695,
+      "change": 670,
       "direction": "longer",
       "significant": true
     },
     "J.T. Poston": {
-      "current": "+15500",
+      "current": "+15000",
       "previous": "+22000",
-      "change": -6500,
+      "change": -7000,
       "direction": "shorter",
       "significant": true
     },
     "Ben Griffin": {
-      "current": "+16000",
+      "current": "+15500",
       "previous": "+7400",
-      "change": 8600,
+      "change": 8100,
       "direction": "longer",
       "significant": true
     },
     "J.J. Spaun": {
-      "current": "+31000",
+      "current": "+30000",
       "previous": "+21000",
-      "change": 10000,
+      "change": 9000,
       "direction": "longer",
       "significant": true
     },
     "Gary Woodland": {
-      "current": "+2800",
+      "current": "+2700",
       "previous": "+2900",
-      "change": -100,
+      "change": -200,
       "direction": "shorter",
       "significant": false
     },
     "Matt McCarty": {
-      "current": "+12500",
+      "current": "+12000",
       "previous": "+6700",
-      "change": 5800,
+      "change": 5300,
       "direction": "longer",
       "significant": true
     },
     "Kristoffer Reitan": {
-      "current": "+6000",
+      "current": "+5900",
       "previous": "+8000",
-      "change": -2000,
+      "change": -2100,
       "direction": "shorter",
       "significant": true
     },
     "Bud Cauley": {
-      "current": "+31000",
+      "current": "+30000",
       "previous": "+8400",
-      "change": 22600,
+      "change": 21600,
       "direction": "longer",
       "significant": true
     },
     "Nick Taylor": {
-      "current": "+2800",
+      "current": "+2700",
       "previous": "+1900",
-      "change": 900,
+      "change": 800,
       "direction": "longer",
       "significant": true
     },
     "Rickie Fowler": {
-      "current": "+7400",
+      "current": "+7200",
       "previous": "+3300",
-      "change": 4100,
+      "change": 3900,
       "direction": "longer",
       "significant": true
     },
     "Aldrich Potgieter": {
-      "current": "+29000",
+      "current": "+27500",
       "previous": "+6900",
-      "change": 22100,
+      "change": 20600,
       "direction": "longer",
       "significant": true
     },
     "Harry Hall": {
-      "current": "+22000",
+      "current": "+21000",
       "previous": "+18500",
-      "change": 3500,
+      "change": 2500,
       "direction": "longer",
       "significant": true
     },
     "Alex Smalley": {
-      "current": "+1450",
+      "current": "+1900",
       "previous": "+1000",
-      "change": 450,
+      "change": 900,
       "direction": "longer",
-      "significant": false
+      "significant": true
     },
     "Andrew Putnam": {
       "current": "+31000",
@@ -9922,9 +9923,9 @@
       "significant": true
     },
     "Alex Fitzpatrick": {
-      "current": "+9400",
+      "current": "+9200",
       "previous": "+49000",
-      "change": -39600,
+      "change": -39800,
       "direction": "shorter",
       "significant": true
     }
@@ -10081,25 +10082,25 @@
     "top5": {
       "Scottie Scheffler": {
         "dk": "-215",
-        "fd": "-230"
+        "fd": "-260"
       },
       "Cameron Young": {
         "dk": "-1700"
       },
       "Collin Morikawa": {
-        "dk": "+22000",
+        "dk": "+21000",
         "fd": "+8000"
       },
       "Russell Henley": {
-        "dk": "+1075",
+        "dk": "+1050",
         "fd": "+1300"
       },
       "Tommy Fleetwood": {
-        "dk": "+390",
+        "dk": "+385",
         "fd": "+360"
       },
       "Sam Burns": {
-        "dk": "+3800",
+        "dk": "+3700",
         "fd": "+3500"
       },
       "Patrick Cantlay": {
@@ -10107,23 +10108,23 @@
         "fd": "+460"
       },
       "Si Woo Kim": {
-        "dk": "+170",
+        "dk": "+168",
         "fd": "+185"
       },
       "Hideki Matsuyama": {
-        "dk": "+740",
-        "fd": "+700"
+        "dk": "+720",
+        "fd": "+650"
       },
       "Maverick McNealy": {
-        "dk": "+7200",
+        "dk": "+7000",
         "fd": "+7500"
       },
       "Viktor Hovland": {
-        "dk": "+14000",
+        "dk": "+13500",
         "fd": "+8000"
       },
       "Adam Scott": {
-        "dk": "+40000",
+        "dk": "+39000",
         "fd": "+8000"
       },
       "Jake Knapp": {
@@ -10131,75 +10132,75 @@
         "fd": "+490"
       },
       "Chris Gotterup": {
-        "dk": "+3400",
+        "dk": "+3300",
         "fd": "+3500"
       },
       "Jordan Spieth": {
-        "dk": "-106",
-        "fd": "-115"
+        "dk": "-108",
+        "fd": "-125"
       },
       "Harris English": {
-        "dk": "+20000",
+        "dk": "+19500",
         "fd": "+8000"
       },
       "Rickie Fowler": {
-        "dk": "+360",
+        "dk": "+355",
         "fd": "+420"
       },
       "Min Woo Lee": {
-        "dk": "+1100",
-        "fd": "+1000"
+        "dk": "+1225",
+        "fd": "+1200"
       },
       "Ben Griffin": {
-        "dk": "+650",
+        "dk": "+640",
         "fd": "+700"
       },
       "Akshay Bhatia": {
-        "dk": "+1700",
-        "fd": "+1600"
+        "dk": "+1650",
+        "fd": "+1700"
       },
       "Jason Day": {
         "dk": "+49000",
         "fd": "+8000"
       },
       "Michael Thorbjornsen": {
-        "dk": "+9800",
+        "dk": "+9600",
         "fd": "+7500"
       },
       "Kurt Kitayama": {
-        "dk": "+590",
+        "dk": "+580",
         "fd": "+500"
       },
       "J.J. Spaun": {
         "dk": "+1025",
-        "fd": "+1000"
+        "fd": "+1100"
       },
       "Nicolai Højgaard": {
-        "dk": "+2900",
-        "fd": "+2000"
+        "dk": "+2800",
+        "fd": "+1900"
       },
       "Shane Lowry": {
         "dk": "+49000",
         "fd": "+8000"
       },
       "Sepp Straka": {
-        "dk": "+3200",
+        "dk": "+3100",
         "fd": "+3000"
       },
       "Keegan Bradley": {
-        "dk": "+12000",
+        "dk": "+11500",
         "fd": "+8000"
       },
       "Justin Thomas": {
-        "dk": "+3000",
+        "dk": "+2900",
         "fd": "+3500"
       },
       "Harry Hall": {
-        "dk": "+830",
+        "dk": "+820",
         "fd": "+1000"
       },
       "Alex Noren": {
-        "dk": "+4600",
+        "dk": "+4500",
         "fd": "+4500"
       },
       "Sahith Theegala": {
@@ -10207,86 +10208,86 @@
         "fd": "+8000"
       },
       "Sam Stevens": {
-        "dk": "+2100"
+        "dk": "+2050"
       },
       "Ryan Gerard": {
-        "dk": "+6900",
-        "fd": "+7500"
+        "dk": "+6700",
+        "fd": "+6500"
       },
       "Pierceson Coody": {
-        "dk": "+7200",
-        "fd": "+7500"
+        "dk": "+7000",
+        "fd": "+6500"
       },
       "Gary Woodland": {
-        "dk": "+188",
+        "dk": "+184",
         "fd": "+170"
       },
       "Corey Conners": {
-        "dk": "+2400",
+        "dk": "+2350",
         "fd": "+2700"
       },
       "Daniel Berger": {
-        "dk": "+9400",
+        "dk": "+9000",
         "fd": "+8000"
       },
       "Jordan Smith": {
-        "dk": "+23000",
+        "dk": "+31000",
         "fd": "+8000"
       },
       "Matt McCarty": {
-        "dk": "+550",
+        "dk": "+540",
         "fd": "+500"
       },
       "Nick Taylor": {
-        "dk": "+176",
-        "fd": "+185"
+        "dk": "+175",
+        "fd": "+170"
       },
       "Ricky Castillo": {
-        "dk": "+9200",
+        "dk": "+9000",
         "fd": "+7500"
       },
       "Bud Cauley": {
-        "dk": "+1050",
-        "fd": "+1000"
+        "dk": "+1025",
+        "fd": "+1100"
       },
       "J.T. Poston": {
-        "dk": "+630",
+        "dk": "+620",
         "fd": "+600"
       },
       "Sudarshan Yellamaraju": {
-        "dk": "+960",
+        "dk": "+940",
         "fd": "+900"
       },
       "Ryan Fox": {
-        "dk": "+5400",
+        "dk": "+5200",
         "fd": "+4500"
       },
       "Taylor Pendrith": {
-        "dk": "+400",
-        "fd": "+360"
+        "dk": "+390",
+        "fd": "+330"
       },
       "Brian Harman": {
-        "dk": "+435",
-        "fd": "+500"
+        "dk": "+430",
+        "fd": "+480"
       },
       "Matt Wallace": {
-        "dk": "+27500",
+        "dk": "+26000",
         "fd": "+8000"
       },
       "Denny McCarthy": {
-        "dk": "+3900",
-        "fd": "+4000"
+        "dk": "+3800",
+        "fd": "+4500"
       },
       "Max Homa": {
-        "dk": "+3300",
+        "dk": "+3200",
         "fd": "+2700"
       },
       "Michael Kim": {
-        "dk": "+28000",
+        "dk": "+27500",
         "fd": "+8000"
       },
       "Max Greyserman": {
-        "dk": "+12000",
+        "dk": "+11500",
         "fd": "+8000"
       },
       "Austin Smotherman": {
@@ -10294,7 +10295,7 @@
         "fd": "+8000"
       },
       "Aldrich Potgieter": {
-        "dk": "+1150",
+        "dk": "+1125",
         "fd": "+900"
       },
       "Andrew Putnam": {
@@ -10302,7 +10303,7 @@
         "fd": "+1200"
       },
       "Nico Echavarria": {
-        "dk": "+1950",
+        "dk": "+1900",
         "fd": "+1700"
       },
       "Jhonattan Vegas": {
@@ -10314,7 +10315,7 @@
         "fd": "+8000"
       },
       "Tom Hoge": {
-        "dk": "+13500",
+        "dk": "+13000",
         "fd": "+8000"
       },
       "Brian Campbell": {
@@ -10322,15 +10323,15 @@
         "fd": "+8000"
       },
       "Keith Mitchell": {
-        "dk": "+29000",
+        "dk": "+25000",
         "fd": "+8000"
       },
       "Alex Smalley": {
-        "dk": "+110",
-        "fd": "-115"
+        "dk": "+134",
+        "fd": "+105"
       },
       "Alex Fitzpatrick": {
-        "dk": "+460",
+        "dk": "+455",
         "fd": "+330"
       },
       "Jacob Bridgeman": {
@@ -10362,7 +10363,7 @@
       },
       "Kristoffer Reitan": {
         "fd": "+430",
-        "dk": "+330"
+        "dk": "+325"
       }
     },
     "top10": {
@@ -10379,14 +10380,14 @@
       },
       "Russell Henley": {
         "dk": "+310",
-        "fd": "+350"
+        "fd": "+360"
       },
       "Tommy Fleetwood": {
         "dk": "+130",
-        "fd": "+115"
+        "fd": "+110"
       },
       "Sam Burns": {
-        "dk": "+940",
+        "dk": "+930",
         "fd": "+950"
       },
       "Patrick Cantlay": {
@@ -10395,30 +10396,30 @@
       },
       "Si Woo Kim": {
         "dk": "-170",
-        "fd": "-180"
+        "fd": "-175"
       },
       "Hideki Matsuyama": {
-        "dk": "+230",
+        "dk": "+225",
         "fd": "+200"
       },
       "Maverick McNealy": {
         "dk": "+1550",
-        "fd": "+1600"
+        "fd": "+1700"
       },
       "Justin Rose": {
-        "dk": "+32500",
+        "dk": "+31000",
         "fd": "+6000"
       },
       "Viktor Hovland": {
-        "dk": "+2800",
+        "dk": "+2700",
         "fd": "+2200"
       },
       "Adam Scott": {
-        "dk": "+6600",
+        "dk": "+6500",
         "fd": "+4000"
       },
       "Chris Gotterup": {
-        "dk": "+890",
+        "dk": "+870",
         "fd": "+850"
       },
       "Jake Knapp": {
@@ -10427,22 +10428,22 @@
       },
       "Jordan Spieth": {
         "dk": "-295",
-        "fd": "-360"
+        "fd": "-380"
       },
       "Harris English": {
-        "dk": "+3600",
+        "dk": "+3500",
         "fd": "+3500"
       },
       "Min Woo Lee": {
-        "dk": "+325",
-        "fd": "+300"
+        "dk": "+360",
+        "fd": "+330"
       },
       "Jacob Bridgeman": {
         "dk": "+39000",
         "fd": "+6000"
       },
       "Rickie Fowler": {
-        "dk": "+122",
+        "dk": "+120",
         "fd": "+130"
       },
       "Ben Griffin": {
@@ -10450,47 +10451,47 @@
         "fd": "+200"
       },
       "Jason Day": {
-        "dk": "+9200",
+        "dk": "+9000",
         "fd": "+6000"
       },
       "Akshay Bhatia": {
-        "dk": "+480",
-        "fd": "+480"
+        "dk": "+475",
+        "fd": "+460"
       },
       "Michael Thorbjornsen": {
         "dk": "+2000",
         "fd": "+1800"
       },
       "Kurt Kitayama": {
-        "dk": "+194",
-        "fd": "+160"
+        "dk": "+192",
+        "fd": "+155"
       },
       "J.J. Spaun": {
-        "dk": "+315",
+        "dk": "+310",
         "fd": "+300"
       },
       "Nicolai Højgaard": {
-        "dk": "+750",
+        "dk": "+740",
         "fd": "+600"
       },
       "Shane Lowry": {
-        "dk": "+9000",
+        "dk": "+8800",
         "fd": "+6000"
       },
       "Sepp Straka": {
-        "dk": "+810",
+        "dk": "+800",
         "fd": "+750"
       },
       "Keegan Bradley": {
-        "dk": "+2400",
+        "dk": "+2350",
         "fd": "+2500"
       },
       "Harry Hall": {
         "dk": "+260",
-        "fd": "+270"
+        "fd": "+280"
       },
       "Justin Thomas": {
-        "dk": "+820",
+        "dk": "+800",
         "fd": "+850"
       },
       "Alex Noren": {
@@ -10498,15 +10499,15 @@
         "fd": "+1100"
       },
       "Sahith Theegala": {
-        "dk": "+2700",
-        "fd": "+1900"
+        "dk": "+2600",
+        "fd": "+1800"
       },
       "Sam Stevens": {
         "dk": "+570"
       },
       "Ryan Gerard": {
-        "dk": "+1500",
-        "fd": "+1600"
+        "dk": "+1475",
+        "fd": "+1500"
       },
       "Gary Woodland": {
         "dk": "-146",
@@ -10514,66 +10515,66 @@
       },
       "Pierceson Coody": {
         "dk": "+1600",
-        "fd": "+1600"
+        "fd": "+1500"
       },
       "Ryo Hisatsune": {
         "dk": "+39000",
         "fd": "+6000"
       },
       "Corey Conners": {
-        "dk": "+640",
-        "fd": "+750"
+        "dk": "+630",
+        "fd": "+700"
       },
       "Daniel Berger": {
-        "dk": "+1950",
-        "fd": "+1900"
+        "dk": "+1900",
+        "fd": "+2000"
       },
       "Jordan Smith": {
-        "dk": "+4000",
-        "fd": "+3000"
+        "dk": "+5200",
+        "fd": "+3500"
       },
       "Matt McCarty": {
         "dk": "+180",
-        "fd": "+170"
+        "fd": "+160"
       },
       "Nick Taylor": {
         "dk": "-160",
-        "fd": "-170"
+        "fd": "-175"
       },
       "Sungjae Im": {
         "dk": "+15000",
         "fd": "+6000"
       },
       "Ricky Castillo": {
-        "dk": "+1950",
-        "fd": "+1600"
+        "dk": "+1900",
+        "fd": "+1700"
       },
       "J.T. Poston": {
         "dk": "+200",
         "fd": "+180"
       },
       "Bud Cauley": {
-        "dk": "+315",
+        "dk": "+310",
         "fd": "+300"
       },
       "Sudarshan Yellamaraju": {
-        "dk": "+300",
-        "fd": "+270"
+        "dk": "+295",
+        "fd": "+280"
       },
       "Taylor Pendrith": {
-        "dk": "+138",
-        "fd": "+110"
+        "dk": "+136",
+        "fd": "+105"
       },
       "Ryan Fox": {
         "dk": "+1250",
         "fd": "+1100"
       },
       "Brian Harman": {
-        "dk": "+148",
-        "fd": "+155"
+        "dk": "+146",
+        "fd": "+145"
       },
       "Matt Wallace": {
-        "dk": "+4700",
+        "dk": "+4600",
         "fd": "+4000"
       },
       "Andrew Novak": {
@@ -10581,23 +10582,23 @@
         "fd": "+6000"
       },
       "Denny McCarthy": {
-        "dk": "+950",
+        "dk": "+940",
         "fd": "+1100"
       },
       "Max Homa": {
-        "dk": "+850",
+        "dk": "+840",
         "fd": "+750"
       },
       "Patrick Rodgers": {
-        "dk": "+19000",
+        "dk": "+18500",
         "fd": "+6000"
       },
       "Michael Kim": {
-        "dk": "+5000",
-        "fd": "+4000"
+        "dk": "+4900",
+        "fd": "+3500"
       },
       "Max Greyserman": {
-        "dk": "+2500",
+        "dk": "+2450",
         "fd": "+2000"
       },
       "Austin Smotherman": {
@@ -10605,19 +10606,19 @@
         "fd": "+6000"
       },
       "Aldrich Potgieter": {
-        "dk": "+375",
-        "fd": "+270"
+        "dk": "+365",
+        "fd": "+280"
       },
       "Andrew Putnam": {
         "dk": "+295",
         "fd": "+330"
       },
       "Joel Dahmen": {
-        "dk": "+40000",
+        "dk": "+39000",
         "fd": "+6000"
       },
       "Chandler Blanchet": {
-        "dk": "+34000",
+        "dk": "+33000",
         "fd": "+6000"
       },
       "Nico Echavarria": {
@@ -10625,11 +10626,11 @@
         "fd": "+500"
       },
       "Jhonattan Vegas": {
-        "dk": "+8800",
+        "dk": "+8600",
         "fd": "+6000"
       },
       "Lucas Glover": {
-        "dk": "+1600",
+        "dk": "+1550",
         "fd": "+1800"
       },
       "David Lipsky": {
@@ -10641,24 +10642,24 @@
         "fd": "+2200"
       },
       "Brian Campbell": {
-        "dk": "+4300",
-        "fd": "+3300"
+        "dk": "+4200",
+        "fd": "+3000"
       },
       "Keith Mitchell": {
-        "dk": "+5100",
-        "fd": "+4500"
+        "dk": "+4500",
+        "fd": "+4000"
       },
       "Alex Smalley": {
-        "dk": "-245",
-        "fd": "-360"
+        "dk": "-205",
+        "fd": "-290"
       },
       "Alex Fitzpatrick": {
-        "dk": "+158",
+        "dk": "+156",
         "fd": "+110"
       },
       "Kristoffer Reitan": {
         "fd": "+140",
-        "dk": "+116"
+        "dk": "+115"
       }
     },
     "top20": {
@@ -10669,10 +10670,10 @@
         "fd": "-120"
       },
       "Min Woo Lee": {
-        "fd": "-130"
+        "fd": "-120"
       },
       "Tommy Fleetwood": {
-        "fd": "-380"
+        "fd": "-370"
       },
       "Chris Gotterup": {
         "fd": "+195"
@@ -10690,7 +10691,7 @@
         "fd": "-200"
       },
       "Si Woo Kim": {
-        "fd": "-1000"
+        "fd": "-900"
       },
       "Harris English": {
         "fd": "+700"
@@ -10714,7 +10715,7 @@
         "fd": "-250"
       },
       "Jordan Spieth": {
-        "fd": "-5000"
+        "fd": "-7000"
       },
       "Nicolai Højgaard": {
         "fd": "+135"
@@ -10726,31 +10727,31 @@
         "fd": "-340"
       },
       "Akshay Bhatia": {
-        "fd": "+110"
+        "fd": "+115"
       },
       "J.J. Spaun": {
         "fd": "-140"
       },
       "Shane Lowry": {
-        "fd": "+1200"
+        "fd": "+1100"
       },
       "Ryan Gerard": {
-        "fd": "+300"
+        "fd": "+310"
       },
       "Justin Thomas": {
         "fd": "+195"
       },
       "Gary Woodland": {
-        "fd": "-1000"
+        "fd": "-1100"
       },
       "Ben Griffin": {
-        "fd": "-190"
+        "fd": "-200"
       },
       "Keegan Bradley": {
-        "fd": "+500"
+        "fd": "+490"
       },
       "Keith Mitchell": {
-        "fd": "+950"
+        "fd": "+800"
       },
       "Sahith Theegala": {
         "fd": "+410"
@@ -10759,13 +10760,13 @@
         "fd": "+330"
       },
       "Jordan Smith": {
-        "fd": "+650"
+        "fd": "+800"
       },
       "Jason Day": {
         "fd": "+1500"
       },
       "Alex Smalley": {
-        "fd": "-7000"
+        "fd": "-3000"
       },
       "Sudarshan Yellamaraju": {
         "fd": "-150"
@@ -10786,7 +10787,7 @@
         "fd": "+1200"
       },
       "Matt McCarty": {
-        "fd": "-250"
+        "fd": "-260"
       },
       "Ricky Castillo": {
         "fd": "+370"
@@ -10795,10 +10796,10 @@
         "fd": "+450"
       },
       "Alex Fitzpatrick": {
-        "fd": "-425"
+        "fd": "-400"
       },
       "Nick Taylor": {
-        "fd": "-1000"
+        "fd": "-900"
       },
       "Bud Cauley": {
         "fd": "-150"
@@ -10813,7 +10814,7 @@
         "fd": "+260"
       },
       "Taylor Pendrith": {
-        "fd": "-380"
+        "fd": "-370"
       },
       "Matt Wallace": {
         "fd": "+800"
@@ -10822,10 +10823,10 @@
         "fd": "-220"
       },
       "Max Homa": {
-        "fd": "+195"
+        "fd": "+180"
       },
       "Brian Harman": {
-        "fd": "-260"
+        "fd": "-270"
       },
       "Michael Kim": {
         "fd": "+800"
@@ -10849,7 +10850,7 @@
         "fd": "+2200"
       },
       "Nico Echavarria": {
-        "fd": "+130"
+        "fd": "+125"
       },
       "Joel Dahmen": {
         "fd": "+2200"
@@ -10861,7 +10862,7 @@
         "fd": "+390"
       },
       "Tom Hoge": {
-        "fd": "+490"
+        "fd": "+450"
       },
       "David Lipsky": {
         "fd": "+2200"
@@ -10870,7 +10871,7 @@
         "fd": "+650"
       },
       "Michael Thorbjornsen": {
-        "fd": "+410"
+        "fd": "+390"
       },
       "Kristoffer Reitan": {
         "fd": "-250"
@@ -10903,32 +10904,32 @@
         {
           "name": "Cameron Young",
           "odds": [],
-          "modelMean": 68.15,
+          "modelMean": 68.14,
           "modelStd": 2.85,
-          "sgBlended": 2.85,
+          "sgBlended": 2.86,
           "fitBoost": 0.0,
-          "pClearWin": 0.47,
-          "deadHeatWinValue": 0.47,
+          "pClearWin": 0.4693,
+          "deadHeatWinValue": 0.4693,
           "fairOdds": 113,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0964
+          "pPush": 0.0968
         },
         {
           "name": "Scottie Scheffler",
           "odds": [],
-          "modelMean": 68.36,
+          "modelMean": 68.35,
           "modelStd": 2.85,
-          "sgBlended": 2.64,
+          "sgBlended": 2.65,
           "fitBoost": 0.0,
-          "pClearWin": 0.4336,
-          "deadHeatWinValue": 0.4336,
-          "fairOdds": 131,
+          "pClearWin": 0.4339,
+          "deadHeatWinValue": 0.4339,
+          "fairOdds": 130,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0964
+          "pPush": 0.0968
         }
       ],
       "synthetic": true,
@@ -10945,116 +10946,32 @@
         {
           "name": "Cameron Young",
           "odds": [],
-          "modelMean": 68.15,
+          "modelMean": 68.14,
           "modelStd": 2.85,
-          "sgBlended": 2.85,
+          "sgBlended": 2.86,
           "fitBoost": 0.0,
-          "pClearWin": 0.4764,
-          "deadHeatWinValue": 0.4764,
+          "pClearWin": 0.4763,
+          "deadHeatWinValue": 0.4763,
           "fairOdds": 110,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0984
+          "pPush": 0.0983
         },
         {
           "name": "Scottie Scheffler",
           "odds": [],
-          "modelMean": 68.36,
+          "modelMean": 68.35,
           "modelStd": 2.85,
-          "sgBlended": 2.64,
+          "sgBlended": 2.65,
           "fitBoost": 0.0,
-          "pClearWin": 0.4252,
-          "deadHeatWinValue": 0.4252,
+          "pClearWin": 0.4254,
+          "deadHeatWinValue": 0.4254,
           "fairOdds": 135,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0984
-        }
-      ],
-      "synthetic": true,
-      "dhRulesApplied": false,
-      "bookSample": [],
-      "simCount": 10000
-    },
-    {
-      "eventId": "synth-r1-Thu Apr 30 11:40:00 PDT 2026-1",
-      "commence": "Thu Apr 30 11:40:00 PDT 2026",
-      "round": 1,
-      "type": "2ball",
-      "players": [
-        {
-          "name": "Alex Smalley",
-          "odds": [],
-          "modelMean": 69.58,
-          "modelStd": 2.85,
-          "sgBlended": 1.43,
-          "fitBoost": 0.0,
-          "pClearWin": 0.5622,
-          "deadHeatWinValue": 0.5622,
-          "fairOdds": -128,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0951
-        },
-        {
-          "name": "Keith Mitchell",
-          "odds": [],
-          "modelMean": 70.75,
-          "modelStd": 2.85,
-          "sgBlended": 0.25,
-          "fitBoost": 0.0,
-          "pClearWin": 0.3427,
-          "deadHeatWinValue": 0.3427,
-          "fairOdds": 192,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0951
-        }
-      ],
-      "synthetic": true,
-      "dhRulesApplied": false,
-      "bookSample": [],
-      "simCount": 10000
-    },
-    {
-      "eventId": "synth-r2-Fri May 01 14:55:00 PDT 2026-1",
-      "commence": "Fri May 01 14:55:00 PDT 2026",
-      "round": 2,
-      "type": "2ball",
-      "players": [
-        {
-          "name": "Alex Smalley",
-          "odds": [],
-          "modelMean": 69.58,
-          "modelStd": 2.85,
-          "sgBlended": 1.43,
-          "fitBoost": 0.0,
-          "pClearWin": 0.5708,
-          "deadHeatWinValue": 0.5708,
-          "fairOdds": -133,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0924
-        },
-        {
-          "name": "Keith Mitchell",
-          "odds": [],
-          "modelMean": 70.75,
-          "modelStd": 2.85,
-          "sgBlended": 0.25,
-          "fitBoost": 0.0,
-          "pClearWin": 0.3368,
-          "deadHeatWinValue": 0.3368,
-          "fairOdds": 197,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0924
+          "pPush": 0.0983
         }
       ],
       "synthetic": true,
@@ -11075,28 +10992,28 @@
           "modelStd": 2.85,
           "sgBlended": 1.33,
           "fitBoost": 0.0,
-          "pClearWin": 0.5947,
-          "deadHeatWinValue": 0.5947,
-          "fairOdds": -147,
+          "pClearWin": 0.5815,
+          "deadHeatWinValue": 0.5815,
+          "fairOdds": -139,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0881
+          "pPush": 0.093
         },
         {
           "name": "Nicolai Højgaard",
           "odds": [],
-          "modelMean": 71.08,
+          "modelMean": 71.07,
           "modelStd": 2.85,
           "sgBlended": -0.07,
           "fitBoost": 0.0,
-          "pClearWin": 0.3172,
-          "deadHeatWinValue": 0.3172,
-          "fairOdds": 215,
+          "pClearWin": 0.3255,
+          "deadHeatWinValue": 0.3255,
+          "fairOdds": 207,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0881
+          "pPush": 0.093
         }
       ],
       "synthetic": true,
@@ -11117,28 +11034,28 @@
           "modelStd": 2.85,
           "sgBlended": 1.33,
           "fitBoost": 0.0,
-          "pClearWin": 0.5797,
-          "deadHeatWinValue": 0.5797,
-          "fairOdds": -138,
+          "pClearWin": 0.5901,
+          "deadHeatWinValue": 0.5901,
+          "fairOdds": -144,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0942
+          "pPush": 0.0943
         },
         {
           "name": "Nicolai Højgaard",
           "odds": [],
-          "modelMean": 71.08,
+          "modelMean": 71.07,
           "modelStd": 2.85,
           "sgBlended": -0.07,
           "fitBoost": 0.0,
-          "pClearWin": 0.3261,
-          "deadHeatWinValue": 0.3261,
-          "fairOdds": 207,
+          "pClearWin": 0.3156,
+          "deadHeatWinValue": 0.3156,
+          "fairOdds": 217,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0942
+          "pPush": 0.0943
         }
       ],
       "synthetic": true,
@@ -11155,32 +11072,32 @@
         {
           "name": "Jordan Spieth",
           "odds": [],
-          "modelMean": 69.57,
+          "modelMean": 69.56,
           "modelStd": 2.85,
-          "sgBlended": 1.43,
+          "sgBlended": 1.44,
           "fitBoost": 0.0,
-          "pClearWin": 0.5377,
-          "deadHeatWinValue": 0.5377,
-          "fairOdds": -116,
+          "pClearWin": 0.5473,
+          "deadHeatWinValue": 0.5473,
+          "fairOdds": -121,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.099
+          "pPush": 0.0938
         },
         {
           "name": "Justin Thomas",
           "odds": [],
-          "modelMean": 70.48,
+          "modelMean": 70.47,
           "modelStd": 2.85,
-          "sgBlended": 0.52,
+          "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.3633,
-          "deadHeatWinValue": 0.3633,
-          "fairOdds": 175,
+          "pClearWin": 0.3589,
+          "deadHeatWinValue": 0.3589,
+          "fairOdds": 179,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.099
+          "pPush": 0.0938
         }
       ],
       "synthetic": true,
@@ -11197,13 +11114,13 @@
         {
           "name": "Jordan Spieth",
           "odds": [],
-          "modelMean": 69.57,
+          "modelMean": 69.56,
           "modelStd": 2.85,
-          "sgBlended": 1.43,
+          "sgBlended": 1.44,
           "fitBoost": 0.0,
-          "pClearWin": 0.5435,
-          "deadHeatWinValue": 0.5435,
-          "fairOdds": -119,
+          "pClearWin": 0.5337,
+          "deadHeatWinValue": 0.5337,
+          "fairOdds": -114,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
@@ -11212,17 +11129,101 @@
         {
           "name": "Justin Thomas",
           "odds": [],
-          "modelMean": 70.48,
+          "modelMean": 70.47,
           "modelStd": 2.85,
-          "sgBlended": 0.52,
+          "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.3627,
-          "deadHeatWinValue": 0.3627,
-          "fairOdds": 176,
+          "pClearWin": 0.3725,
+          "deadHeatWinValue": 0.3725,
+          "fairOdds": 168,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
           "pPush": 0.0938
+        }
+      ],
+      "synthetic": true,
+      "dhRulesApplied": false,
+      "bookSample": [],
+      "simCount": 10000
+    },
+    {
+      "eventId": "synth-r1-Thu Apr 30 11:40:00 PDT 2026-1",
+      "commence": "Thu Apr 30 11:40:00 PDT 2026",
+      "round": 1,
+      "type": "2ball",
+      "players": [
+        {
+          "name": "Alex Smalley",
+          "odds": [],
+          "modelMean": 69.67,
+          "modelStd": 2.85,
+          "sgBlended": 1.33,
+          "fitBoost": 0.0,
+          "pClearWin": 0.5562,
+          "deadHeatWinValue": 0.5562,
+          "fairOdds": -125,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0983
+        },
+        {
+          "name": "Keith Mitchell",
+          "odds": [],
+          "modelMean": 70.75,
+          "modelStd": 2.85,
+          "sgBlended": 0.25,
+          "fitBoost": 0.0,
+          "pClearWin": 0.3455,
+          "deadHeatWinValue": 0.3455,
+          "fairOdds": 189,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0983
+        }
+      ],
+      "synthetic": true,
+      "dhRulesApplied": false,
+      "bookSample": [],
+      "simCount": 10000
+    },
+    {
+      "eventId": "synth-r2-Fri May 01 14:55:00 PDT 2026-1",
+      "commence": "Fri May 01 14:55:00 PDT 2026",
+      "round": 2,
+      "type": "2ball",
+      "players": [
+        {
+          "name": "Alex Smalley",
+          "odds": [],
+          "modelMean": 69.67,
+          "modelStd": 2.85,
+          "sgBlended": 1.33,
+          "fitBoost": 0.0,
+          "pClearWin": 0.5579,
+          "deadHeatWinValue": 0.5579,
+          "fairOdds": -126,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0948
+        },
+        {
+          "name": "Keith Mitchell",
+          "odds": [],
+          "modelMean": 70.75,
+          "modelStd": 2.85,
+          "sgBlended": 0.25,
+          "fitBoost": 0.0,
+          "pClearWin": 0.3473,
+          "deadHeatWinValue": 0.3473,
+          "fairOdds": 188,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0948
         }
       ],
       "synthetic": true,
@@ -11239,17 +11240,17 @@
         {
           "name": "Gary Woodland",
           "odds": [],
-          "modelMean": 69.88,
+          "modelMean": 69.87,
           "modelStd": 2.85,
-          "sgBlended": 1.12,
+          "sgBlended": 1.13,
           "fitBoost": 0.0,
-          "pClearWin": 0.5553,
-          "deadHeatWinValue": 0.5553,
-          "fairOdds": -125,
+          "pClearWin": 0.5567,
+          "deadHeatWinValue": 0.5567,
+          "fairOdds": -126,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0956
+          "pPush": 0.0953
         },
         {
           "name": "Jacob Bridgeman",
@@ -11258,13 +11259,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.08,
           "fitBoost": 0.0,
-          "pClearWin": 0.3491,
-          "deadHeatWinValue": 0.3491,
-          "fairOdds": 186,
+          "pClearWin": 0.348,
+          "deadHeatWinValue": 0.348,
+          "fairOdds": 187,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0956
+          "pPush": 0.0953
         }
       ],
       "synthetic": true,
@@ -11281,17 +11282,17 @@
         {
           "name": "Gary Woodland",
           "odds": [],
-          "modelMean": 69.88,
+          "modelMean": 69.87,
           "modelStd": 2.85,
-          "sgBlended": 1.12,
+          "sgBlended": 1.13,
           "fitBoost": 0.0,
-          "pClearWin": 0.5564,
-          "deadHeatWinValue": 0.5564,
-          "fairOdds": -125,
+          "pClearWin": 0.5571,
+          "deadHeatWinValue": 0.5571,
+          "fairOdds": -126,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1017
+          "pPush": 0.1023
         },
         {
           "name": "Jacob Bridgeman",
@@ -11300,13 +11301,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.08,
           "fitBoost": 0.0,
-          "pClearWin": 0.3419,
-          "deadHeatWinValue": 0.3419,
-          "fairOdds": 192,
+          "pClearWin": 0.3406,
+          "deadHeatWinValue": 0.3406,
+          "fairOdds": 194,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1017
+          "pPush": 0.1023
         }
       ],
       "synthetic": true,
@@ -11323,17 +11324,17 @@
         {
           "name": "Alex Fitzpatrick",
           "odds": [],
-          "modelMean": 70.08,
+          "modelMean": 70.07,
           "modelStd": 2.85,
-          "sgBlended": 0.92,
+          "sgBlended": 0.93,
           "fitBoost": 0.0,
-          "pClearWin": 0.4866,
-          "deadHeatWinValue": 0.4866,
+          "pClearWin": 0.4862,
+          "deadHeatWinValue": 0.4862,
           "fairOdds": 106,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0988
+          "pPush": 0.0989
         },
         {
           "name": "Nico Echavarria",
@@ -11342,13 +11343,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.4146,
-          "deadHeatWinValue": 0.4146,
+          "pClearWin": 0.4149,
+          "deadHeatWinValue": 0.4149,
           "fairOdds": 141,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0988
+          "pPush": 0.0989
         }
       ],
       "synthetic": true,
@@ -11365,17 +11366,17 @@
         {
           "name": "Alex Fitzpatrick",
           "odds": [],
-          "modelMean": 70.08,
+          "modelMean": 70.07,
           "modelStd": 2.85,
-          "sgBlended": 0.92,
+          "sgBlended": 0.93,
           "fitBoost": 0.0,
-          "pClearWin": 0.4888,
-          "deadHeatWinValue": 0.4888,
+          "pClearWin": 0.4885,
+          "deadHeatWinValue": 0.4885,
           "fairOdds": 105,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1026
+          "pPush": 0.1032
         },
         {
           "name": "Nico Echavarria",
@@ -11384,13 +11385,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.4086,
-          "deadHeatWinValue": 0.4086,
+          "pClearWin": 0.4083,
+          "deadHeatWinValue": 0.4083,
           "fairOdds": 145,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1026
+          "pPush": 0.1032
         }
       ],
       "synthetic": true,
@@ -11407,17 +11408,17 @@
         {
           "name": "Taylor Pendrith",
           "odds": [],
-          "modelMean": 69.73,
+          "modelMean": 69.72,
           "modelStd": 2.85,
-          "sgBlended": 1.27,
+          "sgBlended": 1.28,
           "fitBoost": 0.0,
-          "pClearWin": 0.4679,
-          "deadHeatWinValue": 0.4679,
-          "fairOdds": 114,
+          "pClearWin": 0.4688,
+          "deadHeatWinValue": 0.4688,
+          "fairOdds": 113,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0996
+          "pPush": 0.0994
         },
         {
           "name": "Sahith Theegala",
@@ -11426,13 +11427,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.18,
           "fitBoost": 0.0,
-          "pClearWin": 0.4325,
-          "deadHeatWinValue": 0.4325,
-          "fairOdds": 131,
+          "pClearWin": 0.4318,
+          "deadHeatWinValue": 0.4318,
+          "fairOdds": 132,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0996
+          "pPush": 0.0994
         }
       ],
       "synthetic": true,
@@ -11449,17 +11450,17 @@
         {
           "name": "Taylor Pendrith",
           "odds": [],
-          "modelMean": 69.73,
+          "modelMean": 69.72,
           "modelStd": 2.85,
-          "sgBlended": 1.27,
+          "sgBlended": 1.28,
           "fitBoost": 0.0,
-          "pClearWin": 0.4634,
-          "deadHeatWinValue": 0.4634,
-          "fairOdds": 116,
+          "pClearWin": 0.4644,
+          "deadHeatWinValue": 0.4644,
+          "fairOdds": 115,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.098
+          "pPush": 0.0977
         },
         {
           "name": "Sahith Theegala",
@@ -11468,13 +11469,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.18,
           "fitBoost": 0.0,
-          "pClearWin": 0.4386,
-          "deadHeatWinValue": 0.4386,
+          "pClearWin": 0.4379,
+          "deadHeatWinValue": 0.4379,
           "fairOdds": 128,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.098
+          "pPush": 0.0977
         }
       ],
       "synthetic": true,
@@ -11491,9 +11492,9 @@
         {
           "name": "Kristoffer Reitan",
           "odds": [],
-          "modelMean": 70.08,
+          "modelMean": 70.07,
           "modelStd": 2.85,
-          "sgBlended": 0.92,
+          "sgBlended": 0.93,
           "fitBoost": 0.0,
           "pClearWin": 0.4592,
           "deadHeatWinValue": 0.4592,
@@ -11501,7 +11502,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0966
+          "pPush": 0.0962
         },
         {
           "name": "J.T. Poston",
@@ -11510,13 +11511,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.87,
           "fitBoost": 0.0,
-          "pClearWin": 0.4442,
-          "deadHeatWinValue": 0.4442,
+          "pClearWin": 0.4446,
+          "deadHeatWinValue": 0.4446,
           "fairOdds": 125,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0966
+          "pPush": 0.0962
         }
       ],
       "synthetic": true,
@@ -11533,17 +11534,17 @@
         {
           "name": "Kristoffer Reitan",
           "odds": [],
-          "modelMean": 70.08,
+          "modelMean": 70.07,
           "modelStd": 2.85,
-          "sgBlended": 0.92,
+          "sgBlended": 0.93,
           "fitBoost": 0.0,
-          "pClearWin": 0.4555,
-          "deadHeatWinValue": 0.4555,
+          "pClearWin": 0.455,
+          "deadHeatWinValue": 0.455,
           "fairOdds": 120,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0966
+          "pPush": 0.0971
         },
         {
           "name": "J.T. Poston",
@@ -11558,7 +11559,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0966
+          "pPush": 0.0971
         }
       ],
       "synthetic": true,
@@ -11575,17 +11576,17 @@
         {
           "name": "Si Woo Kim",
           "odds": [],
-          "modelMean": 69.76,
+          "modelMean": 69.75,
           "modelStd": 2.85,
-          "sgBlended": 1.24,
+          "sgBlended": 1.25,
           "fitBoost": 0.0,
-          "pClearWin": 0.5015,
-          "deadHeatWinValue": 0.5015,
+          "pClearWin": 0.5022,
+          "deadHeatWinValue": 0.5022,
           "fairOdds": -101,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0909
+          "pPush": 0.0902
         },
         {
           "name": "Russell Henley",
@@ -11600,7 +11601,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0909
+          "pPush": 0.0902
         }
       ],
       "synthetic": true,
@@ -11617,17 +11618,17 @@
         {
           "name": "Si Woo Kim",
           "odds": [],
-          "modelMean": 69.76,
+          "modelMean": 69.75,
           "modelStd": 2.85,
-          "sgBlended": 1.24,
+          "sgBlended": 1.25,
           "fitBoost": 0.0,
-          "pClearWin": 0.5006,
-          "deadHeatWinValue": 0.5006,
+          "pClearWin": 0.5007,
+          "deadHeatWinValue": 0.5007,
           "fairOdds": -100,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0991
+          "pPush": 0.0993
         },
         {
           "name": "Russell Henley",
@@ -11636,13 +11637,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.69,
           "fitBoost": 0.0,
-          "pClearWin": 0.4003,
-          "deadHeatWinValue": 0.4003,
+          "pClearWin": 0.4,
+          "deadHeatWinValue": 0.4,
           "fairOdds": 150,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0991
+          "pPush": 0.0993
         }
       ],
       "synthetic": true,
@@ -11659,17 +11660,17 @@
         {
           "name": "Brian Harman",
           "odds": [],
-          "modelMean": 69.53,
+          "modelMean": 69.52,
           "modelStd": 2.85,
-          "sgBlended": 1.47,
+          "sgBlended": 1.48,
           "fitBoost": 0.0,
-          "pClearWin": 0.5635,
-          "deadHeatWinValue": 0.5635,
-          "fairOdds": -129,
+          "pClearWin": 0.5648,
+          "deadHeatWinValue": 0.5648,
+          "fairOdds": -130,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0977
+          "pPush": 0.0975
         },
         {
           "name": "Harris English",
@@ -11678,13 +11679,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.3,
           "fitBoost": 0.0,
-          "pClearWin": 0.3388,
-          "deadHeatWinValue": 0.3388,
-          "fairOdds": 195,
+          "pClearWin": 0.3377,
+          "deadHeatWinValue": 0.3377,
+          "fairOdds": 196,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0977
+          "pPush": 0.0975
         }
       ],
       "synthetic": true,
@@ -11701,17 +11702,17 @@
         {
           "name": "Brian Harman",
           "odds": [],
-          "modelMean": 69.53,
+          "modelMean": 69.52,
           "modelStd": 2.85,
-          "sgBlended": 1.47,
+          "sgBlended": 1.48,
           "fitBoost": 0.0,
-          "pClearWin": 0.5665,
-          "deadHeatWinValue": 0.5665,
+          "pClearWin": 0.567,
+          "deadHeatWinValue": 0.567,
           "fairOdds": -131,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0868
+          "pPush": 0.0875
         },
         {
           "name": "Harris English",
@@ -11720,13 +11721,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.3,
           "fitBoost": 0.0,
-          "pClearWin": 0.3467,
-          "deadHeatWinValue": 0.3467,
-          "fairOdds": 188,
+          "pClearWin": 0.3455,
+          "deadHeatWinValue": 0.3455,
+          "fairOdds": 189,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0868
+          "pPush": 0.0875
         }
       ],
       "synthetic": true,
@@ -11747,13 +11748,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.73,
           "fitBoost": 0.0,
-          "pClearWin": 0.3488,
-          "deadHeatWinValue": 0.3488,
-          "fairOdds": 187,
+          "pClearWin": 0.3493,
+          "deadHeatWinValue": 0.3493,
+          "fairOdds": 186,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0969
+          "pPush": 0.0971
         },
         {
           "name": "Collin Morikawa",
@@ -11762,13 +11763,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.75,
           "fitBoost": 0.0,
-          "pClearWin": 0.5543,
-          "deadHeatWinValue": 0.5543,
+          "pClearWin": 0.5536,
+          "deadHeatWinValue": 0.5536,
           "fairOdds": -124,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0969
+          "pPush": 0.0971
         }
       ],
       "synthetic": true,
@@ -11789,13 +11790,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.73,
           "fitBoost": 0.0,
-          "pClearWin": 0.3499,
-          "deadHeatWinValue": 0.3499,
-          "fairOdds": 186,
+          "pClearWin": 0.3504,
+          "deadHeatWinValue": 0.3504,
+          "fairOdds": 185,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0926
+          "pPush": 0.0925
         },
         {
           "name": "Collin Morikawa",
@@ -11804,13 +11805,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.75,
           "fitBoost": 0.0,
-          "pClearWin": 0.5575,
-          "deadHeatWinValue": 0.5575,
+          "pClearWin": 0.5571,
+          "deadHeatWinValue": 0.5571,
           "fairOdds": -126,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0926
+          "pPush": 0.0925
         }
       ],
       "synthetic": true,
@@ -11831,13 +11832,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.73,
           "fitBoost": 0.0,
-          "pClearWin": 0.5303,
-          "deadHeatWinValue": 0.5303,
+          "pClearWin": 0.5313,
+          "deadHeatWinValue": 0.5313,
           "fairOdds": -113,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0965
+          "pPush": 0.0957
         },
         {
           "name": "David Lipsky",
@@ -11846,13 +11847,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.3732,
-          "deadHeatWinValue": 0.3732,
+          "pClearWin": 0.373,
+          "deadHeatWinValue": 0.373,
           "fairOdds": 168,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0965
+          "pPush": 0.0957
         }
       ],
       "synthetic": true,
@@ -11873,13 +11874,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.73,
           "fitBoost": 0.0,
-          "pClearWin": 0.5217,
-          "deadHeatWinValue": 0.5217,
+          "pClearWin": 0.5222,
+          "deadHeatWinValue": 0.5222,
           "fairOdds": -109,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0994
+          "pPush": 0.0992
         },
         {
           "name": "David Lipsky",
@@ -11888,13 +11889,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.3789,
-          "deadHeatWinValue": 0.3789,
+          "pClearWin": 0.3786,
+          "deadHeatWinValue": 0.3786,
           "fairOdds": 164,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0994
+          "pPush": 0.0992
         }
       ],
       "synthetic": true,
@@ -11915,13 +11916,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.73,
           "fitBoost": 0.0,
-          "pClearWin": 0.5118,
-          "deadHeatWinValue": 0.5118,
+          "pClearWin": 0.5127,
+          "deadHeatWinValue": 0.5127,
           "fairOdds": -105,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1013
+          "pPush": 0.101
         },
         {
           "name": "Pierceson Coody",
@@ -11930,13 +11931,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.3869,
-          "deadHeatWinValue": 0.3869,
-          "fairOdds": 158,
+          "pClearWin": 0.3863,
+          "deadHeatWinValue": 0.3863,
+          "fairOdds": 159,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1013
+          "pPush": 0.101
         }
       ],
       "synthetic": true,
@@ -11957,13 +11958,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.73,
           "fitBoost": 0.0,
-          "pClearWin": 0.5188,
-          "deadHeatWinValue": 0.5188,
+          "pClearWin": 0.5193,
+          "deadHeatWinValue": 0.5193,
           "fairOdds": -108,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0973
+          "pPush": 0.0978
         },
         {
           "name": "Pierceson Coody",
@@ -11972,13 +11973,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.3839,
-          "deadHeatWinValue": 0.3839,
-          "fairOdds": 160,
+          "pClearWin": 0.3829,
+          "deadHeatWinValue": 0.3829,
+          "fairOdds": 161,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0973
+          "pPush": 0.0978
         }
       ],
       "synthetic": true,
@@ -12005,7 +12006,7 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0963
+          "pPush": 0.0964
         },
         {
           "name": "Sudarshan Yellamaraju",
@@ -12014,13 +12015,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.4476,
-          "deadHeatWinValue": 0.4476,
+          "pClearWin": 0.4475,
+          "deadHeatWinValue": 0.4475,
           "fairOdds": 123,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0963
+          "pPush": 0.0964
         }
       ],
       "synthetic": true,
@@ -12041,13 +12042,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.4472,
-          "deadHeatWinValue": 0.4472,
+          "pClearWin": 0.4463,
+          "deadHeatWinValue": 0.4463,
           "fairOdds": 124,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0978
+          "pPush": 0.0993
         },
         {
           "name": "Sudarshan Yellamaraju",
@@ -12056,13 +12057,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.455,
-          "deadHeatWinValue": 0.455,
+          "pClearWin": 0.4544,
+          "deadHeatWinValue": 0.4544,
           "fairOdds": 120,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0978
+          "pPush": 0.0993
         }
       ],
       "synthetic": true,
@@ -12089,22 +12090,22 @@
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1039
+          "pPush": 0.1033
         },
         {
           "name": "Sepp Straka",
           "odds": [],
-          "modelMean": 70.69,
+          "modelMean": 70.68,
           "modelStd": 2.85,
-          "sgBlended": 0.31,
+          "sgBlended": 0.32,
           "fitBoost": 0.0,
-          "pClearWin": 0.4343,
-          "deadHeatWinValue": 0.4343,
+          "pClearWin": 0.4349,
+          "deadHeatWinValue": 0.4349,
           "fairOdds": 130,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1039
+          "pPush": 0.1033
         }
       ],
       "synthetic": true,
@@ -12125,28 +12126,28 @@
           "modelStd": 2.85,
           "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.4774,
-          "deadHeatWinValue": 0.4774,
+          "pClearWin": 0.4782,
+          "deadHeatWinValue": 0.4782,
           "fairOdds": 109,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1007
+          "pPush": 0.1001
         },
         {
           "name": "Sepp Straka",
           "odds": [],
-          "modelMean": 70.69,
+          "modelMean": 70.68,
           "modelStd": 2.85,
-          "sgBlended": 0.31,
+          "sgBlended": 0.32,
           "fitBoost": 0.0,
-          "pClearWin": 0.4219,
-          "deadHeatWinValue": 0.4219,
+          "pClearWin": 0.4217,
+          "deadHeatWinValue": 0.4217,
           "fairOdds": 137,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1007
+          "pPush": 0.1001
         }
       ],
       "synthetic": true,
@@ -12163,17 +12164,17 @@
         {
           "name": "Tommy Fleetwood",
           "odds": [],
-          "modelMean": 69.6,
+          "modelMean": 69.59,
           "modelStd": 2.85,
-          "sgBlended": 1.4,
+          "sgBlended": 1.41,
           "fitBoost": 0.0,
-          "pClearWin": 0.4558,
-          "deadHeatWinValue": 0.4558,
+          "pClearWin": 0.4564,
+          "deadHeatWinValue": 0.4564,
           "fairOdds": 119,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0983
+          "pPush": 0.0992
         },
         {
           "name": "Viktor Hovland",
@@ -12182,13 +12183,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.35,
           "fitBoost": 0.0,
-          "pClearWin": 0.4459,
-          "deadHeatWinValue": 0.4459,
-          "fairOdds": 124,
+          "pClearWin": 0.4444,
+          "deadHeatWinValue": 0.4444,
+          "fairOdds": 125,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0983
+          "pPush": 0.0992
         }
       ],
       "synthetic": true,
@@ -12205,17 +12206,17 @@
         {
           "name": "Tommy Fleetwood",
           "odds": [],
-          "modelMean": 69.6,
+          "modelMean": 69.59,
           "modelStd": 2.85,
-          "sgBlended": 1.4,
+          "sgBlended": 1.41,
           "fitBoost": 0.0,
-          "pClearWin": 0.4567,
-          "deadHeatWinValue": 0.4567,
-          "fairOdds": 119,
+          "pClearWin": 0.4579,
+          "deadHeatWinValue": 0.4579,
+          "fairOdds": 118,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0973
+          "pPush": 0.0971
         },
         {
           "name": "Viktor Hovland",
@@ -12224,13 +12225,13 @@
           "modelStd": 2.85,
           "sgBlended": 1.35,
           "fitBoost": 0.0,
-          "pClearWin": 0.446,
-          "deadHeatWinValue": 0.446,
-          "fairOdds": 124,
+          "pClearWin": 0.445,
+          "deadHeatWinValue": 0.445,
+          "fairOdds": 125,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0973
+          "pPush": 0.0971
         }
       ],
       "synthetic": true,
@@ -12247,32 +12248,32 @@
         {
           "name": "Ben Griffin",
           "odds": [],
-          "modelMean": 70.42,
+          "modelMean": 70.41,
           "modelStd": 2.85,
-          "sgBlended": 0.58,
+          "sgBlended": 0.59,
           "fitBoost": 0.0,
-          "pClearWin": 0.4763,
-          "deadHeatWinValue": 0.4763,
+          "pClearWin": 0.4765,
+          "deadHeatWinValue": 0.4765,
           "fairOdds": 110,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1023
+          "pPush": 0.1016
         },
         {
           "name": "J.J. Spaun",
           "odds": [],
-          "modelMean": 70.68,
+          "modelMean": 70.67,
           "modelStd": 2.85,
-          "sgBlended": 0.32,
+          "sgBlended": 0.33,
           "fitBoost": 0.0,
-          "pClearWin": 0.4214,
-          "deadHeatWinValue": 0.4214,
+          "pClearWin": 0.4219,
+          "deadHeatWinValue": 0.4219,
           "fairOdds": 137,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1023
+          "pPush": 0.1016
         }
       ],
       "synthetic": true,
@@ -12289,32 +12290,32 @@
         {
           "name": "Ben Griffin",
           "odds": [],
-          "modelMean": 70.42,
+          "modelMean": 70.41,
           "modelStd": 2.85,
-          "sgBlended": 0.58,
+          "sgBlended": 0.59,
           "fitBoost": 0.0,
-          "pClearWin": 0.4749,
-          "deadHeatWinValue": 0.4749,
+          "pClearWin": 0.4748,
+          "deadHeatWinValue": 0.4748,
           "fairOdds": 111,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0988
+          "pPush": 0.099
         },
         {
           "name": "J.J. Spaun",
           "odds": [],
-          "modelMean": 70.68,
+          "modelMean": 70.67,
           "modelStd": 2.85,
-          "sgBlended": 0.32,
+          "sgBlended": 0.33,
           "fitBoost": 0.0,
-          "pClearWin": 0.4263,
-          "deadHeatWinValue": 0.4263,
+          "pClearWin": 0.4262,
+          "deadHeatWinValue": 0.4262,
           "fairOdds": 135,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0988
+          "pPush": 0.099
         }
       ],
       "synthetic": true,
@@ -12335,13 +12336,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.5059,
-          "deadHeatWinValue": 0.5059,
-          "fairOdds": -102,
+          "pClearWin": 0.5073,
+          "deadHeatWinValue": 0.5073,
+          "fairOdds": -103,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0978
+          "pPush": 0.0968
         },
         {
           "name": "Chandler Blanchet",
@@ -12350,13 +12351,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.3963,
-          "deadHeatWinValue": 0.3963,
-          "fairOdds": 152,
+          "pClearWin": 0.3959,
+          "deadHeatWinValue": 0.3959,
+          "fairOdds": 153,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0978
+          "pPush": 0.0968
         }
       ],
       "synthetic": true,
@@ -12377,13 +12378,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.496,
-          "deadHeatWinValue": 0.496,
-          "fairOdds": 102,
+          "pClearWin": 0.4966,
+          "deadHeatWinValue": 0.4966,
+          "fairOdds": 101,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0981
+          "pPush": 0.0982
         },
         {
           "name": "Chandler Blanchet",
@@ -12392,13 +12393,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.4059,
-          "deadHeatWinValue": 0.4059,
-          "fairOdds": 146,
+          "pClearWin": 0.4052,
+          "deadHeatWinValue": 0.4052,
+          "fairOdds": 147,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0981
+          "pPush": 0.0982
         }
       ],
       "synthetic": true,
@@ -12419,13 +12420,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.5035,
-          "deadHeatWinValue": 0.5035,
-          "fairOdds": -101,
+          "pClearWin": 0.5043,
+          "deadHeatWinValue": 0.5043,
+          "fairOdds": -102,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0941
+          "pPush": 0.0938
         },
         {
           "name": "Jhonattan Vegas",
@@ -12434,13 +12435,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.4024,
-          "deadHeatWinValue": 0.4024,
+          "pClearWin": 0.4019,
+          "deadHeatWinValue": 0.4019,
           "fairOdds": 149,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0941
+          "pPush": 0.0938
         }
       ],
       "synthetic": true,
@@ -12461,9 +12462,9 @@
           "modelStd": 2.85,
           "sgBlended": 0.53,
           "fitBoost": 0.0,
-          "pClearWin": 0.4993,
-          "deadHeatWinValue": 0.4993,
-          "fairOdds": 100,
+          "pClearWin": 0.5003,
+          "deadHeatWinValue": 0.5003,
+          "fairOdds": -100,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
@@ -12476,9 +12477,9 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.3968,
-          "deadHeatWinValue": 0.3968,
-          "fairOdds": 152,
+          "pClearWin": 0.3958,
+          "deadHeatWinValue": 0.3958,
+          "fairOdds": 153,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
@@ -12499,17 +12500,17 @@
         {
           "name": "Hideki Matsuyama",
           "odds": [],
-          "modelMean": 69.89,
+          "modelMean": 69.88,
           "modelStd": 2.85,
-          "sgBlended": 1.11,
+          "sgBlended": 1.12,
           "fitBoost": 0.0,
-          "pClearWin": 0.555,
-          "deadHeatWinValue": 0.555,
+          "pClearWin": 0.5559,
+          "deadHeatWinValue": 0.5559,
           "fairOdds": -125,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0945
+          "pPush": 0.0941
         },
         {
           "name": "Chris Gotterup",
@@ -12518,13 +12519,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.3505,
-          "deadHeatWinValue": 0.3505,
-          "fairOdds": 185,
+          "pClearWin": 0.35,
+          "deadHeatWinValue": 0.35,
+          "fairOdds": 186,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0945
+          "pPush": 0.0941
         }
       ],
       "synthetic": true,
@@ -12541,17 +12542,17 @@
         {
           "name": "Hideki Matsuyama",
           "odds": [],
-          "modelMean": 69.89,
+          "modelMean": 69.88,
           "modelStd": 2.85,
-          "sgBlended": 1.11,
+          "sgBlended": 1.12,
           "fitBoost": 0.0,
-          "pClearWin": 0.5675,
-          "deadHeatWinValue": 0.5675,
-          "fairOdds": -131,
+          "pClearWin": 0.5688,
+          "deadHeatWinValue": 0.5688,
+          "fairOdds": -132,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0933
+          "pPush": 0.0927
         },
         {
           "name": "Chris Gotterup",
@@ -12560,97 +12561,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.3392,
-          "deadHeatWinValue": 0.3392,
+          "pClearWin": 0.3385,
+          "deadHeatWinValue": 0.3385,
           "fairOdds": 195,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0933
-        }
-      ],
-      "synthetic": true,
-      "dhRulesApplied": false,
-      "bookSample": [],
-      "simCount": 10000
-    },
-    {
-      "eventId": "synth-r1-Thu Apr 30 11:30:00 PDT 2026-1",
-      "commence": "Thu Apr 30 11:30:00 PDT 2026",
-      "round": 1,
-      "type": "2ball",
-      "players": [
-        {
-          "name": "Min Woo Lee",
-          "odds": [],
-          "modelMean": 70.5,
-          "modelStd": 2.85,
-          "sgBlended": 0.5,
-          "fitBoost": 0.0,
-          "pClearWin": 0.5022,
-          "deadHeatWinValue": 0.5022,
-          "fairOdds": -101,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0938
-        },
-        {
-          "name": "Jordan Smith",
-          "odds": [],
-          "modelMean": 71.0,
-          "modelStd": 2.85,
-          "sgBlended": 0.0,
-          "fitBoost": 0.0,
-          "pClearWin": 0.404,
-          "deadHeatWinValue": 0.404,
-          "fairOdds": 148,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0938
-        }
-      ],
-      "synthetic": true,
-      "dhRulesApplied": false,
-      "bookSample": [],
-      "simCount": 10000
-    },
-    {
-      "eventId": "synth-r2-Fri May 01 14:45:00 PDT 2026-1",
-      "commence": "Fri May 01 14:45:00 PDT 2026",
-      "round": 2,
-      "type": "2ball",
-      "players": [
-        {
-          "name": "Min Woo Lee",
-          "odds": [],
-          "modelMean": 70.5,
-          "modelStd": 2.85,
-          "sgBlended": 0.5,
-          "fitBoost": 0.0,
-          "pClearWin": 0.4989,
-          "deadHeatWinValue": 0.4989,
-          "fairOdds": 100,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0996
-        },
-        {
-          "name": "Jordan Smith",
-          "odds": [],
-          "modelMean": 71.0,
-          "modelStd": 2.85,
-          "sgBlended": 0.0,
-          "fitBoost": 0.0,
-          "pClearWin": 0.4015,
-          "deadHeatWinValue": 0.4015,
-          "fairOdds": 149,
-          "bestBook": null,
-          "impliedProbBest": null,
-          "ev": null,
-          "pPush": 0.0996
+          "pPush": 0.0927
         }
       ],
       "synthetic": true,
@@ -12667,17 +12584,17 @@
         {
           "name": "Corey Conners",
           "odds": [],
-          "modelMean": 70.47,
+          "modelMean": 70.46,
           "modelStd": 2.85,
-          "sgBlended": 0.53,
+          "sgBlended": 0.54,
           "fitBoost": 0.0,
-          "pClearWin": 0.4829,
-          "deadHeatWinValue": 0.4829,
-          "fairOdds": 107,
+          "pClearWin": 0.494,
+          "deadHeatWinValue": 0.494,
+          "fairOdds": 102,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1041
+          "pPush": 0.0941
         },
         {
           "name": "Michael Thorbjornsen",
@@ -12686,13 +12603,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.12,
           "fitBoost": 0.0,
-          "pClearWin": 0.413,
-          "deadHeatWinValue": 0.413,
-          "fairOdds": 142,
+          "pClearWin": 0.4119,
+          "deadHeatWinValue": 0.4119,
+          "fairOdds": 143,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1041
+          "pPush": 0.0941
         }
       ],
       "synthetic": true,
@@ -12709,17 +12626,17 @@
         {
           "name": "Corey Conners",
           "odds": [],
-          "modelMean": 70.47,
+          "modelMean": 70.46,
           "modelStd": 2.85,
-          "sgBlended": 0.53,
+          "sgBlended": 0.54,
           "fitBoost": 0.0,
-          "pClearWin": 0.4853,
-          "deadHeatWinValue": 0.4853,
-          "fairOdds": 106,
+          "pClearWin": 0.4895,
+          "deadHeatWinValue": 0.4895,
+          "fairOdds": 104,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1024
+          "pPush": 0.1012
         },
         {
           "name": "Michael Thorbjornsen",
@@ -12728,13 +12645,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.12,
           "fitBoost": 0.0,
-          "pClearWin": 0.4123,
-          "deadHeatWinValue": 0.4123,
-          "fairOdds": 143,
+          "pClearWin": 0.4093,
+          "deadHeatWinValue": 0.4093,
+          "fairOdds": 144,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1024
+          "pPush": 0.1012
         }
       ],
       "synthetic": true,
@@ -12751,17 +12668,17 @@
         {
           "name": "Lucas Glover",
           "odds": [],
-          "modelMean": 70.75,
+          "modelMean": 70.74,
           "modelStd": 2.85,
-          "sgBlended": 0.25,
+          "sgBlended": 0.26,
           "fitBoost": 0.0,
-          "pClearWin": 0.4814,
-          "deadHeatWinValue": 0.4814,
-          "fairOdds": 108,
+          "pClearWin": 0.4694,
+          "deadHeatWinValue": 0.4694,
+          "fairOdds": 113,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.098
+          "pPush": 0.1015
         },
         {
           "name": "Daniel Berger",
@@ -12770,13 +12687,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.4206,
-          "deadHeatWinValue": 0.4206,
-          "fairOdds": 138,
+          "pClearWin": 0.4291,
+          "deadHeatWinValue": 0.4291,
+          "fairOdds": 133,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.098
+          "pPush": 0.1015
         }
       ],
       "synthetic": true,
@@ -12793,17 +12710,17 @@
         {
           "name": "Lucas Glover",
           "odds": [],
-          "modelMean": 70.75,
+          "modelMean": 70.74,
           "modelStd": 2.85,
-          "sgBlended": 0.25,
+          "sgBlended": 0.26,
           "fitBoost": 0.0,
-          "pClearWin": 0.4747,
-          "deadHeatWinValue": 0.4747,
-          "fairOdds": 111,
+          "pClearWin": 0.47,
+          "deadHeatWinValue": 0.47,
+          "fairOdds": 113,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1032
+          "pPush": 0.1034
         },
         {
           "name": "Daniel Berger",
@@ -12812,13 +12729,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.4221,
-          "deadHeatWinValue": 0.4221,
-          "fairOdds": 137,
+          "pClearWin": 0.4266,
+          "deadHeatWinValue": 0.4266,
+          "fairOdds": 134,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1032
+          "pPush": 0.1034
         }
       ],
       "synthetic": true,
@@ -12839,28 +12756,28 @@
           "modelStd": 2.85,
           "sgBlended": 0.13,
           "fitBoost": 0.0,
-          "pClearWin": 0.4701,
-          "deadHeatWinValue": 0.4701,
-          "fairOdds": 113,
+          "pClearWin": 0.4758,
+          "deadHeatWinValue": 0.4758,
+          "fairOdds": 110,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1019
+          "pPush": 0.0966
         },
         {
           "name": "Brian Campbell",
           "odds": [],
-          "modelMean": 71.08,
+          "modelMean": 71.07,
           "modelStd": 2.85,
           "sgBlended": -0.07,
           "fitBoost": 0.0,
-          "pClearWin": 0.428,
-          "deadHeatWinValue": 0.428,
+          "pClearWin": 0.4276,
+          "deadHeatWinValue": 0.4276,
           "fairOdds": 134,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1019
+          "pPush": 0.0966
         }
       ],
       "synthetic": true,
@@ -12881,28 +12798,28 @@
           "modelStd": 2.85,
           "sgBlended": 0.13,
           "fitBoost": 0.0,
-          "pClearWin": 0.4756,
-          "deadHeatWinValue": 0.4756,
-          "fairOdds": 110,
+          "pClearWin": 0.4703,
+          "deadHeatWinValue": 0.4703,
+          "fairOdds": 113,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1004
+          "pPush": 0.0988
         },
         {
           "name": "Brian Campbell",
           "odds": [],
-          "modelMean": 71.08,
+          "modelMean": 71.07,
           "modelStd": 2.85,
           "sgBlended": -0.07,
           "fitBoost": 0.0,
-          "pClearWin": 0.424,
-          "deadHeatWinValue": 0.424,
-          "fairOdds": 136,
+          "pClearWin": 0.4309,
+          "deadHeatWinValue": 0.4309,
+          "fairOdds": 132,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1004
+          "pPush": 0.0988
         }
       ],
       "synthetic": true,
@@ -12919,17 +12836,17 @@
         {
           "name": "Denny McCarthy",
           "odds": [],
-          "modelMean": 70.37,
+          "modelMean": 70.36,
           "modelStd": 2.85,
-          "sgBlended": 0.63,
+          "sgBlended": 0.64,
           "fitBoost": 0.0,
-          "pClearWin": 0.5144,
-          "deadHeatWinValue": 0.5144,
+          "pClearWin": 0.5138,
+          "deadHeatWinValue": 0.5138,
           "fairOdds": -106,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0996
+          "pPush": 0.0976
         },
         {
           "name": "Ryo Hisatsune",
@@ -12938,13 +12855,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.386,
-          "deadHeatWinValue": 0.386,
-          "fairOdds": 159,
+          "pClearWin": 0.3886,
+          "deadHeatWinValue": 0.3886,
+          "fairOdds": 157,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0996
+          "pPush": 0.0976
         }
       ],
       "synthetic": true,
@@ -12961,17 +12878,17 @@
         {
           "name": "Denny McCarthy",
           "odds": [],
-          "modelMean": 70.37,
+          "modelMean": 70.36,
           "modelStd": 2.85,
-          "sgBlended": 0.63,
+          "sgBlended": 0.64,
           "fitBoost": 0.0,
-          "pClearWin": 0.5122,
-          "deadHeatWinValue": 0.5122,
-          "fairOdds": -105,
+          "pClearWin": 0.5182,
+          "deadHeatWinValue": 0.5182,
+          "fairOdds": -108,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0975
+          "pPush": 0.0957
         },
         {
           "name": "Ryo Hisatsune",
@@ -12980,13 +12897,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.3903,
-          "deadHeatWinValue": 0.3903,
-          "fairOdds": 156,
+          "pClearWin": 0.3861,
+          "deadHeatWinValue": 0.3861,
+          "fairOdds": 159,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0975
+          "pPush": 0.0957
         }
       ],
       "synthetic": true,
@@ -13003,17 +12920,17 @@
         {
           "name": "Max Homa",
           "odds": [],
-          "modelMean": 70.14,
+          "modelMean": 70.13,
           "modelStd": 2.85,
-          "sgBlended": 0.86,
+          "sgBlended": 0.87,
           "fitBoost": 0.0,
-          "pClearWin": 0.5268,
-          "deadHeatWinValue": 0.5268,
-          "fairOdds": -111,
+          "pClearWin": 0.5417,
+          "deadHeatWinValue": 0.5417,
+          "fairOdds": -118,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0951
+          "pPush": 0.0929
         },
         {
           "name": "Max Greyserman",
@@ -13022,13 +12939,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.3781,
-          "deadHeatWinValue": 0.3781,
-          "fairOdds": 164,
+          "pClearWin": 0.3654,
+          "deadHeatWinValue": 0.3654,
+          "fairOdds": 174,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0951
+          "pPush": 0.0929
         }
       ],
       "synthetic": true,
@@ -13045,17 +12962,17 @@
         {
           "name": "Max Homa",
           "odds": [],
-          "modelMean": 70.14,
+          "modelMean": 70.13,
           "modelStd": 2.85,
-          "sgBlended": 0.86,
+          "sgBlended": 0.87,
           "fitBoost": 0.0,
-          "pClearWin": 0.5355,
-          "deadHeatWinValue": 0.5355,
+          "pClearWin": 0.5339,
+          "deadHeatWinValue": 0.5339,
           "fairOdds": -115,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0939
+          "pPush": 0.0968
         },
         {
           "name": "Max Greyserman",
@@ -13064,13 +12981,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.3706,
-          "deadHeatWinValue": 0.3706,
-          "fairOdds": 170,
+          "pClearWin": 0.3693,
+          "deadHeatWinValue": 0.3693,
+          "fairOdds": 171,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0939
+          "pPush": 0.0968
         }
       ],
       "synthetic": true,
@@ -13087,17 +13004,17 @@
         {
           "name": "Akshay Bhatia",
           "odds": [],
-          "modelMean": 70.58,
+          "modelMean": 70.57,
           "modelStd": 2.85,
-          "sgBlended": 0.42,
+          "sgBlended": 0.43,
           "fitBoost": 0.0,
-          "pClearWin": 0.4926,
-          "deadHeatWinValue": 0.4926,
-          "fairOdds": 103,
+          "pClearWin": 0.4829,
+          "deadHeatWinValue": 0.4829,
+          "fairOdds": 107,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0968
+          "pPush": 0.0986
         },
         {
           "name": "Ricky Castillo",
@@ -13106,13 +13023,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.4106,
-          "deadHeatWinValue": 0.4106,
-          "fairOdds": 144,
+          "pClearWin": 0.4185,
+          "deadHeatWinValue": 0.4185,
+          "fairOdds": 139,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0968
+          "pPush": 0.0986
         }
       ],
       "synthetic": true,
@@ -13129,17 +13046,17 @@
         {
           "name": "Akshay Bhatia",
           "odds": [],
-          "modelMean": 70.58,
+          "modelMean": 70.57,
           "modelStd": 2.85,
-          "sgBlended": 0.42,
+          "sgBlended": 0.43,
           "fitBoost": 0.0,
-          "pClearWin": 0.4934,
-          "deadHeatWinValue": 0.4934,
+          "pClearWin": 0.4936,
+          "deadHeatWinValue": 0.4936,
           "fairOdds": 103,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0918
+          "pPush": 0.0995
         },
         {
           "name": "Ricky Castillo",
@@ -13148,13 +13065,97 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.4148,
-          "deadHeatWinValue": 0.4148,
+          "pClearWin": 0.4069,
+          "deadHeatWinValue": 0.4069,
+          "fairOdds": 146,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0995
+        }
+      ],
+      "synthetic": true,
+      "dhRulesApplied": false,
+      "bookSample": [],
+      "simCount": 10000
+    },
+    {
+      "eventId": "synth-r1-Thu Apr 30 11:30:00 PDT 2026-1",
+      "commence": "Thu Apr 30 11:30:00 PDT 2026",
+      "round": 1,
+      "type": "2ball",
+      "players": [
+        {
+          "name": "Min Woo Lee",
+          "odds": [],
+          "modelMean": 70.59,
+          "modelStd": 2.85,
+          "sgBlended": 0.41,
+          "fitBoost": 0.0,
+          "pClearWin": 0.4919,
+          "deadHeatWinValue": 0.4919,
+          "fairOdds": 103,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0963
+        },
+        {
+          "name": "Jordan Smith",
+          "odds": [],
+          "modelMean": 71.0,
+          "modelStd": 2.85,
+          "sgBlended": 0.0,
+          "fitBoost": 0.0,
+          "pClearWin": 0.4118,
+          "deadHeatWinValue": 0.4118,
+          "fairOdds": 143,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.0963
+        }
+      ],
+      "synthetic": true,
+      "dhRulesApplied": false,
+      "bookSample": [],
+      "simCount": 10000
+    },
+    {
+      "eventId": "synth-r2-Fri May 01 14:45:00 PDT 2026-1",
+      "commence": "Fri May 01 14:45:00 PDT 2026",
+      "round": 2,
+      "type": "2ball",
+      "players": [
+        {
+          "name": "Min Woo Lee",
+          "odds": [],
+          "modelMean": 70.59,
+          "modelStd": 2.85,
+          "sgBlended": 0.41,
+          "fitBoost": 0.0,
+          "pClearWin": 0.4926,
+          "deadHeatWinValue": 0.4926,
+          "fairOdds": 103,
+          "bestBook": null,
+          "impliedProbBest": null,
+          "ev": null,
+          "pPush": 0.092
+        },
+        {
+          "name": "Jordan Smith",
+          "odds": [],
+          "modelMean": 71.0,
+          "modelStd": 2.85,
+          "sgBlended": 0.0,
+          "fitBoost": 0.0,
+          "pClearWin": 0.4154,
+          "deadHeatWinValue": 0.4154,
           "fairOdds": 141,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0918
+          "pPush": 0.092
         }
       ],
       "synthetic": true,
@@ -13171,32 +13172,32 @@
         {
           "name": "Alex Noren",
           "odds": [],
-          "modelMean": 71.08,
+          "modelMean": 71.07,
           "modelStd": 2.85,
           "sgBlended": -0.07,
           "fitBoost": 0.0,
-          "pClearWin": 0.4379,
-          "deadHeatWinValue": 0.4379,
+          "pClearWin": 0.4377,
+          "deadHeatWinValue": 0.4377,
           "fairOdds": 128,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0931
+          "pPush": 0.0932
         },
         {
           "name": "Ryan Fox",
           "odds": [],
-          "modelMean": 70.95,
+          "modelMean": 70.94,
           "modelStd": 2.85,
-          "sgBlended": 0.05,
+          "sgBlended": 0.06,
           "fitBoost": 0.0,
-          "pClearWin": 0.469,
-          "deadHeatWinValue": 0.469,
+          "pClearWin": 0.4691,
+          "deadHeatWinValue": 0.4691,
           "fairOdds": 113,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0931
+          "pPush": 0.0932
         }
       ],
       "synthetic": true,
@@ -13213,32 +13214,32 @@
         {
           "name": "Alex Noren",
           "odds": [],
-          "modelMean": 71.08,
+          "modelMean": 71.07,
           "modelStd": 2.85,
           "sgBlended": -0.07,
           "fitBoost": 0.0,
-          "pClearWin": 0.4329,
-          "deadHeatWinValue": 0.4329,
+          "pClearWin": 0.4323,
+          "deadHeatWinValue": 0.4323,
           "fairOdds": 131,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1005
+          "pPush": 0.1003
         },
         {
           "name": "Ryan Fox",
           "odds": [],
-          "modelMean": 70.95,
+          "modelMean": 70.94,
           "modelStd": 2.85,
-          "sgBlended": 0.05,
+          "sgBlended": 0.06,
           "fitBoost": 0.0,
-          "pClearWin": 0.4666,
-          "deadHeatWinValue": 0.4666,
+          "pClearWin": 0.4674,
+          "deadHeatWinValue": 0.4674,
           "fairOdds": 114,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.1005
+          "pPush": 0.1003
         }
       ],
       "synthetic": true,
@@ -13255,17 +13256,17 @@
         {
           "name": "Tom Hoge",
           "odds": [],
-          "modelMean": 71.08,
+          "modelMean": 71.07,
           "modelStd": 2.85,
           "sgBlended": -0.07,
           "fitBoost": 0.0,
-          "pClearWin": 0.4443,
-          "deadHeatWinValue": 0.4443,
+          "pClearWin": 0.4453,
+          "deadHeatWinValue": 0.4453,
           "fairOdds": 125,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0894
+          "pPush": 0.0898
         },
         {
           "name": "Joel Dahmen",
@@ -13274,13 +13275,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.4663,
-          "deadHeatWinValue": 0.4663,
-          "fairOdds": 114,
+          "pClearWin": 0.4649,
+          "deadHeatWinValue": 0.4649,
+          "fairOdds": 115,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0894
+          "pPush": 0.0898
         }
       ],
       "synthetic": true,
@@ -13297,17 +13298,17 @@
         {
           "name": "Tom Hoge",
           "odds": [],
-          "modelMean": 71.08,
+          "modelMean": 71.07,
           "modelStd": 2.85,
           "sgBlended": -0.07,
           "fitBoost": 0.0,
-          "pClearWin": 0.4498,
-          "deadHeatWinValue": 0.4498,
+          "pClearWin": 0.4505,
+          "deadHeatWinValue": 0.4505,
           "fairOdds": 122,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0998
+          "pPush": 0.1003
         },
         {
           "name": "Joel Dahmen",
@@ -13316,13 +13317,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.4504,
-          "deadHeatWinValue": 0.4504,
-          "fairOdds": 122,
+          "pClearWin": 0.4492,
+          "deadHeatWinValue": 0.4492,
+          "fairOdds": 123,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pPush": 0.0998
+          "pPush": 0.1003
         }
       ],
       "synthetic": true,
