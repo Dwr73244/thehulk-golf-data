@@ -2354,6 +2354,7 @@ def send_discord_alerts(output):
                     "min_american": -300, "max_american":  1000, "max_ratio": 1.8},
         "makeCut": {"peak": 0.85, "ev_threshold":  6.0, "label": "Make Cut",
                     "min_american": -500, "max_american":   500, "max_ratio": 1.6},
+        "r1Leader": {"peak": 0.06, "ev_threshold": 12.0, "label": "R1 Leader"},
     }
 
     def _parse_american(raw):
