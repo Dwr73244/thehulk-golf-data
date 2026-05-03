@@ -298,6 +298,18 @@ def main():
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
+    # Read prior report BEFORE we (potentially) overwrite it later.
+    # Used to require two consecutive drift weeks before auto-tuning fires,
+    # so a single noisy week can't mutate model_params.json on its own.
+    prior_report = {}
+    if os.path.isfile(REPORT_PATH):
+        try:
+            with open(REPORT_PATH, encoding="utf-8") as f:
+                prior_report = json.load(f) or {}
+        except (OSError, json.JSONDecodeError):
+            prior_report = {}
+    prior_drift = prior_report.get("calibrationDrift")
+
     snapshots = load_history(args.weeks)
     if len(snapshots) < 2:
         print(f"[BACKTEST] Insufficient history ({len(snapshots)} snapshots). "
@@ -344,8 +356,18 @@ def main():
     print(f"[BACKTEST] Pairs: {len(pairs)}, Brier: {brier}, "
           f"Drift: {drift:.3f} (predicted {mean_pred:.3f} vs actual {mean_actual:.3f})")
 
-    if args.tune and len(pairs) >= 200 and drift > 0.05:
-        print(f"[BACKTEST] Drift {drift:.3f} > 5% with {len(pairs)} pairs — running grid search.")
+    # Require TWO consecutive drift weeks before auto-tuning fires. With
+    # ~858 pairs a single week's drift > 5% can be noise; mutating
+    # model_params on one bad reading risks a regrettable retune.
+    drift_now = drift > 0.05
+    drift_prior = isinstance(prior_drift, (int, float)) and prior_drift > 0.05
+    drift_confirmed = drift_now and drift_prior
+    report["priorDrift"] = prior_drift
+    report["driftConfirmed"] = drift_confirmed
+
+    if args.tune and len(pairs) >= 200 and drift_confirmed:
+        print(f"[BACKTEST] Drift {drift:.3f} > 5% confirmed by prior week ({prior_drift}) "
+              f"with {len(pairs)} pairs — running grid search.")
         tuned, best_brier = _grid_search_params(snapshots, pairs)
         if tuned:
             # Preserve bookkeeping fields from the previous params
@@ -375,7 +397,12 @@ def main():
             }
         else:
             report["tuning"] = {"applied": False, "reason": "no-improvement"}
-    elif args.tune and drift > 0.05:
+    elif args.tune and drift_now and not drift_prior:
+        prior_str = f"{prior_drift:.3f}" if isinstance(prior_drift, (int, float)) else "n/a"
+        print(f"[BACKTEST] Drift {drift:.3f} > 5% but prior week was within tolerance "
+              f"({prior_str}) — warning only, no retune. Need 2 consecutive drift weeks.")
+        report["tuning"] = {"applied": False, "reason": "drift-not-confirmed"}
+    elif args.tune and drift_now and len(pairs) < 200:
         print(f"[BACKTEST] Drift {drift:.3f} > 5% but only {len(pairs)} pairs (<200). Skipping grid search.")
         report["tuning"] = {"applied": False, "reason": "insufficient-pairs"}
     elif args.tune:
