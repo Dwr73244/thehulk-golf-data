@@ -4544,7 +4544,7 @@
             }
           });
 
-          renderLiveLeaderboard();
+          if (typeof renderLiveLeaderboard === 'function') { try { renderLiveLeaderboard(); } catch(e) { console.warn('[Live] renderLiveLeaderboard failed:', e); } }
           // Also refresh Monitor panels if that tab is visible
           var monTab = document.getElementById('tab-monitor');
           if (monTab && !monTab.classList.contains('hidden') && typeof window.renderMonitor === 'function') {
@@ -5230,11 +5230,12 @@
   function renderNewsGrid() {
     var grid = el('newsGrid');
     if (!grid) return;
-    if (!_newsData.length) {
-      grid.innerHTML = '<div class="glass rounded-2xl p-6 text-center col-span-full"><p class="text-slate-400 text-sm">No news available yet</p><p class="text-slate-600 text-xs mt-1">News updates during tournament week (Apr 9–12)</p></div>';
-      return;
-    }
-    grid.innerHTML = _newsData.slice(0, 12).map(function(item) {
+    try {
+      if (!_newsData || !_newsData.length) {
+        grid.innerHTML = '<p class="text-slate-500 text-center py-8 col-span-full">No news items right now. Check back during tournament week.</p>';
+        return;
+      }
+      grid.innerHTML = _newsData.slice(0, 12).map(function(item) {
       var desc = (item.description || '').slice(0, 120) + ((item.description || '').length > 120 ? '…' : '');
       var playerBadge = item.player ? '<span class="stat-pill bg-pb-gold/10 text-pb-gold border border-pb-gold/20 text-[10px] mb-2 inline-flex">' + item.player + '</span>' : '';
       var imgHtml = item.image ? '<img src="' + item.image + '" alt="" class="w-full h-36 object-cover" loading="lazy" onerror="this.style.display=\'none\'">' : '';
@@ -5252,6 +5253,10 @@
         '</div>' +
       '</div>';
     }).join('');
+    } catch(e) {
+      console.warn('[News] renderNewsGrid failed:', e);
+      grid.innerHTML = '<p class="text-slate-500 text-center py-8 col-span-full">No news items right now. Check back during tournament week.</p>';
+    }
   }
 
   /* ============================================================
@@ -6253,7 +6258,7 @@
     populatePlayerSelects();
     renderPropBoard();
     renderParlay();
-    renderLiveLeaderboard();
+    if (typeof renderLiveLeaderboard === 'function') { try { renderLiveLeaderboard(); } catch(e) { console.warn('[initApp] renderLiveLeaderboard failed:', e); } }
     renderNewsGrid();
     updateDataStatus();
     // Masters HQ (Augusta-specific)
