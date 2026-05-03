@@ -26,18 +26,19 @@ print(f"Majors schedule: {len(d.get('majorsSchedule') or [])} entries")
 errors = []
 
 # --- Data freshness / completeness ---
-# Detect if current event is a major (check name + venue)
+# Detect if current event is a major. NAME is the primary signal — venue
+# alone is unreliable because Quail Hollow hosts both PGA Championship
+# (major) AND Truist Championship (regular signature event), and Augusta
+# could in theory host other invitationals. Augusta + "Masters" name is
+# the only safe venue-only auto-flag.
 evt_name = (ce.get("name") or "").lower()
 evt_course = (ce.get("course") or "").lower()
-is_major = (
-    any(kw in evt_name for kw in
-        ("masters", "pga championship", "u.s. open", "us open",
-         "open championship", "british open"))
-    or any(v in evt_course for v in
-        ("augusta", "oak hill", "aronimink", "quail hollow", "oakmont",
-         "shinnecock", "pinehurst", "royal portrush", "royal birkdale",
-         "royal troon", "st andrews"))
-)
+is_major_by_name = any(kw in evt_name for kw in
+    ("masters", "pga championship", "u.s. open", "us open",
+     "open championship", "british open"))
+# Augusta is the only single-tenant major venue (only ever hosts Masters).
+is_augusta = "augusta" in evt_course
+is_major = is_major_by_name or is_augusta
 warnings = []
 
 # Player count floors — majors have ~156 starters, regular events have
