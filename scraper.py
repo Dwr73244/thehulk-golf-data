@@ -1121,20 +1121,26 @@ def build_dynamic_majors_schedule(bdl_tournaments_data):
 def _is_major_event(current_event):
     """Return True if the current tournament is one of the 4 majors.
 
-    Checks both event name and venue — some feeds use official names
-    ("The Masters Tournament"), others short ("Masters"), and venues like
-    "Augusta National" are unambiguous signals on their own.
+    NAME is the primary signal — venue alone is NOT sufficient. Quail Hollow
+    hosts both PGA Championship (major) AND Truist / Wells Fargo (regular
+    Signature event); Pinehurst hosts US Women's Open in non-major years; etc.
+    Augusta is the only single-tenant major venue (only ever hosts the
+    Masters), so it can auto-flag by venue alone.
+
+    Without this discipline we were wrongly adding LIV players to Truist's
+    field whenever Truist landed at Quail Hollow.
     """
     if not isinstance(current_event, dict):
         return False
     name = (current_event.get("name") or "").lower()
     course = (current_event.get("course") or "").lower()
+    # Primary: name match
     for kw in _MAJOR_NAME_KEYWORDS:
         if kw in name:
             return True
-    for venue in _MAJOR_VENUES:
-        if venue in course:
-            return True
+    # Secondary: Augusta is single-tenant — venue alone confirms Masters
+    if "augusta" in course:
+        return True
     return False
 
 
