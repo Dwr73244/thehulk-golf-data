@@ -100,7 +100,10 @@
 
   function renderList(){
     var dl = $('lhPlayerList');
-    dl.innerHTML = STATE.players.map(function(n){ return '<option value="'+n.replace(/"/g,'&quot;')+'">'; }).join('');
+    if (!dl) { console.warn('[LineHistory] datalist #lhPlayerList not found'); return; }
+    var players = (STATE.players || []).filter(function(n){ return typeof n === 'string' && n.length; });
+    dl.innerHTML = players.map(function(n){ return '<option value="'+n.replace(/"/g,'&quot;')+'"></option>'; }).join('');
+    console.log('[LineHistory] datalist populated with ' + players.length + ' players');
   }
 
   function getSeries(name){
@@ -185,15 +188,21 @@
   ]).then(function(results){
     STATE.history = results[0] || {};
     var data = results[1];
-    if (data && data.players){
-      STATE.players = data.players.map(function(p){ return p.name; }).sort();
+    if (data && Array.isArray(data.players) && data.players.length){
+      STATE.players = data.players
+        .map(function(p){ return p && p.name; })
+        .filter(function(n){ return typeof n === 'string' && n.length; })
+        .sort();
     } else {
       STATE.players = Object.keys(STATE.history);
     }
     renderList();
     populateBooks();
-    if (Object.keys(STATE.history).length === 0) {
-      $('lhStatus').textContent = 'Odds history file is empty. Come back after a few scrape runs have accumulated.';
+    var status = $('lhStatus');
+    if (STATE.players.length === 0) {
+      status.textContent = 'No players loaded. golf-data.json may have failed to fetch — check the network tab.';
+    } else if (Object.keys(STATE.history).length === 0) {
+      status.textContent = 'Odds history file is empty. Come back after a few scrape runs have accumulated.';
     }
   });
 
