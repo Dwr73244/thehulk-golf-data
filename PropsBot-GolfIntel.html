@@ -4949,7 +4949,24 @@
           '<p class="text-xs text-slate-500">No legs added yet. Hit <span class="text-pb-teal font-semibold">+ Add Parlay</span> on any player card.</p>' +
           '<button onclick="document.querySelector(\'.tab-pill[data-tab=players]\').click()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold transition-all" style="background:rgba(21,255,194,0.08);border:1px solid rgba(21,255,194,0.25);color:var(--teal)">← Browse Players</button>' +
           (function() {
-            var top = (window._playerData || []).filter(_isCompetitive).slice(0,3);
+            // Phantom-odds gate: during IN_PROGRESS, "+15000 Scheffler" chips are
+            // closed-market lines, not bettable. Cap by status so longshots stay
+            // visible pre-tournament but vanish once play starts.
+            var status = String(window._tournamentStatus || '').toUpperCase();
+            var maxAmerican = status === 'IN_PROGRESS' ? 5000 : 20000;
+            function _quickAddOddsOk(american) {
+              var n = Number(String(american == null ? '' : american).replace('+',''));
+              if (isNaN(n)) return false;
+              // Negative (favorite) is always fine; only positive longshots get capped.
+              return n <= 0 || n <= maxAmerican;
+            }
+            var top = (window._playerData || [])
+              .filter(_isCompetitive)
+              .filter(function(p) {
+                var o = p.odds ? (p.odds.dk || p.odds.fd || p.odds.mgm) : null;
+                return o != null && _quickAddOddsOk(o);
+              })
+              .slice(0,3);
             if (!top.length) return '';
             return '<div style="margin-top:0.75rem"><p class="text-[10px] text-slate-500 mb-2">Quick add a top ELITE pick:</p>' +
               top.map(function(p) {
@@ -6432,6 +6449,16 @@
 
   function _drawEdgeFinder() {
     var rows     = _buildEdgeRows(_edgeFinderCache, _edgeBookFilter, _edgeMarketFilter, _edgeMinEdge);
+    // Book-side sanity: drop rows where the book line is unbettable.
+    // bookImpliedProb < 1% (book odds > +9900) means the book has parked the
+    // market closed — these aren't real edges no matter what the model says.
+    rows = rows.filter(function(r) {
+      var p = (r.bookPct != null) ? (r.bookPct / 100) : 0;
+      if (p < 0.01) return false;
+      // Also drop anything still inside the phantom band (book odds > +9900).
+      if (r.bookOdds != null && r.bookOdds > 9900) return false;
+      return true;
+    });
     var posRows  = rows.filter(function(r){ return r.edge > 0; });
     // Avg Edge: compute ONLY over non-clamped rows so the meaningless "510.5%" number is gone
     var avgPool  = posRows.filter(function(r){ return !r.isClamped; });

@@ -524,7 +524,7 @@ def _classify_futures_market(market_type):
     return None
 
 
-def bdl_get_futures_odds(tournament_id):
+def bdl_get_futures_odds(tournament_id, event_status=None):
     """Get all futures markets from BDL: winner + top 5/10/20 + make cut + R1 leader.
 
     Returns a market-keyed dict — each value is `{player_name: {vendor: odds_str}}`:
@@ -538,8 +538,16 @@ def bdl_get_futures_odds(tournament_id):
           "r1Leader": {...},
         }
 
-    Phantom "market closed" odds (|american| >= 50000) are stripped — books park
-    eliminated / non-contender players at +500000 instead of removing the market.
+    Phantom "market closed" odds are stripped — books park eliminated /
+    non-contender players at inflated values instead of removing the market.
+
+    Threshold scales with event status:
+      - IN_PROGRESS: |american| >= 8000 (8x stricter than idle).
+        During live play, anything 10000+ is almost always a closed-market
+        placeholder, not a bettable longshot. +5000 stays in.
+      - NOT_STARTED / unknown: |american| >= 50000 (idle threshold).
+        Some books legitimately open longshots at +20000-30000 pre-tournament.
+      - COMPLETED / other: idle threshold.
 
     Previous version filtered to `tournament_winner` only, which dropped every
     placement market on the floor. That broke top5/top10/top20/makeCut Discord
@@ -552,7 +560,12 @@ def bdl_get_futures_odds(tournament_id):
     if not odds:
         return out
 
-    PHANTOM_ODDS_THRESHOLD = 50000  # anything ≥ this is a book "closed market" flag
+    # Tighten phantom threshold while play is live; books park closed markets
+    # at +10000+ during in-progress events, but real longshots stay below +8000.
+    if str(event_status or "").upper() == "IN_PROGRESS":
+        PHANTOM_ODDS_THRESHOLD = 8000
+    else:
+        PHANTOM_ODDS_THRESHOLD = 50000  # idle / pre-tournament / completed
     skipped_phantom = 0
     unknown_markets = {}
     vendor_short = {"fanduel": "fd", "draftkings": "dk", "betmgm": "mgm",
@@ -586,7 +599,10 @@ def bdl_get_futures_odds(tournament_id):
 
     parts = [f"{k}={len(v)}" for k, v in out.items() if v]
     summary = ", ".join(parts) if parts else "no markets parsed"
-    suffix = f" ({skipped_phantom} phantom/closed-market entries skipped)" if skipped_phantom else ""
+    suffix = (
+        f" ({skipped_phantom} phantom/closed-market entries skipped, "
+        f"threshold=|{PHANTOM_ODDS_THRESHOLD}|)"
+    ) if skipped_phantom else ""
     if unknown_markets:
         top_unknown = sorted(unknown_markets.items(), key=lambda kv: -kv[1])[:3]
         suffix += " (ignored market_types: " + ", ".join(
@@ -4471,8 +4487,9 @@ def run_pipeline():
             # Get tournament field
             bdl_field = bdl_get_tournament_field(tid)
 
-            # Get futures odds (winner + top5/10/20/makeCut/r1Leader)
-            bdl_futures = bdl_get_futures_odds(tid)
+            # Get futures odds (winner + top5/10/20/makeCut/r1Leader).
+            # Pass status so phantom-odds threshold tightens while play is live.
+            bdl_futures = bdl_get_futures_odds(tid, bdl_tournament.get("status"))
             bdl_odds = bdl_futures.get("winner", {})
 
             # Get player props (if tournament is upcoming/in-progress)
