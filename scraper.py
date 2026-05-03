@@ -4350,6 +4350,13 @@ def calculate_player_confidence_score(player, all_players, course_key="augusta",
     # =========================================================
     # EDGE SCORE  (model win% minus market implied%)
     # Positive = our model rates them higher than books do.
+    #
+    # NOTE: this is a PRELIMINARY edge_score using the legacy
+    # `(confScore/100) * 15` heuristic. It is overwritten in the
+    # main pipeline AFTER softmax-normalization assigns each player
+    # a calibrated `modelWinProb` that integrates to ~1.0 across
+    # the field. Downstream consumers should rely on the
+    # post-softmax recomputation for any betting decisions.
     # =========================================================
     edge_score = None
     # Ceremonial / non-competitive players should NEVER show positive edge
@@ -4980,6 +4987,123 @@ def run_pipeline():
         player["rank"] = i
 
     # ============================================================
+    # SOFTMAX-NORMALIZED WIN PROBABILITY
+    # ------------------------------------------------------------
+    # The raw confScore-based heuristic `(confScore/100) * 15`
+    # produces "win%" values that sum to ~500-600% across a 70+
+    # player field — so edge/EV against true book prices are
+    # meaningless. Softmax-normalize confScore into a calibrated
+    # win-probability distribution that integrates to ~1.0.
+    #
+    # Temperature is tuned so the field favorite lands in the
+    # 12-18% range, matching realistic outright odds (e.g. Scheffler
+    # at ~+700 implies ~12.5% true win equity).
+    # ============================================================
+    SOFTMAX_TEMPERATURE = 12.0
+    competitive_players = [
+        p for p in output["players"]
+        if p.get("competitiveness") not in ("ceremonial", "non_competitive")
+    ]
+    if competitive_players:
+        logits = [
+            float(p.get("confScore") or 0) / SOFTMAX_TEMPERATURE
+            for p in competitive_players
+        ]
+        max_logit = max(logits)
+        exps = [math.exp(l - max_logit) for l in logits]
+        total = sum(exps) or 1.0
+        for cp, e in zip(competitive_players, exps):
+            cp["modelWinProb"] = e / total
+    # Ceremonial / non-competitive players get a tiny floor probability
+    # so they don't break order-statistics math but contribute nothing.
+    for p in output["players"]:
+        if "modelWinProb" not in p:
+            p["modelWinProb"] = 1e-6
+
+    prob_sum = sum(float(p.get("modelWinProb") or 0) for p in output["players"])
+    top_prob = max((float(p.get("modelWinProb") or 0) for p in output["players"]), default=0.0)
+    print(f"  Softmax win-prob: T={SOFTMAX_TEMPERATURE}, sum={prob_sum:.4f}, "
+          f"top1={top_prob * 100:.2f}%")
+
+    # ============================================================
+    # ORDER-STATISTIC MONTE CARLO — top5 / top10 / top20 PROBS
+    # ------------------------------------------------------------
+    # Simulate the field's 4-round tournament scores using the same
+    # scoring distribution that powers predict_matchups: mean from
+    # confScore + course fit, std from per-player scoreStd (or
+    # BASE_STD fallback). Count finish-position frequencies to
+    # derive calibrated top-N place probabilities. Capped at top 50
+    # by confScore to keep runtime bounded.
+    # ============================================================
+    import random as _mc_random
+    _mc_random.seed(42)
+    MC_BASE_STD = 2.85
+    SIM_ROUNDS = 5000
+    SIM_FIELD_CAP = 50
+
+    sim_field = sorted(
+        output["players"],
+        key=lambda p: -(p.get("confScore") or 0),
+    )[:SIM_FIELD_CAP]
+
+    if sim_field:
+        # Mean strokes-under-par proxy: anchor confScore=50 at 0,
+        # rescale by ~0.04 strokes per confScore point so the
+        # favorite sits ~1.2 strokes ahead of mid-field per round
+        # — same order of magnitude as the SG-derived mean used in
+        # predict_matchups.
+        sim_means = []
+        sim_stds = []
+        for p in sim_field:
+            conf = float(p.get("confScore") or 50.0)
+            fit = (p.get("courseFit") or {}).get(resolved_course)
+            fit_boost = 0.0
+            if isinstance(fit, (int, float)):
+                fit_boost = (fit - 75) / 25.0
+            mean = -((conf - 50.0) * 0.04) - fit_boost
+            std = p.get("scoreStd")
+            if not (isinstance(std, (int, float)) and 1.5 <= std <= 5.0):
+                std = MC_BASE_STD
+            sim_means.append(mean)
+            sim_stds.append(float(std))
+
+        n_field = len(sim_field)
+        top5_counts = [0] * n_field
+        top10_counts = [0] * n_field
+        top20_counts = [0] * n_field
+        gauss = _mc_random.gauss
+
+        for _ in range(SIM_ROUNDS):
+            # 4-round total: per-round noise has std ~ stds[i],
+            # so 4-round-total std ≈ stds[i] * 2 (sqrt(4)).
+            scores = [
+                4.0 * sim_means[i] + gauss(0.0, sim_stds[i] * 2.0)
+                for i in range(n_field)
+            ]
+            order = sorted(range(n_field), key=lambda i: scores[i])
+            for finish, idx in enumerate(order):
+                if finish < 5:
+                    top5_counts[idx] += 1
+                if finish < 10:
+                    top10_counts[idx] += 1
+                if finish < 20:
+                    top20_counts[idx] += 1
+
+        for i, p in enumerate(sim_field):
+            p["modelTop5Prob"] = round(top5_counts[i] / SIM_ROUNDS, 4)
+            p["modelTop10Prob"] = round(top10_counts[i] / SIM_ROUNDS, 4)
+            p["modelTop20Prob"] = round(top20_counts[i] / SIM_ROUNDS, 4)
+
+        # Players outside the simulated field get tiny floor values.
+        for p in output["players"]:
+            if "modelTop5Prob" not in p:
+                p["modelTop5Prob"] = 0.0
+                p["modelTop10Prob"] = 0.0
+                p["modelTop20Prob"] = 0.001
+
+        print(f"  Order-stat MC: simulated {n_field} players x {SIM_ROUNDS} rounds")
+
+    # ============================================================
     # ML: ANOMALY DETECTION (Low-Frequency Market Mispricings)
     # ============================================================
     anomalies = detect_odds_anomalies(output["players"], course_key=resolved_course)
@@ -4996,17 +5120,38 @@ def run_pipeline():
     print(f"  Confidence scores calculated for {len(output['players'])} players")
 
     # ============================================================
-    # EV SCORING
+    # EV SCORING + EDGE RECOMPUTE (post-softmax)
+    # ------------------------------------------------------------
+    # Both edgeScore and evScore now consume the calibrated
+    # modelWinProb (softmax over confScore) instead of the legacy
+    # `(confScore/100) * 15` heuristic. This makes the comparison
+    # to book-implied probability mathematically valid: model win%
+    # sums to ~1.0 across the field, so positive edge means real
+    # disagreement with the market rather than a scaling artifact.
     # ============================================================
     for player in output["players"]:
-        # Calculate EV score if we have odds
+        win_prob = float(player.get("modelWinProb") or 0.0)
+        model_win_pct = win_prob * 100.0  # convert to percent for downstream funcs
+
         best_odds = player.get("odds", {})
         if best_odds:
             dk_odds = best_odds.get("dk") or best_odds.get("fd") or best_odds.get("mgm")
-            if dk_odds and player.get("confScore"):
-                # Use confScore as our model probability proxy
-                # confScore 100 ≈ 15% win prob, confScore 50 ≈ 7.5%, confScore 10 ≈ 1.5%
-                model_win_pct = (player["confScore"] / 100) * 15.0
+            if dk_odds and win_prob > 0:
+                # Coerce odds to float (some sources return strings like "+15000").
+                try:
+                    dk_odds_num = float(dk_odds)
+                except (TypeError, ValueError):
+                    continue
+                # Recompute edgeScore against best available book odds
+                if dk_odds_num > 0:
+                    market_implied_pct = 100.0 / (dk_odds_num + 100.0) * 100.0
+                else:
+                    market_implied_pct = abs(dk_odds_num) / (abs(dk_odds_num) + 100.0) * 100.0
+                # Ceremonial / non-competitive players keep zero edge
+                if player.get("competitiveness") in ("ceremonial", "non_competitive"):
+                    player["edgeScore"] = 0.0
+                else:
+                    player["edgeScore"] = round(model_win_pct - market_implied_pct, 2)
                 player["evScore"] = calculate_ev_score(dk_odds, model_win_pct)
 
     # ============================================================
@@ -5259,6 +5404,14 @@ def run_pipeline():
             if isinstance(p.get("ev"), (int, float)) and p["ev"] > 5
         ),
         "courseFitV2Coverage": v2_coverage,
+        # Sanity-check: softmax-normalized win probabilities must sum
+        # to ~1.0 across the field. Any future regression of the
+        # calibration step will surface here as a number much larger
+        # (legacy heuristic ~5.0+) or much smaller than 1.0.
+        "modelProbSum": round(
+            sum(float(p.get("modelWinProb") or 0) for p in output["players"]),
+            4,
+        ),
     }
 
     # ---- WRITE OUTPUT ----
