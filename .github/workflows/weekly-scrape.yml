@@ -48,13 +48,17 @@ permissions:
 jobs:
   scrape-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      # Force any transitively-Node-20 actions (e.g. peaceiris) to run on
+      # Node 24 — GitHub deprecates Node 20 actions June 2, 2026.
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
@@ -97,7 +101,7 @@ jobs:
           echo 'golf.propsbot.ai' > docs/CNAME
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
