@@ -2376,7 +2376,8 @@ def send_discord_alerts(output):
                     "min_american": -300, "max_american":  1000, "max_ratio": 1.8},
         "makeCut": {"peak": 0.85, "ev_threshold":  6.0, "label": "Make Cut",
                     "min_american": -500, "max_american":   500, "max_ratio": 1.6},
-        "r1Leader": {"peak": 0.06, "ev_threshold": 12.0, "label": "R1 Leader"},
+        "r1Leader": {"peak": 0.06, "ev_threshold": 12.0, "label": "R1 Leader",
+                     "min_american": -200, "max_american":  5000, "max_ratio": 2.8},
     }
 
     def _parse_american(raw):
@@ -2446,7 +2447,12 @@ def send_discord_alerts(output):
             # ---- GUARD 1: book-odds sanity band ----
             # Flat-default longshots (+50000 type) aren't real priced markets;
             # overwhelming favorites have no findable edge. Skip both.
-            if best_val < cal["min_american"] or best_val > cal["max_american"]:
+            # Use .get() with safe defaults so a missing key in MARKET_CAL
+            # never crashes the whole pipeline (Discord alerts are not
+            # critical-path; deploy must still ship).
+            min_am = cal.get("min_american", -10000)
+            max_am = cal.get("max_american", 50000)
+            if best_val < min_am or best_val > max_am:
                 continue
 
             # ---- Book implied probability ----
@@ -2473,7 +2479,7 @@ def send_discord_alerts(output):
             # not edge. Books generally price longshot fields correctly — any
             # "massive" edge vs a +2000 line is almost always our noise.
             ratio = model_prob / book_implied if book_implied > 0 else 0
-            if ratio > cal["max_ratio"]:
+            if ratio > cal.get("max_ratio", 5.0):
                 continue
 
             ev = _ev_on_stake(model_prob, best_val)
@@ -5450,7 +5456,17 @@ def run_pipeline():
     persist_odds_history(output, base_dir)
 
     # ---- DISCORD ALERTS ----
-    send_discord_alerts(output)
+    # Wrapped: alert path is non-critical. A bug here must NEVER block the
+    # deploy — the data files have already been written and the website
+    # update is the priority. Yesterday (May 7) we lost 5 deploys to a
+    # KeyError in the alerter for exactly this reason.
+    try:
+        send_discord_alerts(output)
+    except Exception as _alert_err:
+        print(f"  [WARN] Discord alerter raised: {type(_alert_err).__name__}: {_alert_err}")
+        import traceback as _tb
+        _tb.print_exc()
+        print(f"  [WARN] Continuing — data files already written.")
 
     file_size = os.path.getsize(output_path)
     print(f"\n{'=' * 60}")
