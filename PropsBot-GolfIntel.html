@@ -895,15 +895,18 @@
         <div class="space-y-1.5">
           <label class="text-[11px] font-semibold text-slate-300 uppercase">Course</label>
           <select id="cdCourse" class="w-full">
+            <option value="aronimink">Aronimink (2026 PGA Championship)</option>
+            <option value="shinnecock">Shinnecock Hills (2026 US Open)</option>
+            <option value="royal_birkdale">Royal Birkdale (2026 Open Championship)</option>
             <option value="augusta">Augusta National (Masters)</option>
             <option value="tpc_sawgrass">TPC Sawgrass (Players)</option>
             <option value="torrey_south">Torrey Pines South (Farmers)</option>
             <option value="pebble">Pebble Beach (AT&T)</option>
             <option value="riviera">Riviera CC (Genesis)</option>
-            <option value="valhalla">Valhalla (PGA Championship)</option>
-            <option value="pinehurst_2">Pinehurst No. 2 (US Open)</option>
-            <option value="royal_troon">Royal Troon (The Open)</option>
-            <option value="quail_hollow">Quail Hollow (Wells Fargo)</option>
+            <option value="valhalla">Valhalla (2024 PGA Championship)</option>
+            <option value="pinehurst_2">Pinehurst No. 2 (2024 US Open)</option>
+            <option value="royal_troon">Royal Troon (2024 The Open)</option>
+            <option value="quail_hollow">Quail Hollow (Truist / Wells Fargo)</option>
             <option value="east_lake">East Lake (Tour Championship)</option>
             <option value="bay_hill">Bay Hill (Arnold Palmer Inv.)</option>
             <option value="harbour_town">Harbour Town (RBC Heritage)</option>
@@ -1588,8 +1591,8 @@
         </div>
         <div class="flex items-center gap-2">
           <span class="text-xs text-slate-500">Min Edge:</span>
-          <input type="range" id="edgeMinEdge" min="-50" max="50" value="0" step="5" class="w-24 accent-[#15ffc2]" />
-          <span id="edgeMinEdgeLabel" class="mono text-xs text-pb-teal w-8">0%</span>
+          <input type="range" id="edgeMinEdge" min="-50" max="50" value="5" step="5" class="w-24 accent-[#15ffc2]" />
+          <span id="edgeMinEdgeLabel" class="mono text-xs text-pb-teal w-8">5%</span>
         </div>
       </div>
     </div>
@@ -3949,7 +3952,19 @@
     var m = getNextMajor();
     var today = new Date();
     var isLive = today >= new Date(m.start) && today <= new Date(m.end);
-    var label = isLive ? (m.short + ' · LIVE') : ('Next: ' + m.short);
+    // If the scraper's currentEvent IS this major (i.e. major-week already
+    // arrived for data purposes even if tee-off is a few days out), label
+    // it as "This Week" rather than "Next:" — otherwise users see
+    // "Next: PGA Champ." while reading the PGA Championship dashboard.
+    var liveEvt = window.DATA && window.DATA.currentEvent;
+    var liveName = (liveEvt && liveEvt.name || '').toLowerCase();
+    var liveStatus = (liveEvt && liveEvt.status || '').toUpperCase();
+    var isMajorWeek = !isLive && liveName &&
+      m.short && liveName.indexOf(m.short.toLowerCase().replace('.','').replace(' champ','')) >= 0 &&
+      (liveStatus === 'NOT_STARTED' || liveStatus === 'IN_PROGRESS');
+    var label = isLive
+      ? (m.short + ' · LIVE')
+      : (isMajorWeek ? ('This Week · ' + m.short) : ('Next: ' + m.short));
     var header = document.querySelector('header .flex.items-center.gap-3:last-child');
     if (header && !document.getElementById('headerTourneyBadge')) {
       var badge = document.createElement('span');
@@ -4164,8 +4179,12 @@
     } else {
       var cd = COURSE_DATA[_activeCourse];
       if (!cd || !cd.holes || !cd.holes.length) {
-        var cname = (cd && cd.name) ? cd.name : (_activeCourse || 'this course');
-        container.innerHTML = '<p class="text-xs text-slate-500 py-2">Hole data will load after the weekly scraper runs for <span class="text-pb-teal">' + cname + '</span>. Check back after Tuesday 1 AM ET.</p>';
+        // Prefer the live event's venue name over the raw course_key
+        // (e.g. show "Aronimink Golf Club" not "aronimink").
+        var liveCourse = (window.DATA && window.DATA.currentEvent && window.DATA.currentEvent.course) || '';
+        var cname = (cd && cd.name) ? cd.name
+                  : (liveCourse || _activeCourse || 'this course');
+        container.innerHTML = '<p class="text-xs text-slate-500 py-2">Hole data for <span class="text-pb-teal">' + cname + '</span> will appear once the next scrape posts BDL course intel. Auto-refreshes every 30 minutes during tournament weeks.</p>';
         return;
       }
       holes = cd.holes;
@@ -6400,8 +6419,19 @@
         var modelPct  = sr.probs[m.key];
         var bookDec   = bookOdds > 0 ? (bookOdds/100+1) : (100/Math.abs(bookOdds)+1);
         var bookPct   = +(1/bookDec*100).toFixed(2);
-        // Drop rows where book implied prob < 1% — divide-by-near-zero produces garbage +999% edges
-        if (bookPct / 100 < 0.01) return;
+        // Book-implied floor — DROP fade-trap longshots.
+        //   <3% book implied (worse than +3233) on the winner market is where
+        //   the model's softmax-allocated probability mass produces fake
+        //   "edges" against a book that's correctly fading. Tighter for win
+        //   market (3%) than placement markets (1%) since win is the
+        //   noisiest derivation.
+        var bookFloor = (m.key === 'win') ? 0.03 : 0.01;
+        if (bookPct / 100 < bookFloor) return;
+        // Also require absolute edge (modelPct - bookPct) of at least 3pp.
+        // A 6% model on a 2% book line is "200% relative edge" but only 4pp
+        // absolute — that's typical noise, not signal.
+        var absEdge = modelPct - bookPct;
+        if (m.key === 'win' && absEdge < 3) return;
         var rawEdge   = (modelPct - bookPct) / bookPct * 100;
         // Cap displayed edge at +/-50%; flag clamped rows so the UI can show "50%+" with a tooltip
         var EDGE_CAP  = 50;
