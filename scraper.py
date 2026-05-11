@@ -564,8 +564,14 @@ def bdl_get_futures_odds(tournament_id, event_status=None):
     # at +10000+ during in-progress events, but real longshots stay below +8000.
     if str(event_status or "").upper() == "IN_PROGRESS":
         PHANTOM_ODDS_THRESHOLD = 8000
+    elif str(event_status or "").upper() == "NOT_STARTED":
+        # Pre-tournament: books open longshots at +15000-+25000 (legitimate),
+        # but anything >+25000 is almost certainly a "we haven't priced this
+        # player" placeholder. PGA Championship feed showed DJ +21000, Smith
+        # +29000, Mickelson +30000 — all garbage.
+        PHANTOM_ODDS_THRESHOLD = 25000
     else:
-        PHANTOM_ODDS_THRESHOLD = 50000  # idle / pre-tournament / completed
+        PHANTOM_ODDS_THRESHOLD = 50000  # completed / unknown
     skipped_phantom = 0
     unknown_markets = {}
     vendor_short = {"fanduel": "fd", "draftkings": "dk", "betmgm": "mgm",
@@ -5226,17 +5232,51 @@ def run_pipeline():
     # `player_props` (which is birdie / bogey / scoring totals only). The
     # previous version of this block fed `bdl_props` into a parser that
     # never produced any data, so placement Discord alerts never fired.
-    output["propsByType"] = {
+    # Build a normalized lookup of our actual field — used to filter out any
+    # cross-sport prop entries that BDL might return (e.g. LPGA player names
+    # leaking into PGA Championship's top5 market). Without this filter the
+    # user-facing Props tab showed "Nelly Korda" / "Jeeno Thitikul" during
+    # PGA Championship week.
+    _field_norm = {normalize_name(p.get("name", "")) for p in output.get("players", [])}
+
+    def _filter_to_field(market_dict):
+        """Drop any entry whose normalized name isn't in our actual field.
+        Logs the leak count for monitoring."""
+        if not market_dict:
+            return market_dict, 0
+        kept = {}
+        leaked = 0
+        for name, val in market_dict.items():
+            if normalize_name(name) in _field_norm:
+                kept[name] = val
+            else:
+                leaked += 1
+        return kept, leaked
+
+    raw_props = {
         "top5":     bdl_futures.get("top5", {}),
         "top10":    bdl_futures.get("top10", {}),
         "top20":    bdl_futures.get("top20", {}),
         "makeCut":  bdl_futures.get("makeCut", {}),
         "r1Leader": bdl_futures.get("r1Leader", {}),
     }
+    output["propsByType"] = {}
+    total_leaked = 0
+    for market_key, market_dict in raw_props.items():
+        filtered, leaked = _filter_to_field(market_dict)
+        output["propsByType"][market_key] = filtered
+        total_leaked += leaked
+    if total_leaked > 0:
+        print(f"  [CROSS-SPORT FILTER] Dropped {total_leaked} prop entries for players not in our field")
+
     if bdl_props:
         # Real book lines for stat props (birdies/bogeys/scoring/eagles)
-        output["propLines"] = extract_stat_prop_lines(bdl_props)
-        print(f"  Extracted book lines for {len(output['propLines'])} players")
+        raw_lines = extract_stat_prop_lines(bdl_props)
+        # Same field filter
+        output["propLines"] = {n: v for n, v in raw_lines.items() if normalize_name(n) in _field_norm}
+        line_leaked = len(raw_lines) - len(output["propLines"])
+        suffix = f" ({line_leaked} cross-sport entries dropped)" if line_leaked else ""
+        print(f"  Extracted book lines for {len(output['propLines'])} players{suffix}")
     else:
         output["propLines"] = {}
 
@@ -5442,6 +5482,12 @@ def run_pipeline():
             sum(float(p.get("modelWinProb") or 0) for p in output["players"]),
             4,
         ),
+        # Coverage of each placement market (real book lines, post-filter).
+        # If any drops to 0 unexpectedly mid-tournament-week, an alert fires.
+        "propMarketCoverage": {
+            m: len(output["propsByType"].get(m, {}) or {})
+            for m in ("top5", "top10", "top20", "makeCut", "r1Leader")
+        },
     }
 
     # ---- WRITE OUTPUT ----
