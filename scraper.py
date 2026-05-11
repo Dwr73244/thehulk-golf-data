@@ -3036,9 +3036,15 @@ def bdl_build_masters_intel(tournament_id=20, course_id=37):
 # TEE TIMES — ESPN FREE API
 # ============================================================
 
-def fetch_tee_times(bdl_field=None):
+def fetch_tee_times(bdl_field=None, expected_event_name=None):
     """Fetch tee times, preferring BallDontLie field data (paid, structured).
-    Falls back to ESPN scoreboard. BDL exposes tee_time on tournament_field rows."""
+    Falls back to ESPN scoreboard. BDL exposes tee_time on tournament_field rows.
+
+    expected_event_name (optional): if provided, ESPN fallback only emits tee
+    times when ESPN's current event token-overlaps this name. Prevents
+    "PGA Championship tee times" being filled with last week's Truist data
+    during the Mon-Wed gap between events.
+    """
     tee_times = []
 
     # Preferred: BDL tournament_field (we pay for it — use it)
@@ -3082,6 +3088,17 @@ def fetch_tee_times(bdl_field=None):
         if not events:
             return tee_times
         event = events[0]
+        # Gate ESPN tee times by event match — same logic as the leaderboard fix.
+        if expected_event_name:
+            espn_name = (event.get("name") or "").strip().lower()
+            expected = expected_event_name.strip().lower()
+            STOPWORDS = {"the","championship","tournament","open","classic","of","and","&"}
+            etoks = {w for w in espn_name.split() if w not in STOPWORDS and len(w) > 2}
+            xtoks = {w for w in expected.split() if w not in STOPWORDS and len(w) > 2}
+            if (etoks and xtoks) and not (etoks & xtoks):
+                print(f"  ESPN event '{event.get('name')}' does not match expected "
+                      f"'{expected_event_name}' — skipping ESPN tee times.")
+                return tee_times
         for comp in event.get("competitions", []):
             for competitor in comp.get("competitors", []):
                 athlete = competitor.get("athlete", {}) or {}
@@ -4638,23 +4655,47 @@ def run_pipeline():
     # whenever the BDL leaderboard is missing totalStrokes for all entries.
     ce = output.get("currentEvent") or {}
     if espn_event and ce:
+        # CRITICAL: ESPN's scoreboard endpoint shows the most-recently-played PGA
+        # Tour event regardless of BDL's "current event" flag. During the gap
+        # between events (Sun night → Wed), ESPN shows the COMPLETED tournament
+        # (Truist) while BDL has already flipped to the NEXT one (PGA Champ).
+        # If we naively merge, we end up showing Truist scores under the PGA
+        # Championship banner. Match by NAME and reject mismatched ESPN data.
+        bdl_name = (ce.get("name") or "").strip().lower()
+        espn_name = (espn_event.get("name") or "").strip().lower()
+        bdl_status = str(ce.get("status", "")).upper()
+        # Token-overlap match: any non-trivial word in common counts as same event.
+        # (Handles "RBC Heritage" vs "Heritage Tournament" etc.)
+        STOPWORDS = {"the", "championship", "tournament", "open", "classic", "of", "and", "&"}
+        bdl_tokens = {w for w in bdl_name.split() if w not in STOPWORDS and len(w) > 2}
+        espn_tokens = {w for w in espn_name.split() if w not in STOPWORDS and len(w) > 2}
+        events_match = bool(bdl_tokens & espn_tokens) if (bdl_tokens and espn_tokens) else (bdl_name == espn_name)
+
         bdl_lb = ce.get("leaderboard") or []
         bdl_has_scores = any((p.get("totalStrokes") or 0) > 0 for p in bdl_lb)
         espn_lb = espn_event.get("leaderboard") or []
         espn_has_scores = any((p.get("totalStrokes") or 0) > 0 for p in espn_lb)
-        status_live = str(ce.get("status", "")).upper() in ("IN_PROGRESS", "IN PROGRESS", "COMPLETED", "STATUS_IN_PROGRESS")
-        if espn_has_scores and (not bdl_has_scores or len(bdl_lb) == 0):
-            print(f"[PIPELINE] Replacing empty BDL leaderboard with live ESPN data ({len(espn_lb)} entries)")
-            ce["leaderboard"] = espn_lb[:80]
-            ce["leaderboardSource"] = "ESPN"
-        elif bdl_has_scores:
-            ce["leaderboardSource"] = "BallDontLie"
-        # Fill missing city/state/course from ESPN if BDL omitted them
-        for k in ("city", "state", "course"):
-            if not ce.get(k) and espn_event.get(k):
-                ce[k] = espn_event[k]
-        if status_live and not (ce.get("leaderboard") or []):
-            print("[PIPELINE] WARNING: tournament is live but leaderboard is empty from all sources")
+
+        if not events_match:
+            print(f"[PIPELINE] ESPN event '{espn_event.get('name')}' does NOT match BDL event "
+                  f"'{ce.get('name')}' — ignoring ESPN leaderboard/tee-times for this run "
+                  f"(common during Mon-Wed transition).")
+            ce["leaderboard"] = []
+            ce["leaderboardSource"] = "none-pretournament"
+        else:
+            if espn_has_scores and (not bdl_has_scores or len(bdl_lb) == 0):
+                print(f"[PIPELINE] Replacing empty BDL leaderboard with live ESPN data ({len(espn_lb)} entries)")
+                ce["leaderboard"] = espn_lb[:80]
+                ce["leaderboardSource"] = "ESPN"
+            elif bdl_has_scores:
+                ce["leaderboardSource"] = "BallDontLie"
+            # Fill missing city/state/course from ESPN if BDL omitted them
+            for k in ("city", "state", "course"):
+                if not ce.get(k) and espn_event.get(k):
+                    ce[k] = espn_event[k]
+            status_live = bdl_status in ("IN_PROGRESS", "IN PROGRESS", "COMPLETED", "STATUS_IN_PROGRESS")
+            if status_live and not (ce.get("leaderboard") or []):
+                print("[PIPELINE] WARNING: tournament is live but leaderboard is empty from all sources")
 
     # ============================================================
     # MERGE PLAYER DATA
@@ -4959,7 +5000,10 @@ def run_pipeline():
     # ============================================================
     # TEE TIMES (fetched early so confidence score can use morning_adv)
     # ============================================================
-    tee_times = fetch_tee_times(bdl_field=bdl_field)
+    tee_times = fetch_tee_times(
+        bdl_field=bdl_field,
+        expected_event_name=((output.get("currentEvent") or {}).get("name") or None),
+    )
     output["teeTimes"] = tee_times
     # Stash tee time on each player for confidence score morning_adv
     if tee_times:
