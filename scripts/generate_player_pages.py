@@ -103,20 +103,31 @@ def collect_history_for(name: str, history: list[tuple[str, dict]]) -> list[dict
         event_name = cur.get("name") or ""
         if event_name in seen_events:
             continue
+        # ONLY include events that have actually been played — never an
+        # in-progress or upcoming event. Before this guard, a NOT_STARTED
+        # PGA Championship snapshot would render a "position" pulled from
+        # whatever pre-event row a player had (or from a historic Truist
+        # leaderboard leak before PR #49 landed), looking like a finish
+        # to users when nothing has been played.
+        status = str(cur.get("status") or "").upper()
+        if status not in ("COMPLETED", "STATUS_FINAL", "FINAL"):
+            continue
         lb = cur.get("leaderboard") or []
+        # Must also have actual numeric scores — guards against completed
+        # event records where the leaderboard was wiped or never populated.
+        lb_has_scores = any((r.get("totalStrokes") or 0) > 0 for r in lb)
+        if not lb_has_scores:
+            continue
         # leaderboard is richest — position + score
         lb_row = next((r for r in lb if (r.get("name") or "").lower() == name.lower()), None)
-        p_row = next((p for p in players if (p.get("name") or "").lower() == name.lower()), None)
-        if not p_row and not lb_row:
+        if not lb_row:
+            # Player did not have a leaderboard entry for this completed
+            # event (missed cut, withdrew, did not play). Skip the row —
+            # we won't fabricate a position from recentForm anymore.
             continue
         position = (lb_row or {}).get("position") or ""
         score = (lb_row or {}).get("score") or ""
         total = (lb_row or {}).get("totalStrokes") or ""
-        if not position and p_row:
-            rf = (p_row.get("recentForm") or {})
-            lp = rf.get("lastPosition")
-            if lp:
-                position = f"#{lp}"
         rows.append({
             "date": date,
             "event": event_name or "—",
@@ -446,9 +457,14 @@ def render_player_page(p: dict, data: dict, history: list[tuple[str, dict]], gen
     conf = p.get("confScore")
     edge = p.get("edgeScore")
 
+    # LIV players play limited PGA Tour events. Generic "Pro Golf" framing
+    # so a LIV golfer's page doesn't claim full PGA Tour membership.
+    is_liv = bool(p.get("liv")) or "LIV" in (p.get("notes") or "")
+    tour_label = "Pro Golf" if is_liv else "PGA Tour"
+
     # Meta description packs the top stats
     meta_desc_parts = [
-        f"{name} PGA Tour profile.",
+        f"{name} {tour_label} profile.",
         f"SG Total {fmt(p.get('sgTotal'), 2)}, Rank #{fmt_int(p.get('rank'))}.",
     ]
     if conf is not None:
@@ -457,7 +473,7 @@ def render_player_page(p: dict, data: dict, history: list[tuple[str, dict]], gen
         meta_desc_parts.append(f"This week: {event['name']}.")
     meta_desc = " ".join(meta_desc_parts)[:300]
 
-    title = f"{name} — PGA Tour Stats, Odds, Course Fit | PropsBot"
+    title = f"{name} — {tour_label} Stats, Odds, Course Fit | PropsBot"
     canonical = f"{SITE_BASE}/player/{slug}.html"
 
     # JSON-LD Person
