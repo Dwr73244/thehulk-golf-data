@@ -2186,18 +2186,41 @@ def scrape_recent_form(espn_event_data):
     print("[6/7] Building recent form profiles...")
     form_map = {}
 
-    # Use current leaderboard as most recent data point
-    if espn_event_data and espn_event_data.get("leaderboard"):
+    # Use current leaderboard as most recent data point — but ONLY when the
+    # event has actually been played. Pre-tournament snapshots wrote stale
+    # "lastResult" rows that looked like a finish position to users
+    # ("#144 at PGA Championship" before tee-off). The leaderboard merge
+    # logic later in run_pipeline already token-matches ESPN against BDL;
+    # here we additionally require the event to be COMPLETED, so a stale
+    # ESPN Truist record can never seep into recent-form even if names
+    # happened to overlap.
+    espn_status = ""
+    if espn_event_data:
+        espn_status = str(espn_event_data.get("status") or "").upper()
+    is_completed = espn_status in ("COMPLETED", "STATUS_FINAL", "FINAL", "POSTEVENT")
+
+    if is_completed and espn_event_data and espn_event_data.get("leaderboard"):
         lb = espn_event_data["leaderboard"]
-        for i, entry in enumerate(lb):
-            name = entry.get("name", "")
-            if not name:
-                continue
-            position = i + 1  # Approximate position from leaderboard order
-            form_map[name] = {
-                "lastResult": f"#{position} at {espn_event_data.get('name', 'Unknown')}",
-                "lastPosition": position,
-            }
+        has_scores = any((r.get("totalStrokes") or 0) > 0 for r in lb)
+        if has_scores:
+            event_name = espn_event_data.get("name", "Unknown")
+            for i, entry in enumerate(lb):
+                name = entry.get("name", "")
+                if not name:
+                    continue
+                # Prefer the leaderboard's own position string ("T15") over
+                # the loop index — index lies whenever leaders are tied.
+                pos_raw = entry.get("position") or f"#{i + 1}"
+                pos_display = pos_raw if str(pos_raw).startswith(("T", "#")) else f"#{pos_raw}"
+                form_map[name] = {
+                    "lastResult": f"{pos_display} at {event_name}",
+                    "lastPosition": i + 1,
+                }
+    elif espn_event_data:
+        # Pre-tournament or in-progress: don't write a misleading lastResult.
+        # The L5/L10 averages below still compute from completed history.
+        print(f"  Skipping lastResult — ESPN event status is "
+              f"'{espn_status or 'unknown'}', not COMPLETED")
 
     # Load historical archive files for L5/L10 calculation
     base_dir = os.path.dirname(os.path.abspath(__file__))
