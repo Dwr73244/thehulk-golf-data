@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-05-13T17:14:00.534473",
+  "generatedAt": "2026-05-13T19:27:33.710958",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -416,7 +416,7 @@
       "notes": "2023 Masters champion. LIV — major invitee.",
       "odds": {
         "fd": "+1200",
-        "mgm": "+1600",
+        "mgm": "+1400",
         "bet": "+1400",
         "dk": "+1400"
       },
@@ -905,8 +905,8 @@
       "notes": "Links-style player. Low ball flight suits windy conditions. Good bogey under candidate.",
       "odds": {
         "fd": "+2200",
-        "mgm": "+2200",
-        "bet": "+2800",
+        "mgm": "+2500",
+        "bet": "+2500",
         "dk": "+2800"
       },
       "fieldInfo": {
@@ -14157,29 +14157,29 @@
     "weather": [
       {
         "date": "2026-05-13",
-        "tempHigh": 74.4,
+        "tempHigh": 73.6,
         "tempLow": 55.9,
-        "windAvg": 14.0,
-        "windMax": 17.7,
-        "windDir": 196,
-        "rainPct": 9
+        "windAvg": 13.4,
+        "windMax": 16.2,
+        "windDir": 193,
+        "rainPct": 6
       },
       {
         "date": "2026-05-14",
         "tempHigh": 60.8,
-        "tempLow": 54.3,
-        "windAvg": 11.2,
+        "tempLow": 52.3,
+        "windAvg": 10.9,
         "windMax": 12.6,
-        "windDir": 293,
+        "windDir": 290,
         "rainPct": 4
       },
       {
         "date": "2026-05-15",
-        "tempHigh": 61.9,
-        "tempLow": 48.2,
+        "tempHigh": 62.1,
+        "tempLow": 48.5,
         "windAvg": 10.2,
-        "windMax": 12.5,
-        "windDir": 317,
+        "windMax": 12.7,
+        "windDir": 296,
         "rainPct": 3
       }
     ]
@@ -14361,29 +14361,29 @@
     "forecast": [
       {
         "date": "2026-05-13",
-        "tempHigh": 74.4,
+        "tempHigh": 73.6,
         "tempLow": 55.9,
-        "windAvg": 14.0,
-        "windMax": 17.7,
-        "windDir": 196,
-        "rainPct": 9
+        "windAvg": 13.4,
+        "windMax": 16.2,
+        "windDir": 193,
+        "rainPct": 6
       },
       {
         "date": "2026-05-14",
         "tempHigh": 60.8,
-        "tempLow": 54.3,
-        "windAvg": 11.2,
+        "tempLow": 52.3,
+        "windAvg": 10.9,
         "windMax": 12.6,
-        "windDir": 293,
+        "windDir": 290,
         "rainPct": 4
       },
       {
         "date": "2026-05-15",
-        "tempHigh": 61.9,
-        "tempLow": 48.2,
+        "tempHigh": 62.1,
+        "tempLow": 48.5,
         "windAvg": 10.2,
-        "windMax": 12.5,
-        "windDir": 317,
+        "windMax": 12.7,
+        "windDir": 296,
         "rainPct": 3
       }
     ]
@@ -16724,9 +16724,17 @@
   },
   "news": [
     {
+      "headline": "PGA Championship odds: Scheffler favored in second major of the season; McIlroy, Rahm next",
+      "description": "Scottie Scheffler is the favorite to win the 2026 PGA Championship, with Rory McIlroy, Jon Rahm and Cameron Young behind him.",
+      "published": "2026-05-13T18:05:15Z",
+      "link": "https://www.espn.com/betting/golf/story/_/id/48759817/2026-pga-championship-golf-betting-odds-top-5-top-10-top-20-make-cut",
+      "player": "Scottie Scheffler",
+      "image": "https://a.espncdn.com/photo/2026/0513/r1657674_1296x729_16-9.jpg"
+    },
+    {
       "headline": "Jim Furyk seeks long-term blueprint for U.S. Ryder Cup team",
       "description": "United States captain Jim Furyk has taken notes following the most recent loss about what could and should be done better to give the Americans not just a chance at the next Ryder Cup, but a long-term blueprint going forward.",
-      "published": "2026-05-13T16:48:07Z",
+      "published": "2026-05-13T17:18:19Z",
       "link": "https://www.espn.com/golf/story/_/id/48760023/jim-furyk-seeks-long-term-blueprint-us-ryder-cup-team",
       "player": "Jim Furyk",
       "image": "https://a.espncdn.com/photo/2026/0502/r1652548_600x400_3-2.jpg"
@@ -16814,7 +16822,7 @@
     {
       "headline": "2026 PGA Championship: News, how to watch, more from Aronimink",
       "description": "The PGA Championship heads to Aronimink Golf Club outside of Philadelphia. Here's all the coverage.",
-      "published": "2026-05-13T15:28:54Z",
+      "published": "2026-05-13T18:23:23Z",
       "link": "https://www.espn.com/golf/story/_/page/PGAchampionship2026/pga-championship-2026-news-tee-s-schedule-television-complete-coverage-analysis",
       "player": "Rory McIlroy",
       "image": "https://a.espncdn.com/photo/2026/0512/r1656989_1296x729_16-9.jpg"
@@ -16834,14 +16842,6 @@
       "link": "https://www.espn.com/golf/story/_/id/48750170/rory-mcilroy-amid-liv-crisis-glad-was-wrong-pga-tour-pif-deal",
       "player": "Rory McIlroy",
       "image": "https://a.espncdn.com/photo/2026/0508/r1655553_1296x729_16-9.jpg"
-    },
-    {
-      "headline": "Scottie Scheffler or Rory McIlroy, Jordan Spieth's Slam chances and sleeper contenders",
-      "description": "Is Scottie Scheffler or Rory McIlroy the favorite? Can Jordan Spieth complete the career Grand Slam? We break down what to watch at the 2026 PGA Championship.",
-      "published": "2026-05-13T12:22:15Z",
-      "link": "https://www.espn.com/golf/story/_/id/48711290/scottie-scheffler-rory-mcilroy-jordan-spieth-sleeper-contenders-pga-championship",
-      "player": "Scottie Scheffler",
-      "image": "https://a.espncdn.com/photo/2026/0512/r1657085_1296x729_16-9.jpg"
     }
   ],
   "propsByType": {
@@ -16865,7 +16865,7 @@
         "fd": "+5000"
       },
       "Steven Fisk": {
-        "fd": "+4000"
+        "fd": "+4500"
       },
       "Stephan Jaeger": {
         "fd": "+5000"
