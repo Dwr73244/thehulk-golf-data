@@ -871,6 +871,33 @@ def get_course_data():
         "colonial": {"name": "Colonial Country Club", "event": "Charles Schwab Challenge", "par": 70, "yards": 7209, "lastUpdated": ts, "source": src},
         "memorial": {"name": "Muirfield Village Golf Club", "event": "Memorial Tournament", "par": 72, "yards": 7543, "lastUpdated": ts, "source": src},
         "tpc_scottsdale": {"name": "TPC Scottsdale", "event": "WM Phoenix Open", "par": 71, "yards": 7261, "lastUpdated": ts, "source": src},
+        # --- 2026 Major venues (Course tab now shows real metadata even
+        # when BDL hole intel for these courses hasn't been ingested yet) ---
+        "aronimink": {
+            "name": "Aronimink Golf Club", "event": "2026 PGA Championship",
+            "par": 70, "yards": 7267, "designer": "Donald Ross",
+            "location": "Newtown Square, PA", "yearBuilt": 1926,
+            "notes": "Donald Ross design (1926 layout, restored 2018). Classic par-70 with small undulating greens and demanding approach shots. Hosted 1962 PGA Championship and 2010 AT&T National. Premium on iron play, putting, and scrambling — accuracy off the tee less critical than at most majors.",
+            "keyHoles": [
+                {"hole": 16, "par": 4, "yards": 462, "note": "Long par-4 dogleg-left; one of the toughest holes in the closing stretch."},
+                {"hole": 18, "par": 4, "yards": 489, "note": "Uphill finisher with a wide fairway but demanding second shot to a small green."}
+            ],
+            "lastUpdated": ts, "source": src,
+        },
+        "shinnecock": {
+            "name": "Shinnecock Hills Golf Club", "event": "2026 U.S. Open",
+            "par": 70, "yards": 7445, "designer": "William Flynn (1931 redesign)",
+            "location": "Southampton, NY", "yearBuilt": 1891,
+            "notes": "Links-style major venue, five-time U.S. Open host. Premium on wind management, accuracy off the tee, and creative short game. Firm fast greens, revetted bunkers, fescue rough.",
+            "lastUpdated": ts, "source": src,
+        },
+        "royal_birkdale": {
+            "name": "Royal Birkdale Golf Club", "event": "2026 The Open Championship",
+            "par": 70, "yards": 7165, "designer": "George Lowe / F.G. Hawtree redesign",
+            "location": "Southport, England", "yearBuilt": 1889,
+            "notes": "Traditional links among the dunes. Tenth Open Championship host. Punishes wayward driving and rewards controlled ball flight. Strong putters and shotmakers historically rise here.",
+            "lastUpdated": ts, "source": src,
+        },
     }
 
 
@@ -913,6 +940,10 @@ COURSE_COORDS = {
     "colonial": (32.730, -97.392),
     "memorial": (40.089, -83.177),
     "tpc_scottsdale": (33.639, -111.906),
+    # 2026 Major venues
+    "aronimink": (39.971, -75.394),       # Newtown Square, PA — 2026 PGA Championship
+    "shinnecock": (40.890, -72.428),      # Southampton, NY — 2026 U.S. Open
+    "royal_birkdale": (53.633, -3.027),   # Southport, England — 2026 The Open
 }
 
 # Reverse lookup: match ESPN venue names to course keys

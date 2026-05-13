@@ -3660,6 +3660,36 @@
     grid.innerHTML = '';
     tbody.innerHTML = '';
 
+    // Graceful empty-state for courses where we have base metadata but no
+    // hole-by-hole scoring history (e.g. Aronimink 2026 PGA Championship —
+    // first time hosting in modern era, no historic per-hole averages).
+    if (!data.holes || !data.holes.length) {
+      var msg = '<div class="glass rounded-2xl p-5 text-center" style="border:1px dashed rgba(120,160,200,0.2);">' +
+        '<p class="text-sm font-semibold text-white mb-1">' + (data.name || 'This course') + '</p>' +
+        '<p class="text-xs text-slate-400 mb-3">' + [data.event, data.par && ('Par ' + data.par), data.yards && (data.yards + ' yds'), data.location].filter(Boolean).join(' · ') + '</p>' +
+        (data.designer ? '<p class="text-[11px] text-slate-500 mb-2">Designer: ' + data.designer + (data.yearBuilt ? ' (' + data.yearBuilt + ')' : '') + '</p>' : '') +
+        (data.notes ? '<p class="text-xs text-slate-300 leading-relaxed max-w-2xl mx-auto mb-3">' + data.notes + '</p>' : '') +
+        ((data.keyHoles && data.keyHoles.length)
+          ? '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 max-w-2xl mx-auto">' +
+            data.keyHoles.map(function(h){
+              return '<div class="text-left text-[11px] text-slate-300 bg-white/5 rounded-md p-2">' +
+                '<span class="font-bold text-pb-teal">Hole ' + h.hole + '</span>' +
+                ' · Par ' + h.par + ' · ' + h.yards + ' yds<br/>' +
+                '<span class="text-slate-400">' + h.note + '</span></div>';
+            }).join('') + '</div>'
+          : '') +
+        '<p class="text-[10px] text-slate-600 mt-4">Hole-by-hole scoring data populates after the first round of competitive play. ' +
+        'Refreshes every 30 minutes during tournament weeks.</p>' +
+      '</div>';
+      grid.innerHTML = msg;
+      // Also clear the lookup labels so old data doesn't show
+      var hardestEl = el('cdHardest'), easiestEl = el('cdEasiest'), avgEl = el('cdScoringAvg');
+      if (hardestEl) hardestEl.textContent = '—';
+      if (easiestEl) easiestEl.textContent = '—';
+      if (avgEl) avgEl.textContent = '—';
+      return;
+    }
+
     var totalScore = 0, totalPar = 0;
     var hardest = null, easiest = null;
 
@@ -3897,12 +3927,21 @@
         else if (cn.indexOf('scottsdale') >= 0) _activeCourse = 'tpc_scottsdale';
       }
     }
-    // Merge course data if present
+    // Merge course data if present.
+    // Always overwrite when the scraper emits a course — base metadata
+    // (par/yards/event/notes) matters even when BDL hasn't ingested
+    // hole-by-hole data yet (e.g. Aronimink for 2026 PGA Championship).
+    // If a key has holes already, we preserve them.
     if (data.courses) {
       Object.keys(data.courses).forEach(function(key) {
-        if (data.courses[key].holes) {
-          COURSE_DATA[key] = data.courses[key];
+        var incoming = data.courses[key];
+        if (!incoming) return;
+        var existing = COURSE_DATA[key] || {};
+        // Preserve holes already on the client if scraper didn't send them
+        if (!incoming.holes && existing.holes) {
+          incoming.holes = existing.holes;
         }
+        COURSE_DATA[key] = Object.assign({}, existing, incoming);
       });
     }
     // Update current event info
