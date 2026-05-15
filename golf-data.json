@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-05-14T23:53:03.882165",
+  "generatedAt": "2026-05-15T05:58:29.745623",
   "generatedBy": "PropsBot Golf Scraper v2.0",
   "sources": [
     "BallDontLie PGA API (GOAT tier — players, field, odds, props, stats)",
@@ -51,9 +51,9 @@
       "notes": "Elite ball-striker. Best SG:Approach on Tour. Premium plays: strokes under, birdies over.",
       "odds": {
         "fd": "+350",
-        "mgm": "+450",
-        "bet": "+165",
-        "dk": "+175"
+        "mgm": "+188",
+        "bet": "+150",
+        "dk": "+166"
       },
       "fieldInfo": {
         "owgr": 1,
@@ -68,7 +68,7 @@
         "trend": "steady",
         "events": 2,
         "roundAvgs": {
-          "r1Avg": 67.0
+          "r1Avg": 69.0
         }
       },
       "makeCutPct": 60.0,
@@ -106,30 +106,30 @@
         "makeCut": 78
       },
       "confScore": 85.10000000000001,
-      "edgeScore": -26.59,
+      "edgeScore": -27.84,
       "owgrRank": 1,
-      "modelWinProb": 0.09777468034686901,
-      "modelTop5Prob": 0.2916,
-      "modelTop10Prob": 0.4616,
+      "modelWinProb": 0.09758011447759954,
+      "modelTop5Prob": 0.2914,
+      "modelTop10Prob": 0.4608,
       "modelTop20Prob": 0.6914,
       "anomalies": [
         {
           "type": "z_score",
-          "z": -6.03,
+          "z": -6.12,
           "direction": "OVERPRICED",
-          "edge_pct": -23.6,
+          "edge_pct": -24.83,
           "market": "outright"
         },
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
-          "edge_pct": -23.6,
-          "fence": 1.36,
+          "edge_pct": -24.83,
+          "fence": 1.42,
           "market": "outright"
         }
       ],
-      "evScore": -73.1,
-      "scoreStd": 2.11
+      "evScore": -74.0,
+      "scoreStd": 1.68
     },
     {
       "id": 2,
@@ -171,9 +171,9 @@
       "notes": "Most well-rounded player on Tour. No weakness. Excels at Torrey Pines.",
       "odds": {
         "fd": "+1500",
-        "mgm": "+1800",
-        "bet": "+850",
-        "dk": "+1100"
+        "mgm": "+1000",
+        "bet": "+900",
+        "dk": "+1175"
       },
       "fieldInfo": {
         "owgr": 4,
@@ -214,7 +214,7 @@
         "driving": 4.2,
         "birdie_bogey": 5.9,
         "cut": 3.0,
-        "market": 2.0,
+        "market": 2.2,
         "closing": 0.0,
         "field_strength": 2.0,
         "consistency": 1.6,
@@ -230,13 +230,13 @@
         "makeCut": 73
       },
       "confScore": 73.8,
-      "edgeScore": -4.52,
+      "edgeScore": -4.04,
       "owgrRank": 2,
-      "modelWinProb": 0.03812990890096016,
+      "modelWinProb": 0.038054032622519135,
       "modelTop5Prob": 0.1892,
       "modelTop10Prob": 0.3294,
-      "modelTop20Prob": 0.5802,
-      "evScore": -54.2,
+      "modelTop20Prob": 0.58,
+      "evScore": -51.5,
       "scoreStd": 4.35
     },
     {
@@ -279,7 +279,7 @@
       "notes": "Best driver on Tour. High birdie ceiling but volatile. Great for matchups.",
       "odds": {
         "fd": "+650",
-        "mgm": "+900",
+        "mgm": "+6600",
         "bet": "+6600"
       },
       "fieldInfo": {
@@ -337,18 +337,18 @@
         "makeCut": 69
       },
       "confScore": 71.2,
-      "edgeScore": -10.26,
+      "edgeScore": -10.27,
       "owgrRank": 3,
-      "modelWinProb": 0.030702138742014853,
-      "modelTop5Prob": 0.1784,
+      "modelWinProb": 0.03064104328978141,
+      "modelTop5Prob": 0.178,
       "modelTop10Prob": 0.3144,
-      "modelTop20Prob": 0.5444,
+      "modelTop20Prob": 0.5442,
       "anomalies": [
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": -2.65,
-          "fence": 1.36,
+          "fence": 1.42,
           "market": "outright"
         }
       ],
@@ -404,8 +404,8 @@
       "odds": {
         "fd": "+1200",
         "mgm": "+1400",
-        "bet": "+1150",
-        "dk": "+1250"
+        "bet": "+1200",
+        "dk": "+1225"
       },
       "fieldInfo": {
         "owgr": 84,
@@ -447,13 +447,13 @@
         "makeCut": 70
       },
       "confScore": 71.0,
-      "edgeScore": -4.39,
+      "edgeScore": -4.53,
       "owgrRank": 6,
-      "modelWinProb": 0.030194677024042355,
+      "modelWinProb": 0.030134591390812444,
       "modelTop5Prob": 0.1742,
-      "modelTop10Prob": 0.3226,
+      "modelTop10Prob": 0.3224,
       "modelTop20Prob": 0.5492,
-      "evScore": -59.2
+      "evScore": -60.1
     },
     {
       "id": 4,
@@ -495,9 +495,9 @@
       "notes": "Second-best iron player. Low ball flight suits firm/windy. Premium bogey under play.",
       "odds": {
         "fd": "+2200",
-        "mgm": "+4000",
-        "bet": "+2400",
-        "dk": "+3000"
+        "mgm": "+3000",
+        "bet": "+2800",
+        "dk": "+2900"
       },
       "fieldInfo": {
         "owgr": 16,
@@ -550,13 +550,13 @@
         "makeCut": 68
       },
       "confScore": 68.30000000000001,
-      "edgeScore": -0.81,
+      "edgeScore": -0.93,
       "owgrRank": 4,
-      "modelWinProb": 0.024110939323898947,
+      "modelWinProb": 0.024062959971250436,
       "modelTop5Prob": 0.1448,
       "modelTop10Prob": 0.2754,
-      "modelTop20Prob": 0.5182,
-      "evScore": -25.3,
+      "modelTop20Prob": 0.5176,
+      "evScore": -27.8,
       "scoreStd": 2.06
     },
     {
@@ -599,9 +599,9 @@
       "notes": "Elite putter. Lowest bogey rate. Best bogey under play on Tour. Riviera specialist.",
       "odds": {
         "fd": "+3500",
-        "mgm": "+4500",
-        "bet": "+4000",
-        "dk": "+5600"
+        "mgm": "+5500",
+        "bet": "+4500",
+        "dk": "+6200"
       },
       "fieldInfo": {
         "owgr": 24,
@@ -610,8 +610,8 @@
       },
       "owgr": 24,
       "recentForm": {
-        "l5AvgFinish": 28.4,
-        "l10AvgFinish": 28.4,
+        "l5AvgFinish": 28.8,
+        "l10AvgFinish": 28.8,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
@@ -628,8 +628,8 @@
       "bayesianScore": {
         "score": 75,
         "prior": 81.0,
-        "likelihood": 65.9,
-        "posterior_sigma": 14.2,
+        "likelihood": 65.2,
+        "posterior_sigma": 14.3,
         "data_points": 5
       },
       "competitiveness": "active",
@@ -658,13 +658,13 @@
         "makeCut": 69
       },
       "confScore": 67.5,
-      "edgeScore": 0.5,
+      "edgeScore": 0.66,
       "owgrRank": 6,
-      "modelWinProb": 0.022555952153180965,
-      "modelTop5Prob": 0.1482,
+      "modelWinProb": 0.022511067133640986,
+      "modelTop5Prob": 0.148,
       "modelTop10Prob": 0.2722,
-      "modelTop20Prob": 0.509,
-      "evScore": 28.6,
+      "modelTop20Prob": 0.5086,
+      "evScore": 41.8,
       "scoreStd": 3.52
     },
     {
@@ -714,8 +714,7 @@
       },
       "notes": "2024 US Open champion. Power game. LIV — major invitee via past champion/OWGR.",
       "odds": {
-        "fd": "+1200",
-        "mgm": "+2000"
+        "fd": "+1200"
       },
       "fieldInfo": {
         "owgr": 27,
@@ -751,11 +750,11 @@
       "confScore": 66.9,
       "edgeScore": -5.55,
       "owgrRank": 8,
-      "modelWinProb": 0.021455885385735972,
+      "modelWinProb": 0.021413189434430255,
       "modelTop5Prob": 0.1454,
-      "modelTop10Prob": 0.269,
-      "modelTop20Prob": 0.5082,
-      "evScore": -72.1
+      "modelTop10Prob": 0.2688,
+      "modelTop20Prob": 0.5076,
+      "evScore": -72.2
     },
     {
       "id": 5,
@@ -797,8 +796,9 @@
       "notes": "Young star with elite power. Short game still developing. High upside.",
       "odds": {
         "fd": "+2000",
-        "mgm": "+1800",
-        "bet": "+5000"
+        "mgm": "+6600",
+        "bet": "+6600",
+        "dk": "+7800"
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
@@ -812,7 +812,7 @@
         "driving": 3.8,
         "birdie_bogey": 5.7,
         "cut": 3.0,
-        "market": 1.3,
+        "market": 1.1,
         "closing": 2.0,
         "field_strength": 2.0,
         "consistency": 1.4,
@@ -821,18 +821,18 @@
       "propScores": {
         "win": 67,
         "top5": 66,
-        "top10": 66,
+        "top10": 65,
         "top20": 65,
         "makeCut": 64
       },
       "confScore": 66.3,
-      "edgeScore": -2.72,
+      "edgeScore": 0.77,
       "owgrRank": 5,
-      "modelWinProb": 0.020409469507626895,
-      "modelTop5Prob": 0.143,
-      "modelTop10Prob": 0.2656,
+      "modelWinProb": 0.02036885586243785,
+      "modelTop5Prob": 0.1426,
+      "modelTop10Prob": 0.2652,
       "modelTop20Prob": 0.4936,
-      "evScore": -57.1
+      "evScore": 60.9
     },
     {
       "id": 93,
@@ -886,6 +886,14 @@
         "inField": true
       },
       "owgr": 639,
+      "recentForm": {
+        "l5AvgFinish": 80.0,
+        "l10AvgFinish": 80.0,
+        "l5McPct": 0,
+        "trend": "steady",
+        "events": 1,
+        "roundAvgs": null
+      },
       "makeCutPct": 92.3,
       "recentMakeCutPct": 60.0,
       "competitiveness": "active",
@@ -913,7 +921,7 @@
       },
       "confScore": 64.1,
       "owgrRank": 18,
-      "modelWinProb": 0.016990691773482135,
+      "modelWinProb": 0.016956881295118312,
       "modelTop5Prob": 0.1242,
       "modelTop10Prob": 0.2378,
       "modelTop20Prob": 0.4448
@@ -966,9 +974,9 @@
       "notes": "4x major champion. LIV — major invitee.",
       "odds": {
         "fd": "+3500",
-        "mgm": "+4000",
-        "bet": "+2400",
-        "dk": "+2700"
+        "mgm": "+2500",
+        "bet": "+3300",
+        "dk": "+2450"
       },
       "fieldInfo": {
         "owgr": 246,
@@ -1010,13 +1018,13 @@
         "makeCut": 68
       },
       "confScore": 63.9,
-      "edgeScore": -1.9,
+      "edgeScore": -2.25,
       "owgrRank": 12,
-      "modelWinProb": 0.016709860339901485,
+      "modelWinProb": 0.016676608699590614,
       "modelTop5Prob": 0.1276,
-      "modelTop10Prob": 0.244,
+      "modelTop10Prob": 0.2438,
       "modelTop20Prob": 0.4594,
-      "evScore": -53.2
+      "evScore": -57.5
     },
     {
       "id": 9,
@@ -1058,7 +1066,7 @@
       "notes": "Links-style player. Low ball flight suits windy conditions. Good bogey under candidate.",
       "odds": {
         "fd": "+2200",
-        "mgm": "+2500"
+        "bet": "+6600"
       },
       "fieldInfo": {
         "owgr": 3,
@@ -1117,11 +1125,11 @@
       "confScore": 63.4,
       "edgeScore": -2.75,
       "owgrRank": 9,
-      "modelWinProb": 0.016027921867799624,
+      "modelWinProb": 0.01599602724498185,
       "modelTop5Prob": 0.1226,
       "modelTop10Prob": 0.2416,
       "modelTop20Prob": 0.457,
-      "evScore": -63.1,
+      "evScore": -63.2,
       "scoreStd": 2.63
     },
     {
@@ -1195,7 +1203,7 @@
       },
       "confScore": 62.9,
       "owgrRank": 7,
-      "modelWinProb": 0.015373813674962399,
+      "modelWinProb": 0.015343220689017117,
       "modelTop5Prob": 0.1244,
       "modelTop10Prob": 0.2336,
       "modelTop20Prob": 0.452
@@ -1282,9 +1290,9 @@
         "makeCut": 61
       },
       "confScore": 61.8,
-      "edgeScore": -0.11,
+      "edgeScore": -0.12,
       "owgrRank": 15,
-      "modelWinProb": 0.014027209578403225,
+      "modelWinProb": 0.013999296255492172,
       "modelTop5Prob": 0.1158,
       "modelTop10Prob": 0.238,
       "modelTop20Prob": 0.4554,
@@ -1296,7 +1304,7 @@
           "note": "confScore 61.8 but odds +6500 — likely value in placement markets"
         }
       ],
-      "evScore": -7.4
+      "evScore": -7.6
     },
     {
       "id": 8,
@@ -1337,8 +1345,7 @@
       },
       "notes": "Great ball-striker but short game liability. Negative SG:ARG. Risky bogey unders.",
       "odds": {
-        "fd": "+3000",
-        "mgm": "+5500"
+        "fd": "+3000"
       },
       "fieldInfo": {
         "owgr": 14,
@@ -1395,13 +1402,13 @@
         "makeCut": 61
       },
       "confScore": 61.699999999999996,
-      "edgeScore": -1.83,
+      "edgeScore": -1.84,
       "owgrRank": 8,
-      "modelWinProb": 0.013910801871018908,
-      "modelTop5Prob": 0.1092,
+      "modelWinProb": 0.013883120192606171,
+      "modelTop5Prob": 0.109,
       "modelTop10Prob": 0.211,
-      "modelTop20Prob": 0.4308,
-      "evScore": -56.9,
+      "modelTop20Prob": 0.4306,
+      "evScore": -57.0,
       "scoreStd": 2.79
     },
     {
@@ -1451,8 +1458,9 @@
       "notes": "Links specialist. Open champion. Low ball flight dominates in wind. Best in coastal/windy conditions.",
       "odds": {
         "fd": "+5000",
-        "bet": "+2800",
-        "dk": "+3800"
+        "mgm": "+3500",
+        "bet": "+3300",
+        "dk": "+4100"
       },
       "fieldInfo": {
         "owgr": 26,
@@ -1489,7 +1497,7 @@
         "driving": 3.8,
         "birdie_bogey": 5.1,
         "cut": 3.5,
-        "market": 0.6,
+        "market": 0.7,
         "closing": 2.0,
         "field_strength": 1.5,
         "consistency": 1.5,
@@ -1504,13 +1512,13 @@
         "makeCut": 67
       },
       "confScore": 61.2,
-      "edgeScore": -1.23,
+      "edgeScore": -1.05,
       "owgrRank": 13,
-      "modelWinProb": 0.013343094494615418,
+      "modelWinProb": 0.013316542520526834,
       "modelTop5Prob": 0.1132,
       "modelTop10Prob": 0.229,
-      "modelTop20Prob": 0.4476,
-      "evScore": -48.0,
+      "modelTop20Prob": 0.4474,
+      "evScore": -44.1,
       "scoreStd": 3.39
     },
     {
@@ -1554,8 +1562,9 @@
       "notes": "Chilean bomber, long off tee. LIV — major invitee via OWGR.",
       "odds": {
         "fd": "+4000",
-        "bet": "+5000",
-        "dk": "+6600"
+        "mgm": "+6600",
+        "bet": "+7000",
+        "dk": "+6800"
       },
       "fieldInfo": {
         "owgr": 139,
@@ -1589,13 +1598,13 @@
         "makeCut": 61
       },
       "confScore": 59.9,
-      "edgeScore": -0.3,
+      "edgeScore": -0.25,
       "owgrRank": 28,
-      "modelWinProb": 0.01197313812885459,
+      "modelWinProb": 0.011949312287443913,
       "modelTop5Prob": 0.107,
-      "modelTop10Prob": 0.2134,
-      "modelTop20Prob": 0.429,
-      "evScore": -19.8
+      "modelTop10Prob": 0.2132,
+      "modelTop20Prob": 0.4288,
+      "evScore": -17.5
     },
     {
       "id": 99,
@@ -1637,8 +1646,7 @@
       },
       "notes": "Ryder Cup star, multiple DP World Tour wins. LIV — major invitee via OWGR.",
       "odds": {
-        "fd": "+4000",
-        "mgm": "+5000"
+        "fd": "+4000"
       },
       "fieldInfo": {
         "owgr": 20,
@@ -1647,8 +1655,8 @@
       },
       "owgr": 20,
       "recentForm": {
-        "l5AvgFinish": 78.0,
-        "l10AvgFinish": 78.0,
+        "l5AvgFinish": 77.0,
+        "l10AvgFinish": 77.0,
         "l5McPct": 0,
         "trend": "steady",
         "events": 1,
@@ -1682,11 +1690,11 @@
       "confScore": 59.5,
       "edgeScore": -1.28,
       "owgrRank": 22,
-      "modelWinProb": 0.011580611971523156,
+      "modelWinProb": 0.011557567234103219,
       "modelTop5Prob": 0.0978,
       "modelTop10Prob": 0.198,
       "modelTop20Prob": 0.4104,
-      "evScore": -52.5
+      "evScore": -52.6
     },
     {
       "id": 14,
@@ -1786,11 +1794,11 @@
       "confScore": 58.7,
       "edgeScore": -0.43,
       "owgrRank": 14,
-      "modelWinProb": 0.01083374339030069,
+      "modelWinProb": 0.010812184877476119,
       "modelTop5Prob": 0.1006,
       "modelTop10Prob": 0.2072,
-      "modelTop20Prob": 0.412,
-      "evScore": -28.5,
+      "modelTop20Prob": 0.4118,
+      "evScore": -28.6,
       "scoreStd": 3.76
     },
     {
@@ -1839,8 +1847,7 @@
       },
       "notes": "Veteran with elite swing. Augusta specialist. Still competitive but ceiling has lowered.",
       "odds": {
-        "fd": "+6500",
-        "mgm": "+6600"
+        "fd": "+6500"
       },
       "fieldInfo": {
         "owgr": 63,
@@ -1899,11 +1906,11 @@
       "confScore": 58.6,
       "edgeScore": -0.44,
       "owgrRank": 25,
-      "modelWinProb": 0.010743837324279077,
-      "modelTop5Prob": 0.101,
+      "modelWinProb": 0.010722457719243579,
+      "modelTop5Prob": 0.1008,
       "modelTop10Prob": 0.198,
-      "modelTop20Prob": 0.4018,
-      "evScore": -29.1,
+      "modelTop20Prob": 0.4014,
+      "evScore": -29.2,
       "scoreStd": 4.55
     },
     {
@@ -1946,8 +1953,8 @@
       "notes": "Former world #1 in a slump. Ball-striking still elite but putter has gone cold. High ceiling, low floor.",
       "odds": {
         "fd": "+2200",
-        "mgm": "+5000",
-        "bet": "+5000",
+        "mgm": "+4000",
+        "bet": "+3300",
         "dk": "+3700"
       },
       "fieldInfo": {
@@ -2007,11 +2014,11 @@
       "confScore": 58.5,
       "edgeScore": -1.57,
       "owgrRank": 18,
-      "modelWinProb": 0.01065467736238936,
-      "modelTop5Prob": 0.0976,
+      "modelWinProb": 0.010633475180439547,
+      "modelTop5Prob": 0.0974,
       "modelTop10Prob": 0.1948,
-      "modelTop20Prob": 0.3972,
-      "evScore": -59.5,
+      "modelTop20Prob": 0.3968,
+      "evScore": -59.6,
       "scoreStd": 3.16
     },
     {
@@ -2061,8 +2068,9 @@
       "notes": "Elite iron player but can't putt. Highest GIR with lowest conversion. Great approach stats, fade putting props.",
       "odds": {
         "fd": "+5000",
+        "mgm": "+6600",
         "bet": "+5500",
-        "dk": "+5700"
+        "dk": "+5400"
       },
       "fieldInfo": {
         "owgr": 30,
@@ -2119,13 +2127,13 @@
         "makeCut": 69
       },
       "confScore": 58.4,
-      "edgeScore": -0.67,
+      "edgeScore": -0.76,
       "owgrRank": 29,
-      "modelWinProb": 0.010566257312931693,
+      "modelWinProb": 0.0105452310816853,
       "modelTop5Prob": 0.0986,
       "modelTop10Prob": 0.2016,
       "modelTop20Prob": 0.4028,
-      "evScore": -38.7,
+      "evScore": -42.0,
       "scoreStd": 2.67
     },
     {
@@ -2168,9 +2176,9 @@
       "notes": "Huge power but accuracy issues. Multiple runner-up finishes. Volatile scorer — birdie overs at long courses.",
       "odds": {
         "fd": "+1200",
-        "mgm": "+1200",
-        "bet": "+2400",
-        "dk": "+3300"
+        "mgm": "+2800",
+        "bet": "+2200",
+        "dk": "+3200"
       },
       "fieldInfo": {
         "owgr": 19,
@@ -2227,22 +2235,22 @@
         "makeCut": 64
       },
       "confScore": 58.2,
-      "edgeScore": -1.9,
+      "edgeScore": -1.99,
       "owgrRank": 22,
-      "modelWinProb": 0.01039161244100224,
+      "modelWinProb": 0.010370933742789959,
       "modelTop5Prob": 0.0968,
       "modelTop10Prob": 0.1928,
-      "modelTop20Prob": 0.3978,
+      "modelTop20Prob": 0.3976,
       "anomalies": [
         {
           "type": "iqr_outlier",
           "direction": "OVERPRICED",
           "edge_pct": 1.04,
-          "fence": 9.53,
+          "fence": 9.39,
           "market": "outright"
         }
       ],
-      "evScore": -64.7,
+      "evScore": -65.8,
       "scoreStd": 3.49
     },
     {
@@ -2284,8 +2292,9 @@
       },
       "notes": "High birdie upside but high bogey rate. Very aggressive. Best for birdie overs.",
       "odds": {
-        "bet": "+5000",
-        "dk": "+6900"
+        "mgm": "+6600",
+        "bet": "+7000",
+        "dk": "+7400"
       },
       "fieldInfo": {
         "owgr": 119,
@@ -2327,7 +2336,7 @@
         "driving": 3.1,
         "birdie_bogey": 5.2,
         "cut": 3.0,
-        "market": 0.3,
+        "market": 0.4,
         "closing": 0.4,
         "field_strength": 2.0,
         "consistency": 1.4,
@@ -2342,13 +2351,13 @@
         "makeCut": 62
       },
       "confScore": 58.1,
-      "edgeScore": -0.4,
+      "edgeScore": -0.3,
       "owgrRank": 10,
-      "modelWinProb": 0.010305375490344142,
+      "modelWinProb": 0.010284868398596934,
       "modelTop5Prob": 0.096,
-      "modelTop10Prob": 0.1928,
+      "modelTop10Prob": 0.1926,
       "modelTop20Prob": 0.4008,
-      "evScore": -27.9,
+      "evScore": -22.9,
       "scoreStd": 3.74
     },
     {
@@ -2452,10 +2461,10 @@
       },
       "confScore": 57.9,
       "owgrRank": 17,
-      "modelWinProb": 0.010135042615666418,
+      "modelWinProb": 0.010114874476332138,
       "modelTop5Prob": 0.0972,
       "modelTop10Prob": 0.1986,
-      "modelTop20Prob": 0.399,
+      "modelTop20Prob": 0.3984,
       "scoreStd": 1.96
     },
     {
@@ -2506,8 +2515,8 @@
       },
       "owgr": 17,
       "recentForm": {
-        "l5AvgFinish": 55.8,
-        "l10AvgFinish": 55.3,
+        "l5AvgFinish": 56.2,
+        "l10AvgFinish": 55.7,
         "l5McPct": 40,
         "trend": "steady",
         "events": 6,
@@ -2525,8 +2534,8 @@
       "bayesianScore": {
         "score": 56,
         "prior": 72.4,
-        "likelihood": 29.8,
-        "posterior_sigma": 14.1,
+        "likelihood": 29.3,
+        "posterior_sigma": 14.0,
         "data_points": 11
       },
       "competitiveness": "active",
@@ -2556,11 +2565,11 @@
       "confScore": 57.699999999999996,
       "edgeScore": -1.44,
       "owgrRank": 11,
-      "modelWinProb": 0.009967525095773493,
+      "modelWinProb": 0.00994769030646153,
       "modelTop5Prob": 0.09,
       "modelTop10Prob": 0.1908,
-      "modelTop20Prob": 0.3946,
-      "evScore": -59.1,
+      "modelTop20Prob": 0.394,
+      "evScore": -59.2,
       "scoreStd": 3.18
     },
     {
@@ -2610,7 +2619,7 @@
       "notes": "Resurgent veteran. Short game wizard when healthy. Bay Hill specialist. Good at TPC Sawgrass.",
       "odds": {
         "fd": "+6500",
-        "bet": "+6600"
+        "dk": "+7800"
       },
       "fieldInfo": {
         "owgr": 54,
@@ -2667,13 +2676,13 @@
         "makeCut": 64
       },
       "confScore": 56.5,
-      "edgeScore": -0.61,
+      "edgeScore": -0.37,
       "owgrRank": 19,
-      "modelWinProb": 0.009018989671868321,
+      "modelWinProb": 0.009001042412319998,
       "modelTop5Prob": 0.0926,
       "modelTop10Prob": 0.1866,
-      "modelTop20Prob": 0.3858,
-      "evScore": -40.5,
+      "modelTop20Prob": 0.3856,
+      "evScore": -28.9,
       "scoreStd": 3.43
     },
     {
@@ -2722,8 +2731,7 @@
       },
       "notes": "Extremely accurate. Low bogey rate. Great at precision courses like Harbour Town and Colonial.",
       "odds": {
-        "fd": "+5000",
-        "mgm": "+5500"
+        "fd": "+5000"
       },
       "fieldInfo": {
         "owgr": 5,
@@ -2775,11 +2783,11 @@
       "confScore": 56.199999999999996,
       "edgeScore": -1.08,
       "owgrRank": 20,
-      "modelWinProb": 0.00879631002345433,
+      "modelWinProb": 0.008778805883323106,
       "modelTop5Prob": 0.0854,
       "modelTop10Prob": 0.1846,
       "modelTop20Prob": 0.379,
-      "evScore": -55.1
+      "evScore": -55.2
     },
     {
       "id": 21,
@@ -2826,8 +2834,8 @@
       },
       "owgr": 35,
       "recentForm": {
-        "l5AvgFinish": 42.0,
-        "l10AvgFinish": 43.0,
+        "l5AvgFinish": 42.4,
+        "l10AvgFinish": 43.3,
         "l5McPct": 100,
         "trend": "steady",
         "events": 6,
@@ -2845,8 +2853,8 @@
       "bayesianScore": {
         "score": 57,
         "prior": 65.6,
-        "likelihood": 49.0,
-        "posterior_sigma": 12.8,
+        "likelihood": 48.5,
+        "posterior_sigma": 12.7,
         "data_points": 11
       },
       "competitiveness": "active",
@@ -2874,9 +2882,9 @@
       },
       "confScore": 55.7,
       "owgrRank": 21,
-      "modelWinProb": 0.008437327835960835,
+      "modelWinProb": 0.008420538049291205,
       "modelTop5Prob": 0.0814,
-      "modelTop10Prob": 0.1738,
+      "modelTop10Prob": 0.1736,
       "modelTop20Prob": 0.374,
       "scoreStd": 2.36
     },
@@ -2928,7 +2936,7 @@
       "odds": {
         "fd": "+5000",
         "mgm": "+6600",
-        "bet": "+5000"
+        "bet": "+6000"
       },
       "fieldInfo": {
         "owgr": 25,
@@ -2937,8 +2945,8 @@
       },
       "owgr": 25,
       "recentForm": {
-        "l5AvgFinish": 45.2,
-        "l10AvgFinish": 44.5,
+        "l5AvgFinish": 45.6,
+        "l10AvgFinish": 44.8,
         "l5McPct": 80,
         "trend": "steady",
         "events": 6,
@@ -2956,8 +2964,8 @@
       "bayesianScore": {
         "score": 53,
         "prior": 68.4,
-        "likelihood": 40.8,
-        "posterior_sigma": 12.1,
+        "likelihood": 40.3,
+        "posterior_sigma": 11.9,
         "data_points": 11
       },
       "competitiveness": "active",
@@ -2987,11 +2995,11 @@
       "confScore": 55.4,
       "edgeScore": -1.14,
       "owgrRank": 15,
-      "modelWinProb": 0.00822900946944516,
+      "modelWinProb": 0.008212634224085429,
       "modelTop5Prob": 0.0876,
-      "modelTop10Prob": 0.1728,
-      "modelTop20Prob": 0.3624,
-      "evScore": -58.0,
+      "modelTop10Prob": 0.1726,
+      "modelTop20Prob": 0.3622,
+      "evScore": -58.1,
       "scoreStd": 4.29
     },
     {
@@ -3088,16 +3096,130 @@
       },
       "confScore": 54.4,
       "owgrRank": 23,
-      "modelWinProb": 0.007571054200294833,
-      "modelTop5Prob": 0.0776,
+      "modelWinProb": 0.007555988247263426,
+      "modelTop5Prob": 0.0772,
       "modelTop10Prob": 0.1754,
-      "modelTop20Prob": 0.366,
+      "modelTop20Prob": 0.3658,
       "scoreStd": 1.59
+    },
+    {
+      "id": 36,
+      "name": "Min Woo Lee",
+      "rank": 31,
+      "sgTotal": 0.4,
+      "sgOtt": 0.42,
+      "sgApp": 0.12,
+      "sgArg": 0.0,
+      "sgPutt": -0.14,
+      "birdieAvg": 4.2,
+      "bogeyAvg": 2.4,
+      "scoringAvg": 71.0,
+      "gir": 66.0,
+      "fairways": 59.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "left",
+      "flight": "high_draw",
+      "courseFit": {
+        "augusta": 59,
+        "tpc_sawgrass": 60,
+        "pebble": 59,
+        "torrey_south": 62,
+        "riviera": 60,
+        "valhalla": 62,
+        "pinehurst_2": 59,
+        "royal_troon": 61,
+        "royal_portrush": 56,
+        "oakmont": 56,
+        "quail_hollow": 62,
+        "east_lake": 60,
+        "bay_hill": 60,
+        "harbour_town": 58,
+        "colonial": 59,
+        "memorial": 60,
+        "tpc_scottsdale": 61
+      },
+      "augustaHistory": {
+        "appearances": 2,
+        "bestFinish": 18,
+        "cuts": 2,
+        "top10": 0,
+        "avgScore": 72.8
+      },
+      "notes": "Australian talent with power. Sister Minjee is LPGA star. Inconsistent but can go low. Good for T20 at mid-tier.",
+      "odds": {
+        "mgm": "+1600",
+        "bet": "+1400",
+        "dk": "+2000"
+      },
+      "fieldInfo": {
+        "owgr": 43,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 43,
+      "recentForm": {
+        "l5AvgFinish": 28.8,
+        "l10AvgFinish": 27.2,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 70.8,
+          "r2Avg": 69.8,
+          "r3Avg": 71.7,
+          "r4Avg": 66.0,
+          "closingDelta": -1.5
+        }
+      },
+      "makeCutPct": 100.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": -1.5,
+      "bayesianScore": {
+        "score": 62,
+        "prior": 58.0,
+        "likelihood": 67.4,
+        "posterior_sigma": 13.8,
+        "data_points": 11
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 6.1,
+        "fit": 9.4,
+        "history": 2.4,
+        "form": 7.0,
+        "gir": 5.4,
+        "driving": 3.2,
+        "birdie_bogey": 4.8,
+        "cut": 3.9,
+        "market": 1.4,
+        "closing": 3.5,
+        "field_strength": 1.0,
+        "consistency": 1.5,
+        "par5": 1.0,
+        "ml_bayes": 3.3
+      },
+      "propScores": {
+        "win": 52,
+        "top5": 54,
+        "top10": 57,
+        "top20": 61,
+        "makeCut": 65
+      },
+      "confScore": 54.3,
+      "edgeScore": -4.01,
+      "owgrRank": 36,
+      "modelWinProb": 0.007493283311975292,
+      "modelTop5Prob": 0.0828,
+      "modelTop10Prob": 0.1706,
+      "modelTop20Prob": 0.363,
+      "evScore": -84.3,
+      "scoreStd": 1.94
     },
     {
       "id": 30,
       "name": "Sepp Straka",
-      "rank": 31,
+      "rank": 32,
       "sgTotal": 0.55,
       "sgOtt": 0.3,
       "sgApp": 0.18,
@@ -3199,17 +3321,17 @@
       "confScore": 54.199999999999996,
       "edgeScore": -1.04,
       "owgrRank": 30,
-      "modelWinProb": 0.007445915681326224,
-      "modelTop5Prob": 0.0828,
-      "modelTop10Prob": 0.17,
-      "modelTop20Prob": 0.3618,
-      "evScore": -58.3,
+      "modelWinProb": 0.0074310987465952185,
+      "modelTop5Prob": 0.0796,
+      "modelTop10Prob": 0.1686,
+      "modelTop20Prob": 0.3522,
+      "evScore": -58.4,
       "scoreStd": 2.95
     },
     {
       "id": 95,
       "name": "Patrick Reed",
-      "rank": 32,
+      "rank": 33,
       "liv": true,
       "sgTotal": 0.55,
       "sgOtt": 0.3,
@@ -3254,9 +3376,9 @@
       "notes": "2018 Masters champion. LIV — major invitee.",
       "odds": {
         "fd": "+5000",
-        "mgm": "+6600",
-        "bet": "+2400",
-        "dk": "+3100"
+        "mgm": "+2800",
+        "bet": "+3300",
+        "dk": "+3000"
       },
       "fieldInfo": {
         "owgr": 42,
@@ -3298,127 +3420,13 @@
         "makeCut": 64
       },
       "confScore": 53.9,
-      "edgeScore": -2.4,
+      "edgeScore": -2.5,
       "owgrRank": 45,
-      "modelWinProb": 0.00726207536812466,
-      "modelTop5Prob": 0.078,
-      "modelTop10Prob": 0.1668,
-      "modelTop20Prob": 0.3494,
-      "evScore": -76.8
-    },
-    {
-      "id": 36,
-      "name": "Min Woo Lee",
-      "rank": 33,
-      "sgTotal": 0.4,
-      "sgOtt": 0.42,
-      "sgApp": 0.12,
-      "sgArg": 0.0,
-      "sgPutt": -0.14,
-      "birdieAvg": 4.2,
-      "bogeyAvg": 2.4,
-      "scoringAvg": 71.0,
-      "gir": 66.0,
-      "fairways": 59.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "left",
-      "flight": "high_draw",
-      "courseFit": {
-        "augusta": 59,
-        "tpc_sawgrass": 60,
-        "pebble": 59,
-        "torrey_south": 62,
-        "riviera": 60,
-        "valhalla": 62,
-        "pinehurst_2": 59,
-        "royal_troon": 61,
-        "royal_portrush": 56,
-        "oakmont": 56,
-        "quail_hollow": 62,
-        "east_lake": 60,
-        "bay_hill": 60,
-        "harbour_town": 58,
-        "colonial": 59,
-        "memorial": 60,
-        "tpc_scottsdale": 61
-      },
-      "augustaHistory": {
-        "appearances": 2,
-        "bestFinish": 18,
-        "cuts": 2,
-        "top10": 0,
-        "avgScore": 72.8
-      },
-      "notes": "Australian talent with power. Sister Minjee is LPGA star. Inconsistent but can go low. Good for T20 at mid-tier.",
-      "odds": {
-        "mgm": "+6000",
-        "bet": "+1400",
-        "dk": "+1850"
-      },
-      "fieldInfo": {
-        "owgr": 43,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 43,
-      "recentForm": {
-        "l5AvgFinish": 28.8,
-        "l10AvgFinish": 27.2,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 70.8,
-          "r2Avg": 69.8,
-          "r3Avg": 71.7,
-          "r4Avg": 66.0,
-          "closingDelta": -1.5
-        }
-      },
-      "makeCutPct": 100.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": -1.5,
-      "bayesianScore": {
-        "score": 62,
-        "prior": 58.0,
-        "likelihood": 67.4,
-        "posterior_sigma": 13.8,
-        "data_points": 11
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 6.1,
-        "fit": 9.4,
-        "history": 2.4,
-        "form": 7.0,
-        "gir": 5.4,
-        "driving": 3.2,
-        "birdie_bogey": 4.8,
-        "cut": 3.9,
-        "market": 1.2,
-        "closing": 3.5,
-        "field_strength": 1.0,
-        "consistency": 1.5,
-        "par5": 1.0,
-        "ml_bayes": 3.6
-      },
-      "propScores": {
-        "win": 52,
-        "top5": 55,
-        "top10": 57,
-        "top20": 61,
-        "makeCut": 65
-      },
-      "confScore": 53.6,
-      "edgeScore": -4.42,
-      "owgrRank": 36,
-      "modelWinProb": 0.007082774088428787,
-      "modelTop5Prob": 0.0704,
-      "modelTop10Prob": 0.1542,
-      "modelTop20Prob": 0.3432,
-      "evScore": -86.2,
-      "scoreStd": 1.94
+      "modelWinProb": 0.007247624264815633,
+      "modelTop5Prob": 0.0716,
+      "modelTop10Prob": 0.1554,
+      "modelTop20Prob": 0.3464,
+      "evScore": -77.5
     },
     {
       "id": 12,
@@ -3525,11 +3533,11 @@
       "confScore": 53.5,
       "edgeScore": -0.81,
       "owgrRank": 12,
-      "modelWinProb": 0.007023996218963962,
+      "modelWinProb": 0.007010018879173742,
       "modelTop5Prob": 0.075,
       "modelTop10Prob": 0.1602,
       "modelTop20Prob": 0.353,
-      "evScore": -53.6,
+      "evScore": -53.7,
       "scoreStd": 2.91
     },
     {
@@ -3598,10 +3606,10 @@
       },
       "confScore": 53.2,
       "owgrRank": 55,
-      "modelWinProb": 0.006850573134405086,
+      "modelWinProb": 0.006836940896363897,
       "modelTop5Prob": 0.0744,
-      "modelTop10Prob": 0.1676,
-      "modelTop20Prob": 0.3398
+      "modelTop10Prob": 0.1674,
+      "modelTop20Prob": 0.3396
     },
     {
       "id": 27,
@@ -3674,7 +3682,7 @@
       },
       "confScore": 52.9,
       "owgrRank": 27,
-      "modelWinProb": 0.00668143188106028,
+      "modelWinProb": 0.00666813622417558,
       "modelTop5Prob": 0.0688,
       "modelTop10Prob": 0.1612,
       "modelTop20Prob": 0.3392
@@ -3780,8 +3788,8 @@
       },
       "confScore": 52.099999999999994,
       "owgrRank": 72,
-      "modelWinProb": 0.00625052619474483,
-      "modelTop5Prob": 0.063,
+      "modelWinProb": 0.006238088014858608,
+      "modelTop5Prob": 0.0628,
       "modelTop10Prob": 0.1596,
       "modelTop20Prob": 0.3408,
       "scoreStd": 1.98
@@ -3891,11 +3899,11 @@
       "confScore": 51.4,
       "edgeScore": -0.93,
       "owgrRank": 35,
-      "modelWinProb": 0.005896342939865665,
+      "modelWinProb": 0.005884609563847089,
       "modelTop5Prob": 0.062,
       "modelTop10Prob": 0.137,
       "modelTop20Prob": 0.3212,
-      "evScore": -61.1,
+      "evScore": -61.2,
       "scoreStd": 2.85
     },
     {
@@ -3976,9 +3984,9 @@
       },
       "confScore": 50.7,
       "owgrRank": 31,
-      "modelWinProb": 0.00556222931978657,
-      "modelTop5Prob": 0.0688,
-      "modelTop10Prob": 0.147,
+      "modelWinProb": 0.005551160810241551,
+      "modelTop5Prob": 0.0686,
+      "modelTop10Prob": 0.1468,
       "modelTop20Prob": 0.324
     },
     {
@@ -4026,8 +4034,8 @@
       },
       "owgr": 51,
       "recentForm": {
-        "l5AvgFinish": 45.2,
-        "l10AvgFinish": 45.2,
+        "l5AvgFinish": 45.0,
+        "l10AvgFinish": 45.0,
         "l5McPct": 80,
         "trend": "steady",
         "events": 6,
@@ -4045,8 +4053,8 @@
       "bayesianScore": {
         "score": 50,
         "prior": 60.0,
-        "likelihood": 41.8,
-        "posterior_sigma": 12.3,
+        "likelihood": 42.0,
+        "posterior_sigma": 12.1,
         "data_points": 11
       },
       "competitiveness": "active",
@@ -4074,15 +4082,15 @@
       },
       "confScore": 50.3,
       "owgrRank": 32,
-      "modelWinProb": 0.005379877752670642,
+      "modelWinProb": 0.005369172112030362,
       "modelTop5Prob": 0.0658,
       "modelTop10Prob": 0.1398,
-      "modelTop20Prob": 0.3256,
+      "modelTop20Prob": 0.3254,
       "scoreStd": 2.58
     },
     {
-      "id": 9050,
-      "name": "Dan Brown",
+      "id": 9001,
+      "name": "J.J. Spaun",
       "rank": 41,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4118,24 +4126,74 @@
         "tpc_scottsdale": 50
       },
       "notes": "Auto-added from tournament field.",
+      "odds": {
+        "bet": "+6600"
+      },
       "fieldInfo": {
-        "owgr": null,
+        "owgr": 6,
         "entryStatus": "IN",
         "inField": true
       },
+      "owgr": 6,
+      "recentForm": {
+        "l5AvgFinish": 20.2,
+        "l10AvgFinish": 19.3,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 67.5,
+          "r2Avg": 69.8,
+          "r3Avg": 67.3,
+          "r4Avg": 68.0,
+          "closingDelta": -1.0
+        }
+      },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
-      "confScore": 50,
-      "edgeScore": 0,
-      "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "closingDelta": -1.0,
+      "bayesianScore": {
+        "score": 62,
+        "prior": 50.0,
+        "likelihood": 73.2,
+        "posterior_sigma": 12.6,
+        "data_points": 11
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 3.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 2.8,
+        "closing": 3.0,
+        "field_strength": 2.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 5.0
+      },
+      "propScores": {
+        "win": 49,
+        "top5": 52,
+        "top10": 55,
+        "top20": 59,
+        "makeCut": 63
+      },
+      "confScore": 50.0,
+      "owgrRank": 6,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0684,
-      "modelTop10Prob": 0.1496,
-      "modelTop20Prob": 0.321
+      "modelTop10Prob": 0.1494,
+      "modelTop20Prob": 0.3208,
+      "scoreStd": 3.3
     },
     {
-      "id": 9069,
-      "name": "Kota Kaneko",
+      "id": 9050,
+      "name": "Dan Brown",
       "rank": 42,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4181,14 +4239,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0606,
       "modelTop10Prob": 0.144,
       "modelTop20Prob": 0.3268
     },
     {
-      "id": 9073,
-      "name": "Berg, Derek",
+      "id": 9069,
+      "name": "Kota Kaneko",
       "rank": 43,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4234,14 +4292,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0584,
       "modelTop10Prob": 0.1344,
-      "modelTop20Prob": 0.306
+      "modelTop20Prob": 0.3056
     },
     {
-      "id": 9074,
-      "name": "Francisco Bidé",
+      "id": 9073,
+      "name": "Berg, Derek",
       "rank": 44,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4287,14 +4345,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.067,
-      "modelTop10Prob": 0.1468,
+      "modelTop10Prob": 0.1466,
       "modelTop20Prob": 0.3172
     },
     {
-      "id": 9075,
-      "name": "Michael Block",
+      "id": 9074,
+      "name": "Francisco Bidé",
       "rank": 45,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4335,28 +4393,19 @@
         "entryStatus": "IN",
         "inField": true
       },
-      "recentForm": {
-        "l5AvgFinish": 38.0,
-        "l10AvgFinish": 38.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
-      },
-      "_recent_cut_pct": 0.6,
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0622,
       "modelTop10Prob": 0.1346,
-      "modelTop20Prob": 0.3064
+      "modelTop20Prob": 0.3062
     },
     {
-      "id": 9076,
-      "name": "Stewart Cink",
+      "id": 9075,
+      "name": "Michael Block",
       "rank": 46,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4397,19 +4446,28 @@
         "entryStatus": "IN",
         "inField": true
       },
+      "recentForm": {
+        "l5AvgFinish": 40.0,
+        "l10AvgFinish": 40.0,
+        "l5McPct": 100,
+        "trend": "steady",
+        "events": 1,
+        "roundAvgs": null
+      },
+      "_recent_cut_pct": 0.6,
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0624,
       "modelTop10Prob": 0.1408,
-      "modelTop20Prob": 0.3192
+      "modelTop20Prob": 0.319
     },
     {
-      "id": 9077,
-      "name": "Tyler Collet",
+      "id": 9076,
+      "name": "Stewart Cink",
       "rank": 47,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4455,15 +4513,68 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0634,
-      "modelTop10Prob": 0.1408,
-      "modelTop20Prob": 0.3102
+      "modelTop10Prob": 0.1406,
+      "modelTop20Prob": 0.31
+    },
+    {
+      "id": 9077,
+      "name": "Tyler Collet",
+      "rank": 48,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": null,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "confScore": 50,
+      "edgeScore": 0,
+      "owgrRank": null,
+      "modelWinProb": 0.005236606780249312,
+      "modelTop5Prob": 0.0646,
+      "modelTop10Prob": 0.1444,
+      "modelTop20Prob": 0.3164
     },
     {
       "id": 9078,
       "name": "Luke Donald",
-      "rank": 48,
+      "rank": 49,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -4517,67 +4628,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
-      "modelTop5Prob": 0.0646,
-      "modelTop10Prob": 0.1444,
-      "modelTop20Prob": 0.3164
-    },
-    {
-      "id": 9079,
-      "name": "Jesse Droemer",
-      "rank": 49,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": null,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "confScore": 50,
-      "edgeScore": 0,
-      "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
-      "modelTop5Prob": 0.0626,
+      "modelWinProb": 0.005236606780249312,
+      "modelTop5Prob": 0.0624,
       "modelTop10Prob": 0.1442,
       "modelTop20Prob": 0.3156
     },
     {
-      "id": 9080,
-      "name": "Jason Dufner",
+      "id": 9079,
+      "name": "Jesse Droemer",
       "rank": 50,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4623,14 +4681,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0624,
       "modelTop10Prob": 0.1306,
       "modelTop20Prob": 0.3094
     },
     {
-      "id": 9081,
-      "name": "Bryce Fisher",
+      "id": 9080,
+      "name": "Jason Dufner",
       "rank": 51,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4676,14 +4734,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9082,
-      "name": "Gabriele, Chris",
+      "id": 9081,
+      "name": "Bryce Fisher",
       "rank": 52,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4729,14 +4787,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9083,
-      "name": "Mark Geddes",
+      "id": 9082,
+      "name": "Gabriele, Chris",
       "rank": 53,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4782,14 +4840,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9084,
-      "name": "Haynes, Zach",
+      "id": 9083,
+      "name": "Mark Geddes",
       "rank": 54,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4835,14 +4893,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9085,
-      "name": "Austin Hurt",
+      "id": 9084,
+      "name": "Haynes, Zach",
       "rank": 55,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4888,14 +4946,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9086,
-      "name": "Jared Jones",
+      "id": 9085,
+      "name": "Austin Hurt",
       "rank": 56,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -4941,68 +4999,15 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9087,
-      "name": "Katrude, Michael",
+      "id": 9086,
+      "name": "Jared Jones",
       "rank": 57,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": null,
-        "entryStatus": "WITHDRAWN",
-        "inField": true
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "confScore": 50,
-      "edgeScore": 0,
-      "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
-      "modelTop5Prob": 0.0,
-      "modelTop10Prob": 0.0,
-      "modelTop20Prob": 0.001
-    },
-    {
-      "id": 9089,
-      "name": "Ben Kern",
-      "rank": 58,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5047,14 +5052,67 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9090,
-      "name": "Ryan Lenahan",
+      "id": 9087,
+      "name": "Katrude, Michael",
+      "rank": 58,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": null,
+        "entryStatus": "WITHDRAWN",
+        "inField": true
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "confScore": 50,
+      "edgeScore": 0,
+      "owgrRank": null,
+      "modelWinProb": 0.005236606780249312,
+      "modelTop5Prob": 0.0,
+      "modelTop10Prob": 0.0,
+      "modelTop20Prob": 0.001
+    },
+    {
+      "id": 9089,
+      "name": "Ben Kern",
       "rank": 59,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -5100,14 +5158,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9091,
-      "name": "McClure, Paul",
+      "id": 9090,
+      "name": "Ryan Lenahan",
       "rank": 60,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -5153,14 +5211,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9092,
-      "name": "Shaun Micheel",
+      "id": 9091,
+      "name": "McClure, Paul",
       "rank": 61,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -5206,14 +5264,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9093,
-      "name": "Ben Polland",
+      "id": 9092,
+      "name": "Shaun Micheel",
       "rank": 62,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -5259,14 +5317,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9094,
-      "name": "Garrett Sapp",
+      "id": 9093,
+      "name": "Ben Polland",
       "rank": 63,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -5312,14 +5370,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9095,
-      "name": "Braden Shattuck",
+      "id": 9094,
+      "name": "Garrett Sapp",
       "rank": 64,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -5365,14 +5423,14 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
     },
     {
-      "id": 9096,
-      "name": "Ryan Vermeer",
+      "id": 9095,
+      "name": "Braden Shattuck",
       "rank": 65,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -5418,7 +5476,60 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
+      "modelTop5Prob": 0.0,
+      "modelTop10Prob": 0.0,
+      "modelTop20Prob": 0.001
+    },
+    {
+      "id": 9096,
+      "name": "Ryan Vermeer",
+      "rank": 66,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": null,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "confScore": 50,
+      "edgeScore": 0,
+      "owgrRank": null,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -5426,7 +5537,7 @@
     {
       "id": 9097,
       "name": "Jimmy Walker",
-      "rank": 66,
+      "rank": 67,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5480,7 +5591,7 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -5488,59 +5599,6 @@
     {
       "id": 9098,
       "name": "Timothy Wiseman",
-      "rank": 67,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": null,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "confScore": 50,
-      "edgeScore": 0,
-      "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
-      "modelTop5Prob": 0.0,
-      "modelTop10Prob": 0.0,
-      "modelTop20Prob": 0.001
-    },
-    {
-      "id": 9099,
-      "name": "Y.E. Yang",
       "rank": 68,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
@@ -5581,9 +5639,62 @@
         "entryStatus": "IN",
         "inField": true
       },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "confScore": 50,
+      "edgeScore": 0,
+      "owgrRank": null,
+      "modelWinProb": 0.005236606780249312,
+      "modelTop5Prob": 0.0,
+      "modelTop10Prob": 0.0,
+      "modelTop20Prob": 0.001
+    },
+    {
+      "id": 9099,
+      "name": "Y.E. Yang",
+      "rank": 69,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": null,
+        "entryStatus": "IN",
+        "inField": true
+      },
       "recentForm": {
-        "l5AvgFinish": 74.0,
-        "l10AvgFinish": 74.0,
+        "l5AvgFinish": 73.0,
+        "l10AvgFinish": 73.0,
         "l5McPct": 0,
         "trend": "steady",
         "events": 1,
@@ -5595,7 +5706,7 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -5603,7 +5714,7 @@
     {
       "id": 9100,
       "name": "Michael Kartrude",
-      "rank": 69,
+      "rank": 70,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -5648,7 +5759,7 @@
       "confScore": 50,
       "edgeScore": 0,
       "owgrRank": null,
-      "modelWinProb": 0.0052470480976803905,
+      "modelWinProb": 0.005236606780249312,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -5656,7 +5767,7 @@
     {
       "id": 40,
       "name": "Harris English",
-      "rank": 70,
+      "rank": 71,
       "sgTotal": 0.3,
       "sgOtt": 0.22,
       "sgApp": 0.12,
@@ -5747,7 +5858,7 @@
       },
       "confScore": 49.9,
       "owgrRank": 40,
-      "modelWinProb": 0.005203504381007996,
+      "modelWinProb": 0.005193149713014742,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -5756,7 +5867,7 @@
     {
       "id": 66,
       "name": "Si Woo Kim",
-      "rank": 71,
+      "rank": 72,
       "sgTotal": 0.45,
       "sgOtt": 0.2,
       "sgApp": 0.18,
@@ -5799,8 +5910,7 @@
       },
       "notes": "Versatile Korean player with multiple wins. Solid all-around game. Steady at Augusta but ceiling is top-10. Reliable MC prop.",
       "odds": {
-        "fd": "+5500",
-        "mgm": "+6600"
+        "fd": "+5500"
       },
       "fieldInfo": {
         "owgr": 47,
@@ -5859,17 +5969,17 @@
       "confScore": 49.800000000000004,
       "edgeScore": -1.27,
       "owgrRank": 38,
-      "modelWinProb": 0.0051603220208976865,
+      "modelWinProb": 0.0051500532832639305,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "evScore": -71.1,
+      "evScore": -71.2,
       "scoreStd": 1.61
     },
     {
       "id": 26,
       "name": "Aaron Rai",
-      "rank": 72,
+      "rank": 73,
       "sgTotal": 0.65,
       "sgOtt": 0.18,
       "sgApp": 0.32,
@@ -5918,8 +6028,8 @@
       },
       "owgr": 23,
       "recentForm": {
-        "l5AvgFinish": 44.0,
-        "l10AvgFinish": 44.0,
+        "l5AvgFinish": 46.0,
+        "l10AvgFinish": 46.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 1,
@@ -5952,7 +6062,7 @@
       },
       "confScore": 49.8,
       "owgrRank": 26,
-      "modelWinProb": 0.005160322020897682,
+      "modelWinProb": 0.005150053283263926,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -5960,7 +6070,7 @@
     {
       "id": 33,
       "name": "Matt Fitzpatrick",
-      "rank": 73,
+      "rank": 74,
       "sgTotal": 0.48,
       "sgOtt": 0.1,
       "sgApp": 0.3,
@@ -5997,9 +6107,9 @@
       "notes": "US Open champion. Precision player. Not long but very accurate. Thrives on tight, demanding courses.",
       "odds": {
         "fd": "+1800",
-        "mgm": "+2200",
+        "mgm": "+3300",
         "bet": "+3300",
-        "dk": "+2800"
+        "dk": "+3000"
       },
       "fieldInfo": {
         "owgr": 22,
@@ -6008,26 +6118,26 @@
       },
       "owgr": 22,
       "recentForm": {
-        "l5AvgFinish": 54.4,
-        "l10AvgFinish": 54.4,
+        "l5AvgFinish": 54.6,
+        "l10AvgFinish": 54.6,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
         "roundAvgs": {
-          "r1Avg": 72.4,
+          "r1Avg": 73.2,
           "r2Avg": 70.0,
           "r3Avg": 69.0,
-          "closingDelta": -0.7
+          "closingDelta": -1.1
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
-      "closingDelta": -0.7,
+      "closingDelta": -1.1,
       "bayesianScore": {
-        "score": 38,
+        "score": 37,
         "prior": 59.6,
-        "likelihood": 29.3,
-        "posterior_sigma": 9.4,
+        "likelihood": 28.9,
+        "posterior_sigma": 9.2,
         "data_points": 5
       },
       "competitiveness": "active",
@@ -6041,11 +6151,11 @@
         "birdie_bogey": 4.6,
         "cut": 3.0,
         "market": 1.3,
-        "closing": 2.7,
+        "closing": 3.1,
         "field_strength": 1.0,
         "consistency": 1.6,
         "par5": 0.6,
-        "ml_bayes": -2.5
+        "ml_bayes": -2.9
       },
       "propScores": {
         "win": 48,
@@ -6054,20 +6164,20 @@
         "top20": 56,
         "makeCut": 58
       },
-      "confScore": 49.1,
-      "edgeScore": -2.96,
+      "confScore": 49.7,
+      "edgeScore": -2.72,
       "owgrRank": 33,
-      "modelWinProb": 0.004867914695075606,
+      "modelWinProb": 0.0051073144981719255,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "evScore": -85.9,
-      "scoreStd": 2.7
+      "evScore": -84.2,
+      "scoreStd": 2.16
     },
     {
       "id": 46,
       "name": "Jordan Spieth",
-      "rank": 74,
+      "rank": 75,
       "sgTotal": 0.15,
       "sgOtt": 0.1,
       "sgApp": 0.08,
@@ -6104,9 +6214,9 @@
       "notes": "3x major champ in a slump. Course history still matters — elite at Augusta, Colonial, Pebble. Buy low candidate.",
       "odds": {
         "fd": "+5500",
-        "mgm": "+6600",
-        "bet": "+3300",
-        "dk": "+3900"
+        "mgm": "+3500",
+        "bet": "+4000",
+        "dk": "+4000"
       },
       "fieldInfo": {
         "owgr": 80,
@@ -6148,7 +6258,7 @@
         "driving": 2.8,
         "birdie_bogey": 4.3,
         "cut": 3.0,
-        "market": 0.6,
+        "market": 0.7,
         "closing": 0.0,
         "field_strength": 1.0,
         "consistency": 1.6,
@@ -6158,24 +6268,24 @@
       "propScores": {
         "win": 47,
         "top5": 48,
-        "top10": 51,
+        "top10": 52,
         "top20": 57,
         "makeCut": 61
       },
       "confScore": 48.099999999999994,
-      "edgeScore": -2.05,
+      "edgeScore": -1.99,
       "owgrRank": 46,
-      "modelWinProb": 0.004478697726096314,
+      "modelWinProb": 0.0044697853807612875,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "evScore": -82.1,
+      "evScore": -81.7,
       "scoreStd": 3.94
     },
     {
       "id": 69,
       "name": "Davis Riley",
-      "rank": 75,
+      "rank": 76,
       "sgTotal": 0.38,
       "sgOtt": 0.28,
       "sgApp": 0.15,
@@ -6250,7 +6360,7 @@
       },
       "confScore": 47.8,
       "owgrRank": 42,
-      "modelWinProb": 0.00436811828524049,
+      "modelWinProb": 0.004359425986495818,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -6258,7 +6368,7 @@
     {
       "id": 45,
       "name": "Christiaan Bezuidenhout",
-      "rank": 76,
+      "rank": 77,
       "sgTotal": 0.18,
       "sgOtt": 0.15,
       "sgApp": 0.12,
@@ -6326,7 +6436,7 @@
       },
       "confScore": 47.5,
       "owgrRank": 45,
-      "modelWinProb": 0.004260269060507256,
+      "modelWinProb": 0.0042517913753832666,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -6334,7 +6444,7 @@
     {
       "id": 43,
       "name": "Stephan Jaeger",
-      "rank": 77,
+      "rank": 78,
       "sgTotal": 0.22,
       "sgOtt": 0.15,
       "sgApp": 0.1,
@@ -6369,9 +6479,6 @@
         "tpc_scottsdale": 57
       },
       "notes": "German journeyman having a solid stretch. Shot 58 on mini-tour. Reliable for MC at weaker fields.",
-      "odds": {
-        "bet": "+6600"
-      },
       "fieldInfo": {
         "owgr": 108,
         "entryStatus": "IN",
@@ -6413,7 +6520,7 @@
       },
       "confScore": 47.4,
       "owgrRank": 43,
-      "modelWinProb": 0.004224914334294454,
+      "modelWinProb": 0.004216507002998408,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -6421,7 +6528,7 @@
     {
       "id": 79,
       "name": "J.T. Poston",
-      "rank": 78,
+      "rank": 79,
       "sgTotal": 0.2,
       "sgOtt": 0.08,
       "sgApp": 0.1,
@@ -6519,7 +6626,7 @@
       },
       "confScore": 47.4,
       "owgrRank": 70,
-      "modelWinProb": 0.004224914334294454,
+      "modelWinProb": 0.004216507002998408,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -6528,7 +6635,7 @@
     {
       "id": 34,
       "name": "Robert MacIntyre",
-      "rank": 79,
+      "rank": 80,
       "sgTotal": 0.45,
       "sgOtt": 0.32,
       "sgApp": 0.15,
@@ -6565,9 +6672,7 @@
       "notes": "Scottish lefty with links pedigree. Gritty competitor. Good in wind. Putter can go cold.",
       "odds": {
         "fd": "+6000",
-        "mgm": "+6600",
-        "bet": "+5000",
-        "dk": "+7800"
+        "bet": "+6600"
       },
       "fieldInfo": {
         "owgr": 7,
@@ -6576,8 +6681,8 @@
       },
       "owgr": 7,
       "recentForm": {
-        "l5AvgFinish": 52.0,
-        "l10AvgFinish": 52.0,
+        "l5AvgFinish": 52.4,
+        "l10AvgFinish": 52.4,
         "l5McPct": 100,
         "trend": "steady",
         "events": 5,
@@ -6592,10 +6697,10 @@
       "recentMakeCutPct": 60.0,
       "closingDelta": 0.4,
       "bayesianScore": {
-        "score": 40,
+        "score": 39,
         "prior": 59.0,
-        "likelihood": 31.5,
-        "posterior_sigma": 10.0,
+        "likelihood": 30.8,
+        "posterior_sigma": 9.4,
         "data_points": 5
       },
       "competitiveness": "active",
@@ -6613,7 +6718,7 @@
         "field_strength": 1.0,
         "consistency": 1.5,
         "par5": 0.9,
-        "ml_bayes": -1.7
+        "ml_bayes": -1.9
       },
       "propScores": {
         "win": 45,
@@ -6622,121 +6727,15 @@
         "top20": 54,
         "makeCut": 56
       },
-      "confScore": 47.199999999999996,
-      "edgeScore": -0.85,
-      "owgrRank": 34,
-      "modelWinProb": 0.004155082642620357,
-      "modelTop5Prob": 0.0,
-      "modelTop10Prob": 0.0,
-      "modelTop20Prob": 0.001,
-      "evScore": -67.2,
-      "scoreStd": 4.24
-    },
-    {
-      "id": 9001,
-      "name": "J.J. Spaun",
-      "rank": 80,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "odds": {
-        "mgm": "+5500",
-        "bet": "+6600"
-      },
-      "fieldInfo": {
-        "owgr": 6,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 6,
-      "recentForm": {
-        "l5AvgFinish": 19.8,
-        "l10AvgFinish": 19.0,
-        "l5McPct": 100,
-        "trend": "steady",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 67.5,
-          "r2Avg": 69.8,
-          "r3Avg": 67.3,
-          "r4Avg": 68.0,
-          "closingDelta": -1.0
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": -1.0,
-      "bayesianScore": {
-        "score": 63,
-        "prior": 50.0,
-        "likelihood": 73.7,
-        "posterior_sigma": 12.3,
-        "data_points": 11
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 3.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.4,
-        "closing": 3.0,
-        "field_strength": 2.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 5.0
-      },
-      "propScores": {
-        "win": 46,
-        "top5": 49,
-        "top10": 52,
-        "top20": 58,
-        "makeCut": 61
-      },
       "confScore": 47.0,
-      "edgeScore": -1.38,
-      "owgrRank": 6,
-      "modelWinProb": 0.0040864051672868116,
+      "edgeScore": -1.23,
+      "owgrRank": 34,
+      "modelWinProb": 0.00407827346109519,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "evScore": -77.1,
-      "scoreStd": 3.3
+      "evScore": -75.1,
+      "scoreStd": 4.24
     },
     {
       "id": 9004,
@@ -6832,7 +6831,7 @@
       },
       "confScore": 47.0,
       "owgrRank": 31,
-      "modelWinProb": 0.0040864051672868116,
+      "modelWinProb": 0.00407827346109519,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -6932,7 +6931,7 @@
       },
       "confScore": 46.4,
       "owgrRank": 11,
-      "modelWinProb": 0.0038871088355549787,
+      "modelWinProb": 0.003879373717354114,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -6977,9 +6976,9 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "mgm": "+6600",
-        "bet": "+4000",
-        "dk": "+4700"
+        "mgm": "+4500",
+        "bet": "+3300",
+        "dk": "+4900"
       },
       "fieldInfo": {
         "owgr": 77,
@@ -7036,13 +7035,13 @@
         "makeCut": 61
       },
       "confScore": 46.0,
-      "edgeScore": -1.71,
+      "edgeScore": -1.62,
       "owgrRank": 77,
-      "modelWinProb": 0.0037596742500746374,
+      "modelWinProb": 0.0037521927192116296,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "evScore": -82.0,
+      "evScore": -81.2,
       "scoreStd": 3.49
     },
     {
@@ -7090,8 +7089,8 @@
       },
       "owgr": 37,
       "recentForm": {
-        "l5AvgFinish": 24.8,
-        "l10AvgFinish": 22.2,
+        "l5AvgFinish": 25.2,
+        "l10AvgFinish": 22.5,
         "l5McPct": 100,
         "trend": "steady",
         "events": 6,
@@ -7109,8 +7108,8 @@
       "bayesianScore": {
         "score": 60,
         "prior": 50.0,
-        "likelihood": 70.7,
-        "posterior_sigma": 12.9,
+        "likelihood": 70.2,
+        "posterior_sigma": 13.1,
         "data_points": 11
       },
       "competitiveness": "active",
@@ -7139,16 +7138,121 @@
       },
       "confScore": 46.0,
       "owgrRank": 37,
-      "modelWinProb": 0.0037596742500746374,
+      "modelWinProb": 0.0037521927192116296,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
       "scoreStd": 4.52
     },
     {
+      "id": 9035,
+      "name": "Alex Smalley",
+      "rank": 85,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "odds": {
+        "mgm": "+3500"
+      },
+      "fieldInfo": {
+        "owgr": 122,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 122,
+      "recentForm": {
+        "l5AvgFinish": 37.0,
+        "l10AvgFinish": 32.2,
+        "l5McPct": 80,
+        "trend": "steady",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 71.3,
+          "r2Avg": 69.5,
+          "r3Avg": 69.7,
+          "r4Avg": 67.5,
+          "closingDelta": -1.8
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": -1.8,
+      "bayesianScore": {
+        "score": 56,
+        "prior": 50.0,
+        "likelihood": 68.4,
+        "posterior_sigma": 14.6,
+        "data_points": 11
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 3.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 7.0,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 0.7,
+        "closing": 3.8,
+        "field_strength": 0.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 4.5
+      },
+      "propScores": {
+        "win": 43,
+        "top5": 47,
+        "top10": 51,
+        "top20": 57,
+        "makeCut": 61
+      },
+      "confScore": 45.5,
+      "edgeScore": -2.42,
+      "owgrRank": 122,
+      "modelWinProb": 0.003599063697309463,
+      "modelTop5Prob": 0.0,
+      "modelTop10Prob": 0.0,
+      "modelTop20Prob": 0.001,
+      "evScore": -87.0,
+      "scoreStd": 3.6
+    },
+    {
       "id": 41,
       "name": "Jake Knapp",
-      "rank": 85,
+      "rank": 86,
       "sgTotal": 0.28,
       "sgOtt": 0.58,
       "sgApp": 0.0,
@@ -7218,9 +7322,9 @@
         "makeCut": 57
       },
       "confScore": 45.3,
-      "edgeScore": -1.28,
+      "edgeScore": -1.29,
       "owgrRank": 41,
-      "modelWinProb": 0.0035466340000719415,
+      "modelWinProb": 0.0035395764067895435,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -7229,7 +7333,7 @@
     {
       "id": 9018,
       "name": "Harry Hall",
-      "rank": 86,
+      "rank": 87,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7271,8 +7375,8 @@
       },
       "owgr": 60,
       "recentForm": {
-        "l5AvgFinish": 22.6,
-        "l10AvgFinish": 25.0,
+        "l5AvgFinish": 22.4,
+        "l10AvgFinish": 24.8,
         "l5McPct": 80,
         "trend": "steady",
         "events": 6,
@@ -7290,7 +7394,7 @@
       "bayesianScore": {
         "score": 55,
         "prior": 50.0,
-        "likelihood": 63.5,
+        "likelihood": 63.7,
         "posterior_sigma": 14.6,
         "data_points": 11
       },
@@ -7320,7 +7424,7 @@
       },
       "confScore": 45.2,
       "owgrRank": 60,
-      "modelWinProb": 0.0035172015223883333,
+      "modelWinProb": 0.0035102024980072596,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -7329,7 +7433,7 @@
     {
       "id": 9008,
       "name": "Rickie Fowler",
-      "rank": 87,
+      "rank": 88,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7366,9 +7470,9 @@
       "notes": "Auto-added from tournament field.",
       "odds": {
         "fd": "+6500",
-        "mgm": "+5000",
-        "bet": "+5000",
-        "dk": "+7000"
+        "mgm": "+6600",
+        "bet": "+4500",
+        "dk": "+7600"
       },
       "fieldInfo": {
         "owgr": 86,
@@ -7377,8 +7481,8 @@
       },
       "owgr": 86,
       "recentForm": {
-        "l5AvgFinish": 24.6,
-        "l10AvgFinish": 22.3,
+        "l5AvgFinish": 25.0,
+        "l10AvgFinish": 22.7,
         "l5McPct": 100,
         "trend": "steady",
         "events": 6,
@@ -7396,8 +7500,8 @@
       "bayesianScore": {
         "score": 59,
         "prior": 50.0,
-        "likelihood": 74.8,
-        "posterior_sigma": 14.4,
+        "likelihood": 74.4,
+        "posterior_sigma": 14.5,
         "data_points": 11
       },
       "competitiveness": "active",
@@ -7410,7 +7514,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.5,
+        "market": 0.4,
         "closing": 2.4,
         "field_strength": 0.0,
         "consistency": 1.7,
@@ -7419,25 +7523,25 @@
       },
       "propScores": {
         "win": 42,
-        "top5": 46,
+        "top5": 45,
         "top10": 50,
         "top20": 57,
         "makeCut": 61
       },
       "confScore": 45.0,
-      "edgeScore": -1.06,
+      "edgeScore": -0.95,
       "owgrRank": 86,
-      "modelWinProb": 0.0034590672946068594,
+      "modelWinProb": 0.003452183953923472,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "evScore": -75.4,
+      "evScore": -73.4,
       "scoreStd": 3.07
     },
     {
       "id": 9010,
       "name": "Matt McCarty",
-      "rank": 88,
+      "rank": 89,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7528,7 +7632,7 @@
       },
       "confScore": 45.0,
       "owgrRank": 55,
-      "modelWinProb": 0.0034590672946068594,
+      "modelWinProb": 0.003452183953923472,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -7537,7 +7641,7 @@
     {
       "id": 9019,
       "name": "Nick Taylor",
-      "rank": 89,
+      "rank": 90,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -7628,111 +7732,11 @@
       },
       "confScore": 45.0,
       "owgrRank": 57,
-      "modelWinProb": 0.0034590672946068594,
+      "modelWinProb": 0.003452183953923472,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
       "scoreStd": 2.63
-    },
-    {
-      "id": 9035,
-      "name": "Alex Smalley",
-      "rank": 90,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 122,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 122,
-      "recentForm": {
-        "l5AvgFinish": 37.0,
-        "l10AvgFinish": 32.2,
-        "l5McPct": 80,
-        "trend": "steady",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 70.8,
-          "r2Avg": 69.5,
-          "r3Avg": 69.7,
-          "r4Avg": 67.5,
-          "closingDelta": -1.6
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": -1.6,
-      "bayesianScore": {
-        "score": 56,
-        "prior": 50.0,
-        "likelihood": 68.4,
-        "posterior_sigma": 14.6,
-        "data_points": 11
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 3.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 7.0,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 0.0,
-        "closing": 3.6,
-        "field_strength": 0.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 4.8
-      },
-      "propScores": {
-        "win": 42,
-        "top5": 46,
-        "top10": 50,
-        "top20": 57,
-        "makeCut": 61
-      },
-      "confScore": 44.8,
-      "owgrRank": 122,
-      "modelWinProb": 0.0034018939410938157,
-      "modelTop5Prob": 0.0,
-      "modelTop10Prob": 0.0,
-      "modelTop20Prob": 0.001,
-      "scoreStd": 3.83
     },
     {
       "id": 87,
@@ -7786,8 +7790,8 @@
       },
       "owgr": 39,
       "recentForm": {
-        "l5AvgFinish": 62.4,
-        "l10AvgFinish": 57.5,
+        "l5AvgFinish": 62.8,
+        "l10AvgFinish": 57.8,
         "l5McPct": 20,
         "trend": "steady",
         "events": 6,
@@ -7805,8 +7809,8 @@
       "bayesianScore": {
         "score": 45,
         "prior": 53.6,
-        "likelihood": 30.8,
-        "posterior_sigma": 14.3,
+        "likelihood": 30.4,
+        "posterior_sigma": 14.2,
         "data_points": 11
       },
       "competitiveness": "active",
@@ -7834,7 +7838,7 @@
       },
       "confScore": 44.7,
       "owgrRank": 84,
-      "modelWinProb": 0.0033736626188030994,
+      "modelWinProb": 0.003366949228406724,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -7879,8 +7883,7 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "fd": "+3300",
-        "mgm": "+6000"
+        "fd": "+3300"
       },
       "fieldInfo": {
         "owgr": 28,
@@ -7939,11 +7942,11 @@
       "confScore": 44.7,
       "edgeScore": -2.6,
       "owgrRank": 28,
-      "modelWinProb": 0.0033736626188030994,
+      "modelWinProb": 0.003366949228406724,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "evScore": -88.5,
+      "evScore": -88.6,
       "scoreStd": 3.48
     },
     {
@@ -8040,7 +8043,7 @@
       },
       "confScore": 44.7,
       "owgrRank": 70,
-      "modelWinProb": 0.0033736626188030994,
+      "modelWinProb": 0.003366949228406724,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -8140,7 +8143,7 @@
       },
       "confScore": 44.6,
       "owgrRank": 33,
-      "modelWinProb": 0.003345665579994489,
+      "modelWinProb": 0.0033390079020604135,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -8240,7 +8243,7 @@
       },
       "confScore": 44.4,
       "owgrRank": 36,
-      "modelWinProb": 0.0032903665919581234,
+      "modelWinProb": 0.0032838189557612223,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -8335,7 +8338,7 @@
       },
       "confScore": 44.4,
       "owgrRank": 32,
-      "modelWinProb": 0.0032903665919581234,
+      "modelWinProb": 0.0032838189557612223,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -8439,7 +8442,7 @@
       "confScore": 43.9,
       "edgeScore": -1.86,
       "owgrRank": 49,
-      "modelWinProb": 0.0031560849450303586,
+      "modelWinProb": 0.003149804521421305,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -8544,7 +8547,7 @@
       "confScore": 43.5,
       "edgeScore": -1.21,
       "owgrRank": 61,
-      "modelWinProb": 0.0030526161733222296,
+      "modelWinProb": 0.0030465416464897054,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -8590,7 +8593,8 @@
       },
       "notes": "Auto-added from tournament field.",
       "odds": {
-        "dk": "+5700"
+        "mgm": "+5000",
+        "dk": "+6300"
       },
       "fieldInfo": {
         "owgr": 127,
@@ -8632,7 +8636,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.4,
+        "market": 0.5,
         "closing": 3.6,
         "field_strength": 0.0,
         "consistency": 1.7,
@@ -8647,13 +8651,13 @@
         "makeCut": 59
       },
       "confScore": 43.5,
-      "edgeScore": -1.42,
+      "edgeScore": -1.26,
       "owgrRank": 127,
-      "modelWinProb": 0.0030526161733222296,
+      "modelWinProb": 0.0030465416464897054,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "evScore": -82.3,
+      "evScore": -80.5,
       "scoreStd": 2.89
     },
     {
@@ -8750,16 +8754,116 @@
       },
       "confScore": 43.5,
       "owgrRank": 75,
-      "modelWinProb": 0.0030526161733222296,
+      "modelWinProb": 0.0030465416464897054,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
       "scoreStd": 2.21
     },
     {
+      "id": 9014,
+      "name": "Sam Stevens",
+      "rank": 101,
+      "sgTotal": 0.0,
+      "sgOtt": 0.0,
+      "sgApp": 0.0,
+      "sgArg": 0.0,
+      "sgPutt": 0.0,
+      "birdieAvg": 3.5,
+      "bogeyAvg": 2.5,
+      "scoringAvg": 72.0,
+      "gir": 65.0,
+      "fairways": 60.0,
+      "scramble": 57.0,
+      "proxAvg": 35.0,
+      "missDir": "neutral",
+      "flight": "neutral",
+      "courseFit": {
+        "augusta": 50,
+        "tpc_sawgrass": 50,
+        "pebble": 50,
+        "torrey_south": 50,
+        "riviera": 50,
+        "valhalla": 50,
+        "pinehurst_2": 50,
+        "royal_troon": 50,
+        "royal_portrush": 50,
+        "oakmont": 50,
+        "quail_hollow": 50,
+        "east_lake": 50,
+        "bay_hill": 50,
+        "harbour_town": 50,
+        "colonial": 50,
+        "memorial": 50,
+        "tpc_scottsdale": 50
+      },
+      "notes": "Auto-added from tournament field.",
+      "fieldInfo": {
+        "owgr": 50,
+        "entryStatus": "IN",
+        "inField": true
+      },
+      "owgr": 50,
+      "recentForm": {
+        "l5AvgFinish": 60.0,
+        "l10AvgFinish": 53.0,
+        "l5McPct": 40,
+        "trend": "cold",
+        "events": 6,
+        "roundAvgs": {
+          "r1Avg": 71.8,
+          "r2Avg": 74.0,
+          "r3Avg": 71.0,
+          "r4Avg": 70.0,
+          "closingDelta": -2.4
+        }
+      },
+      "makeCutPct": 60.0,
+      "recentMakeCutPct": 60.0,
+      "closingDelta": -2.4,
+      "bayesianScore": {
+        "score": 46,
+        "prior": 50.0,
+        "likelihood": 37.2,
+        "posterior_sigma": 14.6,
+        "data_points": 11
+      },
+      "competitiveness": "active",
+      "confBreakdown": {
+        "sg": 3.8,
+        "fit": 6.4,
+        "history": 3.5,
+        "form": 5.7,
+        "gir": 5.1,
+        "driving": 2.7,
+        "birdie_bogey": 3.7,
+        "cut": 3.0,
+        "market": 1.5,
+        "closing": 4.0,
+        "field_strength": 1.0,
+        "consistency": 1.7,
+        "par5": 0.0,
+        "ml_bayes": 1.2
+      },
+      "propScores": {
+        "win": 41,
+        "top5": 45,
+        "top10": 48,
+        "top20": 53,
+        "makeCut": 57
+      },
+      "confScore": 43.2,
+      "owgrRank": 50,
+      "modelWinProb": 0.002971322265228527,
+      "modelTop5Prob": 0.0,
+      "modelTop10Prob": 0.0,
+      "modelTop20Prob": 0.001,
+      "scoreStd": 2.54
+    },
+    {
       "id": 9007,
       "name": "Ryan Gerard",
-      "rank": 101,
+      "rank": 102,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -8850,7 +8954,7 @@
       },
       "confScore": 43.1,
       "owgrRank": 44,
-      "modelWinProb": 0.0029525395114290303,
+      "modelWinProb": 0.002946664131273803,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -8859,7 +8963,7 @@
     {
       "id": 9033,
       "name": "Aldrich Potgieter",
-      "rank": 102,
+      "rank": 103,
       "sgTotal": 0.0,
       "sgOtt": 0.0,
       "sgApp": 0.0,
@@ -8894,6 +8998,9 @@
         "tpc_scottsdale": 50
       },
       "notes": "Auto-added from tournament field.",
+      "odds": {
+        "mgm": "+6600"
+      },
       "fieldInfo": {
         "owgr": 83,
         "entryStatus": "IN",
@@ -8934,7 +9041,7 @@
         "driving": 2.7,
         "birdie_bogey": 3.7,
         "cut": 3.0,
-        "market": 0.5,
+        "market": 0.4,
         "closing": 3.9,
         "field_strength": 0.0,
         "consistency": 1.7,
@@ -8949,17 +9056,19 @@
         "makeCut": 58
       },
       "confScore": 43.0,
+      "edgeScore": -1.2,
       "owgrRank": 83,
-      "modelWinProb": 0.0029280372500515247,
+      "modelWinProb": 0.002922210627956841,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
+      "evScore": -80.4,
       "scoreStd": 3.12
     },
     {
       "id": 47,
       "name": "Michael Thorbjornsen",
-      "rank": 103,
+      "rank": 104,
       "sgTotal": 0.12,
       "sgOtt": 0.25,
       "sgApp": 0.05,
@@ -9043,111 +9152,11 @@
       },
       "confScore": 42.9,
       "owgrRank": 47,
-      "modelWinProb": 0.0029037383257708754,
+      "modelWinProb": 0.00289796005710786,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
       "scoreStd": 1.93
-    },
-    {
-      "id": 9014,
-      "name": "Sam Stevens",
-      "rank": 104,
-      "sgTotal": 0.0,
-      "sgOtt": 0.0,
-      "sgApp": 0.0,
-      "sgArg": 0.0,
-      "sgPutt": 0.0,
-      "birdieAvg": 3.5,
-      "bogeyAvg": 2.5,
-      "scoringAvg": 72.0,
-      "gir": 65.0,
-      "fairways": 60.0,
-      "scramble": 57.0,
-      "proxAvg": 35.0,
-      "missDir": "neutral",
-      "flight": "neutral",
-      "courseFit": {
-        "augusta": 50,
-        "tpc_sawgrass": 50,
-        "pebble": 50,
-        "torrey_south": 50,
-        "riviera": 50,
-        "valhalla": 50,
-        "pinehurst_2": 50,
-        "royal_troon": 50,
-        "royal_portrush": 50,
-        "oakmont": 50,
-        "quail_hollow": 50,
-        "east_lake": 50,
-        "bay_hill": 50,
-        "harbour_town": 50,
-        "colonial": 50,
-        "memorial": 50,
-        "tpc_scottsdale": 50
-      },
-      "notes": "Auto-added from tournament field.",
-      "fieldInfo": {
-        "owgr": 50,
-        "entryStatus": "IN",
-        "inField": true
-      },
-      "owgr": 50,
-      "recentForm": {
-        "l5AvgFinish": 62.8,
-        "l10AvgFinish": 55.3,
-        "l5McPct": 40,
-        "trend": "cold",
-        "events": 6,
-        "roundAvgs": {
-          "r1Avg": 71.2,
-          "r2Avg": 74.0,
-          "r3Avg": 71.0,
-          "r4Avg": 70.0,
-          "closingDelta": -2.1
-        }
-      },
-      "makeCutPct": 60.0,
-      "recentMakeCutPct": 60.0,
-      "closingDelta": -2.1,
-      "bayesianScore": {
-        "score": 45,
-        "prior": 50.0,
-        "likelihood": 34.0,
-        "posterior_sigma": 14.6,
-        "data_points": 11
-      },
-      "competitiveness": "active",
-      "confBreakdown": {
-        "sg": 3.8,
-        "fit": 6.4,
-        "history": 3.5,
-        "form": 5.7,
-        "gir": 5.1,
-        "driving": 2.7,
-        "birdie_bogey": 3.7,
-        "cut": 3.0,
-        "market": 1.5,
-        "closing": 4.0,
-        "field_strength": 1.0,
-        "consistency": 1.7,
-        "par5": 0.0,
-        "ml_bayes": 0.9
-      },
-      "propScores": {
-        "win": 41,
-        "top5": 45,
-        "top10": 48,
-        "top20": 53,
-        "makeCut": 57
-      },
-      "confScore": 42.9,
-      "owgrRank": 50,
-      "modelWinProb": 0.0029037383257708754,
-      "modelTop5Prob": 0.0,
-      "modelTop10Prob": 0.0,
-      "modelTop20Prob": 0.001,
-      "scoreStd": 2.77
     },
     {
       "id": 9013,
@@ -9243,7 +9252,7 @@
       },
       "confScore": 42.7,
       "owgrRank": 52,
-      "modelWinProb": 0.002855743752763434,
+      "modelWinProb": 0.002850060990480846,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -9336,7 +9345,7 @@
       },
       "confScore": 42.4,
       "owgrRank": 42,
-      "modelWinProb": 0.0027852351882831643,
+      "modelWinProb": 0.002779692733901255,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -9387,8 +9396,8 @@
       },
       "owgr": 34,
       "recentForm": {
-        "l5AvgFinish": 73.0,
-        "l10AvgFinish": 73.0,
+        "l5AvgFinish": 72.0,
+        "l10AvgFinish": 72.0,
         "l5McPct": 0,
         "trend": "steady",
         "events": 1,
@@ -9421,7 +9430,7 @@
       },
       "confScore": 42.0,
       "owgrRank": 34,
-      "modelWinProb": 0.002693924317736508,
+      "modelWinProb": 0.0026885635666221387,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -9497,7 +9506,7 @@
       },
       "confScore": 42.0,
       "owgrRank": 38,
-      "modelWinProb": 0.002693924317736508,
+      "modelWinProb": 0.0026885635666221387,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -9573,7 +9582,7 @@
       },
       "confScore": 42.0,
       "owgrRank": 40,
-      "modelWinProb": 0.002693924317736508,
+      "modelWinProb": 0.0026885635666221387,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -9624,8 +9633,9 @@
       },
       "notes": "Stanford product. West Coast familiarity helps. Pebble and Torrey specialist. Thin field MC candidate.",
       "odds": {
-        "bet": "+5000",
-        "dk": "+7000"
+        "mgm": "+6600",
+        "bet": "+4500",
+        "dk": "+7600"
       },
       "fieldInfo": {
         "owgr": 21,
@@ -9667,7 +9677,7 @@
         "driving": 3.4,
         "birdie_bogey": 4.1,
         "cut": 1.7,
-        "market": 0.3,
+        "market": 0.4,
         "closing": 4.0,
         "field_strength": 1.0,
         "consistency": 1.6,
@@ -9682,13 +9692,13 @@
         "makeCut": 50
       },
       "confScore": 41.9,
-      "edgeScore": -1.14,
+      "edgeScore": -1.03,
       "owgrRank": 50,
-      "modelWinProb": 0.002671568228170597,
+      "modelWinProb": 0.002666251964360962,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "evScore": -81.0,
+      "evScore": -79.5,
       "scoreStd": 2.59
     },
     {
@@ -9785,7 +9795,7 @@
       },
       "confScore": 41.9,
       "owgrRank": 96,
-      "modelWinProb": 0.002671568228170597,
+      "modelWinProb": 0.002666251964360962,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -9884,7 +9894,7 @@
       },
       "confScore": 41.699999999999996,
       "owgrRank": 115,
-      "modelWinProb": 0.0026274110893425785,
+      "modelWinProb": 0.002622182695644817,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -9934,8 +9944,8 @@
       },
       "owgr": 125,
       "recentForm": {
-        "l5AvgFinish": 36.0,
-        "l10AvgFinish": 37.7,
+        "l5AvgFinish": 35.8,
+        "l10AvgFinish": 37.5,
         "l5McPct": 80,
         "trend": "steady",
         "events": 6,
@@ -9953,7 +9963,7 @@
       "bayesianScore": {
         "score": 50,
         "prior": 50.0,
-        "likelihood": 50.9,
+        "likelihood": 51.2,
         "posterior_sigma": 14.6,
         "data_points": 11
       },
@@ -9983,7 +9993,7 @@
       },
       "confScore": 41.6,
       "owgrRank": 125,
-      "modelWinProb": 0.0026056069735947538,
+      "modelWinProb": 0.0026004219688062586,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -10083,7 +10093,7 @@
       },
       "confScore": 41.5,
       "owgrRank": 130,
-      "modelWinProb": 0.0025839838038227867,
+      "modelWinProb": 0.002578841827871698,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -10129,9 +10139,9 @@
       "notes": "Auto-added from tournament field.",
       "odds": {
         "fd": "+2700",
-        "mgm": "+5000",
+        "mgm": "+6000",
         "bet": "+5000",
-        "dk": "+7000"
+        "dk": "+6900"
       },
       "fieldInfo": {
         "owgr": 10,
@@ -10140,27 +10150,27 @@
       },
       "owgr": 10,
       "recentForm": {
-        "l5AvgFinish": 43.4,
-        "l10AvgFinish": 47.0,
+        "l5AvgFinish": 43.6,
+        "l10AvgFinish": 47.2,
         "l5McPct": 100,
         "trend": "steady",
         "events": 6,
         "roundAvgs": {
-          "r1Avg": 70.7,
+          "r1Avg": 71.3,
           "r2Avg": 71.2,
           "r3Avg": 72.3,
           "r4Avg": 69.0,
-          "closingDelta": -0.3
+          "closingDelta": -0.6
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
-      "closingDelta": -0.3,
+      "closingDelta": -0.6,
       "bayesianScore": {
         "score": 40,
         "prior": 50.0,
-        "likelihood": 32.0,
-        "posterior_sigma": 12.1,
+        "likelihood": 31.8,
+        "posterior_sigma": 12.0,
         "data_points": 11
       },
       "competitiveness": "active",
@@ -10174,7 +10184,7 @@
         "birdie_bogey": 3.7,
         "cut": 3.0,
         "market": 0.9,
-        "closing": 2.3,
+        "closing": 2.6,
         "field_strength": 2.0,
         "consistency": 1.7,
         "par5": 0.0,
@@ -10182,20 +10192,20 @@
       },
       "propScores": {
         "win": 41,
-        "top5": 43,
-        "top10": 46,
+        "top5": 44,
+        "top10": 47,
         "top20": 52,
         "makeCut": 56
       },
       "confScore": 41.4,
-      "edgeScore": -1.15,
+      "edgeScore": -1.17,
       "owgrRank": 10,
-      "modelWinProb": 0.0025625400784089767,
+      "modelWinProb": 0.0025574407742115636,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "evScore": -81.8,
-      "scoreStd": 2.51
+      "evScore": -82.1,
+      "scoreStd": 2.27
     },
     {
       "id": 96,
@@ -10272,11 +10282,11 @@
       "confScore": 41.3,
       "edgeScore": -1.26,
       "owgrRank": 120,
-      "modelWinProb": 0.0025412743081971085,
+      "modelWinProb": 0.0025362173216329754,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "evScore": -83.2
+      "evScore": -83.3
     },
     {
       "id": 9045,
@@ -10372,7 +10382,7 @@
       },
       "confScore": 41.2,
       "owgrRank": 144,
-      "modelWinProb": 0.002520185016389039,
+      "modelWinProb": 0.0025151699962765303,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -10423,8 +10433,8 @@
       },
       "owgr": 56,
       "recentForm": {
-        "l5AvgFinish": 77.0,
-        "l10AvgFinish": 77.0,
+        "l5AvgFinish": 76.0,
+        "l10AvgFinish": 76.0,
         "l5McPct": 0,
         "trend": "steady",
         "events": 1,
@@ -10457,7 +10467,7 @@
       },
       "confScore": 41.0,
       "owgrRank": 56,
-      "modelWinProb": 0.002478530021967584,
+      "modelWinProb": 0.0024735978928465906,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -10533,7 +10543,7 @@
       },
       "confScore": 41.0,
       "owgrRank": 62,
-      "modelWinProb": 0.002478530021967584,
+      "modelWinProb": 0.0024735978928465906,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -10583,8 +10593,8 @@
       },
       "owgr": 48,
       "recentForm": {
-        "l5AvgFinish": 71.0,
-        "l10AvgFinish": 71.0,
+        "l5AvgFinish": 70.0,
+        "l10AvgFinish": 70.0,
         "l5McPct": 0,
         "trend": "steady",
         "events": 1,
@@ -10617,7 +10627,7 @@
       },
       "confScore": 41.0,
       "owgrRank": 48,
-      "modelWinProb": 0.002478530021967584,
+      "modelWinProb": 0.0024735978928465906,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -10693,7 +10703,7 @@
       },
       "confScore": 41.0,
       "owgrRank": 49,
-      "modelWinProb": 0.002478530021967584,
+      "modelWinProb": 0.0024735978928465906,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -10792,7 +10802,7 @@
       },
       "confScore": 40.7,
       "owgrRank": 121,
-      "modelWinProb": 0.002417334897684787,
+      "modelWinProb": 0.0024125245432656786,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -10869,7 +10879,7 @@
       },
       "confScore": 40.0,
       "owgrRank": 67,
-      "modelWinProb": 0.0022803577032023702,
+      "modelWinProb": 0.0022758199253523695,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -10953,7 +10963,7 @@
       },
       "confScore": 40.0,
       "owgrRank": 66,
-      "modelWinProb": 0.0022803577032023702,
+      "modelWinProb": 0.0022758199253523695,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11003,8 +11013,8 @@
       },
       "owgr": 69,
       "recentForm": {
-        "l5AvgFinish": 32.0,
-        "l10AvgFinish": 32.0,
+        "l5AvgFinish": 34.0,
+        "l10AvgFinish": 34.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 1,
@@ -11037,7 +11047,7 @@
       },
       "confScore": 40.0,
       "owgrRank": 69,
-      "modelWinProb": 0.0022803577032023702,
+      "modelWinProb": 0.0022758199253523695,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11113,7 +11123,7 @@
       },
       "confScore": 40.0,
       "owgrRank": 74,
-      "modelWinProb": 0.0022803577032023702,
+      "modelWinProb": 0.0022758199253523695,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11189,7 +11199,7 @@
       },
       "confScore": 40.0,
       "owgrRank": 76,
-      "modelWinProb": 0.0022803577032023702,
+      "modelWinProb": 0.0022758199253523695,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11288,7 +11298,7 @@
       },
       "confScore": 39.8,
       "owgrRank": 71,
-      "modelWinProb": 0.002242666705601759,
+      "modelWinProb": 0.002238203930622499,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11372,7 +11382,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 114,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11456,7 +11466,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 87,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11532,7 +11542,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 82,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11608,7 +11618,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 128,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11692,7 +11702,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 141,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11742,8 +11752,8 @@
       },
       "owgr": 88,
       "recentForm": {
-        "l5AvgFinish": 48.0,
-        "l10AvgFinish": 48.0,
+        "l5AvgFinish": 32.0,
+        "l10AvgFinish": 32.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 1,
@@ -11776,7 +11786,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 88,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11852,7 +11862,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 142,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -11902,8 +11912,8 @@
       },
       "owgr": 117,
       "recentForm": {
-        "l5AvgFinish": 80.0,
-        "l10AvgFinish": 80.0,
+        "l5AvgFinish": 79.0,
+        "l10AvgFinish": 79.0,
         "l5McPct": 0,
         "trend": "steady",
         "events": 1,
@@ -11936,7 +11946,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 117,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -12012,7 +12022,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 102,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -12110,7 +12120,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 85,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -12187,7 +12197,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 115,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -12263,7 +12273,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 104,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -12339,7 +12349,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 112,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -12423,7 +12433,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 111,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -12499,7 +12509,7 @@
       },
       "confScore": 39.0,
       "owgrRank": 135,
-      "modelWinProb": 0.002098030368188292,
+      "modelWinProb": 0.0020938554110225705,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -12549,27 +12559,27 @@
       },
       "owgr": 118,
       "recentForm": {
-        "l5AvgFinish": 44.0,
-        "l10AvgFinish": 48.7,
+        "l5AvgFinish": 44.4,
+        "l10AvgFinish": 49.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 6,
         "roundAvgs": {
-          "r1Avg": 71.5,
+          "r1Avg": 72.0,
           "r2Avg": 69.8,
           "r3Avg": 70.7,
           "r4Avg": 74.5,
-          "closingDelta": 1.9
+          "closingDelta": 1.7
         }
       },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
-      "closingDelta": 1.9,
+      "closingDelta": 1.7,
       "bayesianScore": {
-        "score": 43,
+        "score": 42,
         "prior": 50.0,
-        "likelihood": 31.9,
-        "posterior_sigma": 13.8,
+        "likelihood": 31.5,
+        "posterior_sigma": 13.6,
         "data_points": 11
       },
       "competitiveness": "active",
@@ -12583,11 +12593,11 @@
         "birdie_bogey": 3.7,
         "cut": 3.0,
         "market": 0.0,
-        "closing": 0.1,
+        "closing": 0.3,
         "field_strength": 0.0,
         "consistency": 1.7,
         "par5": 0.0,
-        "ml_bayes": 1.8
+        "ml_bayes": 1.5
       },
       "propScores": {
         "win": 36,
@@ -12596,13 +12606,13 @@
         "top20": 52,
         "makeCut": 58
       },
-      "confScore": 38.8,
+      "confScore": 38.5,
       "owgrRank": 118,
-      "modelWinProb": 0.0020633529763640426,
+      "modelWinProb": 0.0020084040349637716,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
-      "scoreStd": 2.91
+      "scoreStd": 2.56
     },
     {
       "id": 9059,
@@ -12649,8 +12659,8 @@
       },
       "owgr": 99,
       "recentForm": {
-        "l5AvgFinish": 60.4,
-        "l10AvgFinish": 61.0,
+        "l5AvgFinish": 60.2,
+        "l10AvgFinish": 60.8,
         "l5McPct": 40,
         "trend": "steady",
         "events": 6,
@@ -12668,7 +12678,7 @@
       "bayesianScore": {
         "score": 37,
         "prior": 50.0,
-        "likelihood": 20.3,
+        "likelihood": 20.5,
         "posterior_sigma": 13.3,
         "data_points": 11
       },
@@ -12697,7 +12707,7 @@
       },
       "confScore": 37.0,
       "owgrRank": 99,
-      "modelWinProb": 0.0017759443649369153,
+      "modelWinProb": 0.0017724103399939307,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -12790,7 +12800,7 @@
       },
       "confScore": 35.6,
       "owgrRank": 89,
-      "modelWinProb": 0.0015803805166462641,
+      "modelWinProb": 0.0015772356522712851,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -12867,7 +12877,7 @@
       },
       "confScore": 35,
       "owgrRank": 200,
-      "modelWinProb": 0.0015033044493415674,
+      "modelWinProb": 0.0015003129618120232,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -12917,8 +12927,8 @@
       },
       "owgr": 211,
       "recentForm": {
-        "l5AvgFinish": 40.0,
-        "l10AvgFinish": 40.0,
+        "l5AvgFinish": 42.0,
+        "l10AvgFinish": 42.0,
         "l5McPct": 100,
         "trend": "steady",
         "events": 1,
@@ -12951,7 +12961,7 @@
       },
       "confScore": 35,
       "owgrRank": 211,
-      "modelWinProb": 0.0015033044493415674,
+      "modelWinProb": 0.0015003129618120232,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -13050,7 +13060,7 @@
       },
       "confScore": 35,
       "owgrRank": 180,
-      "modelWinProb": 0.0015033044493415674,
+      "modelWinProb": 0.0015003129618120232,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -13101,8 +13111,8 @@
       },
       "owgr": 203,
       "recentForm": {
-        "l5AvgFinish": 17.4,
-        "l10AvgFinish": 16.2,
+        "l5AvgFinish": 17.2,
+        "l10AvgFinish": 16.0,
         "l5McPct": 80,
         "trend": "steady",
         "events": 6,
@@ -13120,7 +13130,7 @@
       "bayesianScore": {
         "score": 59,
         "prior": 50.0,
-        "likelihood": 75.2,
+        "likelihood": 75.4,
         "posterior_sigma": 14.6,
         "data_points": 11
       },
@@ -13150,7 +13160,7 @@
       },
       "confScore": 35,
       "owgrRank": 203,
-      "modelWinProb": 0.0015033044493415674,
+      "modelWinProb": 0.0015003129618120232,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -13250,7 +13260,7 @@
       },
       "confScore": 35,
       "owgrRank": 173,
-      "modelWinProb": 0.0015033044493415674,
+      "modelWinProb": 0.0015003129618120232,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -13350,7 +13360,7 @@
       },
       "confScore": 35,
       "owgrRank": 278,
-      "modelWinProb": 0.0015033044493415674,
+      "modelWinProb": 0.0015003129618120232,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001,
@@ -13401,8 +13411,8 @@
       },
       "owgr": 290,
       "recentForm": {
-        "l5AvgFinish": 79.0,
-        "l10AvgFinish": 79.0,
+        "l5AvgFinish": 78.0,
+        "l10AvgFinish": 78.0,
         "l5McPct": 0,
         "trend": "steady",
         "events": 1,
@@ -13435,7 +13445,7 @@
       },
       "confScore": 35,
       "owgrRank": 290,
-      "modelWinProb": 0.0015033044493415674,
+      "modelWinProb": 0.0015003129618120232,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -13519,7 +13529,7 @@
       },
       "confScore": 35,
       "owgrRank": 272,
-      "modelWinProb": 0.0015033044493415674,
+      "modelWinProb": 0.0015003129618120232,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -13597,7 +13607,7 @@
       },
       "confScore": 35,
       "owgrRank": 200,
-      "modelWinProb": 0.0015033044493415674,
+      "modelWinProb": 0.0015003129618120232,
       "modelTop5Prob": 0.0,
       "modelTop10Prob": 0.0,
       "modelTop20Prob": 0.001
@@ -13800,14 +13810,6 @@
         "inField": true
       },
       "owgr": 333,
-      "recentForm": {
-        "l5AvgFinish": 67.0,
-        "l10AvgFinish": 67.0,
-        "l5McPct": 0,
-        "trend": "steady",
-        "events": 1,
-        "roundAvgs": null
-      },
       "makeCutPct": 60.0,
       "recentMakeCutPct": 60.0,
       "competitiveness": "non_competitive",
@@ -14160,8 +14162,8 @@
         "name": "Alex Smalley",
         "position": "T1",
         "score": "-3",
-        "totalStrokes": 63.0,
-        "round1": 63.0,
+        "totalStrokes": 67.0,
+        "round1": 67.0,
         "round2": 0.0,
         "round3": 0.0,
         "round4": 0.0,
@@ -14432,22 +14434,22 @@
         "thru": ""
       },
       {
-        "name": "Matti Schmid",
+        "name": "Chandler Blanchet",
         "position": "T15",
         "score": "-1",
-        "totalStrokes": 64.0,
-        "round1": 64.0,
+        "totalStrokes": 69.0,
+        "round1": 69.0,
         "round2": 0.0,
         "round3": 0.0,
         "round4": 0.0,
         "thru": ""
       },
       {
-        "name": "Chandler Blanchet",
+        "name": "Matti Schmid",
         "position": "T15",
         "score": "-1",
-        "totalStrokes": 65.0,
-        "round1": 65.0,
+        "totalStrokes": 69.0,
+        "round1": 69.0,
         "round2": 0.0,
         "round3": 0.0,
         "round4": 0.0,
@@ -14974,31 +14976,31 @@
     "leaderboardSource": "ESPN",
     "weather": [
       {
-        "date": "2026-05-14",
-        "tempHigh": 62.3,
-        "tempLow": 53.1,
-        "windAvg": 10.0,
-        "windMax": 14.4,
-        "windDir": 298,
-        "rainPct": 12
-      },
-      {
         "date": "2026-05-15",
-        "tempHigh": 63.4,
-        "tempLow": 46.8,
-        "windAvg": 11.4,
-        "windMax": 13.6,
-        "windDir": 314,
-        "rainPct": 2
+        "tempHigh": 63.9,
+        "tempLow": 47.3,
+        "windAvg": 10.9,
+        "windMax": 13.5,
+        "windDir": 313,
+        "rainPct": 1
       },
       {
         "date": "2026-05-16",
-        "tempHigh": 76.7,
-        "tempLow": 51.8,
+        "tempHigh": 79.7,
+        "tempLow": 51.3,
         "windAvg": 8.9,
-        "windMax": 10.9,
-        "windDir": 221,
-        "rainPct": 0
+        "windMax": 11.7,
+        "windDir": 214,
+        "rainPct": 1
+      },
+      {
+        "date": "2026-05-17",
+        "tempHigh": 79.6,
+        "tempLow": 65.3,
+        "windAvg": 7.1,
+        "windMax": 9.5,
+        "windDir": 281,
+        "rainPct": 11
       }
     ]
   },
@@ -15008,7 +15010,7 @@
       "event": "The Masters",
       "par": 72,
       "yards": 7545,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "tpc_sawgrass": {
@@ -15016,7 +15018,7 @@
       "event": "THE PLAYERS Championship",
       "par": 72,
       "yards": 7256,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "pebble": {
@@ -15024,7 +15026,7 @@
       "event": "AT&T Pebble Beach Pro-Am",
       "par": 72,
       "yards": 6972,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "torrey_south": {
@@ -15032,7 +15034,7 @@
       "event": "Farmers Insurance Open",
       "par": 72,
       "yards": 7765,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "riviera": {
@@ -15040,7 +15042,7 @@
       "event": "Genesis Invitational",
       "par": 71,
       "yards": 7349,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "valhalla": {
@@ -15048,7 +15050,7 @@
       "event": "PGA Championship",
       "par": 72,
       "yards": 7456,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "pinehurst_2": {
@@ -15056,7 +15058,7 @@
       "event": "US Open",
       "par": 70,
       "yards": 7548,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "royal_troon": {
@@ -15064,7 +15066,7 @@
       "event": "The Open Championship",
       "par": 71,
       "yards": 7385,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "quail_hollow": {
@@ -15072,7 +15074,7 @@
       "event": "Wells Fargo Championship",
       "par": 71,
       "yards": 7554,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "east_lake": {
@@ -15080,7 +15082,7 @@
       "event": "TOUR Championship",
       "par": 72,
       "yards": 7346,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "bay_hill": {
@@ -15088,7 +15090,7 @@
       "event": "Arnold Palmer Invitational",
       "par": 72,
       "yards": 7466,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "harbour_town": {
@@ -15096,7 +15098,7 @@
       "event": "RBC Heritage",
       "par": 71,
       "yards": 7188,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "colonial": {
@@ -15104,7 +15106,7 @@
       "event": "Charles Schwab Challenge",
       "par": 70,
       "yards": 7209,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "memorial": {
@@ -15112,7 +15114,7 @@
       "event": "Memorial Tournament",
       "par": 72,
       "yards": 7543,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "tpc_scottsdale": {
@@ -15120,7 +15122,7 @@
       "event": "WM Phoenix Open",
       "par": 71,
       "yards": 7261,
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "aronimink": {
@@ -15146,7 +15148,7 @@
           "note": "Uphill finisher with a wide fairway but demanding second shot to a small green."
         }
       ],
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "shinnecock": {
@@ -15158,7 +15160,7 @@
       "location": "Southampton, NY",
       "yearBuilt": 1891,
       "notes": "Links-style major venue, five-time U.S. Open host. Premium on wind management, accuracy off the tee, and creative short game. Firm fast greens, revetted bunkers, fescue rough.",
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     },
     "royal_birkdale": {
@@ -15170,7 +15172,7 @@
       "location": "Southport, England",
       "yearBuilt": 1889,
       "notes": "Traditional links among the dunes. Tenth Open Championship host. Punishes wayward driving and rewards controlled ball flight. Strong putters and shotmakers historically rise here.",
-      "lastUpdated": "2026-05-14",
+      "lastUpdated": "2026-05-15",
       "source": "Compiled from DataGolf, PGATour.com, and GolfStats.com"
     }
   },
@@ -15178,31 +15180,31 @@
     "course": "aronimink",
     "forecast": [
       {
-        "date": "2026-05-14",
-        "tempHigh": 62.3,
-        "tempLow": 53.1,
-        "windAvg": 10.0,
-        "windMax": 14.4,
-        "windDir": 298,
-        "rainPct": 12
-      },
-      {
         "date": "2026-05-15",
-        "tempHigh": 63.4,
-        "tempLow": 46.8,
-        "windAvg": 11.4,
-        "windMax": 13.6,
-        "windDir": 314,
-        "rainPct": 2
+        "tempHigh": 63.9,
+        "tempLow": 47.3,
+        "windAvg": 10.9,
+        "windMax": 13.5,
+        "windDir": 313,
+        "rainPct": 1
       },
       {
         "date": "2026-05-16",
-        "tempHigh": 76.7,
-        "tempLow": 51.8,
+        "tempHigh": 79.7,
+        "tempLow": 51.3,
         "windAvg": 8.9,
-        "windMax": 10.9,
-        "windDir": 221,
-        "rainPct": 0
+        "windMax": 11.7,
+        "windDir": 214,
+        "rainPct": 1
+      },
+      {
+        "date": "2026-05-17",
+        "tempHigh": 79.6,
+        "tempLow": 65.3,
+        "windAvg": 7.1,
+        "windMax": 9.5,
+        "windDir": 281,
+        "rainPct": 11
       }
     ]
   },
@@ -15223,7 +15225,7 @@
       "sgOTT": 0.0,
       "sgAPP": -0.76,
       "sgATG": 0.0,
-      "sgPutt": 4.25
+      "sgPutt": 4.26
     },
     {
       "name": "Min Woo Lee",
@@ -15241,7 +15243,7 @@
       "sgOTT": 0.0,
       "sgAPP": 1.68,
       "sgATG": 0.0,
-      "sgPutt": 1.54
+      "sgPutt": 1.55
     },
     {
       "name": "Martin Kaymer",
@@ -15255,20 +15257,20 @@
     {
       "name": "Scottie Scheffler",
       "rounds": 2,
-      "sgTotal": 5.13,
+      "sgTotal": 5.26,
       "sgOTT": 0.0,
-      "sgAPP": 0.67,
+      "sgAPP": 0.62,
       "sgATG": 0.0,
-      "sgPutt": 3.36
+      "sgPutt": 3.37
     },
     {
       "name": "Alex Smalley",
       "rounds": 2,
-      "sgTotal": 5.01,
+      "sgTotal": 5.26,
       "sgOTT": 0.0,
-      "sgAPP": 0.92,
+      "sgAPP": 0.77,
       "sgATG": 0.0,
-      "sgPutt": 3.11
+      "sgPutt": 3.3
     },
     {
       "name": "Dan Brown",
@@ -15277,7 +15279,7 @@
       "sgOTT": 0.0,
       "sgAPP": 3.59,
       "sgATG": 0.0,
-      "sgPutt": 0.77
+      "sgPutt": 0.78
     },
     {
       "name": "Sahith Theegala",
@@ -15304,32 +15306,32 @@
       "sgOTT": 0.0,
       "sgAPP": 0.35,
       "sgATG": 0.0,
-      "sgPutt": 1.42
+      "sgPutt": 1.43
     },
     {
       "name": "Corey Conners",
       "rounds": 2,
       "sgTotal": 4.26,
       "sgOTT": 0.0,
-      "sgAPP": 3.93,
+      "sgAPP": 3.94,
       "sgATG": 0.0,
-      "sgPutt": -1.0
+      "sgPutt": -0.99
     },
     {
       "name": "Patrick Reed",
       "rounds": 2,
       "sgTotal": 4.26,
       "sgOTT": 0.0,
-      "sgAPP": 3.66,
+      "sgAPP": 3.67,
       "sgATG": 0.0,
-      "sgPutt": 0.62
+      "sgPutt": 0.63
     },
     {
       "name": "Shane Lowry",
       "rounds": 2,
       "sgTotal": 4.26,
       "sgOTT": 0.0,
-      "sgAPP": 1.37,
+      "sgAPP": 1.38,
       "sgATG": 0.0,
       "sgPutt": 0.69
     },
@@ -15340,7 +15342,7 @@
       "sgOTT": 0.0,
       "sgAPP": 0.92,
       "sgATG": 0.0,
-      "sgPutt": 1.15
+      "sgPutt": 1.16
     },
     {
       "name": "Nicolai Højgaard",
@@ -15358,14 +15360,14 @@
       "sgOTT": 0.0,
       "sgAPP": 2.47,
       "sgATG": 0.0,
-      "sgPutt": -0.61
+      "sgPutt": -0.6
     },
     {
       "name": "Garrick Higgo",
       "rounds": 2,
       "sgTotal": 3.26,
       "sgOTT": 0.0,
-      "sgAPP": -0.2,
+      "sgAPP": -0.19,
       "sgATG": 0.0,
       "sgPutt": 3.76
     },
@@ -15374,9 +15376,9 @@
       "rounds": 2,
       "sgTotal": 3.26,
       "sgOTT": 0.0,
-      "sgAPP": 2.6,
+      "sgAPP": 2.61,
       "sgATG": 0.0,
-      "sgPutt": -0.76
+      "sgPutt": -0.75
     },
     {
       "name": "Cameron Smith",
@@ -15394,7 +15396,7 @@
       "sgOTT": 0.0,
       "sgAPP": 2.03,
       "sgATG": 0.0,
-      "sgPutt": 1.47
+      "sgPutt": 1.48
     },
     {
       "name": "Maverick McNealy",
@@ -15410,9 +15412,9 @@
       "rounds": 2,
       "sgTotal": 3.26,
       "sgOTT": 0.0,
-      "sgAPP": 3.43,
+      "sgAPP": 3.44,
       "sgATG": 0.0,
-      "sgPutt": -1.99
+      "sgPutt": -1.98
     },
     {
       "name": "Jordan Spieth",
@@ -15421,16 +15423,16 @@
       "sgOTT": 0.0,
       "sgAPP": 1.41,
       "sgATG": 0.0,
-      "sgPutt": 0.42
+      "sgPutt": 0.43
     },
     {
       "name": "Jon Rahm",
       "rounds": 2,
       "sgTotal": 3.26,
       "sgOTT": 0.0,
-      "sgAPP": 0.93,
+      "sgAPP": 0.94,
       "sgATG": 0.0,
-      "sgPutt": -1.03
+      "sgPutt": -1.02
     },
     {
       "name": "Andrew Novak",
@@ -15439,7 +15441,7 @@
       "sgOTT": 0.0,
       "sgAPP": 1.6,
       "sgATG": 0.0,
-      "sgPutt": 0.45
+      "sgPutt": 0.46
     },
     {
       "name": "Andrew Putnam",
@@ -15448,16 +15450,16 @@
       "sgOTT": 0.0,
       "sgAPP": -0.42,
       "sgATG": 0.0,
-      "sgPutt": 2.06
+      "sgPutt": 2.07
     },
     {
       "name": "Nick Taylor",
       "rounds": 2,
       "sgTotal": 3.26,
       "sgOTT": 0.0,
-      "sgAPP": -0.69,
+      "sgAPP": -0.68,
       "sgATG": 0.0,
-      "sgPutt": 3.02
+      "sgPutt": 3.03
     },
     {
       "name": "Collin Morikawa",
@@ -15466,7 +15468,7 @@
       "sgOTT": 0.0,
       "sgAPP": 2.17,
       "sgATG": 0.0,
-      "sgPutt": 1.11
+      "sgPutt": 1.12
     },
     {
       "name": "Justin Thomas",
@@ -15475,41 +15477,41 @@
       "sgOTT": 0.0,
       "sgAPP": 0.98,
       "sgATG": 0.0,
-      "sgPutt": 2.54
-    },
-    {
-      "name": "Chandler Blanchet",
-      "rounds": 2,
-      "sgTotal": 2.89,
-      "sgOTT": 0.0,
-      "sgAPP": 0.61,
-      "sgATG": 0.0,
-      "sgPutt": 0.9
+      "sgPutt": 2.55
     },
     {
       "name": "Sam Stevens",
       "rounds": 2,
-      "sgTotal": 2.48,
+      "sgTotal": 3.26,
       "sgOTT": 0.0,
-      "sgAPP": 0.35,
+      "sgAPP": 0.67,
       "sgATG": 0.0,
-      "sgPutt": 2.05
+      "sgPutt": 2.2
     },
     {
-      "name": "Aaron Rai",
+      "name": "Chandler Blanchet",
       "rounds": 2,
-      "sgTotal": 2.47,
+      "sgTotal": 3.26,
       "sgOTT": 0.0,
-      "sgAPP": -0.93,
+      "sgAPP": 0.79,
       "sgATG": 0.0,
-      "sgPutt": 2.61
+      "sgPutt": 0.89
+    },
+    {
+      "name": "Matti Schmid",
+      "rounds": 2,
+      "sgTotal": 3.26,
+      "sgOTT": 0.0,
+      "sgAPP": 2.56,
+      "sgATG": 0.0,
+      "sgPutt": 1.02
     },
     {
       "name": "Rico Hoey",
       "rounds": 2,
       "sgTotal": 2.26,
       "sgOTT": 0.0,
-      "sgAPP": 1.33,
+      "sgAPP": 1.34,
       "sgATG": 0.0,
       "sgPutt": 0.42
     },
@@ -15518,9 +15520,9 @@
       "rounds": 2,
       "sgTotal": 2.26,
       "sgOTT": 0.0,
-      "sgAPP": 1.95,
+      "sgAPP": 1.96,
       "sgATG": 0.0,
-      "sgPutt": 0.35
+      "sgPutt": 0.36
     },
     {
       "name": "Brian Harman",
@@ -15529,7 +15531,7 @@
       "sgOTT": 0.0,
       "sgAPP": 2.32,
       "sgATG": 0.0,
-      "sgPutt": 2.19
+      "sgPutt": 2.2
     },
     {
       "name": "Patrick Cantlay",
@@ -15545,7 +15547,7 @@
       "rounds": 2,
       "sgTotal": 2.26,
       "sgOTT": 0.0,
-      "sgAPP": 0.92,
+      "sgAPP": 0.93,
       "sgATG": 0.0,
       "sgPutt": 0.43
     },
@@ -15556,7 +15558,7 @@
       "sgOTT": 0.0,
       "sgAPP": 1.41,
       "sgATG": 0.0,
-      "sgPutt": 0.62
+      "sgPutt": 0.63
     },
     {
       "name": "Michael Block",
@@ -15565,7 +15567,7 @@
       "sgOTT": 0.0,
       "sgAPP": -0.06,
       "sgATG": 0.0,
-      "sgPutt": 2.24
+      "sgPutt": 2.25
     }
   ],
   "teeTimes": [
@@ -15942,18 +15944,6 @@
       "startHole": 1
     },
     {
-      "player": "Matti Schmid",
-      "teeTime": "Thu May 14 14:22:00 PDT 2026",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Matti Schmid",
-      "teeTime": "",
-      "round": 2,
-      "startHole": 1
-    },
-    {
       "player": "Chandler Blanchet",
       "teeTime": "Thu May 14 14:16:00 PDT 2026",
       "round": 1,
@@ -15961,6 +15951,18 @@
     },
     {
       "player": "Chandler Blanchet",
+      "teeTime": "",
+      "round": 2,
+      "startHole": 1
+    },
+    {
+      "player": "Matti Schmid",
+      "teeTime": "Thu May 14 14:22:00 PDT 2026",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Matti Schmid",
       "teeTime": "",
       "round": 2,
       "startHole": 1
@@ -16638,6 +16640,18 @@
       "startHole": 1
     },
     {
+      "player": "Austin Smotherman",
+      "teeTime": "Thu May 14 14:22:00 PDT 2026",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Austin Smotherman",
+      "teeTime": "",
+      "round": 2,
+      "startHole": 1
+    },
+    {
       "player": "Bernd Wiesberger",
       "teeTime": "Thu May 14 14:27:00 PDT 2026",
       "round": 1,
@@ -16801,18 +16815,6 @@
     },
     {
       "player": "Sami Välimäki",
-      "teeTime": "",
-      "round": 2,
-      "startHole": 1
-    },
-    {
-      "player": "Austin Smotherman",
-      "teeTime": "Thu May 14 14:22:00 PDT 2026",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Austin Smotherman",
       "teeTime": "",
       "round": 2,
       "startHole": 1
@@ -16998,18 +17000,6 @@
       "startHole": 1
     },
     {
-      "player": "Sudarshan Yellamaraju",
-      "teeTime": "Thu May 14 14:27:00 PDT 2026",
-      "round": 1,
-      "startHole": 1
-    },
-    {
-      "player": "Sudarshan Yellamaraju",
-      "teeTime": "",
-      "round": 2,
-      "startHole": 1
-    },
-    {
       "player": "Wyndham Clark",
       "teeTime": "Thu May 14 07:45:00 PDT 2026",
       "round": 1,
@@ -17173,6 +17163,18 @@
     },
     {
       "player": "Timothy Wiseman",
+      "teeTime": "",
+      "round": 2,
+      "startHole": 1
+    },
+    {
+      "player": "Sudarshan Yellamaraju",
+      "teeTime": "Thu May 14 14:27:00 PDT 2026",
+      "round": 1,
+      "startHole": 1
+    },
+    {
+      "player": "Sudarshan Yellamaraju",
       "teeTime": "",
       "round": 2,
       "startHole": 1
@@ -17446,16 +17448,16 @@
     "Scottie Scheffler": [
       {
         "type": "z_score",
-        "z": -6.03,
+        "z": -6.12,
         "direction": "OVERPRICED",
-        "edge_pct": -23.6,
+        "edge_pct": -24.83,
         "market": "outright"
       },
       {
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
-        "edge_pct": -23.6,
-        "fence": 1.36,
+        "edge_pct": -24.83,
+        "fence": 1.42,
         "market": "outright"
       }
     ],
@@ -17464,7 +17466,7 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": -2.65,
-        "fence": 1.36,
+        "fence": 1.42,
         "market": "outright"
       }
     ],
@@ -17481,326 +17483,158 @@
         "type": "iqr_outlier",
         "direction": "OVERPRICED",
         "edge_pct": 1.04,
-        "fence": 9.53,
+        "fence": 9.39,
         "market": "outright"
       }
     ]
   },
   "oddsMovement": {
     "Scottie Scheffler": {
-      "current": "+175",
-      "previous": "+385",
-      "change": -210,
+      "current": "+166",
+      "previous": "+175",
+      "change": -9,
       "direction": "shorter",
       "significant": false
     },
     "Xander Schauffele": {
-      "current": "+1100",
-      "previous": "+2000",
-      "change": -900,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Rory McIlroy": {
-      "current": "+650",
-      "previous": "+900",
-      "change": -250,
-      "direction": "shorter",
+      "current": "+1175",
+      "previous": "+1100",
+      "change": 75,
+      "direction": "longer",
       "significant": false
     },
     "Jon Rahm": {
-      "current": "+1250",
-      "previous": "+1400",
-      "change": -150,
+      "current": "+1225",
+      "previous": "+1250",
+      "change": -25,
       "direction": "shorter",
       "significant": false
     },
     "Collin Morikawa": {
-      "current": "+3000",
-      "previous": "+4000",
-      "change": -1000,
+      "current": "+2900",
+      "previous": "+3000",
+      "change": -100,
       "direction": "shorter",
-      "significant": true
+      "significant": false
     },
     "Patrick Cantlay": {
-      "current": "+5600",
-      "previous": "+5400",
-      "change": 200,
+      "current": "+6200",
+      "previous": "+5600",
+      "change": 600,
+      "direction": "longer",
+      "significant": true
+    },
+    "Brooks Koepka": {
+      "current": "+2450",
+      "previous": "+2700",
+      "change": -250,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Shane Lowry": {
+      "current": "+4100",
+      "previous": "+3800",
+      "change": 300,
       "direction": "longer",
       "significant": false
     },
-    "Bryson DeChambeau": {
-      "current": "+1200",
-      "previous": "+2150",
-      "change": -950,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Ludvig Aberg": {
-      "current": "+2000",
-      "previous": "+2050",
-      "change": -50,
-      "direction": "shorter",
-      "significant": false
-    },
-    "Brooks Koepka": {
-      "current": "+2700",
-      "previous": "+3700",
-      "change": -1000,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Tommy Fleetwood": {
-      "current": "+2200",
-      "previous": "+2800",
-      "change": -600,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Cameron Smith": {
-      "current": "+6500",
-      "previous": "+33000",
-      "change": -26500,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Viktor Hovland": {
-      "current": "+3000",
-      "previous": "+6000",
-      "change": -3000,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Shane Lowry": {
-      "current": "+3800",
-      "previous": "+10500",
-      "change": -6700,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Joaquin Niemann": {
-      "current": "+6600",
-      "previous": "+10500",
-      "change": -3900,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Tyrrell Hatton": {
-      "current": "+4000",
-      "previous": "+5900",
-      "change": -1900,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Sungjae Im": {
-      "current": "+6500",
-      "previous": "+16500",
-      "change": -10000,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Adam Scott": {
-      "current": "+6500",
-      "previous": "+6800",
+    "Corey Conners": {
+      "current": "+5400",
+      "previous": "+5700",
       "change": -300,
       "direction": "shorter",
       "significant": false
     },
-    "Justin Thomas": {
-      "current": "+3700",
-      "previous": "+5200",
-      "change": -1500,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Corey Conners": {
-      "current": "+5700",
-      "previous": "+17000",
-      "change": -11300,
-      "direction": "shorter",
-      "significant": true
-    },
     "Cameron Young": {
-      "current": "+3300",
-      "previous": "+1475",
-      "change": 1825,
-      "direction": "longer",
-      "significant": true
-    },
-    "Sahith Theegala": {
-      "current": "+6900",
-      "previous": "+20000",
-      "change": -13100,
+      "current": "+3200",
+      "previous": "+3300",
+      "change": -100,
       "direction": "shorter",
-      "significant": true
-    },
-    "Hideki Matsuyama": {
-      "current": "+4000",
-      "previous": "+8800",
-      "change": -4800,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Jason Day": {
-      "current": "+6500",
-      "previous": "+14000",
-      "change": -7500,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Russell Henley": {
-      "current": "+5000",
-      "previous": "+4900",
-      "change": 100,
-      "direction": "longer",
       "significant": false
     },
-    "Sam Burns": {
-      "current": "+5000",
-      "previous": "+6500",
-      "change": -1500,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Sepp Straka": {
-      "current": "+5500",
-      "previous": "+10000",
-      "change": -4500,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Patrick Reed": {
-      "current": "+3100",
-      "previous": "+7400",
-      "change": -4300,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Min Woo Lee": {
-      "current": "+1850",
-      "previous": "+6800",
-      "change": -4950,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Max Homa": {
-      "current": "+6500",
-      "previous": "+28000",
-      "change": -21500,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Akshay Bhatia": {
-      "current": "+6500",
-      "previous": "+9000",
-      "change": -2500,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Si Woo Kim": {
-      "current": "+5500",
-      "previous": "+6300",
-      "change": -800,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Matt Fitzpatrick": {
-      "current": "+2800",
-      "previous": "+2300",
+    "Sahith Theegala": {
+      "current": "+7400",
+      "previous": "+6900",
       "change": 500,
       "direction": "longer",
       "significant": true
     },
-    "Jordan Spieth": {
-      "current": "+3900",
-      "previous": "+5900",
-      "change": -2000,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Robert MacIntyre": {
+    "Jason Day": {
       "current": "+7800",
-      "previous": "+7000",
-      "change": 800,
+      "previous": "+6500",
+      "change": 1300,
       "direction": "longer",
       "significant": true
     },
-    "J.J. Spaun": {
-      "current": "+5500",
-      "previous": "+6800",
-      "change": -1300,
+    "Min Woo Lee": {
+      "current": "+2000",
+      "previous": "+1850",
+      "change": 150,
+      "direction": "longer",
+      "significant": false
+    },
+    "Patrick Reed": {
+      "current": "+3000",
+      "previous": "+3100",
+      "change": -100,
+      "direction": "shorter",
+      "significant": false
+    },
+    "Matt Fitzpatrick": {
+      "current": "+3000",
+      "previous": "+2800",
+      "change": 200,
+      "direction": "longer",
+      "significant": false
+    },
+    "Jordan Spieth": {
+      "current": "+4000",
+      "previous": "+3900",
+      "change": 100,
+      "direction": "longer",
+      "significant": false
+    },
+    "Robert MacIntyre": {
+      "current": "+6000",
+      "previous": "+7800",
+      "change": -1800,
       "direction": "shorter",
       "significant": true
     },
     "Nicolai Højgaard": {
-      "current": "+4700",
-      "previous": "+6400",
-      "change": -1700,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Jake Knapp": {
-      "current": "+6000",
-      "previous": "+10500",
-      "change": -4500,
-      "direction": "shorter",
-      "significant": true
+      "current": "+4900",
+      "previous": "+4700",
+      "change": 200,
+      "direction": "longer",
+      "significant": false
     },
     "Rickie Fowler": {
-      "current": "+7000",
-      "previous": "+5800",
-      "change": 1200,
+      "current": "+7600",
+      "previous": "+7000",
+      "change": 600,
       "direction": "longer",
-      "significant": true
-    },
-    "Chris Gotterup": {
-      "current": "+3300",
-      "previous": "+6200",
-      "change": -2900,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Ben Griffin": {
-      "current": "+4500",
-      "previous": "+11500",
-      "change": -7000,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Daniel Berger": {
-      "current": "+6500",
-      "previous": "+22500",
-      "change": -16000,
-      "direction": "shorter",
       "significant": true
     },
     "Ryo Hisatsune": {
-      "current": "+5700",
-      "previous": "+32000",
-      "change": -26300,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Maverick McNealy": {
-      "current": "+7000",
-      "previous": "+10500",
-      "change": -3500,
-      "direction": "shorter",
-      "significant": true
-    },
-    "Justin Rose": {
-      "current": "+7000",
-      "previous": "+5000",
-      "change": 2000,
+      "current": "+6300",
+      "previous": "+5700",
+      "change": 600,
       "direction": "longer",
       "significant": true
     },
-    "Marco Penge": {
-      "current": "+6500",
-      "previous": "+18500",
-      "change": -12000,
-      "direction": "shorter",
+    "Maverick McNealy": {
+      "current": "+7600",
+      "previous": "+7000",
+      "change": 600,
+      "direction": "longer",
       "significant": true
+    },
+    "Justin Rose": {
+      "current": "+6900",
+      "previous": "+7000",
+      "change": -100,
+      "direction": "shorter",
+      "significant": false
     }
   },
   "cutPrediction": {
@@ -17831,20 +17665,52 @@
   },
   "news": [
     {
+      "headline": "PGA Championship odds: Scheffler a huge favorite after first round; Rory scuffles",
+      "description": "After a strong start, Scottie Scheffler is now the overwhelming favorite to win the 2026 PGA Championship.",
+      "published": "2026-05-15T01:35:43Z",
+      "link": "https://www.espn.com/betting/golf/story/_/id/48759817/2026-pga-championship-golf-betting-odds-top-5-top-10-top-20-make-cut",
+      "player": "Scottie Scheffler",
+      "image": "https://a.espncdn.com/photo/2026/0513/r1657674_1296x729_16-9.jpg"
+    },
+    {
+      "headline": "PGA Championship 2026: Lowry's sweet eagle and more from the first round",
+      "description": "Here are the best sights and sounds from the first round of the 2026 PGA Championship at Aronimink Golf Club.",
+      "published": "2026-05-15T02:23:37Z",
+      "link": "https://www.espn.com/golf/story/_/id/48751641/pga-championship-2026-first-round-sights-sounds-best-shots",
+      "player": "",
+      "image": "https://a.espncdn.com/photo/2026/0514/r1658300_1296x729_16-9.jpg"
+    },
+    {
+      "headline": "2026 PGA Championship: News, how to watch, more from Aronimink",
+      "description": "The PGA Championship heads to Aronimink Golf Club outside of Philadelphia. Here's all the coverage.",
+      "published": "2026-05-15T01:54:04Z",
+      "link": "https://www.espn.com/golf/story/_/page/PGAchampionship2026/pga-championship-2026-news-tee-s-schedule-television-complete-coverage-analysis",
+      "player": "Rory McIlroy",
+      "image": "https://a.espncdn.com/photo/2026/0512/r1656989_1296x729_16-9.jpg"
+    },
+    {
+      "headline": "Scottie Scheffler, 6 others tied for PGA Championship lead",
+      "description": "Scottie Scheffler carded a 67 and is tied with six other players -- the biggest logjam in 57 years after the first round of a major -- at the PGA Championship.",
+      "published": "2026-05-15T02:53:52Z",
+      "link": "https://www.espn.com/golf/story/_/id/48773466/scottie-scheffler-part-7-way-tie-lead-pga-championship",
+      "player": "Scottie Scheffler",
+      "image": "https://a.espncdn.com/photo/2026/0515/r1658375_1296x729_16-9.jpg"
+    },
+    {
       "headline": "Jon Rahm apologizes as divot from angry swing hits volunteer",
       "description": "Jon Rahm apologized for hitting a volunteer in the face and shoulder with a divot after he took a swing in frustration during the first round of the PGA Championship on Thursday.",
-      "published": "2026-05-14T23:21:09Z",
+      "published": "2026-05-15T02:29:16Z",
       "link": "https://www.espn.com/golf/story/_/id/48772653/jon-rahm-apologizes-divot-anger-hits-volunteer-pga",
       "player": "Jon Rahm",
       "image": "https://a.espncdn.com/photo/2026/0514/r1658323_600x600_1-1.jpg"
     },
     {
-      "headline": "PGA Championship 2026: Lowry's sweet eagle and more from the first round",
-      "description": "Here are the best sights and sounds from the first round of the 2026 PGA Championship at Aronimink Golf Club.",
-      "published": "2026-05-14T21:22:47Z",
-      "link": "https://www.espn.com/golf/story/_/id/48751641/pga-championship-2026-first-round-sights-sounds-best-shots",
-      "player": "",
-      "image": "https://a.espncdn.com/photo/2026/0514/r1658300_1296x729_16-9.jpg"
+      "headline": "Looking ahead to the rest of the 2026 PGA Championship",
+      "description": "How impressive was Scottie Scheffler? Can Rory McIlroy bounce back? We break down what the first round means for the rest of the PGA Championship.",
+      "published": "2026-05-15T01:35:33Z",
+      "link": "https://www.espn.com/golf/story/_/id/48772349/looking-ahead-rest-2026-pga-championship-aronimink",
+      "player": "Scottie Scheffler",
+      "image": "https://a.espncdn.com/photo/2026/0514/r1658310_1296x729_16-9.jpg"
     },
     {
       "headline": "Rory McIlroy struggles off tee, cards 74 at PGA Championship",
@@ -17871,14 +17737,6 @@
       "image": "https://a.espncdn.com/photo/2025/0413/r1478218_2_608x342_16-9.jpg"
     },
     {
-      "headline": "2026 PGA Championship: News, how to watch, more from Aronimink",
-      "description": "The PGA Championship heads to Aronimink Golf Club outside of Philadelphia. Here's all the coverage.",
-      "published": "2026-05-14T21:42:57Z",
-      "link": "https://www.espn.com/golf/story/_/page/PGAchampionship2026/pga-championship-2026-news-tee-s-schedule-television-complete-coverage-analysis",
-      "player": "Rory McIlroy",
-      "image": "https://a.espncdn.com/photo/2026/0512/r1656989_1296x729_16-9.jpg"
-    },
-    {
       "headline": "Higgo cards a 69 despite 2-stroke penalty at PGA Championship",
       "description": "Garrick Higgo finds himself in early contention at the PGA Championship despite a two-stroke penalty to begin his round after arriving one minute late for Thursday morning's tee time at Aronimink Golf Club.",
       "published": "2026-05-14T18:35:26Z",
@@ -17893,14 +17751,6 @@
       "link": "https://www.espn.com/golf/story/_/id/48762804/aided-bigger-shoe-rory-mcilroy-says-toe-all-good-pga",
       "player": "Rory McIlroy",
       "image": "https://a.espncdn.com/photo/2026/0513/r1657831_600x600_1-1.jpg"
-    },
-    {
-      "headline": "PGA Championship odds: Scheffler favored in second major of the season; McIlroy, Rahm next",
-      "description": "Scottie Scheffler is the favorite to win the 2026 PGA Championship, with Rory McIlroy, Jon Rahm and Cameron Young behind him.",
-      "published": "2026-05-13T18:05:15Z",
-      "link": "https://www.espn.com/betting/golf/story/_/id/48759817/2026-pga-championship-golf-betting-odds-top-5-top-10-top-20-make-cut",
-      "player": "Scottie Scheffler",
-      "image": "https://a.espncdn.com/photo/2026/0513/r1657674_1296x729_16-9.jpg"
     },
     {
       "headline": "Jim Furyk seeks long-term blueprint for U.S. Ryder Cup team",
@@ -17933,43 +17783,27 @@
       "link": "https://www.espn.com/golf/story/_/page/ExpertPicks2026PGAchampionship/2026-pga-championship-experts-picks-betting-tips-rory-mcilroy-scottie-scheffer",
       "player": "Rory McIlroy",
       "image": "https://a.espncdn.com/photo/2026/0512/r1657404_1296x729_16-9.jpg"
-    },
-    {
-      "headline": "McIlroy cuts PGA Championship practice round short due to blister",
-      "description": "Rory McIlroy had to cut Tuesday afternoon's practice round short because of a blister on his pinky toe while gearing up for this week's GGA Championship at Aronimink Golf Club.",
-      "published": "2026-05-13T09:27:23Z",
-      "link": "https://www.espn.com/golf/story/_/id/48752933/mcilroy-cuts-pga-championship-practice-round-short-due-blister",
-      "player": "Rory McIlroy",
-      "image": "https://a.espncdn.com/photo/2026/0512/r1657338_600x400_3-2.jpg"
-    },
-    {
-      "headline": "Back problems creating trust issues for Collin Morikawa at PGA",
-      "description": "Collin Morikawa's start-and-stop season is a go at the PGA Championship, even while dealing with a cranky back and trying to learn to live with the uncertainty.",
-      "published": "2026-05-12T21:21:23Z",
-      "link": "https://www.espn.com/golf/story/_/id/48752917/back-problems-creating-trust-issues-collin-morikawa-pga",
-      "player": "Collin Morikawa",
-      "image": "https://a.espncdn.com/photo/2026/0310/r1626446_1296x729_16-9.jpg"
     }
   ],
   "propsByType": {
     "top5": {
       "Brooks Koepka": {
-        "fd": "+380"
+        "fd": "+430"
       },
       "Rasmus Højgaard": {
-        "fd": "+5000"
+        "fd": "+4500"
       },
       "Matti Schmid": {
-        "fd": "+2200"
+        "fd": "+2500"
       },
       "Stephan Jaeger": {
-        "fd": "+900"
+        "fd": "+1000"
       },
       "Max Greyserman": {
-        "fd": "+1100"
+        "fd": "+1200"
       },
       "Rico Hoey": {
-        "fd": "+3300"
+        "fd": "+3000"
       },
       "Casey Jarvis": {
         "fd": "+4000"
@@ -17979,6 +17813,9 @@
       },
       "Haotong Li": {
         "fd": "+4000"
+      },
+      "Christiaan Bezuidenhout": {
+        "fd": "+7500"
       },
       "Garrick Higgo": {
         "fd": "+3000"
@@ -18307,18 +18144,18 @@
         {
           "name": "Scottie Scheffler",
           "odds": [],
-          "modelMean": 67.75,
+          "modelMean": 67.71,
           "modelStd": 2.85,
-          "sgBlended": 3.25,
+          "sgBlended": 3.29,
           "fitBoost": 0.0,
-          "pClearWin": 0.6034,
-          "deadHeatWinValue": 0.6538,
-          "fairOdds": -189,
+          "pClearWin": 0.6068,
+          "deadHeatWinValue": 0.657,
+          "fairOdds": -192,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0958,
-          "pTie3": 0.0076
+          "pTie2": 0.0955,
+          "pTie3": 0.0075
         },
         {
           "name": "Justin Rose",
@@ -18327,14 +18164,14 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.1222,
-          "deadHeatWinValue": 0.1525,
-          "fairOdds": 556,
+          "pClearWin": 0.121,
+          "deadHeatWinValue": 0.1512,
+          "fairOdds": 562,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0556,
-          "pTie3": 0.0076
+          "pTie2": 0.0553,
+          "pTie3": 0.0075
         },
         {
           "name": "Matt Fitzpatrick",
@@ -18343,14 +18180,14 @@
           "modelStd": 2.85,
           "sgBlended": 0.48,
           "fitBoost": 0.0,
-          "pClearWin": 0.1584,
-          "deadHeatWinValue": 0.1936,
-          "fairOdds": 416,
+          "pClearWin": 0.1567,
+          "deadHeatWinValue": 0.1918,
+          "fairOdds": 421,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0654,
-          "pTie3": 0.0076
+          "pTie2": 0.0652,
+          "pTie3": 0.0075
         }
       ],
       "synthetic": true,
@@ -18367,34 +18204,34 @@
         {
           "name": "Alex Smalley",
           "odds": [],
-          "modelMean": 69.5,
+          "modelMean": 69.42,
           "modelStd": 2.85,
-          "sgBlended": 1.5,
+          "sgBlended": 1.58,
           "fitBoost": 0.0,
-          "pClearWin": 0.3896,
-          "deadHeatWinValue": 0.4374,
-          "fairOdds": 129,
+          "pClearWin": 0.3909,
+          "deadHeatWinValue": 0.4392,
+          "fairOdds": 128,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0884,
-          "pTie3": 0.0109
+          "pTie2": 0.0903,
+          "pTie3": 0.0095
         },
         {
           "name": "Chandler Blanchet",
           "odds": [],
-          "modelMean": 70.13,
+          "modelMean": 70.02,
           "modelStd": 2.85,
-          "sgBlended": 0.87,
+          "sgBlended": 0.98,
           "fitBoost": 0.0,
-          "pClearWin": 0.2906,
-          "deadHeatWinValue": 0.3369,
-          "fairOdds": 197,
+          "pClearWin": 0.2968,
+          "deadHeatWinValue": 0.3428,
+          "fairOdds": 192,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0853,
-          "pTie3": 0.0109
+          "pTie2": 0.0857,
+          "pTie3": 0.0095
         },
         {
           "name": "Zach Haynes",
@@ -18403,14 +18240,14 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.1885,
-          "deadHeatWinValue": 0.2257,
-          "fairOdds": 343,
+          "pClearWin": 0.1822,
+          "deadHeatWinValue": 0.218,
+          "fairOdds": 359,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0671,
-          "pTie3": 0.0109
+          "pTie2": 0.0652,
+          "pTie3": 0.0095
         }
       ],
       "synthetic": true,
@@ -19567,17 +19404,17 @@
         {
           "name": "Sam Stevens",
           "odds": [],
-          "modelMean": 70.51,
+          "modelMean": 70.27,
           "modelStd": 3.0,
-          "sgBlended": 0.74,
+          "sgBlended": 0.98,
           "fitBoost": 0.0,
-          "pClearWin": 0.3414,
-          "deadHeatWinValue": 0.3898,
-          "fairOdds": 157,
+          "pClearWin": 0.3633,
+          "deadHeatWinValue": 0.4137,
+          "fairOdds": 142,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0888,
+          "pTie2": 0.0928,
           "pTie3": 0.0119
         },
         {
@@ -19587,13 +19424,13 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.2638,
-          "deadHeatWinValue": 0.3096,
-          "fairOdds": 223,
+          "pClearWin": 0.2527,
+          "deadHeatWinValue": 0.2978,
+          "fairOdds": 236,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0836,
+          "pTie2": 0.0822,
           "pTie3": 0.0119
         },
         {
@@ -19603,9 +19440,9 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.2559,
-          "deadHeatWinValue": 0.3007,
-          "fairOdds": 233,
+          "pClearWin": 0.2438,
+          "deadHeatWinValue": 0.2886,
+          "fairOdds": 247,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
@@ -19627,18 +19464,18 @@
         {
           "name": "Matti Schmid",
           "odds": [],
-          "modelMean": 71.0,
+          "modelMean": 70.02,
           "modelStd": 2.85,
-          "sgBlended": 0.0,
+          "sgBlended": 0.98,
           "fitBoost": 0.0,
-          "pClearWin": 0.2879,
-          "deadHeatWinValue": 0.3342,
-          "fairOdds": 199,
+          "pClearWin": 0.3815,
+          "deadHeatWinValue": 0.4325,
+          "fairOdds": 131,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0849,
-          "pTie3": 0.0115
+          "pTie2": 0.093,
+          "pTie3": 0.0134
         },
         {
           "name": "Austin Smotherman",
@@ -19647,14 +19484,14 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.2877,
-          "deadHeatWinValue": 0.3342,
-          "fairOdds": 199,
+          "pClearWin": 0.2419,
+          "deadHeatWinValue": 0.2846,
+          "fairOdds": 251,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0853,
-          "pTie3": 0.0115
+          "pTie2": 0.0764,
+          "pTie3": 0.0134
         },
         {
           "name": "Timothy Wiseman",
@@ -19663,14 +19500,14 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.2852,
-          "deadHeatWinValue": 0.3316,
-          "fairOdds": 202,
+          "pClearWin": 0.2405,
+          "deadHeatWinValue": 0.283,
+          "fairOdds": 253,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0852,
-          "pTie3": 0.0115
+          "pTie2": 0.076,
+          "pTie3": 0.0134
         }
       ],
       "synthetic": true,
@@ -20107,18 +19944,18 @@
         {
           "name": "Aaron Rai",
           "odds": [],
-          "modelMean": 69.8,
+          "modelMean": 70.35,
           "modelStd": 2.85,
-          "sgBlended": 1.2,
+          "sgBlended": 0.65,
           "fitBoost": 0.0,
-          "pClearWin": 0.4079,
-          "deadHeatWinValue": 0.4593,
-          "fairOdds": 118,
+          "pClearWin": 0.3504,
+          "deadHeatWinValue": 0.4016,
+          "fairOdds": 149,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0963,
-          "pTie3": 0.0099
+          "pTie2": 0.0948,
+          "pTie3": 0.0114
         },
         {
           "name": "Sami Välimäki",
@@ -20127,14 +19964,14 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.2284,
-          "deadHeatWinValue": 0.2694,
-          "fairOdds": 271,
+          "pClearWin": 0.2541,
+          "deadHeatWinValue": 0.2976,
+          "fairOdds": 236,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0753,
-          "pTie3": 0.0099
+          "pTie2": 0.0793,
+          "pTie3": 0.0114
         },
         {
           "name": "Travis Smyth",
@@ -20143,14 +19980,14 @@
           "modelStd": 2.85,
           "sgBlended": 0.0,
           "fitBoost": 0.0,
-          "pClearWin": 0.2292,
-          "deadHeatWinValue": 0.2713,
-          "fairOdds": 269,
+          "pClearWin": 0.2554,
+          "deadHeatWinValue": 0.3009,
+          "fairOdds": 232,
           "bestBook": null,
           "impliedProbBest": null,
           "ev": null,
-          "pTie2": 0.0776,
-          "pTie3": 0.0099
+          "pTie2": 0.0833,
+          "pTie3": 0.0114
         }
       ],
       "synthetic": true,
@@ -21202,9 +21039,9 @@
     "leaderboardSource": "ESPN",
     "leaderboardHasScores": true,
     "playersTotal": 161,
-    "playersWithOdds": 46,
+    "playersWithOdds": 47,
     "playersWithForm": 104,
-    "oddsCoverage": 0.286,
+    "oddsCoverage": 0.292,
     "tournamentStatus": "IN_PROGRESS",
     "teeTimesTotal": 312,
     "teeTimesWithValues": 156,
@@ -21213,7 +21050,7 @@
     "courseFitV2Coverage": 0.0,
     "modelProbSum": 1.0,
     "propMarketCoverage": {
-      "top5": 11,
+      "top5": 12,
       "top10": 0,
       "top20": 1,
       "makeCut": 0,
