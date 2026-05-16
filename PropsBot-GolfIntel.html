@@ -488,6 +488,72 @@
     /* Live section */
     .sc-live-empty { text-align: center; color: var(--text-muted); font-size: 12px; padding: 20px; font-style: italic; }
 
+    /* ===========================================================
+       SCORECARD STRIP — 18-cell per-round hole-by-hole grid
+       Each cell colored by score-vs-par (eagle / birdie / par / bogey / etc).
+       This is the Renaissance "signature device" — no other golf-betting
+       product visualizes a player's round at this resolution.
+       =========================================================== */
+    .sc-strip-wrap { background: rgba(15,28,46,0.5); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px; }
+    .sc-strip-rounds { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .sc-strip-round-btn {
+      font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 5px;
+      border: 1px solid rgba(120,160,200,0.15); background: transparent;
+      color: var(--text-secondary); cursor: pointer; min-height: 26px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: all 0.15s ease;
+    }
+    .sc-strip-round-btn:hover { background: rgba(21,255,194,0.05); }
+    .sc-strip-round-btn.active { background: rgba(21,255,194,0.1); border-color: rgba(21,255,194,0.5); color: var(--teal); }
+    .sc-strip-round-btn .sc-strip-round-total { font-family: var(--mono); margin-left: 4px; font-weight: 800; }
+
+    .sc-strip-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr) 28px repeat(9, 1fr);
+      gap: 3px;
+      align-items: center;
+    }
+    .sc-strip-cell {
+      aspect-ratio: 1 / 1;
+      min-height: 32px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      border-radius: 4px; font-family: var(--mono);
+      font-weight: 700; font-size: 11px;
+      border: 1px solid transparent;
+      position: relative;
+      font-feature-settings: "tnum" 1;
+    }
+    .sc-strip-cell .sc-strip-hole { font-size: 8px; color: rgba(200,215,230,0.4); font-weight: 600; margin-top: -2px; }
+    .sc-strip-mid {
+      grid-row: 1; display: flex; align-items: center; justify-content: center;
+      font-size: 8px; color: rgba(200,215,230,0.3); letter-spacing: 0.06em;
+      writing-mode: vertical-rl; transform: rotate(180deg);
+    }
+
+    /* Score-vs-par tints — eagle brightest, double-bogey-plus darkest. */
+    .sc-strip-eagle  { background: rgba(255,64,112,0.32); color: #ff4070; border-color: rgba(255,64,112,0.45); box-shadow: 0 0 6px rgba(255,64,112,0.25); }
+    .sc-strip-birdie { background: rgba(255,21,82,0.16); color: var(--red); }
+    .sc-strip-par    { background: rgba(200,215,230,0.04); color: var(--text-secondary); }
+    .sc-strip-bogey  { background: rgba(240,192,64,0.10); color: var(--gold); }
+    .sc-strip-double { background: rgba(150,180,210,0.08); color: rgba(200,215,230,0.5); }
+    .sc-strip-empty  { background: rgba(15,28,46,0.3); color: rgba(200,215,230,0.2); border: 1px dashed rgba(120,160,200,0.08); }
+
+    .sc-strip-legend {
+      display: flex; gap: 10px; margin-top: 8px;
+      font-size: 9px; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      flex-wrap: wrap;
+    }
+    .sc-strip-legend-item { display: inline-flex; align-items: center; gap: 4px; }
+    .sc-strip-legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+    @media (max-width: 640px) {
+      .sc-strip-cell { min-height: 26px; font-size: 10px; }
+      .sc-strip-cell .sc-strip-hole { font-size: 7px; }
+      .sc-strip-grid { gap: 2px; grid-template-columns: repeat(9, 1fr) 18px repeat(9, 1fr); }
+    }
+
     /* Floating parlay panel */
     #sc-parlay-fab {
       position: fixed; bottom: 16px; right: 16px; z-index: 60;
@@ -7740,7 +7806,7 @@
     if (key === 'props')   sec.innerHTML = scDrawerProps(p);
     if (key === 'course')  sec.innerHTML = scDrawerCourse(p);
     if (key === 'compare') { sec.innerHTML = scDrawerCompare(p, _scState.compareWith); scWireCompare(sec, p); }
-    if (key === 'live')    sec.innerHTML = scDrawerLive(p);
+    if (key === 'live')    { sec.innerHTML = scDrawerLive(p); scWireLive(sec, p); }
     // Wire add-to-parlay buttons (delegated wouldn't see new content)
     sec.querySelectorAll('.sc-add-parlay').forEach(function(btn) {
       btn.addEventListener('click', function(e) {
@@ -7886,6 +7952,22 @@
         '<table class="sc-props-table" style="margin-top:6px;"><tbody>' + tableRows + '</tbody></table>' +
       '</div>';
   }
+  // Wire the round-selector buttons on the 18-cell scorecard strip. Swaps
+  // the grid in place without re-rendering the whole drawer section.
+  function scWireLive(sec, p) {
+    var sc = scLookupScorecard(p);
+    if (!sc) return;
+    sec.querySelectorAll('.sc-strip-round-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var rk = btn.getAttribute('data-round');
+        sec.querySelectorAll('.sc-strip-round-btn').forEach(function(b) { b.classList.toggle('active', b === btn); });
+        var container = sec.querySelector('.sc-strip-container');
+        if (container) container.innerHTML = scRenderStripRound(sc[rk]);
+      });
+    });
+  }
+
   function scWireCompare(sec, p) {
     var input = sec.querySelector('.sc-compare-search');
     var results = sec.querySelector('.sc-compare-results');
@@ -7924,11 +8006,65 @@
     });
   }
 
+  // Look up a player's scorecard from window.DATA.playerScorecards. Keyed by
+  // normalized name (lowercased, whitespace stripped) to survive minor display
+  // variants (accents, suffixes). Returns { roundNum: [{hole,par,score,toPar}] }.
+  function scLookupScorecard(p) {
+    var pc = window.DATA && window.DATA.playerScorecards;
+    if (!pc || !p || !p.name) return null;
+    var raw = String(p.name).toLowerCase().replace(/\s+/g, ' ').trim();
+    if (pc[raw]) return pc[raw];
+    // Try whitespace-stripped variant (matches scraper's normalize_name)
+    var nospaces = raw.replace(/\s+/g, '');
+    if (pc[nospaces]) return pc[nospaces];
+    // Last resort: case-insensitive scan
+    var lcKeys = Object.keys(pc);
+    for (var i = 0; i < lcKeys.length; i++) {
+      if (lcKeys[i].toLowerCase().replace(/\s+/g, '') === nospaces) return pc[lcKeys[i]];
+    }
+    return null;
+  }
+  // Map a to-par integer to the cell-tint class for the 18-cell strip.
+  function scStripCellClass(toPar) {
+    if (toPar == null) return 'sc-strip-empty';
+    if (toPar <= -2) return 'sc-strip-eagle';
+    if (toPar === -1) return 'sc-strip-birdie';
+    if (toPar === 0) return 'sc-strip-par';
+    if (toPar === 1) return 'sc-strip-bogey';
+    return 'sc-strip-double';
+  }
+  // Render the 18-cell strip for a single round. Pads with empty cells when
+  // fewer than 18 holes (in-progress round).
+  function scRenderStripRound(holes) {
+    var byHole = {};
+    (holes || []).forEach(function(h) { byHole[h.hole] = h; });
+    var cells = [];
+    for (var i = 1; i <= 18; i++) {
+      if (i === 10) {
+        // Out/In divider between front 9 and back 9
+        cells.push('<div class="sc-strip-mid">OUT / IN</div>');
+      }
+      var h = byHole[i];
+      if (!h) {
+        cells.push('<div class="sc-strip-cell sc-strip-empty"><span>—</span><span class="sc-strip-hole">' + i + '</span></div>');
+        continue;
+      }
+      var cls = scStripCellClass(h.toPar);
+      cells.push('<div class="sc-strip-cell ' + cls + '" title="Hole ' + i + ' · Par ' + h.par + ' · ' + h.score + ' (' + (h.toPar > 0 ? '+' + h.toPar : h.toPar) + ')"><span>' + h.score + '</span><span class="sc-strip-hole">' + i + '</span></div>');
+    }
+    return '<div class="sc-strip-grid">' + cells.join('') + '</div>';
+  }
+
   function scDrawerLive(p) {
     var hasLive = p._liveScore != null && p._liveScore !== '';
-    if (!hasLive) {
+    var sc = scLookupScorecard(p);
+    var hasStrip = sc && Object.keys(sc).length > 0;
+
+    if (!hasLive && !hasStrip) {
       return '<div class="sc-live-empty">No live data yet. Live scores will populate once the round starts.</div>';
     }
+
+    // Build hero stats row
     var rows = [];
     if (p._livePos) rows.push({ l: 'Position', v: '<span class="mono font-bold">#' + p._livePos + '</span>' });
     if (p._liveScore != null) rows.push({ l: 'Total', v: '<span class="' + scTintClass(p._liveScore) + '"><span class="mono font-bold ' + scScoreClass(p._liveScore) + '">' + scFmtScore(p._liveScore) + '</span></span>' });
@@ -7936,10 +8072,38 @@
     if (p._liveThru) rows.push({ l: 'Thru', v: '<span class="mono font-bold">' + p._liveThru + '</span>' });
     if (p._liveRound) rows.push({ l: 'Round', v: '<span class="mono font-bold">R' + p._liveRound + '</span>' });
     if (p._liveTeeTime) rows.push({ l: 'Tee Time', v: '<span class="mono">' + p._liveTeeTime + '</span>' });
-    var grid = rows.map(function(r) {
-      return '<div class="sc-mini" style="text-align:center;"><div class="sc-mini-label">' + r.l + '</div><div style="font-size:18px;margin-top:4px;">' + r.v + '</div></div>';
-    }).join('');
-    return '<div class="grid gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-6">' + grid + '</div>';
+    var heroGrid = rows.length
+      ? '<div class="grid gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-6 mb-3">' + rows.map(function(r) {
+          return '<div class="sc-mini" style="text-align:center;"><div class="sc-mini-label">' + r.l + '</div><div style="font-size:18px;margin-top:4px;">' + r.v + '</div></div>';
+        }).join('') + '</div>'
+      : '';
+
+    // Build the 18-cell strip with round selector
+    var stripHtml = '';
+    if (hasStrip) {
+      var roundKeys = Object.keys(sc).sort();
+      // Default to the most recent (highest) round
+      var defaultRound = roundKeys[roundKeys.length - 1];
+      var roundBtns = roundKeys.map(function(rk) {
+        var total = (sc[rk] || []).reduce(function(s, h) { return s + (h.toPar || 0); }, 0);
+        var totalStr = total > 0 ? '+' + total : (total === 0 ? 'E' : String(total));
+        var totalCls = total < 0 ? 'sc-score-under' : (total === 0 ? 'sc-score-even' : 'sc-score-over');
+        return '<button class="sc-strip-round-btn' + (rk === defaultRound ? ' active' : '') + '" data-round="' + rk + '">R' + rk + '<span class="sc-strip-round-total ' + totalCls + '">' + totalStr + '</span></button>';
+      }).join('');
+      stripHtml = '<div class="sc-strip-wrap">' +
+        '<div class="sc-mini-label" style="margin-bottom:8px;">Hole-by-hole · click a round</div>' +
+        '<div class="sc-strip-rounds">' + roundBtns + '</div>' +
+        '<div class="sc-strip-container">' + scRenderStripRound(sc[defaultRound]) + '</div>' +
+        '<div class="sc-strip-legend">' +
+          '<span class="sc-strip-legend-item"><span class="sc-strip-legend-dot sc-strip-eagle"></span>Eagle+</span>' +
+          '<span class="sc-strip-legend-item"><span class="sc-strip-legend-dot sc-strip-birdie"></span>Birdie</span>' +
+          '<span class="sc-strip-legend-item"><span class="sc-strip-legend-dot sc-strip-par"></span>Par</span>' +
+          '<span class="sc-strip-legend-item"><span class="sc-strip-legend-dot sc-strip-bogey"></span>Bogey</span>' +
+          '<span class="sc-strip-legend-item"><span class="sc-strip-legend-dot sc-strip-double"></span>Double+</span>' +
+        '</div>' +
+      '</div>';
+    }
+    return heroGrid + stripHtml;
   }
 
   // ----- PARLAY FLOATING PANEL -----

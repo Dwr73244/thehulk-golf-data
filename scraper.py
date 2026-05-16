@@ -670,6 +670,68 @@ def bdl_get_course_holes(course_id):
     return holes
 
 
+def bdl_get_player_scorecards(tournament_id, max_pages=120):
+    """Fetch per-player per-hole scorecards for a tournament.
+
+    Returns raw BDL rows: {tournament, player, course, round_number, hole_number, par, score}
+    Volume is high — ~150 players × 4 rounds × 18 holes = ~10,800 rows per
+    tournament — so we cap pages aggressively and let callers filter to the
+    top N players downstream.
+    """
+    print(f"[BDL] Fetching player scorecards (tournament_id={tournament_id})...")
+    rows = bdl_fetch_all(
+        "player_scorecards",
+        {"tournament_ids[]": str(tournament_id)},
+        max_pages=max_pages,
+    )
+    print(f"  Got {len(rows)} scorecard rows")
+    return rows
+
+
+def bdl_build_player_scorecards(raw_rows, keep_names=None):
+    """Reshape raw scorecard rows into a frontend-friendly nested dict.
+
+    Output: { normalized_name: { round_number: [{hole, par, score, toPar}, ...] } }
+
+    Only retains players in ``keep_names`` (set of normalized names) when
+    provided — keeps the output JSON manageable. We typically pass the
+    leaderboard + top model picks (~50 players).
+    """
+    if not raw_rows:
+        return {}
+    out = {}
+    for row in raw_rows:
+        player = row.get("player") or {}
+        pname = player.get("display_name") or f"{player.get('first_name','')} {player.get('last_name','')}".strip()
+        if not pname:
+            continue
+        key = normalize_name(pname)
+        if keep_names is not None and key not in keep_names:
+            continue
+        rnum = row.get("round_number")
+        hole = row.get("hole_number")
+        par = row.get("par")
+        score = row.get("score")
+        if rnum is None or hole is None or par is None or score is None:
+            continue
+        if score == 0:  # ESPN/BDL uses 0 for "not played yet"
+            continue
+        try:
+            par_i = int(par)
+            score_i = int(score)
+        except (TypeError, ValueError):
+            continue
+        to_par = score_i - par_i
+        p_entry = out.setdefault(key, {})
+        r_entry = p_entry.setdefault(str(rnum), [])
+        r_entry.append({"hole": int(hole), "par": par_i, "score": score_i, "toPar": to_par})
+    # Sort each round's holes ascending
+    for pkey in out:
+        for rkey in out[pkey]:
+            out[pkey][rkey].sort(key=lambda h: h["hole"])
+    return out
+
+
 # ============================================================
 # FALLBACK PLAYER DATA
 # ============================================================
@@ -4682,6 +4744,41 @@ def run_pipeline():
                 if sg_leaders:
                     output["tournamentSG"] = sg_leaders[:40]
                     print(f"[PIPELINE] Tournament SG written for {len(sg_leaders)} players")
+
+            # ============================================================
+            # PER-PLAYER PER-HOLE SCORECARDS (Track B: 18-cell strip)
+            # Powers the hole-by-hole heatmap strip in each player's drawer
+            # Live section. Limited to the top 50 by leaderboard position to
+            # keep JSON size manageable (~250KB at full coverage).
+            # ============================================================
+            if bdl_tournament.get("status") in ("IN_PROGRESS", "COMPLETED"):
+                print("[PIPELINE] Fetching player scorecards (hole-by-hole)...")
+                # Build keep-list: top 50 by leaderboard position if available,
+                # else top 50 from BDL field by OWGR.
+                keep_names = set()
+                lb_now = (output.get("currentEvent") or {}).get("leaderboard") or []
+                for row in lb_now[:50]:
+                    nm = row.get("name", "")
+                    if nm:
+                        keep_names.add(normalize_name(nm))
+                if not keep_names and bdl_field:
+                    sorted_field = sorted(bdl_field, key=lambda e: (e.get("owgr") or 9999))
+                    for e in sorted_field[:50]:
+                        bp = e.get("player") or {}
+                        nm = bp.get("display_name", "")
+                        if nm:
+                            keep_names.add(normalize_name(nm))
+                try:
+                    sc_raw = bdl_get_player_scorecards(tid)
+                    sc_nested = bdl_build_player_scorecards(sc_raw, keep_names=keep_names or None)
+                    if sc_nested:
+                        output["playerScorecards"] = sc_nested
+                        total_holes = sum(
+                            len(rounds) for p in sc_nested.values() for rounds in p.values()
+                        )
+                        print(f"[PIPELINE] Player scorecards: {len(sc_nested)} players, {total_holes} hole entries")
+                except Exception as e:
+                    print(f"  [WARN] Player scorecards fetch failed: {e}")
 
     # ============================================================
     # FALLBACK: Free scrapers (DataGolf, ESPN, PGA Tour)
