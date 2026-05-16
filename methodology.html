@@ -267,6 +267,32 @@
       player object as <code>modelTop5Prob</code>, <code>modelTop10Prob</code>,
       <code>modelTop20Prob</code>, <code>modelMakeCutProb</code>.
     </p>
+
+    <h3>(k) Per-hole Monte Carlo (round-score / birdie / bogey / eagle props)</h3>
+    <p>
+      For each player we run a separate <strong>per-hole simulation</strong> (1,500 sims) that
+      draws each hole's outcome from a 5-way categorical distribution — eagle, birdie, par,
+      bogey, double-plus. The base distribution per hole comes from BDL
+      <code>tournament_course_stats</code> historical scoring counts (when available),
+      adjusted multiplicatively by each player's <code>sgTotal</code>. The skill multipliers
+      are tuned so a +1 SG player picks up roughly 0.5 strokes per round (matching the
+      empirical DataGolf relationship): 25% more birdies, 20% fewer bogeys, 40% more eagles,
+      35% fewer doubles.
+    </p>
+    <p>
+      Outputs per player: round-score distribution (<code>P(score ≤ k)</code> for the
+      relevant range), and per-round distributions for birdies / bogeys / eagles / double+
+      counts (<code>P(count ≥ k)</code>). These are stored in
+      <code>perHoleProps</code> and summary fields (<code>modelExpectedRoundScore</code>,
+      <code>modelExpectedBirdies</code>, etc.) attach to each player object.
+    </p>
+    <p>
+      When BDL's <code>/odds/player_props</code> ships over/under lines for these markets, we
+      compute model fair probability from the distribution, de-vig against the over/under
+      pair, and surface an <strong>edge percentage</strong> per side — pricing the previously
+      "unmodeled" markets (birdies o/u, bogeys o/u, round-score o/u). Edges live at
+      <code>pricedPlayerProps</code> in the JSON.
+    </p>
   </section>
 
   <!-- 4. Tunable parameters -->
@@ -304,7 +330,7 @@
       <li><strong>No sub-60-minute live scoring granularity</strong> — ESPN leaderboard pulls every 60s; we don't model intra-hole swings.</li>
       <li><strong>No DFS ownership projections</strong> — this is a betting model, not a DFS tool.</li>
       <li><strong>Top-10 and Top-20 markets: model side is now real, book side is still estimated.</strong> The BDL <code>/futures</code> endpoint only ships book lines for <em>tournament_winner</em>, <em>top_5_finish</em>, and <em>make_cut</em>. We now derive real Monte Carlo probabilities for top-10 and top-20 finish positions (exposed as <code>modelTop10Prob</code> / <code>modelTop20Prob</code>) but the comparison odds are our own estimate, so we still don't display an edge percentage for these markets.</li>
-      <li><strong>Per-hole and per-round prop markets are not modeled</strong> — we surface the odds via BDL's <code>/odds/player_props</code> endpoint but the Monte Carlo simulates round-level scores only, not hole-by-hole. So no edge calc for hole-N props or birdie/bogey count over/unders.</li>
+      <li><strong>Hole-specific props are not modeled</strong> — round-level birdie / bogey / eagle counts and round-score over/unders are now priced via the per-hole Monte Carlo and surfaced as edge percentages in the Props drawer. But per-hole markets like "Hole 12 birdie yes/no" or "Hole 17 score over 3.5" require a per-hole correlation model we haven't built. The hole-by-hole sim treats each hole as conditionally independent given player skill — fine for aggregating to round-level distributions but not granular enough to price single-hole props honestly.</li>
       <li><strong>Field-strength normalization is applied to historical residuals, not raw season SG.</strong> Each historical event's residual is scaled by an OWGR-derived strength multiplier before being averaged into the learned course-fit signal. The season-aggregate <code>sgTotal</code> coming from DataGolf is consumed as-is — DataGolf claims to already strength-adjust their season totals; we trust that for now.</li>
       <li><strong>No injury/WD prediction</strong> — we react to field-change news, we don't forecast it.</li>
       <li><strong>Course fit prior is hand-curated</strong> — the trait dictionaries (power/accuracy/scramble/putting weights per course) are designed, not learned. The learned course-fit residual mitigates this by anchoring fit in historical outcomes for players with prior appearances, but rookies still lean on the trait prior.</li>
