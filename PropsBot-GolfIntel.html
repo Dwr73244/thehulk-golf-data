@@ -5039,6 +5039,14 @@
           if (monTab && !monTab.classList.contains('hidden') && typeof window.renderMonitor === 'function') {
             try { window.renderMonitor(); } catch(e) { console.warn('[Monitor] refresh error:', e); }
           }
+          // Scorecard view: re-render whenever ESPN brings fresh live data
+          // (this is the hot path during tournament play — fires every 60s)
+          try {
+            if (typeof scRefreshHero === 'function') {
+              scRefreshHero();
+              scRenderLeaderboard();
+            }
+          } catch(e) { console.warn('[scorecard] live refresh error:', e); }
           console.log('[ESPN Live] Updated: ' + lb.length + ' players, ' + Object.keys(liveHoleData).length + ' with hole data, status: ' + _tournamentStatus);
         }
       })
@@ -7148,8 +7156,13 @@
         console.log('[PropsBot] ' + (isRefresh ? 'Refreshed' : 'Loaded') + ' live data:', data.generatedAt);
         window._liveData = data;
         applyExternalData(data);
-        // Scorecard view: refresh after new data lands
-        try { if (typeof scRefreshEventStrip === 'function') { scRefreshEventStrip(); scRefreshHero(); scRenderLeaderboard(); scParlayRefresh(); } } catch (e) { console.error('[scorecard]', e); }
+        // Scorecard view: refresh after new data lands. scSeedLiveFromJSON
+        // populates _liveScore from the JSON snapshot for the window before
+        // ESPN's next fetch lands; ESPN data later overwrites without clobber.
+        try {
+          if (typeof scSeedLiveFromJSON === 'function') scSeedLiveFromJSON();
+          if (typeof scRefreshEventStrip === 'function') { scRefreshEventStrip(); scRefreshHero(); scRenderLeaderboard(); scParlayRefresh(); }
+        } catch (e) { console.error('[scorecard]', e); }
         if (isRefresh) {
           // Re-render active views without full re-init
           renderPlayerGrid();
@@ -7383,20 +7396,40 @@
     var isLive = live && String(live.status || '').toUpperCase() === 'IN_PROGRESS';
 
     // Leader (live) — lowest _liveScore
-    var leaderTxt = '—', cutTxt = '—', avgTxt = '—', fieldTxt = String(players.length || '—'), roundTxt = '—', wxTxt = '—';
+    // Field count = size of currentEvent.leaderboard (the actual PGA field /
+    // post-cut roster). Falls back to live-scored-player count, then to '—'.
+    var actualFieldSize = (live && live.leaderboard && live.leaderboard.length) || 0;
+    var leaderTxt = '—', cutTxt = '—', avgTxt = '—', fieldTxt = String(actualFieldSize || '—'), roundTxt = '—', wxTxt = '—';
     if (isLive) {
       var lbPlayers = players.filter(function(p) { return p._liveScore != null && p._liveScore !== ''; });
       if (lbPlayers.length) {
         lbPlayers.sort(function(a, b) { return Number(a._liveScore || 99) - Number(b._liveScore || 99); });
         var leader = lbPlayers[0];
         leaderTxt = (leader.name ? leader.name.split(' ').slice(-1)[0] : '—') + ' ' + scFmtScore(leader._liveScore);
-        fieldTxt = lbPlayers.length + ' / ' + players.length;
+        // Pre-cut: lbPlayers.length ≈ actualFieldSize, show single number.
+        // Post-cut: actualFieldSize shrinks to the made-cut roster; same number.
+        // Only show "live/total" when more players in our system than in the
+        // live field (e.g. a player on our master list isn't playing this week).
+        fieldTxt = actualFieldSize ? String(actualFieldSize) : String(lbPlayers.length);
         var sum = 0, n = 0;
         lbPlayers.forEach(function(p) { var s = Number(p._liveScore); if (!isNaN(s)) { sum += s; n++; } });
         if (n) avgTxt = scFmtScore(+(sum / n).toFixed(1));
       }
-      if (live.round) roundTxt = 'R' + live.round;
-      if (live.cutLine != null) cutTxt = scFmtScore(live.cutLine);
+      // Round: prefer live.round, else derive from currentEvent.leaderboard
+      // (count non-zero round fields on the first entry) — scraper doesn't
+      // always populate a top-level round number.
+      var rNum = live.round;
+      if (!rNum && live.leaderboard && live.leaderboard[0]) {
+        var l0 = live.leaderboard[0];
+        rNum = (l0.round4 ? 4 : (l0.round3 ? 3 : (l0.round2 ? 2 : (l0.round1 ? 1 : 0))));
+      }
+      if (rNum) roundTxt = 'R' + rNum;
+      // Cut line: prefer live.cutLine, else fall back to the model prediction
+      var cutN = live.cutLine;
+      if (cutN == null && window.DATA && window.DATA.cutPrediction && window.DATA.cutPrediction.predictedCut != null) {
+        cutN = Number(window.DATA.cutPrediction.predictedCut);
+      }
+      if (cutN != null) cutTxt = scFmtScore(cutN) + (live.cutLine == null ? ' (est)' : '');
     } else {
       // Pre-event: show countdown to next tournament start
       var evt = scSafe(function(){ return getActiveOrNextEvent(); }, null);
@@ -7452,11 +7485,40 @@
       var leaderN = null;
       if (lbPlayers && lbPlayers.length) leaderN = Number(lbPlayers[0]._liveScore);
       tintHero('sc-stat-leader', leaderN);
-      if (live && live.cutLine != null) tintHero('sc-stat-cut', Number(live.cutLine));
+      var cutForTint = (live && live.cutLine != null)
+        ? Number(live.cutLine)
+        : (window.DATA && window.DATA.cutPrediction && window.DATA.cutPrediction.predictedCut != null
+            ? Number(window.DATA.cutPrediction.predictedCut) : null);
+      tintHero('sc-stat-cut', cutForTint);
     } else {
       tintHero('sc-stat-leader', null);
       tintHero('sc-stat-cut', null);
     }
+  }
+
+  // Seed live scores from the JSON snapshot before ESPN's first fetch returns.
+  // The scraper's currentEvent.leaderboard has totals + positions; we merge
+  // those onto player objects keyed by name so the leaderboard isn't blank
+  // for the 1-5s before ESPN's live fetch lands. ESPN data overwrites this.
+  function scSeedLiveFromJSON() {
+    var live = window.DATA && window.DATA.currentEvent;
+    if (!live || !live.leaderboard || !live.leaderboard.length) return;
+    var isLive = String(live.status || '').toUpperCase() === 'IN_PROGRESS' || String(live.status || '').toUpperCase() === 'COMPLETED';
+    if (!isLive) return;
+    var players = window._playerData || window.PLAYERS || [];
+    var byName = {};
+    players.forEach(function(p) { if (p.name) byName[p.name.toLowerCase()] = p; });
+    live.leaderboard.forEach(function(row) {
+      if (!row.name) return;
+      var p = byName[row.name.toLowerCase()];
+      if (!p) return;
+      // Only seed if ESPN hasn't already populated (don't clobber live data)
+      if (p._liveScore == null || p._liveScore === '') {
+        p._liveScore = row.score;
+        p._livePos = row.position;
+        p._liveThru = row.thru || '';
+      }
+    });
   }
 
   // ----- LEADERBOARD RENDER -----
@@ -7511,12 +7573,17 @@
     } else if (f === 'cutbubble') {
       var live = window.DATA && window.DATA.currentEvent;
       var isLive = live && String(live.status || '').toUpperCase() === 'IN_PROGRESS';
-      if (isLive && live.cutLine != null) {
-        var cl = Number(live.cutLine);
+      // Cut line: prefer live value, else fall back to model prediction.
+      // PGA scraper often doesn't surface a top-level cutLine even during R2.
+      var cutNum = (live && live.cutLine != null)
+        ? Number(live.cutLine)
+        : (window.DATA && window.DATA.cutPrediction && window.DATA.cutPrediction.predictedCut != null
+            ? Number(window.DATA.cutPrediction.predictedCut) : null);
+      if (isLive && cutNum != null) {
         players = players.filter(function(p) {
           if (p._liveScore == null || p._liveScore === '') return false;
           var s = Number(p._liveScore);
-          return !isNaN(s) && s >= cl - 2 && s <= cl + 2;
+          return !isNaN(s) && s >= cutNum - 2 && s <= cutNum + 2;
         });
       } else {
         // Pre-event proxy: positions 25–75 by model — the genuinely uncertain
@@ -8053,6 +8120,7 @@
     scInitViewToggle();
     scInitFilters();
     scInitParlay();
+    scSeedLiveFromJSON();
     scRefreshEventStrip();
     scRefreshHero();
     scRenderLeaderboard();
