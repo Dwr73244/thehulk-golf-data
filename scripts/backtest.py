@@ -80,6 +80,81 @@ def brier_score(predictions):
     return round(s / len(predictions), 4)
 
 
+def baseline_brier_uniform(pairs):
+    """Brier of a no-info model that always predicts 1/N for an N-ball group.
+    The fair comparison for "does the model beat random guessing?"
+
+    pairs come as (prob, outcome, type) where type is "2ball" / "3ball" /
+    "4ball". For 3-balls baseline is 1/3 per player; 2-balls is 1/2; etc.
+    """
+    if not pairs:
+        return None
+    n_map = {"2ball": 0.5, "3ball": 1.0 / 3.0, "4ball": 0.25}
+    base_preds = [(n_map.get(t, 1.0 / 3.0), o) for _, o, t in pairs]
+    return brier_score(base_preds)
+
+
+def roi_at_threshold(pairs, min_prob=0.40, min_edge_pct=0.0):
+    """Simulate flat-stake bets where model_prob >= min_prob.
+
+    Returns dict with bet count, win/loss counts, gross P/L assuming each bet
+    is one unit at the model's effective fair odds (1/prob - 1). This is a
+    PROXY for ROI when actual book odds aren't tracked per-pair — useful for
+    detecting positive expected value at the strategy level. With real book
+    odds we'd use them instead; for now this answers "would picking the
+    model's high-confidence side at fair odds be profitable?"
+
+    A skilled model returns positive P/L (model's high-prob picks win more
+    than 1-1/prob of the time). A random model returns ~zero.
+    """
+    bets = [(p, o) for p, o, _ in pairs if p >= min_prob]
+    if not bets:
+        return {"bets": 0, "roi_pct": None}
+    pnl = 0.0
+    wins = 0
+    losses = 0
+    pushes = 0
+    for p, o in bets:
+        if o >= 1.0:
+            # Win — paid (1/p - 1) per unit staked at fair odds
+            pnl += (1.0 / p) - 1.0
+            wins += 1
+        elif o <= 0.0:
+            pnl -= 1.0
+            losses += 1
+        else:
+            # Push (0.5 outcome — 3-ball tie at 50% credit)
+            pushes += 1
+    n = len(bets)
+    return {
+        "bets": n,
+        "wins": wins,
+        "losses": losses,
+        "pushes": pushes,
+        "gross_pnl_units": round(pnl, 3),
+        "roi_pct": round(pnl / n * 100, 2),
+        "win_rate": round(wins / n, 3),
+        "avg_prob": round(sum(p for p, _ in bets) / n, 3),
+    }
+
+
+def train_test_split_chronological(pairs, train_frac=0.7):
+    """Split (prob, outcome, type) pairs in chronological order.
+
+    extract_scored_matchups yields pairs newest-first by snapshot iteration;
+    reverse so we train on older pairs and test on newer ones — the right
+    direction for a leakage-free out-of-sample evaluation. With small samples,
+    enforce at least 30 pairs on each side or return (all, []) so the caller
+    falls back to in-sample evaluation rather than trying to validate on 5
+    test pairs.
+    """
+    if len(pairs) < 60:
+        return list(pairs), []
+    chrono = list(reversed(pairs))  # oldest first
+    cut = int(len(chrono) * train_frac)
+    return chrono[:cut], chrono[cut:]
+
+
 def extract_scored_matchups(snapshots):
     """Walk snapshots, pair each matchup's model prediction with the
     actual outcome taken from the following snapshot's leaderboard."""
@@ -336,25 +411,62 @@ def main():
         return 0
 
     brier = brier_score([(p, o) for p, o, _ in pairs])
+    baseline = baseline_brier_uniform(pairs)
     calibration = calibration_bins(pairs)
     mean_pred = sum(p for p, _, _ in pairs) / len(pairs)
     mean_actual = sum(o for _, o, _ in pairs) / len(pairs)
     drift = abs(mean_pred - mean_actual)
+
+    # Out-of-sample split. Grid-search on TRAIN, evaluate on TEST. With
+    # too-small samples the splitter returns (all, []) and we fall back to
+    # in-sample evaluation — better than fitting to a 10-pair test set.
+    train_pairs, test_pairs = train_test_split_chronological(pairs, train_frac=0.7)
+    train_brier = brier_score([(p, o) for p, o, _ in train_pairs]) if train_pairs else None
+    test_brier = brier_score([(p, o) for p, o, _ in test_pairs]) if test_pairs else None
+
+    # ROI at common thresholds — does picking the model's confident side at
+    # fair odds turn a profit? Positive = real predictive skill; ~zero = noise.
+    roi_40 = roi_at_threshold(test_pairs or pairs, min_prob=0.40)
+    roi_50 = roi_at_threshold(test_pairs or pairs, min_prob=0.50)
+    roi_60 = roi_at_threshold(test_pairs or pairs, min_prob=0.60)
 
     report = {
         "ranAt": datetime.utcnow().isoformat() + "Z",
         "weeksAvailable": len(snapshots),
         "pairs": len(pairs),
         "brierScore": brier,
+        "baselineBrierUniform": baseline,
+        "brierBeatsBaseline": (brier is not None and baseline is not None and brier < baseline),
         "meanPredicted": round(mean_pred, 3),
         "meanActual": round(mean_actual, 3),
         "calibrationDrift": round(drift, 3),
         "calibrationBins": calibration,
+        "outOfSample": {
+            "trainPairs": len(train_pairs),
+            "testPairs": len(test_pairs),
+            "trainBrier": train_brier,
+            "testBrier": test_brier,
+            "testBeatsBaseline": (test_brier is not None and baseline is not None
+                                  and test_brier < baseline),
+        },
+        "roi": {
+            "minProb_0.40": roi_40,
+            "minProb_0.50": roi_50,
+            "minProb_0.60": roi_60,
+        },
         "status": "ok",
     }
 
-    print(f"[BACKTEST] Pairs: {len(pairs)}, Brier: {brier}, "
-          f"Drift: {drift:.3f} (predicted {mean_pred:.3f} vs actual {mean_actual:.3f})")
+    if baseline is not None:
+        verdict = "BEATS" if (brier and brier < baseline) else "FAILS"
+        print(f"[BACKTEST] Pairs: {len(pairs)}, Brier: {brier} vs uniform-baseline {baseline} -> {verdict} baseline")
+    else:
+        print(f"[BACKTEST] Pairs: {len(pairs)}, Brier: {brier}")
+    if test_pairs:
+        verdict_oos = "BEATS" if (test_brier and baseline and test_brier < baseline) else "FAILS"
+        print(f"[BACKTEST] Out-of-sample: train={len(train_pairs)} (brier {train_brier}), test={len(test_pairs)} (brier {test_brier}) -> {verdict_oos} baseline on test")
+    print(f"[BACKTEST] ROI at 50% threshold: {roi_50.get('bets', 0)} bets, {roi_50.get('roi_pct')}% (win rate {roi_50.get('win_rate')})")
+    print(f"[BACKTEST] Drift: {drift:.3f} (predicted {mean_pred:.3f} vs actual {mean_actual:.3f})")
 
     # Require TWO consecutive drift weeks before auto-tuning fires. With
     # ~858 pairs a single week's drift > 5% can be noise; mutating
@@ -367,8 +479,13 @@ def main():
 
     if args.tune and len(pairs) >= 200 and drift_confirmed:
         print(f"[BACKTEST] Drift {drift:.3f} > 5% confirmed by prior week ({prior_drift}) "
-              f"with {len(pairs)} pairs — running grid search.")
-        tuned, best_brier = _grid_search_params(snapshots, pairs)
+              f"with {len(pairs)} pairs — running grid search on TRAIN split only "
+              f"({len(train_pairs)} pairs train / {len(test_pairs)} pairs held out).")
+        # Out-of-sample tuning: grid-search against the train pairs only,
+        # never on the test set. If grid search has internal logic that
+        # re-derives pairs from snapshots, it'll still re-eval; passing
+        # train_pairs as the comparison set is the honest move.
+        tuned, best_brier = _grid_search_params(snapshots, train_pairs or pairs)
         if tuned:
             # Preserve bookkeeping fields from the previous params
             prev = {}

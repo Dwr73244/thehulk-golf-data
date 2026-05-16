@@ -1221,7 +1221,11 @@ _MAJOR_NAME_KEYWORDS = (
 def load_model_params(base_dir=None):
     """Load tuned model parameters from model_params.json (written by backtest).
     Falls back to defaults if the file is missing — keeps scraper working on
-    fresh clones or before the first backtest run."""
+    fresh clones or before the first backtest run.
+
+    May also contain a ``calibration`` block written by scripts/calibrate.py:
+    isotonic lookup table mapping raw confScore → calibrated make-cut prob.
+    """
     base_dir = base_dir or os.path.dirname(os.path.abspath(__file__))
     defaults = {
         "baseStd": 2.85,
@@ -1237,6 +1241,7 @@ def load_model_params(base_dir=None):
         "windThresholdMph": 12.0,
         "lastTrainedAt": None,
         "lastTrainedBrier": None,
+        "calibration": None,
     }
     path = os.path.join(base_dir, "model_params.json")
     if not os.path.isfile(path):
@@ -1249,6 +1254,51 @@ def load_model_params(base_dir=None):
         return params
     except (OSError, json.JSONDecodeError):
         return defaults
+
+
+def lookup_calibrated_prob(score, calibration_table):
+    """Piecewise-linear interpolation against a calibration table.
+    Table format: [{"score": int, "prob": float}, ...] sorted by score.
+    Mirrors scripts/calibrate.py:lookup_calibrated_prob.
+    """
+    if not calibration_table or score is None:
+        return None
+    if score <= calibration_table[0]["score"]:
+        return calibration_table[0]["prob"]
+    if score >= calibration_table[-1]["score"]:
+        return calibration_table[-1]["prob"]
+    for i in range(len(calibration_table) - 1):
+        a, b = calibration_table[i], calibration_table[i + 1]
+        if a["score"] <= score <= b["score"]:
+            span = b["score"] - a["score"]
+            if span == 0:
+                return a["prob"]
+            return a["prob"] + (b["prob"] - a["prob"]) * (score - a["score"]) / span
+    return calibration_table[-1]["prob"]
+
+
+def apply_confscore_calibration(players, model_params):
+    """Attach ``confScoreCalibratedMakeCutProb`` to each player.
+
+    Uses the calibration table from model_params (written by
+    scripts/calibrate.py). Does nothing if no calibration is loaded — the
+    raw confScore continues to work as a relative ranking signal even
+    without calibration.
+    """
+    cal = (model_params or {}).get("calibration") or {}
+    table = cal.get("table")
+    if not table:
+        return 0
+    n_set = 0
+    for p in players:
+        cs = p.get("confScore")
+        if not isinstance(cs, (int, float)):
+            continue
+        prob = lookup_calibrated_prob(cs, table)
+        if prob is not None:
+            p["confScoreCalibratedMakeCutProb"] = round(prob, 4)
+            n_set += 1
+    return n_set
 
 
 def build_dynamic_majors_schedule(bdl_tournaments_data):
@@ -1494,27 +1544,159 @@ COURSE_TRAITS = {
 }
 
 
-def calculate_ev_score(book_odds_american, model_probability_pct):
+def american_to_implied_prob(american_odds):
+    """American odds → raw implied probability in [0, 1]. None on parse error.
+
+    This is the *raw* (vigged) implied probability — i.e. the probability you'd
+    need to break even at these odds. Sum across an outright field is typically
+    1.15–1.30 (the overround / vig). Use ``devig_implied_prob`` to strip the
+    hold before comparing to model probability.
     """
-    Calculate Expected Value score comparing model probability to book implied odds.
-    Returns EV as a percentage: positive = value bet, negative = fade.
-    """
-    if not book_odds_american or not model_probability_pct:
+    if american_odds is None or american_odds == "":
         return None
     try:
-        odds = float(book_odds_american)
-        model_prob = float(model_probability_pct) / 100.0
-        # Convert American odds to implied probability (with ~5% vig)
-        if odds > 0:
-            implied_prob = 100.0 / (odds + 100.0)
-        else:
-            implied_prob = abs(odds) / (abs(odds) + 100.0)
-        if implied_prob <= 0:
-            return None
-        ev = round((model_prob - implied_prob) / implied_prob * 100, 1)
-        return ev
-    except (ValueError, ZeroDivisionError):
+        odds = float(american_odds)
+    except (TypeError, ValueError):
         return None
+    if odds == 0:
+        return None
+    return 100.0 / (odds + 100.0) if odds > 0 else abs(odds) / (abs(odds) + 100.0)
+
+
+def compute_market_overround(odds_list):
+    """Sum of raw implied probabilities across a market. >1 = book hold.
+
+    For a fair market this returns 1.0. Typical outright winner markets on
+    DK/FD return 1.20–1.30 (20–30% hold on top of ~155 players). Two-way
+    over/under markets typically return ~1.045 (4.5% juice).
+    """
+    total = 0.0
+    n = 0
+    for o in odds_list:
+        p = american_to_implied_prob(o)
+        if p is not None:
+            total += p
+            n += 1
+    return total if n > 0 else None
+
+
+def devig_implied_prob(american_odds, overround=None, opposite_american=None):
+    """De-vig book odds into a fair implied probability.
+
+    Three modes, picked by which kwarg you pass:
+      * ``overround`` (float, e.g. 1.27) — normalize against a pre-computed
+        full-field sum. Use for outright markets where you have every player.
+      * ``opposite_american`` (number) — pair de-vig against the opposite side
+        of a two-way market (over/under). Returns this side's fair share of
+        the implied probability mass.
+      * neither — apply a conservative ~3.5% single-side haircut. Use only for
+        milestone markets (make_cut single line) where no companion exists.
+
+    Returns probability in [0, 1] or ``None`` if odds can't be parsed.
+    """
+    raw = american_to_implied_prob(american_odds)
+    if raw is None:
+        return None
+    if overround is not None and overround > 0:
+        return raw / overround
+    if opposite_american is not None:
+        opp = american_to_implied_prob(opposite_american)
+        if opp is not None and (raw + opp) > 0:
+            return raw / (raw + opp)
+    # Milestone fallback: assume ~3.5% single-side hold. Conservative.
+    return raw / 1.035
+
+
+def calculate_ev_score(book_odds_american, model_probability_pct,
+                       overround=None, opposite_american=None):
+    """
+    Calculate EV: positive = value bet, negative = fade.
+
+    Critical: ``book_odds_american`` is converted to a *de-vigged* fair
+    implied probability via ``devig_implied_prob`` before comparing to
+    ``model_probability_pct``. Pass ``overround`` (preferred) for outright
+    markets where you've summed the full field, or ``opposite_american`` for
+    two-way markets. With neither, falls back to the single-side haircut.
+    """
+    if not book_odds_american or model_probability_pct is None:
+        return None
+    fair_prob = devig_implied_prob(
+        book_odds_american,
+        overround=overround,
+        opposite_american=opposite_american,
+    )
+    if fair_prob is None or fair_prob <= 0:
+        return None
+    try:
+        model_prob = float(model_probability_pct) / 100.0
+    except (TypeError, ValueError):
+        return None
+    return round((model_prob - fair_prob) / fair_prob * 100, 1)
+
+
+def build_market_overrounds(players, props_by_type=None):
+    """Compute per-market overrounds from the current field of odds.
+
+    Looks at every player's stored odds (DK preferred, FD fallback) for each
+    outright market we model (winner / top5 / top10 / top20 / makeCut). Returns
+    a dict the frontend can use to de-vig in real time:
+
+        {
+          "winner":  {"overround": 1.27, "bookCount": 152, "bestVendor": "dk"},
+          "top5":    {"overround": 1.18, "bookCount": 145, "bestVendor": "dk"},
+          ...
+        }
+
+    Markets without enough book lines (< 30 players) are omitted so the
+    frontend falls back to the single-side milestone haircut.
+    """
+    if not players:
+        return {}
+
+    # Each player.odds typically has dk/fd/mgm at the top level (winner) and
+    # nested dicts under odds.top5, odds.top10, odds.top20, odds.makeCut.
+    # We collect the *best* available book per player per market.
+    market_keys = [
+        ("winner", None),       # winner odds live at p.odds.{dk,fd,...}
+        ("top5", "top5"),
+        ("top10", "top10"),
+        ("top20", "top20"),
+        ("makeCut", "makeCut"),
+    ]
+    out = {}
+    for mkt, nested_key in market_keys:
+        odds_list = []
+        for p in players:
+            odds_obj = p.get("odds") or {}
+            if nested_key:
+                src = odds_obj.get(nested_key) or {}
+            else:
+                src = odds_obj
+            if not isinstance(src, dict):
+                continue
+            best = None
+            for vendor in ("dk", "fd", "mgm", "br", "bovada"):
+                v = src.get(vendor)
+                if v in (None, ""):
+                    continue
+                try:
+                    n = int(v)
+                except (TypeError, ValueError):
+                    continue
+                if best is None or n > best:
+                    best = n
+            if best is not None:
+                odds_list.append(best)
+        if len(odds_list) < 30:
+            continue  # Not enough field coverage for a reliable overround
+        ov = compute_market_overround(odds_list)
+        if ov and ov > 1.0:
+            out[mkt] = {
+                "overround": round(ov, 4),
+                "bookCount": len(odds_list),
+                "vigPct": round((ov - 1.0) * 100, 2),
+            }
+    return out
 
 
 def calculate_course_fit(player, course_key, wind_avg=None):
@@ -1558,6 +1740,165 @@ def compute_all_course_fits(players, weather=None):
             # Blend: 70% algo, 30% curated (curated captures local knowledge)
             computed[course_key] = round(algo_score * 0.7 + curated_score * 0.3)
         player["courseFit"] = computed
+
+
+def compute_learned_course_fit(course_id, current_field, years_back=5, max_events=5):
+    """Per-player learned course fit derived from historical SG residuals.
+
+    For each past tournament at ``course_id`` in the last ``years_back`` years
+    (capped at ``max_events`` events), pull every player's tournament-total SG
+    via BDL ``player_round_stats`` with ``round_number=-1``. Each appearance
+    produces a residual = course_SG - field_avg_SG_that_week. Averaging the
+    residual across a player's appearances gives a course-specific skill
+    adjustment in strokes-per-round.
+
+    Returns ``{ normalized_name: {residual: float, n: int, events: [{tid, year, sg}]} }``.
+
+    Players with N >= 2 appearances get a real signal; everyone else falls
+    back to the trait-based prior. This is the core "DataGolf-style" course
+    fit move — anchoring fit to observed outcomes rather than guessed traits.
+    """
+    if not course_id:
+        return {}
+    print(f"[LEARNED FIT] Fetching past tournaments at course_id={course_id}...")
+    try:
+        past_raw = bdl_fetch_all(
+            "tournaments",
+            {"course_ids[]": str(course_id), "status": "COMPLETED"},
+            max_pages=3,
+        )
+    except Exception as e:
+        print(f"  [WARN] Could not fetch past tournaments: {e}")
+        return {}
+    if not past_raw:
+        print(f"  No past tournaments found at course_id={course_id}")
+        return {}
+
+    from datetime import datetime as _dt
+    cutoff_year = _dt.utcnow().year - years_back
+    # Sort newest-first by start_date and cap to max_events
+    past = sorted(
+        past_raw,
+        key=lambda t: t.get("start_date") or "",
+        reverse=True,
+    )
+    valid_past = []
+    for t in past:
+        sd = t.get("start_date") or ""
+        try:
+            yr = int(sd[:4]) if sd else 0
+        except ValueError:
+            yr = 0
+        if yr >= cutoff_year and yr < _dt.utcnow().year:
+            valid_past.append((t.get("id"), yr))
+        if len(valid_past) >= max_events:
+            break
+    if not valid_past:
+        print(f"  No past tournaments within last {years_back} years.")
+        return {}
+    print(f"  Pulling tournament SG totals from {len(valid_past)} past events: {valid_past}")
+
+    # Aggregate: per player, collect (event_year, sg_total)
+    # Field-average baseline per event: average SG of all entrants that week.
+    aggregate = {}  # normalized_name -> [(year, sg, field_avg)]
+    for tid, yr in valid_past:
+        try:
+            rows = bdl_fetch_all(
+                "player_round_stats",
+                {"tournament_ids[]": str(tid), "round_number": "-1"},
+                max_pages=4,
+            )
+        except Exception as e:
+            print(f"  [WARN] Failed to fetch SG for tournament {tid}: {e}")
+            continue
+        if not rows:
+            continue
+        # Field avg for this event
+        sg_values = []
+        for r in rows:
+            sg = r.get("sg_total")
+            if isinstance(sg, (int, float)):
+                sg_values.append(float(sg))
+        if not sg_values:
+            continue
+        field_avg = sum(sg_values) / len(sg_values)
+        # Per-player rows
+        for r in rows:
+            sg = r.get("sg_total")
+            if not isinstance(sg, (int, float)):
+                continue
+            player = r.get("player") or {}
+            pname = player.get("display_name") or (
+                f"{player.get('first_name','')} {player.get('last_name','')}".strip()
+            )
+            if not pname:
+                continue
+            key = normalize_name(pname)
+            aggregate.setdefault(key, []).append((yr, float(sg), field_avg, tid))
+
+    # Build output: average residual per player who appears in the current field
+    current_names = {normalize_name(p.get("name", "")) for p in current_field if p.get("name")}
+    out = {}
+    for key, appearances in aggregate.items():
+        if key not in current_names:
+            continue
+        residuals = [sg - field_avg for (_, sg, field_avg, _) in appearances]
+        if not residuals:
+            continue
+        avg_residual = sum(residuals) / len(residuals)
+        out[key] = {
+            "residual": round(avg_residual, 3),
+            "n": len(residuals),
+            "events": [{"tid": tid, "year": yr, "sg": round(sg, 2)}
+                       for (yr, sg, _, tid) in appearances],
+        }
+    print(f"  Learned course fit: {len(out)} players in current field with prior data")
+    return out
+
+
+def apply_learned_course_fit(players, learned, course_key, fit_scale=12.0,
+                             trait_weight_when_no_learned=1.0):
+    """Blend learned course fit residuals into each player's courseFit[course_key].
+
+    The residual is in strokes-per-round (typically -0.5 to +0.5). Convert to
+    a fit-score delta by multiplying by ``fit_scale``, then blend with the
+    existing trait-based score using sample-size shrinkage:
+
+        weight_learned = n / (n + 2)   (Bayesian shrinkage to prior, k=2)
+        new_fit = weight_learned * (trait + delta) + (1 - weight_learned) * trait
+
+    A player with n=2 events gets 50% weight on the learned signal; n=5 gets
+    71%; n=1 gets 33%. This anchors course fit in outcomes while protecting
+    against tiny samples.
+    """
+    if not learned or not course_key:
+        return 0
+    n_changed = 0
+    for player in players:
+        key = normalize_name(player.get("name", ""))
+        entry = learned.get(key)
+        if not entry:
+            continue
+        cf = player.get("courseFit") or {}
+        prior = cf.get(course_key, 70)
+        n = entry["n"]
+        weight = n / (n + 2.0)  # k=2 shrinkage
+        delta = entry["residual"] * fit_scale
+        new_score = round(weight * (prior + delta) + (1 - weight) * prior)
+        new_score = max(20, min(99, new_score))
+        cf[course_key] = new_score
+        player["courseFit"] = cf
+        # Annotate so frontend / methodology can show learned vs prior
+        lf = player.setdefault("learnedCourseFit", {})
+        lf[course_key] = {
+            "residual": entry["residual"],
+            "n": n,
+            "prior": prior,
+            "learned": new_score,
+            "weight": round(weight, 2),
+        }
+        n_changed += 1
+    return n_changed
 
 
 # ============================================================
@@ -3412,59 +3753,207 @@ def compute_odds_movement(current_players, archive_dir):
 # CUT LINE PREDICTOR
 # ============================================================
 
-def predict_cut_line(players, course_key="augusta"):
+def predict_cut_line(players, course_key="augusta", weather=None, tournament_sg=None,
+                     course_par=None, cut_size=65, sims=4000, live_leaderboard=None,
+                     model_params_override=None):
+    """Monte Carlo cut-line predictor.
+
+    Simulates every player's 36-hole total using the same per-player score
+    distribution model as ``predict_matchups`` (mean = par - SG - fit - form,
+    std from history or default), then finds the score at which the cumulative
+    make-cut count crosses the field's cut threshold (PGA standard: top 65 +
+    ties after R2 unless the event overrides).
+
+    When R1 scores are already in (live_leaderboard provides round1 strokes),
+    those are held fixed and only R2 is simulated — much sharper prediction
+    Friday morning than Wednesday morning.
+
+    Returns the same dict shape the frontend already consumes plus
+    ``cumulativeMakeCut`` (probability each player makes the cut), which the
+    Cut Bubble filter can use for true cut-bubble selection.
     """
-    Predict the cut line based on field strength, historical Augusta cuts, and current scoring.
-    Augusta historical cuts (last 10 years): +1, +2, +1, +3, +1, +2, +1, +4, +2, +1
-    Typical range: +1 to +3 (score of 145-147 for 36 holes)
-    """
-    print("[CUT PREDICTOR] Calculating predicted cut line...")
+    import random
+    random.seed(7)
+    print("[CUT PREDICTOR] Simulating cut line...")
 
-    # Augusta historical cut data
-    AUGUSTA_CUT_HISTORY = {
-        2024: 3, 2023: 2, 2022: 2, 2021: 4, 2020: 1,
-        2019: 2, 2018: 2, 2017: 1, 2016: 3, 2015: 2,
-        2014: 2, 2013: 3, 2012: 2, 2011: 4, 2010: 2
-    }
+    if not players:
+        return {
+            "predictedCut": None, "predictedScore": None, "fieldStrength": 0,
+            "likelyMakers": 0, "confidence": "Low",
+            "note": "No field data available.", "model": "monte_carlo",
+        }
 
-    historical_avg = round(sum(AUGUSTA_CUT_HISTORY.values()) / len(AUGUSTA_CUT_HISTORY), 1)
+    par_round = int(course_par) if course_par else 71
+    par_36 = par_round * 2
 
-    # Measure field strength using average SG total of top 30
-    if players:
-        sg_vals = sorted([p.get("sgTotal", 0) for p in players if p.get("sgTotal")], reverse=True)
-        top30_sg = sg_vals[:30]
-        field_strength = round(sum(top30_sg) / len(top30_sg), 2) if top30_sg else 0
-    else:
-        field_strength = 0
+    mp = model_params_override or load_model_params()
+    par_baseline = mp.get("parBaseline", par_round)
+    base_std = mp.get("baseStd", 2.85)
+    shock_std = mp.get("roundShockStd", 1.0)
+    sg_blend_season = mp.get("sgBlendSeason", 0.7)
+    sg_blend_live = mp.get("sgBlendLive", 0.3)
+    fit_scale = mp.get("fitBoostScale", 25.0)
+    hot_boost = mp.get("hotFormBoost", 0.25)
+    cold_penalty = mp.get("coldFormPenalty", -0.25)
+    wind_slope = mp.get("windPenaltySlope", 0.08)
+    wind_std_slope = mp.get("windStdSlope", 0.05)
+    wind_threshold = mp.get("windThresholdMph", 12.0)
 
-    # Adjust cut prediction based on field strength
-    # Strong field = more birdies but also more pressure = similar cut
-    base_cut = historical_avg
-    if field_strength > 1.5:
-        predicted = base_cut - 0.5  # Elite field goes lower
-    elif field_strength < 0.8:
-        predicted = base_cut + 0.5  # Weaker field plays harder
-    else:
-        predicted = base_cut
+    # Weather penalty
+    wx_penalty = 0.0
+    wx_std_bump = 0.0
+    if isinstance(weather, dict):
+        winds = []
+        for day in (weather.get("forecast") or []):
+            w = day.get("windMph") or day.get("wind_mph") or day.get("wind")
+            if isinstance(w, (int, float)):
+                winds.append(w)
+        if winds:
+            avg_wind = sum(winds) / len(winds)
+            wx_penalty = max(0.0, (avg_wind - wind_threshold) * wind_slope)
+            wx_std_bump = max(0.0, (avg_wind - wind_threshold) * wind_std_slope)
 
-    predicted = round(predicted)
+    # Live tournament SG lookup (in-progress events)
+    live_sg = {}
+    for row in (tournament_sg or []):
+        live_sg[normalize_name(row.get("name", ""))] = row.get("sgTotal", 0) or 0
 
-    # Count players likely to make cut (course fit + SG above threshold)
-    likely_makers = sum(1 for p in players if (p.get("sgTotal", 0) > 0.2 or
-                        (p.get("courseFit", {}).get("augusta", 0) if isinstance(p.get("courseFit"), dict) else 0) > 70))
+    # Live R1 scores lookup (if available)
+    fixed_r1 = {}
+    if live_leaderboard:
+        for row in live_leaderboard:
+            name = normalize_name(row.get("name", ""))
+            r1 = row.get("round1")
+            if isinstance(r1, (int, float)) and r1 > 0:
+                fixed_r1[name] = float(r1)
+
+    # Build per-player score distribution params
+    pp_list = []
+    for p in players:
+        # Skip players with no SG signal at all (auto-added field entries)
+        # to avoid populating the cut field with random noise — they were
+        # already replaced with field averages so they'd just be a centered
+        # blob anyway, but better to mark them explicitly.
+        sg_season = p.get("sgTotal") or 0.0
+        name_key = normalize_name(p.get("name", ""))
+        sg_live = live_sg.get(name_key, 0.0)
+        sg_blended = sg_blend_season * sg_season + sg_blend_live * sg_live if sg_live else sg_season
+
+        fit_boost = 0.0
+        if course_key:
+            fit = (p.get("courseFit") or {}).get(course_key, 75)
+            if isinstance(fit, (int, float)):
+                fit_boost = (fit - 75) / fit_scale
+
+        form = p.get("recentForm") or {}
+        form_boost = (hot_boost if form.get("trend") == "hot"
+                      else cold_penalty if form.get("trend") == "cold"
+                      else 0.0)
+
+        empirical_std = p.get("scoreStd")
+        if isinstance(empirical_std, (int, float)) and 1.5 <= empirical_std <= 5.0:
+            std_i = float(empirical_std) + wx_std_bump
+        else:
+            std_i = base_std + wx_std_bump
+        if form.get("trend") in ("hot", "cold"):
+            std_i += 0.15
+
+        mean_round = par_baseline - sg_blended - fit_boost - form_boost + wx_penalty
+        pp_list.append({
+            "name": p.get("name"),
+            "key": name_key,
+            "mean_round": mean_round,
+            "std": std_i,
+            "fixed_r1": fixed_r1.get(name_key),
+        })
+
+    # Monte Carlo: simulate 36-hole totals
+    n = len(pp_list)
+    cut_makes = [0] * n
+    finish_totals = [[] for _ in range(n)]
+    # Always generate two shocks per sim — mixed field (some R1 done, some
+    # not) is the common Friday-morning case, and players without R1 need
+    # both shocks while those with R1 only consume the R2 shock.
+    for s in range(sims):
+        shock_r1 = random.gauss(0, shock_std)
+        shock_r2 = random.gauss(0, shock_std)
+        totals = []
+        for pp in pp_list:
+            if pp["fixed_r1"] is not None:
+                r2 = round(random.gauss(pp["mean_round"], pp["std"]) + shock_r2)
+                total = pp["fixed_r1"] + r2
+            else:
+                r1 = round(random.gauss(pp["mean_round"], pp["std"]) + shock_r1)
+                r2 = round(random.gauss(pp["mean_round"], pp["std"]) + shock_r2)
+                total = r1 + r2
+            totals.append(total)
+        # Determine cut threshold for this sim: top cut_size + ties
+        sorted_totals = sorted(totals)
+        cut_idx = min(cut_size - 1, n - 1)
+        cut_thresh = sorted_totals[cut_idx]
+        for i, t in enumerate(totals):
+            if t <= cut_thresh:
+                cut_makes[i] += 1
+            finish_totals[i].append(t)
+
+    # Aggregate cut probability per player + expected cut score
+    cumulative = []
+    for i, pp in enumerate(pp_list):
+        make_pct = cut_makes[i] / sims
+        cumulative.append({
+            "name": pp["name"],
+            "key": pp["key"],
+            "makeCutProb": round(make_pct, 4),
+            "expectedTotal": round(sum(finish_totals[i]) / sims, 1),
+        })
+
+    # Predicted cut line = average across sims of the (cut_size-th best total)
+    # rounded to integer strokes vs par.
+    cut_thresh_per_sim = []
+    for s in range(sims):
+        sim_totals = sorted(finish_totals[i][s] for i in range(n))
+        cut_idx = min(cut_size - 1, n - 1)
+        cut_thresh_per_sim.append(sim_totals[cut_idx])
+    predicted_score = round(sum(cut_thresh_per_sim) / sims)
+    predicted_par_rel = predicted_score - par_36
+
+    # Field strength = average SG of top 30
+    sg_vals = sorted([p.get("sgTotal", 0) for p in players if p.get("sgTotal")], reverse=True)
+    field_strength = round(sum(sg_vals[:30]) / max(len(sg_vals[:30]), 1), 2) if sg_vals else 0
+
+    likely_makers = sum(1 for c in cumulative if c["makeCutProb"] >= 0.5)
+
+    # Confidence: how tight is the cut distribution? std < 1 stroke = High,
+    # < 2 = Medium, else Low. Live R1 sharply tightens this.
+    import statistics as _stats
+    cut_std = _stats.stdev(cut_thresh_per_sim) if len(cut_thresh_per_sim) > 1 else 0
+    confidence = "High" if cut_std < 1.0 else ("Medium" if cut_std < 2.0 else "Low")
+    note = ("Live R1 in — only R2 simulated." if fixed_r1
+            else f"Pre-tournament forecast over both rounds. Field SG top-30 avg {field_strength:+.2f}.")
 
     result = {
-        "predictedCut": predicted,
-        "predictedScore": 144 + predicted,  # Par 144 for 36 holes at Augusta (par 72 x 2)
-        "historicalAvg": historical_avg,
+        "predictedCut": predicted_par_rel,
+        "predictedScore": predicted_score,
         "fieldStrength": field_strength,
-        "likelyMakers": min(likely_makers, 50),
-        "confidence": "High" if predicted == round(historical_avg) else "Medium",
-        "note": f"Augusta historical avg cut: +{historical_avg}. {'Strong' if field_strength > 1.5 else 'Average'} field this week.",
-        "history": AUGUSTA_CUT_HISTORY
+        "likelyMakers": likely_makers,
+        "confidence": confidence,
+        "note": note,
+        "model": "monte_carlo",
+        "courseKey": course_key,
+        "coursePar": par_round,
+        "cutSize": cut_size,
+        "sims": sims,
+        "cutStd": round(cut_std, 2),
+        # Top 20 closest-to-cut players (sorted by |make% - 50%|) — frontend
+        # can use this as a true "cut bubble" cohort.
+        "bubble": sorted(
+            cumulative, key=lambda c: abs(c["makeCutProb"] - 0.5)
+        )[:20],
+        # Per-player make-cut probabilities (full field), keyed by name for
+        # frontend lookup.
+        "playerMakeCutProb": {c["key"]: c["makeCutProb"] for c in cumulative},
     }
-
-    print(f"  Predicted cut: +{predicted} (historical avg: +{historical_avg})")
+    print(f"  Predicted cut: {predicted_par_rel:+d} ({predicted_score}) · sim std {cut_std:.2f} · {likely_makers} likely makers · {confidence} confidence")
     return result
 
 
@@ -5357,6 +5846,45 @@ def run_pipeline():
     print(f"\n  ML Engine: loaded {len(ml_player_history)} player histories ({ml_count} with 3+ data points)")
 
     # ============================================================
+    # LEARNED COURSE FIT — historical SG residuals at this venue
+    # ------------------------------------------------------------
+    # Pulls last 5 years of tournament_results at the same course_id and
+    # blends each player's average SG residual into courseFit[course_key].
+    # Sample-size shrinkage (k=2) ensures small-N players still lean on
+    # the trait-based prior. Skipped on early failures so we never block
+    # the rest of the pipeline.
+    # ============================================================
+    print("  Applying learned course fit (historical SG residuals)...")
+    _resolved_for_fit = match_venue_to_course(
+        output.get("currentEvent", {}).get("course", ""),
+        output.get("currentEvent", {}).get("name", "")
+    )
+    _bdl_course_id = None
+    try:
+        _bdl_course_id = (BDL_COURSE_ID_MAP.get(_resolved_for_fit)
+                          if _resolved_for_fit else None)
+        if not _bdl_course_id:
+            _bdl_course_id = bdl_find_course_id(
+                output.get("currentEvent", {}).get("course", "")
+            )
+    except Exception as _e:
+        print(f"  [WARN] Could not resolve BDL course_id: {_e}")
+    if _bdl_course_id and _resolved_for_fit:
+        try:
+            _learned = compute_learned_course_fit(_bdl_course_id, output["players"])
+            n_blended = apply_learned_course_fit(
+                output["players"], _learned, course_key=_resolved_for_fit
+            )
+            output["learnedFitSummary"] = {
+                "courseId": _bdl_course_id,
+                "courseKey": _resolved_for_fit,
+                "playersBlended": n_blended,
+            }
+            print(f"  Learned fit: blended {n_blended} players (n>=1 prior appearances)")
+        except Exception as _e:
+            print(f"  [WARN] Learned course fit failed: {_e}")
+
+    # ============================================================
     # CONFIDENCE SCORE MODEL (v3 + Bayesian ML)
     # ============================================================
     print("  Calculating PropsBot Confidence Scores...")
@@ -5532,15 +6060,19 @@ def run_pipeline():
     print(f"  Confidence scores calculated for {len(output['players'])} players")
 
     # ============================================================
-    # EV SCORING + EDGE RECOMPUTE (post-softmax)
+    # EV SCORING + EDGE RECOMPUTE (post-softmax, vig-corrected)
     # ------------------------------------------------------------
     # Both edgeScore and evScore now consume the calibrated
     # modelWinProb (softmax over confScore) instead of the legacy
-    # `(confScore/100) * 15` heuristic. This makes the comparison
-    # to book-implied probability mathematically valid: model win%
-    # sums to ~1.0 across the field, so positive edge means real
-    # disagreement with the market rather than a scaling artifact.
+    # `(confScore/100) * 15` heuristic, AND de-vig the book line
+    # against the field overround before comparing. Outright winner
+    # markets typically carry 20-30% hold; without de-vigging, every
+    # "+5% EV" reported to users was really break-even or worse.
     # ============================================================
+    output["bookVigInfo"] = build_market_overrounds(output["players"])
+    winner_overround = (output["bookVigInfo"].get("winner") or {}).get("overround")
+    if winner_overround:
+        print(f"[VIG] Winner market overround: {winner_overround} ({(winner_overround-1)*100:.1f}% hold across {output['bookVigInfo']['winner']['bookCount']} players)")
     for player in output["players"]:
         win_prob = float(player.get("modelWinProb") or 0.0)
         model_win_pct = win_prob * 100.0  # convert to percent for downstream funcs
@@ -5549,22 +6081,22 @@ def run_pipeline():
         if best_odds:
             dk_odds = best_odds.get("dk") or best_odds.get("fd") or best_odds.get("mgm")
             if dk_odds and win_prob > 0:
-                # Coerce odds to float (some sources return strings like "+15000").
                 try:
                     dk_odds_num = float(dk_odds)
                 except (TypeError, ValueError):
                     continue
-                # Recompute edgeScore against best available book odds
-                if dk_odds_num > 0:
-                    market_implied_pct = 100.0 / (dk_odds_num + 100.0) * 100.0
-                else:
-                    market_implied_pct = abs(dk_odds_num) / (abs(dk_odds_num) + 100.0) * 100.0
+                # Fair (de-vigged) implied prob for the edge calc
+                fair_prob = devig_implied_prob(dk_odds_num, overround=winner_overround)
+                fair_implied_pct = (fair_prob or 0.0) * 100.0
                 # Ceremonial / non-competitive players keep zero edge
                 if player.get("competitiveness") in ("ceremonial", "non_competitive"):
                     player["edgeScore"] = 0.0
                 else:
-                    player["edgeScore"] = round(model_win_pct - market_implied_pct, 2)
-                player["evScore"] = calculate_ev_score(dk_odds, model_win_pct)
+                    player["edgeScore"] = round(model_win_pct - fair_implied_pct, 2)
+                player["evScore"] = calculate_ev_score(
+                    dk_odds, model_win_pct, overround=winner_overround
+                )
+                player["fairImpliedWinPct"] = round(fair_implied_pct, 2)
 
     # ============================================================
     # MASTERS INTELLIGENCE (only during Masters week — early April)
@@ -5588,11 +6120,28 @@ def run_pipeline():
     output["oddsMovement"] = compute_odds_movement(output["players"], base_dir)
 
     # ============================================================
-    # CUT LINE PREDICTION
+    # CUT LINE PREDICTION (Monte Carlo, course-aware)
     # ============================================================
+    # Pull course par + live R1 leaderboard so the cut model uses the actual
+    # venue (not a hardcoded Augusta history) and tightens up Friday when R1
+    # scores are in. Cut size defaults to 65+ties (PGA standard); majors that
+    # use top 50 + ties can override here later if needed.
+    _course_par = None
+    if isinstance(output.get("courses"), dict):
+        _cdata = output["courses"].get(resolved_course) if resolved_course else None
+        if isinstance(_cdata, dict):
+            _course_par = _cdata.get("par")
+    if not _course_par and isinstance(output.get("currentEvent"), dict):
+        _course_par = (output["currentEvent"].get("course_par")
+                       or output["currentEvent"].get("par"))
+    _live_lb = ((output.get("currentEvent") or {}).get("leaderboard")) or []
     output["cutPrediction"] = predict_cut_line(
         output["players"],
-        resolved_course
+        course_key=resolved_course,
+        weather=output.get("weather"),
+        tournament_sg=output.get("tournamentSG"),
+        course_par=_course_par,
+        live_leaderboard=_live_lb,
     )
 
     # ============================================================
@@ -5744,6 +6293,14 @@ def run_pipeline():
 
     # ---- MODEL PARAMS (tuned by backtest, if available) ----
     output["modelParams"] = load_model_params(base_dir)
+
+    # ---- CONFSCORE CALIBRATION ----
+    # If scripts/calibrate.py has been run, attach calibrated make-cut
+    # probabilities to each player. Frontend can display these instead of
+    # raw 0-100 scores when the user wants a real probability.
+    n_calibrated = apply_confscore_calibration(output["players"], output["modelParams"])
+    if n_calibrated:
+        print(f"[CALIBRATION] Applied to {n_calibrated} players (trained {output['modelParams'].get('calibration', {}).get('trainedAt', 'unknown')})")
 
     # ---- UPDATE CADENCE (exposed to UI for freshness badges) ----
     output["updateCadence"] = {

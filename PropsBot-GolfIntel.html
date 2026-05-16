@@ -2,7 +2,7 @@
 <html lang="en" class="h-full">
 <head>
   <meta charset="UTF-8" />
-  <title>Free Golf Betting Tool | PGA Tour Player Props, Course Analytics & Live Odds | PropsBot AI</title>
+  <title>Free PGA Player Props & Live Odds Tool | PropsBot AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Favicons -->
@@ -62,6 +62,76 @@
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "PropsBot AI", "item": "https://propsbot.ai" },
           { "@type": "ListItem", "position": 2, "name": "Golf Intel", "item": "https://golf.propsbot.ai" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://golf.propsbot.ai/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is PropsBot Golf Intelligence really free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The golf tool at golf.propsbot.ai is completely free with no signup. It is a sample of the broader PropsBot AI platform (NFL, NBA, MLB, NHL) which is a paid product."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does PropsBot calculate edge percentages?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Each edge is computed by removing the sportsbook hold (vig) from the book's implied probability across the full field, then comparing the resulting fair probability to the PropsBot model's win probability. We only show edge for markets where a real book line exists (winner, top 5, make cut). Estimated markets (top 10, top 20) display odds but no edge percentage."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is a course fit score?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A 0-100 score for how well a player's strengths match a course's demands. PropsBot blends a hand-curated trait prior (course rewards power vs accuracy vs scrambling vs putting) with a learned signal: each player's historical strokes-gained residual at the same course over the last 5 years. Players with 2+ prior appearances get a sample-size-weighted blend; first-timers fall back to the trait prior."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is the cut line predicted?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Monte Carlo simulation of every player's 36-hole total using their strokes-gained skill, course fit, recent form, and weather. The cut score is the round of the 65th-best total (PGA standard cut size), averaged across 4,000 simulations. When Round 1 is complete, actual R1 scores replace the simulated round and only R2 is simulated, which sharply tightens the prediction."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the PropsBot Confidence Score?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A 0-100 composite signal blending strokes gained, course fit, recent form, field strength, weather, and book-odds context. It is calibrated against historical make-cut outcomes via isotonic regression, so a confScore of 70 maps to roughly a 75% make-cut probability based on past performance of similar scores."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which sportsbooks does PropsBot Golf cover?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Live odds from DraftKings and FanDuel via the BallDontLie PGA API. The Odds API supplements with BetMGM, Bovada, and BetRivers for matchup markets. We always use the best available line when computing edge."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How often does PropsBot Golf update?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every 30 minutes during tournament play (Thursday-Sunday), plus 5 scheduled runs on Wednesday to catch opening lines and sharp action. Off-week, the data refreshes daily Monday and Tuesday at 1 AM ET. The live leaderboard updates client-side via ESPN every 60 seconds."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this betting advice?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. PropsBot Golf is an educational research tool. We surface model predictions and book-line discrepancies; the betting decision is yours. Always verify current odds at your sportsbook before wagering. Gambling involves risk — wager only what you can afford to lose. 21+ only. If you have a gambling problem, call 1-800-GAMBLER."
+            }
+          }
         ]
       }
     ]
@@ -6064,10 +6134,17 @@
     return Math.min(98, base * (0.7 + 0.3 * fit) * 100);
   }
 
-  function cellEV(modelPct, bookOdds) {
+  // De-vigged EV. Pulls the per-market overround from window.DATA.bookVigInfo
+  // (written by the scraper from the full field of book lines). Without
+  // de-vigging, outright "edge %" is overstated by 20-30% — the hold.
+  function cellEV(modelPct, bookOdds, market) {
     if (!modelPct || !bookOdds) return null;
     var dec = bookOdds > 0 ? (bookOdds/100+1) : (100/Math.abs(bookOdds)+1);
-    var bookPct = (1/dec)*100;
+    var rawImplied = 1/dec;
+    var info = (window.DATA && window.DATA.bookVigInfo) || {};
+    var ov = market && info[market] && info[market].overround;
+    var fairImplied = ov && ov > 0 ? rawImplied / ov : rawImplied / 1.035;
+    var bookPct = fairImplied * 100;
     return +((modelPct - bookPct) / bookPct * 100).toFixed(1);
   }
 
@@ -6104,7 +6181,7 @@
       if (_propCompetitiveOnly && !_isCompetitive(p)) return false;
       if (_propPlayerSearch && p.name.toLowerCase().indexOf(_propPlayerSearch.toLowerCase()) < 0) return false;
       if (_propEvFilter) {
-        var ev = p.evScore || cellEV(modelPctForProp(p,'winner'), p.odds && parseInt(p.odds.dk || p.odds.fd || p.odds.mgm));
+        var ev = p.evScore || cellEV(modelPctForProp(p,'winner'), p.odds && parseInt(p.odds.dk || p.odds.fd || p.odds.mgm), 'winner');
         if (!ev || ev <= 0) return false;
       }
       return true;
@@ -6121,7 +6198,7 @@
         var modelO = pctToAmerican(modelPct);
         colOdds[col] = bookOdds;
         colModel[col] = modelO;
-        colEV[col] = cellEV(modelPct, bookOdds);
+        colEV[col] = cellEV(modelPct, bookOdds, col);
       });
       return { p: p, colOdds: colOdds, colModel: colModel, colEV: colEV };
     });
@@ -7328,13 +7405,29 @@
       return americanOddsForCell(p, col, null) || _estimateMarketOdds(_winOddsForPlayer(p), col);
     }, null);
   }
+  // BDL only ships real book lines for these markets (per their /futures
+  // market_type enum: tournament_winner, top_5_finish, make_cut). Anything
+  // else we display is an estimate derived from win odds — and computing
+  // "edge" of one estimate vs another is meaningless. Frontend uses this to
+  // hide the Edge cell on estimated markets and tag the odds as "Est".
+  var SC_REAL_BOOK_MARKETS = { winner: true, top5: true, makeCut: true };
+  function scMarketIsEstimate(p, mkt) {
+    var col = SC_MARKET_TO_PROPCOL[mkt] || mkt;
+    if (!SC_REAL_BOOK_MARKETS[col]) return true;
+    return scSafe(function(){ return !americanOddsForCell(p, col, null); }, true);
+  }
   function scMarketModelPct(p, mkt) {
     return scSafe(function(){ return modelPctForProp(p, SC_MARKET_TO_PROPCOL[mkt] || 'winner'); }, null);
   }
   function scMarketEV(p, mkt) {
+    // Honesty filter: if the book line is estimated, the "edge" is a model-
+    // vs-model comparison. Return null so callers display "—" instead of a
+    // misleading percentage.
+    if (scMarketIsEstimate(p, mkt)) return null;
     var modelPct = scMarketModelPct(p, mkt);
     var bookOdds = scMarketOdds(p, mkt);
-    return scSafe(function(){ return cellEV(modelPct, bookOdds); }, null);
+    var col = SC_MARKET_TO_PROPCOL[mkt] || mkt;
+    return scSafe(function(){ return cellEV(modelPct, bookOdds, col); }, null);
   }
   function scFmtAmerican(odds) {
     if (odds == null) return '—';
@@ -7922,9 +8015,24 @@
       var bookOdds = scMarketOdds(p, mkt);
       var modelPct = scMarketModelPct(p, mkt);
       var ev = scMarketEV(p, mkt);
-      var oddsCell = bookOdds != null ? '<span class="' + (ev != null && ev >= 5 ? 'sc-edge-good' : '') + '">' + scFmtAmerican(bookOdds) + '</span>' : '<span class="text-slate-700">—</span>';
+      var isEst = scMarketIsEstimate(p, mkt);
+      // Odds cell — estimated markets get a small "est" badge so users know
+      // this isn't a real book line, just our derivation from the win price.
+      var oddsInner = bookOdds != null
+        ? '<span class="' + (ev != null && ev >= 5 ? 'sc-edge-good' : '') + '">' + scFmtAmerican(bookOdds) + '</span>'
+        : '<span class="text-slate-700">—</span>';
+      var estBadge = (isEst && bookOdds != null)
+        ? ' <span style="font-size:9px;color:var(--text-muted);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;" title="No real book line from BDL for this market. Odds derived from win price.">est</span>'
+        : '';
+      var oddsCell = oddsInner + estBadge;
       var modelCell = modelPct != null ? modelPct.toFixed(1) + '%' : '—';
-      var evCell = ev != null ? '<span class="' + scEdgeClass(ev) + '">' + (ev > 0 ? '+' : '') + ev.toFixed(0) + '%</span>' : '<span class="text-slate-700">—</span>';
+      // Edge cell hidden for estimated markets — comparing two estimates
+      // gives a meaningless percentage, which is worse than showing nothing.
+      var evCell = isEst
+        ? '<span class="text-slate-700" title="Edge only shown when a real book line is available">—</span>'
+        : (ev != null
+            ? '<span class="' + scEdgeClass(ev) + '">' + (ev > 0 ? '+' : '') + ev.toFixed(0) + '%</span>'
+            : '<span class="text-slate-700">—</span>');
       var canAdd = bookOdds != null;
       var addBtn = canAdd
         ? '<button class="sc-add-parlay" data-player="' + p.name.replace(/"/g, '&quot;') + '" data-bet="' + mkt + '" data-odds="' + bookOdds + '">+ Parlay</button>'
