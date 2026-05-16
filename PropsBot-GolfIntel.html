@@ -7401,6 +7401,39 @@
     if (m < 0 || (m === 0 && now.getDate() < d.getDate())) age--;
     return age;
   }
+  // Look up a player's season-rank dict from window.DATA.playerSeasonRanks.
+  // Keyed by normalized name (lowercased, whitespace stripped).
+  function scLookupSeasonRanks(p) {
+    var sr = window.DATA && window.DATA.playerSeasonRanks;
+    if (!sr || !p || !p.name) return null;
+    var raw = String(p.name).toLowerCase().replace(/\s+/g, '');
+    if (sr[raw]) return sr[raw];
+    var keys = Object.keys(sr);
+    for (var i = 0; i < keys.length; i++) {
+      if (keys[i].toLowerCase().replace(/\s+/g, '') === raw) return sr[keys[i]];
+    }
+    return null;
+  }
+  // Per-round par-relative results — compact summary table when scorecards
+  // aren't available for this player.
+  function scLookupRoundResults(p) {
+    var rr = window.DATA && window.DATA.playerRoundResults;
+    if (!rr || !p || !p.name) return null;
+    var raw = String(p.name).toLowerCase().replace(/\s+/g, '');
+    if (rr[raw]) return rr[raw];
+    var keys = Object.keys(rr);
+    for (var i = 0; i < keys.length; i++) {
+      if (keys[i].toLowerCase().replace(/\s+/g, '') === raw) return rr[keys[i]];
+    }
+    return null;
+  }
+  // Season-rank superscript chip — top 10 teal, top 50 blue, beyond muted.
+  // Returns empty string when rank is missing so callers can concat unconditionally.
+  function scRankBadge(rank) {
+    if (rank == null) return '';
+    var cls = rank <= 10 ? 'sc-edge-strong' : (rank <= 50 ? 'sc-edge-good' : 'sc-edge-bad');
+    return '<sup class="' + cls + '" style="font-family:var(--mono);font-size:9px;font-weight:700;margin-left:4px;letter-spacing:0;font-feature-settings:\'tnum\' 1;" title="Season rank #' + rank + '">#' + rank + '</sup>';
+  }
   function scEdgeClass(ev) {
     if (ev == null) return 'sc-edge-neutral';
     if (ev >= 15) return 'sc-edge-strong';
@@ -7917,20 +7950,22 @@
     var fitChip = fit != null
       ? '<span class="' + (fit >= 85 ? 'sc-edge-strong' : fit >= 70 ? 'sc-edge-good' : fit >= 55 ? 'sc-edge-neutral' : 'sc-edge-bad') + ' mono font-bold" style="font-size:28px;">' + fit + '<span style="font-size:14px;color:var(--text-muted);">/100</span></span>'
       : '<span class="text-slate-600">No fit data</span>';
+    // Track C: append PGA Tour season ranks as superscript chips on each SG row.
+    var ranks = scLookupSeasonRanks(p) || {};
     var sgRows = [
-      { label: 'SG: Off the Tee', val: p.sgOtt },
-      { label: 'SG: Approach', val: p.sgApp },
-      { label: 'SG: Around the Green', val: p.sgArg },
-      { label: 'SG: Putting', val: p.sgPutt },
-      { label: 'SG: Total', val: p.sgTotal }
+      { label: 'SG: Off the Tee',       val: p.sgOtt,   rk: ranks.sgOtt },
+      { label: 'SG: Approach',          val: p.sgApp,   rk: ranks.sgApp },
+      { label: 'SG: Around the Green',  val: p.sgArg,   rk: ranks.sgArg },
+      { label: 'SG: Putting',           val: p.sgPutt,  rk: ranks.sgPutt },
+      { label: 'SG: Total',             val: p.sgTotal, rk: ranks.sgTotal }
     ].map(function(r) {
-      return '<tr><td>' + r.label + '</td><td><span class="' + scSGClass(r.val) + '">' + scFmtSG(r.val) + '</span></td></tr>';
+      return '<tr><td>' + r.label + '</td><td><span class="' + scSGClass(r.val) + '">' + scFmtSG(r.val) + '</span>' + scRankBadge(r.rk) + '</td></tr>';
     }).join('');
     var extras = [];
-    if (p.scoringAvg) extras.push('<div class="sc-mini"><div class="sc-mini-label">Scoring Avg</div><div class="mono font-bold" style="font-size:18px;color:var(--text-primary)">' + p.scoringAvg + '</div></div>');
-    if (p.birdieAvg)  extras.push('<div class="sc-mini"><div class="sc-mini-label">Birdies / Rd</div><div class="mono font-bold" style="font-size:18px;color:var(--teal)">' + p.birdieAvg.toFixed(1) + '</div></div>');
-    if (p.gir != null) extras.push('<div class="sc-mini"><div class="sc-mini-label">GIR %</div><div class="mono font-bold" style="font-size:18px;color:var(--text-primary)">' + p.gir + '%</div></div>');
-    if (p.fairways != null) extras.push('<div class="sc-mini"><div class="sc-mini-label">Fairways %</div><div class="mono font-bold" style="font-size:18px;color:var(--text-primary)">' + p.fairways + '%</div></div>');
+    if (p.scoringAvg) extras.push('<div class="sc-mini"><div class="sc-mini-label">Scoring Avg</div><div class="mono font-bold" style="font-size:18px;color:var(--text-primary)">' + p.scoringAvg + scRankBadge(ranks.scoringAvg) + '</div></div>');
+    if (p.birdieAvg)  extras.push('<div class="sc-mini"><div class="sc-mini-label">Birdies / Rd</div><div class="mono font-bold" style="font-size:18px;color:var(--teal)">' + p.birdieAvg.toFixed(1) + scRankBadge(ranks.birdieAvg) + '</div></div>');
+    if (p.gir != null) extras.push('<div class="sc-mini"><div class="sc-mini-label">GIR %</div><div class="mono font-bold" style="font-size:18px;color:var(--text-primary)">' + p.gir + '%' + scRankBadge(ranks.gir) + '</div></div>');
+    if (p.fairways != null) extras.push('<div class="sc-mini"><div class="sc-mini-label">Fairways %</div><div class="mono font-bold" style="font-size:18px;color:var(--text-primary)">' + p.fairways + '%' + scRankBadge(ranks.drivingAccuracy) + '</div></div>');
     // Bio line — country flag · OWGR · age · school · residence — only renders
     // pieces that exist, so missing data degrades gracefully to fewer chips.
     var bioParts = [];
@@ -8120,7 +8155,10 @@
     var sc = scLookupScorecard(p);
     var hasStrip = sc && Object.keys(sc).length > 0;
 
-    if (!hasLive && !hasStrip) {
+    var rounds = scLookupRoundResults(p);
+    var hasRounds = rounds && rounds.length > 0;
+
+    if (!hasLive && !hasStrip && !hasRounds) {
       return '<div class="sc-live-empty">No live data yet. Live scores will populate once the round starts.</div>';
     }
 
@@ -8138,11 +8176,10 @@
         }).join('') + '</div>'
       : '';
 
-    // Build the 18-cell strip with round selector
+    // Build the 18-cell strip with round selector (Track B)
     var stripHtml = '';
     if (hasStrip) {
       var roundKeys = Object.keys(sc).sort();
-      // Default to the most recent (highest) round
       var defaultRound = roundKeys[roundKeys.length - 1];
       var roundBtns = roundKeys.map(function(rk) {
         var total = (sc[rk] || []).reduce(function(s, h) { return s + (h.toPar || 0); }, 0);
@@ -8163,7 +8200,31 @@
         '</div>' +
       '</div>';
     }
-    return heroGrid + stripHtml;
+
+    // Track C: per-round par-relative summary table. Renders ONLY when the
+    // hole-by-hole strip isn't available — same info at lower resolution,
+    // so showing both is redundant for top-50 players.
+    var roundTable = '';
+    if (hasRounds && !hasStrip) {
+      var roundCells = rounds.map(function(r) {
+        var prCls = r.parRelative == null ? '' : (r.parRelative < 0 ? 'sc-score-under' : (r.parRelative === 0 ? 'sc-score-even' : 'sc-score-over'));
+        var prStr = r.parRelative == null ? '' : scFmtScore(r.parRelative);
+        return '<div class="sc-mini" style="text-align:center;">' +
+          '<div class="sc-mini-label">R' + r.round + '</div>' +
+          '<div class="mono font-bold" style="font-size:18px;margin-top:4px;color:var(--text-primary);">' + (r.score != null ? r.score : '—') + '</div>' +
+          (prStr ? '<div class="mono ' + prCls + '" style="font-size:11px;font-weight:600;margin-top:2px;">' + prStr + '</div>' : '') +
+        '</div>';
+      }).join('');
+      var totalPar = rounds.reduce(function(s, r) { return s + (r.parRelative || 0); }, 0);
+      var totalCls = totalPar < 0 ? 'sc-score-under' : (totalPar === 0 ? 'sc-score-even' : 'sc-score-over');
+      roundTable = '<div style="margin-top:' + (heroGrid ? '12px' : '0') + ';">' +
+        '<div class="sc-mini-label" style="margin-bottom:8px;">Round-by-round · total ' +
+          '<span class="mono font-bold ' + totalCls + '">' + scFmtScore(totalPar) + '</span>' +
+        '</div>' +
+        '<div class="grid gap-2 grid-cols-2 sm:grid-cols-4">' + roundCells + '</div>' +
+      '</div>';
+    }
+    return heroGrid + stripHtml + roundTable;
   }
 
   // ----- PARLAY FLOATING PANEL -----

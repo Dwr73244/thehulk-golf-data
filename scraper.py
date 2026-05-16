@@ -670,6 +670,98 @@ def bdl_get_course_holes(course_id):
     return holes
 
 
+def bdl_get_player_round_results(tournament_id, max_pages=20):
+    """Per-player per-round par-relative scores for a tournament.
+    Returns rows: {tournament, player, round_number, score, par_relative_score}
+    """
+    print(f"[BDL] Fetching player round results (tournament_id={tournament_id})...")
+    rows = bdl_fetch_all("player_round_results", {"tournament_ids[]": str(tournament_id)}, max_pages=max_pages)
+    print(f"  Got {len(rows)} round result entries")
+    return rows
+
+
+def bdl_build_player_round_results(raw_rows, keep_names=None):
+    """Reshape to { normalized_name: [{round, score, parRelative}] }."""
+    if not raw_rows:
+        return {}
+    out = {}
+    for row in raw_rows:
+        player = row.get("player") or {}
+        pname = player.get("display_name") or f"{player.get('first_name','')} {player.get('last_name','')}".strip()
+        if not pname:
+            continue
+        key = normalize_name(pname)
+        if keep_names is not None and key not in keep_names:
+            continue
+        rnum = row.get("round_number")
+        score = row.get("score")
+        par_rel = row.get("par_relative_score")
+        if rnum is None or score is None:
+            continue
+        entry = out.setdefault(key, [])
+        entry.append({
+            "round": int(rnum),
+            "score": int(score),
+            "parRelative": int(par_rel) if par_rel is not None else None,
+        })
+    for pkey in out:
+        out[pkey].sort(key=lambda r: r["round"] or 99)
+    return out
+
+
+# Season stats — BDL stat_name string → our internal key. Substring matched.
+SEASON_STAT_KEY_MAP = [
+    ("sgTotal", ["sg total", "strokes gained total", "sg: total"]),
+    ("sgOtt",   ["sg off the tee", "sg: off-the-tee", "strokes gained off"]),
+    ("sgApp",   ["sg approach", "sg: approach", "strokes gained approach"]),
+    ("sgArg",   ["sg around the green", "sg: around-the-green", "strokes gained around"]),
+    ("sgPutt",  ["sg putting", "sg: putting", "strokes gained putting"]),
+    ("scoringAvg", ["scoring average", "scoring avg"]),
+    ("drivingDistance", ["driving distance"]),
+    ("drivingAccuracy", ["driving accuracy"]),
+    ("gir",     ["greens in regulation"]),
+    ("birdieAvg", ["birdie average", "birdies per round"]),
+]
+
+
+def bdl_get_player_season_stats(season, max_pages=20):
+    """Season stats with rankings for every player who has any. Powers the
+    'ranked #5 in SG Approach this season' authority badges in Course Fit.
+    """
+    print(f"[BDL] Fetching player season stats (season={season})...")
+    rows = bdl_fetch_all("player_season_stats", {"season": str(season), "per_page": "100"}, max_pages=max_pages)
+    print(f"  Got {len(rows)} season stat entries")
+    return rows
+
+
+def bdl_build_season_ranks(raw_rows, keep_names=None):
+    """Build { normalized_name: { sgTotal: rank, sgApp: rank, ... } }"""
+    if not raw_rows:
+        return {}
+    out = {}
+    for row in raw_rows:
+        player = row.get("player") or {}
+        pname = player.get("display_name") or f"{player.get('first_name','')} {player.get('last_name','')}".strip()
+        if not pname:
+            continue
+        key = normalize_name(pname)
+        if keep_names is not None and key not in keep_names:
+            continue
+        stat_name = (row.get("stat_name") or "").lower().strip()
+        rank = row.get("rank")
+        if not stat_name or rank is None:
+            continue
+        our_key = None
+        for ours, variants in SEASON_STAT_KEY_MAP:
+            if any(v in stat_name for v in variants):
+                our_key = ours
+                break
+        if not our_key:
+            continue
+        out.setdefault(key, {})[our_key] = int(rank)
+    return out
+
+
 def bdl_get_player_scorecards(tournament_id, max_pages=120):
     """Fetch per-player per-hole scorecards for a tournament.
 
@@ -4746,31 +4838,65 @@ def run_pipeline():
                     print(f"[PIPELINE] Tournament SG written for {len(sg_leaders)} players")
 
             # ============================================================
+            # PER-ROUND PAR-RELATIVE SCORES (Track C)
+            # ============================================================
+            if bdl_tournament.get("status") in ("IN_PROGRESS", "COMPLETED"):
+                rr_keep = set()
+                lb_now = (output.get("currentEvent") or {}).get("leaderboard") or []
+                for row in lb_now[:80]:
+                    nm = row.get("name", "")
+                    if nm:
+                        rr_keep.add(normalize_name(nm))
+                try:
+                    rr_raw = bdl_get_player_round_results(tid)
+                    rr_nested = bdl_build_player_round_results(rr_raw, keep_names=rr_keep or None)
+                    if rr_nested:
+                        output["playerRoundResults"] = rr_nested
+                        print(f"[PIPELINE] Round results: {len(rr_nested)} players")
+                except Exception as e:
+                    print(f"  [WARN] Player round results fetch failed: {e}")
+
+            # ============================================================
+            # SEASON RANKS (Track C)
+            # ============================================================
+            try:
+                from datetime import datetime as _dt
+                season_yr = _dt.utcnow().year
+                ss_raw = bdl_get_player_season_stats(season_yr)
+                ss_lookup = bdl_build_season_ranks(ss_raw, keep_names=None)
+                if not ss_lookup and (_dt.utcnow().month <= 2):
+                    ss_raw = bdl_get_player_season_stats(season_yr - 1)
+                    ss_lookup = bdl_build_season_ranks(ss_raw, keep_names=None)
+                if ss_lookup:
+                    output["playerSeasonRanks"] = ss_lookup
+                    print(f"[PIPELINE] Season ranks: {len(ss_lookup)} players, " +
+                          f"{sum(len(v) for v in ss_lookup.values())} stat-rank pairs")
+            except Exception as e:
+                print(f"  [WARN] Player season stats fetch failed: {e}")
+
+            # ============================================================
             # PER-PLAYER PER-HOLE SCORECARDS (Track B: 18-cell strip)
-            # Powers the hole-by-hole heatmap strip in each player's drawer
-            # Live section. Limited to the top 50 by leaderboard position to
-            # keep JSON size manageable (~250KB at full coverage).
+            # Powers the hole-by-hole heatmap. Limited to top 50 by leaderboard
+            # position to keep JSON size manageable (~250KB at full coverage).
             # ============================================================
             if bdl_tournament.get("status") in ("IN_PROGRESS", "COMPLETED"):
                 print("[PIPELINE] Fetching player scorecards (hole-by-hole)...")
-                # Build keep-list: top 50 by leaderboard position if available,
-                # else top 50 from BDL field by OWGR.
-                keep_names = set()
+                sc_keep = set()
                 lb_now = (output.get("currentEvent") or {}).get("leaderboard") or []
                 for row in lb_now[:50]:
                     nm = row.get("name", "")
                     if nm:
-                        keep_names.add(normalize_name(nm))
-                if not keep_names and bdl_field:
+                        sc_keep.add(normalize_name(nm))
+                if not sc_keep and bdl_field:
                     sorted_field = sorted(bdl_field, key=lambda e: (e.get("owgr") or 9999))
                     for e in sorted_field[:50]:
                         bp = e.get("player") or {}
                         nm = bp.get("display_name", "")
                         if nm:
-                            keep_names.add(normalize_name(nm))
+                            sc_keep.add(normalize_name(nm))
                 try:
                     sc_raw = bdl_get_player_scorecards(tid)
-                    sc_nested = bdl_build_player_scorecards(sc_raw, keep_names=keep_names or None)
+                    sc_nested = bdl_build_player_scorecards(sc_raw, keep_names=sc_keep or None)
                     if sc_nested:
                         output["playerScorecards"] = sc_nested
                         total_holes = sum(
