@@ -40,6 +40,14 @@ product, no signup required.
 - **Course meta surfaced**: architect, established year, fairway/rough/green
   grass types when BDL ships them; tournament purse + defending champion +
   end date pulled from BDL `/tournaments` and shown in the event strip.
+- **Per-round prop markets** (birdies / bogeys / eagles / round-score
+  totals): per-hole Monte Carlo (1,500 sims) draws each hole's outcome
+  from a 5-way categorical distribution sourced from
+  `tournament_course_stats`, adjusted by player skill. Outputs per-player
+  per-round distributions in `perHoleProps` and expected values
+  (`modelExpectedRoundScore`, `modelExpectedBirdies`, etc.) on each player.
+  When BDL ships matching o/u lines, de-vigged edges land in
+  `pricedPlayerProps`.
 
 ## What's not modeled
 
@@ -47,7 +55,9 @@ product, no signup required.
   winner / top-5 / make-cut. Our top-10 / top-20 MODEL probabilities are
   real, but the comparison book line is our own estimate, so we don't show
   edge for these markets.
-- **Player-prop markets** (birdies, bogeys, scoring totals): not modeled
+- **Per-hole props** (hole-N birdie y/n, hole-N score o/u): the per-hole
+  sim assumes conditional independence given player skill — fine for
+  round-level aggregation, not granular enough for single-hole markets.
   through the Monte Carlo. Edge cells are hidden for these markets.
 - **Shot-by-shot data, injury status, FedEx standings**: outside scope.
 

@@ -4016,6 +4016,273 @@ def predict_player_position_probs(players, course_key=None, weather=None,
     return out
 
 
+# Generic per-hole outcome distribution used when course-specific scoring
+# stats aren't available (early tournament week, new venues). Tour-typical
+# averages: ~2% eagles, ~22% birdies, ~57% pars, ~16% bogeys, ~3% double+.
+# Tuned to roughly match field scoring of par + 1 stroke per round.
+GENERIC_HOLE_DIST = {
+    "eagle": 0.02, "birdie": 0.22, "par": 0.57, "bogey": 0.16, "double": 0.03,
+}
+
+# Per-hole skill multipliers for a +1.0 SG (per round) player. Negative-SG
+# players get the inverse. Tuned so a +1 SG player gains ~0.5 strokes per
+# round vs field (matches DataGolf empirical relationship).
+HOLE_SKILL_MULT = {
+    "eagle": 1.40, "birdie": 1.25, "par": 1.00, "bogey": 0.80, "double": 0.65,
+}
+
+
+def _build_hole_dists(course_data):
+    """Extract per-hole base outcome distributions from course data.
+
+    Returns list of 18 dicts {par, dist:{eagle, birdie, par, bogey, double}}.
+    Falls back to GENERIC_HOLE_DIST when a hole has no historical scoring
+    stats yet.
+    """
+    holes = (course_data or {}).get("holes") or []
+    out = []
+    for h in holes[:18]:
+        par = h.get("par") or 4
+        eagles = h.get("eagles") or 0
+        birdies = h.get("birdies") or 0
+        pars = h.get("pars") or 0
+        bogeys = h.get("bogeys") or 0
+        doubles = h.get("doubles") or h.get("doubleBogeys") or 0
+        total = eagles + birdies + pars + bogeys + doubles
+        if total >= 10:  # need a real sample size
+            dist = {
+                "eagle":  eagles / total,
+                "birdie": birdies / total,
+                "par":    pars / total,
+                "bogey":  bogeys / total,
+                "double": doubles / total,
+            }
+        else:
+            dist = dict(GENERIC_HOLE_DIST)
+        out.append({"par": int(par), "dist": dist})
+    # Pad with generic par-4 holes if course data has fewer than 18 entries
+    while len(out) < 18:
+        out.append({"par": 4, "dist": dict(GENERIC_HOLE_DIST)})
+    return out
+
+
+def _skill_adjusted_dist(base_dist, sg_per_round):
+    """Apply skill multipliers and renormalize. Clipped to non-negative."""
+    skill = max(-2.5, min(2.5, sg_per_round))  # cap extreme outliers
+    adj = {}
+    for k, base in base_dist.items():
+        mult = HOLE_SKILL_MULT[k]
+        # Lerp the multiplier toward 1.0 by |skill|/1.0
+        effective_mult = 1.0 + (mult - 1.0) * skill
+        effective_mult = max(0.0, effective_mult)
+        adj[k] = max(0.0, base * effective_mult)
+    s = sum(adj.values())
+    if s <= 0:
+        return dict(base_dist)
+    return {k: v / s for k, v in adj.items()}
+
+
+def _sample_hole_outcome(dist, rng):
+    """Sample one hole outcome from a 5-way categorical distribution.
+    Returns string in {eagle, birdie, par, bogey, double}.
+    """
+    r = rng.random()
+    cum = 0.0
+    for k in ("eagle", "birdie", "par", "bogey", "double"):
+        cum += dist[k]
+        if r <= cum:
+            return k
+    return "par"  # numerical safety
+
+
+# Strokes delta per outcome relative to hole par. Eagles include albatross
+# (treated as -2 for simplicity; true albatross is -3 but vanishingly rare).
+OUTCOME_TO_DELTA = {"eagle": -2, "birdie": -1, "par": 0, "bogey": 1, "double": 2}
+
+
+def predict_per_hole_props(players, course_data, course_par=None,
+                           model_params_override=None, sims=2000):
+    """Per-hole Monte Carlo for one-round prop distributions.
+
+    For each player, simulates ``sims`` rounds of 18 holes drawing each hole's
+    outcome from a course-specific 5-way categorical distribution (eagle /
+    birdie / par / bogey / double+). The per-hole base distribution comes from
+    BDL ``tournament_course_stats`` aggregated counts; the player's skill
+    (sgTotal per round) multiplicatively adjusts the outcome probabilities.
+
+    Aggregates over the sim runs to produce per-player per-round distributions
+    for: round score, birdies, bogeys, eagles, double+'s. These power BDL
+    ``/odds/player_props`` market pricing — the only path to honest edge on
+    round-score and birdie/bogey over/unders.
+
+    Returns ``{ normalized_name: { roundScore: {mean, std, p_dist}, birdies: {...},
+    bogeys: {...}, eagles: {...}, doublePlus: {...} } }``.
+
+    The ``p_dist`` for each stat is a dict ``{value: cumulative_p_geq}`` so the
+    frontend can compute P(stat > line) for any line by a fast lookup.
+    """
+    import random
+    rng = random.Random(13)
+    print("[PER-HOLE] Simulating per-hole outcomes for prop pricing...")
+
+    hole_defs = _build_hole_dists(course_data or {})
+    hole_pars = [h["par"] for h in hole_defs]
+    par_round_total = sum(hole_pars)
+
+    if not players:
+        return {}
+
+    mp = model_params_override or load_model_params()
+    sg_blend_season = mp.get("sgBlendSeason", 0.7)
+
+    out = {}
+    for p in players:
+        sg = p.get("sgTotal") or 0.0
+        # Apply skill to each hole independently (could vary by hole type
+        # later — e.g. long hitters disproportionately help on par-5s).
+        adj_dists = [_skill_adjusted_dist(h["dist"], sg) for h in hole_defs]
+
+        # Aggregate counters across sims
+        round_scores = [0] * sims
+        birdies = [0] * sims
+        bogeys = [0] * sims
+        eagles_cnt = [0] * sims
+        doubles_cnt = [0] * sims
+        for s in range(sims):
+            total = par_round_total
+            for hi in range(18):
+                outcome = _sample_hole_outcome(adj_dists[hi], rng)
+                total += OUTCOME_TO_DELTA[outcome]
+                if outcome == "birdie":
+                    birdies[s] += 1
+                elif outcome == "bogey":
+                    bogeys[s] += 1
+                elif outcome == "eagle":
+                    eagles_cnt[s] += 1
+                elif outcome == "double":
+                    doubles_cnt[s] += 1
+            round_scores[s] = total
+
+        def _stat_summary(arr, max_val):
+            """mean, std, and cumulative P(X >= k) for k = 0..max_val."""
+            n = len(arr)
+            mean = sum(arr) / n
+            var = sum((x - mean) ** 2 for x in arr) / n
+            cum = {}
+            for k in range(max_val + 1):
+                cum[str(k)] = round(sum(1 for x in arr if x >= k) / n, 4)
+            return {"mean": round(mean, 2), "std": round(var ** 0.5, 2), "pGte": cum}
+
+        rs_mean = sum(round_scores) / sims
+        rs_var = sum((x - rs_mean) ** 2 for x in round_scores) / sims
+        # For round score we just store mean/std and a few key tiers
+        rs_dist = {}
+        for thr in range(par_round_total - 5, par_round_total + 6):
+            rs_dist[str(thr)] = round(sum(1 for x in round_scores if x <= thr) / sims, 4)
+
+        out[normalize_name(p.get("name", ""))] = {
+            "name": p.get("name"),
+            "sims": sims,
+            "roundScore": {
+                "mean": round(rs_mean, 2),
+                "std": round(rs_var ** 0.5, 2),
+                # pLte[score] = P(round score <= score). Useful for over/under
+                # pricing: P(score > L) = 1 - pLte[L].
+                "pLte": rs_dist,
+            },
+            "birdies":     _stat_summary(birdies,     12),
+            "bogeys":      _stat_summary(bogeys,      10),
+            "eagles":      _stat_summary(eagles_cnt,   3),
+            "doublePlus":  _stat_summary(doubles_cnt,  5),
+        }
+
+    # Sanity check
+    sample = list(out.values())[:3]
+    print(f"  Per-hole sims complete for {len(out)} players")
+    for s in sample:
+        print(f"    {s['name']}: round avg={s['roundScore']['mean']} birdies={s['birdies']['mean']} bogeys={s['bogeys']['mean']}")
+    return out
+
+
+def price_player_props(prop_lines, per_hole_props, overround_makecut_default=1.05):
+    """For each BDL /odds/player_props market, compute model fair probability.
+
+    BDL ships over/under and milestone markets. We match by player + market
+    type (birdies / bogeys / scoring_total / round_X_score) and look up our
+    Monte Carlo distribution to derive the fair model probability of the
+    over.
+
+    Returns dict keyed by ``(player_norm, prop_type, line)`` →
+    ``{modelProbOver, modelProbUnder, fairImpliedOver, edgeOverPct, edgeUnderPct}``.
+
+    With no matching market in prop_lines (empty pre-Wed), returns ``{}``.
+    """
+    if not prop_lines or not per_hole_props:
+        return {}
+    out = {}
+    for player_key, markets in (prop_lines or {}).items():
+        norm = normalize_name(player_key)
+        php = per_hole_props.get(norm)
+        if not php:
+            continue
+        for m in (markets if isinstance(markets, list) else []):
+            prop_type = (m.get("prop_type") or "").lower()
+            line_raw = m.get("line_value")
+            try:
+                line = float(line_raw)
+            except (TypeError, ValueError):
+                continue
+            # Map prop_type to one of our distribution keys
+            dist_key = None
+            if "birdie" in prop_type:
+                dist_key = "birdies"
+            elif "bogey" in prop_type:
+                dist_key = "bogeys"
+            elif "eagle" in prop_type:
+                dist_key = "eagles"
+            elif "scoring_total" in prop_type or "round" in prop_type or "score" in prop_type:
+                dist_key = "roundScore"
+            if not dist_key:
+                continue
+            if dist_key == "roundScore":
+                # Over means score > line; we have pLte[score]
+                p_lte = php["roundScore"]["pLte"]
+                # find nearest threshold
+                int_line = int(round(line))
+                p_over = 1.0 - p_lte.get(str(int_line), 0.5)
+            else:
+                p_gte = php[dist_key]["pGte"]
+                # Over k.5 means count >= k+1
+                int_line = int(line + 0.5)
+                p_over = p_gte.get(str(int_line), 0.0)
+            p_under = 1.0 - p_over
+            # De-vig the book pair if both sides exist
+            mkt = m.get("market") or {}
+            book_over_odds = mkt.get("over_odds") or m.get("over_odds")
+            book_under_odds = mkt.get("under_odds") or m.get("under_odds")
+            fair_over = None
+            edge_over = None
+            edge_under = None
+            if book_over_odds is not None and book_under_odds is not None:
+                fair_over = devig_implied_prob(
+                    book_over_odds, opposite_american=book_under_odds
+                )
+                if fair_over is not None and fair_over > 0:
+                    edge_over = round((p_over - fair_over) / fair_over * 100, 1)
+                    edge_under = round(((1 - p_over) - (1 - fair_over)) / (1 - fair_over) * 100, 1)
+            out[f"{norm}|{prop_type}|{line}"] = {
+                "player": player_key,
+                "propType": prop_type,
+                "line": line,
+                "modelProbOver": round(p_over, 4),
+                "modelProbUnder": round(p_under, 4),
+                "fairImpliedOver": round(fair_over, 4) if fair_over else None,
+                "edgeOverPct": edge_over,
+                "edgeUnderPct": edge_under,
+            }
+    return out
+
+
 def predict_cut_line(players, course_key="augusta", weather=None, tournament_sg=None,
                      course_par=None, cut_size=65, sims=4000, live_leaderboard=None,
                      model_params_override=None):
@@ -6476,6 +6743,46 @@ def run_pipeline():
             print(f"[PROPS] Position probs attached to {len(position_probs)} players")
     except Exception as _e:
         print(f"  [WARN] Position prob simulation failed: {_e}")
+
+    # ============================================================
+    # PER-HOLE PROP PRICING (round-score / birdie / bogey / eagle props)
+    # ------------------------------------------------------------
+    # Runs a per-hole Monte Carlo using the course's historical hole-by-hole
+    # scoring distribution adjusted by each player's skill. Produces full
+    # round-score and event-count distributions per player. Pairs with any
+    # /odds/player_props lines BDL ships to compute de-vigged edge on
+    # birdies-o/u, bogeys-o/u, round-score-o/u, eagle-yes/no.
+    # ============================================================
+    try:
+        _course_for_holes = None
+        if isinstance(output.get("courses"), dict):
+            _course_for_holes = output["courses"].get(resolved_course)
+        if _course_for_holes:
+            per_hole = predict_per_hole_props(
+                output["players"], _course_for_holes,
+                course_par=_course_par, sims=1500,
+            )
+            if per_hole:
+                output["perHoleProps"] = per_hole
+                # Attach summary fields to player objects (per-round means)
+                for p in output["players"]:
+                    k = normalize_name(p.get("name", ""))
+                    ph = per_hole.get(k)
+                    if ph:
+                        p["modelExpectedRoundScore"] = ph["roundScore"]["mean"]
+                        p["modelExpectedBirdies"] = ph["birdies"]["mean"]
+                        p["modelExpectedBogeys"] = ph["bogeys"]["mean"]
+                        p["modelExpectedEagles"] = ph["eagles"]["mean"]
+                print(f"[PROPS] Per-hole sims complete for {len(per_hole)} players")
+                # Price any prop_lines we have against the new distributions
+                if output.get("propLines"):
+                    priced = price_player_props(output["propLines"], per_hole)
+                    if priced:
+                        output["pricedPlayerProps"] = priced
+                        with_edge = sum(1 for v in priced.values() if v.get("edgeOverPct") is not None)
+                        print(f"[PROPS] Priced {len(priced)} props ({with_edge} with edge calc)")
+    except Exception as _e:
+        print(f"  [WARN] Per-hole prop pricing failed: {_e}")
 
     # ============================================================
     # PLAYER NEWS

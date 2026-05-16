@@ -8087,12 +8087,71 @@
         '<td>' + evCell + '</td>' +
         '<td>' + addBtn + '</td></tr>';
     }).join('');
-    return '<div class="sc-mini">' +
+    var mainTable = '<div class="sc-mini">' +
       '<div class="sc-mini-label">Markets · model edge vs best book</div>' +
       '<table class="sc-props-table"><thead><tr>' +
         '<th>Market</th><th>Book</th><th>Model</th><th>Edge</th><th></th>' +
       '</tr></thead><tbody>' + rows + '</tbody></table>' +
     '</div>';
+
+    // Per-hole sim outputs (round-score / birdies / bogeys / eagles per round)
+    // — surface as a small expected-stats chip row + a priced-props table when
+    // BDL has shipped any player_prop lines for this player.
+    var ph = (window.DATA && window.DATA.perHoleProps) || {};
+    var nameKey = String(p.name || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    var phData = ph[nameKey];
+    var expectedChips = '';
+    if (phData) {
+      var c = function(label, val, cls) {
+        return '<span style="display:inline-flex;gap:6px;align-items:baseline;font-size:11px;color:var(--text-secondary);padding:4px 8px;background:rgba(15,28,46,0.5);border:1px solid var(--card-border);border-radius:6px;">'
+             + '<span style="color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;font-size:9px;">' + label + '</span>'
+             + '<span class="mono font-bold ' + (cls || '') + '">' + val + '</span></span>';
+      };
+      expectedChips = '<div class="sc-mini" style="margin-top:12px;">' +
+        '<div class="sc-mini-label">Per-round expected (Monte Carlo)</div>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">' +
+          c('Round Score', phData.roundScore.mean) +
+          c('Birdies', phData.birdies.mean, 'sc-edge-strong') +
+          c('Bogeys', phData.bogeys.mean, 'sc-edge-bad') +
+          c('Eagles', phData.eagles.mean) +
+          c('Double+', phData.doublePlus.mean, 'sc-edge-bad') +
+        '</div>' +
+      '</div>';
+    }
+
+    // Priced event-prop lines (from /odds/player_props when BDL ships them)
+    var priced = (window.DATA && window.DATA.pricedPlayerProps) || {};
+    var pricedRows = [];
+    Object.keys(priced).forEach(function(k) {
+      var ent = priced[k];
+      if (!ent || k.indexOf(nameKey + '|') !== 0) return;
+      pricedRows.push(ent);
+    });
+    var eventLineTable = '';
+    if (pricedRows.length) {
+      eventLineTable = '<div class="sc-mini" style="margin-top:12px;">' +
+        '<div class="sc-mini-label">Event prop lines · over/under (de-vigged)</div>' +
+        '<table class="sc-props-table" style="margin-top:6px;"><thead><tr>' +
+          '<th>Prop</th><th>Line</th><th>Model Over</th><th>Edge Over</th><th>Edge Under</th>' +
+        '</tr></thead><tbody>' +
+        pricedRows.map(function(r) {
+          var fmtPct = function(p) { return p != null ? (p > 0 ? '+' : '') + p.toFixed(1) + '%' : '—'; };
+          var fmtProb = function(p) { return p != null ? (p * 100).toFixed(1) + '%' : '—'; };
+          var oCls = r.edgeOverPct != null ? scEdgeClass(r.edgeOverPct) : '';
+          var uCls = r.edgeUnderPct != null ? scEdgeClass(r.edgeUnderPct) : '';
+          return '<tr>' +
+            '<td>' + r.propType + '</td>' +
+            '<td>' + r.line + '</td>' +
+            '<td>' + fmtProb(r.modelProbOver) + '</td>' +
+            '<td><span class="' + oCls + '">' + fmtPct(r.edgeOverPct) + '</span></td>' +
+            '<td><span class="' + uCls + '">' + fmtPct(r.edgeUnderPct) + '</span></td>' +
+          '</tr>';
+        }).join('') +
+        '</tbody></table>' +
+      '</div>';
+    }
+
+    return mainTable + expectedChips + eventLineTable;
   }
 
   function scDrawerCourse(p) {
