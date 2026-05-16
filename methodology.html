@@ -242,6 +242,31 @@
       the prediction Friday morning. The output includes per-player make-cut probabilities,
       which power the "Cut Bubble" filter on the scorecard view.
     </p>
+
+    <h3>(i) Field-strength normalization</h3>
+    <p>
+      Comparing strokes-gained residuals across events is unfair without adjusting for
+      field strength: beating a major field by +0.5 SG is more impressive than the same +0.5
+      at an opposite-field event. We compute a <strong>field-strength multiplier</strong> per
+      event from the OWGRs of the top quartile of entrants — strong fields (majors) score
+      above 1.0, opposite-field events below. The multiplier is applied to each player's
+      learned course-fit residual before averaging, so historical residuals are weighted by
+      how hard they were earned. The current event's multiplier is exposed at
+      <code>/golf-data.json</code> under <code>fieldStrength</code>.
+    </p>
+
+    <h3>(j) Per-player tournament position probabilities</h3>
+    <p>
+      A separate 4-round Monte Carlo (4,000 sims) produces per-player probabilities for
+      <strong>win, top-5, top-10, top-20, and make-cut</strong>. These are real model
+      probabilities — no derivation from win odds, no heuristic scaling. They feed the
+      scorecard's edge calculations for every market where BDL also ships a real book line
+      (winner, top-5, make-cut). Top-10 and Top-20 don't exist as native BDL futures
+      markets, so we expose our model probability but don't display edge — the comparison
+      line would be our own derivation. Per-player probabilities are attached to each
+      player object as <code>modelTop5Prob</code>, <code>modelTop10Prob</code>,
+      <code>modelTop20Prob</code>, <code>modelMakeCutProb</code>.
+    </p>
   </section>
 
   <!-- 4. Tunable parameters -->
@@ -278,9 +303,9 @@
       <li><strong>No shot-level data</strong> — we work with round-level strokes gained, not per-shot tracking. Shot dispersion, ball flight, and Trackman data are outside our scope.</li>
       <li><strong>No sub-60-minute live scoring granularity</strong> — ESPN leaderboard pulls every 60s; we don't model intra-hole swings.</li>
       <li><strong>No DFS ownership projections</strong> — this is a betting model, not a DFS tool.</li>
-      <li><strong>Top-10 and Top-20 markets are estimated, not directly modeled</strong> — the BDL <code>/futures</code> endpoint only ships book lines for <em>tournament_winner</em>, <em>top_5_finish</em>, and <em>make_cut</em>. Top-10/Top-20 odds shown on the site are derived from win odds and tagged "est"; we deliberately do not display an "edge" percentage for these markets because the comparison would be one model estimate vs another.</li>
-      <li><strong>Per-hole and per-round prop markets are not modeled</strong> — we surface the odds via BDL's <code>/odds/player_props</code> endpoint but the Monte Carlo doesn't directly price hole-by-hole or round-leader markets, so we don't compute edge for them.</li>
-      <li><strong>No field-strength normalization on input SG</strong> — a player's <code>sgTotal</code> is consumed as observed, whether earned at the Players Championship or the Mexican Open. We adjust outputs via a small "field strength premium" but the inputs themselves are not strength-of-schedule corrected.</li>
+      <li><strong>Top-10 and Top-20 markets: model side is now real, book side is still estimated.</strong> The BDL <code>/futures</code> endpoint only ships book lines for <em>tournament_winner</em>, <em>top_5_finish</em>, and <em>make_cut</em>. We now derive real Monte Carlo probabilities for top-10 and top-20 finish positions (exposed as <code>modelTop10Prob</code> / <code>modelTop20Prob</code>) but the comparison odds are our own estimate, so we still don't display an edge percentage for these markets.</li>
+      <li><strong>Per-hole and per-round prop markets are not modeled</strong> — we surface the odds via BDL's <code>/odds/player_props</code> endpoint but the Monte Carlo simulates round-level scores only, not hole-by-hole. So no edge calc for hole-N props or birdie/bogey count over/unders.</li>
+      <li><strong>Field-strength normalization is applied to historical residuals, not raw season SG.</strong> Each historical event's residual is scaled by an OWGR-derived strength multiplier before being averaged into the learned course-fit signal. The season-aggregate <code>sgTotal</code> coming from DataGolf is consumed as-is — DataGolf claims to already strength-adjust their season totals; we trust that for now.</li>
       <li><strong>No injury/WD prediction</strong> — we react to field-change news, we don't forecast it.</li>
       <li><strong>Course fit prior is hand-curated</strong> — the trait dictionaries (power/accuracy/scramble/putting weights per course) are designed, not learned. The learned course-fit residual mitigates this by anchoring fit in historical outcomes for players with prior appearances, but rookies still lean on the trait prior.</li>
       <li><strong>Only DraftKings and FanDuel for outright lines</strong> — these are the only PGA vendors in BDL. We supplement with The Odds API for matchups (BetMGM, Bovada, BetRivers) but the de-vig overround is computed from the DK/FD field.</li>
