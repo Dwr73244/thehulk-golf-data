@@ -1,0 +1,98 @@
+name: Weekly DataGolf Trust Audit
+
+# Runs the DataGolf SG audit script every Monday at 7 AM ET (after the
+# weekly-scrape backtest has settled). Posts to Discord on SUSPECT or FAIL
+# verdict so we catch data-source drift before it pollutes the model.
+
+on:
+  schedule:
+    # Monday 11 AM UTC (7 AM ET) — after weekly-scrape's Mon 5 AM ET run
+    - cron: '0 11 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # commit the report JSON back to main for transparency
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Run DataGolf audit
+        id: audit
+        env:
+          BDL_API_KEY: ${{ secrets.BDL_API_KEY }}
+        continue-on-error: true
+        run: |
+          python scripts/audit_datagolf_sg.py
+          echo "exitcode=$?" >> $GITHUB_OUTPUT
+
+      - name: Parse verdict
+        id: verdict
+        if: always()
+        run: |
+          if [ -f datagolf-audit.json ]; then
+            VERDICT=$(python -c "import json; print(json.load(open('datagolf-audit.json')).get('verdict', 'UNKNOWN'))")
+            CORR=$(python -c "import json; d=json.load(open('datagolf-audit.json')); print(d.get('stats',{}).get('sgTotal',{}).get('correlation','?'))")
+            MAD=$(python -c "import json; d=json.load(open('datagolf-audit.json')); print(d.get('stats',{}).get('sgTotal',{}).get('mad','?'))")
+            OVERLAP=$(python -c "import json; print(json.load(open('datagolf-audit.json')).get('overlap', '?'))")
+            echo "verdict=$VERDICT" >> $GITHUB_OUTPUT
+            echo "corr=$CORR" >> $GITHUB_OUTPUT
+            echo "mad=$MAD" >> $GITHUB_OUTPUT
+            echo "overlap=$OVERLAP" >> $GITHUB_OUTPUT
+          else
+            echo "verdict=ERROR" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Discord alert on SUSPECT or FAIL
+        if: ${{ steps.verdict.outputs.verdict == 'SUSPECT' || steps.verdict.outputs.verdict == 'FAIL' }}
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "No DISCORD_WEBHOOK_URL secret — skipping alert (verdict was ${{ steps.verdict.outputs.verdict }})"
+            exit 0
+          fi
+          VERDICT="${{ steps.verdict.outputs.verdict }}"
+          CORR="${{ steps.verdict.outputs.corr }}"
+          MAD="${{ steps.verdict.outputs.mad }}"
+          OVERLAP="${{ steps.verdict.outputs.overlap }}"
+          COLOR=$([ "$VERDICT" = "FAIL" ] && echo "15158332" || echo "15844367")
+          curl -X POST -H "Content-Type: application/json" \
+            -d "$(printf '{
+              "embeds": [{
+                "title": "DataGolf SG Trust Audit: %s",
+                "description": "DataGolf vs BDL season-SG correlation drifted out of trust range. Inspect the divergent-player list in datagolf-audit.json.",
+                "color": %s,
+                "fields": [
+                  {"name": "Verdict", "value": "%s", "inline": true},
+                  {"name": "sgTotal corr", "value": "%s", "inline": true},
+                  {"name": "sgTotal MAD", "value": "%s", "inline": true},
+                  {"name": "Overlap players", "value": "%s", "inline": true}
+                ],
+                "footer": {"text": "scripts/audit_datagolf_sg.py | run id ${{ github.run_id }}"}
+              }]
+            }' "$VERDICT" "$COLOR" "$VERDICT" "$CORR" "$MAD" "$OVERLAP")" \
+            "$DISCORD_WEBHOOK_URL"
+
+      - name: Commit report to repo (transparency artifact)
+        if: ${{ steps.verdict.outputs.verdict != 'ERROR' && steps.verdict.outputs.verdict != 'UNKNOWN' }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add datagolf-audit.json
+          git diff --quiet --cached || git commit -m "Auto-update datagolf-audit.json — verdict ${{ steps.verdict.outputs.verdict }}"
+          git push || echo "Nothing to push"
+
+      - name: Fail the run on FAIL verdict
+        if: ${{ steps.verdict.outputs.verdict == 'FAIL' }}
+        run: |
+          echo "::error::DataGolf audit returned FAIL verdict. See datagolf-audit.json."
+          exit 1

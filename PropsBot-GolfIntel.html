@@ -839,6 +839,11 @@
           </div>
         </div>
         <div class="flex items-center gap-2 flex-shrink-0">
+          <!-- CLV chip: only visible when window.DATA.clvSummary exists -->
+          <div id="sc-clv-chip" class="hidden items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.02] px-2.5 py-1 text-[11px] font-semibold text-slate-400 uppercase tracking-[0.06em]" title="">
+            <span id="sc-clv-pct" class="font-mono">—</span>
+            <span>CLV</span>
+          </div>
           <button id="sc-news-toggle" class="inline-flex items-center gap-1.5 rounded-md border border-white/10 hover:border-pb-teal/40 bg-white/[0.02] px-2.5 py-1 text-[11px] font-semibold text-slate-400 hover:text-pb-teal transition-colors uppercase tracking-[0.06em]" aria-expanded="false" aria-controls="sc-news-panel">
             <span id="sc-news-count" class="font-mono">—</span>
             <span>News</span>
@@ -875,6 +880,7 @@
         <span class="text-[10px] uppercase tracking-[0.06em] text-slate-500 font-semibold pr-1">Sort</span>
         <button class="sc-sort-pill active" data-sort="model">Model</button>
         <button class="sc-sort-pill" data-sort="edge">Edge</button>
+        <button class="sc-sort-pill" data-sort="sharpe" title="Edge divided by outcome uncertainty (favors confident edges over noisy ones)">Edge ÷ σ</button>
         <button class="sc-sort-pill" data-sort="win">Win Odds</button>
         <button class="sc-sort-pill" data-sort="live">Live Pos</button>
         <button class="sc-sort-pill" data-sort="sg">SG Total</button>
@@ -7666,6 +7672,28 @@
       if (courseData.greenGrass) bits.push(courseData.greenGrass + ' greens');
     }
     if (metaEl) metaEl.textContent = bits.join(' · ');
+
+    // CLV chip — only render when window.DATA.clvSummary exists. Color-graded:
+    // green ≥ 55% (sharp signal), amber 45-55% (neutral), red < 45% (the
+    // close is moving against our picks).
+    var clvChip = document.getElementById('sc-clv-chip');
+    var clvPct = document.getElementById('sc-clv-pct');
+    var clv = window.DATA && window.DATA.clvSummary;
+    if (clvChip && clvPct) {
+      if (clv && typeof clv.clvPositivePct === 'number') {
+        clvChip.classList.remove('hidden');
+        clvChip.classList.add('inline-flex');
+        clvPct.textContent = clv.clvPositivePct + '%';
+        var color = clv.clvPositivePct >= 55 ? 'var(--teal)'
+                  : clv.clvPositivePct >= 45 ? 'var(--gold)'
+                  : 'var(--red)';
+        clvPct.style.color = color;
+        clvChip.title = clv.interpretation + ' · ' + clv.clvPositiveCount + ' of ' + clv.pickCount + ' picks beat the line over the last ' + clv.lookbackHours + 'h';
+      } else {
+        clvChip.classList.add('hidden');
+        clvChip.classList.remove('inline-flex');
+      }
+    }
   }
 
   function scRefreshHero() {
@@ -7702,12 +7730,22 @@
         rNum = (l0.round4 ? 4 : (l0.round3 ? 3 : (l0.round2 ? 2 : (l0.round1 ? 1 : 0))));
       }
       if (rNum) roundTxt = 'R' + rNum;
-      // Cut line: prefer live.cutLine, else fall back to the model prediction
+      // Cut line: prefer live.cutLine, else fall back to the model prediction.
+      // When model-derived we also display the 90% CI in a hover tooltip.
       var cutN = live.cutLine;
+      var cutCI = null;
       if (cutN == null && window.DATA && window.DATA.cutPrediction && window.DATA.cutPrediction.predictedCut != null) {
         cutN = Number(window.DATA.cutPrediction.predictedCut);
+        cutCI = window.DATA.cutPrediction.predictedCutCI90;
       }
-      if (cutN != null) cutTxt = scFmtScore(cutN) + (live.cutLine == null ? ' (est)' : '');
+      if (cutN != null) {
+        cutTxt = scFmtScore(cutN) + (live.cutLine == null ? ' (est)' : '');
+        if (cutCI && (cutCI.low !== cutCI.high)) {
+          // Append the CI as a small parenthetical so users see the spread
+          var ciStr = scFmtScore(cutCI.low) + ' to ' + scFmtScore(cutCI.high);
+          cutTxt += ' [' + ciStr + ']';
+        }
+      }
     } else {
       // Pre-event: show countdown to next tournament start
       var evt = scSafe(function(){ return getActiveOrNextEvent(); }, null);
@@ -7832,6 +7870,24 @@
         if (ae == null) ae = -999;
         if (be == null) be = -999;
         return be - ae;
+      }
+      if (s === 'sharpe') {
+        // Sharpe-style: edge % divided by outcome std. Same edge but more
+        // confident = higher rank. For binary outcomes (winner / top-N) the
+        // outcome std is sqrt(p*(1-p)). We also include posterior skill
+        // uncertainty (sgTotalUpdatedStd) so mid-tournament noisy reads
+        // don't dominate.
+        function _sharpe(pl) {
+          var ev = scMarketEV(pl, mkt);
+          var prob = scMarketModelPct(pl, mkt);
+          if (ev == null || prob == null) return -999;
+          var p = Math.max(0.001, Math.min(0.999, prob / 100));
+          var outcomeStd = Math.sqrt(p * (1 - p));
+          var skillStd = pl.sgTotalUpdatedStd || 0.4;  // default prior std
+          var totalStd = Math.sqrt(outcomeStd * outcomeStd + (skillStd / 5) * (skillStd / 5));
+          return totalStd > 0 ? ev / totalStd : -999;
+        }
+        return _sharpe(b) - _sharpe(a);
       }
       // 'model': use confScore (canonical model score) when present,
       // fall back to the composite _getPropScore, then SG total.
@@ -8256,7 +8312,37 @@
       '<div class="sc-mini mt-3">' +
         '<div class="sc-mini-label">Head-to-head stats</div>' +
         '<table class="sc-props-table" style="margin-top:6px;"><tbody>' + tableRows + '</tbody></table>' +
-      '</div>';
+      '</div>' +
+      // Matchup decomposition: who has the edge in each factor (SG, course
+      // fit, form). Values in strokes vs PAR — sign convention: positive =
+      // contributes to a lower score (good for the player).
+      (function() {
+        var afit = scFitForActiveCourse(p);
+        var bfit = scFitForActiveCourse(other);
+        var asg = (typeof p.sgTotalUpdated === 'number') ? p.sgTotalUpdated : (p.sgTotal || 0);
+        var bsg = (typeof other.sgTotalUpdated === 'number') ? other.sgTotalUpdated : (other.sgTotal || 0);
+        var fitDelta = ((afit || 75) - (bfit || 75)) / 25;
+        var sgDelta = asg - bsg;
+        var formAdv = function(pl) {
+          var f = (pl.recentForm || {}).trend;
+          return f === 'hot' ? 0.25 : (f === 'cold' ? -0.25 : 0);
+        };
+        var formDelta = formAdv(p) - formAdv(other);
+        function _row(label, dv) {
+          var winner = dv > 0.05 ? p.name : (dv < -0.05 ? other.name : 'Even');
+          var cls = Math.abs(dv) >= 0.3 ? 'sc-edge-strong' : Math.abs(dv) >= 0.1 ? 'sc-edge-good' : '';
+          return '<tr><td>' + label + '</td><td><span class="' + cls + '">' + (dv > 0 ? '+' : '') + dv.toFixed(2) + ' str</span></td><td style="text-align:right;font-size:11px;">→ ' + winner + '</td></tr>';
+        }
+        return '<div class="sc-mini mt-3">' +
+          '<div class="sc-mini-label">Matchup decomposition (strokes per round)</div>' +
+          '<table class="sc-props-table" style="margin-top:6px;"><tbody>' +
+            _row('Skill (SG)', sgDelta) +
+            _row('Course fit', fitDelta) +
+            _row('Form', formDelta) +
+          '</tbody></table>' +
+          '<p style="font-size:10px;color:var(--text-muted);margin-top:6px;">Positive = ' + p.name + ' has the edge; negative = ' + other.name + '. Same formula the matchup Monte Carlo uses to project mean scores.</p>' +
+        '</div>';
+      })();
   }
   // Wire the round-selector buttons on the 18-cell scorecard strip. Swaps
   // the grid in place without re-rendering the whole drawer section.
