@@ -4881,6 +4881,9 @@ def run_pipeline():
             p = entry.get("player", {})
             name = p.get("display_name", "")
             if name and normalize_name(name) not in existing_names:
+                res_city = p.get("residence_city")
+                res_state = p.get("residence_state")
+                residence = ", ".join(filter(None, [res_city, res_state])) or None
                 output["players"].append({
                     "id": 9000 + field_additions,
                     "name": name,
@@ -4890,6 +4893,14 @@ def run_pipeline():
                     "gir": 65.0, "fairways": 60.0, "scramble": 57.0, "proxAvg": 35.0,
                     "missDir": "neutral", "flight": "neutral", "courseFit": {},
                     "notes": "Auto-added from tournament field.",
+                    # Bio fields from BDL tournament_field player schema
+                    "owgr": p.get("owgr"),
+                    "country": p.get("country"),
+                    "countryCode": p.get("country_code"),
+                    "dob": p.get("birth_date"),
+                    "school": p.get("school"),
+                    "residence": residence,
+                    "isAmateur": bool(entry.get("is_amateur")),
                 })
                 existing_names.add(normalize_name(name))
                 field_additions += 1
@@ -4914,6 +4925,50 @@ def run_pipeline():
 
     if field_additions:
         print(f"  Added {field_additions} missing field players from BDL/ESPN")
+
+    # ============================================================
+    # ENRICH EVERY PLAYER WITH BIO DATA FROM BDL FIELD
+    # Walk the BDL tournament_field response once and merge bio fields
+    # (country, country_code, owgr, dob, school, residence) onto every
+    # matching player in output["players"]. Covers our static top-50
+    # players (no bios) as well as auto-added field entries.
+    # ============================================================
+    if bdl_field:
+        bdl_by_name = {}
+        for entry in bdl_field:
+            bp = entry.get("player") or {}
+            bname = bp.get("display_name", "")
+            if bname:
+                bdl_by_name[normalize_name(bname)] = (bp, entry)
+        enriched_bio = 0
+        for player in output["players"]:
+            key = normalize_name(player.get("name", ""))
+            if key not in bdl_by_name:
+                continue
+            bp, entry = bdl_by_name[key]
+            changed = False
+            def _set_if_missing(field, value):
+                nonlocal changed
+                if value is not None and value != "" and not player.get(field):
+                    player[field] = value
+                    changed = True
+            _set_if_missing("owgr", entry.get("owgr") or bp.get("owgr"))
+            _set_if_missing("country", bp.get("country"))
+            _set_if_missing("countryCode", bp.get("country_code"))
+            _set_if_missing("dob", bp.get("birth_date"))
+            _set_if_missing("school", bp.get("school"))
+            res_city = bp.get("residence_city")
+            res_state = bp.get("residence_state")
+            residence = ", ".join(filter(None, [res_city, res_state]))
+            if residence:
+                _set_if_missing("residence", residence)
+            if entry.get("is_amateur") and not player.get("isAmateur"):
+                player["isAmateur"] = True
+                changed = True
+            if changed:
+                enriched_bio += 1
+        if enriched_bio:
+            print(f"  Enriched {enriched_bio} players with BDL bio data (country, OWGR, dob, school)")
 
     # Merge PGA Tour stats
     if pga_stats:

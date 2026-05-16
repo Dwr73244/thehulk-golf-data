@@ -418,6 +418,19 @@
       font-size: 10px; color: var(--text-muted); margin-left: 6px;
       letter-spacing: 0; font-feature-settings: "tnum" 1;
     }
+    /* Country flag before player name — broadcast-graphics convention.
+       Windows falls back to the 2-letter pair (acceptable degradation). */
+    .sc-flag {
+      display: inline-block; margin-right: 6px;
+      font-size: 14px; line-height: 1;
+      vertical-align: -1px;
+      font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+    }
+    .sc-am {
+      display: inline-block; margin-left: 4px;
+      font-family: var(--mono); font-size: 10px; font-weight: 500;
+      color: rgba(240,192,64,0.7); letter-spacing: 0;
+    }
     .sc-col-name .sc-rank-move { font-size: 10px; color: var(--text-muted); margin-left: 6px; }
     .sc-col-live { font-family: var(--mono); font-size: 13px; font-weight: 700; text-align: right; font-feature-settings: "tnum" 1; }
     .sc-col-sg { font-family: var(--mono); font-size: 12px; font-weight: 600; text-align: right; font-feature-settings: "tnum" 1; }
@@ -730,6 +743,7 @@
         <button class="sc-sort-pill" data-sort="live">Live Pos</button>
         <button class="sc-sort-pill" data-sort="sg">SG Total</button>
         <button class="sc-sort-pill" data-sort="fit">Course Fit</button>
+        <button class="sc-sort-pill" data-sort="owgr">OWGR</button>
       </div>
       <div class="flex items-center gap-1.5 flex-wrap">
         <span class="text-[10px] uppercase tracking-[0.06em] text-slate-500 font-semibold pr-1">Market</span>
@@ -7301,6 +7315,26 @@
     if (v >= 0) return 'sc-edge-neutral';
     return 'sc-edge-bad';
   }
+  // Convert a 2-letter ISO country code to a flag emoji (regional indicator
+  // symbols). Falls back to the raw code on platforms that don't render flag
+  // emojis (e.g. Windows shows the 2-letter pair instead — acceptable degradation).
+  function scFlagEmoji(cc) {
+    if (!cc || typeof cc !== 'string' || cc.length !== 2) return '';
+    var A = 0x1F1E6;
+    return cc.toUpperCase().replace(/./g, function(c) {
+      return String.fromCodePoint(A + c.charCodeAt(0) - 65);
+    });
+  }
+  function scAge(dob) {
+    if (!dob) return null;
+    var d = new Date(dob);
+    if (isNaN(d.getTime())) return null;
+    var now = new Date();
+    var age = now.getFullYear() - d.getFullYear();
+    var m = now.getMonth() - d.getMonth();
+    if (m < 0 || (m === 0 && now.getDate() < d.getDate())) age--;
+    return age;
+  }
   function scEdgeClass(ev) {
     if (ev == null) return 'sc-edge-neutral';
     if (ev >= 15) return 'sc-edge-strong';
@@ -7536,6 +7570,11 @@
     var mkt = _scState.market;
     players.sort(function(a, b) {
       if (s === 'sg') return (b.sgTotal || 0) - (a.sgTotal || 0);
+      if (s === 'owgr') {
+        var ao = a.owgr != null ? a.owgr : 999;
+        var bo = b.owgr != null ? b.owgr : 999;
+        return ao - bo;
+      }
       if (s === 'fit') {
         var af = scFitForActiveCourse(a) || 0;
         var bf = scFitForActiveCourse(b) || 0;
@@ -7641,9 +7680,13 @@
       ? '<span class="' + (model >= 70 ? 'sc-edge-strong' : model >= 50 ? 'sc-edge-good' : model >= 30 ? 'sc-edge-neutral' : 'sc-edge-bad') + '">' + Math.round(model) + '</span>'
       : '<span class="text-slate-700">—</span>';
 
+    var flag = scFlagEmoji(p.countryCode);
+    var flagHtml = flag ? '<span class="sc-flag" title="' + (p.country || p.countryCode) + '">' + flag + '</span>' : '';
+    var amHtml = p.isAmateur ? '<span class="sc-am" title="Amateur">(a)</span>' : '';
+
     return '<div class="sc-row sc-row-player" data-pid="' + p.id + '" role="button" tabindex="0" aria-expanded="false" aria-controls="sc-drawer-' + p.id + '">' +
       '<div class="sc-col-rank">' + (index + 1) + '</div>' +
-      '<div class="sc-col-name">' + p.name + pos + '</div>' +
+      '<div class="sc-col-name">' + flagHtml + p.name + amHtml + pos + '</div>' +
       '<div class="sc-col-live">' + liveStr + '</div>' +
       '<div class="sc-col-model">' + modelStr + '</div>' +
       '<div class="sc-col-sg">' + sgStr + '</div>' +
@@ -7822,7 +7865,22 @@
     if (p.birdieAvg)  extras.push('<div class="sc-mini"><div class="sc-mini-label">Birdies / Rd</div><div class="mono font-bold" style="font-size:18px;color:var(--teal)">' + p.birdieAvg.toFixed(1) + '</div></div>');
     if (p.gir != null) extras.push('<div class="sc-mini"><div class="sc-mini-label">GIR %</div><div class="mono font-bold" style="font-size:18px;color:var(--text-primary)">' + p.gir + '%</div></div>');
     if (p.fairways != null) extras.push('<div class="sc-mini"><div class="sc-mini-label">Fairways %</div><div class="mono font-bold" style="font-size:18px;color:var(--text-primary)">' + p.fairways + '%</div></div>');
-    return '<div class="grid gap-3 md:grid-cols-2">' +
+    // Bio line — country flag · OWGR · age · school · residence — only renders
+    // pieces that exist, so missing data degrades gracefully to fewer chips.
+    var bioParts = [];
+    var flag = scFlagEmoji(p.countryCode);
+    if (flag || p.country) bioParts.push('<span><span class="sc-flag">' + (flag || '') + '</span>' + (p.country || p.countryCode || '') + '</span>');
+    if (p.owgr) bioParts.push('<span class="mono"><span style="color:var(--text-muted);">OWGR</span> #' + p.owgr + '</span>');
+    var age = scAge(p.dob);
+    if (age != null) bioParts.push('<span><span style="color:var(--text-muted);">Age</span> ' + age + '</span>');
+    if (p.school) bioParts.push('<span><span style="color:var(--text-muted);">School</span> ' + p.school + '</span>');
+    if (p.residence) bioParts.push('<span><span style="color:var(--text-muted);">Lives</span> ' + p.residence + '</span>');
+    if (p.isAmateur) bioParts.push('<span style="color:var(--gold);font-weight:700;">Amateur</span>');
+    var bioLine = bioParts.length
+      ? '<div class="sc-bio-line" style="display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--text-secondary);padding:8px 12px;background:rgba(15,28,46,0.4);border:1px solid var(--card-border);border-radius:8px;margin-bottom:12px;">' + bioParts.join('') + '</div>'
+      : '';
+
+    return bioLine + '<div class="grid gap-3 md:grid-cols-2">' +
       '<div class="sc-mini">' +
         '<div class="sc-mini-label">Course Fit · ' + venue + '</div>' +
         '<div style="display:flex;align-items:baseline;gap:8px;margin-top:6px;">' + fitChip + '</div>' +
