@@ -6125,11 +6125,28 @@
     return newDec >= 2 ? Math.round((newDec-1)*100) : Math.round(-100/(newDec-1));
   }
 
+  // Prefer Monte Carlo-derived probabilities written by the scraper. These
+  // are real per-player finish probs from a 4-round simulation, not a
+  // confScore-derived heuristic. Falls back to the legacy heuristic only
+  // when the simulator hasn't populated this player (pre-cron, or scraper
+  // failure on the position-prob branch).
   function modelPctForProp(player, propType) {
     if (!_isCompetitive(player)) return 0.1;
+    // Map prop type to the scraper field name
+    var mcField = {
+      winner: 'modelWinProb',
+      top5: 'modelTop5Prob',
+      top10: 'modelTop10Prob',
+      top20: 'modelTop20Prob',
+      makeCut: 'modelMakeCutProb'
+    }[propType];
+    if (mcField && typeof player[mcField] === 'number') {
+      return Math.min(99, player[mcField] * 100);
+    }
+    // Fallback (legacy heuristic for markets we don't simulate yet)
     var conf = (player.confScore || 50) / 100;
     var mult = PROP_MULT[propType] || 1;
-    var base = conf * 0.15 * mult; // conf=100 → 15% win prob
+    var base = conf * 0.15 * mult;
     var fit = player.courseFit && player.courseFit[_activeCourse] ? player.courseFit[_activeCourse] / 100 : 0.65;
     return Math.min(98, base * (0.7 + 0.3 * fit) * 100);
   }
@@ -7621,6 +7638,33 @@
     if (evt.venue) bits.push(evt.venue);
     if (evt.location) bits.push(evt.location);
     if (evt.par) bits.push('Par ' + evt.par);
+    // BDL audit: surface purse, defending champion, course architect when
+    // they exist. All ride on the event-strip subtitle line; missing fields
+    // degrade gracefully.
+    var ce = window.DATA && window.DATA.currentEvent;
+    if (ce) {
+      if (ce.purse) {
+        var purseM = Math.round(Number(ce.purse) / 1e5) / 10;  // millions, 1dp
+        if (purseM) bits.push('$' + purseM + 'M purse');
+      }
+      if (ce.defendingChampion) bits.push('Def: ' + ce.defendingChampion);
+    }
+    var courses = (window.DATA && window.DATA.courses) || {};
+    var courseKey = (function() {
+      // Resolve the active course key the same way scFitForActiveCourse does
+      if (!evt.venue) return null;
+      var v = evt.venue.toLowerCase();
+      if (v.indexOf('augusta') >= 0) return 'augusta';
+      if (v.indexOf('sawgrass') >= 0) return 'tpc_sawgrass';
+      if (v.indexOf('pebble') >= 0) return 'pebble';
+      if (v.indexOf('aronimink') >= 0) return 'aronimink';
+      return null;
+    })();
+    var courseData = courseKey && courses[courseKey];
+    if (courseData) {
+      if (courseData.architect) bits.push(courseData.architect + ' design');
+      if (courseData.greenGrass) bits.push(courseData.greenGrass + ' greens');
+    }
     if (metaEl) metaEl.textContent = bits.join(' · ');
   }
 

@@ -1742,6 +1742,65 @@ def compute_all_course_fits(players, weather=None):
         player["courseFit"] = computed
 
 
+def compute_field_strength(field_owgrs, baseline_avg_owgr=70.0, cap=(0.55, 1.3)):
+    """Convert a field's average OWGR into a strength multiplier.
+
+    Strong fields (low avg OWGR) → multiplier > 1.0; weak fields → < 1.0. The
+    baseline (1.0) corresponds to a typical PGA Tour field whose top-20-by-
+    OWGR-rank average is roughly 50. Majors typically run ~25; opposite-field
+    events ~120.
+
+    Formula: ``strength = baseline / max(actual_avg, 5)``, then clipped to
+    ``cap`` so a single outlier (or missing OWGR) can't blow up the factor.
+
+    Returns ``(strength, observed_avg)`` or ``(1.0, None)`` when there's no
+    OWGR data to work from.
+    """
+    vals = [o for o in field_owgrs if isinstance(o, (int, float)) and 0 < o < 1500]
+    if len(vals) < 10:
+        return 1.0, None
+    # Use the top-quartile OWGR average to characterize the field's
+    # competitive core — a few amateurs/qualifiers at OWGR 800 shouldn't
+    # drag a major's strength reading.
+    vals.sort()
+    quartile = max(20, len(vals) // 4)
+    top_quartile = vals[:quartile]
+    avg = sum(top_quartile) / len(top_quartile)
+    strength = baseline_avg_owgr / max(avg, 5.0)
+    lo, hi = cap
+    strength = max(lo, min(hi, strength))
+    return round(strength, 3), round(avg, 1)
+
+
+def bdl_get_field_owgrs(tournament_id, max_pages=4):
+    """Pull the OWGR distribution for a specific tournament's field.
+
+    Used by ``compute_learned_course_fit`` to weight each historical event's
+    residuals by that event's strength. A +0.5 SG residual at a major-strength
+    field is more impressive than the same residual at a weak opposite-field
+    event; this gives us the multiplier to encode that.
+    """
+    try:
+        rows = bdl_fetch_all(
+            "tournament_field",
+            {"tournament_id": str(tournament_id)},
+            max_pages=max_pages,
+        )
+    except Exception as e:
+        print(f"  [WARN] Field OWGRs fetch failed for tid={tournament_id}: {e}")
+        return []
+    owgrs = []
+    for r in (rows or []):
+        # OWGR can live at row.owgr or row.player.owgr depending on response shape
+        o = r.get("owgr")
+        if not isinstance(o, (int, float)):
+            p = r.get("player") or {}
+            o = p.get("owgr")
+        if isinstance(o, (int, float)):
+            owgrs.append(o)
+    return owgrs
+
+
 def compute_learned_course_fit(course_id, current_field, years_back=5, max_events=5):
     """Per-player learned course fit derived from historical SG residuals.
 
@@ -1798,9 +1857,15 @@ def compute_learned_course_fit(course_id, current_field, years_back=5, max_event
         return {}
     print(f"  Pulling tournament SG totals from {len(valid_past)} past events: {valid_past}")
 
-    # Aggregate: per player, collect (event_year, sg_total)
-    # Field-average baseline per event: average SG of all entrants that week.
-    aggregate = {}  # normalized_name -> [(year, sg, field_avg)]
+    # Aggregate: per player, collect (event_year, sg_total, field_avg, tid,
+    # strength_factor). The strength factor scales each event's residual: a
+    # +0.5 SG at a major-strength field (multiplier ~1.2) becomes effectively
+    # +0.6 SG when averaging across events; the same +0.5 at an opposite-
+    # field event (multiplier ~0.85) becomes +0.425. This corrects for the
+    # fact that beating a weak field by X strokes is easier than beating a
+    # strong one by the same margin.
+    aggregate = {}  # normalized_name -> [(year, sg, field_avg, tid, strength)]
+    event_strength = {}  # tid -> (strength_multiplier, observed_avg_owgr)
     for tid, yr in valid_past:
         try:
             rows = bdl_fetch_all(
@@ -1813,15 +1878,15 @@ def compute_learned_course_fit(course_id, current_field, years_back=5, max_event
             continue
         if not rows:
             continue
-        # Field avg for this event
-        sg_values = []
-        for r in rows:
-            sg = r.get("sg_total")
-            if isinstance(sg, (int, float)):
-                sg_values.append(float(sg))
+        sg_values = [float(r.get("sg_total")) for r in rows
+                     if isinstance(r.get("sg_total"), (int, float))]
         if not sg_values:
             continue
         field_avg = sum(sg_values) / len(sg_values)
+        # Field strength for this past event (skipped on small/no OWGR data → 1.0)
+        owgrs = bdl_get_field_owgrs(tid)
+        strength, avg_owgr = compute_field_strength(owgrs)
+        event_strength[tid] = (strength, avg_owgr)
         # Per-player rows
         for r in rows:
             sg = r.get("sg_total")
@@ -1834,24 +1899,35 @@ def compute_learned_course_fit(course_id, current_field, years_back=5, max_event
             if not pname:
                 continue
             key = normalize_name(pname)
-            aggregate.setdefault(key, []).append((yr, float(sg), field_avg, tid))
+            aggregate.setdefault(key, []).append(
+                (yr, float(sg), field_avg, tid, strength)
+            )
 
-    # Build output: average residual per player who appears in the current field
+    # Build output: average strength-weighted residual per player in current field
     current_names = {normalize_name(p.get("name", "")) for p in current_field if p.get("name")}
     out = {}
     for key, appearances in aggregate.items():
         if key not in current_names:
             continue
-        residuals = [sg - field_avg for (_, sg, field_avg, _) in appearances]
+        residuals = [(sg - field_avg) * strength
+                     for (_, sg, field_avg, _, strength) in appearances]
         if not residuals:
             continue
         avg_residual = sum(residuals) / len(residuals)
         out[key] = {
             "residual": round(avg_residual, 3),
             "n": len(residuals),
-            "events": [{"tid": tid, "year": yr, "sg": round(sg, 2)}
-                       for (yr, sg, _, tid) in appearances],
+            "events": [
+                {"tid": tid, "year": yr, "sg": round(sg, 2),
+                 "strength": event_strength.get(tid, (1.0, None))[0]}
+                for (yr, sg, _, tid, _) in appearances
+            ],
         }
+    # Annotate event-level strength so methodology / debugging can see it
+    if event_strength:
+        sample = list(event_strength.items())[:5]
+        print(f"  Field-strength factors (sample): " +
+              ", ".join(f"tid={t} mult={m} avgOWGR={ao}" for t, (m, ao) in sample))
     print(f"  Learned course fit: {len(out)} players in current field with prior data")
     return out
 
@@ -3347,7 +3423,25 @@ def bdl_build_course_intel(course_key, current_tid, course_name="", event_name="
     holes_with_par = sum(1 for h in holes_list if h["par"])
     print(f"  [COURSE INTEL] Done — {holes_with_par}/18 holes with par data, {len(stat_by_hole)}/18 with scoring")
 
-    return {
+    # Fetch course meta (architect / grasses / established) from /courses.
+    # These fields are static per course and add real broadcast-style context
+    # (e.g. "Donald Ross design · bentgrass greens"). Cheap call — one course id.
+    course_meta = {}
+    try:
+        cmeta_rows = bdl_fetch_all("courses", {"course_ids[]": str(course_id)}, max_pages=1)
+        if cmeta_rows:
+            c = cmeta_rows[0]
+            course_meta = {
+                "architect":    c.get("architect"),
+                "established":  c.get("established"),
+                "fairwayGrass": c.get("fairway_grass"),
+                "roughGrass":   c.get("rough_grass"),
+                "greenGrass":   c.get("green_grass"),
+            }
+    except Exception as _e:
+        print(f"  [WARN] Course meta fetch failed: {_e}")
+
+    out = {
         "name":    course_name or course_key.replace("_", " ").title(),
         "event":   event_name,
         "par":     par,
@@ -3356,6 +3450,8 @@ def bdl_build_course_intel(course_key, current_tid, course_name="", event_name="
         "isLive":  is_live,
         "source":  "BallDontLie PGA API",
     }
+    out.update({k: v for k, v in course_meta.items() if v})
+    return out
 
 
 def bdl_build_masters_intel(tournament_id=20, course_id=37):
@@ -3752,6 +3848,173 @@ def compute_odds_movement(current_players, archive_dir):
 # ============================================================
 # CUT LINE PREDICTOR
 # ============================================================
+
+def predict_player_position_probs(players, course_key=None, weather=None,
+                                  tournament_sg=None, course_par=None,
+                                  live_leaderboard=None, model_params_override=None,
+                                  sims=4000, cut_size=65):
+    """Full 4-round tournament Monte Carlo. Returns per-player probabilities
+    for win / top-5 / top-10 / top-20 / make-cut.
+
+    Reuses the same per-player score distribution as ``predict_matchups`` and
+    ``predict_cut_line`` (mean = par - SG - fit - form - weather, per-player
+    std, shared round shock). When live round scores are present they are
+    held fixed and only remaining rounds are simulated — tightens predictions
+    dramatically as the week progresses.
+
+    Output: ``{ normalized_name: {win, top5, top10, top20, makeCut, expectedTotal} }``.
+
+    This is the substrate the frontend uses to compute honest edge against
+    real book lines (top-5 and make-cut from BDL ``/futures``). Top-10 and
+    Top-20 markets are estimated by BDL but aren't natively offered, so we
+    use the model probabilities directly without a comparison line.
+    """
+    import random
+    random.seed(11)
+    print("[PROPS] Simulating full-tournament position probabilities...")
+
+    if not players:
+        return {}
+
+    par_round = int(course_par) if course_par else 71
+    mp = model_params_override or load_model_params()
+    par_baseline = mp.get("parBaseline", par_round)
+    base_std = mp.get("baseStd", 2.85)
+    shock_std = mp.get("roundShockStd", 1.0)
+    sg_blend_season = mp.get("sgBlendSeason", 0.7)
+    sg_blend_live = mp.get("sgBlendLive", 0.3)
+    fit_scale = mp.get("fitBoostScale", 25.0)
+    hot_boost = mp.get("hotFormBoost", 0.25)
+    cold_penalty = mp.get("coldFormPenalty", -0.25)
+    wind_slope = mp.get("windPenaltySlope", 0.08)
+    wind_std_slope = mp.get("windStdSlope", 0.05)
+    wind_threshold = mp.get("windThresholdMph", 12.0)
+
+    # Weather
+    wx_penalty = 0.0
+    wx_std_bump = 0.0
+    if isinstance(weather, dict):
+        winds = []
+        for day in (weather.get("forecast") or []):
+            w = day.get("windMph") or day.get("wind_mph") or day.get("wind")
+            if isinstance(w, (int, float)):
+                winds.append(w)
+        if winds:
+            avg_wind = sum(winds) / len(winds)
+            wx_penalty = max(0.0, (avg_wind - wind_threshold) * wind_slope)
+            wx_std_bump = max(0.0, (avg_wind - wind_threshold) * wind_std_slope)
+
+    live_sg = {}
+    for row in (tournament_sg or []):
+        live_sg[normalize_name(row.get("name", ""))] = row.get("sgTotal", 0) or 0
+
+    # Live round scores (R1..R4 strokes per player when played)
+    fixed_rounds = {}
+    if live_leaderboard:
+        for row in live_leaderboard:
+            name = normalize_name(row.get("name", ""))
+            rs = {}
+            for ri in (1, 2, 3, 4):
+                v = row.get(f"round{ri}")
+                if isinstance(v, (int, float)) and v > 0:
+                    rs[ri] = float(v)
+            if rs:
+                fixed_rounds[name] = rs
+
+    pp_list = []
+    for p in players:
+        sg_season = p.get("sgTotal") or 0.0
+        name_key = normalize_name(p.get("name", ""))
+        sg_live = live_sg.get(name_key, 0.0)
+        sg_blended = sg_blend_season * sg_season + sg_blend_live * sg_live if sg_live else sg_season
+        fit_boost = 0.0
+        if course_key:
+            fit = (p.get("courseFit") or {}).get(course_key, 75)
+            if isinstance(fit, (int, float)):
+                fit_boost = (fit - 75) / fit_scale
+        form = p.get("recentForm") or {}
+        form_boost = (hot_boost if form.get("trend") == "hot"
+                      else cold_penalty if form.get("trend") == "cold" else 0.0)
+        empirical_std = p.get("scoreStd")
+        if isinstance(empirical_std, (int, float)) and 1.5 <= empirical_std <= 5.0:
+            std_i = float(empirical_std) + wx_std_bump
+        else:
+            std_i = base_std + wx_std_bump
+        if form.get("trend") in ("hot", "cold"):
+            std_i += 0.15
+        mean_round = par_baseline - sg_blended - fit_boost - form_boost + wx_penalty
+        pp_list.append({
+            "name": p.get("name"),
+            "key": name_key,
+            "mean_round": mean_round,
+            "std": std_i,
+            "fixed": fixed_rounds.get(name_key, {}),
+        })
+
+    n = len(pp_list)
+    wins = [0] * n
+    top5 = [0] * n
+    top10 = [0] * n
+    top20 = [0] * n
+    cuts = [0] * n
+    sum_totals = [0.0] * n
+    par_36 = par_round * 2
+
+    for s in range(sims):
+        # Shared round shocks
+        shocks = [random.gauss(0, shock_std) for _ in range(4)]
+        totals_36 = []  # for cut determination
+        totals_72 = []  # for finish position
+        for pp in pp_list:
+            total = 0
+            fr = pp["fixed"]
+            for ri in (1, 2, 3, 4):
+                if ri in fr:
+                    total += fr[ri]
+                else:
+                    r = round(random.gauss(pp["mean_round"], pp["std"]) + shocks[ri - 1])
+                    total += r
+                if ri == 2:
+                    totals_36.append(total)
+            totals_72.append(total)
+        # Cut: top cut_size+ties after 36 holes
+        cut_thresh_sorted = sorted(totals_36)
+        cut_idx = min(cut_size - 1, n - 1)
+        cut_thresh = cut_thresh_sorted[cut_idx]
+        # Finishing position over 72 holes
+        sorted_72 = sorted(enumerate(totals_72), key=lambda t: t[1])
+        for rank_idx, (orig_i, t) in enumerate(sorted_72):
+            if rank_idx == 0:
+                wins[orig_i] += 1
+            if rank_idx < 5:
+                top5[orig_i] += 1
+            if rank_idx < 10:
+                top10[orig_i] += 1
+            if rank_idx < 20:
+                top20[orig_i] += 1
+        for i, t36 in enumerate(totals_36):
+            if t36 <= cut_thresh:
+                cuts[i] += 1
+            sum_totals[i] += totals_72[i]
+
+    out = {}
+    for i, pp in enumerate(pp_list):
+        out[pp["key"]] = {
+            "name": pp["name"],
+            "win": round(wins[i] / sims, 4),
+            "top5": round(top5[i] / sims, 4),
+            "top10": round(top10[i] / sims, 4),
+            "top20": round(top20[i] / sims, 4),
+            "makeCut": round(cuts[i] / sims, 4),
+            "expectedTotal": round(sum_totals[i] / sims, 1),
+            "expectedParRel": round(sum_totals[i] / sims - par_round * 4, 1),
+        }
+    # Quick sanity: top-3 win-prob players
+    top_win = sorted(out.values(), key=lambda x: -x["win"])[:3]
+    print(f"  Top win probs: " + ", ".join(
+        f"{x['name']} {x['win']*100:.1f}%" for x in top_win))
+    return out
+
 
 def predict_cut_line(players, course_key="augusta", weather=None, tournament_sg=None,
                      course_par=None, cut_size=65, sims=4000, live_leaderboard=None,
@@ -5234,14 +5497,29 @@ def run_pipeline():
             else:
                 bdl_results = []
 
-            # Build currentEvent from BDL
+            # Build currentEvent from BDL. Captures more fields than before —
+            # purse, defending champion, country, endDate — that BDL already
+            # ships on /tournaments but we were discarding. Defending champ
+            # comes from looking at the latest prior tournament with the same
+            # course; falls back to the BDL `champion` field on the current
+            # tournament (which is sometimes pre-populated for re-runs).
+            _champ_obj = bdl_tournament.get("champion") or {}
+            _champ_name = (
+                _champ_obj.get("display_name")
+                or (f"{_champ_obj.get('first_name','')} {_champ_obj.get('last_name','')}".strip()
+                    if isinstance(_champ_obj, dict) else "")
+            ).strip() or None
             output["currentEvent"] = {
                 "name": bdl_tournament.get("name", ""),
                 "course": bdl_tournament.get("course_name", ""),
                 "startDate": bdl_tournament.get("start_date", ""),
+                "endDate": bdl_tournament.get("end_date", ""),
                 "status": bdl_tournament.get("status", ""),
                 "city": bdl_tournament.get("city", ""),
                 "state": bdl_tournament.get("state", ""),
+                "country": bdl_tournament.get("country", ""),
+                "purse": bdl_tournament.get("purse"),
+                "defendingChampion": _champ_name,
                 "bdlId": tid,
                 "leaderboard": [],
             }
@@ -5884,6 +6162,29 @@ def run_pipeline():
         except Exception as _e:
             print(f"  [WARN] Learned course fit failed: {_e}")
 
+    # ---- CURRENT EVENT FIELD STRENGTH ----
+    # Computed from OWGRs already attached to player objects (via Track A
+    # bio enrichment). Surfaces to JSON as a transparency artifact and to
+    # downstream modeling as a hint that current SG signals from a stronger
+    # field have less noise.
+    try:
+        _curr_owgrs = [p.get("owgr") for p in output["players"]
+                       if isinstance(p.get("owgr"), (int, float))]
+        _curr_strength, _curr_avg_owgr = compute_field_strength(_curr_owgrs)
+        output["fieldStrength"] = {
+            "multiplier": _curr_strength,
+            "avgOwgrTopQuartile": _curr_avg_owgr,
+            "fieldSize": len(_curr_owgrs),
+            "interpretation": (
+                "Strong field (1.0+ = major-strength)" if _curr_strength >= 1.1
+                else "Weak field" if _curr_strength <= 0.9
+                else "Standard PGA field"
+            ),
+        }
+        print(f"  Field strength: {_curr_strength}x (avg top-quartile OWGR {_curr_avg_owgr}, n={len(_curr_owgrs)})")
+    except Exception as _e:
+        print(f"  [WARN] Field strength compute failed: {_e}")
+
     # ============================================================
     # CONFIDENCE SCORE MODEL (v3 + Bayesian ML)
     # ============================================================
@@ -6143,6 +6444,38 @@ def run_pipeline():
         course_par=_course_par,
         live_leaderboard=_live_lb,
     )
+
+    # ============================================================
+    # FULL-TOURNAMENT POSITION PROBABILITIES
+    # ------------------------------------------------------------
+    # Per-player P(win), P(top-5), P(top-10), P(top-20), P(make-cut)
+    # from a 4-round Monte Carlo. Honest model probabilities for the
+    # markets where BDL ships book lines (top-5, make-cut), and the
+    # substrate for de-vigged edge calc on those markets.
+    # ============================================================
+    try:
+        position_probs = predict_player_position_probs(
+            output["players"],
+            course_key=resolved_course,
+            weather=output.get("weather"),
+            tournament_sg=output.get("tournamentSG"),
+            course_par=_course_par,
+            live_leaderboard=_live_lb,
+        )
+        if position_probs:
+            output["playerPositionProbs"] = position_probs
+            # Attach to player objects for direct frontend lookup
+            for p in output["players"]:
+                k = normalize_name(p.get("name", ""))
+                if k in position_probs:
+                    pp = position_probs[k]
+                    p["modelTop5Prob"] = pp["top5"]
+                    p["modelTop10Prob"] = pp["top10"]
+                    p["modelTop20Prob"] = pp["top20"]
+                    p["modelMakeCutProb"] = pp["makeCut"]
+            print(f"[PROPS] Position probs attached to {len(position_probs)} players")
+    except Exception as _e:
+        print(f"  [WARN] Position prob simulation failed: {_e}")
 
     # ============================================================
     # PLAYER NEWS
