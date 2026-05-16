@@ -94,6 +94,8 @@ jobs:
           cp backtest-report.json docs/ 2>/dev/null || echo "backtest-report.json not present, skipping"
           cp odds_history.json docs/ 2>/dev/null || echo "odds_history.json not present, skipping"
           cp robots.txt docs/
+          cp llms.txt docs/
+          cp llms.txt docs/llms-full.txt
           cp sitemap.xml docs/
           cp -r previews docs/
           cp -r player docs/ 2>/dev/null || echo "player/ not present, skipping"

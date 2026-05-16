@@ -195,6 +195,53 @@
       against the model's probability across the field. High-|z| entries surface as
       Edge Finder picks; low-|z| entries are labeled "book-aligned."
     </p>
+
+    <h3>(e) Vig removal before EV</h3>
+    <p>
+      Every edge percentage on this site is computed against a <strong>de-vigged fair implied
+      probability</strong>, not the raw book line. For outright winner markets we sum implied
+      probabilities across the full field (the overround is typically 1.20-1.30 on a PGA
+      event, i.e. 20-30% of hold), then normalize each player's implied probability by that
+      overround. Without this correction every "+5% edge" we displayed would have been
+      roughly break-even after vig. The current winner-market overround is published live in
+      <code>/golf-data.json</code> under <code>bookVigInfo.winner.overround</code>.
+    </p>
+
+    <h3>(f) Learned course fit</h3>
+    <p>
+      Course fit is a sample-size-weighted blend of (1) a hand-curated trait prior — does the
+      course reward power, accuracy, scrambling, putting? — and (2) a <strong>learned signal</strong>
+      computed from each player's historical strokes-gained residual vs the field at the same
+      course over the last 5 years. The blend uses Bayesian shrinkage with k=2: a player with
+      n=2 prior appearances at this course gets 50% weight on the learned signal, n=5 gets
+      71%, players with no prior data fall back fully to the trait prior. The residuals are
+      derived from BDL's <code>player_round_stats</code> endpoint with
+      <code>round_number=-1</code> for tournament totals. The per-player learned-vs-prior
+      breakdown is exposed under <code>player.learnedCourseFit</code> in the JSON.
+    </p>
+
+    <h3>(g) Isotonic calibration of confScore</h3>
+    <p>
+      The raw confScore is a 12-weight composite signal whose 0-100 range has no inherent
+      probability interpretation. We fit <strong>pool-adjacent-violators isotonic regression</strong>
+      against historical make-cut outcomes from the <code>history/</code> snapshot archive,
+      producing a monotonic lookup table that maps raw scores to calibrated make-cut
+      probabilities. The calibration is persisted in <code>model_params.json</code> under
+      <code>calibration.table</code> and applied at scrape time, so every player carries a
+      <code>confScoreCalibratedMakeCutProb</code> field. In the most recent training run, the
+      calibrated Brier score (0.196) beat both the no-information baseline (0.249) and the
+      raw <em>score/100</em> baseline (0.220) on the same data — measurable predictive skill.
+    </p>
+
+    <h3>(h) Monte Carlo cut-line prediction</h3>
+    <p>
+      The cut line is simulated, not pulled from history. Every player's 36-hole total is
+      drawn from the same per-round Normal distribution used in the matchup model, and the
+      cut score is the 65th-best total (PGA standard cut size) averaged over 4,000 sims. When
+      Round 1 scores are in, we hold R1 fixed and simulate only R2 — this sharply tightens
+      the prediction Friday morning. The output includes per-player make-cut probabilities,
+      which power the "Cut Bubble" filter on the scorecard view.
+    </p>
   </section>
 
   <!-- 4. Tunable parameters -->
@@ -226,13 +273,18 @@
 
   <!-- 6. What we don't do -->
   <section class="glass rounded-2xl p-4 mb-4">
-    <h2>What we don't do</h2>
+    <h2>What we don't do (honest accounting)</h2>
     <ul>
-      <li><strong>No shot-level data</strong> — we work with round-level strokes gained, not per-shot tracking</li>
-      <li><strong>No sub-60-minute live scoring granularity</strong> — ESPN leaderboard pulls every 60s; we don't model intra-hole swings</li>
-      <li><strong>No DFS ownership projections</strong> — we're a betting model, not a DFS tool</li>
-      <li><strong>Course fit is semi-manual</strong> — venue archetype tags are curated, not fully learned; new/unique courses have wider fit-score uncertainty</li>
-      <li><strong>No injury/WD prediction</strong> — we react to field-change news, we don't forecast it</li>
+      <li><strong>No shot-level data</strong> — we work with round-level strokes gained, not per-shot tracking. Shot dispersion, ball flight, and Trackman data are outside our scope.</li>
+      <li><strong>No sub-60-minute live scoring granularity</strong> — ESPN leaderboard pulls every 60s; we don't model intra-hole swings.</li>
+      <li><strong>No DFS ownership projections</strong> — this is a betting model, not a DFS tool.</li>
+      <li><strong>Top-10 and Top-20 markets are estimated, not directly modeled</strong> — the BDL <code>/futures</code> endpoint only ships book lines for <em>tournament_winner</em>, <em>top_5_finish</em>, and <em>make_cut</em>. Top-10/Top-20 odds shown on the site are derived from win odds and tagged "est"; we deliberately do not display an "edge" percentage for these markets because the comparison would be one model estimate vs another.</li>
+      <li><strong>Per-hole and per-round prop markets are not modeled</strong> — we surface the odds via BDL's <code>/odds/player_props</code> endpoint but the Monte Carlo doesn't directly price hole-by-hole or round-leader markets, so we don't compute edge for them.</li>
+      <li><strong>No field-strength normalization on input SG</strong> — a player's <code>sgTotal</code> is consumed as observed, whether earned at the Players Championship or the Mexican Open. We adjust outputs via a small "field strength premium" but the inputs themselves are not strength-of-schedule corrected.</li>
+      <li><strong>No injury/WD prediction</strong> — we react to field-change news, we don't forecast it.</li>
+      <li><strong>Course fit prior is hand-curated</strong> — the trait dictionaries (power/accuracy/scramble/putting weights per course) are designed, not learned. The learned course-fit residual mitigates this by anchoring fit in historical outcomes for players with prior appearances, but rookies still lean on the trait prior.</li>
+      <li><strong>Only DraftKings and FanDuel for outright lines</strong> — these are the only PGA vendors in BDL. We supplement with The Odds API for matchups (BetMGM, Bovada, BetRivers) but the de-vig overround is computed from the DK/FD field.</li>
+      <li><strong>Backtest has small sample</strong> — out-of-sample test set is roughly 30-50 matchup pairs depending on history depth. The OOS Brier currently beats the uniform baseline by ~20% but the confidence interval is wide. We re-run the backtest weekly and only adjust model parameters when calibration drift is confirmed across two consecutive runs.</li>
     </ul>
   </section>
 

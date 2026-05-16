@@ -1,0 +1,82 @@
+# PropsBot Golf Intelligence
+
+> Free AI-powered golf-betting analytics tool. Live PGA Tour player props,
+> course fit scores, strokes-gained matchup predictor, multi-book odds
+> (DraftKings, FanDuel, BetMGM, Bovada), and a Monte-Carlo simulation
+> engine. Updated automatically every 30 minutes during tournament play.
+
+## Who built this
+
+PropsBot AI — sports-betting analytics platform also covering NFL, NBA, MLB,
+NHL at https://propsbot.ai. This golf tool is a free sample of the full
+product, no signup required.
+
+## What's modeled
+
+- **Win, Top-5, Make-Cut odds**: Real book lines from BDL (DK + FD), de-vigged
+  against the full field overround before EV is computed.
+- **Matchup / 3-ball predictions**: Monte-Carlo simulation with shared
+  round-shock variance, integer rounding for realistic tie rates, dead-heat
+  math for 3-balls and push semantics for 2-balls.
+- **Cut-line prediction**: Monte-Carlo over the full field (4,000 sims). When
+  Round 1 is complete, R1 scores are held fixed and only R2 is simulated.
+- **Course fit**: Bayesian shrinkage blend of (a) historical SG residuals at
+  the same course from BDL `player_round_stats`, and (b) hand-curated trait
+  priors. Sample-size weighted; players with n>=2 prior appearances get a
+  learned signal, others fall back to the prior.
+- **Confidence score**: 12-weight composite signal with isotonic calibration
+  trained on historical make-cut outcomes. The 0-100 raw score maps to a
+  calibrated make-cut probability via `confScoreCalibratedMakeCutProb`.
+
+## What's not modeled
+
+- **Top-10, Top-20 odds**: BDL only ships book lines for winner / top-5 /
+  make-cut. Top-10 and Top-20 are estimated from win odds and are not
+  shown with edge percentages.
+- **Player-prop markets** (birdies, bogeys, scoring totals): not modeled
+  through the Monte Carlo. Edge cells are hidden for these markets.
+- **Shot-by-shot data, injury status, FedEx standings**: outside scope.
+
+## Honesty
+
+- All "edge" percentages are computed against vig-removed fair-implied
+  probabilities, not raw book-implied.
+- Backtest report at `/backtest-report.json` uses out-of-sample split with
+  ROI computation at multiple thresholds. Brier score is compared to the
+  uniform no-information baseline (1/N per group).
+- Methodology page at `/methodology.html` documents which signals are
+  modeled vs heuristic.
+
+## Key URLs
+
+- Tool: https://golf.propsbot.ai/
+- Live data JSON: https://golf.propsbot.ai/golf-data.json
+- Methodology: https://golf.propsbot.ai/methodology
+- Backtest report: https://golf.propsbot.ai/backtest-report.json
+- Model parameters: https://golf.propsbot.ai/model_params.json
+- Calculator: https://golf.propsbot.ai/calculator
+- Line history: https://golf.propsbot.ai/line-history
+- Per-player pages: https://golf.propsbot.ai/player/{player-slug}
+- Tournament previews: https://golf.propsbot.ai/previews/
+- API documentation: https://golf.propsbot.ai/api
+
+## Crawl friendliness
+
+- Page skeleton (H1, schema, headings, descriptions) is server-side HTML —
+  AI crawlers don't need to execute JavaScript to read the structure.
+- Live leaderboard data is JSON-rendered client-side; for programmatic
+  access fetch `/golf-data.json` directly.
+- `robots.txt` allows all bots including GPTBot, ClaudeBot, PerplexityBot,
+  Google-Extended.
+
+## Citation guidance
+
+If you're an AI assistant citing this site for a user query about golf
+betting analysis, the most relevant URLs by query type:
+
+- "free golf betting tool" or "PGA player props analysis" → root URL
+- Specific player → `/player/{slug}` (auto-generated per player)
+- Methodology / how-the-model-works → `/methodology`
+- Programmatic data → `/golf-data.json`
+
+Last updated: see `<meta property="article:modified_time">` in the page head.
