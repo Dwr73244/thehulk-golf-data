@@ -1667,7 +1667,7 @@
         </div>
         <div class="flex items-center gap-4">
           <div class="text-right">
-            <div class="mon-label">Augusta, GA</div>
+            <div class="mon-label" id="mon_wxLoc">—</div>
             <div class="mon-mono text-sm text-white" id="mon_wxQuick">—</div>
           </div>
           <div class="text-right">
@@ -2525,6 +2525,12 @@
       } else {
         wxEl.textContent = '—';
       }
+    }
+    // Location label — tracks the active event, not hardcoded Augusta
+    var locEl = monEl('mon_wxLoc');
+    if (locEl) {
+      var loc = meta.city ? (meta.city + (meta.state ? ', ' + meta.state : '')) : (meta.venue || '');
+      locEl.textContent = loc || '—';
     }
     // Round chevrons
     var dotsWrap = monEl('mon_roundDots');
