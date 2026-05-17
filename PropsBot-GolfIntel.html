@@ -2271,7 +2271,7 @@
               <th data-sort-key="playerName" class="px-3 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Player</th>
               <th data-sort-key="market" class="px-3 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Market</th>
               <th data-sort-key="modelPct" class="px-3 py-2.5 text-right text-[11px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Model %</th>
-              <th data-sort-key="bookPct" class="px-3 py-2.5 text-right text-[11px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Book %</th>
+              <th data-sort-key="bookPct" class="px-3 py-2.5 text-right text-[11px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300" title="Fair (de-vigged) book-implied probability — raw implied % divided by the market's overround so the book's hold isn't counted as model edge">Book %</th>
               <th data-sort-key="edge" class="px-3 py-2.5 text-right text-[11px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Edge</th>
               <th data-sort-key="bookOdds" class="px-3 py-2.5 text-right text-[11px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Book Odds</th>
               <th data-sort-key="fairOdds" class="px-3 py-2.5 text-right text-[11px] font-semibold text-slate-500 uppercase tracking-wide cursor-pointer select-none hover:text-slate-300">Fair Odds</th>
@@ -2284,7 +2284,7 @@
         </table>
       </div>
       <div class="px-5 py-3 border-t border-white/5">
-        <p class="text-[11px] text-slate-600">Edge % = (Model Prob − Book Implied Prob) ÷ Book Implied Prob × 100. Positive edge = model rates player as more likely than the book implies. Placement market odds estimated from win odds using standard market multipliers where direct lines unavailable. For research purposes only — not betting advice.</p>
+        <p class="text-[11px] text-slate-600">Edge % = (Model Prob − Fair Book Prob) ÷ Fair Book Prob × 100, where Fair Book Prob is the de-vigged implied probability (raw implied ÷ overround). De-vig removes the sportsbook's hold so the book's vig isn't counted as model edge — same math the scorecard view uses. Placement market odds estimated from win odds where direct lines unavailable, marked with ~. For research purposes only — not betting advice.</p>
       </div>
     </div>
 
@@ -7185,16 +7185,50 @@
 
   function _runEdgeSim() {
     var pool = _buildEdgePool();
-    var sims = 5000;
-    var _simCourse = getNextMajor().course;
-    var fieldSize = pool.length || 88;
-
+    // Source of model probabilities: the SERVER-SIDE simulation (300k+
+    // sims, per-hole Gaussian copula, course fit, recent form, field
+    // strength, calibrated). That's what scorecard reads via
+    // modelPctForProp(). Edge Finder used to run its own simplistic
+    // client-side 5,000-sim Monte Carlo, which produced different
+    // probabilities — hence the inconsistency where Edge Finder showed
+    // "Scheffler Win 50%+ edge" while scorecard showed no edge at all.
+    // Now both surfaces consume the same probabilities; only the layout
+    // differs.
+    //
+    // Fallback to the legacy client sim when the scraper hasn't shipped
+    // model probs for a player (rare — usually only on the long tail of
+    // weak players the server sim skips for cost reasons).
     return pool.map(function(p) {
+      var serverWin = (typeof p.modelWinProb === 'number') ? p.modelWinProb * 100 : null;
+      var serverT5  = (typeof p.modelTop5Prob === 'number') ? p.modelTop5Prob * 100 : null;
+      var serverT10 = (typeof p.modelTop10Prob === 'number') ? p.modelTop10Prob * 100 : null;
+      var serverT20 = (typeof p.modelTop20Prob === 'number') ? p.modelTop20Prob * 100 : null;
+      var serverMC  = (typeof p.modelMakeCutProb === 'number') ? p.modelMakeCutProb * 100 : null;
+      // If the server has any of the five, use server everywhere (a missing
+      // one will fall through to modelPctForProp's heuristic — same path
+      // scorecard's scMarketModelPct takes).
+      if (serverWin != null || serverT5 != null || serverMC != null) {
+        return {
+          player: p,
+          probs: {
+            winner:  +(serverWin != null ? serverWin : modelPctForProp(p, 'winner')).toFixed(2),
+            top5:    +(serverT5  != null ? serverT5  : modelPctForProp(p, 'top5')).toFixed(2),
+            top10:   +(serverT10 != null ? serverT10 : modelPctForProp(p, 'top10')).toFixed(2),
+            top20:   +(serverT20 != null ? serverT20 : modelPctForProp(p, 'top20')).toFixed(2),
+            makeCut: +(serverMC  != null ? serverMC  : modelPctForProp(p, 'makeCut')).toFixed(2)
+          }
+        };
+      }
+      // Legacy fallback: client-side simulation. Only runs when no server
+      // probs are available — e.g. during an early page load before the
+      // first scrape lands.
+      var sims = 5000;
+      var _simCourse = getNextMajor().course;
+      var fieldSize = pool.length || 88;
       var confSkill = p.confScore ? (p.confScore - 50) / 28 : 0;
       var courseFitVal = p.courseFit && p.courseFit[_simCourse] ? p.courseFit[_simCourse] : 0;
       var skill = confSkill * 0.70 + (p.sgTotal || 0) * 0.30
         + (courseFitVal ? (courseFitVal - 70) / 150 : 0);
-
       var wins=0, t5=0, t10=0, t20=0, mc=0;
       for (var i=0; i<sims; i++) {
         var score=0;
@@ -7253,6 +7287,26 @@
     var markets = marketFilter === 'all' ? MARKETS : MARKETS.filter(function(m){return m.key===marketFilter;});
     var rows = [];
 
+    // Per-market overround for de-vig. winner / top5 / makeCut come from
+    // the scraper's bookVigInfo (computed across the actual book lines for
+    // the active event). top10 / top20 are typically derived — use a
+    // typical placement-market overround as a sensible default. This makes
+    // Edge Finder agree with the scorecard's cellEV function, which has
+    // always de-vigged. Before this fix Edge Finder showed ~20-30% more
+    // edge than the scorecard for the same player + market — the book's
+    // hold was being treated as model edge.
+    var _vigInfo = (window.DATA && window.DATA.bookVigInfo) || {};
+    function _devig(rawImpliedPct, mktKey) {
+      var ov = _vigInfo[mktKey] && _vigInfo[mktKey].overround;
+      // Fallbacks when scraper hasn't published an overround for this market:
+      //   winner ≈ 1.20 (heavy hold on outrights)
+      //   top5/top10/top20 ≈ 1.10
+      //   makeCut ≈ 1.05 (binary, tightest)
+      var defaultOv = { winner: 1.20, top5: 1.10, top10: 1.10, top20: 1.10, makeCut: 1.05 };
+      var useOv = (ov && ov > 0) ? ov : (defaultOv[mktKey] || 1.05);
+      return rawImpliedPct / useOv;
+    }
+
     simData.forEach(function(sr) {
       var winOdds = _bestBookOdds(sr.player, book);
       markets.forEach(function(m) {
@@ -7268,13 +7322,13 @@
 
         var modelPct  = sr.probs[m.key];
         var bookDec   = bookOdds > 0 ? (bookOdds/100+1) : (100/Math.abs(bookOdds)+1);
-        var bookPct   = +(1/bookDec*100).toFixed(2);
-        // Book-implied floor — DROP fade-trap longshots.
-        //   <3% book implied (worse than +3233) on the winner market is where
-        //   the model's softmax-allocated probability mass produces fake
-        //   "edges" against a book that's correctly fading. Tighter for win
-        //   market (3%) than placement markets (1%) since win is the
-        //   noisiest derivation.
+        var rawImpliedPct = +(1/bookDec*100).toFixed(2);
+        // De-vig: convert raw implied % to fair implied % by dividing out
+        // the book's overround. Matches scorecard's cellEV.
+        var bookPct = +_devig(rawImpliedPct, m.key).toFixed(2);
+        // Book-implied floor — DROP fade-trap longshots. Use the FAIR
+        // (de-vigged) book pct for the floor check so we don't drop
+        // legitimate edges that look like longshots only because of the vig.
         var bookFloor = (m.key === 'win') ? 0.03 : 0.01;
         if (bookPct / 100 < bookFloor) return;
         // Also require absolute edge (modelPct - bookPct) of at least 3pp.
@@ -7318,7 +7372,7 @@
     // Run sim once and cache result
     if (!_edgeFinderCache) {
       var countEl = el('edgeFinderCount');
-      if (countEl) countEl.textContent = 'Running 5,000 simulations…';
+      if (countEl) countEl.textContent = 'Loading model edges…';
       setTimeout(function() {
         _edgeFinderCache = _runEdgeSim();
         _drawEdgeFinder();
