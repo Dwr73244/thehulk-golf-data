@@ -15,23 +15,18 @@
   "lastTrainedWeeks": 0,
   "_note": "Overwritten weekly by scripts/backtest.py when calibration drifts. Delete this file to reset to defaults.",
   "calibration": {
-    "trainedAt": "2026-05-17T02:54:09.672919+00:00",
-    "n": 4602,
+    "trainedAt": "2026-05-17T12:48:50.969466+00:00",
+    "n": 4177,
     "events": [
       "3M Open 2024",
       "3M Open 2025",
-      "AT&T Pebble Beach Pro-Am 2024",
-      "AT&T Pebble Beach Pro-Am 2025",
       "Arnold Palmer Invitational pres. by Mastercard 2024",
       "Arnold Palmer Invitational pres. by Mastercard 2025",
       "Arnold Palmer Invitational presented by Mastercard 2024",
       "Arnold Palmer Invitational presented by Mastercard 2025",
-      "BMW Championship 2024",
-      "BMW Championship 2025",
       "Bank of Utah Championship 2025",
       "Barracuda Championship 2024",
       "Barracuda Championship 2025",
-      "Baycurrent Classic 2025",
       "Black Desert Championship 2024",
       "Butterfield Bermuda Championship 2024",
       "Butterfield Bermuda Championship 2025",
@@ -44,12 +39,6 @@
       "Corales Puntacana Championship 2025",
       "Farmers Insurance Open 2024",
       "Farmers Insurance Open 2025",
-      "FedEx St. Jude Championship 2024",
-      "FedEx St. Jude Championship 2025",
-      "Genesis Scottish Open 2024",
-      "Genesis Scottish Open 2025",
-      "Hero World Challenge 2024",
-      "Hero World Challenge 2025",
       "ISCO Championship 2024",
       "ISCO Championship 2025",
       "John Deere Classic 2024",
@@ -57,7 +46,6 @@
       "Masters Tournament",
       "Masters Tournament 2024",
       "Masters Tournament 2025",
-      "Men\u2019s Olympic Golf Competition 2024",
       "Mexico Open at Vidanta 2024",
       "Mexico Open at VidantaWorld 2025",
       "Myrtle Beach Classic 2024",
@@ -74,8 +62,6 @@
       "Puerto Rico Open 2025",
       "RBC Canadian Open 2024",
       "RBC Canadian Open 2025",
-      "RBC Heritage 2024",
-      "RBC Heritage 2025",
       "Rocket Classic 2025",
       "Rocket Mortgage Classic 2024",
       "Ryder Cup 2025",
@@ -84,12 +70,8 @@
       "Shriners Children's Open 2024",
       "Sony Open in Hawaii 2024",
       "Sony Open in Hawaii 2025",
-      "THE CJ CUP Byron Nelson 2024",
-      "THE CJ CUP Byron Nelson 2025",
       "THE PLAYERS Championship 2024",
       "THE PLAYERS Championship 2025",
-      "TOUR Championship 2024",
-      "TOUR Championship 2025",
       "Texas Children's Houston Open 2024",
       "Texas Children's Houston Open 2025",
       "The American Express 2024",
@@ -102,11 +84,6 @@
       "The Open Championship 2025",
       "The RSM Classic 2024",
       "The RSM Classic 2025",
-      "The Sentry 2024",
-      "The Sentry 2025",
-      "Travelers Championship 2024",
-      "Travelers Championship 2025",
-      "Truist Championship 2025",
       "U.S. Open 2024",
       "U.S. Open 2025",
       "Valero Texas Open 2024",
@@ -115,20 +92,308 @@
       "Valspar Championship 2025",
       "WM Phoenix Open 2024",
       "WM Phoenix Open 2025",
-      "Wells Fargo Championship 2024",
       "World Wide Technology Championship 2024",
       "World Wide Technology Championship 2025",
       "Wyndham Championship 2024",
       "Wyndham Championship 2025",
-      "ZOZO CHAMPIONSHIP 2024",
       "Zurich Classic of New Orleans",
       "the Memorial Tournament pres. by Workday 2024",
       "the Memorial Tournament pres. by Workday 2025",
       "the Memorial Tournament presented by Workday 2024",
       "the Memorial Tournament presented by Workday 2025"
     ],
-    "brier": 0.1969,
-    "baselineBrier": 0.2209,
+    "liveWeight": 3,
+    "holdoutFraction": 0.25,
+    "tables": {
+      "standard": {
+        "n": 2673,
+        "table": [
+          {
+            "score": 0,
+            "prob": 0.0
+          },
+          {
+            "score": 5,
+            "prob": 0.0
+          },
+          {
+            "score": 10,
+            "prob": 0.0
+          },
+          {
+            "score": 15,
+            "prob": 0.0
+          },
+          {
+            "score": 20,
+            "prob": 0.0
+          },
+          {
+            "score": 25,
+            "prob": 0.0
+          },
+          {
+            "score": 30,
+            "prob": 0.0
+          },
+          {
+            "score": 35,
+            "prob": 0.0
+          },
+          {
+            "score": 40,
+            "prob": 0.3261
+          },
+          {
+            "score": 45,
+            "prob": 0.5656
+          },
+          {
+            "score": 50,
+            "prob": 0.5788
+          },
+          {
+            "score": 55,
+            "prob": 0.6693
+          },
+          {
+            "score": 60,
+            "prob": 0.7512
+          },
+          {
+            "score": 65,
+            "prob": 0.7545
+          },
+          {
+            "score": 70,
+            "prob": 0.7898
+          },
+          {
+            "score": 75,
+            "prob": 0.8312
+          },
+          {
+            "score": 80,
+            "prob": 0.8851
+          },
+          {
+            "score": 85,
+            "prob": 0.9627
+          },
+          {
+            "score": 90,
+            "prob": 1.0
+          },
+          {
+            "score": 95,
+            "prob": 1.0
+          },
+          {
+            "score": 100,
+            "prob": 1.0
+          }
+        ],
+        "brier": 0.2173,
+        "uncalibratedBrier": 0.23,
+        "baselineBrier": 0.2313,
+        "baseRate": 0.6367,
+        "blocks": 62,
+        "heldoutBrier": 0.2342,
+        "heldoutN": 741
+      },
+      "major": {
+        "n": 572,
+        "table": [
+          {
+            "score": 0,
+            "prob": 0.3333
+          },
+          {
+            "score": 5,
+            "prob": 0.3333
+          },
+          {
+            "score": 10,
+            "prob": 0.3333
+          },
+          {
+            "score": 15,
+            "prob": 0.3333
+          },
+          {
+            "score": 20,
+            "prob": 0.3333
+          },
+          {
+            "score": 25,
+            "prob": 0.3333
+          },
+          {
+            "score": 30,
+            "prob": 0.3333
+          },
+          {
+            "score": 35,
+            "prob": 0.3333
+          },
+          {
+            "score": 40,
+            "prob": 0.3333
+          },
+          {
+            "score": 45,
+            "prob": 0.4188
+          },
+          {
+            "score": 50,
+            "prob": 0.5
+          },
+          {
+            "score": 55,
+            "prob": 0.684
+          },
+          {
+            "score": 60,
+            "prob": 0.703
+          },
+          {
+            "score": 65,
+            "prob": 0.7181
+          },
+          {
+            "score": 70,
+            "prob": 0.7318
+          },
+          {
+            "score": 75,
+            "prob": 0.8152
+          },
+          {
+            "score": 80,
+            "prob": 0.9833
+          },
+          {
+            "score": 85,
+            "prob": 1.0
+          },
+          {
+            "score": 90,
+            "prob": 1.0
+          },
+          {
+            "score": 95,
+            "prob": 1.0
+          },
+          {
+            "score": 100,
+            "prob": 1.0
+          }
+        ],
+        "brier": 0.2191,
+        "uncalibratedBrier": 0.2248,
+        "baselineBrier": 0.223,
+        "baseRate": 0.6643,
+        "blocks": 22,
+        "heldoutBrier": 0.266,
+        "heldoutN": 191
+      },
+      "default": {
+        "n": 3246,
+        "table": [
+          {
+            "score": 0,
+            "prob": 0.0
+          },
+          {
+            "score": 5,
+            "prob": 0.0
+          },
+          {
+            "score": 10,
+            "prob": 0.0
+          },
+          {
+            "score": 15,
+            "prob": 0.0
+          },
+          {
+            "score": 20,
+            "prob": 0.0
+          },
+          {
+            "score": 25,
+            "prob": 0.0
+          },
+          {
+            "score": 30,
+            "prob": 0.0
+          },
+          {
+            "score": 35,
+            "prob": 0.0
+          },
+          {
+            "score": 40,
+            "prob": 0.3261
+          },
+          {
+            "score": 45,
+            "prob": 0.5595
+          },
+          {
+            "score": 50,
+            "prob": 0.6207
+          },
+          {
+            "score": 55,
+            "prob": 0.6567
+          },
+          {
+            "score": 60,
+            "prob": 0.6848
+          },
+          {
+            "score": 65,
+            "prob": 0.7352
+          },
+          {
+            "score": 70,
+            "prob": 0.7887
+          },
+          {
+            "score": 75,
+            "prob": 0.8399
+          },
+          {
+            "score": 80,
+            "prob": 0.8715
+          },
+          {
+            "score": 85,
+            "prob": 0.9583
+          },
+          {
+            "score": 90,
+            "prob": 1.0
+          },
+          {
+            "score": 95,
+            "prob": 1.0
+          },
+          {
+            "score": 100,
+            "prob": 1.0
+          }
+        ],
+        "brier": 0.219,
+        "uncalibratedBrier": 0.2297,
+        "baselineBrier": 0.231,
+        "baseRate": 0.638,
+        "blocks": 69,
+        "heldoutBrier": 0.2384,
+        "heldoutN": 931
+      }
+    },
     "table": [
       {
         "score": 0,
@@ -164,43 +429,43 @@
       },
       {
         "score": 40,
-        "prob": 0.291
+        "prob": 0.3261
       },
       {
         "score": 45,
-        "prob": 0.568
+        "prob": 0.5595
       },
       {
         "score": 50,
-        "prob": 0.6037
+        "prob": 0.6207
       },
       {
         "score": 55,
-        "prob": 0.7376
+        "prob": 0.6567
       },
       {
         "score": 60,
-        "prob": 0.7912
+        "prob": 0.6848
       },
       {
         "score": 65,
-        "prob": 0.8185
+        "prob": 0.7352
       },
       {
         "score": 70,
-        "prob": 0.8236
+        "prob": 0.7887
       },
       {
         "score": 75,
-        "prob": 0.8478
+        "prob": 0.8399
       },
       {
         "score": 80,
-        "prob": 0.8846
+        "prob": 0.8715
       },
       {
         "score": 85,
-        "prob": 0.9406
+        "prob": 0.9583
       },
       {
         "score": 90,
@@ -215,6 +480,9 @@
         "prob": 1.0
       }
     ],
-    "_note": "Isotonic (PAV) calibration of raw confScore \u2192 make-cut probability. Lookup is piecewise-linear over table[].score. Trained by scripts/calibrate.py."
+    "brier": 0.219,
+    "baselineBrier": 0.2297,
+    "heldoutBrier": 0.2384,
+    "_note": "Stratified isotonic (PAV) calibration. tables[event_type] gives the table for that event type; tables.default is the all-pairs fallback. Each table includes heldoutBrier (out-of-sample on the most-recent holdoutFraction of dated pairs). Trained by scripts/calibrate.py."
   }
 }
