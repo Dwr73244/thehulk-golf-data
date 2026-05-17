@@ -4465,7 +4465,18 @@ def predict_player_position_probs(players, course_key=None, weather=None,
     for row in (tournament_sg or []):
         live_sg[normalize_name(row.get("name", ""))] = row.get("sgTotal", 0) or 0
 
-    # Live round scores (R1..R4 strokes per player when played)
+    # Live round scores (R1..R4 strokes per player when played).
+    # ESPN-fed leaderboard sometimes records the in-progress player's
+    # current round as a small THRU-strokes value (e.g. R4=4 = 4 strokes
+    # thru a few holes) instead of leaving it 0 until the round completes.
+    # We must reject these — treating "4" as a full round of 4 strokes
+    # makes a player look like a galactic-best historical performer and
+    # inverts the entire finishing-position simulation.
+    # Valid PGA round scores are roughly 58-90; anything below 50 or
+    # above 100 is partial / malformed and gets skipped (the sim
+    # synthesizes that round from the player's mean instead).
+    MIN_VALID_ROUND = 50
+    MAX_VALID_ROUND = 100
     fixed_rounds = {}
     if live_leaderboard:
         for row in live_leaderboard:
@@ -4473,7 +4484,7 @@ def predict_player_position_probs(players, course_key=None, weather=None,
             rs = {}
             for ri in (1, 2, 3, 4):
                 v = row.get(f"round{ri}")
-                if isinstance(v, (int, float)) and v > 0:
+                if isinstance(v, (int, float)) and MIN_VALID_ROUND <= v <= MAX_VALID_ROUND:
                     rs[ri] = float(v)
             if rs:
                 fixed_rounds[name] = rs
@@ -5043,13 +5054,15 @@ def predict_cut_line(players, course_key="augusta", weather=None, tournament_sg=
     for row in (tournament_sg or []):
         live_sg[normalize_name(row.get("name", ""))] = row.get("sgTotal", 0) or 0
 
-    # Live R1 scores lookup (if available)
+    # Live R1 scores lookup (if available). Same partial-round guard as
+    # predict_player_position_probs — reject values below 50 or above 100,
+    # which are mid-round THRU counters rather than completed-round totals.
     fixed_r1 = {}
     if live_leaderboard:
         for row in live_leaderboard:
             name = normalize_name(row.get("name", ""))
             r1 = row.get("round1")
-            if isinstance(r1, (int, float)) and r1 > 0:
+            if isinstance(r1, (int, float)) and 50 <= r1 <= 100:
                 fixed_r1[name] = float(r1)
 
     # Build per-player score distribution params
