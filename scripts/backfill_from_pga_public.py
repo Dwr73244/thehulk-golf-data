@@ -263,25 +263,37 @@ def main():
     from datetime import datetime as _dt
     curr = _dt.utcnow().year
     sg_candidates = [curr, curr - 1] + [s for s in args.seasons if s not in (curr, curr - 1)]
-    sg_by_name = {}
-    sg_source_season = None
+    # Always load DataGolf snapshot — it has full PGA Tour coverage (~250
+    # players) while BDL's /player_season_stats consistently returns ~3-10
+    # players with sg_total. Merge strategy: start with DataGolf, then let
+    # contemporaneous BDL values overwrite per-player (BDL is the more
+    # accurate source when available — DataGolf rankings can lag).
+    dg_sg = load_dg_sg_from_local()
+    print(f"[PGA] DataGolf snapshot: {len(dg_sg)} players")
+    bdl_sg = {}
+    bdl_season = None
     if os.environ.get("BDL_API_KEY"):
         # Wrap in try/except so transient BDL failures (rate-limit, timeout,
         # network blip — common when this script runs immediately after the
-        # BDL backfill in the same workflow) fall through to the DataGolf
-        # snapshot instead of crashing the whole ESPN backfill.
+        # BDL backfill in the same workflow) don't crash the whole ESPN
+        # backfill; we still have DataGolf data to fall back on.
         try:
-            sg_by_name, sg_source_season = fetch_season_sg_from_bdl(
+            bdl_sg, bdl_season = fetch_season_sg_from_bdl(
                 bdl_fetch_all, normalize_name, key_map, sg_candidates
             )
         except Exception as e:
-            print(f"[PGA] BDL season SG fetch failed ({type(e).__name__}: {e}) — falling back to DataGolf snapshot")
+            print(f"[PGA] BDL season SG fetch failed ({type(e).__name__}: {e}) — proceeding with DataGolf only")
     else:
         print("[PGA] BDL_API_KEY not set — skipping BDL season SG")
-    if not sg_by_name:
-        print("[PGA] Using DataGolf SG from golf-data.json as skill source")
-        sg_by_name = load_dg_sg_from_local()
+    # Union with BDL taking precedence
+    sg_by_name = dict(dg_sg)
+    sg_by_name.update(bdl_sg)
+    if bdl_sg:
+        sg_source_season = f"bdl_{bdl_season}_over_dg_snapshot"
+    else:
         sg_source_season = "dg_snapshot"
+    print(f"[PGA] Combined SG lookup: {len(sg_by_name)} players "
+          f"({len(bdl_sg)} from BDL, {len(dg_sg) - len(set(dg_sg) & set(bdl_sg))} DataGolf-only)")
     if not sg_by_name:
         print("[PGA] No skill data available from any source — cannot generate calibration pairs.")
         return 2
