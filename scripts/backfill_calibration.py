@@ -51,6 +51,13 @@ def _import_scraper():
 
 
 def fetch_completed_events(bdl_fetch_all, season):
+    """List completed PGA events for a season.
+
+    Tries the BDL ``season=<year>`` filter first. If that returns nothing —
+    which empirically happens because BDL's "season" may be the FedEx-cup
+    year rather than the calendar year — falls back to fetching ALL
+    completed tournaments and filtering by start_date prefix.
+    """
     print(f"[BACKFILL] Fetching completed events for season {season}...")
     rows = bdl_fetch_all(
         "tournaments",
@@ -65,18 +72,60 @@ def fetch_completed_events(bdl_fetch_all, season):
         if not tid:
             continue
         out.append({"id": tid, "name": name, "course": course, "season": season})
-    print(f"  {len(out)} completed events in {season}")
+    if out:
+        print(f"  {len(out)} completed events in season={season} (via season filter)")
+        return out
+
+    # Fallback: no season filter, filter client-side by start_date year
+    print(f"  Season filter returned 0; falling back to date-range scan...")
+    rows = bdl_fetch_all(
+        "tournaments",
+        {"status": "COMPLETED", "per_page": "100"},
+        max_pages=10,
+    )
+    target_prefix = str(season)
+    for t in (rows or []):
+        tid = t.get("id")
+        sd = t.get("start_date") or ""
+        if not tid or not sd.startswith(target_prefix):
+            continue
+        out.append({
+            "id": tid,
+            "name": t.get("name", ""),
+            "course": t.get("course_name", ""),
+            "season": season,
+        })
+    print(f"  {len(out)} completed events with start_date starting '{target_prefix}' (via fallback)")
     return out
 
 
-def fetch_season_sg_lookup(bdl_fetch_all, normalize_name, season):
-    """Build {normalized_name: sgTotal} for a season."""
-    print(f"[BACKFILL] Fetching player season SG for {season}...")
-    rows = bdl_fetch_all(
-        "player_season_stats",
-        {"season": str(season), "per_page": "100"},
-        max_pages=30,
-    )
+def fetch_season_sg_lookup(bdl_fetch_all, normalize_name, season, fallback_seasons=None):
+    """Build {normalized_name: sgTotal} for a season.
+
+    BDL's /player_season_stats sometimes returns sparse data for older
+    seasons. We try the requested season first, then fall back through
+    ``fallback_seasons`` (typically current and adjacent years). The
+    fallback isn't perfectly contemporaneous but is far better than no
+    data — player skill carries year-to-year.
+    """
+    candidates = [season] + (list(fallback_seasons) if fallback_seasons else [])
+    for s in candidates:
+        print(f"[BACKFILL] Fetching player season SG for {s}...")
+        rows = bdl_fetch_all(
+            "player_season_stats",
+            {"season": str(s), "per_page": "100"},
+            max_pages=30,
+        )
+        sg_by_name = _parse_season_sg(rows, normalize_name)
+        if sg_by_name:
+            if s != season:
+                print(f"  (using season {s} as proxy for {season} — no direct data)")
+            return sg_by_name
+    return {}
+
+
+def _parse_season_sg(rows, normalize_name):
+    """Helper: extract {normalized_name: sg_total_float} from BDL rows."""
     sg_by_name = {}
     for r in (rows or []):
         stat_name = (r.get("stat_name") or "").lower().strip()
@@ -98,7 +147,7 @@ def fetch_season_sg_lookup(bdl_fetch_all, normalize_name, season):
         except (TypeError, ValueError):
             continue
         sg_by_name[normalize_name(pname)] = sg
-    print(f"  {len(sg_by_name)} players with sg_total for {season}")
+    print(f"  {len(sg_by_name)} players with sg_total in this response")
     return sg_by_name
 
 
@@ -162,7 +211,16 @@ def main():
         if not events:
             print(f"  No completed events found for {season}")
             continue
-        sg_by_name = fetch_season_sg_lookup(bdl_fetch_all, normalize_name, season)
+        # Fallback chain: current year, then adjacent years (BDL sparse for
+        # older seasons; the current-year SG is a reasonable proxy since
+        # skill carries year-to-year).
+        from datetime import datetime as _dt2
+        _curr = _dt2.utcnow().year
+        fallbacks = [_curr, _curr - 1, _curr + 1]
+        fallbacks = [s for s in fallbacks if s != season]
+        sg_by_name = fetch_season_sg_lookup(
+            bdl_fetch_all, normalize_name, season, fallback_seasons=fallbacks
+        )
         if not sg_by_name:
             print(f"  No season SG data for {season} — skipping season")
             continue
