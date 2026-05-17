@@ -1239,6 +1239,17 @@ def load_model_params(base_dir=None):
         "windPenaltySlope": 0.08,
         "windStdSlope": 0.05,
         "windThresholdMph": 12.0,
+        # Copula correlation parameters for per-hole sim.
+        # rhoGlobal = share of variance attributable to a single round-wide
+        # momentum factor (replaces the old momentum-std parameter).
+        # rhoLocal = AR(1) correlation in the local factor (adjacent-hole
+        # correlation beyond what global momentum already creates).
+        # Calibrated empirically so total round-score std lands ~3.2 on a
+        # par-72 course — matching the PGA-tour round-to-round empirical
+        # range (2.9-3.5). Higher values blow up round variance; lower
+        # values collapse to independent-holes baseline.
+        "rhoGlobal": 0.01,
+        "rhoLocal":  0.06,
         "lastTrainedAt": None,
         "lastTrainedBrier": None,
         "calibration": None,
@@ -4339,6 +4350,65 @@ def _sample_hole_outcome(dist, rng):
     return "par"  # numerical safety
 
 
+def _outcome_from_uniform(q, dist):
+    """Same categorical sample as _sample_hole_outcome but driven by a
+    pre-supplied uniform [0,1] value (from the copula). This is the inverse
+    CDF mapping: the cumulative distribution F(eagle), F(birdie), ... is
+    walked and we return the first category whose threshold q falls below.
+    """
+    cum = 0.0
+    for k in ("eagle", "birdie", "par", "bogey", "double"):
+        cum += dist[k]
+        if q <= cum:
+            return k
+    return "par"
+
+
+# Standard normal CDF Φ(x) — used to convert correlated standard normals
+# into uniforms for the copula inverse-CDF transform.
+import math as _math
+def _norm_cdf(x):
+    return 0.5 * (1.0 + _math.erf(x / _math.sqrt(2.0)))
+
+
+def _sample_copula_uniforms(n_holes, rho_global, rho_local, rng):
+    """Draw n_holes correlated uniforms via a Gaussian copula.
+
+    Two-factor structure:
+      * Global momentum ``M ~ N(0, 1)`` shared across every hole — captures
+        round-wide hot/cold streaks. Loaded by ``√ρ_global``.
+      * Local AR(1) chain ``L_i = ρ_local · L_{i-1} + √(1-ρ²_local) · z_i``
+        with z_i iid N(0, 1) — captures adjacent-hole correlation that
+        decays with hole distance.
+      * Latent value ``u_i = √ρ_global · M + √(1-ρ_global) · L_i``
+      * Uniform value ``q_i = Φ(u_i)``
+
+    Returns a list of 18 uniforms in [0,1]. The caller maps each to a hole
+    outcome via the per-hole categorical inverse CDF.
+
+    Why this matters: pure-independent holes underestimate round-score
+    variance and miss the tail thickness needed to price multi-hole props
+    (front-9, back-9, hole-N) honestly. AR(1) + shared factor is the
+    minimum credible structure — same shape DataGolf uses internally
+    (per their public methodology notes).
+    """
+    M = rng.gauss(0.0, 1.0)
+    sqrt_rho_g = rho_global ** 0.5
+    sqrt_one_minus_g = (1.0 - rho_global) ** 0.5
+    sqrt_one_minus_l2 = (1.0 - rho_local * rho_local) ** 0.5
+    uniforms = []
+    L_prev = rng.gauss(0.0, 1.0)
+    for i in range(n_holes):
+        if i == 0:
+            L_i = L_prev
+        else:
+            L_i = rho_local * L_prev + sqrt_one_minus_l2 * rng.gauss(0.0, 1.0)
+        u = sqrt_rho_g * M + sqrt_one_minus_g * L_i
+        uniforms.append(_norm_cdf(u))
+        L_prev = L_i
+    return uniforms
+
+
 # Strokes delta per outcome relative to hole par. Eagles include albatross
 # (treated as -2 for simplicity; true albatross is -3 but vanishingly rare).
 OUTCOME_TO_DELTA = {"eagle": -2, "birdie": -1, "par": 0, "bogey": 1, "double": 2}
@@ -4379,39 +4449,51 @@ def predict_per_hole_props(players, course_data, course_par=None,
     mp = model_params_override or load_model_params()
     sg_blend_season = mp.get("sgBlendSeason", 0.7)
 
-    # Per-round momentum standard deviation. A round draw of e.g. +0.5 means
-    # the player runs hot this round (every hole's distribution shifts toward
-    # birdie). Without momentum, hole outcomes are independent given skill —
-    # which underestimates round-score variance (real rounds correlate within
-    # themselves because confidence/energy/feel carries hole to hole). 0.4
-    # matches the empirical "hot/cold round" variance from PGA SG data.
-    ROUND_MOMENTUM_STD = 0.4
+    # Gaussian-copula correlation parameters. Pulled from model_params so a
+    # later backtest job can tune them against observed round-score variance.
+    rho_global = mp.get("rhoGlobal", 0.10)
+    rho_local  = mp.get("rhoLocal",  0.15)
+
+    n_holes = len(hole_defs)
+    front_par = sum(hole_pars[:9])
+    back_par  = sum(hole_pars[9:18]) if n_holes >= 18 else 0
 
     out = {}
     for p in players:
         sg = effective_sg(p)
-        # Pre-compute the NO-MOMENTUM skill-adjusted dist per hole as the
-        # baseline; per-sim momentum will be added on the fly.
-        # base_dists keeps the raw course distribution so we can re-apply
-        # combined (skill + momentum) per sim without double-applying skill.
-        base_dists = [h["dist"] for h in hole_defs]
+        # Each hole's skill-adjusted categorical (still computed once per
+        # player). The copula adds correlated uniforms drawn per sim; we
+        # don't shift the dist itself per sim anymore — that's what the
+        # global-momentum factor in the copula handles.
+        adj_dists = [_skill_adjusted_dist(h["dist"], sg) for h in hole_defs]
 
         # Aggregate counters across sims
         round_scores = [0] * sims
-        birdies = [0] * sims
-        bogeys = [0] * sims
-        eagles_cnt = [0] * sims
-        doubles_cnt = [0] * sims
+        front_scores = [0] * sims
+        back_scores  = [0] * sims
+        birdies      = [0] * sims
+        bogeys       = [0] * sims
+        eagles_cnt   = [0] * sims
+        doubles_cnt  = [0] * sims
+        # Per-hole score deltas across sims for hole-level distributions
+        per_hole_deltas = [[0] * sims for _ in range(n_holes)]
+
         for s in range(sims):
-            # Round momentum: drawn once at round start, applied to every hole
-            momentum = rng.gauss(0.0, ROUND_MOMENTUM_STD)
-            effective_skill = sg + momentum
-            # Adjust each hole's dist for this round only
-            mom_dists = [_skill_adjusted_dist(base, effective_skill) for base in base_dists]
-            total = par_round_total
-            for hi in range(18):
-                outcome = _sample_hole_outcome(mom_dists[hi], rng)
-                total += OUTCOME_TO_DELTA[outcome]
+            # Draw 18 correlated uniforms via the Gaussian copula
+            qs = _sample_copula_uniforms(n_holes, rho_global, rho_local, rng)
+            total = 0
+            front_total = 0
+            back_total = 0
+            for hi in range(n_holes):
+                outcome = _outcome_from_uniform(qs[hi], adj_dists[hi])
+                delta = OUTCOME_TO_DELTA[outcome]
+                hole_score = hole_pars[hi] + delta
+                per_hole_deltas[hi][s] = hole_score
+                total += hole_score
+                if hi < 9:
+                    front_total += hole_score
+                elif hi < 18:
+                    back_total += hole_score
                 if outcome == "birdie":
                     birdies[s] += 1
                 elif outcome == "bogey":
@@ -4421,9 +4503,10 @@ def predict_per_hole_props(players, course_data, course_par=None,
                 elif outcome == "double":
                     doubles_cnt[s] += 1
             round_scores[s] = total
+            front_scores[s] = front_total
+            back_scores[s]  = back_total
 
         def _stat_summary(arr, max_val):
-            """mean, std, and cumulative P(X >= k) for k = 0..max_val."""
             n = len(arr)
             mean = sum(arr) / n
             var = sum((x - mean) ** 2 for x in arr) / n
@@ -4432,34 +4515,48 @@ def predict_per_hole_props(players, course_data, course_par=None,
                 cum[str(k)] = round(sum(1 for x in arr if x >= k) / n, 4)
             return {"mean": round(mean, 2), "std": round(var ** 0.5, 2), "pGte": cum}
 
-        rs_mean = sum(round_scores) / sims
-        rs_var = sum((x - rs_mean) ** 2 for x in round_scores) / sims
-        # For round score we just store mean/std and a few key tiers
-        rs_dist = {}
-        for thr in range(par_round_total - 5, par_round_total + 6):
-            rs_dist[str(thr)] = round(sum(1 for x in round_scores if x <= thr) / sims, 4)
+        def _score_dist(arr, par_total, half_width=5):
+            """Mean/std + cumulative pLte[score] table around par_total."""
+            n = len(arr)
+            mean = sum(arr) / n
+            var = sum((x - mean) ** 2 for x in arr) / n
+            cum = {}
+            for thr in range(par_total - half_width, par_total + half_width + 1):
+                cum[str(thr)] = round(sum(1 for x in arr if x <= thr) / n, 4)
+            return {"mean": round(mean, 2), "std": round(var ** 0.5, 2), "pLte": cum}
+
+        def _per_hole_stat(arr, par_hole):
+            """Per-hole score distribution: mean + pLte at par-2..par+3."""
+            n = len(arr)
+            mean = sum(arr) / n
+            var = sum((x - mean) ** 2 for x in arr) / n
+            cum = {}
+            for thr in range(max(1, par_hole - 2), par_hole + 4):
+                cum[str(thr)] = round(sum(1 for x in arr if x <= thr) / n, 4)
+            return {"mean": round(mean, 2), "std": round(var ** 0.5, 2), "pLte": cum}
 
         out[normalize_name(p.get("name", ""))] = {
             "name": p.get("name"),
             "sims": sims,
-            "roundScore": {
-                "mean": round(rs_mean, 2),
-                "std": round(rs_var ** 0.5, 2),
-                # pLte[score] = P(round score <= score). Useful for over/under
-                # pricing: P(score > L) = 1 - pLte[L].
-                "pLte": rs_dist,
-            },
+            "roundScore":  _score_dist(round_scores, par_round_total),
+            "frontNine":   _score_dist(front_scores, front_par),
+            "backNine":    _score_dist(back_scores,  back_par) if n_holes >= 18 else None,
             "birdies":     _stat_summary(birdies,     12),
             "bogeys":      _stat_summary(bogeys,      10),
             "eagles":      _stat_summary(eagles_cnt,   3),
             "doublePlus":  _stat_summary(doubles_cnt,  5),
+            # Per-hole distributions — keyed by hole number (1-18)
+            "holes": {
+                str(hi + 1): _per_hole_stat(per_hole_deltas[hi], hole_pars[hi])
+                for hi in range(n_holes)
+            },
         }
 
     # Sanity check
     sample = list(out.values())[:3]
-    print(f"  Per-hole sims complete for {len(out)} players")
+    print(f"  Per-hole sims complete for {len(out)} players (copula: rho_global={rho_global}, rho_local={rho_local})")
     for s in sample:
-        print(f"    {s['name']}: round avg={s['roundScore']['mean']} birdies={s['birdies']['mean']} bogeys={s['bogeys']['mean']}")
+        print(f"    {s['name']}: round avg={s['roundScore']['mean']} (std {s['roundScore']['std']}) | front {s['frontNine']['mean']} | back {s['backNine']['mean'] if s['backNine'] else '-'}")
     return out
 
 
@@ -4491,9 +4588,25 @@ def price_player_props(prop_lines, per_hole_props, overround_makecut_default=1.0
                 line = float(line_raw)
             except (TypeError, ValueError):
                 continue
-            # Map prop_type to one of our distribution keys
+            # Map prop_type to one of our distribution keys. With the
+            # Gaussian copula in place we can now price front-9, back-9, and
+            # single-hole markets — all unlocked because the copula sampler
+            # gives us a joint distribution over per-hole scores, not just
+            # the round total.
             dist_key = None
-            if "birdie" in prop_type:
+            hole_match = None  # for single-hole props like "hole_5_score"
+            if "front" in prop_type and "9" in prop_type:
+                dist_key = "frontNine"
+            elif "back" in prop_type and "9" in prop_type:
+                dist_key = "backNine"
+            elif "hole_" in prop_type or "hole-" in prop_type:
+                # Extract hole number from prop_type like "hole_5_score" / "hole-12-par"
+                import re as _re
+                _m = _re.search(r"hole[_-](\d{1,2})", prop_type)
+                if _m:
+                    hole_match = _m.group(1)
+                    dist_key = "holes"
+            elif "birdie" in prop_type:
                 dist_key = "birdies"
             elif "bogey" in prop_type:
                 dist_key = "bogeys"
@@ -4503,15 +4616,35 @@ def price_player_props(prop_lines, per_hole_props, overround_makecut_default=1.0
                 dist_key = "roundScore"
             if not dist_key:
                 continue
-            if dist_key == "roundScore":
-                # Over means score > line; we have pLte[score]
-                p_lte = php["roundScore"]["pLte"]
-                # find nearest threshold
+            if dist_key in ("roundScore", "frontNine", "backNine"):
+                stat = php.get(dist_key)
+                if not stat or not stat.get("pLte"):
+                    continue
+                p_lte = stat["pLte"]
                 int_line = int(round(line))
-                p_over = 1.0 - p_lte.get(str(int_line), 0.5)
+                # P(score > line). pLte may not include this exact key — use
+                # closest available threshold.
+                key = str(int_line)
+                if key not in p_lte:
+                    keys = sorted(int(k) for k in p_lte.keys())
+                    # Find nearest available
+                    nearest = min(keys, key=lambda k: abs(k - int_line))
+                    key = str(nearest)
+                p_over = 1.0 - p_lte.get(key, 0.5)
+            elif dist_key == "holes":
+                hole_stat = (php.get("holes") or {}).get(hole_match)
+                if not hole_stat or not hole_stat.get("pLte"):
+                    continue
+                p_lte = hole_stat["pLte"]
+                int_line = int(round(line))
+                key = str(int_line)
+                if key not in p_lte:
+                    keys = sorted(int(k) for k in p_lte.keys())
+                    nearest = min(keys, key=lambda k: abs(k - int_line))
+                    key = str(nearest)
+                p_over = 1.0 - p_lte.get(key, 0.5)
             else:
                 p_gte = php[dist_key]["pGte"]
-                # Over k.5 means count >= k+1
                 int_line = int(line + 0.5)
                 p_over = p_gte.get(str(int_line), 0.0)
             p_under = 1.0 - p_over

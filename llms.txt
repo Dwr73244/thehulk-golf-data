@@ -72,8 +72,13 @@ product, no signup required.
   using existing `odds_history.json` snapshots. Zero new API calls.
 - **Matchup decomposition**: per-factor contribution breakdown (SG / fit /
   form / weather) at `player.contrib` on matchup outputs.
-- **Per-hole round momentum**: shared per-round factor injected into
-  per-hole sim to capture within-round correlation.
+- **Gaussian copula** for per-hole sim: global momentum + AR(1) local
+  correlation. Produces a true joint distribution over per-hole scores,
+  which unlocks honest pricing for front-9 / back-9 over/unders and
+  single-hole markets. Per-player per-hole expected scores attached at
+  `perHoleProps[name].holes[N]`; front-9 / back-9 distributions at
+  `perHoleProps[name].frontNine` / `.backNine`. Tunable parameters
+  `rhoGlobal` / `rhoLocal` in `model_params.json`.
 - **Player similarity**: kNN on SG profiles → `similarPlayers` per player.
 - **Sharpe-style "Edge ÷ σ" sort** in the scorecard view.
 - **DataGolf trust audit** runs weekly in CI; Discord-alerts on SUSPECT/FAIL.
