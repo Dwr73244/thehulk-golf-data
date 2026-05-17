@@ -1,0 +1,1232 @@
+{
+  "generatedAt": "2026-05-17T02:42:23.487319Z",
+  "source": "espn_pga_scoreboard",
+  "seasons": [
+    2024,
+    2025
+  ],
+  "sgSourceSeason": 2026,
+  "summary": [
+    {
+      "season": 2024,
+      "events": 49,
+      "pairs": 64
+    },
+    {
+      "season": 2025,
+      "events": 48,
+      "pairs": 70
+    }
+  ],
+  "totalPairs": 134,
+  "baseMakeCutRate": 0.8657,
+  "_note": "ESPN-derived (proxy_score, made_cut) pairs for calibration. Consumed by scripts/calibrate.py alongside backfill_calibration.json.",
+  "pairs": [
+    {
+      "event": "The Sentry",
+      "season": 2024,
+      "espn_event_id": "401580329",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "The Sentry",
+      "season": 2024,
+      "espn_event_id": "401580329",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "The Sentry",
+      "season": 2024,
+      "espn_event_id": "401580329",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Sony Open in Hawaii",
+      "season": 2024,
+      "espn_event_id": "401580330",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "The American Express",
+      "season": 2024,
+      "espn_event_id": "401580331",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Farmers Insurance Open",
+      "season": 2024,
+      "espn_event_id": "401580332",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2024,
+      "espn_event_id": "401580333",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2024,
+      "espn_event_id": "401580333",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2024,
+      "espn_event_id": "401580333",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "WM Phoenix Open",
+      "season": 2024,
+      "espn_event_id": "401580334",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "WM Phoenix Open",
+      "season": 2024,
+      "espn_event_id": "401580334",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2024,
+      "espn_event_id": "401580335",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2024,
+      "espn_event_id": "401580335",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2024,
+      "espn_event_id": "401580335",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Cognizant Classic",
+      "season": 2024,
+      "espn_event_id": "401580337",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational pres. by Mastercard",
+      "season": 2024,
+      "espn_event_id": "401580338",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational pres. by Mastercard",
+      "season": 2024,
+      "espn_event_id": "401580338",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational pres. by Mastercard",
+      "season": 2024,
+      "espn_event_id": "401580338",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2024,
+      "espn_event_id": "401580340",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2024,
+      "espn_event_id": "401580340",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2024,
+      "espn_event_id": "401580340",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Valspar Championship",
+      "season": 2024,
+      "espn_event_id": "401580341",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Texas Children's Houston Open",
+      "season": 2024,
+      "espn_event_id": "401580342",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Valero Texas Open",
+      "season": 2024,
+      "espn_event_id": "401580343",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2024,
+      "espn_event_id": "401580344",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2024,
+      "espn_event_id": "401580344",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2024,
+      "espn_event_id": "401580344",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2024,
+      "espn_event_id": "401580345",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2024,
+      "espn_event_id": "401580345",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2024,
+      "espn_event_id": "401580345",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Wells Fargo Championship",
+      "season": 2024,
+      "espn_event_id": "401580349",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2024,
+      "espn_event_id": "401580351",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2024,
+      "espn_event_id": "401580351",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2024,
+      "espn_event_id": "401580351",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": false
+    },
+    {
+      "event": "Charles Schwab Challenge",
+      "season": 2024,
+      "espn_event_id": "401580352",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Canadian Open",
+      "season": 2024,
+      "espn_event_id": "401580353",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": false
+    },
+    {
+      "event": "the Memorial Tournament pres. by Workday",
+      "season": 2024,
+      "espn_event_id": "401580354",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament pres. by Workday",
+      "season": 2024,
+      "espn_event_id": "401580354",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament pres. by Workday",
+      "season": 2024,
+      "espn_event_id": "401580354",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2024,
+      "espn_event_id": "401580355",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2024,
+      "espn_event_id": "401580355",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2024,
+      "espn_event_id": "401580355",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2024,
+      "espn_event_id": "401580356",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2024,
+      "espn_event_id": "401580356",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2024,
+      "espn_event_id": "401580356",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Rocket Mortgage Classic",
+      "season": 2024,
+      "espn_event_id": "401580357",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2024,
+      "espn_event_id": "401580359",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "The Open",
+      "season": 2024,
+      "espn_event_id": "401580360",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "The Open",
+      "season": 2024,
+      "espn_event_id": "401580360",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "The Open",
+      "season": 2024,
+      "espn_event_id": "401580360",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": false
+    },
+    {
+      "event": "Wyndham Championship",
+      "season": 2024,
+      "espn_event_id": "401580363",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2024,
+      "espn_event_id": "401580364",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2024,
+      "espn_event_id": "401580364",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2024,
+      "espn_event_id": "401580364",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2024,
+      "espn_event_id": "401580365",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2024,
+      "espn_event_id": "401580365",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2024,
+      "espn_event_id": "401580365",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2024,
+      "espn_event_id": "401580366",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2024,
+      "espn_event_id": "401580366",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Presidents Cup",
+      "season": 2024,
+      "espn_event_id": "401656722",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": false
+    },
+    {
+      "event": "The RSM Classic",
+      "season": 2024,
+      "espn_event_id": "401693943",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Hero World Challenge",
+      "season": 2024,
+      "espn_event_id": "401693956",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Hero World Challenge",
+      "season": 2024,
+      "espn_event_id": "401693956",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Hero World Challenge",
+      "season": 2024,
+      "espn_event_id": "401693956",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "The Sentry",
+      "season": 2025,
+      "espn_event_id": "401703489",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "The Sentry",
+      "season": 2025,
+      "espn_event_id": "401703489",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "The American Express",
+      "season": 2025,
+      "espn_event_id": "401703491",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Farmers Insurance Open",
+      "season": 2025,
+      "espn_event_id": "401703492",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2025,
+      "espn_event_id": "401703493",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2025,
+      "espn_event_id": "401703493",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2025,
+      "espn_event_id": "401703493",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": false
+    },
+    {
+      "event": "WM Phoenix Open",
+      "season": 2025,
+      "espn_event_id": "401703494",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "WM Phoenix Open",
+      "season": 2025,
+      "espn_event_id": "401703494",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2025,
+      "espn_event_id": "401703495",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2025,
+      "espn_event_id": "401703495",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2025,
+      "espn_event_id": "401703495",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": false
+    },
+    {
+      "event": "Cognizant Classic in The Palm Beaches",
+      "season": 2025,
+      "espn_event_id": "401703497",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": false
+    },
+    {
+      "event": "Arnold Palmer Invitational pres. by Mastercard",
+      "season": 2025,
+      "espn_event_id": "401703498",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational pres. by Mastercard",
+      "season": 2025,
+      "espn_event_id": "401703498",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational pres. by Mastercard",
+      "season": 2025,
+      "espn_event_id": "401703498",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": false
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2025,
+      "espn_event_id": "401703500",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2025,
+      "espn_event_id": "401703500",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2025,
+      "espn_event_id": "401703500",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": false
+    },
+    {
+      "event": "Valspar Championship",
+      "season": 2025,
+      "espn_event_id": "401703501",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": false
+    },
+    {
+      "event": "Texas Children's Houston Open",
+      "season": 2025,
+      "espn_event_id": "401703502",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Valero Texas Open",
+      "season": 2025,
+      "espn_event_id": "401703503",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Valero Texas Open",
+      "season": 2025,
+      "espn_event_id": "401703503",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": false
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2025,
+      "espn_event_id": "401703504",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2025,
+      "espn_event_id": "401703504",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2025,
+      "espn_event_id": "401703504",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": false
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2025,
+      "espn_event_id": "401703505",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2025,
+      "espn_event_id": "401703505",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2025,
+      "espn_event_id": "401703505",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "THE CJ CUP Byron Nelson",
+      "season": 2025,
+      "espn_event_id": "401703508",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Truist Championship",
+      "season": 2025,
+      "espn_event_id": "401703509",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Truist Championship",
+      "season": 2025,
+      "espn_event_id": "401703509",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2025,
+      "espn_event_id": "401703511",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2025,
+      "espn_event_id": "401703511",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2025,
+      "espn_event_id": "401703511",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": false
+    },
+    {
+      "event": "Charles Schwab Challenge",
+      "season": 2025,
+      "espn_event_id": "401703512",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament pres. by Workday",
+      "season": 2025,
+      "espn_event_id": "401703513",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament pres. by Workday",
+      "season": 2025,
+      "espn_event_id": "401703513",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament pres. by Workday",
+      "season": 2025,
+      "espn_event_id": "401703513",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Canadian Open",
+      "season": 2025,
+      "espn_event_id": "401703514",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Canadian Open",
+      "season": 2025,
+      "espn_event_id": "401703514",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2025,
+      "espn_event_id": "401703515",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2025,
+      "espn_event_id": "401703515",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2025,
+      "espn_event_id": "401703515",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": false
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2025,
+      "espn_event_id": "401703516",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2025,
+      "espn_event_id": "401703516",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2025,
+      "espn_event_id": "401703516",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Rocket Classic",
+      "season": 2025,
+      "espn_event_id": "401703517",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2025,
+      "espn_event_id": "401703519",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2025,
+      "espn_event_id": "401703519",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "The Open",
+      "season": 2025,
+      "espn_event_id": "401703521",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "The Open",
+      "season": 2025,
+      "espn_event_id": "401703521",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "The Open",
+      "season": 2025,
+      "espn_event_id": "401703521",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": false
+    },
+    {
+      "event": "Wyndham Championship",
+      "season": 2025,
+      "espn_event_id": "401703524",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2025,
+      "espn_event_id": "401703525",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2025,
+      "espn_event_id": "401703525",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2025,
+      "espn_event_id": "401703525",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2025,
+      "espn_event_id": "401703530",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2025,
+      "espn_event_id": "401703530",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2025,
+      "espn_event_id": "401703530",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2025,
+      "espn_event_id": "401703531",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2025,
+      "espn_event_id": "401703531",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2025,
+      "espn_event_id": "401703531",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": true
+    },
+    {
+      "event": "Procore Championship",
+      "season": 2025,
+      "espn_event_id": "401738553",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Procore Championship",
+      "season": 2025,
+      "espn_event_id": "401738553",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    },
+    {
+      "event": "Ryder Cup",
+      "season": 2025,
+      "espn_event_id": "401734110",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": false
+    },
+    {
+      "event": "Ryder Cup",
+      "season": 2025,
+      "espn_event_id": "401734110",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": false
+    },
+    {
+      "event": "Ryder Cup",
+      "season": 2025,
+      "espn_event_id": "401734110",
+      "player": "Ludvig \u00c5berg",
+      "proxy_score": 74.3,
+      "season_sg": 1.62,
+      "made_cut": false
+    },
+    {
+      "event": "Hero World Challenge",
+      "season": 2025,
+      "espn_event_id": "401738560",
+      "player": "Scottie Scheffler",
+      "proxy_score": 80.8,
+      "season_sg": 2.06,
+      "made_cut": true
+    },
+    {
+      "event": "Hero World Challenge",
+      "season": 2025,
+      "espn_event_id": "401738560",
+      "player": "Cameron Young",
+      "proxy_score": 75.4,
+      "season_sg": 1.69,
+      "made_cut": true
+    }
+  ]
+}
