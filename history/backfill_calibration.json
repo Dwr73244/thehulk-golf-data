@@ -1,12 +1,2346 @@
 {
-  "generatedAt": "2026-05-17T02:06:45.171816Z",
+  "generatedAt": "2026-05-17T02:31:45.378233Z",
   "seasons": [
     2024,
     2025
   ],
-  "summary": [],
-  "totalPairs": 0,
-  "baseMakeCutRate": 0.0,
+  "summary": [
+    {
+      "season": 2024,
+      "events": 50,
+      "pairs": 130
+    },
+    {
+      "season": 2025,
+      "events": 48,
+      "pairs": 128
+    }
+  ],
+  "totalPairs": 258,
+  "baseMakeCutRate": 0.9186,
   "_note": "Backfilled (proxy_score, made_cut) pairs for calibration. Consumed by scripts/calibrate.py \u2014 see --use-backfill flag.",
-  "pairs": []
+  "pairs": [
+    {
+      "event": "The Sentry",
+      "season": 2024,
+      "tournament_id": 1,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "The Sentry",
+      "season": 2024,
+      "tournament_id": 1,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "The Sentry",
+      "season": 2024,
+      "tournament_id": 1,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "The Sentry",
+      "season": 2024,
+      "tournament_id": 1,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "Sony Open in Hawaii",
+      "season": 2024,
+      "tournament_id": 2,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "Sony Open in Hawaii",
+      "season": 2024,
+      "tournament_id": 2,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "The American Express",
+      "season": 2024,
+      "tournament_id": 3,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "The American Express",
+      "season": 2024,
+      "tournament_id": 3,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "The American Express",
+      "season": 2024,
+      "tournament_id": 3,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": false
+    },
+    {
+      "event": "Farmers Insurance Open",
+      "season": 2024,
+      "tournament_id": 4,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "Farmers Insurance Open",
+      "season": 2024,
+      "tournament_id": 4,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "Farmers Insurance Open",
+      "season": 2024,
+      "tournament_id": 4,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "Farmers Insurance Open",
+      "season": 2024,
+      "tournament_id": 4,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": false
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2024,
+      "tournament_id": 5,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2024,
+      "tournament_id": 5,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2024,
+      "tournament_id": 5,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2024,
+      "tournament_id": 5,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2024,
+      "tournament_id": 5,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "WM Phoenix Open",
+      "season": 2024,
+      "tournament_id": 100,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "WM Phoenix Open",
+      "season": 2024,
+      "tournament_id": 100,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "WM Phoenix Open",
+      "season": 2024,
+      "tournament_id": 100,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": false
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2024,
+      "tournament_id": 101,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2024,
+      "tournament_id": 101,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2024,
+      "tournament_id": 101,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2024,
+      "tournament_id": 101,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2024,
+      "tournament_id": 101,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "Mexico Open at Vidanta",
+      "season": 2024,
+      "tournament_id": 102,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "Cognizant Classic in The Palm Beaches",
+      "season": 2024,
+      "tournament_id": 103,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational presented by Mastercard",
+      "season": 2024,
+      "tournament_id": 104,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational presented by Mastercard",
+      "season": 2024,
+      "tournament_id": 104,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational presented by Mastercard",
+      "season": 2024,
+      "tournament_id": 104,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational presented by Mastercard",
+      "season": 2024,
+      "tournament_id": 104,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational presented by Mastercard",
+      "season": 2024,
+      "tournament_id": 104,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": false
+    },
+    {
+      "event": "Puerto Rico Open",
+      "season": 2024,
+      "tournament_id": 105,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2024,
+      "tournament_id": 106,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2024,
+      "tournament_id": 106,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2024,
+      "tournament_id": 106,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2024,
+      "tournament_id": 106,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2024,
+      "tournament_id": 106,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2024,
+      "tournament_id": 106,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "Valspar Championship",
+      "season": 2024,
+      "tournament_id": 107,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "Valspar Championship",
+      "season": 2024,
+      "tournament_id": 107,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": false
+    },
+    {
+      "event": "Texas Children's Houston Open",
+      "season": 2024,
+      "tournament_id": 108,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "Texas Children's Houston Open",
+      "season": 2024,
+      "tournament_id": 108,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "Valero Texas Open",
+      "season": 2024,
+      "tournament_id": 109,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "Valero Texas Open",
+      "season": 2024,
+      "tournament_id": 109,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "Valero Texas Open",
+      "season": 2024,
+      "tournament_id": 109,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "Valero Texas Open",
+      "season": 2024,
+      "tournament_id": 109,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2024,
+      "tournament_id": 110,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2024,
+      "tournament_id": 110,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2024,
+      "tournament_id": 110,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2024,
+      "tournament_id": 110,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2024,
+      "tournament_id": 110,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2024,
+      "tournament_id": 111,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2024,
+      "tournament_id": 111,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2024,
+      "tournament_id": 111,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2024,
+      "tournament_id": 111,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "Corales Puntacana Championship",
+      "season": 2024,
+      "tournament_id": 112,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": false
+    },
+    {
+      "event": "THE CJ CUP Byron Nelson",
+      "season": 2024,
+      "tournament_id": 114,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "Wells Fargo Championship",
+      "season": 2024,
+      "tournament_id": 115,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "Wells Fargo Championship",
+      "season": 2024,
+      "tournament_id": 115,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "Wells Fargo Championship",
+      "season": 2024,
+      "tournament_id": 115,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2024,
+      "tournament_id": 117,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2024,
+      "tournament_id": 117,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2024,
+      "tournament_id": 117,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2024,
+      "tournament_id": 117,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2024,
+      "tournament_id": 117,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2024,
+      "tournament_id": 117,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "Charles Schwab Challenge",
+      "season": 2024,
+      "tournament_id": 118,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "Charles Schwab Challenge",
+      "season": 2024,
+      "tournament_id": 118,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "Charles Schwab Challenge",
+      "season": 2024,
+      "tournament_id": 118,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Canadian Open",
+      "season": 2024,
+      "tournament_id": 119,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Canadian Open",
+      "season": 2024,
+      "tournament_id": 119,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament presented by Workday",
+      "season": 2024,
+      "tournament_id": 120,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament presented by Workday",
+      "season": 2024,
+      "tournament_id": 120,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament presented by Workday",
+      "season": 2024,
+      "tournament_id": 120,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament presented by Workday",
+      "season": 2024,
+      "tournament_id": 120,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament presented by Workday",
+      "season": 2024,
+      "tournament_id": 120,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2024,
+      "tournament_id": 121,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2024,
+      "tournament_id": 121,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2024,
+      "tournament_id": 121,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2024,
+      "tournament_id": 121,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2024,
+      "tournament_id": 121,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2024,
+      "tournament_id": 121,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2024,
+      "tournament_id": 122,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2024,
+      "tournament_id": 122,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2024,
+      "tournament_id": 122,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2024,
+      "tournament_id": 122,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "Rocket Mortgage Classic",
+      "season": 2024,
+      "tournament_id": 123,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "John Deere Classic",
+      "season": 2024,
+      "tournament_id": 124,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2024,
+      "tournament_id": 125,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2024,
+      "tournament_id": 125,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2024,
+      "tournament_id": 125,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2024,
+      "tournament_id": 125,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2024,
+      "tournament_id": 125,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": false
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2024,
+      "tournament_id": 127,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2024,
+      "tournament_id": 127,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2024,
+      "tournament_id": 127,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2024,
+      "tournament_id": 127,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2024,
+      "tournament_id": 127,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2024,
+      "tournament_id": 127,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": false
+    },
+    {
+      "event": "Men\u2019s Olympic Golf Competition",
+      "season": 2024,
+      "tournament_id": 130,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "Men\u2019s Olympic Golf Competition",
+      "season": 2024,
+      "tournament_id": 130,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "Men\u2019s Olympic Golf Competition",
+      "season": 2024,
+      "tournament_id": 130,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "Men\u2019s Olympic Golf Competition",
+      "season": 2024,
+      "tournament_id": 130,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "Men\u2019s Olympic Golf Competition",
+      "season": 2024,
+      "tournament_id": 130,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "Wyndham Championship",
+      "season": 2024,
+      "tournament_id": 131,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2024,
+      "tournament_id": 132,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2024,
+      "tournament_id": 132,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2024,
+      "tournament_id": 132,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2024,
+      "tournament_id": 132,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2024,
+      "tournament_id": 132,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2024,
+      "tournament_id": 132,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2024,
+      "tournament_id": 133,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2024,
+      "tournament_id": 133,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2024,
+      "tournament_id": 133,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2024,
+      "tournament_id": 133,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2024,
+      "tournament_id": 133,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2024,
+      "tournament_id": 133,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2024,
+      "tournament_id": 134,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2024,
+      "tournament_id": 134,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2024,
+      "tournament_id": 134,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2024,
+      "tournament_id": 134,
+      "player": "Rory McIlroy",
+      "proxy_score": 71.2,
+      "season_sg": 1.41,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2024,
+      "tournament_id": 134,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2024,
+      "tournament_id": 134,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "ZOZO CHAMPIONSHIP",
+      "season": 2024,
+      "tournament_id": 140,
+      "player": "Xander Schauffele",
+      "proxy_score": 79.1,
+      "season_sg": 1.94,
+      "made_cut": true
+    },
+    {
+      "event": "ZOZO CHAMPIONSHIP",
+      "season": 2024,
+      "tournament_id": 140,
+      "player": "Hideki Matsuyama",
+      "proxy_score": 69.0,
+      "season_sg": 1.27,
+      "made_cut": true
+    },
+    {
+      "event": "ZOZO CHAMPIONSHIP",
+      "season": 2024,
+      "tournament_id": 140,
+      "player": "Collin Morikawa",
+      "proxy_score": 68.0,
+      "season_sg": 1.2,
+      "made_cut": true
+    },
+    {
+      "event": "Hero World Challenge",
+      "season": 2024,
+      "tournament_id": 144,
+      "player": "Scottie Scheffler",
+      "proxy_score": 87.4,
+      "season_sg": 2.5,
+      "made_cut": true
+    },
+    {
+      "event": "Hero World Challenge",
+      "season": 2024,
+      "tournament_id": 144,
+      "player": "Aaron Rai",
+      "proxy_score": 67.8,
+      "season_sg": 1.19,
+      "made_cut": true
+    },
+    {
+      "event": "The Sentry",
+      "season": 2025,
+      "tournament_id": 6,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "The Sentry",
+      "season": 2025,
+      "tournament_id": 6,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "Sony Open in Hawaii",
+      "season": 2025,
+      "tournament_id": 46,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "Sony Open in Hawaii",
+      "season": 2025,
+      "tournament_id": 46,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "Sony Open in Hawaii",
+      "season": 2025,
+      "tournament_id": 46,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "The American Express",
+      "season": 2025,
+      "tournament_id": 47,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "The American Express",
+      "season": 2025,
+      "tournament_id": 47,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "Farmers Insurance Open",
+      "season": 2025,
+      "tournament_id": 48,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": false
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2025,
+      "tournament_id": 49,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2025,
+      "tournament_id": 49,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2025,
+      "tournament_id": 49,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2025,
+      "tournament_id": 49,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2025,
+      "tournament_id": 49,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "AT&T Pebble Beach Pro-Am",
+      "season": 2025,
+      "tournament_id": 49,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "WM Phoenix Open",
+      "season": 2025,
+      "tournament_id": 50,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "WM Phoenix Open",
+      "season": 2025,
+      "tournament_id": 50,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "WM Phoenix Open",
+      "season": 2025,
+      "tournament_id": 50,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": false
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2025,
+      "tournament_id": 51,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2025,
+      "tournament_id": 51,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2025,
+      "tournament_id": 51,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2025,
+      "tournament_id": 51,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "The Genesis Invitational",
+      "season": 2025,
+      "tournament_id": 51,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "Mexico Open at VidantaWorld",
+      "season": 2025,
+      "tournament_id": 52,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "Mexico Open at VidantaWorld",
+      "season": 2025,
+      "tournament_id": 52,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "Cognizant Classic in The Palm Beaches",
+      "season": 2025,
+      "tournament_id": 53,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "Cognizant Classic in The Palm Beaches",
+      "season": 2025,
+      "tournament_id": 53,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "Cognizant Classic in The Palm Beaches",
+      "season": 2025,
+      "tournament_id": 53,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": false
+    },
+    {
+      "event": "Arnold Palmer Invitational presented by Mastercard",
+      "season": 2025,
+      "tournament_id": 54,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational presented by Mastercard",
+      "season": 2025,
+      "tournament_id": 54,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational presented by Mastercard",
+      "season": 2025,
+      "tournament_id": 54,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational presented by Mastercard",
+      "season": 2025,
+      "tournament_id": 54,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "Arnold Palmer Invitational presented by Mastercard",
+      "season": 2025,
+      "tournament_id": 54,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2025,
+      "tournament_id": 56,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2025,
+      "tournament_id": 56,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2025,
+      "tournament_id": 56,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2025,
+      "tournament_id": 56,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2025,
+      "tournament_id": 56,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": false
+    },
+    {
+      "event": "THE PLAYERS Championship",
+      "season": 2025,
+      "tournament_id": 56,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": false
+    },
+    {
+      "event": "Valspar Championship",
+      "season": 2025,
+      "tournament_id": 57,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "Valspar Championship",
+      "season": 2025,
+      "tournament_id": 57,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "Valspar Championship",
+      "season": 2025,
+      "tournament_id": 57,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": false
+    },
+    {
+      "event": "Texas Children's Houston Open",
+      "season": 2025,
+      "tournament_id": 58,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "Texas Children's Houston Open",
+      "season": 2025,
+      "tournament_id": 58,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "Texas Children's Houston Open",
+      "season": 2025,
+      "tournament_id": 58,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "Texas Children's Houston Open",
+      "season": 2025,
+      "tournament_id": 58,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "Valero Texas Open",
+      "season": 2025,
+      "tournament_id": 59,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "Valero Texas Open",
+      "season": 2025,
+      "tournament_id": 59,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "Valero Texas Open",
+      "season": 2025,
+      "tournament_id": 59,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2025,
+      "tournament_id": 60,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2025,
+      "tournament_id": 60,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2025,
+      "tournament_id": 60,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "Masters Tournament",
+      "season": 2025,
+      "tournament_id": 60,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": false
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2025,
+      "tournament_id": 61,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2025,
+      "tournament_id": 61,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Heritage",
+      "season": 2025,
+      "tournament_id": 61,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "Corales Puntacana Championship",
+      "season": 2025,
+      "tournament_id": 62,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "THE CJ CUP Byron Nelson",
+      "season": 2025,
+      "tournament_id": 64,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "THE CJ CUP Byron Nelson",
+      "season": 2025,
+      "tournament_id": 64,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "THE CJ CUP Byron Nelson",
+      "season": 2025,
+      "tournament_id": 64,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": false
+    },
+    {
+      "event": "Truist Championship",
+      "season": 2025,
+      "tournament_id": 65,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "Truist Championship",
+      "season": 2025,
+      "tournament_id": 65,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "Truist Championship",
+      "season": 2025,
+      "tournament_id": 65,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "Truist Championship",
+      "season": 2025,
+      "tournament_id": 65,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "ONEflight Myrtle Beach Classic",
+      "season": 2025,
+      "tournament_id": 66,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2025,
+      "tournament_id": 67,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2025,
+      "tournament_id": 67,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2025,
+      "tournament_id": 67,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2025,
+      "tournament_id": 67,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2025,
+      "tournament_id": 67,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "PGA Championship",
+      "season": 2025,
+      "tournament_id": 67,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": false
+    },
+    {
+      "event": "Charles Schwab Challenge",
+      "season": 2025,
+      "tournament_id": 68,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "Charles Schwab Challenge",
+      "season": 2025,
+      "tournament_id": 68,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "Charles Schwab Challenge",
+      "season": 2025,
+      "tournament_id": 68,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "Charles Schwab Challenge",
+      "season": 2025,
+      "tournament_id": 68,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament presented by Workday",
+      "season": 2025,
+      "tournament_id": 69,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament presented by Workday",
+      "season": 2025,
+      "tournament_id": 69,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament presented by Workday",
+      "season": 2025,
+      "tournament_id": 69,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "the Memorial Tournament presented by Workday",
+      "season": 2025,
+      "tournament_id": 69,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Canadian Open",
+      "season": 2025,
+      "tournament_id": 70,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "RBC Canadian Open",
+      "season": 2025,
+      "tournament_id": 70,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": false
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2025,
+      "tournament_id": 71,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2025,
+      "tournament_id": 71,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2025,
+      "tournament_id": 71,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2025,
+      "tournament_id": 71,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "U.S. Open",
+      "season": 2025,
+      "tournament_id": 71,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": false
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2025,
+      "tournament_id": 72,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2025,
+      "tournament_id": 72,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2025,
+      "tournament_id": 72,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2025,
+      "tournament_id": 72,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2025,
+      "tournament_id": 72,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "Travelers Championship",
+      "season": 2025,
+      "tournament_id": 72,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "Rocket Classic",
+      "season": 2025,
+      "tournament_id": 73,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "Rocket Classic",
+      "season": 2025,
+      "tournament_id": 73,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "John Deere Classic",
+      "season": 2025,
+      "tournament_id": 74,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": false
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2025,
+      "tournament_id": 75,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2025,
+      "tournament_id": 75,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2025,
+      "tournament_id": 75,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "Genesis Scottish Open",
+      "season": 2025,
+      "tournament_id": 75,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2025,
+      "tournament_id": 77,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2025,
+      "tournament_id": 77,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2025,
+      "tournament_id": 77,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2025,
+      "tournament_id": 77,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2025,
+      "tournament_id": 77,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "The Open Championship",
+      "season": 2025,
+      "tournament_id": 77,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": false
+    },
+    {
+      "event": "Wyndham Championship",
+      "season": 2025,
+      "tournament_id": 80,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "Wyndham Championship",
+      "season": 2025,
+      "tournament_id": 80,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2025,
+      "tournament_id": 81,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2025,
+      "tournament_id": 81,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2025,
+      "tournament_id": 81,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2025,
+      "tournament_id": 81,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "FedEx St. Jude Championship",
+      "season": 2025,
+      "tournament_id": 81,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2025,
+      "tournament_id": 82,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2025,
+      "tournament_id": 82,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2025,
+      "tournament_id": 82,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2025,
+      "tournament_id": 82,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2025,
+      "tournament_id": 82,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "BMW Championship",
+      "season": 2025,
+      "tournament_id": 82,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2025,
+      "tournament_id": 83,
+      "player": "Tommy Fleetwood",
+      "proxy_score": 74.4,
+      "season_sg": 1.63,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2025,
+      "tournament_id": 83,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2025,
+      "tournament_id": 83,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2025,
+      "tournament_id": 83,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2025,
+      "tournament_id": 83,
+      "player": "Harry Hall",
+      "proxy_score": 67.7,
+      "season_sg": 1.18,
+      "made_cut": true
+    },
+    {
+      "event": "TOUR Championship",
+      "season": 2025,
+      "tournament_id": 83,
+      "player": "Rory McIlroy",
+      "proxy_score": 73.1,
+      "season_sg": 1.54,
+      "made_cut": true
+    },
+    {
+      "event": "Procore Championship",
+      "season": 2025,
+      "tournament_id": 84,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    },
+    {
+      "event": "Procore Championship",
+      "season": 2025,
+      "tournament_id": 84,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "Procore Championship",
+      "season": 2025,
+      "tournament_id": 84,
+      "player": "Russell Henley",
+      "proxy_score": 69.8,
+      "season_sg": 1.32,
+      "made_cut": true
+    },
+    {
+      "event": "World Wide Technology Championship",
+      "season": 2025,
+      "tournament_id": 89,
+      "player": "Ben Griffin",
+      "proxy_score": 68.3,
+      "season_sg": 1.22,
+      "made_cut": true
+    },
+    {
+      "event": "Hero World Challenge",
+      "season": 2025,
+      "tournament_id": 92,
+      "player": "Scottie Scheffler",
+      "proxy_score": 91.1,
+      "season_sg": 2.74,
+      "made_cut": true
+    }
+  ]
 }

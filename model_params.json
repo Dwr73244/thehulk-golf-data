@@ -15,15 +15,56 @@
   "lastTrainedWeeks": 0,
   "_note": "Overwritten weekly by scripts/backtest.py when calibration drifts. Delete this file to reset to defaults.",
   "calibration": {
-    "trainedAt": "2026-05-17T02:06:45.378121+00:00",
-    "n": 151,
+    "trainedAt": "2026-05-17T02:32:20.087903+00:00",
+    "n": 379,
     "events": [
+      "AT&T Pebble Beach Pro-Am",
+      "Arnold Palmer Invitational presented by Mastercard",
+      "BMW Championship",
+      "Charles Schwab Challenge",
+      "Cognizant Classic in The Palm Beaches",
+      "Corales Puntacana Championship",
+      "Farmers Insurance Open",
+      "FedEx St. Jude Championship",
+      "Genesis Scottish Open",
+      "Hero World Challenge",
+      "John Deere Classic",
       "Masters Tournament",
+      "Men\u2019s Olympic Golf Competition",
+      "Mexico Open at Vidanta",
+      "Mexico Open at VidantaWorld",
+      "ONEflight Myrtle Beach Classic",
       "PGA Championship",
-      "Zurich Classic of New Orleans"
+      "Procore Championship",
+      "Puerto Rico Open",
+      "RBC Canadian Open",
+      "RBC Heritage",
+      "Rocket Classic",
+      "Rocket Mortgage Classic",
+      "Sony Open in Hawaii",
+      "THE CJ CUP Byron Nelson",
+      "THE PLAYERS Championship",
+      "TOUR Championship",
+      "Texas Children's Houston Open",
+      "The American Express",
+      "The Genesis Invitational",
+      "The Open Championship",
+      "The Sentry",
+      "Travelers Championship",
+      "Truist Championship",
+      "U.S. Open",
+      "Valero Texas Open",
+      "Valspar Championship",
+      "WM Phoenix Open",
+      "Wells Fargo Championship",
+      "World Wide Technology Championship",
+      "Wyndham Championship",
+      "ZOZO CHAMPIONSHIP",
+      "Zurich Classic of New Orleans",
+      "the Memorial Tournament presented by Workday"
     ],
-    "brier": 0.1961,
-    "baselineBrier": 0.2198,
+    "brier": 0.1267,
+    "baselineBrier": 0.1561,
     "table": [
       {
         "score": 0,
@@ -67,47 +108,47 @@
       },
       {
         "score": 50,
-        "prob": 0.6878
+        "prob": 0.6881
       },
       {
         "score": 55,
-        "prob": 0.6946
+        "prob": 0.7009
       },
       {
         "score": 60,
-        "prob": 0.7013
+        "prob": 0.7136
       },
       {
         "score": 65,
-        "prob": 0.7117
+        "prob": 0.7743
       },
       {
         "score": 70,
-        "prob": 0.7556
+        "prob": 0.8906
       },
       {
         "score": 75,
-        "prob": 0.7995
+        "prob": 0.95
       },
       {
         "score": 80,
-        "prob": 0.8333
+        "prob": 0.9704
       },
       {
         "score": 85,
-        "prob": 0.8333
+        "prob": 0.9904
       },
       {
         "score": 90,
-        "prob": 0.8333
+        "prob": 1.0
       },
       {
         "score": 95,
-        "prob": 0.8333
+        "prob": 1.0
       },
       {
         "score": 100,
-        "prob": 0.8333
+        "prob": 1.0
       }
     ],
     "_note": "Isotonic (PAV) calibration of raw confScore \u2192 make-cut probability. Lookup is piecewise-linear over table[].score. Trained by scripts/calibrate.py."
