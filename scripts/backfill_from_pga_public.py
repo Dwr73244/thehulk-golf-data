@@ -55,6 +55,10 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HISTORY_DIR = os.path.join(REPO_ROOT, "history")
 OUTPUT_PATH = os.path.join(HISTORY_DIR, "backfill_pga_public.json")
 
+# Local import — sits in the same scripts/ folder
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from event_types import classify_event_type  # noqa: E402
+
 ESPN_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard"
 USER_AGENT = "PropsBotGolf/1.0 (+https://golf.propsbot.ai)"
 
@@ -300,14 +304,33 @@ def main():
 
     all_pairs = []
     season_summary = []
+    excluded_no_cut = []  # track which events we skipped so the log is honest
     for season in args.seasons:
         events = enumerate_events_for_season(season)
         events_processed = 0
         pairs_this_season = 0
+        skipped_no_cut = 0
         for ev in events:
             results = parse_event_results(ev)
             if not results:
                 continue
+            # Compute cut metrics for event-type classification
+            field_size = len(results)
+            cut_count = sum(1 for _, mc in results if mc)
+            cut_rate = cut_count / field_size if field_size else None
+            ev_name = ev.get("name", "")
+            event_type = classify_event_type(ev_name, cut_rate=cut_rate, field_size=field_size)
+            # Drop no-cut events from training — the made_cut signal is
+            # degenerate (everyone "makes" the non-existent cut) so they
+            # add noise without information.
+            if event_type == "no_cut":
+                skipped_no_cut += 1
+                excluded_no_cut.append({
+                    "season": season, "event": ev_name,
+                    "field": field_size, "cutRate": round(cut_rate or 0, 3),
+                })
+                continue
+            ev_date = (ev.get("date") or "")[:10]  # YYYY-MM-DD prefix
             n_paired = 0
             for pname, made_cut in results:
                 key = normalize_name(pname)
@@ -318,8 +341,10 @@ def main():
                 if proxy is None:
                     continue
                 all_pairs.append({
-                    "event": ev.get("name", ""),
+                    "event": ev_name,
                     "season": season,
+                    "event_date": ev_date,
+                    "event_type": event_type,
                     "espn_event_id": ev.get("id"),
                     "player": pname,
                     "proxy_score": proxy,
@@ -333,8 +358,10 @@ def main():
             "season": season,
             "events": events_processed,
             "pairs": pairs_this_season,
+            "skippedNoCut": skipped_no_cut,
         })
-        print(f"[PGA] {season}: {events_processed} events → {pairs_this_season} pairs")
+        print(f"[PGA] {season}: {events_processed} events → {pairs_this_season} pairs "
+              f"({skipped_no_cut} no-cut events excluded)")
 
     print(f"\n[PGA] Total: {len(all_pairs)} (player, event) pairs from "
           f"{sum(s['events'] for s in season_summary)} events")
@@ -368,10 +395,16 @@ def main():
             "summary": season_summary,
             "totalPairs": len(all_pairs),
             "baseMakeCutRate": round(base_rate, 4),
-            "_note": "ESPN-derived (proxy_score, made_cut) pairs for calibration. Consumed by scripts/calibrate.py alongside backfill_calibration.json.",
+            "excludedNoCutEvents": excluded_no_cut,
+            "_note": "ESPN-derived (proxy_score, made_cut) pairs for calibration. Consumed by scripts/calibrate.py alongside backfill_calibration.json. Each pair tagged with event_type (major/standard); no_cut events excluded.",
             "pairs": all_pairs,
         }, f, indent=2)
     print(f"[PGA] Wrote {len(all_pairs)} pairs to {OUTPUT_PATH}")
+    print(f"[PGA] Excluded {len(excluded_no_cut)} no-cut events from training")
+    # Event-type breakdown
+    from collections import Counter as _C
+    et_counts = _C(p["event_type"] for p in all_pairs)
+    print(f"[PGA] Pair counts by event_type: {dict(et_counts)}")
     return 0
 
 
