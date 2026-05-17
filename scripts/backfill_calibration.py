@@ -53,10 +53,18 @@ def _import_scraper():
 def fetch_completed_events(bdl_fetch_all, season):
     """List completed PGA events for a season.
 
-    Tries the BDL ``season=<year>`` filter first. If that returns nothing —
-    which empirically happens because BDL's "season" may be the FedEx-cup
-    year rather than the calendar year — falls back to fetching ALL
-    completed tournaments and filtering by start_date prefix.
+    Tries three query patterns in order, since BDL's `/tournaments`
+    listing is inconsistent for historical PGA data:
+
+      1. ``season=<year> & status=COMPLETED`` (the obvious query — usually 0)
+      2. ``status=COMPLETED`` alone, filter client-side by start_date prefix
+      3. **Per-course enumeration**: fetch every course, then query
+         ``course_ids[]=<id> & status=COMPLETED`` for each. This is the
+         pattern that empirically works (already in production via
+         ``compute_learned_course_fit``). Filters by start_date prefix.
+
+    Pattern 3 is API-heavier (one call per course = ~50-200 calls) but is
+    the only one that consistently returns historical PGA data.
     """
     print(f"[BACKFILL] Fetching completed events for season {season}...")
     rows = bdl_fetch_all(
@@ -67,17 +75,20 @@ def fetch_completed_events(bdl_fetch_all, season):
     out = []
     for t in (rows or []):
         tid = t.get("id")
-        name = t.get("name", "")
-        course = t.get("course_name", "")
         if not tid:
             continue
-        out.append({"id": tid, "name": name, "course": course, "season": season})
+        out.append({
+            "id": tid,
+            "name": t.get("name", ""),
+            "course": t.get("course_name", ""),
+            "season": season,
+        })
     if out:
         print(f"  {len(out)} completed events in season={season} (via season filter)")
         return out
 
-    # Fallback: no season filter, filter client-side by start_date year
-    print(f"  Season filter returned 0; falling back to date-range scan...")
+    # Fallback 1: no season filter, filter client-side by start_date year
+    print(f"  Season filter returned 0; trying status-only listing...")
     rows = bdl_fetch_all(
         "tournaments",
         {"status": "COMPLETED", "per_page": "100"},
@@ -95,7 +106,62 @@ def fetch_completed_events(bdl_fetch_all, season):
             "course": t.get("course_name", ""),
             "season": season,
         })
-    print(f"  {len(out)} completed events with start_date starting '{target_prefix}' (via fallback)")
+    if out:
+        print(f"  {len(out)} events via status-only listing")
+        return out
+
+    # Fallback 2: per-course enumeration — this is the one that works
+    print(f"  Status-only listing returned 0; falling back to per-course enumeration...")
+    out = _enumerate_via_courses(bdl_fetch_all, season)
+    print(f"  {len(out)} events via per-course enumeration")
+    return out
+
+
+def _enumerate_via_courses(bdl_fetch_all, season, max_courses=200):
+    """List historical events by walking every course in /courses and
+    querying its completed tournaments. This is the query pattern that
+    empirically works in production (compute_learned_course_fit uses it).
+    """
+    target_prefix = str(season)
+    print(f"  Fetching course list...")
+    courses = bdl_fetch_all("courses", {"per_page": "100"}, max_pages=5)
+    if not courses:
+        print(f"  /courses returned 0; can't enumerate.")
+        return []
+    print(f"  {len(courses)} courses to walk")
+    seen_tids = set()
+    out = []
+    for i, c in enumerate(courses[:max_courses]):
+        cid = c.get("id") or c.get("course_id")
+        if not cid:
+            continue
+        try:
+            past_raw = bdl_fetch_all(
+                "tournaments",
+                {"course_ids[]": str(cid), "status": "COMPLETED", "per_page": "100"},
+                max_pages=2,
+            )
+        except Exception as e:
+            print(f"    [WARN] course {cid} tournaments fetch failed: {e}")
+            continue
+        added = 0
+        for t in (past_raw or []):
+            tid = t.get("id")
+            if not tid or tid in seen_tids:
+                continue
+            sd = t.get("start_date") or ""
+            if not sd.startswith(target_prefix):
+                continue
+            seen_tids.add(tid)
+            out.append({
+                "id": tid,
+                "name": t.get("name", ""),
+                "course": t.get("name") or c.get("name") or "",
+                "season": season,
+            })
+            added += 1
+        if added and (i + 1) % 10 == 0:
+            print(f"    [{i+1}/{len(courses)}] courses walked, {len(out)} events so far")
     return out
 
 
