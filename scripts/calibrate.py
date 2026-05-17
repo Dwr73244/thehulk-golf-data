@@ -247,18 +247,62 @@ def brier(predictions):
     return round(sum((p - o) ** 2 for p, o in predictions) / len(predictions), 4)
 
 
+def load_backfill_pairs():
+    """Load the bulk 2024+2025 backfill produced by scripts/backfill_calibration.py.
+
+    Returns ``(pairs, events)`` in the same shape as ``load_history_pairs``:
+    each pair is (event, player, score, made_cut). When the backfill file is
+    absent, returns empty lists — the existing live-history calibration still
+    runs unchanged.
+    """
+    backfill_path = os.path.join(HISTORY_DIR, "backfill_calibration.json")
+    if not os.path.isfile(backfill_path):
+        return [], []
+    try:
+        with open(backfill_path, encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, json.JSONDecodeError) as e:
+        print(f"  [WARN] backfill load failed: {e}")
+        return [], []
+    pairs = []
+    events = set()
+    for p in data.get("pairs") or []:
+        try:
+            pairs.append((
+                p["event"], p["player"], float(p["proxy_score"]), bool(p["made_cut"])
+            ))
+            events.add(p["event"])
+        except (KeyError, TypeError, ValueError):
+            continue
+    return pairs, sorted(events)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--dry-run", action="store_true", help="Print results, don't write")
     ap.add_argument("--min-pairs", type=int, default=80,
                     help="Minimum training pairs required (default 80)")
+    ap.add_argument("--skip-backfill", action="store_true",
+                    help="Ignore history/backfill_calibration.json (use live snapshots only)")
     args = ap.parse_args()
 
     print(f"[CALIBRATE] Walking {HISTORY_DIR}...")
-    pairs, events = load_history_pairs()
-    print(f"[CALIBRATE] {len(pairs)} (player, event) pairs from {len(events)} events")
+    live_pairs, live_events = load_history_pairs()
+    print(f"[CALIBRATE] Live snapshots: {len(live_pairs)} pairs from {len(live_events)} events")
+
+    backfill_pairs, backfill_events = ([], [])
+    if not args.skip_backfill:
+        backfill_pairs, backfill_events = load_backfill_pairs()
+        if backfill_pairs:
+            print(f"[CALIBRATE] Backfill data: {len(backfill_pairs)} pairs from {len(backfill_events)} events")
+
+    pairs = list(live_pairs) + list(backfill_pairs)
+    events = list(live_events) + list(backfill_events)
+    print(f"[CALIBRATE] Combined: {len(pairs)} pairs from {len(set(events))} events")
     if events:
-        print(f"  Events: {', '.join(sorted(set(events)))}")
+        print(f"  Live events: {', '.join(sorted(set(live_events)))}")
+        if backfill_events:
+            print(f"  Backfill seasons: {sorted({e.split()[-1] if e and e.split()[-1].isdigit() else '?' for e in backfill_events})}")
 
     if len(pairs) < args.min_pairs:
         print(f"[CALIBRATE] Not enough data ({len(pairs)} < {args.min_pairs}). Skipping.")

@@ -79,6 +79,24 @@ product, no signup required.
   `perHoleProps[name].holes[N]`; front-9 / back-9 distributions at
   `perHoleProps[name].frontNine` / `.backNine`. Tunable parameters
   `rhoGlobal` / `rhoLocal` in `model_params.json`.
+- **Historical calibration backfill**: 2024 + 2025 PGA tournament_results
+  + player_season_stats pulled via `scripts/backfill_calibration.py`,
+  stored at `history/backfill_calibration.json`. Combined with live
+  snapshots when calibrate.py runs — ~40x larger training set, extends
+  isotonic table coverage into the 80-95 score range.
+- **Per-player empirical round variance**: pulls 1-2 seasons of
+  `/player_round_results` and computes par-relative std per player.
+  Attached as `scoreStd`; consumed by every Monte Carlo predictor
+  (matchup, cut, position, per-hole) instead of the previous global
+  constant. Sharper tail predictions for both consistent (Scheffler) and
+  volatile (Wyndham Clark) players.
+- **Per-course SG category weights (learned)**: per-course
+  ridge-regularized least squares regression of finish-position onto
+  the four SG categories (off-tee, approach, around-green, putting),
+  over 5 years × 5 events of history. Coefficients show which SG matters
+  most at each venue. Used to refine effective skill via
+  `effective_sg(player, course_weights)`. Surfaced at
+  `courseSgWeights[course_key]`.
 - **Player similarity**: kNN on SG profiles → `similarPlayers` per player.
 - **Sharpe-style "Edge ÷ σ" sort** in the scorecard view.
 - **DataGolf trust audit** runs weekly in CI; Discord-alerts on SUSPECT/FAIL.
