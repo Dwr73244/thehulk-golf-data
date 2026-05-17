@@ -966,7 +966,7 @@
         <div class="sc-hero-stat"><div class="sc-hero-label">
           <span class="help-anchor">Cut Line
             <button type="button" class="help-icon" aria-label="What is the cut line?" tabindex="0">i</button>
-            <span class="help-popover" role="tooltip">Projected score-to-par needed to survive R2. Live during a tournament; from Monte Carlo before tee-off.</span>
+            <span class="help-popover" role="tooltip">Score-to-par at the 36-hole cut. Pre-event and R1/R2: Monte Carlo projection. After R2: the actual cut set by the field.</span>
           </span>
         </div><div class="sc-hero-val mono" id="sc-stat-cut">—</div></div>
         <div class="sc-hero-stat"><div class="sc-hero-label">Scoring Avg</div><div class="sc-hero-val mono" id="sc-stat-avg">—</div></div>
@@ -4718,6 +4718,8 @@
       // Feature 1: Leaderboard
       if (data.currentEvent.leaderboard && data.currentEvent.leaderboard.length) {
         _liveLeaderboard = data.currentEvent.leaderboard;
+        // Mirror to window for cross-scope readers (scorecard hero etc.)
+        window._liveLeaderboard = data.currentEvent.leaderboard;
       }
       if (data.currentEvent.status) {
         _tournamentStatus = data.currentEvent.status;
@@ -5362,6 +5364,12 @@
 
         if (lb.length > 0) {
           _liveLeaderboard = lb;
+          // ALSO expose on window so out-of-scope consumers (scorecard
+          // hero / scRefreshHero) can read the ESPN-fed full field.
+          // Without this, the hero falls back to the DataGolf-only
+          // 80-player list and shows the wrong leader (e.g. "Rahm -4"
+          // when ESPN says "Smalley -6").
+          window._liveLeaderboard = lb;
 
           // Store live hole data globally for hole analysis tab
           window._liveHoleData = liveHoleData;
@@ -6282,13 +6290,23 @@
 
     if (propType === 'winner') {
       var odds = player.odds || {};
-      if (bookFilter === 'best') {
-        var best = null;
+      // bookFilter === null (or undefined) is the "any book" path used by
+      // scMarketIsEstimate to test if a real line exists. Previously
+      // returned odds[null] = undefined, which made the scorecard treat
+      // EVERY player's Win market as estimated even when 4 sportsbooks
+      // had real prices. Now: bookFilter falsy → return the median across
+      // available books (matches Edge Finder's _bestBookOdds behavior).
+      if (!bookFilter || bookFilter === 'best') {
+        var vals = [];
         BOOKS.forEach(function(b) {
           var v = odds[b.key] ? parseInt(odds[b.key]) : null;
-          if (v && (!best || v > best)) best = v;
+          if (v != null && !isNaN(v)) vals.push(v);
         });
-        return best;
+        if (!vals.length) return null;
+        if (vals.length === 1) return vals[0];
+        vals.sort(function(a, b) { return a - b; });
+        var mid = Math.floor(vals.length / 2);
+        return vals.length % 2 ? vals[mid] : Math.round((vals[mid - 1] + vals[mid]) / 2);
       }
       return odds[bookFilter] ? parseInt(odds[bookFilter]) : null;
     }
