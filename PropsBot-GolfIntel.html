@@ -8163,16 +8163,40 @@
              + '<span style="color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;font-size:9px;">' + label + '</span>'
              + '<span class="mono font-bold ' + (cls || '') + '">' + val + '</span></span>';
       };
+      // Build per-hole 18-cell strip showing expected score per hole
+      var holeStrip = '';
+      if (phData.holes) {
+        var cells = [];
+        for (var hn = 1; hn <= 18; hn++) {
+          var h = phData.holes[String(hn)];
+          if (!h) { cells.push('<div style="width:24px;height:24px;font-size:9px;color:var(--text-muted);text-align:center;">—</div>'); continue; }
+          var mean = h.mean;
+          // Color by score vs hole-par (par embedded as integer in cumulative keys — derive from mean)
+          var keys = Object.keys(h.pLte).map(Number);
+          var minKey = Math.min.apply(null, keys);
+          var par = minKey + 2;  // approximate (smallest key in pLte is par-2, since we use range max(1,par-2) to par+3)
+          var diff = mean - par;
+          var cellColor = diff < -0.15 ? 'rgba(255,21,82,0.18)' : diff < 0 ? 'rgba(255,21,82,0.08)' : diff > 0.15 ? 'rgba(150,180,210,0.12)' : 'rgba(15,28,46,0.5)';
+          var textColor = diff < -0.15 ? 'var(--red)' : diff > 0.15 ? 'rgba(200,215,230,0.6)' : 'var(--text-secondary)';
+          cells.push('<div title="Hole ' + hn + ' (par ' + par + '): expected ' + mean.toFixed(2) + '" style="display:flex;flex-direction:column;align-items:center;width:24px;padding:3px 0;border-radius:3px;background:' + cellColor + ';"><span style="font-family:var(--mono);font-size:10px;font-weight:700;color:' + textColor + ';">' + mean.toFixed(1) + '</span><span style="font-size:7px;color:rgba(200,215,230,0.45);">' + hn + '</span></div>');
+        }
+        holeStrip = '<div class="sc-mini" style="margin-top:8px;">' +
+          '<div class="sc-mini-label">Per-hole expected score (Gaussian copula)</div>' +
+          '<div style="display:flex;flex-wrap:wrap;gap:2px;margin-top:6px;">' + cells.join('') + '</div>' +
+        '</div>';
+      }
       expectedChips = '<div class="sc-mini" style="margin-top:12px;">' +
-        '<div class="sc-mini-label">Per-round expected (Monte Carlo)</div>' +
+        '<div class="sc-mini-label">Per-round expected (Monte Carlo · copula)</div>' +
         '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">' +
           c('Round Score', phData.roundScore.mean) +
+          (phData.frontNine ? c('Front 9', phData.frontNine.mean) : '') +
+          (phData.backNine ? c('Back 9', phData.backNine.mean) : '') +
           c('Birdies', phData.birdies.mean, 'sc-edge-strong') +
           c('Bogeys', phData.bogeys.mean, 'sc-edge-bad') +
           c('Eagles', phData.eagles.mean) +
           c('Double+', phData.doublePlus.mean, 'sc-edge-bad') +
         '</div>' +
-      '</div>';
+      '</div>' + holeStrip;
     }
 
     // Priced event-prop lines (from /odds/player_props when BDL ships them)

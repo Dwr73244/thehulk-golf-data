@@ -323,14 +323,39 @@
       win probability.
     </p>
 
-    <h3>(o) Per-hole momentum (round correlation)</h3>
+    <h3>(o) Gaussian copula for cross-hole correlation</h3>
     <p>
-      Within a round, hole outcomes are correlated — good rounds produce many birdies,
-      bad rounds many bogeys. The per-hole simulator now draws a per-round momentum
-      factor N(0, 0.4) at the start of each sim round and adds it to the player's
-      effective skill for that round. Mean-zero by construction (no shift in expected
-      round score) but raises round-score variance to match empirical PGA round-to-round
-      dispersion.
+      The per-hole simulator now uses a <strong>full Gaussian copula</strong> rather
+      than a single round-wide momentum factor. The structure:
+    </p>
+    <ul>
+      <li><strong>Global factor</strong> <code>M ~ N(0, 1)</code> shared across all 18
+          holes — captures round-wide hot/cold streaks. Loaded by <code>√ρ_global</code>.</li>
+      <li><strong>Local AR(1) chain</strong> <code>L_i = ρ_local · L_{i-1} + √(1-ρ²_local) · z_i</code>
+          with iid <code>z_i ~ N(0, 1)</code> — captures adjacent-hole correlation that
+          decays with hole distance.</li>
+      <li><strong>Latent</strong> <code>u_i = √ρ_global · M + √(1-ρ_global) · L_i</code></li>
+      <li><strong>Uniform</strong> <code>q_i = Φ(u_i)</code> (standard normal CDF)</li>
+      <li><strong>Inverse-CDF map</strong>: q_i is mapped to a hole outcome via the
+          cumulative of the player's skill-adjusted categorical distribution for that
+          hole. This preserves each hole's marginal distribution exactly while
+          imposing the desired joint correlation.</li>
+    </ul>
+    <p>
+      Defaults: <code>ρ_global = 0.01</code>, <code>ρ_local = 0.06</code>, calibrated
+      empirically so total round-score std lands ~3.5 strokes on a par-72 — within
+      the PGA empirical range (2.9-3.5). Both parameters live in
+      <code>model_params.json</code> and are tunable by the weekly backtest job.
+    </p>
+    <p>
+      What this <em>unlocks</em>: the per-hole simulator now emits a true joint
+      distribution over per-hole scores, not just round totals. The pricing engine
+      uses it to price (a) <strong>front-9 over/unders</strong> via
+      <code>frontNine.pLte</code>, (b) <strong>back-9 over/unders</strong> via
+      <code>backNine.pLte</code>, (c) <strong>single-hole over/unders</strong> like
+      "Player X on Hole 5 over 3.5" via <code>holes[N].pLte</code>. None of these
+      were priceable with the old shared-momentum approximation because the joint
+      structure wasn't accessible — only round-total marginals were.
     </p>
 
     <h3>(p) Closing-line value proxy</h3>
@@ -399,7 +424,7 @@
       <li><strong>No sub-60-minute live scoring granularity</strong> — ESPN leaderboard pulls every 60s; we don't model intra-hole swings.</li>
       <li><strong>No DFS ownership projections</strong> — this is a betting model, not a DFS tool.</li>
       <li><strong>Top-10 and Top-20 markets: model side is now real, book side is still estimated.</strong> The BDL <code>/futures</code> endpoint only ships book lines for <em>tournament_winner</em>, <em>top_5_finish</em>, and <em>make_cut</em>. We now derive real Monte Carlo probabilities for top-10 and top-20 finish positions (exposed as <code>modelTop10Prob</code> / <code>modelTop20Prob</code>) but the comparison odds are our own estimate, so we still don't display an edge percentage for these markets.</li>
-      <li><strong>Hole-specific props are not modeled</strong> — round-level birdie / bogey / eagle counts and round-score over/unders are now priced via the per-hole Monte Carlo and surfaced as edge percentages in the Props drawer. But per-hole markets like "Hole 12 birdie yes/no" or "Hole 17 score over 3.5" require a per-hole correlation model we haven't built. The hole-by-hole sim treats each hole as conditionally independent given player skill — fine for aggregating to round-level distributions but not granular enough to price single-hole props honestly.</li>
+      <li><strong>Multi-hole and single-hole props are now modeled.</strong> The Gaussian copula (see method (o)) produces a true joint distribution over per-hole scores, so we can price front-9 over/unders, back-9 over/unders, and single-hole markets like "Hole 12 over 3.5" — all surfaced in <code>pricedPlayerProps</code> when BDL ships matching lines. The remaining gap is BDL-side: <code>/odds/player_props</code> rarely ships these markets for golf today; we'll consume them when they appear.</li>
       <li><strong>Field-strength normalization is applied to historical residuals, not raw season SG.</strong> Each historical event's residual is scaled by an OWGR-derived strength multiplier before being averaged into the learned course-fit signal. The season-aggregate <code>sgTotal</code> coming from DataGolf is consumed as-is — DataGolf claims to already strength-adjust their season totals; we trust that for now.</li>
       <li><strong>No injury/WD prediction</strong> — we react to field-change news, we don't forecast it.</li>
       <li><strong>Course fit prior is hand-curated</strong> — the trait dictionaries (power/accuracy/scramble/putting weights per course) are designed, not learned. The learned course-fit residual mitigates this by anchoring fit in historical outcomes for players with prior appearances, but rookies still lean on the trait prior.</li>
