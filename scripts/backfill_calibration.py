@@ -46,8 +46,8 @@ OUTPUT_PATH = os.path.join(HISTORY_DIR, "backfill_calibration.json")
 
 def _import_scraper():
     sys.path.insert(0, REPO_ROOT)
-    from scraper import bdl_fetch_all, normalize_name  # noqa: E402
-    return bdl_fetch_all, normalize_name
+    from scraper import bdl_fetch_all, normalize_name, SEASON_STAT_KEY_MAP  # noqa: E402
+    return bdl_fetch_all, normalize_name, SEASON_STAT_KEY_MAP
 
 
 def fetch_completed_events(bdl_fetch_all, season):
@@ -165,7 +165,7 @@ def _enumerate_via_courses(bdl_fetch_all, season, max_courses=200):
     return out
 
 
-def fetch_season_sg_lookup(bdl_fetch_all, normalize_name, season, fallback_seasons=None):
+def fetch_season_sg_lookup(bdl_fetch_all, normalize_name, key_map, season, fallback_seasons=None):
     """Build {normalized_name: sgTotal} for a season.
 
     BDL's /player_season_stats sometimes returns sparse data for older
@@ -182,7 +182,7 @@ def fetch_season_sg_lookup(bdl_fetch_all, normalize_name, season, fallback_seaso
             {"season": str(s), "per_page": "100"},
             max_pages=30,
         )
-        sg_by_name = _parse_season_sg(rows, normalize_name)
+        sg_by_name = _parse_season_sg(rows, normalize_name, key_map)
         if sg_by_name:
             if s != season:
                 print(f"  (using season {s} as proxy for {season} — no direct data)")
@@ -190,13 +190,23 @@ def fetch_season_sg_lookup(bdl_fetch_all, normalize_name, season, fallback_seaso
     return {}
 
 
-def _parse_season_sg(rows, normalize_name):
-    """Helper: extract {normalized_name: sg_total_float} from BDL rows."""
+def _parse_season_sg(rows, normalize_name, key_map):
+    """Helper: extract {normalized_name: sg_total_float} from BDL rows.
+
+    Uses SEASON_STAT_KEY_MAP from scraper.py — the same matching logic used
+    everywhere else in the codebase. (Earlier bug: hardcoded substrings missed
+    the "sg: total" variant, producing 0 rows even when data existed.)
+    """
+    # Find the variant list for sgTotal in the shared key map.
+    sg_total_variants = []
+    for ours, variants in key_map:
+        if ours == "sgTotal":
+            sg_total_variants = variants
+            break
     sg_by_name = {}
     for r in (rows or []):
         stat_name = (r.get("stat_name") or "").lower().strip()
-        # We only want sg_total
-        if "sg total" not in stat_name and "strokes gained total" not in stat_name:
+        if not any(v in stat_name for v in sg_total_variants):
             continue
         player = r.get("player") or {}
         pname = player.get("display_name") or (
@@ -207,7 +217,8 @@ def _parse_season_sg(rows, normalize_name):
         sv = r.get("stat_value") or []
         if not isinstance(sv, list) or not sv:
             continue
-        raw = sv[0].get("statValue") if isinstance(sv[0], dict) else None
+        first = sv[0] if isinstance(sv[0], dict) else {}
+        raw = first.get("statValue") or first.get("value")
         try:
             sg = float(raw)
         except (TypeError, ValueError):
@@ -268,7 +279,7 @@ def main():
         print("[BACKFILL] BDL_API_KEY not set. Cannot fetch live BDL data.")
         return 1
 
-    bdl_fetch_all, normalize_name = _import_scraper()
+    bdl_fetch_all, normalize_name, key_map = _import_scraper()
 
     all_pairs = []
     season_summary = []
@@ -285,7 +296,7 @@ def main():
         fallbacks = [_curr, _curr - 1, _curr + 1]
         fallbacks = [s for s in fallbacks if s != season]
         sg_by_name = fetch_season_sg_lookup(
-            bdl_fetch_all, normalize_name, season, fallback_seasons=fallbacks
+            bdl_fetch_all, normalize_name, key_map, season, fallback_seasons=fallbacks
         )
         if not sg_by_name:
             print(f"  No season SG data for {season} — skipping season")

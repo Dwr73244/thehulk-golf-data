@@ -128,8 +128,20 @@ jobs:
           BDL_API_KEY: ${{ secrets.BDL_API_KEY }}
         continue-on-error: true
         run: |
-          echo "Backfill stale (${{ steps.backfill_check.outputs.reason }}) — running backfill..."
+          echo "Backfill stale (${{ steps.backfill_check.outputs.reason }}) — running BDL backfill..."
           python scripts/backfill_calibration.py --seasons 2024 2025
+
+      - name: Refresh calibration backfill from ESPN public API
+        if: ${{ steps.backfill_check.outputs.stale == 'true' }}
+        env:
+          BDL_API_KEY: ${{ secrets.BDL_API_KEY }}
+        continue-on-error: true
+        run: |
+          # ESPN's PGA scoreboard covers events BDL's /tournaments listing
+          # misses for historical seasons. Independent of the BDL backfill —
+          # calibrate.py merges both files with dedup.
+          echo "Running ESPN public backfill..."
+          python scripts/backfill_from_pga_public.py --seasons 2024 2025
 
       - name: Refit calibration on combined corpus
         continue-on-error: true
@@ -146,6 +158,7 @@ jobs:
           git add datagolf-audit.json
           # Stage these only if they exist (backfill / refit might have been skipped/failed)
           [ -f history/backfill_calibration.json ] && git add history/backfill_calibration.json || true
+          [ -f history/backfill_pga_public.json ] && git add history/backfill_pga_public.json || true
           [ -f model_params.json ] && git add model_params.json || true
           if git diff --quiet --cached; then
             echo "Nothing to commit."
