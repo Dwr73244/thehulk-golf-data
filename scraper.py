@@ -1633,22 +1633,59 @@ def compute_player_similarity(players, k=5, min_features=3):
     return n_blended
 
 
-def effective_sg(p):
+def effective_sg(p, course_weights=None):
     """Player's best skill estimate: Bayesian-updated SG if available
     (computed mid-tournament from observed round SG), else the season prior.
 
-    Wiring this through every downstream predictor (matchup, cut, position,
-    per-hole props) gives the model a sharper read on a player whose week
-    is going much better or worse than their season baseline — without
-    overweighting a single round.
+    When ``course_weights`` is supplied (a dict from
+    ``compute_course_sg_weights`` for the active course), we additionally
+    apply per-category weighting on the player's SG breakdown — augusta
+    rewards SG: Approach disproportionately, Pebble rewards Putting, etc.
+    The weighted version is added on top of the base sgTotal so a player
+    with strong SG: Approach gets an extra boost at an approach-rewarding
+    course beyond what their overall skill predicts.
+
+    Formula when course_weights given:
+        base = sgTotalUpdated or sgTotal
+        # Per-category over/under-weight relative to equal (-1) weighting.
+        # The course coefficients are negative (lower-is-better), so the
+        # delta below is positive when the player has more skill than
+        # average in the categories this course rewards.
+        delta = sum((w_i + 1.0) * sg_i for category i)
+                    where w_i comes from regression (typically -1.5 to -0.5)
+        return base + delta * adjustment_scale
+
+    Without course_weights, returns the simple max(updated, season) value
+    as before.
     """
     if p is None:
         return 0.0
     upd = p.get("sgTotalUpdated")
-    if isinstance(upd, (int, float)):
-        return float(upd)
-    sg = p.get("sgTotal")
-    return float(sg) if isinstance(sg, (int, float)) else 0.0
+    base = float(upd) if isinstance(upd, (int, float)) else (
+        float(p.get("sgTotal", 0.0)) if isinstance(p.get("sgTotal"), (int, float)) else 0.0
+    )
+    if not course_weights:
+        return base
+    # Apply per-category overlay. Coefficients are strokes-per-tournament,
+    # divide by ~4 rounds for per-round contribution. The "equal-weight"
+    # null hypothesis is w_i = -1 (every SG stroke directly subtracts from
+    # finish-par-rel). Deviations from -1 = course-specific weighting.
+    sg_ott  = p.get("sgOtt",  0.0) or 0.0
+    sg_app  = p.get("sgApp",  0.0) or 0.0
+    sg_arg  = p.get("sgArg",  0.0) or 0.0
+    sg_putt = p.get("sgPutt", 0.0) or 0.0
+    delta_per_tournament = (
+        (course_weights.get("ott",  -1.0) + 1.0) * sg_ott  +
+        (course_weights.get("app",  -1.0) + 1.0) * sg_app  +
+        (course_weights.get("arg",  -1.0) + 1.0) * sg_arg  +
+        (course_weights.get("putt", -1.0) + 1.0) * sg_putt
+    )
+    # Sign flip: lower par-rel = better outcome = higher effective skill
+    # The delta is in strokes per tournament; divide by 4 for per-round
+    overlay = -delta_per_tournament / 4.0
+    # Cap the overlay to avoid runaway effects from noisy small-sample fits
+    overlay = max(-0.5, min(0.5, overlay))
+    return base + overlay
 
 
 def american_to_implied_prob(american_odds):
@@ -1847,6 +1884,210 @@ def compute_all_course_fits(players, weather=None):
             # Blend: 70% algo, 30% curated (curated captures local knowledge)
             computed[course_key] = round(algo_score * 0.7 + curated_score * 0.3)
         player["courseFit"] = computed
+
+
+def _solve_linear_system(A, b):
+    """Solve Ax = b for a small square matrix via Gaussian elimination with
+    partial pivoting. Pure Python (no numpy in the deployment env).
+
+    Returns the solution vector x as a list, or ``None`` if the system is
+    singular / ill-conditioned. Used by ``compute_course_sg_weights`` to fit
+    a 4-feature least-squares regression per course.
+    """
+    n = len(b)
+    # Augmented matrix
+    M = [list(row) + [b[i]] for i, row in enumerate(A)]
+    for i in range(n):
+        # Partial pivot: swap with row having max |M[r][i]| for numerical stability
+        max_row = max(range(i, n), key=lambda r: abs(M[r][i]))
+        if max_row != i:
+            M[i], M[max_row] = M[max_row], M[i]
+        if abs(M[i][i]) < 1e-10:
+            return None  # singular
+        for j in range(i + 1, n):
+            factor = M[j][i] / M[i][i]
+            for k in range(i, n + 1):
+                M[j][k] -= factor * M[i][k]
+    # Back substitution
+    x = [0.0] * n
+    for i in range(n - 1, -1, -1):
+        x[i] = (M[i][n] - sum(M[i][j] * x[j] for j in range(i + 1, n))) / M[i][i]
+    return x
+
+
+def compute_course_sg_weights(course_id, current_field, years_back=5, max_events=5,
+                              ridge_lambda=0.5):
+    """Learn per-category SG weights at this course via least-squares regression.
+
+    For each past tournament at ``course_id`` in the lookback window, pull
+    (sg_off_tee, sg_approach, sg_around_green, sg_putting, par_relative_score)
+    per player and stack into a single design matrix X (n × 4) and target
+    vector y (n × 1, lower-is-better). Solve ridge-regularized least squares
+    for the weights w that best predict finish:
+
+        y ≈ b0 + w_ott·sg_ott + w_app·sg_app + w_arg·sg_arg + w_putt·sg_putt
+
+    Augusta has historically loaded heavily on SG: Approach; Riviera also
+    on Approach; Pebble on Putting; Whistling Straits on Driving. These
+    differential weights are the substance of "course fit" — much more
+    informative than a single composite sgTotal.
+
+    Returns ``{ott, app, arg, putt, intercept, n_players, n_events, r2}``
+    or ``None`` if there's not enough historical sample to be reliable
+    (fewer than 30 player-events).
+
+    Ridge regularization (``ridge_lambda``) shrinks all weights toward 1.0
+    (the "naive equal-weight" prior, since each SG component is one stroke
+    if the player gains a stroke in that category). Prevents over-fitting
+    to small samples and protects against multicollinearity.
+    """
+    if not course_id:
+        return None
+    print(f"[COURSE WEIGHTS] Regressing SG categories at course_id={course_id}...")
+    try:
+        past_raw = bdl_fetch_all(
+            "tournaments",
+            {"course_ids[]": str(course_id), "status": "COMPLETED"},
+            max_pages=3,
+        )
+    except Exception as e:
+        print(f"  [WARN] Could not fetch past tournaments: {e}")
+        return None
+    if not past_raw:
+        return None
+
+    from datetime import datetime as _dt
+    cutoff_year = _dt.utcnow().year - years_back
+    past = sorted(past_raw, key=lambda t: t.get("start_date") or "", reverse=True)
+    valid_past = []
+    for t in past:
+        sd = t.get("start_date") or ""
+        try:
+            yr = int(sd[:4]) if sd else 0
+        except ValueError:
+            yr = 0
+        if yr >= cutoff_year and yr < _dt.utcnow().year:
+            valid_past.append((t.get("id"), yr))
+        if len(valid_past) >= max_events:
+            break
+    if not valid_past:
+        print(f"  No past tournaments within last {years_back} years.")
+        return None
+
+    # Collect (sg_ott, sg_app, sg_arg, sg_putt, par_relative_score) per player-event
+    X_rows = []
+    y_vec = []
+    n_events_used = 0
+    for tid, yr in valid_past:
+        try:
+            sg_rows = bdl_fetch_all(
+                "player_round_stats",
+                {"tournament_ids[]": str(tid), "round_number": "-1"},
+                max_pages=4,
+            )
+            res_rows = bdl_fetch_all(
+                "tournament_results",
+                {"tournament_ids[]": str(tid), "per_page": "100"},
+                max_pages=4,
+            )
+        except Exception as e:
+            print(f"  [WARN] Failed to fetch SG/results for tid={tid}: {e}")
+            continue
+        if not sg_rows or not res_rows:
+            continue
+        # Build par-relative lookup per player from results
+        par_rel_by_name = {}
+        for r in res_rows:
+            player = r.get("player") or {}
+            pname = player.get("display_name") or (
+                f"{player.get('first_name','')} {player.get('last_name','')}".strip()
+            )
+            pr = r.get("par_relative_score")
+            if pname and isinstance(pr, (int, float)):
+                par_rel_by_name[normalize_name(pname)] = float(pr)
+        # Join with SG rows
+        added_this_event = 0
+        for sr in sg_rows:
+            player = sr.get("player") or {}
+            pname = player.get("display_name") or (
+                f"{player.get('first_name','')} {player.get('last_name','')}".strip()
+            )
+            if not pname:
+                continue
+            key = normalize_name(pname)
+            par_rel = par_rel_by_name.get(key)
+            if par_rel is None:
+                continue
+            sg_ott  = sr.get("sg_off_tee")
+            sg_app  = sr.get("sg_approach")
+            sg_arg  = sr.get("sg_around_green")
+            sg_putt = sr.get("sg_putting")
+            if not all(isinstance(v, (int, float)) for v in [sg_ott, sg_app, sg_arg, sg_putt]):
+                continue
+            X_rows.append([float(sg_ott), float(sg_app), float(sg_arg), float(sg_putt)])
+            y_vec.append(par_rel)
+            added_this_event += 1
+        if added_this_event:
+            n_events_used += 1
+
+    n = len(y_vec)
+    if n < 30:
+        print(f"  Insufficient sample ({n} player-events, need 30+) — skipping course weights.")
+        return None
+    print(f"  Sample: {n} player-events across {n_events_used} historical events")
+
+    # Build normal equations with intercept column. Design matrix:
+    # X' = [1, sg_ott, sg_app, sg_arg, sg_putt], 5 columns, n rows.
+    # Solve (X'^T X' + lambda*I) w = X'^T y  for w = [b0, w_ott, w_app, w_arg, w_putt]
+    cols = 5
+    XtX = [[0.0] * cols for _ in range(cols)]
+    Xty = [0.0] * cols
+    for i in range(n):
+        row = [1.0] + X_rows[i]  # prepend intercept
+        for a in range(cols):
+            Xty[a] += row[a] * y_vec[i]
+            for c in range(cols):
+                XtX[a][c] += row[a] * row[c]
+    # Ridge: add lambda to diagonal except intercept
+    for d in range(1, cols):
+        XtX[d][d] += ridge_lambda
+
+    sol = _solve_linear_system(XtX, Xty)
+    if sol is None:
+        print("  Regression matrix singular — skipping.")
+        return None
+    b0, w_ott, w_app, w_arg, w_putt = sol
+
+    # Compute R² for sanity / surfacing
+    y_mean = sum(y_vec) / n
+    ss_tot = sum((y - y_mean) ** 2 for y in y_vec)
+    ss_res = 0.0
+    for i in range(n):
+        x = X_rows[i]
+        pred = b0 + w_ott * x[0] + w_app * x[1] + w_arg * x[2] + w_putt * x[3]
+        ss_res += (y_vec[i] - pred) ** 2
+    r2 = 1.0 - (ss_res / ss_tot) if ss_tot > 0 else 0.0
+
+    result = {
+        "intercept": round(b0, 3),
+        # Coefficients are NEGATIVE when better SG predicts lower (better) score —
+        # which is what we expect. Magnitude = strokes of finish-position
+        # delta per 1 SG in that category.
+        "ott":  round(w_ott, 3),
+        "app":  round(w_app, 3),
+        "arg":  round(w_arg, 3),
+        "putt": round(w_putt, 3),
+        "nPlayers": n,
+        "nEvents": n_events_used,
+        "r2": round(r2, 3),
+        "ridgeLambda": ridge_lambda,
+    }
+    # Pretty-print which category dominates
+    cats = [("OTT", w_ott), ("APP", w_app), ("ARG", w_arg), ("PUTT", w_putt)]
+    cats.sort(key=lambda x: x[1])  # most-negative = most-predictive of better finish
+    print(f"  Coefficients (neg = lower-finish): " + ", ".join(f"{c}={w:+.2f}" for c, w in cats))
+    print(f"  R²={r2:.3f} · top driver at this course: {cats[0][0]}")
+    return result
 
 
 def compute_field_strength(field_owgrs, baseline_avg_owgr=70.0, cap=(0.55, 1.3)):
@@ -2790,7 +3031,7 @@ def _prob_to_american(p):
 
 
 def predict_matchups(matchups, players, course_key=None, weather=None,
-                     tournament_sg=None, sims=10000):
+                     tournament_sg=None, sims=10000, course_sg_weights=None):
     """Monte Carlo model for matchup win probability, handles 2-ball AND 3-ball.
 
     Tie semantics differ by market:
@@ -2840,7 +3081,7 @@ def predict_matchups(matchups, players, course_key=None, weather=None,
         pp_list = []
         for p in group["players"]:
             pdata = by_name.get(normalize_name(p["name"]), {}) or {}
-            sg_season = effective_sg(pdata)
+            sg_season = effective_sg(pdata, course_weights=course_sg_weights)
             sg_live = live_sg.get(normalize_name(p["name"]), 0.0) or 0.0
             sg_blended = 0.7 * sg_season + 0.3 * sg_live if sg_live else sg_season
 
@@ -4107,7 +4348,7 @@ def compute_odds_movement(current_players, archive_dir):
 def predict_player_position_probs(players, course_key=None, weather=None,
                                   tournament_sg=None, course_par=None,
                                   live_leaderboard=None, model_params_override=None,
-                                  sims=4000, cut_size=65):
+                                  sims=4000, cut_size=65, course_sg_weights=None):
     """Full 4-round tournament Monte Carlo. Returns per-player probabilities
     for win / top-5 / top-10 / top-20 / make-cut.
 
@@ -4178,7 +4419,7 @@ def predict_player_position_probs(players, course_key=None, weather=None,
 
     pp_list = []
     for p in players:
-        sg_season = effective_sg(p)
+        sg_season = effective_sg(p, course_weights=course_sg_weights)
         name_key = normalize_name(p.get("name", ""))
         sg_live = live_sg.get(name_key, 0.0)
         sg_blended = sg_blend_season * sg_season + sg_blend_live * sg_live if sg_live else sg_season
@@ -4415,7 +4656,8 @@ OUTCOME_TO_DELTA = {"eagle": -2, "birdie": -1, "par": 0, "bogey": 1, "double": 2
 
 
 def predict_per_hole_props(players, course_data, course_par=None,
-                           model_params_override=None, sims=2000):
+                           model_params_override=None, sims=2000,
+                           course_sg_weights=None):
     """Per-hole Monte Carlo for one-round prop distributions.
 
     For each player, simulates ``sims`` rounds of 18 holes drawing each hole's
@@ -4460,7 +4702,7 @@ def predict_per_hole_props(players, course_data, course_par=None,
 
     out = {}
     for p in players:
-        sg = effective_sg(p)
+        sg = effective_sg(p, course_weights=course_sg_weights)
         # Each hole's skill-adjusted categorical (still computed once per
         # player). The copula adds correlated uniforms drawn per sim; we
         # don't shift the dist itself per sim anymore — that's what the
@@ -4677,7 +4919,7 @@ def price_player_props(prop_lines, per_hole_props, overround_makecut_default=1.0
 
 def predict_cut_line(players, course_key="augusta", weather=None, tournament_sg=None,
                      course_par=None, cut_size=65, sims=4000, live_leaderboard=None,
-                     model_params_override=None):
+                     model_params_override=None, course_sg_weights=None):
     """Monte Carlo cut-line predictor.
 
     Simulates every player's 36-hole total using the same per-player score
@@ -4756,7 +4998,7 @@ def predict_cut_line(players, course_key="augusta", weather=None, tournament_sg=
         # to avoid populating the cut field with random noise — they were
         # already replaced with field averages so they'd just be a centered
         # blob anyway, but better to mark them explicitly.
-        sg_season = effective_sg(p)
+        sg_season = effective_sg(p, course_weights=course_sg_weights)
         name_key = normalize_name(p.get("name", ""))
         sg_live = live_sg.get(name_key, 0.0)
         sg_blended = sg_blend_season * sg_season + sg_blend_live * sg_live if sg_live else sg_season
@@ -5182,6 +5424,80 @@ def compute_course_fit_v2(players, history_dir, course_key, min_events=5, max_we
         score = 50.0 + 45.0 * (yhat - lo) / span
         scaled[name_lc] = round(score, 1)
     return scaled, len(events)
+
+
+def _compute_player_variance_from_bdl(seasons=None, min_rounds=8, max_pages_per_season=30):
+    """Per-player par-relative-score stddev from BDL ``/player_round_results``.
+
+    Walks 1-2 seasons of per-round results to build a much richer empirical
+    variance estimate than what local history snapshots provide. A player
+    with 30 rounds in their data set gets a high-confidence std; a player
+    with 8 rounds gets a usable one; fewer than 8 → skipped, downstream
+    falls back to global BASE_STD or to the local snapshot estimate.
+
+    Returns ``{normalized_name: std_strokes}`` where std is round-score
+    standard deviation in strokes (typical range 2.2 - 3.8).
+
+    API cost: ~30 pages × 100 rows × 2 seasons = ~6,000 round records per
+    run. Well within BDL rate limits. Cached results would be the next
+    optimization (this currently re-fetches every cron) but for a once-
+    daily-ish refresh it's fine.
+    """
+    if not BDL_API_KEY:
+        return {}
+    from datetime import datetime as _dt
+    if seasons is None:
+        yr = _dt.utcnow().year
+        seasons = [yr, yr - 1]
+
+    rounds_by_player = {}
+    for season in seasons:
+        try:
+            rows = bdl_fetch_all(
+                "player_round_results",
+                {"season": str(season), "per_page": "100"},
+                max_pages=max_pages_per_season,
+            )
+        except Exception as e:
+            print(f"  [WARN] BDL variance fetch failed for {season}: {e}")
+            continue
+        if not rows:
+            continue
+        n_added = 0
+        for r in rows:
+            player = r.get("player") or {}
+            pname = player.get("display_name") or (
+                f"{player.get('first_name','')} {player.get('last_name','')}".strip()
+            )
+            if not pname:
+                continue
+            par_rel = r.get("par_relative_score")
+            if not isinstance(par_rel, (int, float)):
+                continue
+            # Skip absurd outliers (data artifacts)
+            v = float(par_rel)
+            if v < -15 or v > 20:
+                continue
+            rounds_by_player.setdefault(normalize_name(pname), []).append(v)
+            n_added += 1
+        print(f"  BDL variance: {season} → {n_added} rounds, {len(rounds_by_player)} players seen so far")
+
+    out = {}
+    out_meta = {}
+    for name, scores in rounds_by_player.items():
+        if len(scores) < min_rounds:
+            continue
+        mean = sum(scores) / len(scores)
+        var = sum((s - mean) ** 2 for s in scores) / (len(scores) - 1)
+        std = var ** 0.5
+        if 1.8 <= std <= 4.5:
+            out[name] = round(std, 2)
+            out_meta[name] = len(scores)
+    if out:
+        sample_sizes = sorted(out_meta.values())
+        median_n = sample_sizes[len(sample_sizes) // 2]
+        print(f"  BDL variance: {len(out)} players with stable std (median sample {median_n} rounds)")
+    return out
 
 
 def _compute_player_variance(history_dir, max_weeks=20, min_rounds=5):
@@ -6875,6 +7191,21 @@ def run_pipeline():
         except Exception as _e:
             print(f"  [WARN] Learned course fit failed: {_e}")
 
+    # ---- PER-COURSE SG CATEGORY WEIGHTS (regression-learned) ----
+    # Learn which SG category most predicts finish position at this venue.
+    # Augusta loads onto SG: Approach; Pebble onto SG: Putting. Coefficients
+    # are persisted on output and threaded through every downstream
+    # predictor so the model can favor approach-strong players at Augusta,
+    # putting-strong players at Pebble, etc.
+    if _bdl_course_id and _resolved_for_fit:
+        try:
+            _sg_weights = compute_course_sg_weights(_bdl_course_id, output["players"])
+            if _sg_weights:
+                output.setdefault("courseSgWeights", {})[_resolved_for_fit] = _sg_weights
+                print(f"  Course SG weights persisted for {_resolved_for_fit}")
+        except Exception as _e:
+            print(f"  [WARN] Course SG weight learning failed: {_e}")
+
     # ---- CURRENT EVENT FIELD STRENGTH ----
     # Computed from OWGRs already attached to player objects (via Track A
     # bio enrichment). Surfaces to JSON as a transparency artifact and to
@@ -7149,6 +7480,7 @@ def run_pipeline():
         _course_par = (output["currentEvent"].get("course_par")
                        or output["currentEvent"].get("par"))
     _live_lb = ((output.get("currentEvent") or {}).get("leaderboard")) or []
+    _course_sg_weights = (output.get("courseSgWeights") or {}).get(resolved_course)
     output["cutPrediction"] = predict_cut_line(
         output["players"],
         course_key=resolved_course,
@@ -7156,6 +7488,7 @@ def run_pipeline():
         tournament_sg=output.get("tournamentSG"),
         course_par=_course_par,
         live_leaderboard=_live_lb,
+        course_sg_weights=_course_sg_weights,
     )
 
     # ============================================================
@@ -7174,6 +7507,7 @@ def run_pipeline():
             tournament_sg=output.get("tournamentSG"),
             course_par=_course_par,
             live_leaderboard=_live_lb,
+            course_sg_weights=_course_sg_weights,
         )
         if position_probs:
             output["playerPositionProbs"] = position_probs
@@ -7220,6 +7554,7 @@ def run_pipeline():
             per_hole = predict_per_hole_props(
                 output["players"], _course_for_holes,
                 course_par=_course_par, sims=1500,
+                course_sg_weights=_course_sg_weights,
             )
             if per_hole:
                 output["perHoleProps"] = per_hole
@@ -7335,6 +7670,7 @@ def run_pipeline():
             weather=output.get("weather"),
             tournament_sg=output.get("tournamentSG") or [],
             sims=10000,
+            course_sg_weights=_course_sg_weights,
         )
         output["threeBalls"] = matchups_scored  # keep the key name — UI already uses it
         output["threeBallsSource"] = source
@@ -7435,19 +7771,30 @@ def run_pipeline():
         _save_fallback_overrides(overrides)
         print(f"  Self-heal: refreshed fallback_dynamic.json with {saved} player updates")
 
-    # ---- PER-PLAYER ROUND VARIANCE (from history) ----
-    # Compute each player's empirical round-score stddev from history, use
-    # in the matchup MC instead of a global BASE_STD constant.
-    variance_map = _compute_player_variance(history_dir)
+    # ---- PER-PLAYER ROUND VARIANCE ----
+    # Two-tier: prefer BDL (1-2 seasons of /player_round_results, ~30+
+    # rounds per player) over the local-history snapshot version (limited
+    # to whatever weeks we've archived locally). BDL gives a much richer
+    # sample; local is a graceful fallback when BDL is unavailable.
+    bdl_variance = _compute_player_variance_from_bdl()
+    local_variance = _compute_player_variance(history_dir) if not bdl_variance else {}
+    # Merge — BDL takes precedence, local fills gaps
+    variance_map = dict(local_variance)
+    variance_map.update(bdl_variance)
     if variance_map:
         attached = 0
+        bdl_count = 0
         for p in output["players"]:
-            std = variance_map.get(p["name"].lower())
+            nm = normalize_name(p.get("name", ""))
+            std = variance_map.get(nm)
             if std is not None:
                 p["scoreStd"] = std
                 attached += 1
+                if nm in bdl_variance:
+                    bdl_count += 1
         if attached:
-            print(f"  Per-player variance: attached stddev to {attached} players (from history)")
+            src = f"{bdl_count} from BDL, {attached - bdl_count} from local history"
+            print(f"  Per-player variance: attached stddev to {attached} players ({src})")
 
     # ---- COURSE FIT v2 (regression scaffolding, inactive in predict) ----
     # Build data-driven fit scores from historical SG -> finish regression.
