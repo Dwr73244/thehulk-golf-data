@@ -187,12 +187,14 @@
     .glass-strong { background: var(--glass); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(120,160,200,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
 
     .tab-pill { transition: all 0.25s ease; border-radius: 6px; min-height: 44px; display: inline-flex; align-items: center; }
-    .tab-pill.active { background: rgba(21,255,194,0.05) !important; border: 1.5px solid rgba(21,255,194,0.6) !important; color: var(--teal) !important; font-weight: 600; }
+    .tab-pill.active { background: rgba(21,255,194,0.12) !important; border: 1.5px solid rgba(21,255,194,0.7) !important; color: var(--teal) !important; font-weight: 700; box-shadow: 0 0 12px rgba(21,255,194,0.15); }
     .tab-pill:not(.active) { border: 1.5px solid rgba(120,160,200,0.1); color: rgba(210,220,235,0.75); }
     .tab-pill:hover:not(.active) { background: rgba(21,255,194,0.03); }
-    /* Accent pills (Matchups, Monitor, Edge Finder) — only the teal label tint;
-       no border/background so the .active class is unambiguous. */
-    .tab-pill-accent:not(.active) { color: rgba(21,255,194,0.85); }
+    /* Accent pills (Matchups, Monitor, Edge Finder) — subtle teal hint so they
+       READ as "feature tabs" but the .active state is still unambiguously
+       distinct. The bright-teal accent at 0.85 alpha read as "selected" next
+       to a muted-grey active tab, so we dim it to 0.55 here. */
+    .tab-pill-accent:not(.active) { color: rgba(21,255,194,0.55); }
     /* Matchups group cards — skip off-screen layout/paint cost. Big INP win
        when rendering 80+ cards on a mid-tier Android. Each card estimated ~140px. */
     .tb-card { content-visibility: auto; contain-intrinsic-size: 0 140px; }
@@ -951,8 +953,8 @@
             <span>News</span>
             <span class="sc-chev">▾</span>
           </button>
-          <button id="sc-stats-toggle" class="inline-flex items-center gap-1.5 rounded-md border border-white/10 hover:border-pb-teal/40 bg-white/[0.02] px-2.5 py-1 text-[11px] font-semibold text-slate-400 hover:text-pb-teal transition-colors uppercase tracking-[0.06em]" aria-expanded="true" aria-controls="sc-stats-panel">
-            <span>Stats</span>
+          <button id="sc-stats-toggle" class="inline-flex items-center gap-1.5 rounded-md border border-white/10 hover:border-pb-teal/40 bg-white/[0.02] px-2.5 py-1 text-[11px] font-semibold text-slate-400 hover:text-pb-teal transition-colors uppercase tracking-[0.06em]" aria-expanded="true" aria-controls="sc-stats-panel" title="Hide or show the tournament stat strip">
+            <span>Hide Stats</span>
             <span class="sc-chev sc-chev-open">▾</span>
           </button>
         </div>
@@ -2321,26 +2323,35 @@
 <!-- JS ENGINE -->
 <!-- ================================================================ -->
 <script>
-  // Disclaimer — shows on every visit (intentional: brand + responsible gambling)
+  // Disclaimer — shown once, then suppressed for 30 days via localStorage.
+  // Brand + responsible-gambling content is still in the footer; users who
+  // need to re-read it can scroll there or clear site data.
+  var PB_DISCLAIMER_KEY = 'pb_disclaimer_dismissed';
+  var PB_DISCLAIMER_TTL_MS = 30 * 24 * 60 * 60 * 1000;  // 30 days
   function dismissDisclaimer() {
     var m = document.getElementById('disclaimerModal');
     if (m) m.style.display = 'none';
-    // Unlock scroll if we locked it
     document.body.style.overflow = '';
+    try { localStorage.setItem(PB_DISCLAIMER_KEY, String(Date.now())); } catch(e) {}
   }
-  // Lock body scroll while modal is open to prevent CLS + accidental scroll-past
   (function() {
-    if (document.getElementById('disclaimerModal')) {
-      document.body.style.overflow = 'hidden';
-    }
-    // Backdrop tap to dismiss
     var m = document.getElementById('disclaimerModal');
-    if (m) {
-      m.addEventListener('click', function(e) {
-        if (e.target === m) dismissDisclaimer();
-      });
+    if (!m) return;
+    // Check storage: was the disclaimer dismissed within the TTL window?
+    var skip = false;
+    try {
+      var ts = parseInt(localStorage.getItem(PB_DISCLAIMER_KEY) || '0', 10);
+      if (ts && (Date.now() - ts) < PB_DISCLAIMER_TTL_MS) skip = true;
+    } catch(e) {}
+    if (skip) {
+      m.style.display = 'none';
+      return;
     }
-    // ESC key to dismiss
+    // Show it: lock body scroll while open
+    document.body.style.overflow = 'hidden';
+    m.addEventListener('click', function(e) {
+      if (e.target === m) dismissDisclaimer();
+    });
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         var mm = document.getElementById('disclaimerModal');
@@ -5240,6 +5251,9 @@
           }
         }
         console.log('[ESPN Live] Active round detected:', activeRound);
+        // Expose to other surfaces (scorecard hero, etc.) so they don't
+        // have to re-derive the active round from per-player data.
+        window._tournamentActiveRound = activeRound;
 
         for (var ci = 0; ci < competitions.length; ci++) {
           var comp = competitions[ci];
@@ -7851,27 +7865,53 @@
     // Leader (live) — lowest _liveScore
     // Field count = size of currentEvent.leaderboard (the actual PGA field /
     // post-cut roster). Falls back to live-scored-player count, then to '—'.
-    var actualFieldSize = (live && live.leaderboard && live.leaderboard.length) || 0;
+    // Prefer ESPN's full live leaderboard (_liveLeaderboard) over the
+    // scraper-fed currentEvent.leaderboard, which only contains players
+    // we track in DataGolf (~80) and misses the bottom half of the
+    // field including sponsor exemptions / Korn Ferry call-ups. ESPN
+    // _liveLeaderboard is the full ~156-player field, refreshed every 60s.
+    var espnLb = (window._liveLeaderboard && window._liveLeaderboard.length) ? window._liveLeaderboard : null;
+    var actualFieldSize = (espnLb && espnLb.length) || (live && live.leaderboard && live.leaderboard.length) || 0;
     var leaderTxt = '—', cutTxt = '—', avgTxt = '—', fieldTxt = String(actualFieldSize || '—'), roundTxt = '—', wxTxt = '—';
     if (isLive) {
-      var lbPlayers = players.filter(function(p) { return p._liveScore != null && p._liveScore !== ''; });
-      if (lbPlayers.length) {
-        lbPlayers.sort(function(a, b) { return Number(a._liveScore || 99) - Number(b._liveScore || 99); });
-        var leader = lbPlayers[0];
-        leaderTxt = (leader.name ? leader.name.split(' ').slice(-1)[0] : '—') + ' ' + scFmtScore(leader._liveScore);
-        // Pre-cut: lbPlayers.length ≈ actualFieldSize, show single number.
-        // Post-cut: actualFieldSize shrinks to the made-cut roster; same number.
-        // Only show "live/total" when more players in our system than in the
-        // live field (e.g. a player on our master list isn't playing this week).
-        fieldTxt = actualFieldSize ? String(actualFieldSize) : String(lbPlayers.length);
-        var sum = 0, n = 0;
-        lbPlayers.forEach(function(p) { var s = Number(p._liveScore); if (!isNaN(s)) { sum += s; n++; } });
-        if (n) avgTxt = scFmtScore(+(sum / n).toFixed(1));
+      // Leader comes from ESPN's full leaderboard when available — otherwise
+      // a player like Alex Smalley (not in our DataGolf top 80) wouldn't
+      // show as leader even when he's actually leading.
+      if (espnLb) {
+        // ESPN puts the field in finish order; first row with a numeric
+        // totalScore is the current leader.
+        var espnLeader = null;
+        for (var i = 0; i < espnLb.length; i++) {
+          var s = espnLb[i].totalScore;
+          if (s != null && s !== '') { espnLeader = espnLb[i]; break; }
+        }
+        if (espnLeader) {
+          leaderTxt = (espnLeader.name ? espnLeader.name.split(' ').slice(-1)[0] : '—') + ' ' + scFmtScore(espnLeader.totalScore);
+        }
+        fieldTxt = String(espnLb.length);
+        // Scoring avg across the entire ESPN field
+        var sumAll = 0, nAll = 0;
+        espnLb.forEach(function(r) {
+          var sc = Number(r.totalScore);
+          if (!isNaN(sc)) { sumAll += sc; nAll++; }
+        });
+        if (nAll) avgTxt = scFmtScore(+(sumAll / nAll).toFixed(1));
+      } else {
+        // Fallback: derive from DataGolf-tracked players (legacy path)
+        var lbPlayers = players.filter(function(p) { return p._liveScore != null && p._liveScore !== ''; });
+        if (lbPlayers.length) {
+          lbPlayers.sort(function(a, b) { return Number(a._liveScore || 99) - Number(b._liveScore || 99); });
+          var leader = lbPlayers[0];
+          leaderTxt = (leader.name ? leader.name.split(' ').slice(-1)[0] : '—') + ' ' + scFmtScore(leader._liveScore);
+          fieldTxt = actualFieldSize ? String(actualFieldSize) : String(lbPlayers.length);
+          var sum = 0, n = 0;
+          lbPlayers.forEach(function(p) { var s = Number(p._liveScore); if (!isNaN(s)) { sum += s; n++; } });
+          if (n) avgTxt = scFmtScore(+(sum / n).toFixed(1));
+        }
       }
-      // Round: prefer live.round, else derive from currentEvent.leaderboard
-      // (count non-zero round fields on the first entry) — scraper doesn't
-      // always populate a top-level round number.
-      var rNum = live.round;
+      // Round: prefer the ESPN-detected active round, then live.round,
+      // then derive from leaderboard contents.
+      var rNum = window._tournamentActiveRound || live.round;
       if (!rNum && live.leaderboard && live.leaderboard[0]) {
         var l0 = live.leaderboard[0];
         rNum = (l0.round4 ? 4 : (l0.round3 ? 3 : (l0.round2 ? 2 : (l0.round1 ? 1 : 0))));
@@ -8083,11 +8123,14 @@
         players = players.filter(function(p) { return bubbleSet[p.id]; });
       }
     } else if (f === 'edge') {
+      // Only show players with positive EV in the CURRENTLY SELECTED
+      // market — otherwise a player can be massively −EV in Win but +EV
+      // in MakeCut and pass the filter while displaying their Win edge
+      // as -38% in the visible row. Threshold ≥ 3% (the de-vig noise
+      // floor below which "edge" is mostly book spread).
       players = players.filter(function(p) {
-        return ['winner', 'top5', 'top10', 'top20', 'makeCut'].some(function(mkt) {
-          var ev = scMarketEV(p, mkt);
-          return ev != null && ev >= 5;
-        });
+        var ev = scMarketEV(p, _scState.market);
+        return ev != null && ev >= 3;
       });
     } else if (f === 'live') {
       players = players.filter(function(p) { return p._liveScore != null && p._liveScore !== ''; });
@@ -8225,6 +8268,21 @@
     if (key === 'course')  sec.innerHTML = scDrawerCourse(p);
     if (key === 'compare') { sec.innerHTML = scDrawerCompare(p, _scState.compareWith); scWireCompare(sec, p); }
     if (key === 'live')    { sec.innerHTML = scDrawerLive(p); scWireLive(sec, p); }
+    // Mark buttons whose (player, bet) is already in the parlay so the
+    // user can see at a glance what they've already added. Runs on every
+    // drawer render including re-opens.
+    var existingLegs = (typeof _parlayLegs !== 'undefined' && _parlayLegs) ? _parlayLegs : [];
+    sec.querySelectorAll('.sc-add-parlay').forEach(function(btn) {
+      var btnPlayer = btn.getAttribute('data-player');
+      var btnBet = btn.getAttribute('data-bet');
+      var inSlip = existingLegs.some(function(l) {
+        return l.player === btnPlayer && (l.betType === btnBet || l.type === btnBet);
+      });
+      if (inSlip) {
+        btn.classList.add('added');
+        btn.textContent = '✓ In slip';
+      }
+    });
     // Wire add-to-parlay buttons (delegated wouldn't see new content)
     sec.querySelectorAll('.sc-add-parlay').forEach(function(btn) {
       btn.addEventListener('click', function(e) {
@@ -8239,8 +8297,10 @@
           var added = afterCount > beforeCount;
           if (added) {
             btn.classList.add('added');
-            btn.textContent = '✓ Added';
-            setTimeout(function() { btn.classList.remove('added'); btn.textContent = '+ Parlay'; }, 1400);
+            btn.textContent = '✓ In slip';
+            // Persist the "added" state — don't auto-revert, since the leg
+            // is genuinely in the parlay. User clicking again would remove
+            // and re-add (handled by addToParlayIfValid's dedup check).
             var trigger = document.getElementById('sc-parlay-trigger');
             if (trigger) { trigger.classList.remove('sc-pulse'); void trigger.offsetWidth; trigger.classList.add('sc-pulse'); }
             // Auto-open the slip on the first leg of a session so the user sees it land
@@ -8845,6 +8905,9 @@
         statsToggle.setAttribute('aria-expanded', String(!open));
         var chev = statsToggle.querySelector('.sc-chev');
         if (chev) chev.classList.toggle('sc-chev-open', !open);
+        // Update the label so the button telegraphs its action
+        var lbl = statsToggle.querySelector('span:first-child');
+        if (lbl) lbl.textContent = open ? 'Show Stats' : 'Hide Stats';
       });
     }
   }
