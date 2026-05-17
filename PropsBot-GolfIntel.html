@@ -7640,12 +7640,18 @@
           if (typeof scRefreshEventStrip === 'function') { scRefreshEventStrip(); scRefreshHero(); scRenderLeaderboard(); scParlayRefresh(); }
         } catch (e) { console.error('[scorecard]', e); }
         if (isRefresh) {
-          // Re-render active views without full re-init
+          // Re-render active views without full re-init. renderLeaderboard()
+          // was the legacy Players-tab leaderboard renderer — removed when
+          // the scorecard view became the default; this call was leftover
+          // and threw a ReferenceError on every refresh (caught by the
+          // catch block but noisy in the console). The scorecard
+          // leaderboard refresh is already handled above via
+          // scRenderLeaderboard(); the live-leaderboard panel is handled
+          // by the ESPN-fetch path's renderLiveLeaderboard() call.
           renderPlayerGrid();
           setTimeout(enhancePlayerGrid, 0);
           renderPropsMatrix();
           renderPropsLineShopping();
-          renderLeaderboard();
           // Flash refresh indicator
           var badge = el('refreshBadge');
           if (badge) {
