@@ -7417,10 +7417,29 @@
     simData.forEach(function(sr) {
       var winOdds = _bestBookOdds(sr.player, book);
       markets.forEach(function(m) {
-        var isDerived = m.key !== 'winner';
-        var bookOdds = isDerived
-          ? _estimateMarketOdds(winOdds, m.key)
-          : winOdds;
+        // Prefer real book lines from BDL's propsByType when available,
+        // fall back to derivation from Win odds only when the market has
+        // no real line. Before this: Edge Finder always derived top5/
+        // top10/top20/makeCut from Win, even when BDL shipped real
+        // makeCut/top5 lines — produced different edges from scorecard
+        // (which uses americanOddsForCell). E.g. Scheffler MakeCut was
+        // Edge Finder -256 (derived) vs scorecard -743 (real book) for
+        // the same simulation week.
+        var realBookOdds = null;
+        if (m.key !== 'winner') {
+          try { realBookOdds = americanOddsForCell(sr.player, m.key, 'best'); } catch(_) {}
+        }
+        var bookOdds, isDerived;
+        if (m.key === 'winner') {
+          bookOdds = winOdds;
+          isDerived = false;
+        } else if (realBookOdds != null) {
+          bookOdds = realBookOdds;
+          isDerived = false;
+        } else {
+          bookOdds = _estimateMarketOdds(winOdds, m.key);
+          isDerived = true;
+        }
         if (!bookOdds) return;
 
         // Skip obviously stale / placeholder odds (real Make Cut / Top N lines don't go to +10000+)
