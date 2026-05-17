@@ -7595,6 +7595,43 @@ def run_pipeline():
                     p["modelTop20Prob"] = pp["top20"]
                     p["modelMakeCutProb"] = pp["makeCut"]
             print(f"[PROPS] Position probs attached to {len(position_probs)} players")
+
+            # ---- MONOTONICITY GUARD (across-model consistency) ----
+            # modelWinProb comes from softmax(confScore) above, calibrated
+            # to match outright odds. modelTop5/Top10/Top20/MakeCut come
+            # from an independent Monte Carlo. The two sims disagree:
+            # softmax gives Scheffler ~7% to win, MC gives him ~3% to
+            # finish top 5. That's mathematically impossible — every win
+            # is by definition a top-5 finish.
+            #
+            # Fix: walk each player's tiered markets bottom-up and ensure
+            # P(broader market) ≥ P(narrower market). Uses max() so we
+            # never UNDERSTATE any signal — if the MC genuinely thinks
+            # Top 5 is higher than softmax Win, we keep the higher MC
+            # number. This preserves the higher-confidence model's
+            # estimate while restoring mathematical consistency.
+            n_monotonized = 0
+            for p in output["players"]:
+                w = float(p.get("modelWinProb") or 0)
+                t5 = float(p.get("modelTop5Prob") or 0)
+                t10 = float(p.get("modelTop10Prob") or 0)
+                t20 = float(p.get("modelTop20Prob") or 0)
+                mc = float(p.get("modelMakeCutProb") or 0)
+                # Bottom-up: each broader market must be ≥ the previous
+                new_t5 = max(t5, w)
+                new_t10 = max(t10, new_t5)
+                new_t20 = max(t20, new_t10)
+                new_mc = max(mc, new_t20)
+                changed = (new_t5 != t5 or new_t10 != t10 or new_t20 != t20 or new_mc != mc)
+                if changed:
+                    p["modelTop5Prob"] = round(new_t5, 4)
+                    p["modelTop10Prob"] = round(new_t10, 4)
+                    p["modelTop20Prob"] = round(new_t20, 4)
+                    p["modelMakeCutProb"] = round(new_mc, 4)
+                    n_monotonized += 1
+            if n_monotonized:
+                print(f"  Monotonicity guard adjusted {n_monotonized} players "
+                      f"(softmax win vs MC position-probs disagreement)")
     except Exception as _e:
         print(f"  [WARN] Position prob simulation failed: {_e}")
 
