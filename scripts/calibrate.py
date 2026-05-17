@@ -247,34 +247,57 @@ def brier(predictions):
     return round(sum((p - o) ** 2 for p, o in predictions) / len(predictions), 4)
 
 
+BACKFILL_FILES = ("backfill_calibration.json", "backfill_pga_public.json")
+
+
 def load_backfill_pairs():
-    """Load the bulk 2024+2025 backfill produced by scripts/backfill_calibration.py.
+    """Load the bulk historical backfill produced by the two backfill scripts.
+
+    Sources, both consumed when present:
+      - ``history/backfill_calibration.json`` — from scripts/backfill_calibration.py
+        (BDL tournament_results + season_stats)
+      - ``history/backfill_pga_public.json`` — from scripts/backfill_from_pga_public.py
+        (ESPN scoreboard + BDL season_stats; covers gaps where BDL's historical
+        tournaments are sparse)
 
     Returns ``(pairs, events)`` in the same shape as ``load_history_pairs``:
-    each pair is (event, player, score, made_cut). When the backfill file is
-    absent, returns empty lists — the existing live-history calibration still
+    each pair is (event, player, score, made_cut). When neither backfill file is
+    present, returns empty lists — the existing live-history calibration still
     runs unchanged.
+
+    Cross-file deduplication: same player + same event from both sources keeps
+    only the first. The BDL backfill is preferred (uses contemporaneous season
+    SG when available); the ESPN backfill fills in events BDL doesn't cover.
     """
-    backfill_path = os.path.join(HISTORY_DIR, "backfill_calibration.json")
-    if not os.path.isfile(backfill_path):
-        return [], []
-    try:
-        with open(backfill_path, encoding="utf-8") as f:
-            data = json.load(f)
-    except (OSError, json.JSONDecodeError) as e:
-        print(f"  [WARN] backfill load failed: {e}")
-        return [], []
-    pairs = []
-    events = set()
-    for p in data.get("pairs") or []:
-        try:
-            pairs.append((
-                p["event"], p["player"], float(p["proxy_score"]), bool(p["made_cut"])
-            ))
-            events.add(p["event"])
-        except (KeyError, TypeError, ValueError):
+    all_pairs = []
+    all_events = set()
+    seen = set()  # (event, player) — dedupe across both files
+    for fn in BACKFILL_FILES:
+        backfill_path = os.path.join(HISTORY_DIR, fn)
+        if not os.path.isfile(backfill_path):
             continue
-    return pairs, sorted(events)
+        try:
+            with open(backfill_path, encoding="utf-8") as f:
+                data = json.load(f)
+        except (OSError, json.JSONDecodeError) as e:
+            print(f"  [WARN] backfill load failed for {fn}: {e}")
+            continue
+        added = 0
+        for p in data.get("pairs") or []:
+            try:
+                ev = p["event"]
+                pl = p["player"]
+                key = (ev, pl.lower().strip())
+                if key in seen:
+                    continue
+                seen.add(key)
+                all_pairs.append((ev, pl, float(p["proxy_score"]), bool(p["made_cut"])))
+                all_events.add(ev)
+                added += 1
+            except (KeyError, TypeError, ValueError):
+                continue
+        print(f"  {fn}: {added} pairs after dedup")
+    return all_pairs, sorted(all_events)
 
 
 def main():
