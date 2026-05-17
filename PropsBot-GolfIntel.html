@@ -451,6 +451,77 @@
       min-height: 34px;
     }
 
+    /* Tooltip system — small "i" icon next to non-obvious labels.
+       Pure CSS popover (no JS dependency). Triggers on hover (desktop)
+       and on focus (keyboard + mobile tap), since tapping the button
+       focuses it. The popover is positioned with absolute positioning
+       relative to its parent .help-anchor wrapper. */
+    .help-anchor {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+    }
+    .help-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 14px; height: 14px; margin-left: 4px;
+      border-radius: 50%; border: 1px solid rgba(120,160,200,0.3);
+      background: transparent; color: rgba(180,200,220,0.55);
+      font-family: var(--sans); font-size: 9px; font-weight: 700;
+      cursor: help; padding: 0; line-height: 1; flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+    .help-icon:hover, .help-icon:focus-visible {
+      color: var(--teal); border-color: rgba(21,255,194,0.6);
+      background: rgba(21,255,194,0.08); outline: none;
+    }
+    .help-popover {
+      position: absolute; bottom: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%);
+      min-width: 200px; max-width: 280px;
+      padding: 8px 10px;
+      background: rgba(7,14,26,0.97);
+      border: 1px solid rgba(21,255,194,0.25);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 16px rgba(21,255,194,0.08);
+      backdrop-filter: blur(12px);
+      font-family: var(--sans); font-size: 11px; font-weight: 400;
+      color: rgba(220,230,240,0.95);
+      text-transform: none; letter-spacing: 0; line-height: 1.45;
+      text-align: left;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      transform: translateX(-50%) translateY(4px);
+      z-index: 100;
+    }
+    .help-popover::after {
+      content: ''; position: absolute; top: 100%; left: 50%;
+      transform: translateX(-50%); border: 5px solid transparent;
+      border-top-color: rgba(21,255,194,0.25);
+    }
+    .help-anchor:hover .help-popover,
+    .help-icon:focus-visible + .help-popover,
+    .help-icon:focus + .help-popover {
+      opacity: 1; pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    /* When the icon is near the right edge (last filter group), anchor
+       the popover to the right so it doesn't clip off-screen */
+    .help-anchor.help-anchor-right .help-popover {
+      left: auto; right: 0;
+      transform: translateX(0) translateY(4px);
+    }
+    .help-anchor.help-anchor-right .help-popover::after {
+      left: auto; right: 6px; transform: translateX(0);
+    }
+    .help-anchor.help-anchor-right:hover .help-popover,
+    .help-anchor.help-anchor-right .help-icon:focus + .help-popover {
+      transform: translateX(0) translateY(0);
+    }
+    @media (max-width: 640px) {
+      .help-popover { min-width: 180px; max-width: 240px; font-size: 10.5px; }
+    }
+
     /* Leaderboard rows — grid layout, hairline rules instead of cards */
     .sc-row {
       display: grid;
@@ -889,9 +960,19 @@
       <!-- Hero stats panel (expanded by default during live events) -->
       <div id="sc-stats-panel" class="mt-3 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2" role="region" aria-label="Tournament statistics">
         <div class="sc-hero-stat"><div class="sc-hero-label">Leader</div><div class="sc-hero-val mono" id="sc-stat-leader">—</div></div>
-        <div class="sc-hero-stat"><div class="sc-hero-label">Cut Line</div><div class="sc-hero-val mono" id="sc-stat-cut">—</div></div>
+        <div class="sc-hero-stat"><div class="sc-hero-label">
+          <span class="help-anchor">Cut Line
+            <button type="button" class="help-icon" aria-label="What is the cut line?" tabindex="0">i</button>
+            <span class="help-popover" role="tooltip">Projected score-to-par needed to survive R2. Live during a tournament; from Monte Carlo before tee-off.</span>
+          </span>
+        </div><div class="sc-hero-val mono" id="sc-stat-cut">—</div></div>
         <div class="sc-hero-stat"><div class="sc-hero-label">Scoring Avg</div><div class="sc-hero-val mono" id="sc-stat-avg">—</div></div>
-        <div class="sc-hero-stat"><div class="sc-hero-label">Field</div><div class="sc-hero-val mono" id="sc-stat-field">—</div></div>
+        <div class="sc-hero-stat"><div class="sc-hero-label">
+          <span class="help-anchor">Field
+            <button type="button" class="help-icon" aria-label="What does field mean?" tabindex="0">i</button>
+            <span class="help-popover" role="tooltip">Field strength — average OWGR of competitors. Lower = stronger field. ~30 is a major, ~85 is a regular tour stop.</span>
+          </span>
+        </div><div class="sc-hero-val mono" id="sc-stat-field">—</div></div>
         <div class="sc-hero-stat"><div class="sc-hero-label" id="sc-stat-round-label">Round</div><div class="sc-hero-val mono" id="sc-stat-round">—</div></div>
         <div class="sc-hero-stat"><div class="sc-hero-label">Weather</div><div class="sc-hero-val mono text-[12px]" id="sc-stat-weather">—</div></div>
       </div>
@@ -908,31 +989,46 @@
         <span id="sc-count" class="text-[11px] text-slate-500 mono whitespace-nowrap">—</span>
       </div>
       <div class="sc-filter-group flex items-center gap-1.5 flex-wrap">
-        <span class="text-[10px] uppercase tracking-[0.06em] text-slate-500 font-semibold pr-1">Sort</span>
-        <button class="sc-sort-pill active" data-sort="model">Model</button>
-        <button class="sc-sort-pill" data-sort="edge">Edge</button>
+        <span class="text-[10px] uppercase tracking-[0.06em] text-slate-500 font-semibold pr-1 inline-flex items-center">
+          <span class="help-anchor">Sort
+            <button type="button" class="help-icon" aria-label="What does Sort do?" tabindex="0">i</button>
+            <span class="help-popover" role="tooltip">Re-orders the leaderboard. Default <b>Model</b> = our composite confidence. <b>Edge</b> = best market value. <b>Edge ÷ σ</b> = best value adjusted for noise.</span>
+          </span>
+        </span>
+        <button class="sc-sort-pill active" data-sort="model" title="Our 0-100 composite ranking: SG, course fit, recent form, OWGR, field strength.">Model</button>
+        <button class="sc-sort-pill" data-sort="edge" title="Model probability minus market-implied probability. Positive = mispriced too long.">Edge</button>
         <button class="sc-sort-pill" data-sort="sharpe" title="Edge divided by outcome uncertainty (favors confident edges over noisy ones)">Edge ÷ σ</button>
-        <button class="sc-sort-pill" data-sort="win">Win Odds</button>
-        <button class="sc-sort-pill" data-sort="live">Live Pos</button>
-        <button class="sc-sort-pill" data-sort="sg">SG Total</button>
-        <button class="sc-sort-pill" data-sort="fit">Course Fit</button>
-        <button class="sc-sort-pill" data-sort="owgr">OWGR</button>
+        <button class="sc-sort-pill" data-sort="win" title="Shortest market odds first (favorite to longshot).">Win Odds</button>
+        <button class="sc-sort-pill" data-sort="live" title="Current live leaderboard position (active tournaments only).">Live Pos</button>
+        <button class="sc-sort-pill" data-sort="sg" title="Strokes Gained Total this season — average strokes per round vs the field.">SG Total</button>
+        <button class="sc-sort-pill" data-sort="fit" title="How well this course's profile matches each player's strengths. 75 = neutral, 100 = elite fit.">Course Fit</button>
+        <button class="sc-sort-pill" data-sort="owgr" title="Official World Golf Ranking. Lower = better.">OWGR</button>
       </div>
       <div class="sc-filter-group flex items-center gap-1.5 flex-wrap">
-        <span class="text-[10px] uppercase tracking-[0.06em] text-slate-500 font-semibold pr-1">Market</span>
-        <button class="sc-mkt-pill active" data-mkt="winner">Win</button>
-        <button class="sc-mkt-pill" data-mkt="top5">T5</button>
-        <button class="sc-mkt-pill" data-mkt="top10">T10</button>
-        <button class="sc-mkt-pill" data-mkt="top20">T20</button>
-        <button class="sc-mkt-pill" data-mkt="makeCut">MC</button>
+        <span class="text-[10px] uppercase tracking-[0.06em] text-slate-500 font-semibold pr-1 inline-flex items-center">
+          <span class="help-anchor">Market
+            <button type="button" class="help-icon" aria-label="What does Market do?" tabindex="0">i</button>
+            <span class="help-popover" role="tooltip">Which bet type the Odds / Edge columns price. <b>Win</b>: outright. <b>T5/T10/T20</b>: top finish. <b>MC</b>: make the cut.</span>
+          </span>
+        </span>
+        <button class="sc-mkt-pill active" data-mkt="winner" title="Win the tournament outright">Win</button>
+        <button class="sc-mkt-pill" data-mkt="top5" title="Finish in the top 5 (with dead-heat rules)">T5</button>
+        <button class="sc-mkt-pill" data-mkt="top10" title="Finish in the top 10">T10</button>
+        <button class="sc-mkt-pill" data-mkt="top20" title="Finish in the top 20">T20</button>
+        <button class="sc-mkt-pill" data-mkt="makeCut" title="Make the cut (survive R2)">MC</button>
       </div>
       <div class="sc-filter-group flex items-center gap-1.5 flex-wrap w-full sm:w-auto">
-        <span class="text-[10px] uppercase tracking-[0.06em] text-slate-500 font-semibold pr-1">Show</span>
-        <button class="sc-filt-pill active" data-filt="all">All Field</button>
-        <button class="sc-filt-pill" data-filt="top20">Top 20 Odds</button>
-        <button class="sc-filt-pill" data-filt="cutbubble">Cut Bubble</button>
-        <button class="sc-filt-pill" data-filt="edge">+EV Only</button>
-        <button class="sc-filt-pill" data-filt="live">Live Only</button>
+        <span class="text-[10px] uppercase tracking-[0.06em] text-slate-500 font-semibold pr-1 inline-flex items-center">
+          <span class="help-anchor help-anchor-right">Show
+            <button type="button" class="help-icon" aria-label="What does Show do?" tabindex="0">i</button>
+            <span class="help-popover" role="tooltip">Narrows the field. <b>Cut Bubble</b>: ±2 strokes of the cut line. <b>+EV Only</b>: model finds value vs market. <b>Live Only</b>: hides WD/inactive.</span>
+          </span>
+        </span>
+        <button class="sc-filt-pill active" data-filt="all" title="Show every player in the field">All Field</button>
+        <button class="sc-filt-pill" data-filt="top20" title="Only the 20 shortest-priced players">Top 20 Odds</button>
+        <button class="sc-filt-pill" data-filt="cutbubble" title="Players within ±2 strokes of the projected cut line">Cut Bubble</button>
+        <button class="sc-filt-pill" data-filt="edge" title="Only players where our model finds positive expected value vs the market">+EV Only</button>
+        <button class="sc-filt-pill" data-filt="live" title="Only players currently active in the tournament (excludes WD/DNS)">Live Only</button>
       </div>
     </div>
   </section>
@@ -940,15 +1036,35 @@
   <!-- Leaderboard spine -->
   <main class="max-w-7xl mx-auto px-2 sm:px-4 py-4">
     <!-- Column header (sticky under filter bar) -->
-    <div id="sc-col-header" class="sc-row sc-row-header" aria-hidden="true">
-      <div class="sc-col-rank">#</div>
+    <div id="sc-col-header" class="sc-row sc-row-header">
+      <div class="sc-col-rank" title="Model rank — position in our sorted leaderboard">#</div>
       <div class="sc-col-name">Player</div>
-      <div class="sc-col-live mono">Live</div>
-      <div class="sc-col-model mono">Model</div>
-      <div class="sc-col-sg mono">SG</div>
-      <div class="sc-col-fit mono">Fit</div>
-      <div class="sc-col-odds mono">Odds</div>
-      <div class="sc-col-edge mono">Edge</div>
+      <div class="sc-col-live mono" title="Current live tournament position (— when not active)">Live</div>
+      <div class="sc-col-model mono">
+        <span class="help-anchor">Model
+          <button type="button" class="help-icon" aria-label="What is Model score?" tabindex="0">i</button>
+          <span class="help-popover" role="tooltip">Our composite 0-100 confidence. Combines SG Total, course fit, recent form, OWGR, and field strength. Calibrated to a make-cut probability via isotonic regression.</span>
+        </span>
+      </div>
+      <div class="sc-col-sg mono">
+        <span class="help-anchor">SG
+          <button type="button" class="help-icon" aria-label="What is SG?" tabindex="0">i</button>
+          <span class="help-popover" role="tooltip">Strokes Gained Total — average strokes better/worse than the field per round this season. +1 means saving 1 stroke per round vs an average tour pro.</span>
+        </span>
+      </div>
+      <div class="sc-col-fit mono">
+        <span class="help-anchor">Fit
+          <button type="button" class="help-icon" aria-label="What is Course Fit?" tabindex="0">i</button>
+          <span class="help-popover" role="tooltip">Course fit, 0-100. How well this course's profile (length, scoring conditions, SG category weight) matches this player's strengths. 75 = neutral, 100 = elite fit.</span>
+        </span>
+      </div>
+      <div class="sc-col-odds mono" title="Best market odds across tracked sportsbooks for the selected market">Odds</div>
+      <div class="sc-col-edge mono">
+        <span class="help-anchor help-anchor-right">Edge
+          <button type="button" class="help-icon" aria-label="What is Edge?" tabindex="0">i</button>
+          <span class="help-popover" role="tooltip">Model probability − market-implied probability (de-vigged). Positive = the model thinks the player is mispriced too long. ≥ 3% is generally considered a real edge.</span>
+        </span>
+      </div>
       <div class="sc-col-expand" aria-hidden="true"></div>
     </div>
     <div id="sc-leaderboard"></div>
