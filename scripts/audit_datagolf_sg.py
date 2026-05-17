@@ -158,6 +158,22 @@ def main():
     print(f"[AUDIT] Overlap (in both sources): {len(overlap)} players")
     if len(overlap) < args.min_pairs:
         print(f"[AUDIT] Not enough overlap ({len(overlap)} < {args.min_pairs}) — cannot trust verdict.")
+        # Still write the JSON report so downstream workflow steps can
+        # detect this state (verdict=INDETERMINATE) instead of falling
+        # through to ERROR because the file is missing.
+        report_path = os.path.join(REPO_ROOT, "datagolf-audit.json")
+        with open(report_path, "w", encoding="utf-8") as f:
+            json.dump({
+                "season": season,
+                "verdict": "INDETERMINATE",
+                "reason": f"insufficient_overlap_{len(overlap)}_lt_{args.min_pairs}",
+                "overlap": len(overlap),
+                "dgPlayers": len(dg),
+                "bdlPlayers": len(bdl),
+                "stats": {},
+                "divergent": [],
+            }, f, indent=2)
+        print(f"[AUDIT] Wrote indeterminate report to {report_path}")
         return 3  # INDETERMINATE
 
     # Per-stat correlation + MAD
