@@ -716,12 +716,43 @@
       .sc-row { grid-template-columns: 28px minmax(0,1fr) 56px 64px 20px; gap: 6px; padding: 10px 8px; }
       .sc-col-sg, .sc-col-fit, .sc-col-live, .sc-col-odds { display: none; }
       .sc-col-name { font-size: 13px; }
-      .sc-row-header { top: 100px; }
       #sc-event-strip .sc-hero-stat { padding: 6px 8px; }
       .sc-hero-val { font-size: 13px; }
       #sc-parlay-card { width: 280px; }
       .sc-compare-vs { grid-template-columns: 1fr; }
       .sc-compare-vs-divider { padding: 6px 0; }
+
+      /* Filter bar: on mobile we collapse to a single horizontally-scrollable
+         row so the bar stays ~44px tall and can remain sticky without
+         occluding the leaderboard. Tapping "Filters" expands the secondary
+         controls as a sheet below (still sticky but compact). */
+      #sc-filter-bar { top: 57px; }
+      #sc-filter-bar > div {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-top: 6px;
+        padding-bottom: 6px;
+      }
+      #sc-filter-bar > div::-webkit-scrollbar { display: none; }
+      /* Each pill-group becomes a non-wrapping inline strip; the parent's
+         horizontal scroll lets the user swipe through Sort → Market → Show
+         without the bar growing vertically. */
+      #sc-filter-bar .sc-filter-group {
+        flex-wrap: nowrap;
+        flex-shrink: 0;
+        gap: 4px;
+        padding-right: 8px;
+        border-right: 1px solid rgba(255,255,255,0.04);
+      }
+      #sc-filter-bar .sc-filter-group:last-child { border-right: 0; padding-right: 0; }
+      #sc-filter-bar .sc-filter-group > span { display: none; } /* hide "SORT"/"MARKET"/"SHOW" labels — pills are self-explanatory in compact mode */
+      .sc-sort-pill, .sc-mkt-pill, .sc-filt-pill { padding: 3px 8px; font-size: 10px; min-height: 26px; white-space: nowrap; }
+      #sc-search { min-height: 30px; padding: 4px 10px; font-size: 12px; flex: 0 0 140px; }
+      #sc-count { display: none; }
+      /* Column header now sits just below the (compact) filter bar */
+      .sc-row-header { top: 102px; }
     }
   </style>
 </head>
@@ -876,7 +907,7 @@
         <input id="sc-search" type="text" placeholder="Search player…" class="flex-1 max-w-xs" autocomplete="off" />
         <span id="sc-count" class="text-[11px] text-slate-500 mono whitespace-nowrap">—</span>
       </div>
-      <div class="flex items-center gap-1.5 flex-wrap">
+      <div class="sc-filter-group flex items-center gap-1.5 flex-wrap">
         <span class="text-[10px] uppercase tracking-[0.06em] text-slate-500 font-semibold pr-1">Sort</span>
         <button class="sc-sort-pill active" data-sort="model">Model</button>
         <button class="sc-sort-pill" data-sort="edge">Edge</button>
@@ -887,7 +918,7 @@
         <button class="sc-sort-pill" data-sort="fit">Course Fit</button>
         <button class="sc-sort-pill" data-sort="owgr">OWGR</button>
       </div>
-      <div class="flex items-center gap-1.5 flex-wrap">
+      <div class="sc-filter-group flex items-center gap-1.5 flex-wrap">
         <span class="text-[10px] uppercase tracking-[0.06em] text-slate-500 font-semibold pr-1">Market</span>
         <button class="sc-mkt-pill active" data-mkt="winner">Win</button>
         <button class="sc-mkt-pill" data-mkt="top5">T5</button>
@@ -895,7 +926,7 @@
         <button class="sc-mkt-pill" data-mkt="top20">T20</button>
         <button class="sc-mkt-pill" data-mkt="makeCut">MC</button>
       </div>
-      <div class="flex items-center gap-1.5 flex-wrap w-full sm:w-auto">
+      <div class="sc-filter-group flex items-center gap-1.5 flex-wrap w-full sm:w-auto">
         <span class="text-[10px] uppercase tracking-[0.06em] text-slate-500 font-semibold pr-1">Show</span>
         <button class="sc-filt-pill active" data-filt="all">All Field</button>
         <button class="sc-filt-pill" data-filt="top20">Top 20 Odds</button>
