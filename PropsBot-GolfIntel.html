@@ -190,11 +190,12 @@
     .tab-pill.active { background: rgba(21,255,194,0.12) !important; border: 1.5px solid rgba(21,255,194,0.7) !important; color: var(--teal) !important; font-weight: 700; box-shadow: 0 0 12px rgba(21,255,194,0.15); }
     .tab-pill:not(.active) { border: 1.5px solid rgba(120,160,200,0.1); color: rgba(210,220,235,0.75); }
     .tab-pill:hover:not(.active) { background: rgba(21,255,194,0.03); }
-    /* Accent pills (Matchups, Monitor, Edge Finder) — subtle teal hint so they
-       READ as "feature tabs" but the .active state is still unambiguously
-       distinct. The bright-teal accent at 0.85 alpha read as "selected" next
-       to a muted-grey active tab, so we dim it to 0.55 here. */
-    .tab-pill-accent:not(.active) { color: rgba(21,255,194,0.55); }
+    /* Accent pills (Matchups, Monitor, Edge Finder) — keep the same neutral
+       inactive color as non-accent tabs so they don't look "selected" when
+       they aren't. Active state's bg + border + glow is the only "selected"
+       signal. We retain the class for backward-compat (some JS keys off it)
+       but drop the visual differentiation from inactive state. */
+    .tab-pill-accent:not(.active) { color: rgba(210,220,235,0.75); }
     /* Matchups group cards — skip off-screen layout/paint cost. Big INP win
        when rendering 80+ cards on a mid-tier Android. Each card estimated ~140px. */
     .tb-card { content-visibility: auto; contain-intrinsic-size: 0 140px; }
@@ -6084,8 +6085,17 @@
       var desc = (item.description || '').slice(0, 120) + ((item.description || '').length > 120 ? '…' : '');
       var playerBadge = item.player ? '<span class="stat-pill bg-pb-gold/10 text-pb-gold border border-pb-gold/20 text-[11px] mb-2 inline-flex">' + item.player + '</span>' : '';
       var imgHtml = item.image ? '<img src="' + item.image + '" alt="" class="w-full h-36 object-cover" loading="lazy" onerror="this.style.display=\'none\'">' : '';
-      var linkHtml = item.link ? '<a href="' + item.link + '" target="_blank" rel="noopener noreferrer" class="text-[11px] text-pb-teal hover:underline mt-2 inline-block">Read more →</a>' : '';
-      return '<div class="news-card">' +
+      // Whole-card click target — the entire surface opens the article,
+      // not just the "Read more →" anchor at the bottom. Falls back to a
+      // plain div when no URL exists. Color/cursor inherit so existing
+      // .news-card hover styling keeps working.
+      var url = item.link || '';
+      var cardOpen = url
+        ? '<a href="' + url + '" target="_blank" rel="noopener noreferrer" class="news-card block" style="text-decoration:none;color:inherit;cursor:pointer;">'
+        : '<div class="news-card">';
+      var cardClose = url ? '</a>' : '</div>';
+      var linkHtml = url ? '<span class="text-[11px] text-pb-teal mt-2 inline-block">Read more →</span>' : '';
+      return cardOpen +
         imgHtml +
         '<div class="p-4">' +
           playerBadge +
@@ -6096,7 +6106,7 @@
             linkHtml +
           '</div>' +
         '</div>' +
-      '</div>';
+      cardClose;
     }).join('');
     } catch(e) {
       console.warn('[News] renderNewsGrid failed:', e);
@@ -6343,13 +6353,19 @@
   // De-vigged EV. Pulls the per-market overround from window.DATA.bookVigInfo
   // (written by the scraper from the full field of book lines). Without
   // de-vigging, outright "edge %" is overstated by 20-30% — the hold.
+  // Caps the stored overround at a realistic maximum (the scraper sometimes
+  // reports 1.6+ when the corpus contains stale/anomalous lines) so model
+  // edges don't get deflated into spurious negatives.
   function cellEV(modelPct, bookOdds, market) {
     if (!modelPct || !bookOdds) return null;
     var dec = bookOdds > 0 ? (bookOdds/100+1) : (100/Math.abs(bookOdds)+1);
     var rawImplied = 1/dec;
     var info = (window.DATA && window.DATA.bookVigInfo) || {};
     var ov = market && info[market] && info[market].overround;
-    var fairImplied = ov && ov > 0 ? rawImplied / ov : rawImplied / 1.035;
+    var MAX_OV = { winner: 1.40, top5: 1.25, top10: 1.25, top20: 1.25, makeCut: 1.15 };
+    var cap = MAX_OV[market] || 1.20;
+    var useOv = (ov && ov > 0 && ov <= cap) ? ov : 1.035;
+    var fairImplied = rawImplied / useOv;
     var bookPct = fairImplied * 100;
     return +((modelPct - bookPct) / bookPct * 100).toFixed(1);
   }
@@ -7257,13 +7273,27 @@
 
   function _bestBookOdds(player, book) {
     var odds  = player.odds || {};
-    var books = book === 'best' ? BOOKS.map(function(b){return b.key;}) : [book];
-    var best  = null;
-    books.forEach(function(b) {
-      var v = odds[b] ? parseInt(odds[b]) : null;
-      if (v !== null && (best === null || v > best)) best = v;
+    // book='best' originally returned the longest payout across books, but
+    // that systematically picks the stalest line for outright markets
+    // (where books have wildly different prices for longshots — a +1800
+    // line vs a sharp +350 line is treated as +1800 for "best for the
+    // bettor", inflating model edges into the 50%+ clamp). Use MEDIAN
+    // across books instead — much more robust to single-book outliers.
+    // When a specific book is requested, return that book's odds directly.
+    if (book !== 'best') {
+      var v = odds[book] ? parseInt(odds[book]) : null;
+      return v;
+    }
+    var vals = [];
+    BOOKS.forEach(function(b) {
+      var v = odds[b.key] ? parseInt(odds[b.key]) : null;
+      if (v !== null && !isNaN(v)) vals.push(v);
     });
-    return best;
+    if (!vals.length) return null;
+    if (vals.length === 1) return vals[0];
+    vals.sort(function(a, b) { return a - b; });
+    var mid = Math.floor(vals.length / 2);
+    return vals.length % 2 ? vals[mid] : Math.round((vals[mid - 1] + vals[mid]) / 2);
   }
 
   function _estimateMarketOdds(winOdds, market) {
@@ -7298,12 +7328,15 @@
     var _vigInfo = (window.DATA && window.DATA.bookVigInfo) || {};
     function _devig(rawImpliedPct, mktKey) {
       var ov = _vigInfo[mktKey] && _vigInfo[mktKey].overround;
-      // Fallbacks when scraper hasn't published an overround for this market:
-      //   winner ≈ 1.20 (heavy hold on outrights)
-      //   top5/top10/top20 ≈ 1.10
-      //   makeCut ≈ 1.05 (binary, tightest)
       var defaultOv = { winner: 1.20, top5: 1.10, top10: 1.10, top20: 1.10, makeCut: 1.05 };
-      var useOv = (ov && ov > 0) ? ov : (defaultOv[mktKey] || 1.05);
+      // Sanity ceiling — real PGA outright overrounds are 1.10-1.40
+      // (10-40% hold). When the scraper publishes 1.6+ (e.g. winner=1.62
+      // observed live), it's being inflated by stale or anomalous book
+      // lines in the corpus. Cap at a realistic max so we don't deflate
+      // model edges into negative territory.
+      var MAX_REALISTIC_OV = { winner: 1.40, top5: 1.25, top10: 1.25, top20: 1.25, makeCut: 1.15 };
+      var cap = MAX_REALISTIC_OV[mktKey] || 1.20;
+      var useOv = (ov && ov > 0 && ov <= cap) ? ov : (defaultOv[mktKey] || 1.05);
       return rawImpliedPct / useOv;
     }
 
@@ -7969,23 +8002,33 @@
       // a player like Alex Smalley (not in our DataGolf top 80) wouldn't
       // show as leader even when he's actually leading.
       if (espnLb) {
-        // ESPN puts the field in finish order; first row with a numeric
-        // totalScore is the current leader.
+        // Find the leader by lowest numeric totalScore — don't trust
+        // ESPN's row order alone (it's usually correct, but stale snapshots
+        // or in-progress ties can put a non-leader first). Pre-tournament
+        // entries with empty totalScore get scored at +999 so they sort last.
         var espnLeader = null;
-        for (var i = 0; i < espnLb.length; i++) {
-          var s = espnLb[i].totalScore;
-          if (s != null && s !== '') { espnLeader = espnLb[i]; break; }
-        }
-        if (espnLeader) {
-          leaderTxt = (espnLeader.name ? espnLeader.name.split(' ').slice(-1)[0] : '—') + ' ' + scFmtScore(espnLeader.totalScore);
-        }
-        fieldTxt = String(espnLb.length);
-        // Scoring avg across the entire ESPN field
+        var bestScore = Infinity;
         var sumAll = 0, nAll = 0;
         espnLb.forEach(function(r) {
-          var sc = Number(r.totalScore);
-          if (!isNaN(sc)) { sumAll += sc; nAll++; }
+          var s = r.totalScore;
+          if (s == null || s === '') return;
+          var sc = Number(s);  // ESPN ships "-6" / "+2" / "E" — E parses NaN
+          if (isNaN(sc)) {
+            // "E" = even par = 0
+            sc = String(s).trim().toUpperCase() === 'E' ? 0 : NaN;
+          }
+          if (isNaN(sc)) return;
+          sumAll += sc;
+          nAll++;
+          if (sc < bestScore) {
+            bestScore = sc;
+            espnLeader = r;
+          }
         });
+        if (espnLeader) {
+          leaderTxt = (espnLeader.name ? espnLeader.name.split(' ').slice(-1)[0] : '—') + ' ' + scFmtScore(bestScore);
+        }
+        fieldTxt = String(espnLb.length);
         if (nAll) avgTxt = scFmtScore(+(sumAll / nAll).toFixed(1));
       } else {
         // Fallback: derive from DataGolf-tracked players (legacy path)
@@ -8041,21 +8084,26 @@
         roundTxt = 'Pre-event';
       }
     }
-    // Weather — DATA.weather is shape { forecast: [{date,tempF,windMph,...}] }
-    // (the renderWeatherBar consumer also reads .forecast). The hero was
-    // treating it as a raw array, which always produced "—" because .length
-    // was undefined on the wrapper object.
+    // Weather — DATA.weather shape: { forecast: [{date, tempHigh, tempLow,
+    // windAvg, windMax, ...}] }. Falls back gracefully if the scraper
+    // schema changes.
     var wx = window.DATA && window.DATA.weather;
     var wxForecast = wx && wx.forecast ? wx.forecast
-      : (Array.isArray(wx) ? wx : null);  // tolerate either shape
+      : (Array.isArray(wx) ? wx : null);
     if (wxForecast && wxForecast.length) {
-      // Prefer today's forecast over the first one in the list (forecast
-      // may start from yesterday during multi-day windows)
       var today = new Date().toISOString().slice(0, 10);
       var w = wxForecast.find(function(d) { return d && d.date === today; }) || wxForecast[0];
       var parts = [];
-      if (w.tempF != null) parts.push(w.tempF + '°F');
-      if (w.windMph != null) parts.push(w.windMph + ' mph');
+      // Temperature: tempHigh is the daily forecast field; tempF is the
+      // legacy field name. Fall back through both.
+      var temp = (w.tempHigh != null ? w.tempHigh
+                : (w.tempF != null ? w.tempF : null));
+      if (temp != null) parts.push(Math.round(temp) + '°F');
+      // Wind: windAvg / windMax / windMph (legacy)
+      var wind = (w.windAvg != null ? w.windAvg
+                : (w.windMph != null ? w.windMph
+                : (w.windMax != null ? w.windMax : null)));
+      if (wind != null) parts.push(Math.round(wind) + ' mph');
       wxTxt = parts.join(' · ') || '—';
     }
 
