@@ -7705,11 +7705,14 @@
     return null;
   }
   // Season-rank superscript chip — top 10 teal, top 50 blue, beyond muted.
-  // Returns empty string when rank is missing so callers can concat unconditionally.
+  // Visually distinct from the "live position" chip (sc-rank-move) by using
+  // a superscript layout + an SG prefix so users can tell the two apart at a
+  // glance. The same numeric "#39" had three different meanings in the page
+  // (live position / season SG rank / OWGR) before — this prefix disambiguates.
   function scRankBadge(rank) {
     if (rank == null) return '';
     var cls = rank <= 10 ? 'sc-edge-strong' : (rank <= 50 ? 'sc-edge-good' : 'sc-edge-bad');
-    return '<sup class="' + cls + '" style="font-family:var(--mono);font-size:9px;font-weight:700;margin-left:4px;letter-spacing:0;font-feature-settings:\'tnum\' 1;" title="Season rank #' + rank + '">#' + rank + '</sup>';
+    return '<sup class="' + cls + '" style="font-family:var(--mono);font-size:9px;font-weight:700;margin-left:4px;letter-spacing:0;font-feature-settings:\'tnum\' 1;" title="Season SG rank #' + rank + ' (year-to-date)">SG#' + rank + '</sup>';
   }
   function scEdgeClass(ev) {
     if (ev == null) return 'sc-edge-neutral';
@@ -7950,13 +7953,21 @@
         roundTxt = 'Pre-event';
       }
     }
-    // Weather (best-effort from DATA.weather)
+    // Weather — DATA.weather is shape { forecast: [{date,tempF,windMph,...}] }
+    // (the renderWeatherBar consumer also reads .forecast). The hero was
+    // treating it as a raw array, which always produced "—" because .length
+    // was undefined on the wrapper object.
     var wx = window.DATA && window.DATA.weather;
-    if (wx && wx.length) {
-      var w = wx[0];
+    var wxForecast = wx && wx.forecast ? wx.forecast
+      : (Array.isArray(wx) ? wx : null);  // tolerate either shape
+    if (wxForecast && wxForecast.length) {
+      // Prefer today's forecast over the first one in the list (forecast
+      // may start from yesterday during multi-day windows)
+      var today = new Date().toISOString().slice(0, 10);
+      var w = wxForecast.find(function(d) { return d && d.date === today; }) || wxForecast[0];
       var parts = [];
       if (w.tempF != null) parts.push(w.tempF + '°F');
-      if (w.windMph != null) parts.push(w.windMph + 'mph');
+      if (w.windMph != null) parts.push(w.windMph + ' mph');
       wxTxt = parts.join(' · ') || '—';
     }
 
@@ -8147,7 +8158,15 @@
       var tintCls = scTintClass(live);
       liveStr = '<span class="' + tintCls + '"><span class="' + scScoreClass(live) + '">' + scFmtScore(live) + '</span></span>';
     }
-    var pos = p._livePos ? '<span class="sc-rank-move">#' + p._livePos + '</span>' : '';
+    // Live-position chip — prefix with "Pos " so it can't be confused with
+    // OWGR (#1) or Season SG rank (SG#39). Tolerates both numeric ESPN
+    // positions ("29") and tie-labelled ones ("T29") without doubling the T.
+    var pos = '';
+    if (p._livePos) {
+      var lp = String(p._livePos);
+      var hasLeader = /^[A-Z]/.test(lp);  // "T29", "WD", etc. already have prefix
+      pos = '<span class="sc-rank-move" title="Current live tournament position">Pos ' + (hasLeader ? lp : '#' + lp) + '</span>';
+    }
     var sg = p.sgTotal;
     var sgStr = sg != null ? '<span class="' + scSGClass(sg) + '">' + scFmtSG(sg) + '</span>' : '<span class="text-slate-700">—</span>';
     var fit = scFitForActiveCourse(p);
@@ -8223,7 +8242,15 @@
       drawer.innerHTML = scDrawerShell(p);
       rowEl.parentNode.insertBefore(drawer, rowEl.nextSibling);
       scWireDrawer(drawer, p);
-      scRenderDrawerSection(drawer, p, _scState.activeSection);
+      // Pre-render EVERY section synchronously on first open. All sections
+      // are cheap pure-DOM renders (no async fetches), so there's no perf
+      // cost — and it eliminates the "Loading…" flash when users switch
+      // tabs the first time. The shell's "Loading…" placeholder is only
+      // visible for ~1 frame between createElement and the inserts below.
+      SC_DRAWER_SECTIONS.forEach(function(s) {
+        try { scRenderDrawerSection(drawer, p, s.key); }
+        catch(e) { console.warn('[scorecard] failed to pre-render ' + s.key + ':', e); }
+      });
     }
   }
   function scCollapseOpen() {
@@ -8926,14 +8953,21 @@
       var when = n.publishedAt ? (typeof timeAgo === 'function' ? timeAgo(n.publishedAt) : '') : '';
       var ttl = n.title || n.headline || 'Untitled';
       var src = n.source || '';
-      var lnk = n.url ? '<a href="' + n.url + '" target="_blank" rel="noopener" class="text-pb-teal hover:underline">Read →</a>' : '';
-      return '<div class="sc-mini" style="padding:10px 12px;">' +
+      var url = n.url || '';
+      // Whole-card is the link target — much bigger tap zone than the
+      // tiny "Read →" anchor. Falls back to a static div when there's no URL.
+      var cardOpen = url
+        ? '<a href="' + url + '" target="_blank" rel="noopener" class="sc-mini block hover:border-pb-teal/40" style="padding:10px 12px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s ease;">'
+        : '<div class="sc-mini" style="padding:10px 12px;">';
+      var cardClose = url ? '</a>' : '</div>';
+      var lnk = url ? '<span class="text-pb-teal" style="margin-left:auto;">Read →</span>' : '';
+      return cardOpen +
         '<div style="font-size:13px;font-weight:600;color:var(--text-primary);line-height:1.4;">' + ttl + '</div>' +
         '<div style="font-size:11px;color:var(--text-muted);margin-top:4px;display:flex;gap:8px;align-items:center;">' +
           '<span>' + src + '</span>' + (when ? '<span>·</span><span>' + when + '</span>' : '') +
-          (lnk ? '<span style="margin-left:auto;">' + lnk + '</span>' : '') +
+          lnk +
         '</div>' +
-      '</div>';
+      cardClose;
     }).join('') + '</div>';
   }
 
