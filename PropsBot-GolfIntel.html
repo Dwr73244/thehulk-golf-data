@@ -798,6 +798,24 @@
     .sc-tint-over-deep  { background: linear-gradient(90deg, rgba(150,180,210,0.06), rgba(150,180,210,0.13)); border-radius: 4px; padding: 2px 6px; margin: -2px -6px; }
     .sc-tint-eagle { background: linear-gradient(90deg, rgba(255,64,112,0.12), rgba(255,21,82,0.22)); border-radius: 4px; padding: 2px 6px; margin: -2px -6px; box-shadow: inset 0 0 0 1px rgba(255,64,112,0.15); }
 
+    /* Live-refresh visual ping — a brief subtle pulse on the leaderboard
+       container whenever ESPN data lands (every 60s during play). Lets the
+       user feel the page is alive without re-reading. Restrained: 1.2s
+       single pulse, low-opacity teal glow, no layout shift. */
+    @keyframes scRefreshPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(21,255,194,0.0); }
+      30%  { box-shadow: 0 0 0 1px rgba(21,255,194,0.35), 0 0 16px rgba(21,255,194,0.12); }
+      100% { box-shadow: 0 0 0 0 rgba(21,255,194,0.0); }
+    }
+    #sc-leaderboard.sc-pulse-refresh { animation: scRefreshPulse 1.2s ease-out; border-radius: 6px; }
+
+    /* Position-mover chip — small ▲N or ▼N inline next to the live-pos chip,
+       fades over ~8 seconds so it's noticed but doesn't linger forever. */
+    @keyframes scMoverFade { 0%, 60% { opacity: 1; } 100% { opacity: 0.35; } }
+    .sc-pos-mover { font-size: 9px; font-weight: 800; font-family: var(--mono); margin-left: 4px; letter-spacing: 0; padding: 1px 4px; border-radius: 3px; vertical-align: middle; animation: scMoverFade 8s ease-out forwards; }
+    .sc-pos-mover-up   { color: #15ffc2; background: rgba(21,255,194,0.10); }
+    .sc-pos-mover-down { color: #ff4070; background: rgba(255,64,112,0.10); }
+
     /* Mobile layout — drop less-critical columns, keep rank/name/model/edge/expand */
     @media (max-width: 640px) {
       .sc-row { grid-template-columns: 28px minmax(0,1fr) 56px 64px 20px; gap: 6px; padding: 10px 8px; }
@@ -5452,11 +5470,34 @@
             try { window.renderMonitor(); } catch(e) { console.warn('[Monitor] refresh error:', e); }
           }
           // Scorecard view: re-render whenever ESPN brings fresh live data
-          // (this is the hot path during tournament play — fires every 60s)
+          // (this is the hot path during tournament play — fires every 60s).
+          // Before re-render: snapshot prior live positions per player so the
+          // row renderer can show ▲/▼ position movers. After re-render:
+          // pulse the leaderboard to visually signal the refresh.
           try {
             if (typeof scRefreshHero === 'function') {
+              // Capture previous _livePos PER NORMALIZED NAME so we can diff
+              // after the new ESPN data overwrites _livePos on the player
+              // objects in place.
+              var prevPos = {};
+              var pdSnap = window._playerData || PLAYERS || [];
+              pdSnap.forEach(function(p) {
+                if (p && p.name && p._livePos != null && p._livePos !== '') {
+                  var key = String(p.name).toLowerCase().trim();
+                  var n = parseInt(String(p._livePos).replace(/^T/i, ''), 10);
+                  if (!isNaN(n)) prevPos[key] = n;
+                }
+              });
+              window._scPrevLivePos = prevPos;
               scRefreshHero();
               scRenderLeaderboard();
+              // Pulse the leaderboard container
+              var lbEl = document.getElementById('sc-leaderboard');
+              if (lbEl) {
+                lbEl.classList.remove('sc-pulse-refresh');
+                void lbEl.offsetWidth;  // force reflow so animation re-fires
+                lbEl.classList.add('sc-pulse-refresh');
+              }
             }
           } catch(e) { console.warn('[scorecard] live refresh error:', e); }
           console.log('[ESPN Live] Updated: ' + lb.length + ' players, ' + Object.keys(liveHoleData).length + ' with hole data, status: ' + _tournamentStatus);
@@ -7712,7 +7753,15 @@
         // ESPN's next fetch lands; ESPN data later overwrites without clobber.
         try {
           if (typeof scSeedLiveFromJSON === 'function') scSeedLiveFromJSON();
-          if (typeof scRefreshEventStrip === 'function') { scRefreshEventStrip(); scRefreshHero(); scRenderLeaderboard(); scParlayRefresh(); }
+          if (typeof scRefreshEventStrip === 'function') {
+            // On first load of fresh data, auto-switch to live mode if the
+            // tournament is IN_PROGRESS (only if the user hasn't already
+            // interacted — `_scUserChangedSort` flips true on any pill click).
+            if (!isRefresh && !window._scUserChangedSort && typeof scMaybeAutoLiveMode === 'function') {
+              scMaybeAutoLiveMode();
+            }
+            scRefreshEventStrip(); scRefreshHero(); scRenderLeaderboard(); scParlayRefresh();
+          }
         } catch (e) { console.error('[scorecard]', e); }
         if (isRefresh) {
           // Re-render active views without full re-init. renderLeaderboard()
@@ -8421,11 +8470,26 @@
     // Live-position chip — prefix with "Pos " so it can't be confused with
     // OWGR (#1) or Season SG rank (SG#39). Tolerates both numeric ESPN
     // positions ("29") and tie-labelled ones ("T29") without doubling the T.
+    // Append a small ▲N/▼N mover chip when the player's position has shifted
+    // since the previous ESPN refresh (captured in window._scPrevLivePos).
     var pos = '';
     if (p._livePos) {
       var lp = String(p._livePos);
-      var hasLeader = /^[A-Z]/.test(lp);  // "T29", "WD", etc. already have prefix
-      pos = '<span class="sc-rank-move" title="Current live tournament position">Pos ' + (hasLeader ? lp : '#' + lp) + '</span>';
+      var hasLeader = /^[A-Z]/.test(lp);
+      var mover = '';
+      try {
+        var prev = window._scPrevLivePos && window._scPrevLivePos[String(p.name || '').toLowerCase().trim()];
+        var curN = parseInt(lp.replace(/^T/i, ''), 10);
+        if (typeof prev === 'number' && !isNaN(curN) && prev !== curN) {
+          var delta = prev - curN;  // positive = moved up (lower position number)
+          if (delta > 0) {
+            mover = '<span class="sc-pos-mover sc-pos-mover-up" title="Up ' + delta + ' since last update">▲' + delta + '</span>';
+          } else if (delta < 0) {
+            mover = '<span class="sc-pos-mover sc-pos-mover-down" title="Down ' + Math.abs(delta) + ' since last update">▼' + Math.abs(delta) + '</span>';
+          }
+        }
+      } catch(_) {}
+      pos = '<span class="sc-rank-move" title="Current live tournament position">Pos ' + (hasLeader ? lp : '#' + lp) + '</span>' + mover;
     }
     var sg = p.sgTotal;
     var sgStr = sg != null ? '<span class="' + scSGClass(sg) + '">' + scFmtSG(sg) + '</span>' : '<span class="text-slate-700">—</span>';
@@ -9151,6 +9215,7 @@
         document.querySelectorAll('.sc-sort-pill').forEach(function(x) { x.classList.remove('active'); });
         b.classList.add('active');
         _scState.sort = b.getAttribute('data-sort');
+        window._scUserChangedSort = true;  // suppress auto-live-mode on subsequent data refreshes
         scRenderLeaderboard();
       });
     });
@@ -9167,6 +9232,7 @@
         document.querySelectorAll('.sc-filt-pill').forEach(function(x) { x.classList.remove('active'); });
         b.classList.add('active');
         _scState.filter = b.getAttribute('data-filt');
+        window._scUserChangedSort = true;
         scRenderLeaderboard();
       });
     });
@@ -9252,12 +9318,37 @@
     }).join('') + '</div>';
   }
 
+  // Auto-switch to live-leaderboard mode when the tournament is actually
+  // playing. Default sort flips from Model → Live Pos and the filter
+  // flips from All Field → Live Only, so the first thing a visitor sees
+  // during a tournament is a real-time leaderboard ordered by current
+  // position. Users can still click any sort/filter pill to override.
+  // Only applies on FIRST boot — re-renders preserve user choices.
+  function scMaybeAutoLiveMode() {
+    var live = window.DATA && window.DATA.currentEvent;
+    if (!live) return;
+    var status = String(live.status || '').toUpperCase();
+    if (status !== 'IN_PROGRESS') return;
+    _scState.sort = 'live';
+    _scState.filter = 'live';
+    // Sync the visual active state on the pills
+    try {
+      document.querySelectorAll('.sc-sort-pill').forEach(function(b) {
+        b.classList.toggle('active', b.getAttribute('data-sort') === 'live');
+      });
+      document.querySelectorAll('.sc-filt-pill').forEach(function(b) {
+        b.classList.toggle('active', b.getAttribute('data-filt') === 'live');
+      });
+    } catch(_) {}
+  }
+
   // ----- BOOT -----
   function scBoot() {
     scInitViewToggle();
     scInitFilters();
     scInitParlay();
     scSeedLiveFromJSON();
+    scMaybeAutoLiveMode();  // before first render so initial paint is the live leaderboard
     scRefreshEventStrip();
     scRefreshHero();
     scRenderLeaderboard();
