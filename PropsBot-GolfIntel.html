@@ -621,10 +621,17 @@
     .sc-props-table td { padding: 8px; border-top: 1px solid rgba(100,200,220,0.05); font-family: var(--mono); font-feature-settings: "tnum" 1; text-align: right; }
     .sc-props-table td:first-child { font-family: var(--sans); text-align: left; font-weight: 600; color: var(--text-secondary); }
     .sc-add-parlay {
-      font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+      font-size: 10px; font-weight: 700; padding: 6px 10px; border-radius: 5px;
       background: rgba(21,255,194,0.08); color: var(--teal);
       border: 1px solid rgba(21,255,194,0.3); cursor: pointer;
       transition: all 0.15s ease;
+      min-height: 30px;  /* desktop comfortable */
+    }
+    @media (max-width: 640px) {
+      /* WCAG/Apple recommend ≥44px; we go 36 because these sit in dense
+         tables where 44 would force every row taller and hurt density.
+         36 + 12 inter-row gap = ~48 effective touch area. */
+      .sc-add-parlay { min-height: 36px; padding: 8px 12px; font-size: 11px; }
     }
     .sc-add-parlay:hover { background: rgba(21,255,194,0.18); }
     .sc-add-parlay.added { background: rgba(21,255,194,0.25); color: var(--bg); }
@@ -653,7 +660,8 @@
        This is the Renaissance "signature device" — no other golf-betting
        product visualizes a player's round at this resolution.
        =========================================================== */
-    .sc-strip-wrap { background: rgba(15,28,46,0.5); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px; }
+    .sc-strip-wrap { background: rgba(15,28,46,0.5); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .sc-strip-container { min-width: 0; }
     .sc-strip-rounds { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
     .sc-strip-round-btn {
       font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 5px;
@@ -710,7 +718,12 @@
     @media (max-width: 640px) {
       .sc-strip-cell { min-height: 26px; font-size: 10px; }
       .sc-strip-cell .sc-strip-hole { font-size: 7px; }
-      .sc-strip-grid { gap: 2px; grid-template-columns: repeat(9, 1fr) 18px repeat(9, 1fr); }
+      /* On mobile the strip becomes wider than the drawer; .sc-strip-wrap's
+         overflow-x: auto makes it horizontally swipeable. Fixed-width cells
+         (24px) so the grid stays legible instead of being squished into
+         unreadable slivers when forced to fit 18 holes in 375px. */
+      .sc-strip-grid { gap: 2px; grid-template-columns: repeat(9, 24px) 12px repeat(9, 24px); min-width: max-content; }
+      .sc-strip-cell { min-height: 28px; font-size: 9px; }
     }
 
     /* Floating parlay panel */
@@ -827,6 +840,18 @@
       #sc-count { display: none; }
       /* Column header now sits just below the (compact) filter bar */
       .sc-row-header { top: 102px; }
+
+      /* Disclaimer modal mobile: trim padding and font sizes so the
+         "Continue to Free Tool" + "Start Free Trial" CTAs are visible
+         without scrolling on a 375x812 viewport. Modal content was
+         ~960px tall; this brings it under viewport height. */
+      #disclaimerModal { padding: 0.5rem !important; align-items: flex-start !important; padding-top: 1rem !important; }
+      #disclaimerModal > div { max-width: 100% !important; border-radius: 14px !important; }
+      #disclaimerModal > div > div:first-child { padding: 0.9rem 1.1rem !important; }
+      #disclaimerModal > div > div:nth-child(2) { padding: 1rem 1.1rem !important; }
+      #disclaimerModal > div > div:nth-child(2) > div:first-child { margin-bottom: 0.75rem !important; font-size: 0.78rem !important; line-height: 1.55 !important; }
+      #disclaimerModal > div > div:nth-child(2) > div:first-child > p { margin-bottom: 0.45rem !important; }
+      #disclaimerModal > div > div:nth-child(2) > div:nth-child(2) { padding: 0.85rem 1rem !important; margin-bottom: 0.8rem !important; }
     }
   </style>
 </head>
@@ -908,7 +933,7 @@
       </div>
     </div>
     <div class="flex items-center gap-3">
-      <button id="viewToggle" class="hidden sm:inline-flex items-center gap-1.5 rounded-md border border-white/10 hover:border-pb-teal/40 bg-white/[0.02] hover:bg-pb-teal/[0.05] px-2.5 py-1 text-[11px] font-semibold text-slate-400 hover:text-pb-teal transition-colors uppercase tracking-wide" aria-pressed="false" title="Switch between the new scorecard view and the classic tabbed view">
+      <button id="viewToggle" class="inline-flex items-center gap-1.5 rounded-md border border-white/10 hover:border-pb-teal/40 bg-white/[0.02] hover:bg-pb-teal/[0.05] px-2.5 py-1 text-[11px] font-semibold text-slate-400 hover:text-pb-teal transition-colors uppercase tracking-wide" aria-pressed="false" title="Switch between the new scorecard view and the classic tabbed view">
         <span id="viewToggleLabel">Classic view</span>
       </button>
     </div>
@@ -1072,6 +1097,28 @@
     </div>
     <div id="sc-leaderboard"></div>
     <p id="sc-empty" class="hidden text-center text-slate-500 text-[12px] py-12">No players match your filter.</p>
+
+    <!-- App CTA — sits below the leaderboard, after the user has scrolled
+         through the field. Subtle two-line card so it doesn't compete
+         with the data. Only the link target is tappable; the whole card
+         is wrapped so the entire surface is the tap target. -->
+    <a id="sc-app-cta" href="https://link.propsbot.ai/l9nGbOacHYb" target="_blank" rel="noopener"
+       class="block mt-6 mb-2 rounded-xl border border-pb-teal/15 hover:border-pb-teal/40 bg-gradient-to-br from-pb-teal/[0.04] to-transparent hover:from-pb-teal/[0.07] transition-colors px-4 py-3 sm:px-5 sm:py-4"
+       style="text-decoration:none;color:inherit;">
+      <div class="flex items-center justify-between gap-3">
+        <div class="min-w-0">
+          <div class="text-[12px] sm:text-[13px] font-bold text-white leading-tight">
+            Want push alerts on +EV moves?
+          </div>
+          <div class="text-[11px] text-slate-500 mt-0.5">
+            Get the PropsBot AI app — line movement, edge alerts, parlay sync across NFL, NBA, MLB, NHL + golf.
+          </div>
+        </div>
+        <span class="shrink-0 text-[11px] uppercase tracking-[0.06em] font-bold text-pb-teal whitespace-nowrap">
+          Get the app →
+        </span>
+      </div>
+    </a>
   </main>
 </div>
 
@@ -2305,6 +2352,15 @@
       <span class="text-[11px] uppercase tracking-[0.06em] text-slate-500 font-semibold">Combined</span>
       <span id="sc-parlay-combined" class="mono font-bold text-pb-gold">—</span>
     </div>
+    <!-- App CTA: warmest cohort moment (just built a parlay). Subtle,
+         not blocking. Only renders when at least one leg is in the slip
+         (toggled by renderParlay). -->
+    <a id="sc-parlay-app-cta" href="https://link.propsbot.ai/l9nGbOacHYb" target="_blank" rel="noopener"
+       class="hidden mt-2 flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-md border border-pb-teal/15 hover:border-pb-teal/40 bg-pb-teal/[0.03] hover:bg-pb-teal/[0.08] text-[10px] uppercase tracking-[0.06em] font-semibold text-slate-400 hover:text-pb-teal transition-colors"
+       title="Track this slip + line moves in the PropsBot app">
+      <span>Track this slip in the app</span>
+      <span class="text-pb-teal">→</span>
+    </a>
   </div>
   <button id="sc-parlay-trigger" aria-expanded="false" aria-controls="sc-parlay-card">
     <span>Parlay</span>
@@ -8990,13 +9046,18 @@
     var legsEl = document.getElementById('sc-parlay-legs');
     var sumEl = document.getElementById('sc-parlay-summary');
     var combEl = document.getElementById('sc-parlay-combined');
+    var appCta = document.getElementById('sc-parlay-app-cta');
     if (countEl) countEl.textContent = legs.length;
     if (!legsEl) return;
     if (!legs.length) {
       legsEl.innerHTML = '<div class="sc-parlay-empty">No legs yet. Add picks from any player drawer.</div>';
       if (sumEl) sumEl.classList.add('hidden');
+      if (appCta) appCta.classList.add('hidden');
       return;
     }
+    // Show the "Track this slip in the app" CTA once at least one leg
+    // is built — warmest moment, lowest interrupt cost.
+    if (appCta) { appCta.classList.remove('hidden'); appCta.classList.add('flex'); }
     legsEl.innerHTML = legs.map(function(l, i) {
       var oddsStr = scFmtAmerican(l.odds);
       var betLbl = SC_MARKET_LABELS[l.betType] || l.betType;
