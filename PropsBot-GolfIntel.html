@@ -759,52 +759,63 @@
 <body class="h-full text-slate-100 min-h-screen">
 
 <!-- DISCLAIMER MODAL -->
-<div id="disclaimerModal" style="position:fixed;inset:0;z-index:9999;background:rgba(7,14,26,0.94);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:1rem;overflow-y:auto;">
+<style>
+  /* Mobile compression for the disclaimer modal — tighter padding + smaller
+     brand banner so the whole thing fits without scrolling on a typical phone. */
+  @media (max-width: 640px) {
+    #disclaimerModal .dm-banner { padding: 0.85rem 1rem !important; }
+    #disclaimerModal .dm-logo { width: 30px !important; height: 30px !important; }
+    #disclaimerModal .dm-title { font-size: 0.82rem !important; }
+    #disclaimerModal .dm-subtitle { display: none; }
+    #disclaimerModal .dm-body { padding: 1rem 1rem !important; }
+    #disclaimerModal .dm-intro { margin-bottom: 0.75rem !important; }
+    #disclaimerModal .dm-upsell { padding: 0.85rem 1rem !important; margin-bottom: 0.85rem !important; }
+    #disclaimerModal .dm-upsell-body { margin-bottom: 0.6rem !important; }
+    #disclaimerModal .dm-pills { margin-bottom: 0 !important; }
+  }
+</style>
+<div id="disclaimerModal" style="position:fixed;inset:0;z-index:9999;background:rgba(7,14,26,0.94);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:0.5rem;overflow-y:auto;">
   <div class="glass-strong" style="max-width:540px;width:100%;border-radius:18px;overflow:hidden;border:1px solid rgba(240,192,64,0.2);box-shadow:0 0 60px rgba(21,255,194,0.06),0 0 120px rgba(240,192,64,0.04);">
 
     <!-- TOP BRAND BANNER -->
-    <div style="background:linear-gradient(135deg,rgba(9,213,160,0.15),rgba(34,169,236,0.1));border-bottom:1px solid rgba(21,255,194,0.1);padding:1.25rem 1.75rem;display:flex;align-items:center;justify-content:space-between;">
+    <div class="dm-banner" style="background:linear-gradient(135deg,rgba(9,213,160,0.15),rgba(34,169,236,0.1));border-bottom:1px solid rgba(21,255,194,0.1);padding:1.25rem 1.75rem;display:flex;align-items:center;justify-content:space-between;">
       <div style="display:flex;align-items:center;gap:0.65rem;">
-        <div style="width:36px;height:36px;border-radius:9px;background:rgba(21,255,194,0.12);border:1px solid rgba(21,255,194,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <div class="dm-logo" style="width:36px;height:36px;border-radius:9px;background:rgba(21,255,194,0.12);border:1px solid rgba(21,255,194,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <span style="font-family:var(--mono);font-weight:900;font-size:1.1rem;color:var(--teal);">P</span>
         </div>
         <div>
-          <div style="font-family:var(--mono);font-weight:700;font-size:0.9rem;color:#eef2f7;">PropsBot <span style="color:var(--teal);">Golf Intelligence</span></div>
-          <div style="font-size:0.65rem;color:rgba(200,215,230,0.45);letter-spacing:0.08em;text-transform:uppercase;">Free Beta Tool · v0.9</div>
+          <div class="dm-title" style="font-family:var(--mono);font-weight:700;font-size:0.9rem;color:#eef2f7;">PropsBot <span style="color:var(--teal);">Golf Intelligence</span></div>
+          <div class="dm-subtitle" style="font-size:0.65rem;color:rgba(200,215,230,0.45);letter-spacing:0.08em;text-transform:uppercase;">Free Beta Tool · v0.9</div>
         </div>
       </div>
       <span style="font-size:0.65rem;font-family:var(--mono);font-weight:600;background:rgba(240,192,64,0.12);color:var(--gold);border:1px solid rgba(240,192,64,0.25);padding:0.25rem 0.65rem;border-radius:20px;letter-spacing:0.05em;text-transform:uppercase;">Beta</span>
     </div>
 
     <!-- BODY -->
-    <div style="padding:1.5rem 1.75rem;">
+    <div class="dm-body" style="padding:1.5rem 1.75rem;">
 
-      <!-- Disclaimer text -->
-      <div style="font-size:0.81rem;line-height:1.7;color:rgba(200,215,230,0.78);margin-bottom:1.25rem;">
-        <p style="margin-bottom:0.65rem;">This tool is <strong style="color:var(--teal);">completely free</strong> — part of our early beta program. It's designed to help you research smarter, not to replace your own judgment.</p>
-        <p style="margin-bottom:0.65rem;">Data is pulled from multiple sources and updated automatically, but <strong style="color:rgba(240,192,64,0.9);">odds and projections may lag real-time lines</strong> or contain errors. Always verify before placing a wager.</p>
-        <div style="padding:0.7rem 0.9rem;background:rgba(255,21,82,0.07);border:1px solid rgba(255,21,82,0.18);border-radius:8px;color:rgba(255,160,170,0.9);font-size:0.77rem;">
-          🚨 <strong>Gambling involves risk.</strong> This is not betting advice. Only wager what you can afford to lose. Must be 21+ in a legal jurisdiction. If you or someone you know has a gambling problem, call <a href="tel:1-800-426-2537" style="color:#15ffc2;text-decoration:underline">1-800-GAMBLER</a>.
+      <!-- Disclaimer text — condensed to one line + the legally-required warning -->
+      <div class="dm-intro" style="font-size:0.81rem;line-height:1.6;color:rgba(200,215,230,0.78);margin-bottom:1.25rem;">
+        <p style="margin-bottom:0.65rem;">Free beta tool. A research aid, not betting advice — odds may lag, so <strong style="color:rgba(240,192,64,0.9);">always verify before wagering</strong>.</p>
+        <div style="padding:0.65rem 0.85rem;background:rgba(255,21,82,0.07);border:1px solid rgba(255,21,82,0.18);border-radius:8px;color:rgba(255,160,170,0.9);font-size:0.76rem;line-height:1.5;">
+          🚨 <strong>Gambling involves risk.</strong> 21+ only. If you or someone you know has a problem, call <a href="tel:1-800-426-2537" style="color:#15ffc2;text-decoration:underline">1-800-GAMBLER</a>.
         </div>
       </div>
 
       <!-- UPSELL CARD -->
-      <div style="background:linear-gradient(135deg,rgba(21,255,194,0.07),rgba(34,169,236,0.05));border:1px solid rgba(21,255,194,0.18);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:1.25rem;">
-        <div style="font-family:var(--mono);font-weight:700;font-size:0.85rem;color:#eef2f7;margin-bottom:0.5rem;">
+      <div class="dm-upsell" style="background:linear-gradient(135deg,rgba(21,255,194,0.07),rgba(34,169,236,0.05));border:1px solid rgba(21,255,194,0.18);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:1.25rem;">
+        <div style="font-family:var(--mono);font-weight:700;font-size:0.85rem;color:#eef2f7;margin-bottom:0.4rem;">
           Want the full PropsBot experience? 🚀
         </div>
-        <div style="font-size:0.78rem;color:rgba(200,215,230,0.7);margin-bottom:0.9rem;line-height:1.6;">
-          This golf tool is just a sample. PropsBot AI covers <strong style="color:rgba(200,215,230,0.95);">NFL, NBA, MLB & NHL</strong> with AI-powered prop predictions, Confidence Scores, Edge Scores, and line movement alerts — updated daily.
+        <div class="dm-upsell-body" style="font-size:0.78rem;color:rgba(200,215,230,0.7);margin-bottom:0.75rem;line-height:1.55;">
+          This is one sample. PropsBot AI covers <strong style="color:rgba(200,215,230,0.95);">NFL · NBA · MLB · NHL</strong> with AI prop picks, Edge & Confidence scores, and line-move alerts.
         </div>
-        <!-- Feature pills -->
-        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;">
+        <!-- Feature pills (compressed to 3 strongest) -->
+        <div class="dm-pills" style="display:flex;flex-wrap:wrap;gap:0.4rem;">
           <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ AI Prop Picks</span>
           <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ Edge Score</span>
-          <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ Confidence Score</span>
-          <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ NFL / NBA / MLB / NHL</span>
-          <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ Daily Updates</span>
+          <span style="font-size:0.68rem;font-family:var(--mono);background:rgba(21,255,194,0.08);color:var(--teal);border:1px solid rgba(21,255,194,0.2);padding:0.2rem 0.55rem;border-radius:20px;">✓ All 4 Sports</span>
         </div>
-        <div style="text-align:center;font-size:0.67rem;color:rgba(200,215,230,0.35);margin-top:0.45rem;">No credit card required · Cancel anytime</div>
       </div>
 
       <!-- Action buttons — side by side -->
