@@ -1315,9 +1315,27 @@ def _resolve_calibration_table(model_params, event_name=None):
         # at serve time either. Fall through to default.
         if etype == "no_cut":
             etype = "default"
-        bucket = tables.get(etype) or tables.get("default") or {}
+        # Overfit guard: if the stratum-specific table's holdout Brier is
+        # WORSE than its baseline (uncalibrated), the stratified curve is
+        # overfitting on too few samples (e.g. major has 572 train pairs vs
+        # standard's 2673). In that case the default table — trained on the
+        # full pooled corpus — is the safer choice. We still report which
+        # stratum we tried so the log is honest.
+        bucket = tables.get(etype) or {}
         if bucket.get("table"):
+            hb = bucket.get("heldoutBrier")
+            bb = bucket.get("baselineBrier")
+            if isinstance(hb, (int, float)) and isinstance(bb, (int, float)) and hb > bb:
+                print(f"  [calibration] {etype} table overfits "
+                      f"(holdout {hb:.4f} > baseline {bb:.4f}); falling back to default")
+                fallback = tables.get("default") or {}
+                if fallback.get("table"):
+                    return fallback["table"], etype + "_fallback_default"
             return bucket["table"], etype
+        # Stratum table missing → use default
+        default_bucket = tables.get("default") or {}
+        if default_bucket.get("table"):
+            return default_bucket["table"], "default"
     # Legacy single-table format (calibration.table)
     legacy = cal.get("table")
     if legacy:
