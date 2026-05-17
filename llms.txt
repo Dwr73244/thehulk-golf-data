@@ -61,6 +61,23 @@ product, no signup required.
   through the Monte Carlo. Edge cells are hidden for these markets.
 - **Shot-by-shot data, injury status, FedEx standings**: outside scope.
 
+## Recent additions (May 2026)
+
+- **Bayesian mid-tournament skill update**: posterior over each player's true SG
+  given season prior + this week's observed rounds. Stored as
+  `sgTotalUpdated`; consumed by every downstream predictor.
+- **Cut-line 90% CI** (`cutPrediction.predictedCutCI90`): low/median/high
+  par-relative range from the same Monte Carlo.
+- **CLV proxy** (`clvSummary`): % of model picks that beat the closing line
+  using existing `odds_history.json` snapshots. Zero new API calls.
+- **Matchup decomposition**: per-factor contribution breakdown (SG / fit /
+  form / weather) at `player.contrib` on matchup outputs.
+- **Per-hole round momentum**: shared per-round factor injected into
+  per-hole sim to capture within-round correlation.
+- **Player similarity**: kNN on SG profiles → `similarPlayers` per player.
+- **Sharpe-style "Edge ÷ σ" sort** in the scorecard view.
+- **DataGolf trust audit** runs weekly in CI; Discord-alerts on SUSPECT/FAIL.
+
 ## Honesty
 
 - All "edge" percentages are computed against vig-removed fair-implied

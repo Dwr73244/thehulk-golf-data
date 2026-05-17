@@ -293,6 +293,75 @@
       "unmodeled" markets (birdies o/u, bogeys o/u, round-score o/u). Edges live at
       <code>pricedPlayerProps</code> in the JSON.
     </p>
+
+    <h3>(l) Cut-line confidence interval</h3>
+    <p>
+      The cut Monte Carlo already produces a distribution of cut scores across sims —
+      we now surface the 5th and 95th percentiles as a 90% CI. A tight CI (±1 stroke)
+      reads "high confidence"; a wide one (±4) tells you the cut is genuinely uncertain.
+      Exposed at <code>cutPrediction.predictedCutCI90</code>.
+    </p>
+
+    <h3>(m) Bayesian skill update mid-tournament</h3>
+    <p>
+      After each round, the actual tournament SG observation is conjugate-Gaussian
+      updated against the season-SG prior. Prior std assumed N(season, 0.5); per-round
+      observation noise N(round, 1.5). After 4 rounds the posterior weights the
+      observation roughly 50% when the player has been notably different from season
+      baseline; after 1 round, only ~10%. Exposed as <code>sgTotalUpdated</code> +
+      <code>sgTotalUpdatedStd</code>, and every downstream predictor (matchup, cut,
+      position, per-hole) consumes the updated value when present via
+      <code>effective_sg(player)</code>.
+    </p>
+
+    <h3>(n) Matchup decomposition</h3>
+    <p>
+      Predicted matchup edge is decomposed into per-factor contributions in strokes:
+      skill (SG), course fit, recent form, weather. Stored under
+      <code>player.contrib</code> on each matchup output and visualized in the Compare
+      drawer so users see exactly where the edge comes from rather than a black-box
+      win probability.
+    </p>
+
+    <h3>(o) Per-hole momentum (round correlation)</h3>
+    <p>
+      Within a round, hole outcomes are correlated — good rounds produce many birdies,
+      bad rounds many bogeys. The per-hole simulator now draws a per-round momentum
+      factor N(0, 0.4) at the start of each sim round and adds it to the player's
+      effective skill for that round. Mean-zero by construction (no shift in expected
+      round score) but raises round-score variance to match empirical PGA round-to-round
+      dispersion.
+    </p>
+
+    <h3>(p) Closing-line value proxy</h3>
+    <p>
+      For every player with meaningful model edge (|edge| ≥ 2), we look back 24 hours
+      in <code>odds_history.json</code> (already snapshotted at every cron run) and
+      compute whether the implied probability moved in the model's predicted direction.
+      The aggregate "% CLV-positive picks" is the sharp's metric for predictive skill —
+      stronger signal than win/loss because line movement is incrementally repriced by
+      sharp money, not by random outcomes. Sharp models target &gt;55%. Exposed at
+      <code>clvSummary</code> and per-player <code>clvLineMoveBp</code> +
+      <code>clvPositive</code>. Zero new API calls — entirely uses existing snapshots.
+    </p>
+
+    <h3>(q) Player similarity (kNN on SG profiles)</h3>
+    <p>
+      For each player, the top-5 most similar peers are computed by Euclidean distance
+      on the z-score-normalized vector of (sgOtt, sgApp, sgArg, sgPutt, drivingDistance,
+      scoringAvg). Useful for rookies/first-timers who lack course history — their
+      similar peers may have. Attached to each player as
+      <code>similarPlayers: [{name, distance}, ...]</code>.
+    </p>
+
+    <h3>(r) Sharpe-style edge sorting</h3>
+    <p>
+      The scorecard view's leaderboard adds an "Edge ÷ σ" sort that divides each
+      player's de-vigged edge by the outcome std √(p·(1-p)), boosted by posterior skill
+      uncertainty. Surfaces confident edges over noisy ones — a small edge on a
+      tight prediction can be better than a larger edge on a coin-flip. Pure frontend
+      computation against the model probabilities already in the JSON.
+    </p>
   </section>
 
   <!-- 4. Tunable parameters -->

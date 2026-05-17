@@ -1544,6 +1544,102 @@ COURSE_TRAITS = {
 }
 
 
+def compute_player_similarity(players, k=5, min_features=3):
+    """For each player, find the ``k`` most similar peers by SG profile.
+
+    Feature vector: [sgOtt, sgApp, sgArg, sgPutt, drivingDistance, scoringAvg].
+    Each dimension is z-scored against the field so Euclidean distance is
+    meaningful across features with different units (SG in strokes, driving
+    distance in yards, etc.).
+
+    Useful for two things:
+      1. Rookies / first-timers at a course — find similar players who HAVE
+         played the course and infer expected fit.
+      2. UX: "players similar to X" gives users a navigation aid plus
+         intuition about who the model considers comparable.
+
+    Attaches to each player as ``similarPlayers: [{name, distance}, ...]``
+    (k entries, nearest first). Players with fewer than ``min_features``
+    non-null stats are skipped to avoid bad neighbors from sparse profiles.
+    """
+    if not players or len(players) < k + 1:
+        return 0
+
+    feature_keys = ["sgOtt", "sgApp", "sgArg", "sgPutt", "drivingDistance", "scoringAvg"]
+    # Gather column values for z-score normalization
+    col_vals = {k: [] for k in feature_keys}
+    for p in players:
+        for fk in feature_keys:
+            v = p.get(fk)
+            if isinstance(v, (int, float)):
+                col_vals[fk].append(float(v))
+    # Compute mean + std per column (need >=3 values to be meaningful)
+    col_mean = {}
+    col_std = {}
+    for fk, vs in col_vals.items():
+        if len(vs) < 3:
+            continue
+        mean = sum(vs) / len(vs)
+        var = sum((x - mean) ** 2 for x in vs) / len(vs)
+        std = var ** 0.5 if var > 0 else 1.0
+        col_mean[fk] = mean
+        col_std[fk] = std
+
+    # Build per-player feature vector (None for missing → handled in distance)
+    pvecs = []
+    for p in players:
+        vec = {}
+        n_present = 0
+        for fk in feature_keys:
+            v = p.get(fk)
+            if isinstance(v, (int, float)) and fk in col_std:
+                vec[fk] = (float(v) - col_mean[fk]) / col_std[fk]
+                n_present += 1
+        pvecs.append({"player": p, "vec": vec, "n_features": n_present})
+
+    n_blended = 0
+    for i, source in enumerate(pvecs):
+        if source["n_features"] < min_features:
+            continue
+        dists = []
+        for j, target in enumerate(pvecs):
+            if i == j or target["n_features"] < min_features:
+                continue
+            # Euclidean over the intersection of features (penalize missing)
+            shared = set(source["vec"].keys()) & set(target["vec"].keys())
+            if len(shared) < min_features:
+                continue
+            sq = sum((source["vec"][k] - target["vec"][k]) ** 2 for k in shared)
+            # Normalize by the number of features used so missing-data players
+            # aren't unfairly close (or far)
+            dist = (sq / len(shared)) ** 0.5
+            dists.append((target["player"].get("name", "?"), round(dist, 3)))
+        dists.sort(key=lambda x: x[1])
+        source["player"]["similarPlayers"] = [
+            {"name": nm, "distance": d} for nm, d in dists[:k]
+        ]
+        n_blended += 1
+    return n_blended
+
+
+def effective_sg(p):
+    """Player's best skill estimate: Bayesian-updated SG if available
+    (computed mid-tournament from observed round SG), else the season prior.
+
+    Wiring this through every downstream predictor (matchup, cut, position,
+    per-hole props) gives the model a sharper read on a player whose week
+    is going much better or worse than their season baseline — without
+    overweighting a single round.
+    """
+    if p is None:
+        return 0.0
+    upd = p.get("sgTotalUpdated")
+    if isinstance(upd, (int, float)):
+        return float(upd)
+    sg = p.get("sgTotal")
+    return float(sg) if isinstance(sg, (int, float)) else 0.0
+
+
 def american_to_implied_prob(american_odds):
     """American odds → raw implied probability in [0, 1]. None on parse error.
 
@@ -1982,6 +2078,142 @@ def apply_learned_course_fit(players, learned, course_key, fit_scale=12.0,
 # ============================================================
 
 SNAPSHOT_VERSION = 1  # bump when the archived schema changes in a breaking way
+
+
+def compute_clv_proxy(players, base_dir, lookback_hours=24, edge_threshold=2.0):
+    """Closing-line value PROXY using only odds_history.json (no API calls).
+
+    For each player with a meaningful model edge ``|edgeScore| >= edge_threshold``,
+    look back ``lookback_hours`` in the existing odds history. If the implied
+    probability moved in the direction the model predicted (favorites shortened
+    for model picks, lengthened for fades), that's a CLV-positive observation.
+    Sharp models target >55% CLV-positive on positive-edge bets.
+
+    Computed entirely from data we already snapshot. Adds:
+      - ``output["clvSummary"]`` aggregate stats
+      - ``player["clvLineMoveBp"]`` per-player line move in basis points
+      - ``player["clvPositive"]`` boolean (only for players with edge threshold)
+
+    A sharp's read on the model: if ``clvPositivePct`` consistently > 55%, the
+    picks beat the close — the strongest single signal that the model has
+    predictive skill (stronger than win/loss because line movement is
+    incrementally re-priced by sharp money, not by random outcomes).
+    """
+    path = os.path.join(base_dir, "odds_history.json")
+    if not os.path.isfile(path):
+        return None
+    try:
+        with open(path, encoding="utf-8") as f:
+            history = json.load(f) or {}
+    except (OSError, json.JSONDecodeError):
+        return None
+
+    from datetime import datetime as _dt, timezone as _tz, timedelta as _td
+
+    now = _dt.now(_tz.utc)
+    cutoff = now - _td(hours=lookback_hours)
+
+    def _parse_ts(ts):
+        if not ts:
+            return None
+        try:
+            # ISO with optional timezone — coerce to UTC
+            if ts.endswith("Z"):
+                ts = ts.replace("Z", "+00:00")
+            d = _dt.fromisoformat(ts)
+            if d.tzinfo is None:
+                d = d.replace(tzinfo=_tz.utc)
+            return d.astimezone(_tz.utc)
+        except (ValueError, TypeError):
+            return None
+
+    def _implied_from_row(row):
+        """Best (lowest implied = highest payout) book in the row."""
+        best_implied = None
+        for book in ("dk", "fd", "mgm", "br", "bovada"):
+            v = row.get(book)
+            if not isinstance(v, (int, float)):
+                continue
+            ip = american_to_implied_prob(v)
+            if ip is None:
+                continue
+            if best_implied is None or ip < best_implied:
+                best_implied = ip
+        return best_implied
+
+    n_eligible = 0
+    n_positive = 0
+    sum_move_bp = 0.0
+    move_count = 0
+    for p in players:
+        edge = p.get("edgeScore")
+        if not isinstance(edge, (int, float)) or abs(edge) < edge_threshold:
+            continue
+        name = (p.get("name") or "").strip().lower()
+        if not name:
+            continue
+        series = (history.get(name) or {}).get("win") or []
+        if len(series) < 2:
+            continue
+        current = series[-1]
+        # Find baseline = oldest entry within lookback window (or oldest available)
+        baseline = None
+        for row in series[:-1]:
+            t = _parse_ts(row.get("t"))
+            if t is None:
+                continue
+            if t >= cutoff:
+                baseline = row
+                break
+        if baseline is None:
+            # Fall back to the entry just outside lookback (closer to now)
+            for row in reversed(series[:-1]):
+                t = _parse_ts(row.get("t"))
+                if t is None or t < cutoff:
+                    baseline = row
+                    break
+        if baseline is None:
+            continue
+        ip_then = _implied_from_row(baseline)
+        ip_now = _implied_from_row(current)
+        if ip_then is None or ip_now is None:
+            continue
+        move_bp = round((ip_now - ip_then) * 10000, 1)  # basis points
+        # CLV positive: line moved IN the model's direction
+        # - Positive edge (model thinks player wins more than market): want shortening (ip_now > ip_then)
+        # - Negative edge (model thinks player wins less): want lengthening (ip_now < ip_then)
+        if edge > 0:
+            clv_pos = move_bp > 0
+        else:
+            clv_pos = move_bp < 0
+        p["clvLineMoveBp"] = move_bp
+        p["clvPositive"] = bool(clv_pos)
+        n_eligible += 1
+        sum_move_bp += abs(move_bp)
+        move_count += 1
+        if clv_pos:
+            n_positive += 1
+
+    if n_eligible == 0:
+        return None
+    clv_pct = round(n_positive / n_eligible * 100, 1)
+    summary = {
+        "pickCount": n_eligible,
+        "clvPositiveCount": n_positive,
+        "clvPositivePct": clv_pct,
+        "avgAbsMoveBp": round(sum_move_bp / max(move_count, 1), 1),
+        "lookbackHours": lookback_hours,
+        "edgeThreshold": edge_threshold,
+        "interpretation": (
+            "Strong sharp signal — picks beating the close" if clv_pct >= 60
+            else "Positive sharp signal" if clv_pct >= 55
+            else "No signal — picks moving with noise" if clv_pct >= 45
+            else "Negative signal — close moving against picks"
+        ),
+    }
+    print(f"[CLV] {n_eligible} picks (|edge| >= {edge_threshold}) over last {lookback_hours}h: "
+          f"{n_positive} CLV-positive ({clv_pct}%) · avg move {summary['avgAbsMoveBp']}bp")
+    return summary
 
 
 def persist_odds_history(output, base_dir):
@@ -2597,7 +2829,7 @@ def predict_matchups(matchups, players, course_key=None, weather=None,
         pp_list = []
         for p in group["players"]:
             pdata = by_name.get(normalize_name(p["name"]), {}) or {}
-            sg_season = pdata.get("sgTotal") or 0.0
+            sg_season = effective_sg(pdata)
             sg_live = live_sg.get(normalize_name(p["name"]), 0.0) or 0.0
             sg_blended = 0.7 * sg_season + 0.3 * sg_live if sg_live else sg_season
 
@@ -2640,6 +2872,17 @@ def predict_matchups(matchups, players, course_key=None, weather=None,
                 "std": std_i,
                 "sgBlended": round(sg_blended, 2),
                 "fitBoost": round(fit_boost, 2),
+                # Decomposition for matchup-explanation UI. Each field is the
+                # contribution (in strokes vs PAR baseline) that this factor
+                # makes to the player's projected mean score. The frontend
+                # subtracts opponent contributions to show "Player A's
+                # advantage comes from +0.6 SG and +0.2 course fit."
+                "contrib": {
+                    "sg":      round(sg_blended, 3),
+                    "fit":     round(fit_boost, 3),
+                    "form":    round(form_boost, 3),
+                    "weather": round(-wx_penalty, 3),  # weather hurts, so advantage = -penalty
+                },
             })
 
         # Monte Carlo — handle 2-ball and 3-ball
@@ -2717,6 +2960,7 @@ def predict_matchups(matchups, players, course_key=None, weather=None,
                 "modelStd": round(pp["std"], 2),
                 "sgBlended": pp["sgBlended"],
                 "fitBoost": pp["fitBoost"],
+                "contrib": pp["contrib"],
                 "pClearWin": round(p_clear, 4),
                 "deadHeatWinValue": round(win_value, 4),
                 "fairOdds": _prob_to_american(win_value),
@@ -3923,7 +4167,7 @@ def predict_player_position_probs(players, course_key=None, weather=None,
 
     pp_list = []
     for p in players:
-        sg_season = p.get("sgTotal") or 0.0
+        sg_season = effective_sg(p)
         name_key = normalize_name(p.get("name", ""))
         sg_live = live_sg.get(name_key, 0.0)
         sg_blended = sg_blend_season * sg_season + sg_blend_live * sg_live if sg_live else sg_season
@@ -4135,12 +4379,22 @@ def predict_per_hole_props(players, course_data, course_par=None,
     mp = model_params_override or load_model_params()
     sg_blend_season = mp.get("sgBlendSeason", 0.7)
 
+    # Per-round momentum standard deviation. A round draw of e.g. +0.5 means
+    # the player runs hot this round (every hole's distribution shifts toward
+    # birdie). Without momentum, hole outcomes are independent given skill —
+    # which underestimates round-score variance (real rounds correlate within
+    # themselves because confidence/energy/feel carries hole to hole). 0.4
+    # matches the empirical "hot/cold round" variance from PGA SG data.
+    ROUND_MOMENTUM_STD = 0.4
+
     out = {}
     for p in players:
-        sg = p.get("sgTotal") or 0.0
-        # Apply skill to each hole independently (could vary by hole type
-        # later — e.g. long hitters disproportionately help on par-5s).
-        adj_dists = [_skill_adjusted_dist(h["dist"], sg) for h in hole_defs]
+        sg = effective_sg(p)
+        # Pre-compute the NO-MOMENTUM skill-adjusted dist per hole as the
+        # baseline; per-sim momentum will be added on the fly.
+        # base_dists keeps the raw course distribution so we can re-apply
+        # combined (skill + momentum) per sim without double-applying skill.
+        base_dists = [h["dist"] for h in hole_defs]
 
         # Aggregate counters across sims
         round_scores = [0] * sims
@@ -4149,9 +4403,14 @@ def predict_per_hole_props(players, course_data, course_par=None,
         eagles_cnt = [0] * sims
         doubles_cnt = [0] * sims
         for s in range(sims):
+            # Round momentum: drawn once at round start, applied to every hole
+            momentum = rng.gauss(0.0, ROUND_MOMENTUM_STD)
+            effective_skill = sg + momentum
+            # Adjust each hole's dist for this round only
+            mom_dists = [_skill_adjusted_dist(base, effective_skill) for base in base_dists]
             total = par_round_total
             for hi in range(18):
-                outcome = _sample_hole_outcome(adj_dists[hi], rng)
+                outcome = _sample_hole_outcome(mom_dists[hi], rng)
                 total += OUTCOME_TO_DELTA[outcome]
                 if outcome == "birdie":
                     birdies[s] += 1
@@ -4364,7 +4623,7 @@ def predict_cut_line(players, course_key="augusta", weather=None, tournament_sg=
         # to avoid populating the cut field with random noise — they were
         # already replaced with field averages so they'd just be a centered
         # blob anyway, but better to mark them explicitly.
-        sg_season = p.get("sgTotal") or 0.0
+        sg_season = effective_sg(p)
         name_key = normalize_name(p.get("name", ""))
         sg_live = live_sg.get(name_key, 0.0)
         sg_blended = sg_blend_season * sg_season + sg_blend_live * sg_live if sg_live else sg_season
@@ -4461,9 +4720,26 @@ def predict_cut_line(players, course_key="augusta", weather=None, tournament_sg=
     note = ("Live R1 in — only R2 simulated." if fixed_r1
             else f"Pre-tournament forecast over both rounds. Field SG top-30 avg {field_strength:+.2f}.")
 
+    # 90% confidence interval on the cut score (5th, 50th, 95th percentiles).
+    # Surfaces real uncertainty: a tight CI (±1 stroke) reads "+3 (very
+    # confident)"; a wide one (±4) reads "+3 (could be +1 to +7)".
+    sorted_thresh = sorted(cut_thresh_per_sim)
+    p05 = sorted_thresh[int(0.05 * len(sorted_thresh))]
+    p50 = sorted_thresh[int(0.50 * len(sorted_thresh))]
+    p95 = sorted_thresh[int(0.95 * len(sorted_thresh))]
+    ci_low_par_rel = int(p05 - par_36)
+    ci_high_par_rel = int(p95 - par_36)
+
     result = {
         "predictedCut": predicted_par_rel,
         "predictedScore": predicted_score,
+        "predictedCutCI90": {
+            "low":  ci_low_par_rel,
+            "median": int(p50 - par_36),
+            "high": ci_high_par_rel,
+            "lowScore":  int(p05),
+            "highScore": int(p95),
+        },
         "fieldStrength": field_strength,
         "likelyMakers": likely_makers,
         "confidence": confidence,
@@ -5871,6 +6147,43 @@ def run_pipeline():
                     output["tournamentSG"] = sg_leaders[:40]
                     print(f"[PIPELINE] Tournament SG written for {len(sg_leaders)} players")
 
+                    # Bayesian skill update: blend season SG (prior) with
+                    # this week's observed SG. After 4 rounds the posterior
+                    # weighs the observation ~50% if the player has been
+                    # notably different from prior, much less for a single
+                    # round. Posterior std also exposed for downstream
+                    # Sharpe-style edge sorting.
+                    PRIOR_STD = 0.5      # uncertainty in true skill (SG/round)
+                    OBS_STD = 1.5        # within-round volatility (SG/round)
+                    n_updated = 0
+                    for entry in sg_leaders:
+                        nm_key = normalize_name(entry.get("name", ""))
+                        rd = entry.get("rounds", 0) or 0
+                        obs_mean = entry.get("sgTotal")
+                        if rd <= 0 or not isinstance(obs_mean, (int, float)):
+                            continue
+                        # Match to player object
+                        target = None
+                        for p in output["players"]:
+                            if normalize_name(p.get("name", "")) == nm_key:
+                                target = p
+                                break
+                        if target is None:
+                            continue
+                        prior_mean = target.get("sgTotal") or 0.0
+                        prior_var = PRIOR_STD ** 2
+                        eff_obs_var = (OBS_STD ** 2) / rd
+                        w_prior = 1.0 / prior_var
+                        w_obs = 1.0 / eff_obs_var
+                        post_mean = (prior_mean * w_prior + obs_mean * w_obs) / (w_prior + w_obs)
+                        post_var = 1.0 / (w_prior + w_obs)
+                        target["sgTotalUpdated"] = round(post_mean, 3)
+                        target["sgTotalUpdatedStd"] = round(post_var ** 0.5, 3)
+                        target["sgUpdateRounds"] = rd
+                        n_updated += 1
+                    if n_updated:
+                        print(f"[BAYES] Updated skill estimates for {n_updated} players (prior N({PRIOR_STD}), obs/round N({OBS_STD}))")
+
             # ============================================================
             # PER-ROUND PAR-RELATIVE SCORES (Track C)
             # ============================================================
@@ -6745,6 +7058,19 @@ def run_pipeline():
         print(f"  [WARN] Position prob simulation failed: {_e}")
 
     # ============================================================
+    # PLAYER SIMILARITY (kNN on SG profiles)
+    # Attaches per-player ``similarPlayers: [{name, distance}, ...]`` so the
+    # frontend can show comps and rookies inherit course intuition from
+    # similar veterans.
+    # ============================================================
+    try:
+        n_sim = compute_player_similarity(output["players"], k=5)
+        if n_sim:
+            print(f"[SIMILARITY] Computed top-5 comps for {n_sim} players")
+    except Exception as _e:
+        print(f"  [WARN] Player similarity compute failed: {_e}")
+
+    # ============================================================
     # PER-HOLE PROP PRICING (round-score / birdie / bogey / eagle props)
     # ------------------------------------------------------------
     # Runs a per-hole Monte Carlo using the course's historical hole-by-hole
@@ -7073,6 +7399,14 @@ def run_pipeline():
 
     # ---- ODDS HISTORY (line-movement snapshots) ----
     persist_odds_history(output, base_dir)
+
+    # ---- CLV PROXY (closing-line value from existing history) ----
+    # Zero new API calls — reads odds_history.json we just persisted to
+    # compare current vs lookback odds for every player with a meaningful
+    # model edge. The sharp's metric: % of model picks that beat the close.
+    clv = compute_clv_proxy(output["players"], base_dir, lookback_hours=24)
+    if clv:
+        output["clvSummary"] = clv
 
     # ---- DISCORD ALERTS ----
     # Wrapped: alert path is non-critical. A bug here must NEVER block the

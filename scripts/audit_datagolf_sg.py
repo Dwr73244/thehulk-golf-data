@@ -144,10 +144,10 @@ def main():
         bdl_fetch_all, _ignore_norm, key_map = _import_scraper_helpers()
     except Exception as e:
         print(f"[AUDIT] Could not import scraper helpers: {e}")
-        return 1
+        return 4  # exit 4 = configuration error (CI ignores)
     if not os.environ.get("BDL_API_KEY"):
         print("[AUDIT] BDL_API_KEY env var not set — cannot fetch live BDL data.")
-        return 1
+        return 4
 
     dg = load_dg_players()
     print(f"[AUDIT] DataGolf players (from golf-data.json): {len(dg)}")
@@ -158,7 +158,7 @@ def main():
     print(f"[AUDIT] Overlap (in both sources): {len(overlap)} players")
     if len(overlap) < args.min_pairs:
         print(f"[AUDIT] Not enough overlap ({len(overlap)} < {args.min_pairs}) — cannot trust verdict.")
-        return 1
+        return 3  # INDETERMINATE
 
     # Per-stat correlation + MAD
     stats = ["sgTotal", "sgOtt", "sgApp", "sgArg", "sgPutt"]
@@ -228,7 +228,15 @@ def main():
         print()
         print(json.dumps(report, indent=2))
 
-    return 0
+    # Persist machine-readable report so CI can read + alert
+    report_path = os.path.join(REPO_ROOT, "datagolf-audit.json")
+    with open(report_path, "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=2)
+    print(f"[AUDIT] Report written to {report_path}")
+
+    # Exit codes: 0 = TRUSTABLE, 1 = SUSPECT, 2 = FAIL, 3 = INDETERMINATE.
+    # CI uses these to drive Discord alerts.
+    return {"TRUSTABLE": 0, "SUSPECT": 1, "FAIL": 2, "INDETERMINATE": 3}.get(verdict, 0)
 
 
 if __name__ == "__main__":
