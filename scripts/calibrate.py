@@ -271,7 +271,11 @@ def load_backfill_pairs():
     """
     all_pairs = []
     all_events = set()
-    seen = set()  # (event, player) — dedupe across both files
+    # Dedup key: (event_name, season, player). Season is required — same
+    # tournament (e.g. "Tournament of Champions") repeats every year and
+    # players play it multiple times. Without season in the key we'd
+    # collapse ~half the corpus.
+    seen = set()
     for fn in BACKFILL_FILES:
         backfill_path = os.path.join(HISTORY_DIR, fn)
         if not os.path.isfile(backfill_path):
@@ -287,12 +291,16 @@ def load_backfill_pairs():
             try:
                 ev = p["event"]
                 pl = p["player"]
-                key = (ev, pl.lower().strip())
+                season = p.get("season")
+                key = (ev, season, pl.lower().strip())
                 if key in seen:
                     continue
                 seen.add(key)
-                all_pairs.append((ev, pl, float(p["proxy_score"]), bool(p["made_cut"])))
-                all_events.add(ev)
+                # Tag event with season so different years don't collide in the
+                # events list either ("Masters 2024" vs "Masters 2025").
+                event_with_season = f"{ev} {season}" if season else ev
+                all_pairs.append((event_with_season, pl, float(p["proxy_score"]), bool(p["made_cut"])))
+                all_events.add(event_with_season)
                 added += 1
             except (KeyError, TypeError, ValueError):
                 continue

@@ -266,13 +266,20 @@ def main():
     sg_by_name = {}
     sg_source_season = None
     if os.environ.get("BDL_API_KEY"):
-        sg_by_name, sg_source_season = fetch_season_sg_from_bdl(
-            bdl_fetch_all, normalize_name, key_map, sg_candidates
-        )
+        # Wrap in try/except so transient BDL failures (rate-limit, timeout,
+        # network blip — common when this script runs immediately after the
+        # BDL backfill in the same workflow) fall through to the DataGolf
+        # snapshot instead of crashing the whole ESPN backfill.
+        try:
+            sg_by_name, sg_source_season = fetch_season_sg_from_bdl(
+                bdl_fetch_all, normalize_name, key_map, sg_candidates
+            )
+        except Exception as e:
+            print(f"[PGA] BDL season SG fetch failed ({type(e).__name__}: {e}) — falling back to DataGolf snapshot")
     else:
         print("[PGA] BDL_API_KEY not set — skipping BDL season SG")
     if not sg_by_name:
-        print("[PGA] BDL season SG empty — falling back to DataGolf SG from golf-data.json")
+        print("[PGA] Using DataGolf SG from golf-data.json as skill source")
         sg_by_name = load_dg_sg_from_local()
         sg_source_season = "dg_snapshot"
     if not sg_by_name:
