@@ -1288,16 +1288,57 @@ def lookup_calibrated_prob(score, calibration_table):
     return calibration_table[-1]["prob"]
 
 
-def apply_confscore_calibration(players, model_params):
-    """Attach ``confScoreCalibratedMakeCutProb`` to each player.
+def _resolve_calibration_table(model_params, event_name=None):
+    """Pick the right calibration table for the current event.
 
-    Uses the calibration table from model_params (written by
-    scripts/calibrate.py). Does nothing if no calibration is loaded — the
-    raw confScore continues to work as a relative ranking signal even
-    without calibration.
+    Stratified calibration (calibrate.py post May 2026) writes
+    ``calibration.tables = {standard: {...}, major: {...}, default: {...}}``.
+    At serve time we classify the current event and look up the matching
+    table. Falls back through: matching event_type → default → legacy
+    single-table format → None.
     """
     cal = (model_params or {}).get("calibration") or {}
-    table = cal.get("table")
+    tables = cal.get("tables") or {}
+    if event_name and tables:
+        # Lazy import to avoid hard dependency in environments without
+        # the scripts/ folder on the path.
+        try:
+            import sys as _sys, os as _os
+            _scripts = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "scripts")
+            if _scripts not in _sys.path:
+                _sys.path.insert(0, _scripts)
+            from event_types import classify_event_type  # noqa: E402
+            etype = classify_event_type(event_name)
+        except Exception:
+            etype = "standard"
+        # No-cut events aren't trained on — they have no calibration value
+        # at serve time either. Fall through to default.
+        if etype == "no_cut":
+            etype = "default"
+        bucket = tables.get(etype) or tables.get("default") or {}
+        if bucket.get("table"):
+            return bucket["table"], etype
+    # Legacy single-table format (calibration.table)
+    legacy = cal.get("table")
+    if legacy:
+        return legacy, "legacy"
+    # Last resort: any table we can find
+    for k, v in tables.items():
+        if isinstance(v, dict) and v.get("table"):
+            return v["table"], k
+    return None, None
+
+
+def apply_confscore_calibration(players, model_params, event_name=None):
+    """Attach ``confScoreCalibratedMakeCutProb`` to each player.
+
+    Uses the stratified calibration tables from model_params (written by
+    scripts/calibrate.py). At serve time the current event is classified
+    (major / standard / no-cut) and the matching table is used. Does
+    nothing if no calibration is loaded — the raw confScore continues to
+    work as a relative ranking signal even without calibration.
+    """
+    table, used_bucket = _resolve_calibration_table(model_params, event_name=event_name)
     if not table:
         return 0
     n_set = 0
@@ -1309,6 +1350,8 @@ def apply_confscore_calibration(players, model_params):
         if prob is not None:
             p["confScoreCalibratedMakeCutProb"] = round(prob, 4)
             n_set += 1
+    if n_set:
+        print(f"  Calibration table used: {used_bucket}")
     return n_set
 
 
@@ -7733,7 +7776,8 @@ def run_pipeline():
     # If scripts/calibrate.py has been run, attach calibrated make-cut
     # probabilities to each player. Frontend can display these instead of
     # raw 0-100 scores when the user wants a real probability.
-    n_calibrated = apply_confscore_calibration(output["players"], output["modelParams"])
+    _curr_event_name = ((output.get("currentEvent") or {}).get("name") or "")
+    n_calibrated = apply_confscore_calibration(output["players"], output["modelParams"], event_name=_curr_event_name)
     if n_calibrated:
         print(f"[CALIBRATION] Applied to {n_calibrated} players (trained {output['modelParams'].get('calibration', {}).get('trainedAt', 'unknown')})")
 

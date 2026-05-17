@@ -253,28 +253,21 @@ BACKFILL_FILES = ("backfill_calibration.json", "backfill_pga_public.json")
 def load_backfill_pairs():
     """Load the bulk historical backfill produced by the two backfill scripts.
 
-    Sources, both consumed when present:
-      - ``history/backfill_calibration.json`` — from scripts/backfill_calibration.py
-        (BDL tournament_results + season_stats)
-      - ``history/backfill_pga_public.json`` — from scripts/backfill_from_pga_public.py
-        (ESPN scoreboard + BDL season_stats; covers gaps where BDL's historical
-        tournaments are sparse)
+    Returns ``(pairs, events)`` where each pair is a dict with all metadata:
+      {
+        "event": str,         # e.g. "Masters Tournament 2024"
+        "player": str,
+        "score": float,       # the proxy_score
+        "outcome": bool,
+        "event_type": str,    # "major" | "standard" (no_cut already filtered)
+        "event_date": str,    # YYYY-MM-DD when available (ESPN provides; BDL doesn't)
+        "source": str,        # filename of origin
+      }
 
-    Returns ``(pairs, events)`` in the same shape as ``load_history_pairs``:
-    each pair is (event, player, score, made_cut). When neither backfill file is
-    present, returns empty lists — the existing live-history calibration still
-    runs unchanged.
-
-    Cross-file deduplication: same player + same event from both sources keeps
-    only the first. The BDL backfill is preferred (uses contemporaneous season
-    SG when available); the ESPN backfill fills in events BDL doesn't cover.
+    Cross-file dedup on (event, season, player) — BDL preferred over ESPN.
     """
     all_pairs = []
     all_events = set()
-    # Dedup key: (event_name, season, player). Season is required — same
-    # tournament (e.g. "Tournament of Champions") repeats every year and
-    # players play it multiple times. Without season in the key we'd
-    # collapse ~half the corpus.
     seen = set()
     for fn in BACKFILL_FILES:
         backfill_path = os.path.join(HISTORY_DIR, fn)
@@ -296,10 +289,16 @@ def load_backfill_pairs():
                 if key in seen:
                     continue
                 seen.add(key)
-                # Tag event with season so different years don't collide in the
-                # events list either ("Masters 2024" vs "Masters 2025").
                 event_with_season = f"{ev} {season}" if season else ev
-                all_pairs.append((event_with_season, pl, float(p["proxy_score"]), bool(p["made_cut"])))
+                all_pairs.append({
+                    "event": event_with_season,
+                    "player": pl,
+                    "score": float(p["proxy_score"]),
+                    "outcome": bool(p["made_cut"]),
+                    "event_type": p.get("event_type", "standard"),
+                    "event_date": p.get("event_date", ""),
+                    "source": fn,
+                })
                 all_events.add(event_with_season)
                 added += 1
             except (KeyError, TypeError, ValueError):
@@ -308,17 +307,77 @@ def load_backfill_pairs():
     return all_pairs, sorted(all_events)
 
 
+def fit_calibration(pairs, label="all"):
+    """Fit PAV + lookup table on a subset of pairs. Returns ({table, n,
+    brier, baselineBrier, baseRate, brierLift}, fit_input) or None if
+    insufficient data."""
+    if not pairs:
+        return None, None
+    fit_input = [(p["score"], 1.0 if p["outcome"] else 0.0) for p in pairs]
+    if len(fit_input) < 30:
+        print(f"[CALIBRATE] {label}: only {len(fit_input)} pairs — skipped (need ≥30)")
+        return None, fit_input
+    blocks = isotonic_pav(fit_input)
+    table = build_lookup_table(blocks, granularity=5)
+    base_rate = sum(o for _, o in fit_input) / len(fit_input)
+    cal_b = brier([(lookup_calibrated_prob(s, table), o) for s, o in fit_input])
+    uncal_b = brier([(s / 100.0, o) for s, o in fit_input])
+    base_b = brier([(base_rate, o) for _, o in fit_input])
+    print(f"[CALIBRATE] {label}: n={len(fit_input)}, blocks={len(blocks)}, "
+          f"baseRate={base_rate:.3f}, Brier base={base_b}, uncal={uncal_b}, cal={cal_b}")
+    return {
+        "n": len(fit_input),
+        "table": table,
+        "brier": cal_b,
+        "uncalibratedBrier": uncal_b,
+        "baselineBrier": base_b,
+        "baseRate": round(base_rate, 4),
+        "blocks": len(blocks),
+    }, fit_input
+
+
+def time_split_holdout(pairs, holdout_fraction=0.25):
+    """Split pairs into (train, test) by event_date. Most-recent fraction
+    becomes test. Pairs without a date go entirely into train (we can't
+    place them temporally).
+
+    Returns: (train_pairs, test_pairs)
+    """
+    dated = [p for p in pairs if p.get("event_date")]
+    undated = [p for p in pairs if not p.get("event_date")]
+    if not dated:
+        return list(pairs), []
+    dated.sort(key=lambda p: p["event_date"])
+    split_idx = int(len(dated) * (1.0 - holdout_fraction))
+    train = dated[:split_idx] + undated
+    test = dated[split_idx:]
+    return train, test
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--dry-run", action="store_true", help="Print results, don't write")
     ap.add_argument("--min-pairs", type=int, default=80,
                     help="Minimum training pairs required (default 80)")
     ap.add_argument("--skip-backfill", action="store_true",
-                    help="Ignore history/backfill_calibration.json (use live snapshots only)")
+                    help="Ignore backfill files (use live snapshots only)")
+    ap.add_argument("--live-weight", type=int, default=3,
+                    help="Effective weight for live-snapshot pairs (replicated N times). "
+                         "Live pairs use the real multi-feature confScore vs the proxy "
+                         "used in backfill, so they're higher-signal. Default 3.")
+    ap.add_argument("--holdout-fraction", type=float, default=0.25,
+                    help="Fraction of most-recent dated pairs to hold out for honest "
+                         "out-of-sample Brier reporting. Default 0.25.")
     args = ap.parse_args()
 
     print(f"[CALIBRATE] Walking {HISTORY_DIR}...")
-    live_pairs, live_events = load_history_pairs()
+    live_pairs_raw, live_events = load_history_pairs()
+    # Adapt live pairs to dict shape (load_history_pairs returns tuples)
+    live_pairs = [{
+        "event": e, "player": pl, "score": s, "outcome": o,
+        "event_type": "standard",  # live snapshots are tour stops; no major-tagging yet
+        "event_date": "", "source": "live_snapshot",
+    } for (e, pl, s, o) in live_pairs_raw]
     print(f"[CALIBRATE] Live snapshots: {len(live_pairs)} pairs from {len(live_events)} events")
 
     backfill_pairs, backfill_events = ([], [])
@@ -327,47 +386,85 @@ def main():
         if backfill_pairs:
             print(f"[CALIBRATE] Backfill data: {len(backfill_pairs)} pairs from {len(backfill_events)} events")
 
-    pairs = list(live_pairs) + list(backfill_pairs)
+    # Effective training set: live pairs replicated N times (upweighting).
+    # The PAV algorithm treats each pair equally, so replication is the
+    # clean way to give live pairs more pull on the calibration curve.
+    weighted_live = live_pairs * max(1, args.live_weight)
+    pairs = list(weighted_live) + list(backfill_pairs)
     events = list(live_events) + list(backfill_events)
-    print(f"[CALIBRATE] Combined: {len(pairs)} pairs from {len(set(events))} events")
-    if events:
-        print(f"  Live events: {', '.join(sorted(set(live_events)))}")
-        if backfill_events:
-            print(f"  Backfill seasons: {sorted({e.split()[-1] if e and e.split()[-1].isdigit() else '?' for e in backfill_events})}")
+    print(f"[CALIBRATE] Combined: {len(pairs)} effective pairs "
+          f"({len(live_pairs)} live × {args.live_weight} weight + {len(backfill_pairs)} backfill) "
+          f"from {len(set(events))} events")
 
     if len(pairs) < args.min_pairs:
         print(f"[CALIBRATE] Not enough data ({len(pairs)} < {args.min_pairs}). Skipping.")
         return 1
 
-    # Fit PAV on (score, outcome) pairs
-    fit_input = [(score, 1.0 if outcome else 0.0)
-                 for (_, _, score, outcome) in pairs]
-    blocks = isotonic_pav(fit_input)
-    print(f"[CALIBRATE] PAV blocks: {len(blocks)}")
-    for b in blocks:
-        avg = b["sum"] / b["n"]
-        print(f"  score {b['x_min']:6.2f}-{b['x_max']:6.2f}  n={b['n']:4d}  mean_outcome={avg:.3f}")
+    # --- TIME-SPLIT HOLDOUT for honest out-of-sample Brier reporting ---
+    # Most-recent dated pairs become test set. Train calibration on the
+    # remainder. Live pairs (no date) all go into train.
+    train_pairs, test_pairs = time_split_holdout(pairs, args.holdout_fraction)
+    print(f"[CALIBRATE] Time-split: {len(train_pairs)} train, {len(test_pairs)} test "
+          f"(holdout fraction {args.holdout_fraction})")
 
-    table = build_lookup_table(blocks, granularity=5)
+    # --- STRATIFIED CALIBRATION BY EVENT TYPE ---
+    # Train separate isotonic tables for {major, standard} so the calibration
+    # curve matches the field-difficulty profile at serve time. Also fit a
+    # "default" table over all training pairs as the fallback when serve-time
+    # event type can't be classified.
+    tables = {}
+    print("\n[CALIBRATE] === STRATIFIED FIT (in-sample) ===")
+    for event_type in ("standard", "major"):
+        subset = [p for p in train_pairs if p.get("event_type") == event_type]
+        result, _ = fit_calibration(subset, label=event_type)
+        if result:
+            # Out-of-sample Brier against held-out test subset of same type
+            test_subset = [p for p in test_pairs if p.get("event_type") == event_type]
+            if test_subset:
+                test_input = [(p["score"], 1.0 if p["outcome"] else 0.0) for p in test_subset]
+                oos_brier = brier([(lookup_calibrated_prob(s, result["table"]), o)
+                                   for s, o in test_input])
+                result["heldoutBrier"] = oos_brier
+                result["heldoutN"] = len(test_subset)
+                print(f"  → out-of-sample on {len(test_subset)} held-out {event_type} pairs: "
+                      f"Brier {oos_brier}")
+            tables[event_type] = result
 
-    # Score: in-sample Brier of calibrated probs vs uncalibrated baseline
-    base_rate = sum(o for _, o in fit_input) / len(fit_input)
-    cal_preds = [(lookup_calibrated_prob(s, table), o) for s, o in fit_input]
-    baseline_preds = [(base_rate, o) for _, o in fit_input]
-    uncal_preds = [(s / 100.0, o) for s, o in fit_input]
-    cal_brier = brier(cal_preds)
-    base_brier = brier(baseline_preds)
-    uncal_brier = brier(uncal_preds)
-    print(f"[CALIBRATE] Brier — base rate: {base_brier}, uncalibrated (score/100): {uncal_brier}, calibrated: {cal_brier}")
+    # Default table: all training pairs union — used at serve time when we
+    # can't classify the event (or for legacy consumers expecting a single table)
+    print("\n[CALIBRATE] === DEFAULT FIT (all training pairs) ===")
+    default_result, _ = fit_calibration(train_pairs, label="default")
+    if default_result:
+        if test_pairs:
+            test_input = [(p["score"], 1.0 if p["outcome"] else 0.0) for p in test_pairs]
+            oos_brier = brier([(lookup_calibrated_prob(s, default_result["table"]), o)
+                               for s, o in test_input])
+            default_result["heldoutBrier"] = oos_brier
+            default_result["heldoutN"] = len(test_pairs)
+            print(f"  → out-of-sample on {len(test_pairs)} held-out pairs: Brier {oos_brier}")
+        tables["default"] = default_result
+
+    if not tables:
+        print("[CALIBRATE] No tables fit (every stratum below min size). Aborting.")
+        return 1
 
     calibration = {
         "trainedAt": datetime.now(timezone.utc).isoformat(),
         "n": len(pairs),
         "events": sorted(set(events)),
-        "brier": cal_brier,
-        "baselineBrier": uncal_brier,
-        "table": table,
-        "_note": "Isotonic (PAV) calibration of raw confScore → make-cut probability. Lookup is piecewise-linear over table[].score. Trained by scripts/calibrate.py.",
+        "liveWeight": args.live_weight,
+        "holdoutFraction": args.holdout_fraction,
+        "tables": tables,
+        # Back-compat: legacy consumers reading calibration.table get the
+        # default stratum
+        "table": tables["default"]["table"] if "default" in tables else next(iter(tables.values()))["table"],
+        "brier": tables.get("default", {}).get("brier"),
+        "baselineBrier": tables.get("default", {}).get("uncalibratedBrier"),
+        "heldoutBrier": tables.get("default", {}).get("heldoutBrier"),
+        "_note": "Stratified isotonic (PAV) calibration. tables[event_type] gives "
+                 "the table for that event type; tables.default is the all-pairs "
+                 "fallback. Each table includes heldoutBrier (out-of-sample on the "
+                 "most-recent holdoutFraction of dated pairs). Trained by scripts/calibrate.py.",
     }
 
     if args.dry_run:

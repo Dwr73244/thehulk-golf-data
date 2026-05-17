@@ -43,6 +43,10 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HISTORY_DIR = os.path.join(REPO_ROOT, "history")
 OUTPUT_PATH = os.path.join(HISTORY_DIR, "backfill_calibration.json")
 
+# Local import — sits in the same scripts/ folder
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from event_types import classify_event_type  # noqa: E402
+
 
 def _import_scraper():
     sys.path.insert(0, REPO_ROOT)
@@ -253,6 +257,33 @@ def fetch_event_results(bdl_fetch_all, tid):
     return out
 
 
+def _load_dg_sg_from_local():
+    """Read DataGolf-fed sgTotal from the current golf-data.json snapshot.
+
+    Used as long-tail SG coverage when BDL's /player_season_stats returns
+    only a handful of players (typical for older seasons). DataGolf's
+    current-season rankings are NOT temporally aligned with the historical
+    event, but skill is reasonably stationary — a #20-ranked player today
+    was likely also a top-30 player 18 months ago.
+    """
+    path = os.path.join(REPO_ROOT, "golf-data.json")
+    if not os.path.isfile(path):
+        return {}
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    out = {}
+    for p in data.get("players") or []:
+        name = (p.get("name") or "").strip()
+        sg = p.get("sgTotal")
+        if not name or not isinstance(sg, (int, float)):
+            continue
+        out[" ".join(name.lower().split())] = float(sg)
+    return out
+
+
 def sg_to_proxy_score(sg_total):
     """Convert season sgTotal to a proxy confScore-equivalent in [10, 95].
 
@@ -281,6 +312,12 @@ def main():
 
     bdl_fetch_all, normalize_name, key_map = _import_scraper()
 
+    # Load DataGolf snapshot once — used as the long-tail SG fallback for
+    # every season. Year-specific BDL values overwrite per-player when
+    # available (BDL is contemporaneous for the season being processed).
+    dg_sg = _load_dg_sg_from_local()
+    print(f"[BACKFILL] DataGolf snapshot: {len(dg_sg)} players (long-tail fallback)")
+
     all_pairs = []
     season_summary = []
     for season in args.seasons:
@@ -288,25 +325,36 @@ def main():
         if not events:
             print(f"  No completed events found for {season}")
             continue
-        # Fallback chain: current year, then adjacent years (BDL sparse for
-        # older seasons; the current-year SG is a reasonable proxy since
-        # skill carries year-to-year).
-        from datetime import datetime as _dt2
-        _curr = _dt2.utcnow().year
-        fallbacks = [_curr, _curr - 1, _curr + 1]
-        fallbacks = [s for s in fallbacks if s != season]
-        sg_by_name = fetch_season_sg_lookup(
-            bdl_fetch_all, normalize_name, key_map, season, fallback_seasons=fallbacks
+        # Year-specific BDL SG first (no cross-year fallback — temporal
+        # correctness matters for calibration). Union with DataGolf snapshot
+        # as long-tail coverage; BDL values overwrite DataGolf when both
+        # have a player.
+        sg_by_name = dict(dg_sg)
+        bdl_only = fetch_season_sg_lookup(
+            bdl_fetch_all, normalize_name, key_map, season, fallback_seasons=None
         )
+        sg_by_name.update(bdl_only)
+        print(f"  Combined SG for {season}: {len(sg_by_name)} players "
+              f"({len(bdl_only)} year-specific BDL + DataGolf fallback)")
         if not sg_by_name:
-            print(f"  No season SG data for {season} — skipping season")
+            print(f"  No SG data available — skipping season")
             continue
 
         events_processed = 0
         pairs_this_season = 0
+        skipped_no_cut = 0
         for ev in events[: args.max_events_per_season]:
             results = fetch_event_results(bdl_fetch_all, ev["id"])
             if not results:
+                continue
+            # Compute cut metrics for event-type classification (we need the
+            # full results before knowing what to do with the event)
+            field_size = len(results)
+            cut_count = sum(1 for _, mc in results if mc)
+            cut_rate = cut_count / field_size if field_size else None
+            event_type = classify_event_type(ev["name"], cut_rate=cut_rate, field_size=field_size)
+            if event_type == "no_cut":
+                skipped_no_cut += 1
                 continue
             n_paired = 0
             for pname, made_cut in results:
@@ -320,6 +368,7 @@ def main():
                 all_pairs.append({
                     "event": ev["name"],
                     "season": season,
+                    "event_type": event_type,
                     "tournament_id": ev["id"],
                     "player": pname,
                     "proxy_score": proxy,
@@ -335,8 +384,10 @@ def main():
             "season": season,
             "events": events_processed,
             "pairs": pairs_this_season,
+            "skippedNoCut": skipped_no_cut,
         })
-        print(f"[BACKFILL] {season}: {events_processed} events → {pairs_this_season} pairs")
+        print(f"[BACKFILL] {season}: {events_processed} events → {pairs_this_season} pairs "
+              f"({skipped_no_cut} no-cut events excluded)")
 
     print(f"\n[BACKFILL] Total: {len(all_pairs)} (player, event) pairs from {sum(s['events'] for s in season_summary)} events")
     base_rate = sum(1 for p in all_pairs if p["made_cut"]) / max(len(all_pairs), 1)
