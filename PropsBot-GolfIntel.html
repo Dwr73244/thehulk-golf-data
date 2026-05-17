@@ -4648,9 +4648,31 @@
       try { window.renderThreeBalls(); } catch(_) {}
     }
     if (data.players && data.players.length > 0) {
-      // Replace PLAYERS array with fresh data
+      // Merge rather than replace: when an incoming refresh has a
+      // modelXxxProb set to 0/null (the scraper's default for players the
+      // Monte Carlo didn't simulate this run), keep the prior non-zero value
+      // so the drawer doesn't flicker from "11.2% → 0.0%" mid-tournament.
+      // A legitimate "this player can't finish here anymore" update from the
+      // sim will land as an explicit small-but-nonzero value, not 0.
+      var STICKY_PROBS = ['modelWinProb', 'modelTop5Prob', 'modelTop10Prob', 'modelTop20Prob', 'modelMakeCutProb'];
+      var prevById = {};
+      PLAYERS.forEach(function(p) { if (p && p.id != null) prevById[p.id] = p; });
       PLAYERS.length = 0;
-      data.players.forEach(function(p) { PLAYERS.push(p); });
+      data.players.forEach(function(p) {
+        var prev = prevById[p && p.id];
+        if (prev) {
+          STICKY_PROBS.forEach(function(k) {
+            var newVal = p[k];
+            var oldVal = prev[k];
+            // Adopt the new value only when it's a real probability;
+            // otherwise inherit the previous one to prevent flicker.
+            if ((newVal == null || newVal === 0) && typeof oldVal === 'number' && oldVal > 0) {
+              p[k] = oldVal;
+            }
+          });
+        }
+        PLAYERS.push(p);
+      });
       var _ts = data.generatedAt ? new Date(data.generatedAt) : null;
       var _tsStr = _ts && !isNaN(_ts)
         ? _ts.toLocaleDateString('en-US', {month:'short',day:'numeric'}) + ' · ' + _ts.toLocaleTimeString('en-US', {hour:'numeric',minute:'2-digit',timeZoneName:'short'})
@@ -7613,6 +7635,18 @@
     var col = SC_MARKET_TO_PROPCOL[mkt] || mkt;
     return scSafe(function(){ return cellEV(modelPct, bookOdds, col); }, null);
   }
+  // Best edge across all markets for a player. Used by the Edge sort when
+  // the currently-selected market has no tracked book lines (typical for
+  // Win on most weeks). Returns null when no market has a real edge.
+  function _scBestEdgeAcross(p) {
+    var mkts = ['winner', 'top5', 'top10', 'top20', 'makeCut'];
+    var best = null;
+    for (var i = 0; i < mkts.length; i++) {
+      var ev = scMarketEV(p, mkts[i]);
+      if (ev != null && (best == null || ev > best)) best = ev;
+    }
+    return best;
+  }
   function scFmtAmerican(odds) {
     if (odds == null) return '—';
     var n = parseInt(odds, 10);
@@ -8063,8 +8097,19 @@
         return al - bl;
       }
       if (s === 'edge') {
+        // First try the current market. If both players' edges in that
+        // market are null (typical for Win — most books don't post tracked
+        // outright odds for the full field), fall through to "best edge
+        // across any market" so the sort still produces a useful ordering
+        // instead of identity. The displayed Edge column still reflects
+        // the current market — that's the user's chosen view — but the
+        // ordering surfaces players with value somewhere on the board.
         var ae = scMarketEV(a, mkt);
         var be = scMarketEV(b, mkt);
+        if (ae == null && be == null) {
+          ae = _scBestEdgeAcross(a);
+          be = _scBestEdgeAcross(b);
+        }
         if (ae == null) ae = -999;
         if (be == null) be = -999;
         return be - ae;
@@ -8074,18 +8119,32 @@
         // confident = higher rank. For binary outcomes (winner / top-N) the
         // outcome std is sqrt(p*(1-p)). We also include posterior skill
         // uncertainty (sgTotalUpdatedStd) so mid-tournament noisy reads
-        // don't dominate.
-        function _sharpe(pl) {
-          var ev = scMarketEV(pl, mkt);
-          var prob = scMarketModelPct(pl, mkt);
-          if (ev == null || prob == null) return -999;
+        // don't dominate. Same null-fallback as 'edge' — pick the best
+        // available market when the current one has no tracked book lines.
+        function _sharpe(pl, useMkt) {
+          var ev = scMarketEV(pl, useMkt);
+          var prob = scMarketModelPct(pl, useMkt);
+          if (ev == null || prob == null) return null;
           var p = Math.max(0.001, Math.min(0.999, prob / 100));
           var outcomeStd = Math.sqrt(p * (1 - p));
-          var skillStd = pl.sgTotalUpdatedStd || 0.4;  // default prior std
+          var skillStd = pl.sgTotalUpdatedStd || 0.4;
           var totalStd = Math.sqrt(outcomeStd * outcomeStd + (skillStd / 5) * (skillStd / 5));
-          return totalStd > 0 ? ev / totalStd : -999;
+          return totalStd > 0 ? ev / totalStd : null;
         }
-        return _sharpe(b) - _sharpe(a);
+        var aSh = _sharpe(a, mkt), bSh = _sharpe(b, mkt);
+        if (aSh == null && bSh == null) {
+          // Try every market, take the best per player
+          var SC_ALL_MKTS = ['winner', 'top5', 'top10', 'top20', 'makeCut'];
+          var aBest = -999, bBest = -999;
+          SC_ALL_MKTS.forEach(function(m) {
+            var v = _sharpe(a, m); if (v != null && v > aBest) aBest = v;
+            var v2 = _sharpe(b, m); if (v2 != null && v2 > bBest) bBest = v2;
+          });
+          aSh = aBest; bSh = bBest;
+        }
+        if (aSh == null) aSh = -999;
+        if (bSh == null) bSh = -999;
+        return bSh - aSh;
       }
       // 'model': use confScore (canonical model score) when present,
       // fall back to the composite _getPropScore, then SG total.
@@ -8174,7 +8233,23 @@
     var odds = scMarketOdds(p, _scState.market);
     var oddsStr = odds != null ? scFmtAmerican(odds) : '<span class="text-slate-700">—</span>';
     var ev = scMarketEV(p, _scState.market);
-    var evStr = ev != null ? '<span class="' + scEdgeClass(ev) + '">' + (ev > 0 ? '+' : '') + ev.toFixed(0) + '%</span>' : '<span class="text-slate-700">—</span>';
+    var evStr;
+    if (ev != null) {
+      evStr = '<span class="' + scEdgeClass(ev) + '">' + (ev > 0 ? '+' : '') + ev.toFixed(0) + '%</span>';
+    } else {
+      // Current market has no tracked book line. If the user is sorting
+      // by Edge or Sharpe, surface the best-available cross-market edge
+      // here (with a small "*" indicator) so the row's value justifies
+      // its sort position. Plain — when the user is sorting by something
+      // else (Model / SG / etc.) — no need to inject cross-market info.
+      var useFallback = _scState.sort === 'edge' || _scState.sort === 'sharpe';
+      var fallbackEv = useFallback ? _scBestEdgeAcross(p) : null;
+      if (fallbackEv != null) {
+        evStr = '<span class="' + scEdgeClass(fallbackEv) + '" title="Best edge across all markets (current market has no tracked line)">' + (fallbackEv > 0 ? '+' : '') + fallbackEv.toFixed(0) + '%*</span>';
+      } else {
+        evStr = '<span class="text-slate-700">—</span>';
+      }
+    }
 
     var model = (p.confScore != null ? p.confScore : scSafe(function(){ return _getPropScore(p); }, null));
     var modelStr = model != null
