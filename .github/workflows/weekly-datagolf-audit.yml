@@ -17,6 +17,11 @@ on:
     # Monday 11 AM UTC (7 AM ET) — after weekly-scrape's Mon 5 AM ET run
     - cron: '0 11 * * 1'
   workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: 'Force backfill refresh even if file is fresh'
+        type: boolean
+        default: false
 
 permissions:
   contents: write   # commit the report JSON back to main for transparency
@@ -93,6 +98,14 @@ jobs:
       - name: Check if calibration backfill is stale (>7 days)
         id: backfill_check
         run: |
+          # Manual override: if user clicked workflow_dispatch with force_refresh,
+          # treat as stale regardless of file age.
+          if [ "${{ inputs.force_refresh }}" = "true" ]; then
+            echo "stale=true" >> $GITHUB_OUTPUT
+            echo "reason=force_refresh_input" >> $GITHUB_OUTPUT
+            echo "Backfill: force_refresh requested"
+            exit 0
+          fi
           BACKFILL=history/backfill_calibration.json
           if [ ! -f "$BACKFILL" ]; then
             echo "stale=true" >> $GITHUB_OUTPUT
