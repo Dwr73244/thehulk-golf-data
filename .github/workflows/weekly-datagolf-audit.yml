@@ -1,8 +1,16 @@
-name: Weekly DataGolf Trust Audit
+name: Weekly DataGolf Audit + Calibration Refresh
 
-# Runs the DataGolf SG audit script every Monday at 7 AM ET (after the
-# weekly-scrape backtest has settled). Posts to Discord on SUSPECT or FAIL
-# verdict so we catch data-source drift before it pollutes the model.
+# Runs every Monday at 7 AM ET (after the weekly-scrape backtest has settled).
+# Three jobs in one workflow:
+#   1. DataGolf trust audit — Discord-alerts on SUSPECT/FAIL drift
+#   2. Calibration backfill — refresh 2024+2025 (player, event) training set
+#      from BDL (~150 API calls), only if local file is stale (>7 days)
+#   3. Refit isotonic calibration on combined (live + backfill) corpus,
+#      update model_params.json
+#
+# All artifacts (datagolf-audit.json, history/backfill_calibration.json,
+# model_params.json) commit back to main so the deployed model picks them
+# up on the next scrape run.
 
 on:
   schedule:
@@ -82,14 +90,56 @@ jobs:
             }' "$VERDICT" "$COLOR" "$VERDICT" "$CORR" "$MAD" "$OVERLAP")" \
             "$DISCORD_WEBHOOK_URL"
 
-      - name: Commit report to repo (transparency artifact)
+      - name: Check if calibration backfill is stale (>7 days)
+        id: backfill_check
+        run: |
+          BACKFILL=history/backfill_calibration.json
+          if [ ! -f "$BACKFILL" ]; then
+            echo "stale=true" >> $GITHUB_OUTPUT
+            echo "reason=missing" >> $GITHUB_OUTPUT
+          else
+            AGE_DAYS=$(( ($(date +%s) - $(stat -c %Y "$BACKFILL")) / 86400 ))
+            if [ "$AGE_DAYS" -gt 7 ]; then
+              echo "stale=true" >> $GITHUB_OUTPUT
+              echo "reason=age_${AGE_DAYS}_days" >> $GITHUB_OUTPUT
+            else
+              echo "stale=false" >> $GITHUB_OUTPUT
+              echo "reason=fresh_${AGE_DAYS}_days" >> $GITHUB_OUTPUT
+            fi
+          fi
+          echo "Backfill status: ${{ steps.backfill_check.outputs.reason }}"
+
+      - name: Refresh calibration backfill from BDL
+        if: ${{ steps.backfill_check.outputs.stale == 'true' }}
+        env:
+          BDL_API_KEY: ${{ secrets.BDL_API_KEY }}
+        continue-on-error: true
+        run: |
+          echo "Backfill stale (${{ steps.backfill_check.outputs.reason }}) — running backfill..."
+          python scripts/backfill_calibration.py --seasons 2024 2025
+
+      - name: Refit calibration on combined corpus
+        continue-on-error: true
+        run: |
+          # Whether or not backfill ran, refit against whatever's available.
+          # calibrate.py loads both live snapshots and the backfill file when present.
+          python scripts/calibrate.py --min-pairs 80
+
+      - name: Commit artifacts to repo (transparency)
         if: ${{ steps.verdict.outputs.verdict != 'ERROR' && steps.verdict.outputs.verdict != 'UNKNOWN' }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add datagolf-audit.json
-          git diff --quiet --cached || git commit -m "Auto-update datagolf-audit.json — verdict ${{ steps.verdict.outputs.verdict }}"
-          git push || echo "Nothing to push"
+          # Stage these only if they exist (backfill / refit might have been skipped/failed)
+          [ -f history/backfill_calibration.json ] && git add history/backfill_calibration.json || true
+          [ -f model_params.json ] && git add model_params.json || true
+          if git diff --quiet --cached; then
+            echo "Nothing to commit."
+          else
+            git commit -m "Weekly audit + calibration — verdict ${{ steps.verdict.outputs.verdict }}"
+            git push || echo "Push failed (probably no remote write perms in fork PR)"
+          fi
 
       - name: Fail the run on FAIL verdict
         if: ${{ steps.verdict.outputs.verdict == 'FAIL' }}
