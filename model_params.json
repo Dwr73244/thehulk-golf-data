@@ -15,9 +15,11 @@
   "lastTrainedWeeks": 0,
   "_note": "Overwritten weekly by scripts/backtest.py when calibration drifts. Delete this file to reset to defaults.",
   "calibration": {
-    "trainedAt": "2026-05-17T02:42:23.799515+00:00",
-    "n": 508,
+    "trainedAt": "2026-05-17T02:54:09.672919+00:00",
+    "n": 4602,
     "events": [
+      "3M Open 2024",
+      "3M Open 2025",
       "AT&T Pebble Beach Pro-Am 2024",
       "AT&T Pebble Beach Pro-Am 2025",
       "Arnold Palmer Invitational pres. by Mastercard 2024",
@@ -26,6 +28,13 @@
       "Arnold Palmer Invitational presented by Mastercard 2025",
       "BMW Championship 2024",
       "BMW Championship 2025",
+      "Bank of Utah Championship 2025",
+      "Barracuda Championship 2024",
+      "Barracuda Championship 2025",
+      "Baycurrent Classic 2025",
+      "Black Desert Championship 2024",
+      "Butterfield Bermuda Championship 2024",
+      "Butterfield Bermuda Championship 2025",
       "Charles Schwab Challenge 2024",
       "Charles Schwab Challenge 2025",
       "Cognizant Classic 2024",
@@ -41,6 +50,8 @@
       "Genesis Scottish Open 2025",
       "Hero World Challenge 2024",
       "Hero World Challenge 2025",
+      "ISCO Championship 2024",
+      "ISCO Championship 2025",
       "John Deere Classic 2024",
       "John Deere Classic 2025",
       "Masters Tournament",
@@ -49,13 +60,18 @@
       "Men\u2019s Olympic Golf Competition 2024",
       "Mexico Open at Vidanta 2024",
       "Mexico Open at VidantaWorld 2025",
+      "Myrtle Beach Classic 2024",
       "ONEflight Myrtle Beach Classic 2025",
       "PGA Championship",
       "PGA Championship 2024",
       "PGA Championship 2025",
+      "PGA TOUR Q-School presented by Korn Ferry 2024",
+      "PGA TOUR Q-School presented by Korn Ferry 2025",
       "Presidents Cup 2024",
+      "Procore Championship 2024",
       "Procore Championship 2025",
       "Puerto Rico Open 2024",
+      "Puerto Rico Open 2025",
       "RBC Canadian Open 2024",
       "RBC Canadian Open 2025",
       "RBC Heritage 2024",
@@ -63,6 +79,9 @@
       "Rocket Classic 2025",
       "Rocket Mortgage Classic 2024",
       "Ryder Cup 2025",
+      "Sanderson Farms Championship 2024",
+      "Sanderson Farms Championship 2025",
+      "Shriners Children's Open 2024",
       "Sony Open in Hawaii 2024",
       "Sony Open in Hawaii 2025",
       "THE CJ CUP Byron Nelson 2024",
@@ -82,6 +101,7 @@
       "The Open Championship 2024",
       "The Open Championship 2025",
       "The RSM Classic 2024",
+      "The RSM Classic 2025",
       "The Sentry 2024",
       "The Sentry 2025",
       "Travelers Championship 2024",
@@ -96,6 +116,7 @@
       "WM Phoenix Open 2024",
       "WM Phoenix Open 2025",
       "Wells Fargo Championship 2024",
+      "World Wide Technology Championship 2024",
       "World Wide Technology Championship 2025",
       "Wyndham Championship 2024",
       "Wyndham Championship 2025",
@@ -106,8 +127,8 @@
       "the Memorial Tournament presented by Workday 2024",
       "the Memorial Tournament presented by Workday 2025"
     ],
-    "brier": 0.1271,
-    "baselineBrier": 0.1493,
+    "brier": 0.1969,
+    "baselineBrier": 0.2209,
     "table": [
       {
         "score": 0,
@@ -147,39 +168,39 @@
       },
       {
         "score": 45,
-        "prob": 0.6734
+        "prob": 0.568
       },
       {
         "score": 50,
-        "prob": 0.6881
+        "prob": 0.6037
       },
       {
         "score": 55,
-        "prob": 0.7009
+        "prob": 0.7376
       },
       {
         "score": 60,
-        "prob": 0.7136
+        "prob": 0.7912
       },
       {
         "score": 65,
-        "prob": 0.7743
+        "prob": 0.8185
       },
       {
         "score": 70,
-        "prob": 0.8618
+        "prob": 0.8236
       },
       {
         "score": 75,
-        "prob": 0.8881
+        "prob": 0.8478
       },
       {
         "score": 80,
-        "prob": 0.9138
+        "prob": 0.8846
       },
       {
         "score": 85,
-        "prob": 0.9718
+        "prob": 0.9406
       },
       {
         "score": 90,
