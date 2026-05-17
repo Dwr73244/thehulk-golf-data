@@ -86,6 +86,7 @@ def fetch_completed_events(bdl_fetch_all, season):
             "name": t.get("name", ""),
             "course": t.get("course_name", ""),
             "season": season,
+            "start_date": (t.get("start_date") or "")[:10],
         })
     if out:
         print(f"  {len(out)} completed events in season={season} (via season filter)")
@@ -109,6 +110,7 @@ def fetch_completed_events(bdl_fetch_all, season):
             "name": t.get("name", ""),
             "course": t.get("course_name", ""),
             "season": season,
+            "start_date": (t.get("start_date") or "")[:10],
         })
     if out:
         print(f"  {len(out)} events via status-only listing")
@@ -162,6 +164,7 @@ def _enumerate_via_courses(bdl_fetch_all, season, max_courses=200):
                 "name": t.get("name", ""),
                 "course": t.get("name") or c.get("name") or "",
                 "season": season,
+                "start_date": sd[:10],
             })
             added += 1
         if added and (i + 1) % 10 == 0:
@@ -369,6 +372,7 @@ def main():
                     "event": ev["name"],
                     "season": season,
                     "event_type": event_type,
+                    "event_date": ev.get("start_date", ""),
                     "tournament_id": ev["id"],
                     "player": pname,
                     "proxy_score": proxy,

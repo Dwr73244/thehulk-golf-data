@@ -250,6 +250,24 @@ def brier(predictions):
 BACKFILL_FILES = ("backfill_calibration.json", "backfill_pga_public.json")
 
 
+def _normalize_event_name(name):
+    """Loose event-name normalizer for cross-source dedup.
+
+    BDL and ESPN spell the same tournament differently — "Masters
+    Tournament" vs "The Masters", "U.S. Open" vs "US Open Championship",
+    etc. Strip leading "the", remove punctuation, lowercase, single-space.
+    Good enough for dedup; not used for display.
+    """
+    if not name:
+        return ""
+    n = name.lower().strip()
+    if n.startswith("the "):
+        n = n[4:]
+    # Strip non-alphanumeric except spaces
+    n = "".join(ch if ch.isalnum() or ch == " " else " " for ch in n)
+    return " ".join(n.split())
+
+
 def load_backfill_pairs():
     """Load the bulk historical backfill produced by the two backfill scripts.
 
@@ -285,7 +303,9 @@ def load_backfill_pairs():
                 ev = p["event"]
                 pl = p["player"]
                 season = p.get("season")
-                key = (ev, season, pl.lower().strip())
+                # Dedup key uses normalized event name so BDL "Masters
+                # Tournament" and ESPN "The Masters" collapse to one entry.
+                key = (_normalize_event_name(ev), season, pl.lower().strip())
                 if key in seen:
                     continue
                 seen.add(key)
@@ -400,39 +420,36 @@ def main():
         print(f"[CALIBRATE] Not enough data ({len(pairs)} < {args.min_pairs}). Skipping.")
         return 1
 
-    # --- TIME-SPLIT HOLDOUT for honest out-of-sample Brier reporting ---
-    # Most-recent dated pairs become test set. Train calibration on the
-    # remainder. Live pairs (no date) all go into train.
-    train_pairs, test_pairs = time_split_holdout(pairs, args.holdout_fraction)
-    print(f"[CALIBRATE] Time-split: {len(train_pairs)} train, {len(test_pairs)} test "
-          f"(holdout fraction {args.holdout_fraction})")
-
     # --- STRATIFIED CALIBRATION BY EVENT TYPE ---
-    # Train separate isotonic tables for {major, standard} so the calibration
-    # curve matches the field-difficulty profile at serve time. Also fit a
-    # "default" table over all training pairs as the fallback when serve-time
-    # event type can't be classified.
+    # Train separate isotonic tables for {major, standard} so the
+    # calibration curve matches the field-difficulty profile at serve time.
+    # Time-split is done PER-STRATUM so each table gets ~holdout_fraction
+    # of its own dated pairs as test — a global split would starve the
+    # smaller stratum if events cluster temporally.
     tables = {}
-    print("\n[CALIBRATE] === STRATIFIED FIT (in-sample) ===")
+    print("\n[CALIBRATE] === STRATIFIED FIT ===")
     for event_type in ("standard", "major"):
-        subset = [p for p in train_pairs if p.get("event_type") == event_type]
-        result, _ = fit_calibration(subset, label=event_type)
+        subset = [p for p in pairs if p.get("event_type") == event_type]
+        if not subset:
+            continue
+        train_subset, test_subset = time_split_holdout(subset, args.holdout_fraction)
+        result, _ = fit_calibration(train_subset, label=event_type)
         if result:
-            # Out-of-sample Brier against held-out test subset of same type
-            test_subset = [p for p in test_pairs if p.get("event_type") == event_type]
             if test_subset:
                 test_input = [(p["score"], 1.0 if p["outcome"] else 0.0) for p in test_subset]
                 oos_brier = brier([(lookup_calibrated_prob(s, result["table"]), o)
                                    for s, o in test_input])
                 result["heldoutBrier"] = oos_brier
                 result["heldoutN"] = len(test_subset)
-                print(f"  → out-of-sample on {len(test_subset)} held-out {event_type} pairs: "
+                print(f"  → {event_type} out-of-sample on {len(test_subset)} held-out pairs: "
                       f"Brier {oos_brier}")
             tables[event_type] = result
 
     # Default table: all training pairs union — used at serve time when we
     # can't classify the event (or for legacy consumers expecting a single table)
     print("\n[CALIBRATE] === DEFAULT FIT (all training pairs) ===")
+    train_pairs, test_pairs = time_split_holdout(pairs, args.holdout_fraction)
+    print(f"[CALIBRATE] Default time-split: {len(train_pairs)} train, {len(test_pairs)} test")
     default_result, _ = fit_calibration(train_pairs, label="default")
     if default_result:
         if test_pairs:
