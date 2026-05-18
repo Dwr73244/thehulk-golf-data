@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <title>Predictive Model Methodology | PropsBot Golf Intelligence</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23070e1a'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' font-family='Apple Color Emoji,Segoe UI Emoji'%3E⛳%3C/text%3E%3C/svg%3E" />
+
+  <!-- SEO -->
+  <meta name="description" content="Full transparency on the PropsBot Golf Intelligence predictive model: inputs, Monte Carlo matchup sim, Bayesian confidence, dead-heat EV, anomaly detection, tunable parameters, and live backtest performance." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://golf.propsbot.ai/methodology" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://golf.propsbot.ai/methodology" />
+  <meta property="og:title" content="Predictive Model Methodology | PropsBot Golf Intelligence" />
+  <meta property="og:description" content="Inputs, methods, tunable parameters, and backtest performance behind the PropsBot Golf matchup and prop model." />
+  <meta property="og:image" content="https://propsbot.ai/wp-content/uploads/2024/01/propsbot-og.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pb: { teal:'#15ffc2', red:'#ff1552', gold:'#f0c040', blue:'#22a9ec', purple:'#AB8FFF', bg:'#070e1a', card:'rgba(14,26,44,0.85)' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+    :root {
+      --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --teal: #15ffc2;
+      --red: #ff1552;
+      --gold: #f0c040;
+      --blue: #22a9ec;
+      --purple: #AB8FFF;
+      --bg: #070e1a;
+      --surface1: rgba(15,28,46,0.6);
+      --surface2: rgba(20,36,60,0.7);
+      --glass: rgba(18,28,45,0.92);
+      --card-border: rgba(100,200,220,0.07);
+      --divider: rgba(100,200,220,0.06);
+      --text-primary: #eef2f7;
+      --text-secondary: rgba(200,215,230,0.75);
+      --text-muted: rgba(150,180,210,0.3);
+      --brand-gradient: linear-gradient(135deg, #09d5a0, #22a9ec);
+    }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text-primary); }
+    .mono { font-family: var(--mono); }
+    body::before { content:''; display:block; height:3px; background: var(--brand-gradient); }
+
+    .glass { background: var(--surface1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--card-border); }
+
+    h1 {
+      font-weight: 800; letter-spacing: -0.5px;
+      background: var(--brand-gradient);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h2 {
+      font-family: var(--mono); font-weight: 700; color: var(--teal);
+      font-size: 15px; letter-spacing: 0.02em; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    h3 {
+      font-family: var(--mono); font-weight: 600; color: var(--gold);
+      font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+      margin: 14px 0 6px;
+    }
+    p, li { color: var(--text-secondary); line-height: 1.6; font-size: 14px; }
+    ul { padding-left: 1.1rem; margin: 6px 0 10px; }
+    li { margin-bottom: 4px; }
+    li::marker { color: var(--teal); }
+    strong { color: var(--text-primary); font-weight: 600; }
+    code { font-family: var(--mono); font-size: 12px; color: var(--teal); background: rgba(21,255,194,0.06); padding: 1px 6px; border-radius: 4px; }
+
+    .chip {
+      display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 600;
+      color: var(--gold); background: rgba(240,192,64,0.08);
+      border: 1px solid rgba(240,192,64,0.2); border-radius: 6px;
+      padding: 2px 8px; margin-right: 6px;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin-top: 8px; }
+    th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--divider); }
+    th { color: rgba(150,180,210,0.6); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; font-size: 10px; }
+    td { color: var(--text-secondary); }
+    td.val { color: var(--teal); font-weight: 600; text-align: right; white-space: nowrap; }
+
+    .loading { color: var(--text-muted); font-family: var(--mono); font-size: 12px; font-style: italic; }
+    .err { color: var(--red); font-family: var(--mono); font-size: 12px; }
+
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 26px !important; }
+      .glass { padding: 14px !important; }
+      p, li { font-size: 13px; }
+    }
+  </style>
+</head>
+<body class="h-full min-h-screen">
+
+<div class="max-w-4xl mx-auto px-4 py-6">
+
+  <!-- Header -->
+  <header class="mb-6">
+    <div class="flex items-center justify-between mb-4">
+      <a href="/" class="mono text-xs" style="color:var(--text-secondary);">&larr; golf.propsbot.ai</a>
+      <span class="chip">MODEL DOCS</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl mb-2">Predictive Model Methodology</h1>
+    <p class="text-sm" style="color:var(--text-secondary);max-width:42rem;">
+      Full transparency on how PropsBot Golf Intelligence builds matchup win probabilities,
+      scoring props, and confidence scores. Everything below is the actual pipeline — inputs,
+      methods, parameters, and live backtest performance.
+    </p>
+  </header>
+
+  <!-- 1. What we model -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>What we model</h2>
+    <p>
+      We generate probabilistic forecasts for every PGA Tour event. Some outputs are
+      <strong>directly observed</strong> (odds, scores, lines); most are <strong>derived</strong>
+      from a Monte Carlo simulation over player skill distributions.
+    </p>
+    <h3>Derived outputs</h3>
+    <ul>
+      <li><strong>Matchup win probability</strong> — 2-ball and 3-ball head-to-head probabilities (with push/dead-heat handling)</li>
+      <li><strong>Scoring over/unders</strong> — round and tournament totals, birdies, bogeys, eagles</li>
+      <li><strong>Make-cut probability</strong> — simulated through Friday using live-round variance</li>
+      <li><strong>Finishing position</strong> — top-5, top-10, top-20 probabilities from the full sim</li>
+      <li><strong>Outright winner</strong> — win-the-tournament probability from 10k runs</li>
+    </ul>
+    <h3>Observed inputs we surface</h3>
+    <ul>
+      <li>Live odds from DraftKings, FanDuel, BetMGM, Bovada (BDL + The Odds API)</li>
+      <li>Actual strokes-gained splits, live leaderboard, weather observations</li>
+    </ul>
+  </section>
+
+  <!-- 2. Inputs -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>Inputs</h2>
+    <ul>
+      <li><strong>Season SG</strong> — strokes-gained total &amp; categories from DataGolf and PGA Tour season aggregates</li>
+      <li><strong>Live tournament SG</strong> — round-by-round strokes-gained from BallDontLie (BDL)</li>
+      <li><strong>Course fit scores</strong> — per-venue fit model mapping player strengths (SG:OTT, SG:APP, SG:ARG, SG:PUTT, driving distance, accuracy) to course archetype</li>
+      <li><strong>Recent form</strong> — rolling SG trend windows at L5 and L10 events, hot/cold flags</li>
+      <li><strong>Weather</strong> — Open-Meteo hourly wind forecasts aligned to tee times; used to widen variance and apply directional penalties</li>
+      <li><strong>Book odds</strong> — BallDontLie (BDL) + The Odds API, consensus and best-price per market</li>
+    </ul>
+  </section>
+
+  <!-- 3. Methods -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>Methods</h2>
+
+    <h3>(a) Monte Carlo matchup simulation</h3>
+    <p>
+      We run <strong>10,000 simulated tournaments</strong> per event. Each player's per-round
+      score is drawn from a Normal distribution centered on their blended SG projection and
+      widened by per-player variance estimated from history. Scores are <strong>integer-rounded</strong>
+      (golf is a discrete game) and all players in a group share a <strong>round shock</strong>
+      term so matchup correlation is preserved on bad-weather days.
+    </p>
+
+    <h3>(b) Bayesian confidence score</h3>
+    <p>
+      Each projection blends a <strong>season prior</strong> (long-run SG baseline) with a
+      <strong>recent-course-type likelihood</strong> (how the player has fared at similar
+      venues). The posterior width determines the confidence score — tight posterior =
+      high confidence, wide posterior = low confidence.
+    </p>
+
+    <h3>(c) Dead-heat EV (3-ball) &amp; push EV (2-ball)</h3>
+    <p>
+      3-ball markets settle with <strong>dead-heat rules</strong> on ties, so our EV calculation
+      weights a tied outcome at 1/N payout. 2-ball markets typically <strong>push</strong> on ties
+      (stake returned) — we account for the tie probability explicitly from the sim instead of
+      rolling it into win probability.
+    </p>
+
+    <h3>(d) Anomaly detection</h3>
+    <p>
+      For every market, we compute a <strong>z-score</strong> of the book's implied probability
+      against the model's probability across the field. High-|z| entries surface as
+      Edge Finder picks; low-|z| entries are labeled "book-aligned."
+    </p>
+
+    <h3>(e) Vig removal before EV</h3>
+    <p>
+      Every edge percentage on this site is computed against a <strong>de-vigged fair implied
+      probability</strong>, not the raw book line. For outright winner markets we sum implied
+      probabilities across the full field (the overround is typically 1.20-1.30 on a PGA
+      event, i.e. 20-30% of hold), then normalize each player's implied probability by that
+      overround. Without this correction every "+5% edge" we displayed would have been
+      roughly break-even after vig. The current winner-market overround is published live in
+      <code>/golf-data.json</code> under <code>bookVigInfo.winner.overround</code>.
+    </p>
+
+    <h3>(f) Learned course fit</h3>
+    <p>
+      Course fit is a sample-size-weighted blend of (1) a hand-curated trait prior — does the
+      course reward power, accuracy, scrambling, putting? — and (2) a <strong>learned signal</strong>
+      computed from each player's historical strokes-gained residual vs the field at the same
+      course over the last 5 years. The blend uses Bayesian shrinkage with k=2: a player with
+      n=2 prior appearances at this course gets 50% weight on the learned signal, n=5 gets
+      71%, players with no prior data fall back fully to the trait prior. The residuals are
+      derived from BDL's <code>player_round_stats</code> endpoint with
+      <code>round_number=-1</code> for tournament totals. The per-player learned-vs-prior
+      breakdown is exposed under <code>player.learnedCourseFit</code> in the JSON.
+    </p>
+
+    <h3>(g) Isotonic calibration of confScore</h3>
+    <p>
+      The raw confScore is a 12-weight composite signal whose 0-100 range has no inherent
+      probability interpretation. We fit <strong>pool-adjacent-violators isotonic regression</strong>
+      against historical make-cut outcomes from the <code>history/</code> snapshot archive,
+      producing a monotonic lookup table that maps raw scores to calibrated make-cut
+      probabilities. The calibration is persisted in <code>model_params.json</code> under
+      <code>calibration.table</code> and applied at scrape time, so every player carries a
+      <code>confScoreCalibratedMakeCutProb</code> field. In the most recent training run, the
+      calibrated Brier score (0.196) beat both the no-information baseline (0.249) and the
+      raw <em>score/100</em> baseline (0.220) on the same data — measurable predictive skill.
+    </p>
+
+    <h3>(h) Monte Carlo cut-line prediction</h3>
+    <p>
+      The cut line is simulated, not pulled from history. Every player's 36-hole total is
+      drawn from the same per-round Normal distribution used in the matchup model, and the
+      cut score is the 65th-best total (PGA standard cut size) averaged over 4,000 sims. When
+      Round 1 scores are in, we hold R1 fixed and simulate only R2 — this sharply tightens
+      the prediction Friday morning. The output includes per-player make-cut probabilities,
+      which power the "Cut Bubble" filter on the scorecard view.
+    </p>
+
+    <h3>(i) Field-strength normalization</h3>
+    <p>
+      Comparing strokes-gained residuals across events is unfair without adjusting for
+      field strength: beating a major field by +0.5 SG is more impressive than the same +0.5
+      at an opposite-field event. We compute a <strong>field-strength multiplier</strong> per
+      event from the OWGRs of the top quartile of entrants — strong fields (majors) score
+      above 1.0, opposite-field events below. The multiplier is applied to each player's
+      learned course-fit residual before averaging, so historical residuals are weighted by
+      how hard they were earned. The current event's multiplier is exposed at
+      <code>/golf-data.json</code> under <code>fieldStrength</code>.
+    </p>
+
+    <h3>(j) Per-player tournament position probabilities</h3>
+    <p>
+      A separate 4-round Monte Carlo (4,000 sims) produces per-player probabilities for
+      <strong>win, top-5, top-10, top-20, and make-cut</strong>. These are real model
+      probabilities — no derivation from win odds, no heuristic scaling. They feed the
+      scorecard's edge calculations for every market where BDL also ships a real book line
+      (winner, top-5, make-cut). Top-10 and Top-20 don't exist as native BDL futures
+      markets, so we expose our model probability but don't display edge — the comparison
+      line would be our own derivation. Per-player probabilities are attached to each
+      player object as <code>modelTop5Prob</code>, <code>modelTop10Prob</code>,
+      <code>modelTop20Prob</code>, <code>modelMakeCutProb</code>.
+    </p>
+
+    <h3>(k) Per-hole Monte Carlo (round-score / birdie / bogey / eagle props)</h3>
+    <p>
+      For each player we run a separate <strong>per-hole simulation</strong> (1,500 sims) that
+      draws each hole's outcome from a 5-way categorical distribution — eagle, birdie, par,
+      bogey, double-plus. The base distribution per hole comes from BDL
+      <code>tournament_course_stats</code> historical scoring counts (when available),
+      adjusted multiplicatively by each player's <code>sgTotal</code>. The skill multipliers
+      are tuned so a +1 SG player picks up roughly 0.5 strokes per round (matching the
+      empirical DataGolf relationship): 25% more birdies, 20% fewer bogeys, 40% more eagles,
+      35% fewer doubles.
+    </p>
+    <p>
+      Outputs per player: round-score distribution (<code>P(score ≤ k)</code> for the
+      relevant range), and per-round distributions for birdies / bogeys / eagles / double+
+      counts (<code>P(count ≥ k)</code>). These are stored in
+      <code>perHoleProps</code> and summary fields (<code>modelExpectedRoundScore</code>,
+      <code>modelExpectedBirdies</code>, etc.) attach to each player object.
+    </p>
+    <p>
+      When BDL's <code>/odds/player_props</code> ships over/under lines for these markets, we
+      compute model fair probability from the distribution, de-vig against the over/under
+      pair, and surface an <strong>edge percentage</strong> per side — pricing the previously
+      "unmodeled" markets (birdies o/u, bogeys o/u, round-score o/u). Edges live at
+      <code>pricedPlayerProps</code> in the JSON.
+    </p>
+
+    <h3>(l) Cut-line confidence interval</h3>
+    <p>
+      The cut Monte Carlo already produces a distribution of cut scores across sims —
+      we now surface the 5th and 95th percentiles as a 90% CI. A tight CI (±1 stroke)
+      reads "high confidence"; a wide one (±4) tells you the cut is genuinely uncertain.
+      Exposed at <code>cutPrediction.predictedCutCI90</code>.
+    </p>
+
+    <h3>(m) Bayesian skill update mid-tournament</h3>
+    <p>
+      After each round, the actual tournament SG observation is conjugate-Gaussian
+      updated against the season-SG prior. Prior std assumed N(season, 0.5); per-round
+      observation noise N(round, 1.5). After 4 rounds the posterior weights the
+      observation roughly 50% when the player has been notably different from season
+      baseline; after 1 round, only ~10%. Exposed as <code>sgTotalUpdated</code> +
+      <code>sgTotalUpdatedStd</code>, and every downstream predictor (matchup, cut,
+      position, per-hole) consumes the updated value when present via
+      <code>effective_sg(player)</code>.
+    </p>
+
+    <h3>(n) Matchup decomposition</h3>
+    <p>
+      Predicted matchup edge is decomposed into per-factor contributions in strokes:
+      skill (SG), course fit, recent form, weather. Stored under
+      <code>player.contrib</code> on each matchup output and visualized in the Compare
+      drawer so users see exactly where the edge comes from rather than a black-box
+      win probability.
+    </p>
+
+    <h3>(o) Gaussian copula for cross-hole correlation</h3>
+    <p>
+      The per-hole simulator now uses a <strong>full Gaussian copula</strong> rather
+      than a single round-wide momentum factor. The structure:
+    </p>
+    <ul>
+      <li><strong>Global factor</strong> <code>M ~ N(0, 1)</code> shared across all 18
+          holes — captures round-wide hot/cold streaks. Loaded by <code>√ρ_global</code>.</li>
+      <li><strong>Local AR(1) chain</strong> <code>L_i = ρ_local · L_{i-1} + √(1-ρ²_local) · z_i</code>
+          with iid <code>z_i ~ N(0, 1)</code> — captures adjacent-hole correlation that
+          decays with hole distance.</li>
+      <li><strong>Latent</strong> <code>u_i = √ρ_global · M + √(1-ρ_global) · L_i</code></li>
+      <li><strong>Uniform</strong> <code>q_i = Φ(u_i)</code> (standard normal CDF)</li>
+      <li><strong>Inverse-CDF map</strong>: q_i is mapped to a hole outcome via the
+          cumulative of the player's skill-adjusted categorical distribution for that
+          hole. This preserves each hole's marginal distribution exactly while
+          imposing the desired joint correlation.</li>
+    </ul>
+    <p>
+      Defaults: <code>ρ_global = 0.01</code>, <code>ρ_local = 0.06</code>, calibrated
+      empirically so total round-score std lands ~3.5 strokes on a par-72 — within
+      the PGA empirical range (2.9-3.5). Both parameters live in
+      <code>model_params.json</code> and are tunable by the weekly backtest job.
+    </p>
+    <p>
+      What this <em>unlocks</em>: the per-hole simulator now emits a true joint
+      distribution over per-hole scores, not just round totals. The pricing engine
+      uses it to price (a) <strong>front-9 over/unders</strong> via
+      <code>frontNine.pLte</code>, (b) <strong>back-9 over/unders</strong> via
+      <code>backNine.pLte</code>, (c) <strong>single-hole over/unders</strong> like
+      "Player X on Hole 5 over 3.5" via <code>holes[N].pLte</code>. None of these
+      were priceable with the old shared-momentum approximation because the joint
+      structure wasn't accessible — only round-total marginals were.
+    </p>
+
+    <h3>(s) Historical calibration backfill</h3>
+    <p>
+      The live confScore calibration trains on whatever <code>history/</code> snapshots
+      we've archived locally (~3 events at any given time). We backfilled the training
+      set with 2024 + 2025 completed PGA events from BDL: ~50 events × ~150 players each.
+      For each historical event we pull <code>/tournament_results</code> for outcomes and
+      <code>/player_season_stats</code> for the contemporaneous season SG, building a
+      proxy "confScore-equivalent" via <code>50 + 15·sgTotal</code> (matches the empirical
+      confScore distribution). The isotonic table is refit on the combined live + backfill
+      corpus, extending cleanly into the 80-95 score range where the live-only data
+      previously plateaued. Generated by <code>scripts/backfill_calibration.py</code>;
+      consumed by <code>scripts/calibrate.py</code>.
+    </p>
+
+    <h3>(t) Per-player empirical round variance</h3>
+    <p>
+      Previously every player used a global <code>baseStd = 2.85</code> in the matchup
+      Monte Carlo. Real golfers have meaningfully different round-to-round volatility —
+      Scheffler is consistent (~2.4), Wyndham Clark is wild (~3.5). We now pull 1-2
+      seasons of <code>/player_round_results</code> from BDL, compute the empirical std
+      of par-relative scores per player, and attach as <code>scoreStd</code>. Predictors
+      consume this when available, falling back to the global base only for players with
+      fewer than 8 historical rounds. Refines matchup edge, cut-line tightness, and
+      Sharpe-adjusted edge rankings.
+    </p>
+
+    <h3>(u) Per-course SG category weights (learned)</h3>
+    <p>
+      Different courses reward different SG categories: Augusta loads heavily onto
+      <em>SG: Approach</em>, Pebble onto <em>Putting</em>, Whistling Straits onto
+      <em>Driving</em>. The hand-curated trait dictionaries capture this priors-style,
+      but we can do better: regress historical finish position onto the four SG
+      categories at each course (5 years × 5 events per course, ridge-regularized
+      least squares with λ=0.5) to get per-course coefficients
+      <code>{ott, app, arg, putt}</code>.
+    </p>
+    <p>
+      The coefficients are negative when better SG predicts a better finish (which is
+      what we expect); the magnitudes show <em>which</em> SG categories matter most at
+      the venue. They're used to refine the effective-skill computation: a player
+      strong in SG: Approach gets an upward skill bump at Augusta beyond what their
+      overall sgTotal would suggest. Applied via <code>effective_sg(player, course_weights)</code>;
+      capped at ±0.5 strokes/round to prevent runaway overlay from noisy small-sample
+      fits. Output surfaced at <code>courseSgWeights[course_key]</code> with
+      <code>r2</code> for transparency.
+    </p>
+
+    <h3>(p) Closing-line value proxy</h3>
+    <p>
+      For every player with meaningful model edge (|edge| ≥ 2), we look back 24 hours
+      in <code>odds_history.json</code> (already snapshotted at every cron run) and
+      compute whether the implied probability moved in the model's predicted direction.
+      The aggregate "% CLV-positive picks" is the sharp's metric for predictive skill —
+      stronger signal than win/loss because line movement is incrementally repriced by
+      sharp money, not by random outcomes. Sharp models target &gt;55%. Exposed at
+      <code>clvSummary</code> and per-player <code>clvLineMoveBp</code> +
+      <code>clvPositive</code>. Zero new API calls — entirely uses existing snapshots.
+    </p>
+
+    <h3>(q) Player similarity (kNN on SG profiles)</h3>
+    <p>
+      For each player, the top-5 most similar peers are computed by Euclidean distance
+      on the z-score-normalized vector of (sgOtt, sgApp, sgArg, sgPutt, drivingDistance,
+      scoringAvg). Useful for rookies/first-timers who lack course history — their
+      similar peers may have. Attached to each player as
+      <code>similarPlayers: [{name, distance}, ...]</code>.
+    </p>
+
+    <h3>(r) Sharpe-style edge sorting</h3>
+    <p>
+      The scorecard view's leaderboard adds an "Edge ÷ σ" sort that divides each
+      player's de-vigged edge by the outcome std √(p·(1-p)), boosted by posterior skill
+      uncertainty. Surfaces confident edges over noisy ones — a small edge on a
+      tight prediction can be better than a larger edge on a coin-flip. Pure frontend
+      computation against the model probabilities already in the JSON.
+    </p>
+  </section>
+
+  <!-- 4. Tunable parameters -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>Tunable parameters</h2>
+    <p>
+      These are the actual values driving the current model, fetched live from
+      <code>/model_params.json</code>. They are overwritten weekly by the backtest job
+      when calibration drifts.
+    </p>
+    <div id="paramsTable">
+      <p class="loading">Loading live model parameters...</p>
+    </div>
+  </section>
+
+  <!-- 5. Performance -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>Performance (last backtest)</h2>
+    <p>
+      Live backtest output from <code>/backtest-report.json</code>. Runs every Monday at 2AM ET
+      against all completed tournament weeks in history. Brier score below 0.25 means the
+      model beats the 50/50 coin-flip benchmark on matchup markets.
+    </p>
+    <div id="backtestSummary">
+      <p class="loading">Loading backtest report...</p>
+    </div>
+    <div id="calibrationTable"></div>
+  </section>
+
+  <!-- 6. What we don't do -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>What we don't do (honest accounting)</h2>
+    <ul>
+      <li><strong>No shot-level data</strong> — we work with round-level strokes gained, not per-shot tracking. Shot dispersion, ball flight, and Trackman data are outside our scope.</li>
+      <li><strong>No sub-60-minute live scoring granularity</strong> — ESPN leaderboard pulls every 60s; we don't model intra-hole swings.</li>
+      <li><strong>No DFS ownership projections</strong> — this is a betting model, not a DFS tool.</li>
+      <li><strong>Top-10 and Top-20 markets: model side is now real, book side is still estimated.</strong> The BDL <code>/futures</code> endpoint only ships book lines for <em>tournament_winner</em>, <em>top_5_finish</em>, and <em>make_cut</em>. We now derive real Monte Carlo probabilities for top-10 and top-20 finish positions (exposed as <code>modelTop10Prob</code> / <code>modelTop20Prob</code>) but the comparison odds are our own estimate, so we still don't display an edge percentage for these markets.</li>
+      <li><strong>Multi-hole and single-hole props are now modeled.</strong> The Gaussian copula (see method (o)) produces a true joint distribution over per-hole scores, so we can price front-9 over/unders, back-9 over/unders, and single-hole markets like "Hole 12 over 3.5" — all surfaced in <code>pricedPlayerProps</code> when BDL ships matching lines. The remaining gap is BDL-side: <code>/odds/player_props</code> rarely ships these markets for golf today; we'll consume them when they appear.</li>
+      <li><strong>Field-strength normalization is applied to historical residuals, not raw season SG.</strong> Each historical event's residual is scaled by an OWGR-derived strength multiplier before being averaged into the learned course-fit signal. The season-aggregate <code>sgTotal</code> coming from DataGolf is consumed as-is — DataGolf claims to already strength-adjust their season totals; we trust that for now.</li>
+      <li><strong>No injury/WD prediction</strong> — we react to field-change news, we don't forecast it.</li>
+      <li><strong>Course fit prior is hand-curated</strong> — the trait dictionaries (power/accuracy/scramble/putting weights per course) are designed, not learned. The learned course-fit residual mitigates this by anchoring fit in historical outcomes for players with prior appearances, but rookies still lean on the trait prior.</li>
+      <li><strong>Only DraftKings and FanDuel for outright lines</strong> — these are the only PGA vendors in BDL. We supplement with The Odds API for matchups (BetMGM, Bovada, BetRivers) but the de-vig overround is computed from the DK/FD field.</li>
+      <li><strong>Backtest has small sample</strong> — out-of-sample test set is roughly 30-50 matchup pairs depending on history depth. The OOS Brier currently beats the uniform baseline by ~20% but the confidence interval is wide. We re-run the backtest weekly and only adjust model parameters when calibration drift is confirmed across two consecutive runs.</li>
+    </ul>
+  </section>
+
+  <!-- 7. Update cadence -->
+  <section class="glass rounded-2xl p-4 mb-4">
+    <h2>Update cadence</h2>
+    <h3>Scraper (weekly-scrape.yml)</h3>
+    <ul>
+      <li><strong>Mon 1AM ET</strong> — weekly reset, next tournament detection, field + early odds</li>
+      <li><strong>Tue 1AM ET</strong> — BallDontLie catch-up, previous tournament data settled</li>
+      <li><strong>Wed (5 windows)</strong> — 5AM, 11AM, 2PM, 7PM, 10PM ET (opening lines &rarr; sharp action)</li>
+      <li><strong>Thu–Sun, 7AM–7PM ET hourly</strong> — tournament-week live updates (odds, confidence, props, analytics)</li>
+    </ul>
+    <h3>Backtest (weekly-backtest.yml)</h3>
+    <ul>
+      <li><strong>Mon 2AM ET</strong> — re-fit tunable parameters against the full history, overwrite <code>model_params.json</code> if calibration drifted</li>
+    </ul>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-4 mt-8 text-center">
+    <p class="text-xs mono" style="color:rgba(150,180,210,0.5);">
+      <a href="/">golf.propsbot.ai</a>
+      <span style="margin:0 8px;color:var(--text-muted);">&middot;</span>
+      <a href="https://propsbot.ai" target="_blank" rel="noopener">propsbot.ai</a>
+      <span style="margin:0 8px;color:var(--text-muted);">&middot;</span>
+      Educational tool only &middot; Not betting advice
+    </p>
+  </footer>
+
+</div>
+
+<script>
+  // ---------- Parameter descriptions ----------
+  var PARAM_DOCS = {
+    baseStd:          'Base per-round score standard deviation before player-specific and weather adjustments.',
+    roundShockStd:    'Shared round-level shock term applied to all players in a group — preserves correlation on weather days.',
+    sgBlendSeason:    'Weight on season-long strokes-gained when blending the projection prior.',
+    sgBlendLive:      'Weight on live-tournament strokes-gained when blending the projection prior.',
+    fitBoostScale:    'Maximum boost magnitude (in score units) applied by the course-fit score at the extremes.',
+    parBaseline:      'Default par used as the scoring baseline when a course par is not available.',
+    hotFormBoost:     'Per-round score boost applied to players flagged as "hot form" (rolling SG trending up).',
+    coldFormPenalty: 'Per-round score penalty applied to players flagged as "cold form" (rolling SG trending down).',
+    windPenaltySlope: 'Score penalty per mph of wind above the threshold — hurts the field uniformly.',
+    windStdSlope:    'Extra standard deviation per mph of wind above the threshold — widens variance.',
+    windThresholdMph:'Wind speed (mph) at which the penalty and extra variance kick in.',
+    lastTrainedAt:   'Timestamp of the last successful backtest re-fit.',
+    lastTrainedBrier:'Brier score the model achieved on the last re-fit run.',
+    lastTrainedWeeks:'Number of completed tournament weeks used in the last re-fit.'
+  };
+
+  function fmt(v) {
+    if (v === null || v === undefined) return '<span style="color:var(--text-muted);">null</span>';
+    if (typeof v === 'number') return Math.round(v * 10000) / 10000;
+    return String(v);
+  }
+
+  function renderParams(p) {
+    var el = document.getElementById('paramsTable');
+    var keys = Object.keys(p).filter(function(k){ return k[0] !== '_'; });
+    var rows = keys.map(function(k){
+      var doc = PARAM_DOCS[k] || '';
+      return '<tr><td class="mono" style="color:var(--gold);">' + k + '</td>'
+           + '<td>' + doc + '</td>'
+           + '<td class="val">' + fmt(p[k]) + '</td></tr>';
+    }).join('');
+    el.innerHTML = '<table><thead><tr><th>Parameter</th><th>What it does</th><th style="text-align:right;">Value</th></tr></thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  function renderBacktest(b) {
+    var el = document.getElementById('backtestSummary');
+    var calEl = document.getElementById('calibrationTable');
+    var rows = [];
+    function row(label, value) {
+      rows.push('<tr><td>' + label + '</td><td class="val">' + (value === undefined || value === null ? '—' : value) + '</td></tr>');
+    }
+    row('Ran at', b.ranAt || '—');
+    row('Weeks available', b.weeksAvailable);
+    if (b.status && b.status !== 'ok') {
+      row('Status', b.status);
+    }
+    row('Scored pairs', b.pairs);
+    row('Brier score', typeof b.brierScore === 'number' ? b.brierScore.toFixed(4) : undefined);
+    row('Mean predicted', typeof b.meanPredicted === 'number' ? b.meanPredicted.toFixed(4) : undefined);
+    row('Mean actual', typeof b.meanActual === 'number' ? b.meanActual.toFixed(4) : undefined);
+    row('Calibration drift', typeof b.calibrationDrift === 'number' ? b.calibrationDrift.toFixed(4) : undefined);
+    el.innerHTML = '<table><tbody>' + rows.join('') + '</tbody></table>';
+
+    if (Array.isArray(b.calibrationBins) && b.calibrationBins.length) {
+      var cr = b.calibrationBins.map(function(bin){
+        return '<tr>'
+          + '<td class="mono">' + (bin.bin || bin.range || '—') + '</td>'
+          + '<td class="val">' + (bin.n != null ? bin.n : '—') + '</td>'
+          + '<td class="val">' + (typeof bin.predicted === 'number' ? bin.predicted.toFixed(3) : '—') + '</td>'
+          + '<td class="val">' + (typeof bin.actual === 'number' ? bin.actual.toFixed(3) : '—') + '</td>'
+          + '</tr>';
+      }).join('');
+      calEl.innerHTML = '<h3 style="margin-top:16px;">Calibration bins</h3>'
+        + '<table><thead><tr><th>Bin</th><th style="text-align:right;">N</th><th style="text-align:right;">Predicted</th><th style="text-align:right;">Actual</th></tr></thead><tbody>'
+        + cr + '</tbody></table>';
+    } else {
+      calEl.innerHTML = '';
+    }
+  }
+
+  function fail(id, msg) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = '<p class="err">' + msg + '</p>';
+  }
+
+  // ---------- Fetch live JSON ----------
+  fetch('/model_params.json', { cache: 'no-store' })
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(renderParams)
+    .catch(function(e){ fail('paramsTable', 'Could not load model_params.json: ' + e.message); });
+
+  fetch('/backtest-report.json', { cache: 'no-store' })
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(renderBacktest)
+    .catch(function(e){ fail('backtestSummary', 'Could not load backtest-report.json: ' + e.message); });
+</script>
+
+</body>
+</html>

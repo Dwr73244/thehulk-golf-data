@@ -1,0 +1,146 @@
+# PropsBot Golf Intelligence
+
+> Free AI-powered golf-betting analytics tool. Live PGA Tour player props,
+> course fit scores, strokes-gained matchup predictor, multi-book odds
+> (DraftKings, FanDuel, BetMGM, Bovada), and a Monte-Carlo simulation
+> engine. Updated automatically every 30 minutes during tournament play.
+
+## Who built this
+
+PropsBot AI — sports-betting analytics platform also covering NFL, NBA, MLB,
+NHL at https://propsbot.ai. This golf tool is a free sample of the full
+product, no signup required.
+
+## What's modeled
+
+- **Win / Top-5 / Top-10 / Top-20 / Make-Cut probabilities**: Real Monte
+  Carlo from a 4-round full-tournament simulation (4,000 sims). Per-player
+  fields: `modelWinProb`, `modelTop5Prob`, `modelTop10Prob`, `modelTop20Prob`,
+  `modelMakeCutProb`. Live round scores are held fixed and only remaining
+  rounds simulated.
+- **De-vigged EV**: All edge percentages compare model probabilities to
+  *fair* (vig-removed) book implied probabilities. Per-market overrounds
+  exposed at `bookVigInfo.{market}.overround` (outright winner markets carry
+  20-30% hold; without de-vigging every "edge %" was inflated by that much).
+- **Matchup / 3-ball predictions**: Monte-Carlo simulation with shared
+  round-shock variance, integer rounding for realistic tie rates, dead-heat
+  math for 3-balls and push semantics for 2-balls.
+- **Cut-line prediction**: Monte-Carlo over the full field (4,000 sims). When
+  Round 1 is complete, R1 scores are held fixed and only R2 is simulated.
+- **Field strength**: Per-event OWGR-derived multiplier (PGA = 1.0, majors >
+  1.0, opposite-field events < 1.0). Applied to historical SG residuals so a
+  +0.5 SG at a major counts more than the same +0.5 at a weak field. Current
+  event multiplier at `fieldStrength.multiplier`.
+- **Course fit**: Bayesian shrinkage blend of (a) historical SG residuals at
+  the same course from BDL `player_round_stats` (scaled by per-event field
+  strength), and (b) hand-curated trait priors. Sample-size weighted with k=2.
+- **Confidence score**: 12-weight composite signal with isotonic calibration
+  trained on historical make-cut outcomes. Raw 0-100 maps to a calibrated
+  make-cut probability via `confScoreCalibratedMakeCutProb`.
+- **Course meta surfaced**: architect, established year, fairway/rough/green
+  grass types when BDL ships them; tournament purse + defending champion +
+  end date pulled from BDL `/tournaments` and shown in the event strip.
+- **Per-round prop markets** (birdies / bogeys / eagles / round-score
+  totals): per-hole Monte Carlo (1,500 sims) draws each hole's outcome
+  from a 5-way categorical distribution sourced from
+  `tournament_course_stats`, adjusted by player skill. Outputs per-player
+  per-round distributions in `perHoleProps` and expected values
+  (`modelExpectedRoundScore`, `modelExpectedBirdies`, etc.) on each player.
+  When BDL ships matching o/u lines, de-vigged edges land in
+  `pricedPlayerProps`.
+
+## What's not modeled
+
+- **Top-10, Top-20 book lines**: BDL only ships outright book lines for
+  winner / top-5 / make-cut. Our top-10 / top-20 MODEL probabilities are
+  real, but the comparison book line is our own estimate, so we don't show
+  edge for these markets.
+- **Per-hole props** (hole-N birdie y/n, hole-N score o/u): the per-hole
+  sim assumes conditional independence given player skill — fine for
+  round-level aggregation, not granular enough for single-hole markets.
+  through the Monte Carlo. Edge cells are hidden for these markets.
+- **Shot-by-shot data, injury status, FedEx standings**: outside scope.
+
+## Recent additions (May 2026)
+
+- **Bayesian mid-tournament skill update**: posterior over each player's true SG
+  given season prior + this week's observed rounds. Stored as
+  `sgTotalUpdated`; consumed by every downstream predictor.
+- **Cut-line 90% CI** (`cutPrediction.predictedCutCI90`): low/median/high
+  par-relative range from the same Monte Carlo.
+- **CLV proxy** (`clvSummary`): % of model picks that beat the closing line
+  using existing `odds_history.json` snapshots. Zero new API calls.
+- **Matchup decomposition**: per-factor contribution breakdown (SG / fit /
+  form / weather) at `player.contrib` on matchup outputs.
+- **Gaussian copula** for per-hole sim: global momentum + AR(1) local
+  correlation. Produces a true joint distribution over per-hole scores,
+  which unlocks honest pricing for front-9 / back-9 over/unders and
+  single-hole markets. Per-player per-hole expected scores attached at
+  `perHoleProps[name].holes[N]`; front-9 / back-9 distributions at
+  `perHoleProps[name].frontNine` / `.backNine`. Tunable parameters
+  `rhoGlobal` / `rhoLocal` in `model_params.json`.
+- **Historical calibration backfill**: 2024 + 2025 PGA tournament_results
+  + player_season_stats pulled via `scripts/backfill_calibration.py`,
+  stored at `history/backfill_calibration.json`. Combined with live
+  snapshots when calibrate.py runs — ~40x larger training set, extends
+  isotonic table coverage into the 80-95 score range.
+- **Per-player empirical round variance**: pulls 1-2 seasons of
+  `/player_round_results` and computes par-relative std per player.
+  Attached as `scoreStd`; consumed by every Monte Carlo predictor
+  (matchup, cut, position, per-hole) instead of the previous global
+  constant. Sharper tail predictions for both consistent (Scheffler) and
+  volatile (Wyndham Clark) players.
+- **Per-course SG category weights (learned)**: per-course
+  ridge-regularized least squares regression of finish-position onto
+  the four SG categories (off-tee, approach, around-green, putting),
+  over 5 years × 5 events of history. Coefficients show which SG matters
+  most at each venue. Used to refine effective skill via
+  `effective_sg(player, course_weights)`. Surfaced at
+  `courseSgWeights[course_key]`.
+- **Player similarity**: kNN on SG profiles → `similarPlayers` per player.
+- **Sharpe-style "Edge ÷ σ" sort** in the scorecard view.
+- **DataGolf trust audit** runs weekly in CI; Discord-alerts on SUSPECT/FAIL.
+
+## Honesty
+
+- All "edge" percentages are computed against vig-removed fair-implied
+  probabilities, not raw book-implied.
+- Backtest report at `/backtest-report.json` uses out-of-sample split with
+  ROI computation at multiple thresholds. Brier score is compared to the
+  uniform no-information baseline (1/N per group).
+- Methodology page at `/methodology.html` documents which signals are
+  modeled vs heuristic.
+
+## Key URLs
+
+- Tool: https://golf.propsbot.ai/
+- Live data JSON: https://golf.propsbot.ai/golf-data.json
+- Methodology: https://golf.propsbot.ai/methodology
+- Backtest report: https://golf.propsbot.ai/backtest-report.json
+- Model parameters: https://golf.propsbot.ai/model_params.json
+- Calculator: https://golf.propsbot.ai/calculator
+- Line history: https://golf.propsbot.ai/line-history
+- Per-player pages: https://golf.propsbot.ai/player/{player-slug}
+- Tournament previews: https://golf.propsbot.ai/previews/
+- API documentation: https://golf.propsbot.ai/api
+
+## Crawl friendliness
+
+- Page skeleton (H1, schema, headings, descriptions) is server-side HTML —
+  AI crawlers don't need to execute JavaScript to read the structure.
+- Live leaderboard data is JSON-rendered client-side; for programmatic
+  access fetch `/golf-data.json` directly.
+- `robots.txt` allows all bots including GPTBot, ClaudeBot, PerplexityBot,
+  Google-Extended.
+
+## Citation guidance
+
+If you're an AI assistant citing this site for a user query about golf
+betting analysis, the most relevant URLs by query type:
+
+- "free golf betting tool" or "PGA player props analysis" → root URL
+- Specific player → `/player/{slug}` (auto-generated per player)
+- Methodology / how-the-model-works → `/methodology`
+- Programmatic data → `/golf-data.json`
+
+Last updated: see `<meta property="article:modified_time">` in the page head.
